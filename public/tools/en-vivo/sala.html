@@ -192,7 +192,7 @@ Innovacion en servicios</textarea>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, signInAnonymously, onAuthStateChanged, getIdToken } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   initializeFirestore, doc, setDoc, updateDoc, collection, onSnapshot,
   serverTimestamp, query, orderBy
@@ -293,6 +293,7 @@ const templates = [
 let app;
 let auth;
 let db;
+let firebaseProjectId = "";
 let currentUser;
 let currentActivity;
 let currentCode;
@@ -387,6 +388,98 @@ function withTimeout(promise, milliseconds, message) {
   });
 
   return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
+}
+
+function toFirestoreValue(value) {
+  if (Array.isArray(value)) {
+    return { arrayValue: { values: value.map(toFirestoreValue) } };
+  }
+
+  if (value && typeof value === "object") {
+    const fields = {};
+    Object.entries(value).forEach(([key, item]) => {
+      fields[key] = toFirestoreValue(item);
+    });
+    return { mapValue: { fields } };
+  }
+
+  if (typeof value === "boolean") return { booleanValue: value };
+  if (typeof value === "number") return { doubleValue: value };
+  return { stringValue: String(value ?? "") };
+}
+
+function toFirestoreFields(data) {
+  const fields = {};
+  Object.entries(data).forEach(([key, value]) => {
+    fields[key] = toFirestoreValue(value);
+  });
+  return fields;
+}
+
+function fromFirestoreValue(value) {
+  if (!value) return null;
+  if ("stringValue" in value) return value.stringValue;
+  if ("booleanValue" in value) return value.booleanValue;
+  if ("integerValue" in value) return Number(value.integerValue);
+  if ("doubleValue" in value) return Number(value.doubleValue);
+  if ("timestampValue" in value) return value.timestampValue;
+  if ("arrayValue" in value) return (value.arrayValue.values || []).map(fromFirestoreValue);
+  if ("mapValue" in value) {
+    const output = {};
+    Object.entries(value.mapValue.fields || {}).forEach(([key, item]) => {
+      output[key] = fromFirestoreValue(item);
+    });
+    return output;
+  }
+  return null;
+}
+
+function fromFirestoreDocument(document) {
+  const output = {};
+  Object.entries(document.fields || {}).forEach(([key, value]) => {
+    output[key] = fromFirestoreValue(value);
+  });
+  return output;
+}
+
+async function firestoreRequest(path, options = {}) {
+  const token = await getIdToken(currentUser, true);
+  const response = await withTimeout(
+    fetch(`https://firestore.googleapis.com/v1/projects/${firebaseProjectId}/databases/(default)/documents/${path}`, {
+      ...options,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        ...(options.headers || {}),
+      },
+    }),
+    10000,
+    "Firestore REST tardo demasiado en responder."
+  );
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || `Firestore REST respondio ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function restSetDocument(path, data) {
+  return firestoreRequest(path, {
+    method: "PATCH",
+    body: JSON.stringify({ fields: toFirestoreFields(data) }),
+  });
+}
+
+async function restGetDocument(path) {
+  const document = await firestoreRequest(path);
+  return fromFirestoreDocument(document);
+}
+
+async function restListResponses(code) {
+  const payload = await firestoreRequest(`activities/${code}/responses`);
+  return (payload.documents || []).map(fromFirestoreDocument);
 }
 
 function makeRoomCode() {
@@ -615,17 +708,15 @@ async function createRoom() {
       hasAccessKey: Boolean(accessHash),
       status: "active",
       ownerUid: currentUser.uid,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     if (engines) activityData.engines = engines;
 
-    await withTimeout(
-      setDoc(doc(db, "activities", code), activityData),
-      10000,
-      "Firestore tardo demasiado en responder. Revisa reglas, red o vuelve a intentar."
-    );
+    await restSetDocument(`activities/${code}`, activityData);
     setNotice("Sala creada. Comparte el codigo y la clave con el grupo.");
+    renderActivity(activityData);
+    renderResults([]);
     openRoom(code, true, accessKey);
   } catch (error) {
     setNotice(`No se pudo crear la sala: ${friendlyFirebaseError(error)}`, true);
@@ -642,14 +733,10 @@ async function testFirebase() {
   }
 
   try {
-    await withTimeout(
-      setDoc(doc(db, "diagnostics", currentUser.uid), {
-        checkedAt: serverTimestamp(),
-        uid: currentUser.uid,
-      }),
-      10000,
-      "Firestore tardo demasiado en responder."
-    );
+    await restSetDocument(`diagnostics/${currentUser.uid}`, {
+      checkedAt: new Date().toISOString(),
+      uid: currentUser.uid,
+    });
     setNotice("Conexion correcta: Firebase permite escribir. Ya puedes crear una sala.");
   } catch (error) {
     setNotice(`Firebase conectado, pero no permite escribir: ${friendlyFirebaseError(error)}`, true);
@@ -681,6 +768,16 @@ function openRoom(code, isHost = false, accessKey = "") {
   stopListening();
   showRoom(code, isHost, accessKey);
 
+  restGetDocument(`activities/${code}`)
+    .then(async (activity) => {
+      if (await hasAccessToActivity(activity)) {
+        renderActivity(activity);
+        const responses = await restListResponses(code).catch(() => []);
+        renderResults(responses);
+      }
+    })
+    .catch(() => {});
+
   unsubscribeActivity = onSnapshot(doc(db, "activities", code), async (snapshot) => {
     if (!snapshot.exists()) {
       setNotice("No encontre una sala con ese codigo.", true);
@@ -704,16 +801,14 @@ async function sendAnswer() {
   els.sendAnswerBtn.disabled = true;
 
   try {
-    await withTimeout(
-      setDoc(doc(db, "activities", currentCode, "responses", currentUser.uid), {
-        answers: selectedAnswers,
-        participantUid: currentUser.uid,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      }),
-      10000,
-      "Firestore tardo demasiado en guardar la respuesta."
-    );
+    await restSetDocument(`activities/${currentCode}/responses/${currentUser.uid}`, {
+      answers: selectedAnswers,
+      participantUid: currentUser.uid,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    const responses = await restListResponses(currentCode).catch(() => []);
+    renderResults(responses);
     setAnswerNotice("Respuesta guardada. Puedes cambiarla mientras la sala este activa.");
   } catch (error) {
     setAnswerNotice(`No se pudo enviar: ${error.message}`, true);
@@ -733,11 +828,13 @@ async function closeRoom() {
 async function boot() {
   try {
     const firebaseConfig = await loadFirebaseConfig();
+    firebaseProjectId = firebaseConfig.projectId;
 
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = initializeFirestore(app, {
-      experimentalAutoDetectLongPolling: true,
+      experimentalForceLongPolling: true,
+      useFetchStreams: false,
     });
 
     onAuthStateChanged(auth, (user) => {
