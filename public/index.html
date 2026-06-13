@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoopNotebook</title>
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-sec: #2fa36b;
+      --verde-bg: #e8f4ef;
+      --amarillo: #f4c20d;
+      --blanco: #ffffff;
+      --gris-bg: #f7f7f5;
+      --gris-borde: #e4e4e0;
+      --texto: #1a1a18;
+      --texto-sec: #3a3a36;
+      --texto-ter: #6a6a64;
+      --radio: 10px;
+      --radio-sm: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .canvas {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 3rem 1.25rem;
+    }
+
+    .home {
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .hero-logo {
+      display: block;
+      width: min(100%, 620px);
+      height: auto;
+      margin: 0 0 2rem;
+    }
+
+    .title {
+      max-width: 680px;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: 0;
+      color: var(--texto);
+      margin-bottom: .85rem;
+      position: relative;
+      padding-bottom: .75rem;
+    }
+
+    .title::after {
+      content: "";
+      display: block;
+      width: 2.75rem;
+      height: 3px;
+      background: var(--verde);
+      border-radius: 2px;
+      margin-top: .85rem;
+    }
+
+    .intro {
+      max-width: 640px;
+      font-size: 16px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .intro strong {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-card {
+      display: flex;
+      min-height: 245px;
+      flex-direction: column;
+      color: inherit;
+      text-decoration: none;
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.35rem 1.45rem;
+      transition: border-color .15s, background .15s, transform .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: var(--verde);
+      opacity: 0;
+      transition: opacity .15s;
+    }
+
+    .section-card:hover {
+      border-color: #b8dccc;
+      background: #fbfdfc;
+      transform: translateY(-2px);
+    }
+
+    .section-card:hover::before { opacity: 1; }
+    .section-card:active { transform: translateY(0); }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .card-glyph {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--verde-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .15s;
+    }
+
+    .card-glyph svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--verde);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke .15s;
+    }
+
+    .section-card:hover .card-glyph { background: var(--verde); }
+    .section-card:hover .card-glyph svg { stroke: var(--blanco); }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--texto);
+      margin-bottom: .75rem;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: auto;
+      padding-top: .5rem;
+    }
+
+    .tag {
+      font-size: 11px;
+      color: var(--verde);
+      background: var(--verde-bg);
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .credit {
+      margin-top: 2rem;
+      font-size: 12px;
+      color: #a8a8a0;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo, .title, .intro, .sections-grid, .credit {
+      animation: fadeUp .35s ease both;
+    }
+
+    .title { animation-delay: .04s; }
+    .intro { animation-delay: .08s; }
+    .sections-grid { animation-delay: .12s; }
+    .credit { animation-delay: .16s; }
+
+    @media (max-width: 780px) {
+      .canvas {
+        min-height: auto;
+        align-items: flex-start;
+        padding: 2rem 1.25rem 3rem;
+      }
+
+      .sections-grid { grid-template-columns: 1fr; }
+      .section-card { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+    <main class="canvas">
+      <section class="home" aria-labelledby="home-title">
+        <img class="hero-logo" src="assets/coopnotebook-portada-sharp.png" alt="CoopNotebook">
+        <h1 class="title" id="home-title">Elige el espacio que deseas explorar.</h1>
+        <p class="intro">
+          Un notebook de consulta para <strong>educación cooperativa</strong>, con contenidos normativos, cápsulas de estudio y herramientas aplicadas para la toma de decisiones.
+        </p>
+
+        <div class="sections-grid">
+          <a href="contents/index.html" class="section-card">
+            <div class="card-top">
+              <div class="card-glyph">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/>
+                  <path d="M3 12l9 4.5L21 12"/>
+                  <path d="M3 16.5 12 21l9-4.5"/>
+                </svg>
+              </div>
+            </div>
+            <h2 class="card-title">Contenidos</h2>
+            <p class="card-description">Módulos educativos, marcos legales y conceptos cooperativistas organizados para lectura guiada.</p>
+            <div class="card-tags">
+              <span class="tag">Diplomado básico</span>
+              <span class="tag">Normativa</span>
+              <span class="tag">Cápsulas</span>
+            </div>
+          </a>
+
+          <a href="tools/index.html" class="section-card">
+            <div class="card-top">
+              <div class="card-glyph">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.2-3.2a6 6 0 0 1-7.8 7.8l-6.7 6.7a2.1 2.1 0 0 1-3-3l6.7-6.7a6 6 0 0 1 7.8-7.8l-3.2 3.2Z"/>
+                </svg>
+              </div>
+            </div>
+            <h2 class="card-title">Herramientas</h2>
+            <p class="card-description">Artefactos interactivos y recursos de análisis para trabajo aplicado, revisión y planificación.</p>
+            <div class="card-tags">
+              <span class="tag">Análisis</span>
+              <span class="tag">Gestión</span>
+              <span class="tag">Trabajo aplicado</span>
+            </div>
+          </a>
+        </div>
+
+        <p class="credit">Creado por Oliver Ayala</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+

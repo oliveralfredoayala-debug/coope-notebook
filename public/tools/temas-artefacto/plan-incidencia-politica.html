@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Incidencia Política Cooperativa</title>
+  <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-claro: #e8f4ef;
+      --verde-borde: #b8dccc;
+      --verde-hover: #155538;
+      --gris-texto: #1a1a1a;
+      --gris-sec: #4a4a4a;
+      --gris-borde: #d8d8d8;
+      --gris-fondo: #f7f7f5;
+      --blanco: #ffffff;
+      --amarillo: #e8b84b;
+      --amarillo-fondo: #fffbf0;
+      --rojo-fondo: #fdf0f0;
+      --rojo: #c0392b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      color: var(--gris-texto);
+      background: var(--gris-fondo);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .app-header {
+      background: var(--verde);
+      color: var(--blanco);
+      padding: 18px 28px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .app-header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+    .app-header h1 em { font-style: italic; color: var(--amarillo); font-weight: 400; }
+    .app-brand { color: inherit; text-decoration: none; }
+    .app-header-sub { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.65; }
+
+    /* LAYOUT */
+    .app-body { display: flex; min-height: calc(100vh - 64px); max-width: 1100px; margin: 0 auto; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      background: var(--blanco);
+      border-right: 1px solid var(--gris-borde);
+      padding: 20px 0;
+      position: sticky; top: 0;
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gris-sec);
+      padding: 0 20px 12px;
+      border-bottom: 1px solid var(--gris-borde);
+      margin-bottom: 8px;
+    }
+    .step-btn {
+      display: flex; align-items: flex-start; gap: 12px;
+      width: 100%; padding: 10px 20px;
+      background: none; border: none;
+      border-left: 3px solid transparent;
+      cursor: pointer; text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .step-btn:hover { background: var(--gris-fondo); }
+    .step-btn.activo { border-left-color: var(--verde); background: var(--verde-claro); }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gris-borde); color: var(--gris-sec);
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .step-btn.activo .step-num { background: var(--verde); color: var(--blanco); }
+    .step-info { flex: 1; }
+    .step-titulo { font-size: 13px; font-weight: 600; color: var(--gris-texto); line-height: 1.3; }
+    .step-btn.activo .step-titulo { color: var(--verde); }
+    .step-sub { font-size: 11px; color: var(--gris-sec); margin-top: 1px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 40px 48px; min-width: 0; background: var(--blanco); }
+    .paso { display: none; }
+    .paso.activo { display: block; }
+
+    /* PASO HEADER */
+    .paso-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid var(--verde-claro); }
+    .paso-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--verde); margin-bottom: 6px; }
+    .paso-titulo { font-size: 24px; font-weight: 600; color: var(--gris-texto); letter-spacing: -0.3px; line-height: 1.2; }
+    .paso-desc { font-size: 14px; color: var(--gris-sec); margin-top: 6px; }
+
+    /* TEORIA BOX */
+    .teoria-box { background: var(--gris-fondo); border: 1px solid var(--gris-borde); border-radius: 6px; padding: 16px 18px; margin-bottom: 24px; }
+    .teoria-box-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--verde); margin-bottom: 10px; }
+    .teoria-box p { font-size: 14px; color: var(--gris-sec); margin-bottom: 8px; line-height: 1.6; }
+    .teoria-box p:last-child { margin-bottom: 0; }
+
+    /* CALLOUTS */
+    .callout { background: var(--amarillo-fondo); border-left: 3px solid var(--amarillo); padding: 11px 15px; border-radius: 0 4px 4px 0; margin: 14px 0; font-size: 14px; line-height: 1.6; }
+    .callout-verde { background: var(--verde-claro); border-left: 3px solid var(--verde); padding: 11px 15px; border-radius: 0 4px 4px 0; margin: 14px 0; font-size: 14px; line-height: 1.6; }
+    .callout-rojo { background: var(--rojo-fondo); border-left: 3px solid var(--rojo); padding: 11px 15px; border-radius: 0 4px 4px 0; margin: 14px 0; font-size: 14px; line-height: 1.6; }
+
+    /* REGLAS GRID */
+    .reglas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+    .regla-card { border: 1px solid var(--gris-borde); border-radius: 6px; padding: 12px; background: var(--blanco); }
+    .regla-titulo { font-size: 13px; font-weight: 600; color: var(--verde); margin-bottom: 6px; }
+    .regla-desc { font-size: 12px; color: var(--gris-sec); line-height: 1.5; }
+
+    /* FORMULARIOS */
+    .campo-grupo { margin-bottom: 28px; }
+    .campo-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gris-sec); margin-bottom: 6px; }
+    .campo-hint { font-size: 12px; color: var(--gris-sec); margin-bottom: 6px; font-style: italic; }
+    input[type="text"], textarea, select {
+      width: 100%; padding: 11px 14px;
+      border: 1px solid var(--gris-borde); border-radius: 4px;
+      font-size: 14px; font-family: inherit; color: var(--gris-texto);
+      background: var(--blanco); transition: border-color 0.15s; resize: vertical;
+    }
+    input[type="text"]:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--verde); box-shadow: 0 0 0 2px var(--verde-claro);
+    }
+    textarea { min-height: 100px; }
+    textarea.tall { min-height: 140px; }
+
+    /* CASO BOX */
+    .caso-box { background: var(--gris-fondo); border: 1px solid var(--verde-borde); border-radius: 6px; padding: 18px 20px; margin-bottom: 24px; display: none; }
+    .caso-box-titulo { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--verde); margin-bottom: 12px; }
+    .caso-box-texto { font-size: 14px; color: var(--gris-texto); line-height: 1.7; }
+    .caso-box-texto p { margin-bottom: 10px; }
+    .caso-box-texto p:last-child { margin-bottom: 0; }
+
+    /* ACTORES */
+    .actores-tabla { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+    .actores-tabla th { background: var(--verde); color: var(--blanco); padding: 8px 10px; text-align: left; font-weight: 600; }
+    .actores-tabla td { padding: 6px 4px; border-bottom: 1px solid var(--gris-borde); vertical-align: top; }
+    .actores-tabla td input, .actores-tabla td select { padding: 6px 8px; font-size: 13px; min-height: unset; }
+    .btn-add-actor { background: none; border: 1px dashed var(--verde-borde); color: var(--verde); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 8px; transition: background 0.15s; min-height: 40px; }
+    .btn-add-actor:hover { background: var(--verde-claro); }
+    .btn-del-actor { background: none; border: none; cursor: pointer; color: var(--rojo); font-size: 16px; padding: 4px 8px; line-height: 1; }
+
+    /* VISTA ACTORES */
+    .actores-viz { margin-top: 20px; }
+    .actores-viz-titulo { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gris-sec); margin-bottom: 12px; }
+    .actores-grupos { display: flex; gap: 10px; flex-wrap: wrap; }
+    .actores-grupo { flex: 1; min-width: 140px; border: 1px solid var(--gris-borde); border-radius: 6px; overflow: hidden; }
+    .actores-grupo-head { padding: 6px 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .head-favorable { background: #d4edda; color: #155724; }
+    .head-neutral { background: #fff3cd; color: #856404; }
+    .head-opositor { background: #f8d7da; color: #721c24; }
+    .actores-grupo-body { padding: 8px 10px; min-height: 40px; }
+    .actor-tag { display: inline-block; background: var(--gris-fondo); border: 1px solid var(--gris-borde); border-radius: 3px; padding: 2px 8px; font-size: 12px; margin: 2px 2px 2px 0; }
+
+    /* 5W1H */
+    .w5h1-lista { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+    .w5h1-campo { border: 1px solid var(--gris-borde); border-radius: 6px; overflow: hidden; }
+    .w5h1-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--gris-fondo); border-bottom: 1px solid var(--gris-borde); }
+    .w5h1-letra { font-size: 13px; font-weight: 700; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: 4px; padding: 3px 8px; flex-shrink: 0; }
+    .w5h1-pregunta { font-size: 14px; font-weight: 600; flex: 1; }
+    .w5h1-campo textarea { border: none; border-radius: 0; padding: 14px 16px; min-height: 100px; font-size: 14px; }
+    .w5h1-campo textarea:focus { box-shadow: none; }
+
+    /* ESCALERA */
+    .escalera { margin: 12px 0; }
+    .esc-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; padding: 10px 14px; border-radius: 4px; font-size: 14px; line-height: 1.5; }
+    .esc-num { font-weight: 700; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--blanco); }
+    .e1 { background: var(--gris-fondo); } .e1 .esc-num { background: #aaa; }
+    .e2 { background: #fff8e6; } .e2 .esc-num { background: var(--amarillo); color: var(--gris-texto); }
+    .e3 { background: var(--verde-claro); } .e3 .esc-num { background: var(--verde); }
+    .esc-fuente { font-size: 11px; color: var(--gris-sec); margin-top: 8px; font-style: italic; }
+
+    /* NORMA REF */
+    .norma-ref { display: inline-block; font-size: 11px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: 3px; padding: 1px 6px; margin-left: 3px; white-space: nowrap; }
+
+    /* NAV BTNS */
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--gris-borde); }
+    .btn-nav { background: var(--verde); color: var(--blanco); border: none; border-radius: 4px; padding: 10px 22px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.15s; min-height: 44px; }
+    .btn-nav:hover { background: var(--verde-hover); }
+    .btn-nav.secondary { background: none; color: var(--verde); border: 1px solid var(--verde-borde); }
+    .btn-nav.secondary:hover { background: var(--verde-claro); }
+    .btn-nav.invisible { visibility: hidden; }
+    .btn-nav.gold { background: var(--amarillo); color: var(--gris-texto); }
+    .btn-nav.gold:hover { background: #d4a83d; }
+    .paso-contador { font-size: 12px; color: var(--gris-sec); }
+
+    /* INICIO CARDS */
+    .inicio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+    .inicio-card { border: 1px solid var(--gris-borde); border-radius: 6px; padding: 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: var(--blanco); }
+    .inicio-card:hover { border-color: var(--verde); background: var(--verde-claro); }
+    .inicio-card-num { font-size: 28px; font-weight: 700; color: var(--gris-borde); line-height: 1; margin-bottom: 8px; }
+    .inicio-card-titulo { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .inicio-card-desc { font-size: 12px; color: var(--gris-sec); line-height: 1.4; }
+
+    /* RESUMEN TAB */
+    .resumen-panel { display: none; }
+    .resumen-panel.activo { display: block; }
+    .resumen-seccion { margin-bottom: 32px; }
+    .resumen-seccion-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--verde); padding-bottom: 8px; border-bottom: 1px solid var(--verde-borde); margin-bottom: 14px; }
+    .resumen-item { margin-bottom: 14px; }
+    .resumen-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gris-sec); margin-bottom: 4px; }
+    .resumen-valor { font-size: 14px; color: var(--gris-texto); background: var(--gris-fondo); padding: 10px 14px; border-radius: 4px; min-height: 40px; line-height: 1.6; white-space: pre-wrap; }
+    .w5h1-resumen-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .w5h1-resumen-card { border: 1px solid var(--gris-borde); border-radius: 6px; overflow: hidden; }
+    .w5h1-resumen-head { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gris-fondo); border-bottom: 1px solid var(--gris-borde); }
+    .w5h1-resumen-letra { font-size: 12px; font-weight: 700; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: 3px; padding: 2px 6px; }
+    .w5h1-resumen-pregunta { font-size: 13px; font-weight: 600; }
+    .w5h1-resumen-valor { font-size: 13px; color: var(--gris-texto); padding: 10px 12px; line-height: 1.6; min-height: 60px; white-space: pre-wrap; }
+
+    /* BTNS RESUMEN */
+    .resumen-acciones { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+    .btn-accion { background: var(--verde); color: var(--blanco); border: none; border-radius: 4px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; min-height: 44px; transition: background 0.15s; }
+    .btn-accion:hover { background: var(--verde-hover); }
+    .btn-accion.gold { background: var(--amarillo); color: var(--gris-texto); }
+    .btn-accion.gold:hover { background: #d4a83d; }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .app-header { padding: 14px 16px; }
+      .app-header h1 { font-size: 18px; }
+      .app-body { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; overflow-x: auto; -webkit-overflow-scrolling: touch; border-right: none; border-bottom: 2px solid var(--gris-borde); padding: 0; position: sticky; top: 0; z-index: 10; scrollbar-width: none; max-height: none; }
+      .sidebar::-webkit-scrollbar { display: none; }
+      .sidebar-label { display: none; }
+      .step-btn { flex-direction: column; flex-shrink: 0; border-left: none; border-bottom: 3px solid transparent; padding: 8px 12px; min-height: 56px; align-items: center; width: auto; gap: 3px; }
+      .step-btn.activo { border-left-color: transparent; border-bottom-color: var(--verde); }
+      .step-titulo { font-size: 11px; white-space: nowrap; }
+      .step-sub { display: none; }
+      .content { padding: 16px; }
+      .reglas-grid { grid-template-columns: 1fr; }
+      .inicio-grid { grid-template-columns: 1fr; }
+      .actores-grupos { flex-direction: column; }
+      .w5h1-resumen-grid { grid-template-columns: 1fr; }
+    }
+    .nb-toggle { display: none; }
+    .nb-overlay { display: none; }
+    .nb-cerrar { display: none; }
+    @media (max-width: 640px) {
+      .nb-toggle {
+        display: flex; align-items: center; justify-content: center;
+        position: fixed; top: 12px; left: 12px; z-index: 50;
+        width: 44px; height: 44px;
+        background: var(--blanco); border: 1px solid var(--gris-borde);
+        border-radius: 4px; cursor: pointer;
+        box-shadow: 0 1px 4px rgba(0,0,0,.08);
+        padding: 0;
+      }
+      .nb-toggle svg { width: 22px; height: 22px; color: var(--verde); }
+      .sidebar {
+        display: block; position: fixed; top: 0; left: 0; z-index: 60;
+        width: 82%; max-width: 320px; height: 100vh;
+        border-right: 1px solid var(--gris-borde); border-bottom: none;
+        padding: 20px 0; overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform .26s ease;
+        box-shadow: 2px 0 16px rgba(0,0,0,.12);
+        scrollbar-width: auto;
+      }
+      .sidebar.abierto { transform: translateX(0); }
+      .sidebar-label { display: block; padding-right: 60px; }
+      .nb-cerrar {
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; top: 14px; right: 14px;
+        width: 36px; height: 36px;
+        background: none; border: none; cursor: pointer; padding: 0;
+        color: var(--gris-sec);
+      }
+      .nb-cerrar svg { width: 22px; height: 22px; }
+      .step-btn { flex-direction: row; width: 100%; align-items: flex-start; border-left: 3px solid transparent; border-bottom: none; padding: 10px 20px; min-height: 44px; gap: 12px; }
+      .step-btn.activo { border-left-color: var(--verde); border-bottom-color: transparent; }
+      .step-titulo { font-size: 13px; white-space: normal; }
+      .step-sub { display: block; }
+      .nb-overlay {
+        display: block; position: fixed; inset: 0; z-index: 55;
+        background: rgba(0,0,0,.4);
+        opacity: 0; pointer-events: none;
+        transition: opacity .26s ease;
+      }
+      .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+      .content { padding-top: 64px; }
+    }
+  </style>
+</head>
+<body>
+<button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<header class="app-header">
+  <a class="app-brand" href="../index.html" aria-label="Volver a herramientas"><h1>Plan de <em>Incidencia Política</em></h1></a>
+  <span class="app-header-sub">Notebook Cooperativa</span>
+</header>
+
+<div class="app-body">
+  <nav class="sidebar">
+    <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="sidebar-label">Pasos del plan</div>
+    <button class="step-btn activo" data-paso="p0"><span class="step-num">★</span><div class="step-info"><div class="step-titulo">Inicio</div><div class="step-sub">Presentación</div></div></button>
+    <button class="step-btn" data-paso="p1"><span class="step-num">1</span><div class="step-info"><div class="step-titulo">El problema</div><div class="step-sub">Formulación precisa</div></div></button>
+    <button class="step-btn" data-paso="p2"><span class="step-num">2</span><div class="step-info"><div class="step-titulo">Objeto de cambio</div><div class="step-sub">Qué se quiere lograr</div></div></button>
+    <button class="step-btn" data-paso="p3"><span class="step-num">3</span><div class="step-info"><div class="step-titulo">Mapa de actores</div><div class="step-sub">Quién decide, quién influye</div></div></button>
+    <button class="step-btn" data-paso="p4"><span class="step-num">4</span><div class="step-info"><div class="step-titulo">Plan 5W1H</div><div class="step-sub">La propuesta del equipo</div></div></button>
+    <button class="step-btn" data-paso="p5"><span class="step-num">5</span><div class="step-info"><div class="step-titulo">Cierre</div><div class="step-sub">Balance social</div></div></button>
+    <button class="step-btn" data-paso="presumen" id="btn-resumen" style="display:none;"><span class="step-num" style="background:var(--amarillo);color:var(--gris-texto);">✓</span><div class="step-info"><div class="step-titulo">Resumen</div><div class="step-sub">Ver y descargar</div></div></button>
+  </nav>
+
+  <div class="content">
+
+    <!-- PASO 0 INICIO -->
+    <div class="paso activo" id="p0">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Bienvenida</div>
+        <h2 class="paso-titulo">Plan de Incidencia Política</h2>
+        <p class="paso-desc">Esta herramienta guía al equipo a través de 5 pasos para construir una propuesta de incidencia real, basada en su caso asignado y en el marco legal cooperativo.</p>
+      </div>
+      <div class="teoria-box">
+        <div class="teoria-box-titulo">📋 Instrucciones</div>
+        <p>Cada paso tiene una <strong>parte teórica</strong> con los conceptos clave y una <strong>parte práctica</strong> con campos para completar.</p>
+        <p>Trabajen en equipo. Al final tendrán una propuesta que presentarán en <strong>10 minutos</strong> — 5 de análisis y 5 de propuesta. Podrán descargar una presentación PowerPoint con sus resultados.</p>
+        <p>Marco legal de referencia: <span class="norma-ref">RLCH Art. 4-i</span> <span class="norma-ref">RLCH Art. 7</span> <span class="norma-ref">LCH Art. 61</span> <span class="norma-ref">LCH Art. 29-A</span> <span class="norma-ref">LCH Art. 76</span></p>
+      </div>
+      <div class="inicio-grid">
+        <div class="inicio-card" onclick="irAPaso('p1')"><div class="inicio-card-num">01</div><div class="inicio-card-titulo">El problema</div><div class="inicio-card-desc">Identificar y formular con precisión el problema público del caso.</div></div>
+        <div class="inicio-card" onclick="irAPaso('p2')"><div class="inicio-card-num">02</div><div class="inicio-card-titulo">Objeto de cambio</div><div class="inicio-card-desc">Definir exactamente qué decisión o norma se quiere transformar.</div></div>
+        <div class="inicio-card" onclick="irAPaso('p3')"><div class="inicio-card-num">03</div><div class="inicio-card-titulo">Mapa de actores</div><div class="inicio-card-desc">Identificar quién decide, quién influye y quién se opone.</div></div>
+        <div class="inicio-card" onclick="irAPaso('p4')"><div class="inicio-card-num">04</div><div class="inicio-card-titulo">Plan 5W1H</div><div class="inicio-card-desc">Construir la propuesta de incidencia con los seis componentes.</div></div>
+        <div class="inicio-card" onclick="irAPaso('p5')" style="grid-column:span 2;"><div class="inicio-card-num">05</div><div class="inicio-card-titulo">Cierre</div><div class="inicio-card-desc">Reflexión final desde el balance social cooperativo.</div></div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav invisible">�?</button>
+        <span class="paso-contador">Paso 0 de 5</span>
+        <button class="btn-nav" onclick="irAPaso('p1')">Comenzar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 1 EL PROBLEMA -->
+    <div class="paso" id="p1">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Paso 1</div>
+        <h2 class="paso-titulo">El problema</h2>
+        <p class="paso-desc">Antes de proponer cualquier solución, el equipo necesita formular el problema con precisión.</p>
+      </div>
+      <div class="teoria-box">
+        <div class="teoria-box-titulo">📖 Marco conceptual</div>
+        <p>Un <strong>problema público</strong> es una situación que afecta de manera colectiva a un grupo o comunidad, y cuya solución requiere una decisión de parte del Estado o una institución con poder público.</p>
+        <p>Un problema mal formulado produce propuestas inefectivas. Tres reglas:</p>
+      </div>
+      <div class="reglas-grid">
+        <div class="regla-card"><div class="regla-titulo">No incluir la solución</div><div class="regla-desc">�?� "Se necesita más personal en el centro de salud."<br><br>✓ "El centro de salud no tiene recursos para prestar los servicios que los/as afiliados/as requieren."</div></div>
+        <div class="regla-card"><div class="regla-titulo">Evitar absolutos</div><div class="regla-desc">�?� "Ausencia de apoyo institucional."<br><br>✓ "La institución X no incluye a cooperativas en su programa de apoyo."</div></div>
+        <div class="regla-card"><div class="regla-titulo">Específico y medible</div><div class="regla-desc">�?� "El gobierno no apoya los negocios pequeños."<br><br>✓ "El 40% de afiliados/as no logra completar los trámites de formalización municipal."</div></div>
+      </div>
+
+      <div class="campo-grupo">
+        <label class="campo-label">Caso asignado al equipo</label>
+        <select id="caso-select" onchange="mostrarCaso()">
+          <option value=">— Seleccionar caso —</option>
+          <option value="1">Caso 1: Beneficio Médico para Afiliados Adultos Mayores</option>
+          <option value="2">Caso 2: Reorganización del Mercado Municipal</option>
+          <option value="3">Caso 3: Los Afiliados No Pueden Legalizar sus Negocios</option>
+          <option value="4">Caso 4: La Solicitud de la Escuela de la Comunidad</option>
+        </select>
+      </div>
+
+      <div class="caso-box" id="caso-box">
+        <div class="caso-box-titulo">📄 Caso asignado</div>
+        <div class="caso-box-texto" id="caso-contenido"></div>
+      </div>
+
+      <div class="campo-grupo">
+        <label class="campo-label">Formulación del problema</label>
+        <p class="campo-hint">Describe el problema sin incluir la solución. Aplica las tres reglas.</p>
+        <textarea id="problema-texto" class="tall" placeholder="Ej: Los/as afiliados/as adultos/as mayores de la cooperativa no pueden acceder a los servicios del centro de salud comunal porque…"></textarea>
+      </div>
+      <div class="campo-grupo">
+        <label class="campo-label">¿A quiénes afecta y cómo</label>
+        <p class="campo-hint">Identifica los/as afiliados/as impactados/as. Con datos si es posible.</p>
+        <textarea id="afectados-texto" placeholder="Ej: Aproximadamente X afiliados/as adultos/as mayores que dependen de…"></textarea>
+      </div>
+      <div class="campo-grupo">
+        <label class="campo-label">¿Qué decisión pública produce o permite el problema</label>
+        <p class="campo-hint">Identifica la norma, práctica o omisión institucional que lo genera.</p>
+        <textarea id="decision-texto" placeholder="Ej: La institución responsable no cuenta con presupuesto asignado para…"></textarea>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-nav secondary" onclick="irAPaso('p0')">�? Inicio</button>
+        <span class="paso-contador">Paso 1 de 5</span>
+        <button class="btn-nav" onclick="irAPaso('p2')">Paso 2 →</button>
+      </div>
+    </div>
+
+    <!-- PASO 2 OBJETO DE CAMBIO -->
+    <div class="paso" id="p2">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Paso 2</div>
+        <h2 class="paso-titulo">Objeto de cambio</h2>
+        <p class="paso-desc">El objeto de cambio es la decisión, norma o práctica concreta que se quiere transformar. Sin esto claro, el mapa de actores no tiene dirección.</p>
+      </div>
+      <div class="teoria-box">
+        <div class="teoria-box-titulo">📖 Marco conceptual</div>
+        <p>El objeto de cambio no es el problema — es la <strong>solución específica</strong> que se le pide a un actor concreto. Debe poder escribirse en una sola oración.</p>
+        <p>La diferencia entre <strong>posición</strong> (lo que se pide) e <strong>interés</strong> (por qué se pide): negociar desde el interés abre más puertas que negociar desde la posición.</p>
+      </div>
+      <div class="callout-verde">
+        <strong>Ejemplo:</strong> No "queremos más apoyo del gobierno" sino <em>"que el reglamento interno de X institución incluya un mecanismo de acceso diferenciado para cooperativas con [condición específica]."</em>
+      </div>
+      <div class="campo-grupo">
+        <label class="campo-label">Objeto de cambio — ¿qué debe cambiar exactamente</label>
+        <p class="campo-hint">Una sola oración. Incluye: qué, en qué institución, de qué forma.</p>
+        <textarea id="objeto-texto" placeholder="Ej: Que el centro de salud del municipio cuente con [recurso específico] para prestar [servicio concreto] a la población afiliada a cooperativas de la zona."></textarea>
+      </div>
+      <div class="campo-grupo">
+        <label class="campo-label">¿Por qué es legítimo que la cooperativa lo solicite</label>
+        <p class="campo-hint">¿Qué principios o artículos fundamentan la legitimidad de esta solicitud</p>
+        <textarea id="legitimidad-texto" placeholder="Ej: La cooperativa tiene mandato de defender los derechos de sus afiliados/as (LCH Art. 76) y actuar en beneficio de la comunidad (RLCH Art. 4-i)…"></textarea>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav secondary" onclick="irAPaso('p1')">�? Paso 1</button>
+        <span class="paso-contador">Paso 2 de 5</span>
+        <button class="btn-nav" onclick="irAPaso('p3')">Paso 3 →</button>
+      </div>
+    </div>
+
+    <!-- PASO 3 MAPA DE ACTORES -->
+    <div class="paso" id="p3">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Paso 3</div>
+        <h2 class="paso-titulo">Mapa de actores</h2>
+        <p class="paso-desc">Identificar quién tiene poder sobre el objeto de cambio, quién puede influir, y quién podría oponerse.</p>
+      </div>
+      <div class="teoria-box">
+        <div class="teoria-box-titulo">📖 Marco conceptual</div>
+        <p><strong>Decisores/as:</strong> poder formal para hacer el cambio. <strong>Influyentes:</strong> no deciden pero condicionan (federación, medios, aliados). <strong>Afectados/as:</strong> los/as afiliados/as — su testimonio es el argumento más poderoso. <strong>Opositores/as:</strong> intereses contrarios al cambio.</p>
+        <p>La posición de un actor no es fija — puede cambiar con información o negociación.</p>
+      </div>
+      <div class="callout">
+        <strong>Principio central:</strong> El/la afiliado/a no es solo la razón de la incidencia — es su validador/a. Si el cambio no mejora concretamente su situación, la propuesta necesita revisión. <span class="norma-ref">LCH Arts. 7-g, 76</span>
+      </div>
+      <label class="campo-label" style="margin-bottom:10px;">Actores identificados</label>
+      <div style="overflow-x:auto;">
+        <table class="actores-tabla">
+          <thead><tr><th>Actor / Institución</th><th>Tipo</th><th>Posición</th><th>Estrategia</th><th></th></tr></thead>
+          <tbody id="actores-body">
+            <tr>
+              <td><input type="text" placeholder="Ej: Alcaldía Municipal" oninput="actualizarViz()"></td>
+              <td><select onchange="actualizarViz()"><option>Decisor/a</option><option>Influyente</option><option>Afectado/a</option><option>Opositor/a</option></select></td>
+              <td><select onchange="actualizarViz()"><option>Favorable</option><option>Neutral</option><option>Opositor/a</option></select></td>
+              <td><input type="text" placeholder="Ej: Reunión directa"></td>
+              <td><button class="btn-del-actor" onclick="eliminarActor(this)">×</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add-actor" onclick="agregarActor()">+ Agregar actor</button>
+      <div class="actores-viz" id="actores-viz">
+        <div class="actores-viz-titulo">Vista por posición</div>
+        <div class="actores-grupos">
+          <div class="actores-grupo"><div class="actores-grupo-head head-favorable">Favorables</div><div class="actores-grupo-body" id="viz-favorable"><span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores aún</span></div></div>
+          <div class="actores-grupo"><div class="actores-grupo-head head-neutral">Neutrales</div><div class="actores-grupo-body" id="viz-neutral"><span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores aún</span></div></div>
+          <div class="actores-grupo"><div class="actores-grupo-head head-opositor">Opositores/as</div><div class="actores-grupo-body" id="viz-opositor"><span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores aún</span></div></div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav secondary" onclick="irAPaso('p2')">�? Paso 2</button>
+        <span class="paso-contador">Paso 3 de 5</span>
+        <button class="btn-nav" onclick="irAPaso('p4')">Paso 4 →</button>
+      </div>
+    </div>
+
+    <!-- PASO 4 5W1H -->
+    <div class="paso" id="p4">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Paso 4</div>
+        <h2 class="paso-titulo">Plan 5W1H</h2>
+        <p class="paso-desc">Construir la propuesta de incidencia respondiendo seis preguntas clave.</p>
+      </div>
+      <div class="teoria-box">
+        <div class="teoria-box-titulo">📖 Escalera de escalada — ¿cómo llevar la propuesta</div>
+        <div class="escalera">
+          <div class="esc-step e1"><span class="esc-num">1</span><div><strong>Diálogo directo</strong> — Reunión formal con el actor decisor. Primer recurso siempre.</div></div>
+          <div class="esc-step e2"><span class="esc-num">2</span><div><strong>Solicitud formal documentada</strong> — Carta con fundamento legal, firmada por la Junta Directiva. Genera registro.</div></div>
+          <div class="esc-step e3"><span class="esc-num">3</span><div><strong>Articulación con aliados</strong> — Sumar la federación, otras cooperativas, organizaciones de la sociedad civil. El peso colectivo cambia la conversación. <span class="norma-ref">LCH Art. 7-f</span></div></div>
+        </div>
+        <p class="esc-fuente">Referencia metodológica: CARE International — Manual de Incidencia Política; ACI-Américas — Guía de Incidencia Cooperativa.</p>
+      </div>
+
+      <div class="w5h1-lista">
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">WHAT</span><span class="w5h1-pregunta">¿Qué cambio concreto se propone</span></div>
+          <textarea id="w-what" placeholder="El cambio específico que se solicita…"></textarea>
+        </div>
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">WHY</span><span class="w5h1-pregunta">¿Por qué es necesario para los/as afiliados/as</span></div>
+          <textarea id="w-why" placeholder="La razón de fondo, con datos de afiliados/as…"></textarea>
+        </div>
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">WHO</span><span class="w5h1-pregunta">¿Quién tiene el poder de hacer el cambio ¿Quién representa a la cooperativa</span></div>
+          <textarea id="w-who" placeholder="Actor decisor + quién lleva la propuesta desde la cooperativa…"></textarea>
+        </div>
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">WHERE</span><span class="w5h1-pregunta">¿En qué institución o espacio se lleva la propuesta</span></div>
+          <textarea id="w-where" placeholder="Institución o espacio donde se lleva la propuesta…"></textarea>
+        </div>
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">WHEN</span><span class="w5h1-pregunta">¿Cuál es el momento estratégico para actuar</span></div>
+          <textarea id="w-when" placeholder="Momento o período para actuar…"></textarea>
+        </div>
+        <div class="w5h1-campo">
+          <div class="w5h1-head"><span class="w5h1-letra">HOW</span><span class="w5h1-pregunta">¿Cómo se ejecuta ¿En qué paso de la escalera</span></div>
+          <textarea id="w-how" placeholder="Ruta de acción concreta…"></textarea>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-nav secondary" onclick="irAPaso('p3')">�? Paso 3</button>
+        <span class="paso-contador">Paso 4 de 5</span>
+        <button class="btn-nav" onclick="irAPaso('p5')">Paso 5 →</button>
+      </div>
+    </div>
+
+    <!-- PASO 5 CIERRE -->
+    <div class="paso" id="p5">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Paso 5</div>
+        <h2 class="paso-titulo">Cierre</h2>
+        <p class="paso-desc">Una reflexión final antes de generar el resumen.</p>
+      </div>
+      <div class="callout-verde">
+        Una cooperativa es, en esencia, el reflejo de su balance social. No solo lo que produce o gestiona — sino el impacto real que genera en la vida de sus afiliados/as y en el desarrollo de su comunidad.
+      </div>
+      <div class="campo-grupo">
+        <label class="campo-label">¿Este proyecto nos ayuda a cumplir ese objetivo</label>
+        <p class="campo-hint">Como cooperativa que somos el reflejo de nuestro balance social, creemos que este proyecto es ejecutable porque…</p>
+        <textarea id="balance-texto" class="tall" placeholder="Expliquen cómo esta acción de incidencia conecta con el propósito cooperativo y el bienestar de sus afiliados/as…"></textarea>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-nav secondary" onclick="irAPaso('p4')">�? Paso 4</button>
+        <span class="paso-contador">Paso 5 de 5</span>
+        <button class="btn-nav gold" onclick="generarResumen()">Generar resumen ✓</button>
+      </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="paso" id="presumen">
+      <div class="paso-header">
+        <div class="paso-eyebrow">Resumen del plan</div>
+        <h2 class="paso-titulo">Plan completo del equipo</h2>
+        <p class="paso-desc">Aquí está todo lo que construyeron. Pueden descargar la presentación para exponer.</p>
+      </div>
+
+      <div class="resumen-acciones">
+        <button class="btn-accion gold" onclick="descargarWord()">⬇ Descargar Word</button>
+        <button class="btn-accion secondary" style="background:none;color:var(--verde);border:1px solid var(--verde-borde);" onclick="irAPaso('p1')">�? Editar respuestas</button>
+      </div>
+
+      <div class="resumen-seccion">
+        <div class="resumen-seccion-titulo">Caso</div>
+        <div class="resumen-item"><div class="resumen-valor" id="r-caso">—</div></div>
+      </div>
+
+      <div class="resumen-seccion">
+        <div class="resumen-seccion-titulo">Paso 1 — El problema</div>
+        <div class="resumen-item"><div class="resumen-label">Problema formulado</div><div class="resumen-valor" id="r-problema">—</div></div>
+        <div class="resumen-item"><div class="resumen-label">A quiénes afecta</div><div class="resumen-valor" id="r-afectados">—</div></div>
+        <div class="resumen-item"><div class="resumen-label">Decisión pública que lo produce</div><div class="resumen-valor" id="r-decision">—</div></div>
+      </div>
+
+      <div class="resumen-seccion">
+        <div class="resumen-seccion-titulo">Paso 2 — Objeto de cambio</div>
+        <div class="resumen-item"><div class="resumen-label">Objeto de cambio</div><div class="resumen-valor" id="r-objeto">—</div></div>
+        <div class="resumen-item"><div class="resumen-label">Legitimidad</div><div class="resumen-valor" id="r-legitimidad">—</div></div>
+      </div>
+
+      <div class="resumen-seccion">
+        <div class="resumen-seccion-titulo">Paso 4 — Plan 5W1H</div>
+        <div class="w5h1-resumen-grid">
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">WHAT</span><span class="w5h1-resumen-pregunta">¿Qué cambio</span></div><div class="w5h1-resumen-valor" id="r-what">—</div></div>
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">WHY</span><span class="w5h1-resumen-pregunta">¿Por qué</span></div><div class="w5h1-resumen-valor" id="r-why">—</div></div>
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">WHO</span><span class="w5h1-resumen-pregunta">¿Quién</span></div><div class="w5h1-resumen-valor" id="r-who">—</div></div>
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">WHERE</span><span class="w5h1-resumen-pregunta">¿Dónde</span></div><div class="w5h1-resumen-valor" id="r-where">—</div></div>
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">WHEN</span><span class="w5h1-resumen-pregunta">¿Cuándo</span></div><div class="w5h1-resumen-valor" id="r-when">—</div></div>
+          <div class="w5h1-resumen-card"><div class="w5h1-resumen-head"><span class="w5h1-resumen-letra">HOW</span><span class="w5h1-resumen-pregunta">¿Cómo</span></div><div class="w5h1-resumen-valor" id="r-how">—</div></div>
+        </div>
+      </div>
+
+      <div class="resumen-seccion">
+        <div class="resumen-seccion-titulo">Paso 5 — Balance social</div>
+        <div class="resumen-item"><div class="resumen-valor" id="r-balance">—</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var casos = {
+    '1': '<p>La Cooperativa de Ahorro y Crédito Horizonte Solidario R.L. lanzó, como parte de su seguro médico, un beneficio destinado a atender a afiliados/as adultos/as mayores que requieren controles periódicos y medicación para enfermedades agudas y crónicas.</p><p>Durante los últimos meses, numerosos/as afiliados/as han presentado quejas formales ante la gerencia indicando que el centro de salud de la comunidad no cuenta con los medicamentos, personal ni recursos necesarios para prestar adecuadamente estos servicios. Como consecuencia, varios/as afiliados/as han tenido dificultades para acceder a los beneficios que la cooperativa esperaba que pudieran utilizar.</p><p>Tras revisar los reportes recibidos, la gerencia concluye que no se trata de casos aislados y presenta la situación ante la Junta Directiva. La JD reconoce que la cooperativa no tiene autoridad para resolver directamente los problemas del centro de salud. Sin embargo, considera que la situación está afectando a un grupo importante de afiliados/as y acuerda explorar una posible gestión ante las autoridades competentes para comprender mejor el problema y analizar posibles alternativas de solución.</p><p>Antes de reunirse con las autoridades, la Junta Directiva necesita definir con claridad qué problema pretende abordar, quiénes tienen capacidad de decisión y qué propuesta podría presentar la cooperativa.</p>',
+    '2': '<p>La Cooperativa de Ahorro y Crédito Integración Comunitaria R.L. mantiene una cartera importante de afiliados/as que operan pequeños negocios en el mercado municipal.</p><p>Durante las últimas semanas, varios/as afiliados/as han presentado consultas y quejas ante la cooperativa luego de conocer una propuesta municipal para reorganizar los espacios del mercado. Algunos/as comerciantes consideran que los cambios propuestos podrían afectar el acceso de clientes a sus negocios y reducir sus ingresos.</p><p>La situación llega a conocimiento de la gerencia, que identifica que el tema involucra a un número considerable de afiliados/as. Posteriormente, la información es presentada a la Junta Directiva. La JD reconoce que la municipalidad tiene autoridad para ordenar y administrar el mercado. Sin embargo, también considera que las decisiones que se adopten podrían afectar directamente la actividad económica de muchos/as afiliados/as.</p><p>Antes de contactar a las autoridades municipales, la Junta Directiva necesita comprender mejor la situación y definir si existe un tema legítimo sobre el cual la cooperativa pueda realizar una gestión de incidencia.</p>',
+    '3': '<p>La Cooperativa de Ahorro y Crédito Nueva Participación R.L. ha desarrollado durante varios años una línea de crédito para pequeños emprendimientos.</p><p>Durante el seguimiento de la cartera, varios/as asesores/as identifican una situación recurrente: numerosos/as afiliados/as que operan pequeños negocios no logran obtener permisos municipales o completar trámites requeridos para formalizar sus actividades económicas. Como consecuencia, algunos/as afiliados/as encuentran dificultades para acceder a nuevos créditos, participar en programas de apoyo empresarial o ampliar sus operaciones.</p><p>La situación es reportada a la gerencia, que observa que el problema afecta a un número importante de afiliados/as y decide trasladarlo a la Junta Directiva. Durante la discusión, algunos/as directivos/as consideran que cada emprendedor/a debe resolver sus propios trámites. Otros/as creen que podría existir un problema más amplio relacionado con los procedimientos o requisitos que enfrentan los pequeños negocios de la comunidad.</p><p>Antes de realizar cualquier gestión, la Junta Directiva necesita determinar si existe un problema público sobre el cual la cooperativa pueda desarrollar una acción de incidencia.</p>',
+    '4': '<p>La Cooperativa de Ahorro y Crédito Futuro Compartido R.L. recibe una comunicación formal enviada por la dirección de una escuela pública de la comunidad. En la nota, la dirección explica que el centro educativo enfrenta diversos problemas que afectan el desarrollo normal de las actividades escolares. Durante varios años se han realizado solicitudes y gestiones ante distintas instituciones, pero las necesidades continúan sin recibir respuesta.</p><p>Un/a docente del centro educativo, que también es afiliado/a de la cooperativa, sugirió a la dirección de la escuela que hiciera llegar una nota directamente a la Junta Directiva. Según su criterio, la cooperativa podría estar interesada en conocer la situación debido a su compromiso con el desarrollo de la comunidad y al impacto que esta problemática tiene sobre muchas familias afiliadas.</p><p>La nota es recibida por la Junta Directiva y trasladada a la gerencia para recopilar información adicional antes de tomar una decisión. Algunos/as directivos/as consideran que una escuela en mejores condiciones beneficia a muchas familias afiliadas y fortalece el desarrollo de la comunidad. Otros/as opinan que la cooperativa debe ser cuidadosa para no asumir responsabilidades que corresponden al sistema educativo o a las autoridades públicas.</p><p>Antes de tomar una decisión, la Junta Directiva necesita analizar si este tema justifica una acción de incidencia institucional y cuál debería ser el papel adecuado de la cooperativa.</p>'
+  };
+
+  var casosTitulos = {
+    '1': 'Caso 1: Beneficio Médico para Afiliados Adultos Mayores',
+    '2': 'Caso 2: Reorganización del Mercado Municipal',
+    '3': 'Caso 3: Los Afiliados No Pueden Legalizar sus Negocios',
+    '4': 'Caso 4: La Solicitud de la Escuela de la Comunidad'
+  };
+
+  function mostrarCaso() {
+    var sel = document.getElementById('caso-select').value;
+    var box = document.getElementById('caso-box');
+    var contenido = document.getElementById('caso-contenido');
+    if (sel && casos[sel]) {
+      contenido.innerHTML = casos[sel];
+      box.style.display = 'block';
+    } else {
+      box.style.display = 'none';
+    }
+  }
+
+  function abrirMenu() {
+    var sidebar = document.querySelector('.sidebar');
+    var overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.add('abierto');
+    if (overlay) overlay.classList.add('visible');
+  }
+
+  function cerrarMenu() {
+    var sidebar = document.querySelector('.sidebar');
+    var overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.remove('abierto');
+    if (overlay) overlay.classList.remove('visible');
+  }
+
+  function irAPaso(id) {
+    document.querySelectorAll('.paso').forEach(function(p) { p.classList.remove('activo'); });
+    document.querySelectorAll('.step-btn').forEach(function(b) { b.classList.remove('activo'); });
+    document.getElementById(id).classList.add('activo');
+    var btn = document.querySelector('[data-paso="' + id + '"]');
+    if (btn) btn.classList.add('activo');
+    if (window.innerWidth <= 640) cerrarMenu();
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('.step-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { irAPaso(this.getAttribute('data-paso')); });
+  });
+
+  function agregarActor() {
+    var tbody = document.getElementById('actores-body');
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><input type="text" placeholder="Actor..." oninput="actualizarViz()"></td>' +
+      '<td><select onchange="actualizarViz()"><option>Decisor/a</option><option>Influyente</option><option>Afectado/a</option><option>Opositor/a</option></select></td>' +
+      '<td><select onchange="actualizarViz()"><option>Favorable</option><option>Neutral</option><option>Opositor/a</option></select></td>' +
+      '<td><input type="text" placeholder="Estrategia..."></td>' +
+      '<td><button class="btn-del-actor" onclick="eliminarActor(this)">×</button></td>';
+    tbody.appendChild(tr);
+  }
+
+  function eliminarActor(btn) {
+    var tbody = document.getElementById('actores-body');
+    if (tbody.children.length > 1) {
+      btn.closest('tr').remove();
+      actualizarViz();
+    }
+  }
+
+  function actualizarViz() {
+    var fav = document.getElementById('viz-favorable');
+    var neu = document.getElementById('viz-neutral');
+    var opo = document.getElementById('viz-opositor');
+    fav.innerHTML = ''; neu.innerHTML = ''; opo.innerHTML = '';
+    var rows = document.querySelectorAll('#actores-body tr');
+    var counts = {fav:0, neu:0, opo:0};
+    rows.forEach(function(row) {
+      var inputs = row.querySelectorAll('input[type="text"], select');
+      if (inputs.length < 3) return;
+      var nombre = inputs[0].value.trim();
+      var posicion = inputs[2].value;
+      if (!nombre) return;
+      var tag = document.createElement('span');
+      tag.className = 'actor-tag';
+      tag.textContent = nombre;
+      if (posicion === 'Favorable') { fav.appendChild(tag); counts.fav++; }
+      else if (posicion === 'Neutral') { neu.appendChild(tag); counts.neu++; }
+      else { opo.appendChild(tag); counts.opo++; }
+    });
+    if (!counts.fav) fav.innerHTML = '<span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores</span>';
+    if (!counts.neu) neu.innerHTML = '<span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores</span>';
+    if (!counts.opo) opo.innerHTML = '<span style="font-size:12px;color:var(--gris-sec);font-style:italic;">Sin actores</span>';
+  }
+
+  function g(id) { var el = document.getElementById(id); return el ? el.value || '—' : '—'; }
+  function s(id, val) { var el = document.getElementById(id); if (el) el.textContent = val || '—'; }
+
+  function generarResumen() {
+    var casoVal = document.getElementById('caso-select').value;
+    s('r-caso', casoVal ? casosTitulos[casoVal] : '—');
+    s('r-problema', g('problema-texto'));
+    s('r-afectados', g('afectados-texto'));
+    s('r-decision', g('decision-texto'));
+    s('r-objeto', g('objeto-texto'));
+    s('r-legitimidad', g('legitimidad-texto'));
+    s('r-what', g('w-what'));
+    s('r-why', g('w-why'));
+    s('r-who', g('w-who'));
+    s('r-where', g('w-where'));
+    s('r-when', g('w-when'));
+    s('r-how', g('w-how'));
+    s('r-balance', g('balance-texto'));
+    document.getElementById('btn-resumen').style.display = 'flex';
+    irAPaso('presumen');
+  }
+
+  function descargarWord() {
+    var casoVal = document.getElementById('caso-select').value;
+    var casoTitulo = casoVal ? casosTitulos[casoVal] : '—';
+    var casoTexto = casoVal && casos[casoVal]
+      ? casos[casoVal].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+      : '—';
+
+    function fila(label, val) {
+      return '<tr>' +
+        '<td style="background:#e8f4ef;color:#1c6b4a;font-weight:bold;padding:6px 10px;width:35%;border:1px solid #b8dccc;font-size:11pt;">' + label + '</td>' +
+        '<td style="padding:6px 10px;border:1px solid #d8d8d8;font-size:11pt;">' + (val || '—') + '</td>' +
+        '</tr>';
+    }
+
+    var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;margin:2cm;">' +
+
+      // PORTADA
+      '<div style="background:#1c6b4a;color:white;padding:40px 30px;margin-bottom:30px;">' +
+        '<p style="font-size:36pt;font-weight:bold;color:#e8b84b;margin:0;">' + (casoVal ? 'Caso ' + casoVal : '—') + '</p>' +
+        '<p style="font-size:16pt;font-weight:bold;color:white;margin:10px 0 0;">' + casoTitulo + '</p>' +
+        '<p style="font-size:10pt;color:#e8b84b;margin:16px 0 0;font-style:italic;">Notebook Cooperativa · Plan de Incidencia Política</p>' +
+      '</div>' +
+
+      // CASO
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">El Caso</h2>' +
+      '<div style="background:#e8f4ef;border-left:4px solid #1c6b4a;padding:14px 16px;margin-bottom:24px;font-size:11pt;line-height:1.6;">' +
+        casoTexto +
+      '</div>' +
+
+      // PASO 1
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">Paso 1 — El Problema</h2>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">' +
+        fila('Problema formulado', g('problema-texto')) +
+        fila('A quiénes afecta', g('afectados-texto')) +
+        fila('Decisión pública que lo produce', g('decision-texto')) +
+      '</table>' +
+
+      // PASO 2
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">Paso 2 — Objeto de Cambio</h2>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">' +
+        fila('Objeto de cambio', g('objeto-texto')) +
+        fila('Legitimidad cooperativa', g('legitimidad-texto')) +
+      '</table>' +
+
+      // PASO 3 ACTORES
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">Paso 3 — Mapa de Actores</h2>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">' +
+        '<tr style="background:#1c6b4a;color:white;">' +
+          '<th style="padding:7px 10px;text-align:left;font-size:11pt;">Actor</th>' +
+          '<th style="padding:7px 10px;text-align:left;font-size:11pt;">Tipo</th>' +
+          '<th style="padding:7px 10px;text-align:left;font-size:11pt;">Posición</th>' +
+          '<th style="padding:7px 10px;text-align:left;font-size:11pt;">Estrategia</th>' +
+        '</tr>' +
+        (function() {
+          var rows = '';
+          document.querySelectorAll('#actores-body tr').forEach(function(tr, i) {
+            var inputs = tr.querySelectorAll('input[type="text"], select');
+            if (inputs.length < 4) return;
+            var nombre = inputs[0].value.trim();
+            if (!nombre) return;
+            var bg = i % 2 === 0 ? 'white' : '#f7f7f5';
+            rows += '<tr style="background:' + bg + ';">' +
+              '<td style="padding:6px 10px;border:1px solid #d8d8d8;font-size:11pt;">' + nombre + '</td>' +
+              '<td style="padding:6px 10px;border:1px solid #d8d8d8;font-size:11pt;">' + inputs[1].value + '</td>' +
+              '<td style="padding:6px 10px;border:1px solid #d8d8d8;font-size:11pt;">' + inputs[2].value + '</td>' +
+              '<td style="padding:6px 10px;border:1px solid #d8d8d8;font-size:11pt;">' + inputs[3].value + '</td>' +
+              '</tr>';
+          });
+          return rows || '<tr><td colspan="4" style="padding:6px 10px;color:#aaa;font-style:italic;font-size:11pt;">Sin actores registrados</td></tr>';
+        })() +
+      '</table>' +
+
+      // PASO 4 5W1H
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">Paso 4 — Plan 5W1H</h2>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">' +
+        fila('WHAT — ¿Qué cambio concreto se propone', g('w-what')) +
+        fila('WHY — ¿Por qué es necesario', g('w-why')) +
+        fila('WHO — ¿Quién decide y quién representa', g('w-who')) +
+        fila('WHERE — ¿En qué institución o espacio', g('w-where')) +
+        fila('WHEN — ¿Cuál es el momento estratégico', g('w-when')) +
+        fila('HOW — ¿Cómo se ejecuta', g('w-how')) +
+      '</table>' +
+
+      // PASO 5 CIERRE
+      '<h2 style="color:#1c6b4a;border-bottom:2px solid #e8f4ef;padding-bottom:6px;font-size:14pt;">Paso 5 — Balance Social</h2>' +
+      '<div style="background:#e8f4ef;border-left:4px solid #1c6b4a;padding:14px 16px;font-size:11pt;line-height:1.6;">' +
+        (g('balance-texto') || '—') +
+      '</div>' +
+
+      '</body></html>';
+
+    var docx = htmlDocx.asBlob(html, { orientation: 'portrait', margins: { top: 720, bottom: 720, left: 900, right: 900 } });
+    var url = URL.createObjectURL(docx);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Plan-Incidencia-Cooperativa.docx';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>

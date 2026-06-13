@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construyamos un perfil — Trabajo en equipo</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>:root {
+  --verde: #1c6b4a; --verde-sec: #2fa36b; --verde-claro: #e8f4ef; --verde-borde: #b8dccc;
+  --amarillo: #f4c20d; --blanco: #ffffff; --gris-bg: #f7f7f5; --gris-borde: #e4e4e0;
+  --texto: #1a1a18; --texto-sec: #3a3a36; --texto-ter: #6a6a64; --radio: 10px; --radio-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: var(--gris-bg); color: var(--texto); font-size: 16px; line-height: 1.6; min-height: 100vh; }
+.shell { display: flex; min-height: 100vh; }
+.sidebar { width: 250px; flex-shrink: 0; border-right: 1px solid var(--gris-borde); background: var(--blanco); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+.nb-marca { display: block; padding: 1.5rem 1.25rem 1.25rem; border-bottom: 1px solid var(--gris-borde); flex-shrink: 0; color: inherit; text-decoration: none; }
+.nb-wordmark { margin-bottom: 4px; line-height: 1; }
+.nb-wm-coop { font-size: 17px; font-weight: 700; color: var(--verde); letter-spacing: -0.02em; }
+.nb-wm-notebook { font-size: 17px; font-weight: 400; color: var(--texto); letter-spacing: -0.02em; }
+.nb-marca-titulo { font-size: 11px; font-weight: 500; color: var(--verde); display: block; margin-top: 3px; }
+.nb-nav { list-style: none; padding: .5rem 0; flex: 1; overflow-y: auto; }
+.nb-nav li { margin: 0; }
+.nb-nav a { width: 100%; text-align: left; background: none; border: none; padding: .6rem 1.25rem; font-size: 13px; color: var(--texto-sec); cursor: pointer; font-family: inherit; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; transition: background .12s, color .12s; border-left: 3px solid transparent; text-decoration: none; }
+.nb-nav a:hover, .nb-nav a.activo { background: var(--verde-claro); color: var(--verde); font-weight: 500; border-left-color: var(--verde); }
+.nb-nav-num { font-size: 10px; font-weight: 600; color: var(--texto-ter); min-width: 18px; padding-top: 1px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.nb-nav a:hover .nb-nav-num, .nb-nav a.activo .nb-nav-num { color: var(--verde-sec); }
+.main { flex: 1; padding: 1.5rem; min-width: 0; }
+.wrap { max-width: 760px; margin: 0 auto; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 2.25rem 2.5rem; }
+.cab-marca { display: flex; align-items: baseline; gap: 4px; margin-bottom: 1.25rem; }
+.cab-coop { font-size: 15px; font-weight: 700; color: var(--verde); letter-spacing: -0.02em; }
+.cab-notebook { font-size: 15px; font-weight: 400; color: var(--texto); letter-spacing: -0.02em; }
+h1 { font-size: 25px; font-weight: 600; line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .55rem; border-radius: 2px; }
+.intro { font-size: 15px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 1.5rem; }
+.intro strong { color: var(--texto); font-weight: 600; }
+.seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2rem 0 .9rem; }
+.pasos { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0 1.75rem; }
+.paso { display: flex; gap: .875rem; align-items: flex-start; }
+.paso-num { width: 24px; height: 24px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.paso-texto { font-size: 14.5px; color: var(--texto-sec); line-height: 1.55; }
+.paso-texto strong { color: var(--texto); font-weight: 600; }
+.callout { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1rem 1.25rem; font-size: 14px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.callout strong { color: var(--verde); font-weight: 600; }
+.casos-grid { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0; }
+.caso-card { border: 1.5px solid var(--gris-borde); border-radius: var(--radio); padding: 1rem 1.2rem; cursor: pointer; transition: border-color .15s, background .15s; display: flex; gap: .9rem; align-items: flex-start; }
+.caso-card:hover { background: var(--verde-claro); border-color: var(--verde-borde); }
+.caso-num { width: 26px; height: 26px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.caso-card-cont { flex: 1; }
+.caso-card-titulo { font-size: 15px; font-weight: 600; color: var(--texto); margin-bottom: .2rem; }
+.caso-card-desc { font-size: 13.5px; color: var(--texto-sec); line-height: 1.5; }
+.caso-flecha { color: var(--texto-ter); font-size: 18px; flex-shrink: 0; align-self: center; }
+#vistaTrabajo { display: none; }
+.volver { display: inline-flex; align-items: center; gap: .4rem; font-size: 13px; color: var(--verde); background: none; border: none; cursor: pointer; font-family: inherit; padding: .4rem 0; margin-bottom: 1rem; }
+.volver:hover { text-decoration: underline; }
+.caso-activo-banner { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1.1rem 1.35rem; margin-bottom: 1.5rem; }
+.caso-activo-label { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--verde); margin-bottom: .35rem; }
+.caso-activo-titulo { font-size: 18px; font-weight: 600; color: var(--texto); line-height: 1.3; margin-bottom: .35rem; }
+.caso-activo-texto { font-size: 14.5px; color: var(--texto-sec); line-height: 1.5; }
+.caso-activo-pregunta { font-size: 14px; color: var(--texto-sec); margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(--verde-borde); }
+.ref-intro { font-size: 13.5px; color: var(--texto-sec); line-height: 1.6; margin-bottom: 1rem; }
+.ref-grupo-h { font-size: 13px; font-weight: 600; color: var(--verde); margin: 1.25rem 0 .6rem; }
+.art-card { margin-bottom: .6rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
+.art-card-header { padding: .7rem 1rem; display: flex; align-items: center; cursor: pointer; transition: background .15s; gap: .7rem; min-height: 44px; }
+.art-card-header:hover { background: var(--gris-bg); }
+.art-num { font-size: 12px; font-weight: 700; color: var(--verde); flex-shrink: 0; }
+.art-ley { font-size: 10px; font-weight: 600; color: var(--texto-ter); background: var(--gris-bg); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.art-resumen { font-size: 13.5px; color: var(--texto); flex: 1; }
+.art-chev { width: 16px; height: 16px; flex-shrink: 0; color: var(--texto-ter); transition: transform .2s; }
+.art-card.abierto .art-chev { transform: rotate(180deg); }
+.art-texto { display: none; padding: .85rem 1rem; font-size: 13px; color: var(--texto-sec); line-height: 1.7; border-top: 1px solid var(--gris-borde); background: var(--gris-bg); }
+.art-card.abierto .art-texto { display: block; }
+.ref-aviso { font-size: 12px; color: var(--texto-ter); margin-top: 1rem; line-height: 1.5; padding: .75rem 1rem; border: 1px dashed var(--gris-borde); border-radius: var(--radio-sm); }
+/* Capas con listas */
+.capa { margin-bottom: 1.75rem; }
+.capa-titulo { font-size: 15px; font-weight: 600; color: var(--verde); margin-bottom: .15rem; }
+.capa-sub { font-size: 13px; color: var(--texto-ter); margin-bottom: .7rem; }
+.lineas { display: flex; flex-direction: column; gap: .5rem; min-height: 8px; }
+.lineas.drag-over { outline: 2px dashed var(--verde-sec); outline-offset: 3px; border-radius: var(--radio-sm); }
+.linea { display: flex; align-items: center; gap: .4rem; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .35rem .4rem .35rem .55rem; transition: box-shadow .15s, opacity .15s; }
+.linea.dragging { opacity: .4; }
+.linea-handle { cursor: grab; color: var(--texto-ter); font-size: 15px; padding: 0 .25rem; user-select: none; flex-shrink: 0; touch-action: none; }
+.linea-handle:active { cursor: grabbing; }
+.linea input { flex: 1; min-width: 0; font-family: inherit; font-size: 15px; padding: .5rem .4rem; border: none; color: var(--texto); background: transparent; }
+.linea input:focus { outline: none; }
+.linea-btns { display: flex; gap: 1px; flex-shrink: 0; }
+.minibtn { width: 30px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: none; background: none; color: var(--texto-ter); cursor: pointer; border-radius: 4px; font-size: 14px; line-height: 1; }
+.minibtn:hover { background: var(--gris-bg); color: var(--verde); }
+.minibtn.del:hover { color: #c0392b; background: #fdecea; }
+.minibtn:disabled { opacity: .25; cursor: default; }
+.minibtn svg { width: 15px; height: 15px; }
+.add-linea { margin-top: .55rem; display: inline-flex; align-items: center; gap: .4rem; font-family: inherit; font-size: 13.5px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); padding: .5rem .9rem; cursor: pointer; min-height: 40px; }
+.add-linea:hover { background: #ddeee5; }
+/* Menú mover */
+.mover-pop { position: fixed; z-index: 50; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); box-shadow: 0 6px 24px rgba(0,0,0,.14); padding: .4rem; min-width: 190px; }
+.mover-pop-h { font-size: 11px; color: var(--texto-ter); padding: .35rem .6rem .45rem; text-transform: uppercase; letter-spacing: .05em; }
+.mover-opt { display: block; width: 100%; text-align: left; background: none; border: none; font-family: inherit; font-size: 14px; color: var(--texto); padding: .55rem .6rem; border-radius: var(--radio-sm); cursor: pointer; }
+.mover-opt:hover { background: var(--verde-claro); }
+.mover-opt:disabled { opacity: .35; cursor: default; }
+.mover-backdrop { position: fixed; inset: 0; z-index: 49; }
+.formula-nota { background: var(--gris-bg); border-left: 3px solid var(--amarillo); padding: .85rem 1.1rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; font-size: 13.5px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.formula-nota strong { color: var(--texto); font-weight: 600; }
+.acciones { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.btn { font-family: inherit; font-size: 15px; font-weight: 600; padding: .75rem 1.4rem; border-radius: var(--radio-sm); cursor: pointer; border: 1px solid transparent; min-height: 44px; transition: background .15s, border-color .15s; }
+.btn-primario { background: var(--verde); color: #fff; }
+.btn-primario:hover { background: #155539; }
+.btn-sec { background: var(--blanco); color: var(--verde); border-color: var(--verde-borde); }
+.btn-sec:hover { background: var(--verde-claro); }
+.aviso { font-size: 13px; color: var(--texto-ter); margin-top: .9rem; line-height: 1.5; }
+/* Boton hamburguesa y overlay para navegacion interna en mobile */
+.nb-toggle { display: none; }
+.nb-overlay { display: none; }
+.nb-cerrar { display: none; }
+@media (max-width: 700px) {
+  .nb-toggle {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; top: 12px; left: 12px; z-index: 50;
+    width: 44px; height: 44px;
+    background: var(--blanco); border: 1px solid var(--gris-borde);
+    border-radius: var(--radio-sm); cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    padding: 0;
+  }
+  .nb-toggle svg { width: 22px; height: 22px; color: var(--verde); }
+  .sidebar {
+    display: flex;
+    position: fixed; top: 0; left: 0; z-index: 60;
+    width: 82%; max-width: 320px; height: 100vh;
+    border-right: 1px solid var(--gris-borde); border-bottom: none;
+    transform: translateX(-100%);
+    transition: transform .26s ease;
+    box-shadow: 2px 0 16px rgba(0,0,0,.12);
+  }
+  .sidebar.abierto { transform: translateX(0); }
+  .nb-cerrar {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 14px; right: 14px;
+    width: 36px; height: 36px;
+    background: none; border: none; cursor: pointer; padding: 0;
+    color: var(--texto-ter);
+  }
+  .nb-cerrar svg { width: 22px; height: 22px; }
+  .nb-nav a { min-height: 44px; }
+  .nb-overlay {
+    display: block; position: fixed; inset: 0; z-index: 55;
+    background: rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity .26s ease;
+  }
+  .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+  .main { padding: 4.5rem .75rem .75rem; }
+  .wrap { padding: 1.5rem 1.25rem; } h1 { font-size: 21px; }
+  .btn { width: 100%; } .linea-handle { display: none; }
+}
+</style>
+</head>
+<body>
+<button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<div class="shell">
+<nav class="sidebar">
+  <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a class="nb-marca" href="../index.html" aria-label="Volver a herramientas">
+    <div class="nb-wordmark"><span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span></div>
+    <span class="nb-marca-titulo">Trabajo en equipo</span>
+  </a>
+  <ul class="nb-nav">
+    <li><a class="activo" href="#vistaPortada"><span class="nb-nav-num">00</span>Inicio</a></li>
+    <li><a href="#vistaTrabajo"><span class="nb-nav-num">01</span>Trabajo del perfil</a></li>
+    <li><a href="#referenciaLegal"><span class="nb-nav-num">02</span>Referencia legal</a></li>
+    <li><a href="#perfilCapas"><span class="nb-nav-num">03</span>Capas del perfil</a></li>
+    <li><a href="#conclusionPerfil"><span class="nb-nav-num">04</span>Conclusion</a></li>
+  </ul>
+</nav>
+<main class="main">
+<div class="wrap">
+  <div class="cab-marca"><span class="cab-coop">Coop</span><span class="cab-notebook">Notebook</span></div>
+
+  <div id="vistaPortada">
+    <h1>Construyamos un perfil</h1>
+    <p class="intro">Cada equipo arma <strong>un perfil de liderazgo cooperativo</strong> desde la mirada del afiliado/a. No buscamos un experto en recursos humanos: pensamos juntos qué importa al elegir, qué nos falta para crecer y qué liderazgo necesita nuestra cooperativa.</p>
+    <p class="seccion-h">Cómo trabajamos</p>
+    <div class="pasos">
+      <div class="paso"><div class="paso-num">1</div><div class="paso-texto"><strong>Cada equipo elige un solo caso.</strong> No se trabajan todos: solo el que les toque.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-texto">Consulten la <strong>referencia legal</strong> de funciones y atribuciones para fundamentar el perfil.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-texto">Agreguen líneas en cada capa: <strong>saber, saber hacer y saber ser.</strong> Pueden reordenar y mover entre capas.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-texto"><strong>Descarguen su trabajo</strong> en PDF, Word o PowerPoint para presentarlo.</div></div>
+    </div>
+    <div class="callout"><strong>Recuerden:</strong> cada equipo presenta un caso distinto. Al final, entre todos, tendremos una mirada completa sobre el liderazgo cooperativo.</div>
+    <p class="seccion-h">Elijan su caso</p>
+    <div class="casos-grid" id="casosGrid"></div>
+  </div>
+
+  <div id="vistaTrabajo">
+    <button class="volver" id="btnVolver">&larr; Elegir otro caso</button>
+    <div class="caso-activo-banner">
+      <div class="caso-activo-label" id="casoActivoLabel">Caso</div>
+      <div class="caso-activo-titulo" id="casoActivoTitulo"></div>
+      <div class="caso-activo-texto" id="casoActivoTexto"></div>
+      <div class="caso-activo-pregunta" id="casoActivoPregunta"></div>
+    </div>
+
+    <p class="seccion-h" id="referenciaLegal">Referencia legal — funciones y atribuciones</p>
+    <p class="ref-intro">Consulten estos artículos al armar el perfil: indican lo que el cargo realmente exige. Tóquenlos para ver el texto.</p>
+    <div class="ref-grupo-h">Junta Directiva</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 29-A</span><span class="art-ley">LCH</span><span class="art-resumen">Atribuciones de la Junta Directiva</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">Son atribuciones de la Junta Directiva, entre otras: cumplir y hacer cumplir la Ley, el Reglamento, el Estatuto Social y los acuerdos de la Asamblea General; dictar las medidas necesarias para la buena administración; elaborar el presupuesto anual y los reglamentos internos; presentar los informes a la Asamblea General; nombrar, contratar y remover al personal; y ejercer la representación legal cuando no se hubiere nombrado gerente.</div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 29</span><span class="art-ley">LCH</span><span class="art-resumen">Responsabilidad solidaria</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">Los miembros de la Junta Directiva son solidariamente responsables de los actos que realicen en el ejercicio de sus funciones, salvo que hubieren hecho constar su disconformidad en el acta respectiva.</div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 28</span><span class="art-ley">LCH</span><span class="art-resumen">Requisitos para ser directivo/a</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">Para ser miembro de los órganos directivos se requiere, entre otros: ser afiliado/a activo de la cooperativa; estar al día en sus compromisos con la cooperativa; no haber sido condenado/a por delitos contra la propiedad o la fe pública; y los demás requisitos que establezca el Estatuto Social.</div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 71</span><span class="art-ley">RLCH</span><span class="art-resumen">Delegación de funciones</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">La Junta Directiva podrá delegar el ejercicio de determinadas atribuciones, sin que ello implique la pérdida de su propia responsabilidad. Formar relevos y delegar es parte de la función directiva.</div></div>
+    <div class="ref-grupo-h">Junta de Vigilancia</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 33</span><span class="art-ley">LCH</span><span class="art-resumen">Atribuciones de la Junta de Vigilancia</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">Son atribuciones de la Junta de Vigilancia, entre otras: fiscalizar las actividades económicas; examinar los libros y la contabilidad; verificar la existencia de los bienes sociales; asistir a sesiones de la Junta Directiva con voz pero sin voto; dar cuenta a la Asamblea de las irregularidades observadas; y convocar a Asamblea cuando la Junta Directiva se negare a hacerlo.</div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 32</span><span class="art-ley">LCH</span><span class="art-resumen">Integración y responsabilidad solidaria</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto">La Asamblea General elige de su seno la Junta de Vigilancia, en número impar no menor de 3 ni mayor de 7, más un suplente. Es solidariamente responsable con la Junta Directiva cuando hubiere omisión o negligencia en el cumplimiento de sus funciones.</div></div>
+    <p class="ref-aviso">Nota: los textos se incluyen como referencia de apoyo. Antes de usar el material en sesión formal, verifiquen el número y el texto exacto contra la LCH (Decreto 65-87 y reformas) y su Reglamento (Acuerdo 041-2014).</p>
+
+    <p class="seccion-h" id="perfilCapas">Armen el perfil en tres capas</p>
+    <div class="capa">
+      <div class="capa-titulo">Saber</div>
+      <div class="capa-sub">Los conocimientos: la ley, la cooperativa, las funciones del cargo.</div>
+      <div class="lineas" data-capa="saber"></div>
+      <button class="add-linea" data-capa="saber">+ Agregar línea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Saber hacer</div>
+      <div class="capa-sub">Las habilidades: comunicar, escuchar, negociar, trabajar en equipo, manejar conflictos.</div>
+      <div class="lineas" data-capa="hacer"></div>
+      <button class="add-linea" data-capa="hacer">+ Agregar línea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Saber ser</div>
+      <div class="capa-sub">La actitud y los valores: servicio, integridad, coherencia, disposición a aprender.</div>
+      <div class="lineas" data-capa="ser"></div>
+      <button class="add-linea" data-capa="ser">+ Agregar línea</button>
+    </div>
+
+    <div class="formula-nota"><strong>Recuerden la fórmula:</strong> V = (C + H) × A. Los conocimientos y las habilidades se suman, pero la actitud multiplica. ¿Cuánto peso le dan al "saber ser"?</div>
+
+    <div class="capa" id="conclusionPerfil">
+      <div class="capa-titulo">La conclusión del equipo</div>
+      <div class="capa-sub">En una o dos frases: ¿qué es lo más importante de este perfil?</div>
+      <div class="lineas" data-capa="concl"></div>
+      <button class="add-linea" data-capa="concl">+ Agregar línea</button>
+    </div>
+
+    <div class="acciones">
+      <button class="btn btn-primario" id="btnPDF">Descargar PDF</button>
+      <button class="btn btn-sec" id="btnWord">Descargar Word</button>
+      <button class="btn btn-sec" id="btnPPT">Descargar PowerPoint</button>
+      <button class="btn btn-sec" id="btnLimpiar">Limpiar</button>
+    </div>
+    <p class="aviso">PDF y Word: documento completo. PowerPoint: una diapositiva por capa, y si una capa tiene más de 3 líneas se reparte en diapositivas adicionales. El PPT requiere conexión a internet.</p>
+  </div>
+</div>
+</main>
+</div>
+
+<script>
+function abrirMenu() {
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu() {
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+document.querySelectorAll('.nb-nav a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+    a.classList.add('activo');
+    if (window.innerWidth <= 700) cerrarMenu();
+  });
+});
+const CASOS = [
+  { t: "El perfil de quien quiero elegir", d: "¿En qué deberíamos fijarnos al votar por la Junta Directiva o la Junta de Vigilancia?", p: "Piensen en la próxima elección: ¿qué cualidades y competencias buscarían en quien reciba su voto?" },
+  { t: "Mi propio perfil", d: "¿Qué ya tenemos y qué nos falta aprender para llegar a un cargo directivo?", p: "Hagan un autodiagnóstico honesto del equipo: fortalezas que ya traen y lo que necesitan desarrollar." },
+  { t: "El perfil para un comité", d: "Si tuviéramos que elegir a alguien para presidir o integrar un comité, ¿qué buscaríamos?", p: "Elijan un comité (educación, género, crédito...) y definan el perfil de quien debería integrarlo." },
+  { t: "El perfil que le falta a mi cooperativa", d: "¿Qué tipo de liderazgo necesita hoy nuestra cooperativa y todavía no tiene?", p: "Miren su realidad: ¿qué competencias o actitudes hacen falta en quienes hoy dirigen?" },
+  { t: "El relevo", d: "¿A quién estamos formando para que tome nuestro lugar, y qué necesita desarrollar?", p: "Piensen en la persona que viene detrás: ¿qué perfil tiene y qué le falta para asumir el cargo?" }
+];
+const CAPAS = { saber:"Saber — conocimientos", hacer:"Saber hacer — habilidades", ser:"Saber ser — actitud", concl:"Conclusión del equipo" };
+
+let casoSel = -1;
+const grid = document.getElementById('casosGrid');
+const vistaPortada = document.getElementById('vistaPortada');
+const vistaTrabajo = document.getElementById('vistaTrabajo');
+
+CASOS.forEach((c, i) => {
+  const card = document.createElement('div');
+  card.className = 'caso-card';
+  card.innerHTML = '<span class="caso-num">' + (i+1) + '</span><div class="caso-card-cont"><div class="caso-card-titulo">' + c.t + '</div><div class="caso-card-desc">' + c.d + '</div></div><span class="caso-flecha">&rarr;</span>';
+  card.addEventListener('click', () => abrirCaso(i));
+  grid.appendChild(card);
+});
+
+function abrirCaso(i) {
+  casoSel = i;
+  document.getElementById('casoActivoLabel').textContent = 'Caso ' + (i+1) + ' de ' + CASOS.length;
+  document.getElementById('casoActivoTitulo').textContent = CASOS[i].t;
+  document.getElementById('casoActivoTexto').textContent = CASOS[i].d;
+  document.getElementById('casoActivoPregunta').textContent = CASOS[i].p;
+  vistaPortada.style.display = 'none';
+  vistaTrabajo.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.getElementById('btnVolver').addEventListener('click', () => {
+  vistaTrabajo.style.display = 'none';
+  vistaPortada.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.querySelectorAll('.art-card-header').forEach(h => {
+  h.addEventListener('click', () => h.parentElement.classList.toggle('abierto'));
+});
+
+/* ===== Líneas dinámicas ===== */
+const ICON_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>';
+const ICON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>';
+const ICON_MOVE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>';
+const ICON_DEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
+
+function crearLinea(valor) {
+  const row = document.createElement('div');
+  row.className = 'linea';
+  row.draggable = false;
+  row.innerHTML =
+    '<span class="linea-handle" title="Arrastrar">⠿</span>' +
+    '<input type="text" placeholder="Escriban aquí..." value="' + (valor ? valor.replace(/"/g,'&quot;') : '') + '">' +
+    '<span class="linea-btns">' +
+      '<button class="minibtn up" title="Subir">' + ICON_UP + '</button>' +
+      '<button class="minibtn down" title="Bajar">' + ICON_DOWN + '</button>' +
+      '<button class="minibtn mover" title="Mover a otra capa">' + ICON_MOVE + '</button>' +
+      '<button class="minibtn del" title="Borrar">' + ICON_DEL + '</button>' +
+    '</span>';
+
+  const handle = row.querySelector('.linea-handle');
+  handle.addEventListener('mousedown', () => { row.draggable = true; });
+  handle.addEventListener('touchstart', () => { row.draggable = false; }, {passive:true});
+  row.addEventListener('dragstart', e => { row.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; });
+  row.addEventListener('dragend', () => { row.classList.remove('dragging'); row.draggable = false; refrescarTodo(); });
+
+  row.querySelector('.up').addEventListener('click', () => { const p = row.previousElementSibling; if (p) row.parentNode.insertBefore(row, p); refrescarTodo(); });
+  row.querySelector('.down').addEventListener('click', () => { const n = row.nextElementSibling; if (n) row.parentNode.insertBefore(n, row); refrescarTodo(); });
+  row.querySelector('.del').addEventListener('click', () => { row.remove(); refrescarTodo(); });
+  row.querySelector('.mover').addEventListener('click', e => abrirMover(e, row));
+  return row;
+}
+
+function refrescarTodo() {
+  document.querySelectorAll('.lineas').forEach(cont => {
+    const rows = [...cont.querySelectorAll('.linea')];
+    rows.forEach((r, idx) => {
+      r.querySelector('.up').disabled = (idx === 0);
+      r.querySelector('.down').disabled = (idx === rows.length - 1);
+    });
+  });
+}
+
+document.querySelectorAll('.add-linea').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cont = document.querySelector('.lineas[data-capa="' + btn.dataset.capa + '"]');
+    const row = crearLinea('');
+    cont.appendChild(row);
+    row.querySelector('input').focus();
+    refrescarTodo();
+  });
+});
+
+/* Drag entre listas */
+document.querySelectorAll('.lineas').forEach(cont => {
+  cont.addEventListener('dragover', e => {
+    e.preventDefault();
+    cont.classList.add('drag-over');
+    const dragging = document.querySelector('.linea.dragging');
+    if (!dragging) return;
+    const after = getDragAfter(cont, e.clientY);
+    if (after == null) cont.appendChild(dragging);
+    else cont.insertBefore(dragging, after);
+  });
+  cont.addEventListener('dragleave', () => cont.classList.remove('drag-over'));
+  cont.addEventListener('drop', e => { e.preventDefault(); cont.classList.remove('drag-over'); });
+});
+function getDragAfter(cont, y) {
+  const els = [...cont.querySelectorAll('.linea:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) return { offset, element: child };
+    return closest;
+  }, { offset: -Infinity }).element;
+}
+
+/* Menú mover a otra capa */
+function abrirMover(ev, row) {
+  cerrarMover();
+  const origen = row.closest('.lineas').dataset.capa;
+  const back = document.createElement('div'); back.className = 'mover-backdrop'; back.addEventListener('click', cerrarMover);
+  const pop = document.createElement('div'); pop.className = 'mover-pop';
+  let html = '<div class="mover-pop-h">Mover a...</div>';
+  Object.keys(CAPAS).forEach(k => {
+    html += '<button class="mover-opt" data-dest="' + k + '"' + (k === origen ? ' disabled' : '') + '>' + CAPAS[k] + '</button>';
+  });
+  pop.innerHTML = html;
+  document.body.appendChild(back); document.body.appendChild(pop);
+  const r = ev.currentTarget.getBoundingClientRect();
+  let top = r.bottom + 6, left = Math.min(r.left, window.innerWidth - 210);
+  if (top + 240 > window.innerHeight) top = Math.max(8, r.top - 240);
+  pop.style.top = top + 'px'; pop.style.left = Math.max(8, left) + 'px';
+  pop.querySelectorAll('.mover-opt').forEach(opt => {
+    if (opt.disabled) return;
+    opt.addEventListener('click', () => {
+      const dest = document.querySelector('.lineas[data-capa="' + opt.dataset.dest + '"]');
+      dest.appendChild(row); cerrarMover(); refrescarTodo();
+    });
+  });
+}
+function cerrarMover() {
+  document.querySelectorAll('.mover-pop, .mover-backdrop').forEach(e => e.remove());
+}
+
+document.getElementById('btnLimpiar').addEventListener('click', () => {
+  document.querySelectorAll('.lineas').forEach(c => c.innerHTML = '');
+});
+
+/* ===== Recoger datos ===== */
+function lineasDe(capa) {
+  return [...document.querySelectorAll('.lineas[data-capa="' + capa + '"] .linea input')]
+    .map(i => i.value.trim()).filter(v => v.length > 0);
+}
+function datos() {
+  return { c: CASOS[casoSel], saber: lineasDe('saber'), hacer: lineasDe('hacer'), ser: lineasDe('ser'), concl: lineasDe('concl') };
+}
+function slugCaso() {
+  return (casoSel+1) + '-' + CASOS[casoSel].t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+/* ===== Documento HTML (PDF + Word) ===== */
+function construirDocumento(forWord) {
+  const d = datos();
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const lista = arr => arr.length ? '<ul>' + arr.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '<p class="vacio">(sin respuesta)</p>';
+  const wordMeta = forWord ? '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->' : '';
+  return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
+    + '<head><meta charset="utf-8"><title>Construyamos un perfil</title>' + wordMeta
+    + '<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}'
+    + 'h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}'
+    + '.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}'
+    + 'h2{font-size:11pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}'
+    + '.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}'
+    + 'ul{margin:4pt 0 4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}'
+    + '.formula{background:#1c6b4a;color:#fff;padding:10pt 14pt;margin-top:16pt;text-align:center}.formula b{font-size:15pt}'
+    + '</style></head><body>'
+    + '<div class="marca">CoopNotebook</div><h1>Construyamos un perfil</h1>'
+    + '<div class="caso"><b>Caso ' + (casoSel+1) + ' &mdash; ' + esc(d.c.t) + '</b><br>' + esc(d.c.d) + '</div>'
+    + '<h2>Saber &mdash; conocimientos</h2>' + lista(d.saber)
+    + '<h2>Saber hacer &mdash; habilidades</h2>' + lista(d.hacer)
+    + '<h2>Saber ser &mdash; actitud</h2>' + lista(d.ser)
+    + '<h2>Conclusi&oacute;n del equipo</h2>' + lista(d.concl)
+    + '<div class="formula"><b>V = (C + H) &times; A</b><br>Conocimientos y habilidades se suman; la actitud multiplica.</div>'
+    + '</body></html>';
+}
+
+document.getElementById('btnPDF').addEventListener('click', () => {
+  if (casoSel < 0) return;
+  const html = construirDocumento(false);
+  // iframe oculto: imprime sin abrir popup (que los navegadores bloquean)
+  const old = document.getElementById('print-frame');
+  if (old) old.remove();
+  const frame = document.createElement('iframe');
+  frame.id = 'print-frame';
+  frame.style.position = 'fixed';
+  frame.style.right = '0'; frame.style.bottom = '0';
+  frame.style.width = '0'; frame.style.height = '0';
+  frame.style.border = '0';
+  document.body.appendChild(frame);
+  const fdoc = frame.contentWindow.document;
+  fdoc.open(); fdoc.write(html); fdoc.close();
+  const lanzar = () => {
+    try { frame.contentWindow.focus(); frame.contentWindow.print(); }
+    catch (e) { window.print(); }
+  };
+  if (frame.contentWindow.document.readyState === 'complete') setTimeout(lanzar, 300);
+  else frame.onload = () => setTimeout(lanzar, 300);
+});
+document.getElementById('btnWord').addEventListener('click', () => {
+  if (casoSel < 0) return;
+  const blob = new Blob(['\ufeff' + construirDocumento(true)], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'perfil-caso-' + slugCaso() + '.doc';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+/* ===== PowerPoint dinámico ===== */
+const MAX_POR_SLIDE = 3;
+document.getElementById('btnPPT').addEventListener('click', () => {
+  if (casoSel < 0) return;
+  if (typeof PptxGenJS === 'undefined') { alert('No se pudo cargar la herramienta de PowerPoint. Verifiquen la conexión a internet e inténtenlo de nuevo.'); return; }
+  const d = datos();
+  const pptx = new PptxGenJS();
+  pptx.defineLayout({ name: 'W', width: 13.333, height: 7.5 });
+  pptx.layout = 'W';
+  const VERDE = '1C6B4A', AMAR = 'F4C20D', GRIS = '3A3A36', CLARO = 'E8F4EF';
+
+  // Portada
+  let s = pptx.addSlide();
+  s.background = { color: 'FFFFFF' };
+  s.addText('CoopNotebook', { x: 0.6, y: 0.5, fontSize: 14, bold: true, color: VERDE });
+  s.addText('Construyamos un perfil', { x: 0.6, y: 2.4, w: 12, fontSize: 40, bold: true, color: '1A1A18' });
+  s.addShape(pptx.ShapeType.rect, { x: 0.65, y: 3.5, w: 1.6, h: 0.08, fill: { color: VERDE } });
+  s.addText('Caso ' + (casoSel+1) + ' — ' + d.c.t, { x: 0.6, y: 3.8, w: 12, fontSize: 22, color: VERDE, bold: true });
+  s.addText(d.c.d, { x: 0.6, y: 4.6, w: 11.5, fontSize: 16, color: GRIS });
+
+  // Capas → slides (parte si > MAX_POR_SLIDE)
+  const capas = [['Saber — conocimientos', d.saber], ['Saber hacer — habilidades', d.hacer], ['Saber ser — actitud', d.ser], ['Conclusión del equipo', d.concl]];
+  capas.forEach(([titulo, items]) => {
+    const arr = items.length ? items : ['(sin respuesta)'];
+    const total = Math.ceil(arr.length / MAX_POR_SLIDE);
+    for (let p = 0; p < total; p++) {
+      const trozo = arr.slice(p * MAX_POR_SLIDE, (p+1) * MAX_POR_SLIDE);
+      const sl = pptx.addSlide();
+      sl.background = { color: 'FFFFFF' };
+      sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.25, h: 7.5, fill: { color: VERDE } });
+      const tit = titulo + (total > 1 ? '  (' + (p+1) + '/' + total + ')' : '');
+      sl.addText(tit, { x: 0.8, y: 0.55, w: 11.8, fontSize: 30, bold: true, color: VERDE });
+      sl.addShape(pptx.ShapeType.rect, { x: 0.85, y: 1.5, w: 1.4, h: 0.07, fill: { color: AMAR } });
+      const bullets = trozo.map(t => ({ text: t, options: { bullet: { code: '2022' }, color: '1A1A18', fontSize: 22, paraSpaceAfter: 14 } }));
+      sl.addText(bullets, { x: 0.95, y: 1.95, w: 11.4, h: 4.8, valign: 'top' });
+      sl.addText('Caso ' + (casoSel+1) + ' — ' + d.c.t, { x: 0.8, y: 6.95, w: 11.8, fontSize: 11, color: '6A6A64' });
+    }
+  });
+
+  // Cierre fórmula
+  const sf = pptx.addSlide();
+  sf.background = { color: VERDE };
+  sf.addText('V = (C + H) × A', { x: 0.5, y: 2.7, w: 12.3, align: 'center', fontSize: 48, bold: true, color: 'FFFFFF' });
+  sf.addText('Conocimientos y habilidades se suman. La actitud multiplica.', { x: 1, y: 4.1, w: 11.3, align: 'center', fontSize: 20, color: 'D8EDE2' });
+
+  pptx.writeFile({ fileName: 'perfil-caso-' + slugCaso() + '.pptx' });
+});
+</script>
+</body>
+</html>

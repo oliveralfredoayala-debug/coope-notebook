@@ -1,0 +1,60 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function activityPath(activityId) {
+      return /databases/$(database)/documents/activities/$(activityId);
+    }
+
+    function isOwner() {
+      return signedIn() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /diagnostics/{uid} {
+      allow create, update: if signedIn() && uid == request.auth.uid;
+      allow read, delete: if false;
+    }
+
+    match /activities/{activityId} {
+      allow create: if signedIn()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == "active"
+        && request.resource.data.question is string
+        && request.resource.data.options is list
+        && request.resource.data.responseMode in ["single", "multi"]
+        && request.resource.data.accessHash is string
+        && request.resource.data.hasAccessKey is bool
+        && request.resource.data.options.size() >= 2
+        && request.resource.data.options.size() <= 6;
+
+      allow read: if signedIn()
+        && resource.data.status in ["active", "closed"];
+
+      allow update: if isOwner()
+        && request.resource.data.ownerUid == resource.data.ownerUid;
+
+      allow delete: if isOwner();
+
+      match /responses/{participantUid} {
+        allow create, update: if signedIn()
+          && exists(activityPath(activityId))
+          && get(activityPath(activityId)).data.status == "active"
+          && participantUid == request.auth.uid
+          && request.resource.data.participantUid == request.auth.uid
+          && request.resource.data.answers is list
+          && request.resource.data.answers.size() >= 1
+          && request.resource.data.answers.size() <= 6;
+
+        allow read: if signedIn()
+          && exists(activityPath(activityId))
+          && get(activityPath(activityId)).data.status in ["active", "closed"];
+
+        allow delete: if false;
+      }
+    }
+  }
+}

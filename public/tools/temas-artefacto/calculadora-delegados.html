@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de delegados</title>
+<style>
+:root{
+  --verde:#1c6b4a;--verde-sec:#2fa36b;--amarillo:#f4c20d;--blanco:#ffffff;
+  --gris-bg:#f7f7f5;--gris-borde:#e4e4e0;--texto:#1a1a18;--texto-sec:#3a3a36;--texto-ter:#6a6a64;
+  --radio:10px;--radio-sm:6px;
+  --t-a:#a7cf94;--t-b:#f3cbc0;--t-c:#bcd4e6;--t-d:#f6e2a8;--t-e:#cfe3bf;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--blanco);color:var(--texto);font-size:16px;line-height:1.65;min-height:100vh}
+.shell{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:240px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.nb-marca{display:block;padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--gris-borde);flex-shrink:0;color:inherit;text-decoration:none}
+.nb-wordmark{margin-bottom:4px;line-height:1}
+.nb-wm-coop{font-size:17px;font-weight:700;color:#1c6b4a;letter-spacing:-0.02em}
+.nb-wm-notebook{font-size:17px;font-weight:400;color:#1a1a18;letter-spacing:-0.02em}
+.nb-marca-titulo{font-size:11px;font-weight:500;color:var(--verde);display:block;margin-top:3px}
+.nb-nav{list-style:none;padding:.5rem 0;flex:1;overflow-y:auto}
+.nb-nav button{width:100%;text-align:left;background:none;border:none;padding:.6rem 1.25rem;font-size:13px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .12s,color .12s;border-left:3px solid transparent}
+.nb-nav button:hover{background:var(--gris-bg);color:var(--texto)}
+.nb-nav button.activo{background:#e8f4ef;color:var(--verde);font-weight:500;border-left-color:var(--verde)}
+.nb-nav-num{font-size:10px;font-weight:600;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.nb-nav button.activo .nb-nav-num{color:var(--verde-sec)}
+.nb-conceptos{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);flex-shrink:0}
+.nb-conceptos-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.6rem;display:block}
+.nb-tags{display:flex;flex-wrap:wrap;gap:5px}
+.nb-tag{font-size:11px;color:var(--verde);background:#e8f4ef;padding:3px 8px;border-radius:20px}
+
+/* MAIN */
+.main{flex:1;max-width:800px;padding:3rem 3.5rem;overflow-y:auto}
+.panel{display:none}
+.panel.activo{display:block}
+
+/* T�?TULOS */
+.cap-titulo{font-size:26px;font-weight:600;color:var(--texto);line-height:1.25;margin-bottom:.4rem;padding-bottom:.5rem;position:relative}
+.cap-titulo::after{content:'';display:block;width:2.5rem;height:3px;background:var(--verde);margin-top:.5rem;border-radius:2px}
+.cap-meta{font-size:12px;color:var(--texto-ter);margin-bottom:2rem}
+.cap-intro{font-size:15px;color:var(--texto-sec);line-height:1.7;margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--gris-borde)}
+.cap-intro strong{color:var(--texto);font-weight:500}
+.sec-h{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin:2.5rem 0 1rem}
+
+/* PORTADA */
+.portada-bullets{margin:0 0 2rem 0;list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.portada-bullets li{font-size:14px;color:var(--texto-sec);display:flex;align-items:flex-start;gap:.625rem;line-height:1.5}
+.portada-bullets li::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--verde-sec);flex-shrink:0;margin-top:6px}
+.portada-bullets li strong{color:var(--texto);font-weight:500}
+
+/* TABLA */
+.tabla-wrap{margin:1.25rem 0;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.tabla-wrap table{width:100%;border-collapse:collapse;font-size:14px}
+.tabla-wrap thead tr{background:var(--verde)}
+.tabla-wrap thead th{padding:.65rem 1rem;color:var(--blanco);font-weight:500;text-align:left;font-size:13px}
+.tabla-wrap tbody tr{border-bottom:1px solid var(--gris-borde)}
+.tabla-wrap tbody tr:last-child{border-bottom:none}
+.tabla-wrap tbody tr:hover{background:var(--gris-bg)}
+.tabla-wrap td{padding:.65rem 1rem;vertical-align:top;line-height:1.5;color:var(--texto-sec);font-size:14px}
+.tabla-wrap td:first-child{font-weight:600;color:var(--texto)}
+
+/* PUNTOS */
+.puntos{margin:1.25rem 0;display:flex;flex-direction:column;gap:.65rem}
+.punto{display:flex;gap:.875rem;align-items:flex-start;padding:.75rem 1rem;border:1px solid var(--gris-borde);border-radius:var(--radio);background:var(--blanco)}
+.punto-icono{width:26px;height:26px;border-radius:50%;background:#e8f4ef;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--verde);margin-top:1px}
+.punto-texto{font-size:14px;color:var(--texto-sec);line-height:1.55}
+.punto-texto strong{color:var(--texto);font-weight:500}
+
+/* INTERPRETACIÓN (gris) */
+.interp{background:var(--gris-bg);border-left:3px solid var(--verde-sec);padding:1rem 1.25rem;border-radius:0 var(--radio-sm) var(--radio-sm) 0;margin:1.5rem 0;font-size:14px;color:var(--texto-sec);line-height:1.65}
+.interp-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-sec);margin-bottom:.4rem;display:block}
+.interp strong{color:var(--texto);font-weight:500}
+
+/* COMPLEMENTO (amarillo) */
+.complemento{background:#fffbeb;border:1px solid #e6c94a;border-radius:var(--radio);padding:1.1rem 1.25rem;margin:1.5rem 0;font-size:14px;color:var(--texto-sec);line-height:1.65}
+.complemento-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#a07b00;margin-bottom:.5rem;display:block}
+.complemento strong{color:var(--texto);font-weight:600}
+.complemento .ce-item{margin-top:.6rem}
+.complemento .ce-term{font-weight:600;color:#7a5c00}
+
+/* ART�?CULO VISIBLE (no acordeón) */
+.art-fijo{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;margin:1.25rem 0}
+.art-fijo-head{padding:.7rem 1.1rem;display:flex;align-items:center;gap:.75rem;background:var(--gris-bg);border-bottom:1px solid var(--gris-borde)}
+.art-fijo-id{font-size:12px;font-weight:600;color:var(--verde);letter-spacing:.05em}
+.art-fijo-tit{font-size:13px;font-weight:500;color:var(--texto)}
+.art-fijo-body{padding:1rem 1.1rem}
+.art-verbatim{font-style:italic;color:var(--texto);padding:.75rem 1rem;background:var(--blanco);border-left:3px solid var(--verde-sec);border-radius:0 var(--radio-sm) var(--radio-sm) 0;font-size:13px;line-height:1.65;white-space:pre-wrap}
+
+/* ART CARDS (acordeón, solo en tab artículos) */
+.art-card{margin-bottom:.875rem;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.art-card-header{padding:.8rem 1.25rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s;gap:1rem}
+.art-card-header:hover{background:var(--gris-bg)}
+.art-card-id{font-size:12px;font-weight:600;color:var(--verde);letter-spacing:.05em;flex-shrink:0}
+.art-card-titulo{font-size:14px;color:var(--texto);font-weight:500;flex:1}
+.art-card-chev{width:16px;height:16px;flex-shrink:0;color:var(--texto-ter);transition:transform .2s}
+.art-card.abierto .art-card-chev{transform:rotate(180deg)}
+.art-card-body{display:none;padding:1rem 1.25rem;font-size:13.5px;color:var(--texto-sec);line-height:1.7;border-top:1px solid var(--gris-borde);background:var(--gris-bg)}
+.art-card.abierto .art-card-body{display:block}
+
+/* KV (convocatoria) */
+.kv-list{margin:1.25rem 0;display:flex;flex-direction:column;gap:.75rem}
+.kv-row{border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.9rem 1.1rem;background:var(--blanco)}
+.kv-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.4rem}
+.kv-value{font-size:14px;color:var(--texto-sec);line-height:1.6}
+.kv-value strong{color:var(--texto);font-weight:600}
+.kv-nota{font-size:13px;color:#7a5c00;background:#fffbeb;border:1px solid #e6c94a;border-radius:var(--radio-sm);padding:.7rem 1rem;margin-top:.4rem;line-height:1.55}
+
+/* DEF */
+.def-list{margin:1.25rem 0;display:flex;flex-direction:column;gap:.65rem}
+.def-item{border:1px solid var(--gris-borde);border-left:3px solid var(--verde-sec);border-radius:0 var(--radio) var(--radio) 0;padding:.85rem 1.1rem;background:var(--blanco)}
+.def-term{font-size:13px;font-weight:600;color:var(--verde)}
+.def-text{font-size:13.5px;color:var(--texto-sec);line-height:1.6;margin-top:3px}
+
+/* ===================== CALCULADORA ===================== */
+.calc-input-box{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.1rem 1.25rem;margin:1.5rem 0}
+.calc-input-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.6rem;display:block}
+.calc-input-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.calc-field{width:150px;font-size:20px;font-weight:600;padding:8px 12px;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);background:var(--blanco);color:var(--verde);font-family:inherit;text-align:right;font-variant-numeric:tabular-nums}
+.calc-field:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(28,107,74,.1)}
+.preset-btns{display:flex;gap:6px;flex-wrap:wrap}
+.preset{font-family:inherit;font-size:13px;font-weight:600;background:#e8f4ef;color:var(--verde);border:1px solid #b8dccc;border-radius:var(--radio-sm);padding:8px 12px;cursor:pointer;min-height:38px;transition:background .15s}
+.preset:hover{background:#d4ebe0}
+
+.chart-total{font-size:13px;color:var(--texto-ter);margin-bottom:1rem}
+.chart-total strong{font-size:22px;font-weight:600;color:var(--verde);font-variant-numeric:tabular-nums}
+
+/* PROGRESO ACUMULADO — barras laterales que se llenan por tramo */
+.progreso{display:flex;flex-direction:column;gap:.55rem;margin:1rem 0 1.5rem}
+.prog-tramo{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center}
+.prog-info{font-size:12px;line-height:1.3}
+.prog-info b{display:block;color:var(--texto);font-weight:600;font-size:13px}
+.prog-info span{color:var(--texto-ter)}
+.prog-bar{position:relative;height:30px;background:#efefe9;border:1px solid var(--gris-borde);border-radius:6px;overflow:hidden}
+.prog-fill{position:absolute;top:0;left:0;height:100%;width:0;transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:5px 0 0 5px}
+.prog-fill.lleno{border-radius:5px}
+.prog-count{position:absolute;top:0;right:7px;height:100%;display:flex;align-items:center;font-size:11px;font-weight:600;color:var(--texto-sec);font-variant-numeric:tabular-nums}
+.prog-deleg{font-size:13px;font-weight:600;white-space:nowrap;min-width:74px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* DESGLOSE */
+.breakdown{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;margin:1rem 0}
+.bd-row{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:.8rem 1.1rem;border-bottom:1px solid var(--gris-borde)}
+.bd-row:last-child{border-bottom:none}
+.bd-swatch{width:14px;height:14px;border-radius:3px}
+.bd-main{font-size:13.5px;color:var(--texto-sec)}
+.bd-main b{color:var(--texto);font-weight:600}
+.bd-formula{display:block;font-size:12px;color:var(--texto-ter);margin-top:2px;font-variant-numeric:tabular-nums}
+.bd-deleg{font-size:14px;font-weight:600;color:var(--texto);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bd-deleg.cero{color:#b0b0aa;font-weight:400}
+.bd-total{background:#f0faf5}
+.bd-total .bd-main b{color:var(--verde)}
+.bd-total .bd-deleg{color:var(--verde);font-size:16px}
+.bd-supl{background:var(--gris-bg)}
+.calc-foot{font-size:12.5px;color:var(--texto-ter);line-height:1.6;margin:1rem 0}
+
+/* MOBILE */
+@media(max-width:700px){
+  .sidebar{display:none}
+  .main{padding:1.5rem 1.25rem;max-width:100%}
+  .cap-titulo{font-size:22px}
+  .tabla-wrap{overflow-x:auto}
+  .tabla-wrap table{min-width:480px}
+  .calc-field{width:120px;font-size:18px}
+  .prog-tramo{grid-template-columns:88px 1fr auto;gap:8px}
+  .prog-info{font-size:11px}
+  .prog-deleg{min-width:auto;font-size:12px}
+}
+
+/* Boton hamburguesa y overlay para navegacion interna en mobile */
+.nb-toggle{display:none}
+.nb-overlay{display:none}
+.nb-cerrar{display:none}
+@media(max-width:700px){
+  .nb-toggle{display:flex;align-items:center;justify-content:center;position:fixed;top:12px;left:12px;z-index:50;width:44px;height:44px;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio-sm);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:0}
+  .nb-toggle svg{width:22px;height:22px;color:var(--verde)}
+  .sidebar{display:flex;position:fixed;top:0;left:0;z-index:60;width:82%;max-width:320px;height:100vh;border-right:1px solid var(--gris-borde);border-bottom:none;transform:translateX(-100%);transition:transform .26s ease;box-shadow:2px 0 16px rgba(0,0,0,.12)}
+  .sidebar.abierto{transform:translateX(0)}
+  .nb-cerrar{display:flex;align-items:center;justify-content:center;position:absolute;top:14px;right:14px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:0;color:var(--texto-ter)}
+  .nb-cerrar svg{width:22px;height:22px}
+  .nb-nav button{min-height:44px}
+  .nb-conceptos{display:block}
+  .nb-overlay{display:block;position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .26s ease}
+  .nb-overlay.visible{opacity:1;pointer-events:auto}
+  .main{padding-top:4.5rem}
+}
+</style>
+</head>
+<body>
+<button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<div class="shell">
+
+<nav class="sidebar">
+  <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a class="nb-marca" href="../index.html" aria-label="Volver a herramientas">
+    <div class="nb-wordmark"><span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span></div>
+    <span class="nb-marca-titulo">Asambleas por delegados</span>
+  </a>
+  <ul class="nb-nav">
+    <li><button class="activo" onclick="tab('portada',this)"><span class="nb-nav-num">00</span>Portada</button></li>
+    <li><button onclick="tab('t01',this)"><span class="nb-nav-num">01</span>Cuándo procede</button></li>
+    <li><button onclick="tab('t02',this)"><span class="nb-nav-num">02</span>Convocatoria y selección</button></li>
+    <li><button onclick="tab('t03',this)"><span class="nb-nav-num">03</span>Credencial</button></li>
+    <li><button onclick="tab('t04',this)"><span class="nb-nav-num">04</span>Calculadora</button></li>
+    <li><button onclick="tab('t05',this)"><span class="nb-nav-num">05</span>Artículos del módulo</button></li>
+  </ul>
+  <div class="nb-conceptos">
+    <span class="nb-conceptos-label">Conceptos relacionados</span>
+    <div class="nb-tags">
+      <span class="nb-tag">Art. 119-E LCH</span>
+      <span class="nb-tag">Art. 99 RLCH</span>
+      <span class="nb-tag">Art. 100 RLCH</span>
+      <span class="nb-tag">Art. 101 RLCH</span>
+      <span class="nb-tag">Art. 102 RLCH</span>
+      <span class="nb-tag">filial</span>
+      <span class="nb-tag">ventanilla</span>
+      <span class="nb-tag">delegado/a</span>
+      <span class="nb-tag">suplente</span>
+      <span class="nb-tag">sectorial</span>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? PORTADA �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel activo" id="panel-portada">
+  <h1 class="cap-titulo">Asambleas por delegados</h1>
+  <div class="cap-meta">LCH Art. 119-E · RLCH Arts. 99, 100, 101, 102</div>
+  <p class="cap-intro">
+    Cuando una cooperativa supera cierto tamaño, la Asamblea General ya no se celebra con todos los afiliados/as reunidos, sino con delegados/as electos en asambleas sectoriales. Este módulo recorre cuándo procede, cómo se convoca y cómo se calcula cuántos delegados/as corresponden según el Art. 100.
+  </p>
+  <ul class="portada-bullets">
+    <li><strong>Cuándo procede:</strong> Lo que establece el Art. 119-E, con el texto del artículo y una lectura del tema de filiales y ventanillas</li>
+    <li><strong>Convocatoria y selección:</strong> Lo que dice el Art. 102 RLCH y la lectura del periodo de convocatoria</li>
+    <li><strong>Credencial:</strong> Quién acredita a los delegados/as electos</li>
+    <li><strong>Calculadora:</strong> El Art. 100 completo, la herramienta interactiva y una barra acumulada que se llena tramo por tramo según el número de afiliados/as presentes</li>
+  </ul>
+
+  <p class="sec-h">Artículos del módulo</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Artículo</th><th>Tema</th></tr></thead>
+      <tbody>
+        <tr><td>Art. 119-E LCH</td><td>Asamblea por delegados: más de 3,000 afiliados/as y representación de oficinas, filiales y ventanillas</td></tr>
+        <tr><td>Art. 99 RLCH</td><td>Asamblea sectorial y representación de afiliado/a: filiales en misma ciudad o departamento</td></tr>
+        <tr><td>Art. 100 RLCH</td><td>Procedimiento de elección por tramos y elección de suplentes</td></tr>
+        <tr><td>Art. 101 RLCH</td><td>Dirección de las asambleas por delegados y acreditación</td></tr>
+        <tr><td>Art. 102 RLCH</td><td>Regulaciones: requisitos y tiempo de convocatoria en el Estatuto</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 01 — CU�?NDO PROCEDE �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t01">
+  <h1 class="cap-titulo">Cuándo procede</h1>
+  <div class="cap-meta">LCH Art. 119-E · RLCH Art. 99</div>
+  <p class="cap-intro">
+    La asamblea por delegados/as procede a partir de lo que establece el Artículo 119-E de la Ley.
+  </p>
+
+  <p class="sec-h">El Art. 119-E establece que:</p>
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">1</div>
+      <div class="punto-texto">Las cooperativas con <strong>más de tres mil afiliados/as</strong> realizan la Asamblea General mediante la designación de delegados/as. Cada delegado/a electo representa un número no menor de diez ni mayor de cincuenta afiliados/as presentes en la asamblea.</div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">2</div>
+      <div class="punto-texto">La <strong>oficina principal, las oficinas regionales, las filiales y las ventanillas</strong> deben estar representadas en función del número de afiliados/as con que cuente cada una.</div>
+    </div>
+  </div>
+
+  <div class="art-fijo">
+    <div class="art-fijo-head"><span class="art-fijo-id">Art. 119-E LCH</span><span class="art-fijo-tit">Asamblea por delegados y representación territorial</span></div>
+    <div class="art-fijo-body"><p class="art-verbatim">"ART�?CULO 119-E.- Las cooperativas que tengan más de tres mil (3,000) afiliados, realizarán la Asamblea General mediante la designación de delegados, cada delegado electo representará un número no menor de Diez (10) ni mayor de Cincuenta (50) afiliados presentes en la Asamblea, debiendo observar que tanto la oficina principal, como sus oficinas regionales, filiales y ventanillas, estén representadas en función del número de afiliados con el que cuenten cada una de ellas."</p></div>
+  </div>
+
+  <div class="art-fijo">
+    <div class="art-fijo-head"><span class="art-fijo-id">Art. 99 RLCH</span><span class="art-fijo-tit">Asamblea sectorial y representación de afiliado/a</span></div>
+    <div class="art-fijo-body"><p class="art-verbatim">Artículo 99.- Asamblea Sectorial y la Representación de Afiliado(a). En los casos que las cooperativas tengan varias filiales en la misma ciudad o departamento, deben de convocar y realizar asamblea sectorial para elección de delegados, con un número no mayor de 5 filiales.
+
+Cada Afiliado(a) puede representar y ser representado en las Asambleas Sectoriales o local, por un Afiliado(a) inscrito en una misma localidad o sector, dicha representación debe constar por escrito.</p></div>
+  </div>
+
+  <div class="interp">
+    <span class="interp-label">Lectura del tema de filiales</span>
+    El Art. 119-E exige que cada presencia de la cooperativa quede representada según sus afiliados/as. El Art. 99 RLCH aterriza el caso de las filiales: cuando hay varias en una misma ciudad o departamento, se convoca una asamblea sectorial con un máximo de 5 filiales. Así, una cooperativa grande no celebra una sola asamblea, sino varias sectoriales que agrupan sus filiales por zona.
+  </div>
+
+  <div class="complemento">
+    <span class="complemento-label">Material complementario</span>
+    La Ley nombra <strong>filial</strong> y <strong>ventanilla</strong> como presencias distintas, pero no define la diferencia entre ellas. En la práctica del sistema cooperativo se suele entender así:
+    <div class="ce-item"><span class="ce-term">Filial.</span> Oficina con capacidad operativa y administrativa propia, que justifica agruparse en asamblea sectorial para elegir delegados/as (es la que el Art. 99 RLCH limita a 5 por sector).</div>
+    <div class="ce-item"><span class="ce-term">Ventanilla.</span> Punto de servicio de alcance más limitado, que también debe quedar representado según sus afiliados/as, pero sin la entidad de una filial.</div>
+    <div style="margin-top:.7rem;font-size:13px;color:var(--texto-ter)">Esta distinción no está literalmente en la Ley ni en el Reglamento: es una lectura de uso, no una definición legal.</div>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 02 — CONVOCATORIA Y SELECCIÓN �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t02">
+  <h1 class="cap-titulo">Convocatoria y selección</h1>
+  <div class="cap-meta">RLCH Arts. 102, 100</div>
+  <p class="cap-intro">
+    Cada cuánto se convoca a los delegados/as y según qué criterios se seleccionan son cosas que la Ley deja en manos del Estatuto de cada cooperativa, dentro del marco del Reglamento.
+  </p>
+
+  <div class="art-fijo">
+    <div class="art-fijo-head"><span class="art-fijo-id">Art. 102 RLCH</span><span class="art-fijo-tit">Regulaciones de asamblea por delegados</span></div>
+    <div class="art-fijo-body"><p class="art-verbatim">Artículo 102.- Regulaciones de Asamblea por Delegados. En el Estatuto de la Cooperativa se debe regular los requisitos para la elección de los delegados y tiempo en la cual se debe convocar la misma, así como otras condiciones para el mejor control democrático de la cooperativa.
+
+En la elección de los delegados se debe observar de preferencia, el porcentaje de género establecido en el Artículo 109 de este reglamento.</p></div>
+  </div>
+
+  <div class="kv-list">
+    <div class="kv-row">
+      <div class="kv-label">Se selecciona según</div>
+      <div class="kv-value">Lo que regule el <strong>Estatuto</strong>: los requisitos para la elección de los delegados/as y el tiempo en que se debe convocar (Art. 102 RLCH). En la elección se observa de preferencia el porcentaje de género del Art. 109.</div>
+    </div>
+    <div class="kv-row">
+      <div class="kv-label">Se convoca cada</div>
+      <div class="kv-value">Dentro del <strong>periodo del año</strong>: los delegados/as electos pueden ser convocados a Asambleas Generales Ordinarias o Extraordinarias dentro del periodo del año, si la Junta Directiva convoca por temas específicos (Art. 100, último párrafo, RLCH).</div>
+    </div>
+  </div>
+
+  <div class="interp">
+    <span class="interp-label">Lectura del periodo de convocatoria</span>
+    La Ley no dice de forma expresa que la condición de delegado/a dure exactamente un año. Pero el Art. 100 RLCH establece que los delegados/as electos pueden ser convocados a asambleas <strong>dentro del periodo del año</strong>; de ahí se entiende, de forma implícita, que la representación se renueva por ciclo anual y que cada año se vuelve a elegir.
+  </div>
+
+  <div class="kv-nota" style="margin-top:1.5rem">Algunas cooperativas gestionan una no objeción ante CONSUCOOP para celebrar la asamblea sectorial cada dos años.</div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 03 — CREDENCIAL �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t03">
+  <h1 class="cap-titulo">Credencial del delegado/a</h1>
+  <div class="cap-meta">RLCH Art. 101</div>
+  <p class="cap-intro">
+    La asamblea sectorial es presidida por la Junta Directiva. El Secretario/a de la JD es quien acredita a los delegados/as electos.
+  </p>
+
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">1</div>
+      <div class="punto-texto"><strong>Dirección.</strong> Las asambleas locales o sectoriales para elección de delegados/as son presididas por la Junta Directiva y dirigidas por el Presidente/a o quien lo sustituya (Art. 101 RLCH).</div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">2</div>
+      <div class="punto-texto"><strong>Acreditación.</strong> El Secretario/a de la Junta Directiva levanta y lee el acta de cada asamblea para su discusión, aprobación o improbación, y además acredita a los delegados/as electos (Art. 101 RLCH).</div>
+    </div>
+  </div>
+
+  <div class="art-fijo">
+    <div class="art-fijo-head"><span class="art-fijo-id">Art. 101 RLCH</span><span class="art-fijo-tit">Dirección de las asambleas por delegados y acreditación</span></div>
+    <div class="art-fijo-body"><p class="art-verbatim">Artículo 101.- Dirección de las Asambleas por Delegados. Las Asambleas locales o sectoriales para elección de delegados deben ser presididas por la Junta Directiva, dirigidas por el Presidente o quien lo sustituya. El Secretario de la Junta Directiva debe levantar y leer el acta de cada Asamblea para su discusión, aprobación o improbación, además debe acreditar a los delegados electos.</p></div>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 04 — CALCULADORA �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t04">
+  <h1 class="cap-titulo">Calculadora de delegados</h1>
+  <div class="cap-meta">RLCH Art. 100</div>
+  <p class="cap-intro">
+    El Art. 100 reparte delegados/as por tramos que se llenan en orden. Primero el texto del artículo, luego la herramienta y una barra acumulada que se va completando tramo por tramo.
+  </p>
+
+  <div class="art-fijo">
+    <div class="art-fijo-head"><span class="art-fijo-id">Art. 100 RLCH</span><span class="art-fijo-tit">Asamblea por delegado: procedimiento de elección</span></div>
+    <div class="art-fijo-body"><p class="art-verbatim">Artículo 100.- Asamblea por Delegado. Para el cumplimiento del Artículo 23 y 119E, de la Ley, la Asamblea General, ya sea ésta ordinaria o extraordinaria, por delegados de las Cooperativas, deben ser electos de los Afiliados presentes en la Asamblea, bajo el siguiente procedimiento:
+
+a) Por lo primeros 100 afiliados, se elegirá 1 delegado por cada 10 cooperativistas;
+b) Por los siguientes 101, hasta 500 afiliados, se elegirá 1 delegado por cada 20 cooperativistas;
+c) Por los siguientes 501, hasta 1000 afiliados, se elegirá 1 delegado por cada 30 cooperativistas;
+d) Por los siguientes 1001, hasta 2000 afiliados, se elegirá 1 delegado por cada 40 cooperativistas; y,
+e) De 2001 afiliados en adelante, 1 por cada 50 cooperativistas.
+
+Se deben elegir delegados suplentes en una proporción de uno por cada diez (10) propietarios, en el orden en que hayan sido electos, para el caso de ausencia de un delegado propietario por fuerza mayor.
+
+Los delegados(as) electos, pueden ser convocados a Asambleas Generales Ordinarias o Extraordinarias en el periodo del año, si la Junta Directiva convocare por temas específicos.</p></div>
+  </div>
+
+  <div class="interp">
+    <span class="interp-label">La clave: es acumulado</span>
+    Los tramos se llenan en orden. Si llegan <strong>102 afiliados/as</strong>, no se salta al tramo b): se cumple primero el tramo a) con los primeros 100 (que dan 10 delegados/as), y solo las 2 personas restantes entran al tramo b). Como 2 entre 20 todavía no completa un delegado/a, ese tramo aporta 0 por ahora.
+  </div>
+
+  <div class="calc-input-box">
+    <span class="calc-input-label">Afiliados/as presentes en la sectorial</span>
+    <div class="calc-input-row">
+      <input type="number" class="calc-field" id="afiliados" min="0" step="1" value="102" inputmode="numeric">
+      <div class="preset-btns">
+        <button class="preset" data-v="90">90</button>
+        <button class="preset" data-v="102">102</button>
+        <button class="preset" data-v="150">150</button>
+        <button class="preset" data-v="530">530</button>
+        <button class="preset" data-v="1000">1000</button>
+        <button class="preset" data-v="18000">18000</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-total">Delegados/as propietarios: <strong id="total-deleg">10</strong></div>
+
+  <!-- barras laterales acumuladas -->
+  <div class="progreso" id="progreso"></div>
+
+  <p class="sec-h">Desglose por tramo</p>
+  <div class="breakdown" id="breakdown"></div>
+
+  <p class="calc-foot">Solo se cuentan delegados/as enteros: una fracción de tramo no completada aporta 0 hasta cubrir el divisor. Los suplentes se eligen en proporción de uno por cada diez (10) propietarios (Art. 100 RLCH).</p>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 05 — ART�?CULOS �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t05">
+  <h1 class="cap-titulo">Artículos del módulo</h1>
+  <div class="cap-meta">LCH Decreto 65-87 · RLCH Acuerdo 041-2014</div>
+  <p class="cap-intro">Textos literales de los artículos que fundamentan el módulo. Nunca parafraseados.</p>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 119-E LCH</span><span class="art-card-titulo">Asamblea por delegados y representación territorial</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"ART�?CULO 119-E.- Las cooperativas que tengan más de tres mil (3,000) afiliados, realizarán la Asamblea General mediante la designación de delegados, cada delegado electo representará un número no menor de Diez (10) ni mayor de Cincuenta (50) afiliados presentes en la Asamblea, debiendo observar que tanto la oficina principal, como sus oficinas regionales, filiales y ventanillas, estén representadas en función del número de afiliados con el que cuenten cada una de ellas."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 99 RLCH</span><span class="art-card-titulo">Asamblea sectorial y representación de afiliado/a</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">Artículo 99.- Asamblea Sectorial y la Representación de Afiliado(a). En los casos que las cooperativas tengan varias filiales en la misma ciudad o departamento, deben de convocar y realizar asamblea sectorial para elección de delegados, con un número no mayor de 5 filiales.
+
+Cada Afiliado(a) puede representar y ser representado en las Asambleas Sectoriales o local, por un Afiliado(a) inscrito en una misma localidad o sector, dicha representación debe constar por escrito.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 100 RLCH</span><span class="art-card-titulo">Asamblea por delegado: procedimiento de elección</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">Artículo 100.- Asamblea por Delegado. Para el cumplimiento del Artículo 23 y 119E, de la Ley, la Asamblea General, ya sea ésta ordinaria o extraordinaria, por delegados de las Cooperativas, deben ser electos de los Afiliados presentes en la Asamblea, bajo el siguiente procedimiento:
+
+a) Por lo primeros 100 afiliados, se elegirá 1 delegado por cada 10 cooperativistas;
+b) Por los siguientes 101, hasta 500 afiliados, se elegirá 1 delegado por cada 20 cooperativistas;
+c) Por los siguientes 501, hasta 1000 afiliados, se elegirá 1 delegado por cada 30 cooperativistas;
+d) Por los siguientes 1001, hasta 2000 afiliados, se elegirá 1 delegado por cada 40 cooperativistas; y,
+e) De 2001 afiliados en adelante, 1 por cada 50 cooperativistas.
+
+Se deben elegir delegados suplentes en una proporción de uno por cada diez (10) propietarios, en el orden en que hayan sido electos, para el caso de ausencia de un delegado propietario por fuerza mayor.
+
+Los delegados(as) electos, pueden ser convocados a Asambleas Generales Ordinarias o Extraordinarias en el periodo del año, si la Junta Directiva convocare por temas específicos.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 101 RLCH</span><span class="art-card-titulo">Dirección de las asambleas por delegados</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">Artículo 101.- Dirección de las Asambleas por Delegados. Las Asambleas locales o sectoriales para elección de delegados deben ser presididas por la Junta Directiva, dirigidas por el Presidente o quien lo sustituya. El Secretario de la Junta Directiva debe levantar y leer el acta de cada Asamblea para su discusión, aprobación o improbación, además debe acreditar a los delegados electos.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 102 RLCH</span><span class="art-card-titulo">Regulaciones de asamblea por delegados</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">Artículo 102.- Regulaciones de Asamblea por Delegados. En el Estatuto de la Cooperativa se debe regular los requisitos para la elección de los delegados y tiempo en la cual se debe convocar la misma, así como otras condiciones para el mejor control democrático de la cooperativa.
+
+En la elección de los delegados se debe observar de preferencia, el porcentaje de género establecido en el Artículo 109 de este reglamento.</p></div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+function abrirMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function tab(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('activo'));
+  document.querySelectorAll('.nb-nav button').forEach(b=>b.classList.remove('activo'));
+  document.getElementById('panel-'+id).classList.add('activo');
+  btn.classList.add('activo');
+  if (window.innerWidth <= 700) cerrarMenu();
+}
+function toggleArt(card){ card.classList.toggle('abierto'); }
+
+(function(){
+  var TRAMOS=[
+    {nombre:'Salón 1', rango:'1 – 100',         ini:1,    fin:100,      div:10, cap:100,  color:'var(--t-a)'},
+    {nombre:'Salón 2', rango:'101 – 500',       ini:101,  fin:500,      div:20, cap:400,  color:'var(--t-b)'},
+    {nombre:'Salón 3', rango:'501 – 1000',      ini:501,  fin:1000,     div:30, cap:500,  color:'var(--t-c)'},
+    {nombre:'Salón 4', rango:'1001 – 2000',     ini:1001, fin:2000,     div:40, cap:1000, color:'var(--t-d)'},
+    {nombre:'Salón 5', rango:'2001 en adelante',ini:2001, fin:Infinity, div:50, cap:null, color:'var(--t-e)'}
+  ];
+  var input=document.getElementById('afiliados');
+  var progEl=document.getElementById('progreso');
+  var bdEl=document.getElementById('breakdown');
+  var totalEl=document.getElementById('total-deleg');
+
+  function calcular(n){
+    var total=0, filas=[];
+    TRAMOS.forEach(function(t){
+      var personas=0;
+      if(n>=t.ini){ personas=Math.max(0, Math.min(n,t.fin)-t.ini+1); }
+      var deleg=personas>0?Math.floor(personas/t.div):0;
+      total+=deleg;
+      filas.push({t:t, personas:personas, deleg:deleg});
+    });
+    return {total:total, filas:filas};
+  }
+
+  // capacidad visual para el último tramo (abierto): usamos 1000 como referencia de ancho
+  function capVisual(t){ return t.cap===null?1000:t.cap; }
+
+  function render(){
+    var n=parseInt(input.value,10);
+    if(isNaN(n)||n<0)n=0;
+    var r=calcular(n);
+    totalEl.textContent=r.total;
+
+    // ----- barras laterales acumuladas -----
+    progEl.innerHTML='';
+    r.filas.forEach(function(f){
+      var capV=capVisual(f.t);
+      var pct=Math.min(100, Math.round((f.personas/capV)*100));
+      var row=document.createElement('div');row.className='prog-tramo';
+
+      var info=document.createElement('div');info.className='prog-info';
+      info.innerHTML='<b>'+f.t.rango+'</b><span>1 por cada '+f.t.div+'</span>';
+
+      var bar=document.createElement('div');bar.className='prog-bar';
+      var fill=document.createElement('div');fill.className='prog-fill'+(pct>=100?' lleno':'');
+      fill.style.width=pct+'%';
+      fill.style.background=f.t.color;
+      var cnt=document.createElement('div');cnt.className='prog-count';
+      cnt.textContent=f.personas>0?(f.personas+(f.t.cap!==null?(' / '+f.t.cap):'')):'';
+      bar.appendChild(fill);bar.appendChild(cnt);
+
+      var del=document.createElement('div');del.className='prog-deleg';
+      del.textContent=f.deleg>0?(f.deleg+' deleg.'):'—';
+      del.style.color=f.deleg>0?'var(--verde)':'#b0b0aa';
+
+      row.appendChild(info);row.appendChild(bar);row.appendChild(del);
+      progEl.appendChild(row);
+    });
+
+    // ----- desglose -----
+    bdEl.innerHTML='';
+    r.filas.forEach(function(f){
+      var row=document.createElement('div');row.className='bd-row';
+      var sw=document.createElement('div');sw.className='bd-swatch';sw.style.background=f.t.color;
+      var main=document.createElement('div');main.className='bd-main';
+      var formula=f.personas>0
+        ? f.personas+' personas ÷ '+f.t.div+' = '+(f.personas/f.t.div).toFixed(f.personas%f.t.div===0?0:2)
+        : 'sin afiliados/as en este tramo';
+      main.innerHTML='<b>'+f.t.rango+'</b> (1 por cada '+f.t.div+')<span class="bd-formula">'+formula+'</span>';
+      var del=document.createElement('div');del.className='bd-deleg'+(f.deleg===0?' cero':'');
+      del.textContent=f.deleg+(f.deleg===1?' delegado/a':' delegados/as');
+      row.appendChild(sw);row.appendChild(main);row.appendChild(del);
+      bdEl.appendChild(row);
+    });
+    var tot=document.createElement('div');tot.className='bd-row bd-total';
+    var ts=document.createElement('div');ts.className='bd-swatch';ts.style.background='var(--verde)';
+    var tm=document.createElement('div');tm.className='bd-main';tm.innerHTML='<b>Total de delegados/as propietarios</b>';
+    var td=document.createElement('div');td.className='bd-deleg';td.textContent=r.total;
+    tot.appendChild(ts);tot.appendChild(tm);tot.appendChild(td);
+    bdEl.appendChild(tot);
+
+    var sup=Math.floor(r.total/10);
+    var sr=document.createElement('div');sr.className='bd-row bd-supl';
+    var ss=document.createElement('div');ss.className='bd-swatch';ss.style.background='#c8c8c2';
+    var sm=document.createElement('div');sm.className='bd-main';
+    sm.innerHTML='Suplentes<span class="bd-formula">'+r.total+' propietarios ÷ 10 = '+(r.total/10).toFixed(r.total%10===0?0:1)+'</span>';
+    var sd=document.createElement('div');sd.className='bd-deleg';sd.textContent=sup+(sup===1?' suplente':' suplentes');
+    sr.appendChild(ss);sr.appendChild(sm);sr.appendChild(sd);
+    bdEl.appendChild(sr);
+  }
+
+  input.addEventListener('input',render);
+  document.querySelectorAll('.preset').forEach(function(b){
+    b.addEventListener('click',function(){input.value=b.dataset.v;render();});
+  });
+  render();
+})();
+</script>
+</body>
+</html>

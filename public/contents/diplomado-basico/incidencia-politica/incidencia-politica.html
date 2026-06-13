@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andamiaje — Incidencia Cooperativa para el Desarrollo Local</title>
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-claro: #e8f4ef;
+      --verde-borde: #b8dccc;
+      --verde-hover: #155538;
+      --gris-texto: #1a1a1a;
+      --gris-sec: #4a4a4a;
+      --gris-borde: #d8d8d8;
+      --gris-fondo: #f7f7f5;
+      --blanco: #ffffff;
+      --amarillo: #e8b84b;
+      --amarillo-fondo: #fffbf0;
+      --rojo-fondo: #fdf0f0;
+      --rojo-borde: #c0392b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      color: var(--gris-texto);
+      background: var(--blanco);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ── */
+    .mod-header {
+      background: var(--verde);
+      color: var(--blanco);
+      padding: 20px 24px 16px;
+    }
+    .mod-header-serie {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+    .mod-header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.3px;
+    }
+    .mod-header p {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 3px;
+    }
+
+    /* ── LAYOUT ── */
+    .mod-wrapper { max-width: 960px; margin: 0 auto; }
+    .mod-cuerpo { display: flex; align-items: flex-start; min-height: calc(100vh - 80px); }
+
+    /* ── SIDEBAR TABS ── */
+    .tabs-nav {
+      width: 210px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    .tabs-nav-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gris-sec);
+      padding: 0 16px 10px;
+      border-bottom: 1px solid var(--gris-borde);
+      margin-bottom: 6px;
+    }
+    .tab-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 16px;
+      background: none;
+      border: none;
+      border-left: 3px solid transparent;
+      font-size: 13px;
+      color: var(--gris-sec);
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.35;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .tab-btn:hover { background: var(--gris-fondo); color: var(--gris-texto); }
+    .tab-btn.activo {
+      border-left-color: var(--verde);
+      color: var(--verde);
+      background: var(--verde-claro);
+      font-weight: 600;
+    }
+    .tab-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--verde);
+      background: var(--verde-claro);
+      border: 1px solid var(--verde-borde);
+      border-radius: 3px;
+      padding: 1px 5px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .tab-btn.activo .tab-num {
+      background: var(--verde);
+      color: var(--blanco);
+      border-color: var(--verde);
+    }
+
+    /* ── PANELS ── */
+    .tab-panels { flex: 1; padding: 28px 32px; min-width: 0; }
+    .tab-panel { display: none; }
+    .tab-panel.activo { display: block; }
+
+    /* ── CAPSULA TITULO ── */
+    .cap-titulo {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gris-texto);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .cap-bajada {
+      font-size: 14px;
+      color: var(--gris-sec);
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--verde-claro);
+    }
+
+    /* ── SECCIONES ── */
+    .seccion { margin-bottom: 36px; }
+    .seccion-titulo {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--verde);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--verde-borde);
+    }
+
+    /* ── DEF CENTRAL ── */
+    .def-central {
+      background: var(--verde-claro);
+      border-left: 4px solid var(--verde);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .def-central strong { color: var(--verde); }
+
+    /* ── EXPANDIBLES ── */
+    .exp-grupo { margin-bottom: 8px; }
+    .exp-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--gris-fondo);
+      border: 1px solid var(--gris-borde);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gris-texto);
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+      gap: 10px;
+    }
+    .exp-btn:hover { background: var(--verde-claro); }
+    .exp-btn.abierto {
+      background: var(--verde-claro);
+      border-color: var(--verde-borde);
+      color: var(--verde);
+      border-radius: 4px 4px 0 0;
+    }
+    .exp-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .tag-no { background: var(--rojo-fondo); color: var(--rojo-borde); }
+    .exp-icon {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .exp-btn.abierto .exp-icon { transform: rotate(45deg); }
+    .exp-cuerpo {
+      display: none;
+      padding: 14px;
+      border: 1px solid var(--verde-borde);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      background: var(--blanco);
+      font-size: 14px;
+      color: var(--gris-sec);
+      line-height: 1.6;
+    }
+    .exp-cuerpo.abierto { display: block; }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      background: var(--amarillo-fondo);
+      border-left: 3px solid var(--amarillo);
+      padding: 11px 15px;
+      border-radius: 0 4px 4px 0;
+      margin: 14px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout-verde {
+      background: var(--verde-claro);
+      border-left: 3px solid var(--verde);
+      padding: 11px 15px;
+      border-radius: 0 4px 4px 0;
+      margin: 14px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout-rojo {
+      background: var(--rojo-fondo);
+      border-left: 3px solid var(--rojo-borde);
+      padding: 11px 15px;
+      border-radius: 0 4px 4px 0;
+      margin: 14px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── REFLEXIÓN ── */
+    .reflexion {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--amarillo-fondo);
+      border: 1px solid #f0d080;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--gris-texto);
+      line-height: 1.55;
+    }
+    .reflexion strong { color: #856404; }
+
+    /* ── ART�?CULOS ── */
+    .articulo-card {
+      border: 1px solid var(--gris-borde);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .articulo-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      background: var(--gris-fondo);
+      flex-wrap: wrap;
+    }
+    .art-num { font-weight: 700; font-size: 13px; color: var(--verde); flex-shrink: 0; }
+    .art-ley {
+      font-size: 11px; font-weight: 700;
+      background: var(--verde); color: var(--blanco);
+      padding: 2px 6px; border-radius: 3px; flex-shrink: 0;
+    }
+    .art-resumen { font-size: 12px; color: var(--gris-sec); flex: 1; min-width: 120px; }
+    .btn-ver-art {
+      background: none; border: 1px solid var(--verde-borde);
+      color: var(--verde); font-size: 12px; font-weight: 600;
+      padding: 4px 10px; border-radius: 3px; cursor: pointer;
+      flex-shrink: 0; transition: background 0.12s; min-height: 32px;
+    }
+    .btn-ver-art:hover { background: var(--verde-claro); }
+    .articulo-texto {
+      display: none; padding: 11px 13px; font-size: 13px;
+      color: var(--gris-texto); line-height: 1.65;
+      border-top: 1px solid var(--gris-borde);
+      background: var(--blanco); font-style: italic;
+    }
+    .articulo-texto.visible { display: block; }
+
+    /* ── TABLA ── */
+    .tabla-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0; }
+    table.tabla {
+      width: 100%; border-collapse: collapse;
+      font-size: 13px; min-width: 380px;
+    }
+    table.tabla th {
+      background: var(--verde); color: var(--blanco);
+      padding: 8px 12px; text-align: left; font-weight: 600;
+    }
+    table.tabla td {
+      padding: 8px 12px; border-bottom: 1px solid var(--gris-borde); vertical-align: top;
+    }
+    table.tabla tr:nth-child(even) td { background: var(--gris-fondo); }
+
+    /* ── ESCALA GRID ── */
+    .escala-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .escala-card {
+      border: 1px solid var(--gris-borde);
+      border-radius: 6px;
+      padding: 13px;
+    }
+    .escala-nivel {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--gris-sec); margin-bottom: 5px;
+    }
+    .escala-titulo {
+      font-size: 13px; font-weight: 600;
+      color: var(--verde); margin-bottom: 5px;
+    }
+    .escala-desc { font-size: 12px; color: var(--gris-sec); line-height: 1.5; }
+
+    /* ── FED GRID ── */
+    .fed-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .fed-card {
+      border: 1px solid var(--gris-borde);
+      border-radius: 5px;
+      padding: 11px 13px;
+    }
+    .fed-sigla { font-size: 13px; font-weight: 700; color: var(--verde); margin-bottom: 2px; }
+    .fed-nombre { font-size: 11px; color: var(--gris-sec); margin-bottom: 6px; line-height: 1.35; }
+    .fed-ruta {
+      font-size: 12px; color: var(--gris-texto);
+      border-top: 1px solid var(--gris-borde);
+      padding-top: 6px; margin-top: 4px; line-height: 1.45;
+    }
+
+    /* ── ESCALERA ── */
+    .escalera { margin: 12px 0; }
+    .esc-step {
+      display: flex; align-items: flex-start;
+      gap: 12px; margin-bottom: 6px;
+      padding: 9px 12px; border-radius: 4px;
+      font-size: 13px; line-height: 1.5;
+    }
+    .esc-num {
+      font-weight: 700; font-size: 12px;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--blanco);
+    }
+    .e1 { background: var(--gris-fondo); } .e1 .esc-num { background: #aaa; }
+    .e2 { background: var(--gris-fondo); } .e2 .esc-num { background: #888; }
+    .e3 { background: #fff8e6; } .e3 .esc-num { background: var(--amarillo); color: var(--gris-texto); }
+    .e4 { background: #fff0e6; } .e4 .esc-num { background: #e67e22; }
+    .e5 { background: var(--rojo-fondo); } .e5 .esc-num { background: var(--rojo-borde); }
+
+    /* ── NORMA REF ── */
+    .norma-ref {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      color: var(--verde); background: var(--verde-claro);
+      border: 1px solid var(--verde-borde); border-radius: 3px;
+      padding: 1px 6px; margin-left: 3px; white-space: nowrap;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .mod-header { padding: 16px 16px 12px; }
+      .mod-header h1 { font-size: 17px; }
+      .mod-cuerpo { flex-direction: column; }
+      .tab-panels { padding: 16px; }
+      .escala-grid { grid-template-columns: 1fr; }
+      .fed-grid { grid-template-columns: 1fr; }
+    }
+    .nb-toggle { display: none; }
+    .nb-overlay { display: none; }
+    .nb-cerrar { display: none; }
+    @media (max-width: 640px) {
+      .nb-toggle {
+        display: flex; align-items: center; justify-content: center;
+        position: fixed; top: 12px; left: 12px; z-index: 50;
+        width: 44px; height: 44px;
+        background: var(--blanco); border: 1px solid var(--gris-borde);
+        border-radius: 4px; cursor: pointer;
+        box-shadow: 0 1px 4px rgba(0,0,0,.08);
+        padding: 0;
+      }
+      .nb-toggle svg { width: 22px; height: 22px; color: var(--verde); }
+      .tabs-nav {
+        display: block; position: fixed; top: 0; left: 0; z-index: 60;
+        width: 82%; max-width: 320px; height: 100vh;
+        border-right: 1px solid var(--gris-borde); border-bottom: none;
+        padding: 20px 0; overflow-y: auto;
+        background: var(--blanco);
+        transform: translateX(-100%);
+        transition: transform .26s ease;
+        box-shadow: 2px 0 16px rgba(0,0,0,.12);
+      }
+      .tabs-nav.abierto { transform: translateX(0); }
+      .tabs-nav-label { display: block; padding-right: 60px; }
+      .nb-cerrar {
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; top: 14px; right: 14px;
+        width: 36px; height: 36px;
+        background: none; border: none; cursor: pointer; padding: 0;
+        color: var(--gris-sec);
+      }
+      .nb-cerrar svg { width: 22px; height: 22px; }
+      .tab-btn { min-height: 44px; }
+      .nb-overlay {
+        display: block; position: fixed; inset: 0; z-index: 55;
+        background: rgba(0,0,0,.4);
+        opacity: 0; pointer-events: none;
+        transition: opacity .26s ease;
+      }
+      .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+      .tab-panels { padding-top: 64px; }
+    }
+</style>
+</head>
+<body>
+<button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<header class="mod-header">
+  <div class="mod-header-serie">Marco teórico</div>
+  <h1>Incidencia Política</h1>
+  <p>Conceptos fundamentales para construir un plan de incidencia cooperativa.</p>
+</header>
+
+<div class="mod-wrapper">
+  <div class="mod-cuerpo">
+
+    <!-- NAV -->
+    <nav class="tabs-nav">
+      <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="tabs-nav-label">Temas</div>
+      <button class="tab-btn activo" data-tab="t1">
+        ¿Qué es incidir
+      </button>
+      <button class="tab-btn" data-tab="t2">
+        Escala y legitimidad
+      </button>
+      <button class="tab-btn" data-tab="t3">
+        Conceptos clave
+      </button>
+    </nav>
+
+    <div class="tab-panels">
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 1 �?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="tab-panel activo" id="t1">
+  <h2 class="cap-titulo">¿Qué es incidir</h2>
+  <p class="cap-bajada">Definición operativa, límites y la autonomía como condición.</p>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Definición operativa</div>
+    <div class="def-central">
+      <strong>Incidir políticamente</strong> es influir de manera organizada y deliberada sobre una decisión pública que afecta a tu organización o comunidad, con el propósito de cambiarla o defenderla.
+    </div>
+    <p style="font-size:14px;color:var(--gris-sec);">La incidencia no es una reacción espontánea. Requiere identificar un problema público concreto, determinar quién tiene poder para resolverlo, y construir una propuesta que pueda incidir en esa decisión.</p>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Incidir no es lo mismo que…</div>
+
+    <div class="exp-grupo">
+      <button class="exp-btn">
+        <span>Politiquería</span>
+        <span class="exp-tag tag-no">No es incidencia</span>
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="exp-cuerpo">La incidencia cooperativa no busca favores ni apoya candidatos a cambio de beneficios. Actúa desde el interés colectivo de los/as afiliados/as y con base en principios y normativa — no desde cálculos electorales.</div>
+    </div>
+
+    <div class="exp-grupo">
+      <button class="exp-btn">
+        <span>Asistencialismo</span>
+        <span class="exp-tag tag-no">No es incidencia</span>
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="exp-cuerpo">Pedir ayuda puntual sin buscar cambiar la causa del problema no es incidencia. La incidencia apunta a transformar políticas, reglas o decisiones estructurales — no a resolver casos individuales sin tocar el sistema que los genera.</div>
+    </div>
+
+    <div class="exp-grupo">
+      <button class="exp-btn">
+        <span>Queja sin propuesta</span>
+        <span class="exp-tag tag-no">No es incidencia</span>
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="exp-cuerpo">Denunciar un problema sin presentar una alternativa concreta tiene poco efecto político. La incidencia convierte la demanda en propuesta viable, dirigida a quien tiene el poder de resolverla.</div>
+    </div>
+
+    <div class="exp-grupo">
+      <button class="exp-btn">
+        <span>Participación pasiva</span>
+        <span class="exp-tag tag-no">No es incidencia</span>
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="exp-cuerpo">Asistir a reuniones convocadas por el Estado o firmar documentos sin influir en su contenido no es incidencia. La incidencia es activa: define agenda, presenta argumentos y hace seguimiento.</div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Autonomía como condición</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:14px;">Una cooperativa puede incidir ante el Estado, negociar con instituciones públicas o recibir recursos externos — pero solo en términos que garanticen su control democrático interno.</p>
+    <div class="callout-verde">
+      La autonomía no impide aliarse con actores de gobierno. Impide <strong>supeditarse</strong> a ellos. La diferencia está en quién define la agenda, quién decide cómo usar los recursos y quién puede retirarse del acuerdo.
+    </div>
+
+    <div class="articulo-card">
+      <div class="articulo-head">
+        <span class="art-num">Art. 7-d</span><span class="art-ley">LCH</span>
+        <span class="art-resumen">Principio de autonomía e independencia</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 7.- Son principios básicos que rigen las cooperativas: [...] d) Autonomía e independencia.</div>
+    </div>
+
+    <div class="articulo-card">
+      <div class="articulo-head">
+        <span class="art-num">Art. 8 (4to principio)</span><span class="art-ley">RLCH</span>
+        <span class="art-resumen">Autonomía al relacionarse con gobiernos</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">Cuarto Principio: Autonomía e independencia. Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobiernos) o tienen capital de fuentes externas, lo realizan en términos que aseguren el control democrático por parte de sus miembros y mantengan la autonomía de la cooperativa.</div>
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> ¿En qué punto una alianza con un actor de gobierno fortalece a la cooperativa y en qué punto la compromete ¿Quién debería tomar esa decisión dentro de la organización</div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Marco legal de esta sección</div>
+    <div class="articulo-card">
+      <div class="articulo-head">
+        <span class="art-num">Art. 4-i</span><span class="art-ley">RLCH</span>
+        <span class="art-resumen">Responsabilidad social — presencia activa en la comunidad</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 4.- Valores Cooperativos. Las cooperativas deben basar sus actuaciones en valores [...] i) Responsabilidad Social: Es la presencia activa de las cooperativas y sus afiliados(as) en las comunidades donde actúan, con el fin de contribuir a su mejoramiento integral y/o desarrollo humano sostenible.</div>
+    </div>
+    <div class="reflexion"><strong>Para reflexionar:</strong> ¿El valor de responsabilidad social implica una obligación de incidir o solo una orientación ¿Existe algún límite según la normativa</div>
+
+    <div class="articulo-card" style="margin-top:8px;">
+      <div class="articulo-head">
+        <span class="art-num">Art. 76</span><span class="art-ley">LCH</span>
+        <span class="art-resumen">Derechos de los/as cooperativistas</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 76.- En sus cooperativas, los cooperativistas tendrán los derechos siguientes: a) Igualdad de derechos con respecto a los demás miembros de la organización; b) Voz y voto en las reuniones y asambleas de cooperativistas; c) Solicitar la convocatoria de la Asamblea General conforme a los Estatutos; ch) Estar informado de los resultados de la gestión social; d) Impugnar conforme a la Ley, decisiones de la Asamblea General, la Junta Directiva, la Junta de Vigilancia, la Gerencia o cualquier otro órgano de la Cooperativa; e) Solicitar ante la Junta Directiva del organismo rector del cooperativismo la normalización jurídica de la cooperativa; f) Designar beneficiarios que le sucedan en sus derechos patrimoniales; g) Los demás que dispongan los Estatutos.</div>
+    </div>
+    <div class="reflexion"><strong>Para reflexionar:</strong> El inciso ch establece el derecho a estar informado de los resultados de la gestión social. ¿Una acción de incidencia forma parte de la gestión social ¿Cómo se informa a los/as afiliados/as sobre sus avances</div>
+  </section>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 2 �?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="tab-panel" id="t2">
+  <h2 class="cap-titulo">Escala y legitimidad</h2>
+  <p class="cap-bajada">No se requiere una reforma legislativa para incidir. Los organismos de segundo y tercer grado son el camino natural para temas sectoriales.</p>
+
+  <section class="seccion">
+    <div class="seccion-titulo">No se necesita llegar al Congreso</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:14px;">La mayoría de los problemas que afectan a una cooperativa tienen solución a nivel local o sectorial. La escala de la acción debe coincidir con la escala del problema.</p>
+
+    <div class="escala-grid">
+      <div class="escala-card">
+        <div class="escala-nivel">Nivel local</div>
+        <div class="escala-titulo">Con la alcaldía o instituciones del territorio</div>
+        <div class="escala-desc">Ordenanzas, permisos, presupuesto participativo, infraestructura local, reglamentos municipales.</div>
+      </div>
+      <div class="escala-card">
+        <div class="escala-nivel">Nivel comunitario</div>
+        <div class="escala-titulo">Con organizaciones de base</div>
+        <div class="escala-desc">Patronatos, juntas de agua, asociaciones locales. Coordinación para problemas compartidos.</div>
+      </div>
+      <div class="escala-card">
+        <div class="escala-nivel">Nivel sectorial</div>
+        <div class="escala-titulo">A través de la federación</div>
+        <div class="escala-desc">Para temas que afectan a varias cooperativas del mismo rubro o región. El peso colectivo multiplica el poder de negociación.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Filtro previo — ¿puede esta cooperativa actuar</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:14px;">Antes de comprometer el nombre o los recursos de la organización, la JD debe responder estas preguntas:</p>
+
+    <div class="tabla-wrap">
+      <table class="tabla">
+        <thead><tr><th>Pregunta</th><th>Por qué importa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>¿Está dentro del objeto social</strong></td><td>La cooperativa actúa en el ámbito que sus estatutos y la ley definen. Incidir en temas ajenos puede dividir a los/as afiliados/as.</td></tr>
+          <tr><td><strong>¿Hay mandato democrático interno</strong></td><td>Una JD no puede comprometer a la cooperativa sin respaldo de la Asamblea General, especialmente si involucra recursos o exposición pública.</td></tr>
+          <tr><td><strong>¿Hay capacidad real</strong></td><td>¿Tiene la cooperativa tiempo, personas y fondos para sostener la acción Una incidencia abandonada debilita la posición de la organización.</td></tr>
+          <tr><td><strong>¿Beneficia a los/as afiliados/as</strong></td><td>¿Qué mejora concreta tendrá la vida de quienes están afiliados/as si esto sale bien</td></tr>
+          <tr><td><strong>¿Respeta los límites legales</strong></td><td>Hay temas con competencia exclusiva de otras instituciones. La cooperativa no puede sustituir al Estado.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-rojo" style="margin-top:8px;">Si alguna pregunta no tiene respuesta clara, ese es el trabajo antes de incidencia.</div>
+
+    <div class="articulo-card" style="margin-top:16px;">
+      <div class="articulo-head">
+        <span class="art-num">Art. 7</span><span class="art-ley">RLCH</span>
+        <span class="art-resumen">Actos cooperativos — con quién y bajo qué condición</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 7.- Actos Cooperativos. Son actos cooperativos los que realice la Cooperativa: a) Con sus Cooperativistas como persona natural o jurídicas sin fines de lucro, en su condición de tal; b) Con otra u otras Cooperativas de igual o diferente actividad principal o del mismo o distinto grado de integración; c) Con no Cooperativistas, siempre que se refiera a cumplir su objeto social y en cuya relación no se persiga fines de lucro.</div>
+    </div>
+
+    <div class="articulo-card">
+      <div class="articulo-head">
+        <span class="art-num">Art. 61</span><span class="art-ley">LCH</span>
+        <span class="art-resumen">Prohibiciones a las cooperativas</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 61.- A ninguna cooperativa le será permitido: a) Funcionar o convertirse en sociedad mercantil o en sociedad civil; b) Conceder ventajas y privilegios a los iniciadores, fundadores, administradores o dirigentes, sobre parte alguna de los recursos económicos; c) Hacer participar a personas jurídicas y de otra índole del sector comercial, industrial y/o de servicio, directa o indirectamente, de los derechos y exenciones que esta Ley otorga a las organizaciones cooperativas de cualquier grado.</div>
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> El Art. 7-c del RLCH permite actos cooperativos con no cooperativistas "siempre que se refiera a cumplir su objeto social". ¿Una gestión de incidencia ante la alcaldía entra dentro de esa categoría ¿Depende del tipo de cooperativa</div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Organismos de segundo y tercer grado</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:12px;">Los organismos de segundo grado tienen mandato legal para representar y defender los intereses de sus cooperativas afiliadas ante autoridades gubernamentales y organismos internacionales. <span class="norma-ref">RLCH Art. 151-a, m</span></p>
+
+    <div class="callout-verde" style="margin-bottom:16px;">
+      Una cooperativa de base que lleva su demanda a su federación multiplica su peso. Las federaciones articuladas con los organismos de integración nacional tienen capacidad legal de representar al sector ante cualquier organismo del Estado. <span class="norma-ref">LCH Arts. 5, 91</span>
+    </div>
+
+    <div class="fed-grid">
+      <div class="fed-card">
+        <div class="fed-sigla">AHPROCAFE</div>
+        <div class="fed-nombre">Asociación Hondureña de Productores del Café</div>
+        <div class="fed-ruta">Política cafetalera, precio de acopio, acceso a mercados de exportación, asistencia técnica del IHCAFE.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FACACH</div>
+        <div class="fed-nombre">Federación de Cooperativas de Ahorro y Crédito de Honduras</div>
+        <div class="fed-ruta">Regulación financiera, tasas de interés, acceso a fondos de BANHPROVI, supervisión de CONSUCOOP.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FEHCACREL</div>
+        <div class="fed-nombre">Federación Hondureña de Cooperativas de Ahorro y Crédito</div>
+        <div class="fed-ruta">Normativa financiera cooperativa, educación financiera, regulación del sector de ahorro y crédito.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FEHCAFOR</div>
+        <div class="fed-nombre">Federación Hondureña de Cooperativas Agroforestales</div>
+        <div class="fed-ruta">Política forestal, regulación del ICF, acceso a tierras forestales, mercados de madera y carbono.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FECORAH</div>
+        <div class="fed-nombre">Federación de Cooperativas Agropecuarias de la Reforma Agraria</div>
+        <div class="fed-ruta">Acceso a tierra, política agraria, programas del INA, seguridad jurídica de parcelas.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">La Central</div>
+        <div class="fed-nombre">Central de Cooperativas Cafetaleras de Honduras</div>
+        <div class="fed-ruta">Exportación directa de café, certificaciones de calidad, acceso a mercados especiales.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">UCDOL</div>
+        <div class="fed-nombre">Unión de Cooperativas de Desarrollo de Occidente</div>
+        <div class="fed-ruta">Desarrollo territorial en el occidente, servicios múltiples, coordinación con alcaldías de la región.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FENACOTRAL</div>
+        <div class="fed-nombre">Federación Nacional de Cooperativas de Transporte</div>
+        <div class="fed-ruta">Regulación de rutas, tarifas, permisos ante alcaldías y Secretaría de Infraestructura.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">UNIOCOOP</div>
+        <div class="fed-nombre">Unión de Cooperativas Cafetaleras y de Servicios Agropecuarios</div>
+        <div class="fed-ruta">Servicios agropecuarios, insumos, asistencia técnica, acceso a programas de la SAG.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">ACAN</div>
+        <div class="fed-nombre">Asociación Campesina Nacional</div>
+        <div class="fed-ruta">Derechos campesinos, acceso a tierra, política agraria, representación ante instituciones del agro.</div>
+      </div>
+      <div class="fed-card">
+        <div class="fed-sigla">FECOVISOL</div>
+        <div class="fed-nombre">Federación de Cooperativas de Vivienda Solidaria</div>
+        <div class="fed-ruta">Política habitacional, acceso a terrenos, programas de BANHPROVI, regulación municipal de vivienda.</div>
+      </div>
+    </div>
+
+    <div class="articulo-card">
+      <div class="articulo-head">
+        <span class="art-num">Art. 151</span><span class="art-ley">RLCH</span>
+        <span class="art-resumen">Funciones de organismos de segundo grado</span>
+        <button class="btn-ver-art">Ver artículo</button>
+      </div>
+      <div class="articulo-texto">ART�?CULO 151.- Funciones de los Organismos de Segundo Grado. Los organismos de segundo grado, se deben constituir con el objeto de cumplir para sus afiliadas, fines sociales, económicos y de representación. Estas tendrán las siguientes funciones: a) Representar y defender los intereses de las Cooperativas afiliadas; [...] m) Representar ante las autoridades gubernamentales y organismos internacionales.</div>
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> Si una cooperativa de base decide actuar directamente ante una institución nacional sin pasar por su federación, ¿qué ventajas y riesgos tiene esa decisión ¿Hay situaciones donde eso es más legítimo</div>
+  </section>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 3 �?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="tab-panel" id="t3">
+  <h2 class="cap-titulo">Conceptos clave</h2>
+  <p class="cap-bajada">Problema público, objeto de cambio, mapa de actores y escalera de escalada.</p>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Problema público</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:14px;">Un problema público es una situación que afecta de manera colectiva a un grupo o comunidad, y cuya solución requiere una acción o decisión de parte del Estado o una institución con poder público.</p>
+
+    <div class="callout">
+      <strong>Distinción clave:</strong> Que una cooperativa tenga dificultades internas de gestión es un problema privado. Que la regulación impida a varias cooperativas acceder a financiamiento en igualdad de condiciones es un problema público.
+    </div>
+
+    <p style="font-size:13px;font-weight:600;color:var(--verde);margin:16px 0 10px;">Tres reglas para formular el enunciado del problema</p>
+    <div class="escala-grid">
+      <div class="escala-card">
+        <div class="escala-titulo">No incluir la solución</div>
+        <div class="escala-desc">�?� "Se necesita más personal en el centro de salud."<br><br>✓ "El centro de salud no cuenta con los recursos para prestar los servicios médicos que los/as afiliados/as requieren."</div>
+      </div>
+      <div class="escala-card">
+        <div class="escala-titulo">Evitar absolutos</div>
+        <div class="escala-desc">�?� "Ausencia de apoyo institucional."<br><br>✓ "La Secretaría X no incluye a cooperativas en su programa de apoyo a emprendimientos."</div>
+      </div>
+      <div class="escala-card">
+        <div class="escala-titulo">Específico y medible</div>
+        <div class="escala-desc">�?� "El gobierno no apoya los negocios pequeños."<br><br>✓ "El 40% de afiliados/as no logra completar los trámites de formalización municipal."</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Objeto de cambio</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:14px;">El objeto de cambio es la decisión, norma, reglamento, práctica o política concreta que se quiere transformar. Sin objeto de cambio claro, el mapa de actores no tiene dirección.</p>
+
+    <div class="callout-verde">
+      <strong>Ejemplo:</strong> No "queremos más apoyo del gobierno" sino <em>"que el reglamento de BANADESA incluya una garantía alternativa para cooperativas con tierras de reforma agraria."</em> Ese es el objeto de cambio — ahora sí se puede mapear quién decide y quién influye.
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> ¿Qué diferencia hace formular un objeto de cambio preciso antes de reunirse con un actor decisor ¿Qué pasa cuando se llega a una reunión sin esa claridad</div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Mapa de actores</div>
+
+    <div class="tabla-wrap">
+      <table class="tabla">
+        <thead><tr><th>Tipo</th><th>Descripción</th><th>Posición</th><th>Estrategia</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Decisores/as</strong></td><td>Pueden cambiar el objeto: funcionario/a, concejo, dirección de institución.</td><td>Variable</td><td>Reunión directa, propuesta formal.</td></tr>
+          <tr><td><strong>Influyentes</strong></td><td>No deciden pero condicionan: federación, medios, aliados/as.</td><td>Variable</td><td>Sumar, delegar vocería.</td></tr>
+          <tr><td><strong>Afectados/as</strong></td><td>Los/as afiliados/as — su testimonio es el argumento más poderoso.</td><td>Favorable</td><td>Involucrar activamente.</td></tr>
+          <tr><td><strong>Opositores/as</strong></td><td>Intereses contrarios. Pueden ser externos o internos.</td><td>Contrario</td><td>Entender sus intereses reales antes de confrontar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-verde" style="margin-top:8px;">
+      <strong>Principio central:</strong> El/la afiliado/a no es solo la razón de la incidencia — es su validador/a. Si el cambio propuesto no mejora concretamente su situación, la propuesta necesita revisión. <span class="norma-ref">LCH Arts. 7-g, 76</span>
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> La posición de un actor (favorable, neutral, opositor) no es fija — depende del tema y puede cambiar con información. ¿Qué estrategia usarían para mover a un actor neutral hacia favorable</div>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-titulo">Escalera de escalada</div>
+    <p style="font-size:14px;color:var(--gris-sec);margin-bottom:12px;">La incidencia no empieza con confrontación. Cada paso debe agotarse antes de subir al siguiente. Subir sin agotar el paso anterior debilita la posición de la cooperativa.</p>
+
+    <div class="escalera">
+      <div class="esc-step e1"><span class="esc-num">1</span><div><strong>Diálogo directo</strong> — Reunión formal con el actor decisor. Primer recurso siempre.</div></div>
+      <div class="esc-step e2"><span class="esc-num">2</span><div><strong>Solicitud formal documentada</strong> — Carta con fundamento legal, firmada por JD o Asamblea. Genera registro.</div></div>
+      <div class="esc-step e3"><span class="esc-num">3</span><div><strong>Articulación con aliados</strong> — Sumar federación, otras cooperativas, sociedad civil. El peso colectivo cambia la conversación.</div></div>
+      <div class="esc-step e4"><span class="esc-num">4</span><div><strong>Denuncia pública / incidencia mediática</strong> — Solo cuando los pasos anteriores no produjeron respuesta.</div></div>
+      <div class="esc-step e5"><span class="esc-num">5</span><div><strong>Movilización colectiva</strong> — Último recurso. Requiere mandato explícito de Asamblea General y asesoría legal. <span class="norma-ref">LCH Art. 24</span></div></div>
+    </div>
+
+    <div class="callout">
+      En Honduras, las cooperativas tienen personalidad jurídica y derechos legales reconocidos. La movilización extrema puede exponer a la organización a consecuencias legales o administrativas. La decisión de llegar a ese punto debe estar respaldada por la Asamblea General.
+    </div>
+
+    <div class="reflexion"><strong>Para reflexionar:</strong> ¿Puede haber situaciones donde saltarse pasos de la escalera sea justificado ¿Quién dentro de la cooperativa tiene legitimidad para tomar esa decisión</div>
+  </section>
+</div>
+
+    </div><!-- /tab-panels -->
+  </div><!-- /mod-cuerpo -->
+</div><!-- /mod-wrapper -->
+
+<script>
+  function abrirMenu() {
+    var sidebar = document.querySelector('.tabs-nav');
+    var overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.add('abierto');
+    if (overlay) overlay.classList.add('visible');
+  }
+
+  function cerrarMenu() {
+    var sidebar = document.querySelector('.tabs-nav');
+    var overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.remove('abierto');
+    if (overlay) overlay.classList.remove('visible');
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = this.getAttribute('data-tab');
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('activo'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('activo'); });
+      this.classList.add('activo');
+      document.getElementById(target).classList.add('activo');
+      if (window.innerWidth <= 640) cerrarMenu();
+    });
+  });
+
+  document.querySelectorAll('.exp-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cuerpo = this.nextElementSibling;
+      var isOpen = this.classList.contains('abierto');
+      this.classList.toggle('abierto', !isOpen);
+      cuerpo.classList.toggle('abierto', !isOpen);
+    });
+  });
+
+  document.querySelectorAll('.btn-ver-art').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var texto = this.closest('.articulo-card').querySelector('.articulo-texto');
+      texto.classList.toggle('visible');
+      this.textContent = texto.classList.contains('visible') ? 'Ocultar' : 'Ver artículo';
+    });
+  });
+</script>
+</body>
+</html>

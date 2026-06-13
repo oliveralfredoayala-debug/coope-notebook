@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excedentes cooperativos</title>
+<style>
+:root {
+  --verde: #1c6b4a;
+  --verde-sec: #2fa36b;
+  --amarillo: #f4c20d;
+  --blanco: #ffffff;
+  --gris-bg: #f7f7f5;
+  --gris-borde: #e4e4e0;
+  --texto: #1a1a18;
+  --texto-sec: #3a3a36;
+  --texto-ter: #6a6a64;
+  --radio: 10px;
+  --radio-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--blanco);color:var(--texto);font-size:16px;line-height:1.65;min-height:100vh}
+.shell{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:240px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.nb-marca{display:block;padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--gris-borde);flex-shrink:0;color:inherit;text-decoration:none}
+.nb-wordmark{margin-bottom:4px;line-height:1}
+.nb-wm-coop{font-size:17px;font-weight:700;color:#1c6b4a;letter-spacing:-0.02em}
+.nb-wm-notebook{font-size:17px;font-weight:400;color:#1a1a18;letter-spacing:-0.02em}
+.nb-marca-titulo{font-size:11px;font-weight:500;color:var(--verde);display:block;margin-top:3px}
+.nb-nav{list-style:none;padding:.5rem 0;flex:1;overflow-y:auto}
+.nb-nav li{margin:0}
+.nb-nav button{width:100%;text-align:left;background:none;border:none;padding:.6rem 1.25rem;font-size:13px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .12s,color .12s;border-left:3px solid transparent}
+.nb-nav button:hover{background:var(--gris-bg);color:var(--texto)}
+.nb-nav button.activo{background:#e8f4ef;color:var(--verde);font-weight:500;border-left-color:var(--verde)}
+.nb-nav-num{font-size:10px;font-weight:600;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.nb-nav button.activo .nb-nav-num{color:var(--verde-sec)}
+.nb-conceptos{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);flex-shrink:0}
+.nb-conceptos-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.6rem;display:block}
+.nb-tags{display:flex;flex-wrap:wrap;gap:5px}
+.nb-tag{font-size:11px;color:var(--verde);background:#e8f4ef;padding:3px 8px;border-radius:20px}
+
+/* MAIN */
+.main{flex:1;max-width:800px;padding:3rem 3.5rem;overflow-y:auto}
+.panel{display:none}
+.panel.activo{display:block}
+
+/* T�?TULOS */
+.cap-titulo{font-size:26px;font-weight:600;color:var(--texto);line-height:1.25;margin-bottom:.4rem;padding-bottom:.5rem;position:relative}
+.cap-titulo::after{content:'';display:block;width:2.5rem;height:3px;background:var(--verde);margin-top:.5rem;border-radius:2px}
+.cap-meta{font-size:12px;color:var(--texto-ter);margin-bottom:2rem}
+.cap-intro{font-size:15px;color:var(--texto-sec);line-height:1.7;margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--gris-borde)}
+.cap-intro strong{color:var(--texto);font-weight:500}
+.sec-h{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin:2.5rem 0 1rem}
+
+/* PORTADA */
+.portada-bullets{margin:0 0 2rem 0;list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.portada-bullets li{font-size:14px;color:var(--texto-sec);display:flex;align-items:flex-start;gap:.625rem;line-height:1.5}
+.portada-bullets li::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--verde-sec);flex-shrink:0;margin-top:6px}
+.portada-bullets li strong{color:var(--texto);font-weight:500}
+
+/* TABLA */
+.tabla-wrap{margin:1.25rem 0;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.tabla-wrap table{width:100%;border-collapse:collapse;font-size:14px}
+.tabla-wrap thead tr{background:var(--verde)}
+.tabla-wrap thead th{padding:.65rem 1rem;color:var(--blanco);font-weight:500;text-align:left;font-size:13px}
+.tabla-wrap tbody tr{border-bottom:1px solid var(--gris-borde)}
+.tabla-wrap tbody tr:last-child{border-bottom:none}
+.tabla-wrap tbody tr:hover{background:var(--gris-bg)}
+.tabla-wrap td{padding:.65rem 1rem;vertical-align:top;line-height:1.5;color:var(--texto-sec);font-size:14px}
+.tabla-wrap td:first-child{font-weight:600;color:var(--texto)}
+
+/* INSIGHT */
+.insight{background:var(--gris-bg);border-left:3px solid var(--amarillo);padding:1rem 1.25rem;border-radius:0 var(--radio-sm) var(--radio-sm) 0;margin:1.75rem 0;font-size:14px;color:var(--texto-sec);line-height:1.65}
+.insight strong{color:var(--texto);font-weight:500}
+
+/* PUNTOS */
+.puntos{margin:1.25rem 0;display:flex;flex-direction:column;gap:.65rem}
+.punto{display:flex;gap:.875rem;align-items:flex-start;padding:.75rem 1rem;border:1px solid var(--gris-borde);border-radius:var(--radio);background:var(--blanco)}
+.punto-icono{width:26px;height:26px;border-radius:50%;background:#e8f4ef;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--verde);margin-top:1px}
+.punto-texto{font-size:14px;color:var(--texto-sec);line-height:1.55}
+.punto-texto strong{color:var(--texto);font-weight:500}
+
+/* ART CARDS */
+.art-card{margin-bottom:.875rem;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.art-card-header{padding:.8rem 1.25rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s;gap:1rem}
+.art-card-header:hover{background:var(--gris-bg)}
+.art-card-id{font-size:12px;font-weight:600;color:var(--verde);letter-spacing:.05em;flex-shrink:0}
+.art-card-titulo{font-size:14px;color:var(--texto);font-weight:500;flex:1}
+.art-card-chev{width:16px;height:16px;flex-shrink:0;color:var(--texto-ter);transition:transform .2s}
+.art-card.abierto .art-card-chev{transform:rotate(180deg)}
+.art-card-body{display:none;padding:1rem 1.25rem;font-size:13.5px;color:var(--texto-sec);line-height:1.7;border-top:1px solid var(--gris-borde);background:var(--gris-bg)}
+.art-card.abierto .art-card-body{display:block}
+.art-verbatim{font-style:italic;color:var(--texto);margin-bottom:.65rem;padding:.75rem 1rem;background:var(--blanco);border-left:3px solid var(--verde-sec);border-radius:0 var(--radio-sm) var(--radio-sm) 0;font-size:13px;line-height:1.65}
+.art-nota{font-size:12px;color:var(--texto-ter)}
+
+/* TIPO CARDS */
+.tipo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:1.25rem 0}
+.tipo-card{border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1rem;background:var(--blanco)}
+.tipo-card-nombre{font-size:13px;font-weight:600;color:var(--verde);margin-bottom:4px}
+.tipo-card-modelo{font-size:11px;font-weight:600;color:var(--texto-ter);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem}
+.tipo-card-desc{font-size:13px;color:var(--texto-sec);line-height:1.5}
+.tipo-card-art{font-size:11px;color:var(--verde-sec);margin-top:.5rem;font-style:italic}
+
+/* BADGE */
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px}
+.badge-norep{background:#e8f4ef;color:#1c6b4a}
+.badge-jd{background:#eef3fb;color:#2155a4}
+.badge-asamblea{background:#fef3e8;color:#8a4d00}
+.badge-rep{background:#fef8dc;color:#7a5c00}
+
+/* ===================== CALCULADORA ===================== */
+.calc-top{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.calc-input-box{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1rem 1.1rem}
+.calc-input-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.5rem;display:block}
+.calc-input-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.calc-input-row input[type=range]{flex:1;min-width:80px}
+.calc-field{width:130px;font-size:14px;padding:5px 8px;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);background:var(--blanco);color:var(--texto);font-family:inherit;text-align:right}
+.calc-big{font-size:18px;font-weight:600;color:var(--verde);font-variant-numeric:tabular-nums;min-width:110px;text-align:right}
+
+.fondos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:1.5rem}
+.fondo-input-card{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.85rem 1rem}
+.fondo-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
+.fondo-nombre{font-size:12px;font-weight:600;color:var(--texto)}
+.fondo-art{font-size:10px;color:var(--verde);font-style:italic;margin-top:2px;display:block}
+.fondo-input-row{display:flex;align-items:center;gap:8px;margin-top:.6rem}
+.fondo-input-row label{font-size:12px;color:var(--texto-ter)}
+.fondo-pct-input{width:70px;font-size:14px;padding:4px 7px;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);background:var(--blanco);color:var(--texto);font-family:inherit;text-align:center}
+.fondo-resultado{font-size:18px;font-weight:600;color:var(--texto);font-variant-numeric:tabular-nums;margin-top:.4rem}
+
+/* AVISO */
+.aviso{font-size:12px;color:#7a5c00;background:#fef8dc;border:1px solid #e6c94a;border-radius:var(--radio-sm);padding:.6rem 1rem;margin-bottom:1rem;display:none}
+.aviso.on{display:block}
+
+/* RESUMEN */
+.resumen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.5rem}
+.resumen-card{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.85rem 1rem}
+.resumen-card.highlight{border-color:#b8dccc;background:#f0faf5}
+.resumen-card.highlight-amarillo{border-color:#e6c94a;background:#fffbeb}
+.resumen-card.highlight-azul{border-color:#b8c8e8;background:#f0f4fc}
+.resumen-label{font-size:11px;color:var(--texto-ter);margin-bottom:3px}
+.resumen-val{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--texto)}
+.resumen-sub{font-size:11px;color:var(--texto-ter);margin-top:2px}
+.resumen-art{font-size:10px;color:var(--verde);font-style:italic;margin-top:3px;display:block}
+
+/* BAR */
+.bar-wrap{width:100%;height:48px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:.5rem;border:1px solid var(--gris-borde)}
+.seg{height:100%;transition:width .35s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.seg-lbl{position:absolute;bottom:5px;left:7px;font-size:10px;font-weight:600;white-space:nowrap}
+
+/* PIE */
+.pie-section{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;margin:1.5rem 0}
+.pie-wrap{position:relative;width:200px;height:200px}
+.pie-wrap svg{width:200px;height:200px}
+.pie-legend{display:flex;flex-direction:column;gap:8px}
+.pie-legend-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--texto-sec)}
+.pie-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.pie-legend-val{font-weight:600;color:var(--texto);font-variant-numeric:tabular-nums;margin-left:auto}
+
+/* TERCEROS */
+.terceros-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.terceros-box{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1rem}
+.terceros-label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.5rem;display:block}
+.terceros-val{font-size:22px;font-weight:600;color:var(--texto);font-variant-numeric:tabular-nums}
+.terceros-sub{font-size:11px;color:var(--texto-ter);margin-top:3px}
+.terceros-art{font-size:10px;color:var(--verde);font-style:italic;margin-top:4px;display:block}
+
+/* MOBILE */
+@media(max-width:700px){
+  .sidebar{display:none}
+  .main{padding:1.5rem 1.25rem;max-width:100%}
+  .cap-titulo{font-size:22px}
+  .calc-top{grid-template-columns:1fr}
+  .terceros-split{grid-template-columns:1fr}
+  .pie-section{grid-template-columns:1fr}
+  .pie-wrap{margin:0 auto}
+  .tabla-wrap{overflow-x:auto}
+  .resumen-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Boton hamburguesa y overlay para navegacion interna en mobile */
+.nb-toggle{display:none}
+.nb-overlay{display:none}
+.nb-cerrar{display:none}
+@media(max-width:700px){
+  .nb-toggle{display:flex;align-items:center;justify-content:center;position:fixed;top:12px;left:12px;z-index:50;width:44px;height:44px;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio-sm);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:0}
+  .nb-toggle svg{width:22px;height:22px;color:var(--verde)}
+  .sidebar{display:flex;position:fixed;top:0;left:0;z-index:60;width:82%;max-width:320px;height:100vh;border-right:1px solid var(--gris-borde);border-bottom:none;transform:translateX(-100%);transition:transform .26s ease;box-shadow:2px 0 16px rgba(0,0,0,.12)}
+  .sidebar.abierto{transform:translateX(0)}
+  .nb-cerrar{display:flex;align-items:center;justify-content:center;position:absolute;top:14px;right:14px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:0;color:var(--texto-ter)}
+  .nb-cerrar svg{width:22px;height:22px}
+  .nb-nav button{min-height:44px}
+  .nb-conceptos{display:block}
+  .nb-overlay{display:block;position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .26s ease}
+  .nb-overlay.visible{opacity:1;pointer-events:auto}
+  .main{padding-top:4.5rem}
+}
+</style>
+</head>
+<body>
+<button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<div class="shell">
+
+<nav class="sidebar">
+  <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a class="nb-marca" href="../index.html" aria-label="Volver a herramientas">
+    <div class="nb-wordmark">
+      <span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span>
+    </div>
+    <span class="nb-marca-titulo">Recursos económicos y finanzas</span>
+  </a>
+  <ul class="nb-nav">
+    <li><button class="activo" onclick="tab('portada',this)">
+      <span class="nb-nav-num">00</span>Portada
+    </button></li>
+    <li><button onclick="tab('t01',this)">
+      <span class="nb-nav-num">01</span>Excedentes y fondos
+    </button></li>
+    <li><button onclick="tab('t02',this)">
+      <span class="nb-nav-num">02</span>Excedentes con terceros
+    </button></li>
+    <li><button onclick="tab('t03',this)">
+      <span class="nb-nav-num">03</span>Distribución y métodos
+    </button></li>
+    <li><button onclick="tab('t04',this)">
+      <span class="nb-nav-num">04</span>Calculadora
+    </button></li>
+    <li><button onclick="tab('t05',this)">
+      <span class="nb-nav-num">05</span>Artículos del módulo
+    </button></li>
+  </ul>
+  <div class="nb-conceptos">
+    <span class="nb-conceptos-label">Conceptos relacionados</span>
+    <div class="nb-tags">
+      <span class="nb-tag">Art. 43 LCH</span>
+      <span class="nb-tag">Art. 44 LCH</span>
+      <span class="nb-tag">Art. 45 LCH</span>
+      <span class="nb-tag">Art. 7 RLCH</span>
+      <span class="nb-tag">Art. 123 RLCH</span>
+      <span class="nb-tag">Art. 125 RLCH</span>
+      <span class="nb-tag">Art. 128 RLCH</span>
+      <span class="nb-tag">excedente</span>
+      <span class="nb-tag">patrocinio</span>
+      <span class="nb-tag">intermediación financiera</span>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? PORTADA �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel activo" id="panel-portada">
+  <h1 class="cap-titulo">Excedentes cooperativos</h1>
+  <div class="cap-meta">LCH Arts. 7, 43, 44, 45, 47-51, 119-B · RLCH Arts. 122, 123, 124, 125, 127, 128, 129</div>
+  <p class="cap-intro">
+    Los excedentes no son utilidades ni ganancias: son los saldos que resultan de las operaciones de la cooperativa al final del ejercicio social. Su origen, su distribución y los fondos que se constituyen antes de repartir cualquier monto están regulados por la Ley. Este módulo cubre todo ese recorrido.
+  </p>
+  <ul class="portada-bullets">
+    <li><strong>Excedentes y fondos:</strong> De dónde vienen según el modelo de negocio de cada tipo de cooperativa, quién es elegible para recibirlos, qué fondos son no negociables y cuáles decide la Asamblea o la JD</li>
+    <li><strong>Excedentes con terceros:</strong> Qué son los actos cooperativos, qué pasa con los excedentes que resultan de operar con personas no afiliadas, y qué son los Programas de Desarrollo Cooperativo</li>
+    <li><strong>Distribución y métodos:</strong> Cómo se distribuye según el tipo de cooperativa, si se capitaliza o se entrega, y quién toma esa decisión</li>
+    <li><strong>Calculadora:</strong> Herramienta interactiva con todos los datos numéricos: excedente propio y de terceros, fondos editables, gráfico de distribución y monto repartible</li>
+  </ul>
+
+  <p class="sec-h">Artículos del módulo</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Artículo</th><th>Tema</th></tr></thead>
+      <tbody>
+        <tr><td>Art. 43 LCH</td><td>Definición legal de excedentes</td></tr>
+        <tr><td>Art. 44 LCH</td><td>Distribución de excedentes: reserva legal, fondos especiales, distribución y aprobación del CONSUCOOP</td></tr>
+        <tr><td>Art. 44 inciso d) LCH</td><td>Notificación al CONSUCOOP del proyecto de distribución — 30 días hábiles antes de la AGO</td></tr>
+        <tr><td>Art. 45 LCH</td><td>Excedentes con no afiliados/as: destino a programas de desarrollo cooperativo</td></tr>
+        <tr><td>Art. 7 RLCH</td><td>Actos cooperativos: definición y tres tipos</td></tr>
+        <tr><td>Arts. 47-51 LCH</td><td>Tipos de cooperativas y sus modelos de negocio</td></tr>
+        <tr><td>Art. 119-B LCH</td><td>Intermediación financiera cooperativa</td></tr>
+        <tr><td>Art. 122 RLCH</td><td>Irrepartibilidad de reservas y fondos</td></tr>
+        <tr><td>Art. 123 RLCH</td><td>Tope del 50% y distribución por tipo de cooperativa</td></tr>
+        <tr><td>Art. 124 RLCH</td><td>Reservas especiales y fondos de protección</td></tr>
+        <tr><td>Art. 125 RLCH</td><td>Fondo de educación cooperativa: mínimo 3%, distribución interna</td></tr>
+        <tr><td>Art. 127 RLCH</td><td>Destino de excedentes por operaciones con no afiliados/as</td></tr>
+        <tr><td>Art. 128 RLCH</td><td>Programas de Desarrollo Cooperativo: 9 categorías</td></tr>
+        <tr><td>Art. 129 RLCH</td><td>Las pérdidas de ejercicios anteriores bloquean la distribución</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 01 �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t01">
+  <h1 class="cap-titulo">Excedentes y fondos</h1>
+  <div class="cap-meta">LCH Arts. 43, 44, 47-51, 119-B · RLCH Arts. 122, 123, 124, 125</div>
+  <p class="cap-intro">
+    El excedente no aparece de la nada: surge del modelo de negocio de cada tipo de cooperativa. Y no todo llega a repartirse: antes de que la Asamblea General decida sobre el excedente, la Ley ya determinó el destino de una parte.
+  </p>
+
+  <p class="sec-h">De dónde vienen los excedentes: el modelo de negocio</p>
+  <div class="tipo-grid">
+    <div class="tipo-card">
+      <div class="tipo-card-nombre">Ahorro y crédito</div>
+      <div class="tipo-card-modelo">Intermediación financiera</div>
+      <div class="tipo-card-desc">Los excedentes provienen de la diferencia entre los intereses que cobra por créditos y los que paga por ahorros. Captan dinero de sus afiliados/as y lo colocan en créditos o inversiones financieras.</div>
+      <div class="tipo-card-art">Art. 119-B LCH</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card-nombre">Producción</div>
+      <div class="tipo-card-modelo">Trabajo colectivo</div>
+      <div class="tipo-card-desc">Los excedentes provienen de la diferencia entre el costo de producción y el precio de venta de lo que sus afiliados/as producen o transforman en conjunto.</div>
+      <div class="tipo-card-art">Art. 48 LCH</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card-nombre">Consumo</div>
+      <div class="tipo-card-modelo">Compras colectivas</div>
+      <div class="tipo-card-desc">Los excedentes surgen de la diferencia entre lo que la cooperativa paga por bienes y servicios y lo que cobra a sus afiliados/as por obtenerlos en común.</div>
+      <div class="tipo-card-art">Art. 50 LCH</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card-nombre">Servicios</div>
+      <div class="tipo-card-modelo">Prestación de servicios</div>
+      <div class="tipo-card-desc">Los excedentes vienen de la diferencia entre el costo de prestar servicios al público y a sus afiliados/as, y el precio que se cobra por ellos.</div>
+      <div class="tipo-card-art">Art. 49 LCH</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card-nombre">Mixtas</div>
+      <div class="tipo-card-modelo">Actividades múltiples</div>
+      <div class="tipo-card-desc">Los excedentes pueden venir de distintas fuentes simultáneas: producción, servicios, consumo u otras actividades que el estatuto defina como su objeto principal.</div>
+      <div class="tipo-card-art">Art. 51 LCH</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>¿Quién es elegible para recibir excedentes</strong> No todos los afiliados/as tienen derecho al excedente del ejercicio. Solo quienes hayan tenido <strong>patrocinio activo</strong>, es decir, quienes trabajaron con la cooperativa durante el período: los que tomaron crédito en A&C, los que compraron en una cooperativa de consumo, los que aportaron trabajo en una cooperativa de producción. Un afiliado/a que no usó los servicios puede gozar de otros beneficios sociales, pero no tiene derecho al excedente. (Art. 44 lit. c LCH)
+  </div>
+
+  <p class="sec-h">Fondos no negociables: la Ley ya decidió</p>
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">1</div>
+      <div class="punto-texto">
+        <strong>Reserva legal — mínimo 10% (Art. 44-a LCH).</strong> Se deduce antes de cualquier otra decisión. Es acumulable año a año, completamente irrepartible y sirve para cubrir pérdidas. Se debe invertir en bonos u otros títulos de fácil convertibilidad emitidos por federaciones cooperativas, instituciones bancarias o el Estado.
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">2</div>
+      <div class="punto-texto">
+        <strong>Fondo de educación cooperativa — mínimo 3% del ingreso neto anual (Art. 125 RLCH).</strong> Se calcula sobre el ingreso neto anual del presupuesto del período anterior, no sobre el excedente. Se distribuye en dos partes: el <strong>2% corresponde al Comité de Educación</strong> para educación y capacitación de cooperativistas; el <strong>1% corresponde al Comité de Juventud y Género</strong> para educación y capacitación de la juventud y el género. Lo no ejecutado se acumula al ejercicio siguiente; si tampoco se usa entonces, se traslada al CONSUCOOP y los organismos de integración nacional.
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-h">Fondos especiales: quién decide qué</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Tipo de fondo</th><th>Quién decide</th><th>Base legal</th><th>¿Es repartible</th></tr></thead>
+      <tbody>
+        <tr><td>Requerimiento de capital, patrimonio y reservas para activos de riesgo</td><td>Junta Directiva</td><td>Art. 44-b LCH</td><td>No</td></tr>
+        <tr><td>Otros fondos especiales adicionales</td><td>Asamblea General</td><td>Art. 122 RLCH</td><td>No, salvo que la Asamblea los desafecte expresamente</td></tr>
+        <tr><td>Fondos de protección: salud, vivienda, jubilación, pensiones</td><td>Asamblea General (voluntarios)</td><td>Art. 124 RLCH</td><td>No directamente; se usan para el fin que los creó</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <strong>El tope del 50% (Art. 123 RLCH).</strong> Las reservas y fondos constituidos del excedente no pueden superar el 50% del total del ejercicio, salvo disposición expresa de la Asamblea General Ordinaria o del CONSUCOOP. Lo que queda después de todos los fondos es el monto potencialmente repartible.
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 124 RLCH</span>
+      <span class="art-card-titulo">Reservas especiales y fondos de protección social</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p style="font-size:11px;font-weight:600;color:var(--texto-ter);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Párrafo 1 — Reservas para riesgo (obligatorias)</p>
+      <p class="art-verbatim">"De acuerdo con la naturaleza de sus operaciones, las Cooperativas, deben establecer reservas especiales para cuentas de operaciones de riesgos, según la normativa que emita el CONSUCOOP."</p>
+      <p class="art-nota" style="margin-bottom:1rem;">Obligatorias. Su monto y condiciones los define el CONSUCOOP según el tipo de operaciones de la cooperativa. No son opcionales.</p>
+      <p style="font-size:11px;font-weight:600;color:var(--verde);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Párrafo 2 — Fondos de protección social (voluntarios)</p>
+      <p class="art-verbatim" style="border-left-color:var(--amarillo);">"Así mismo con el fin de beneficiar a sus Afiliados(as), pueden constituir fondos de protección para atender las necesidades de salud, educación, vivienda, jubilación y pensiones por vejez y muerte así como otras previsiones que estimen convenientes."</p>
+      <p class="art-nota">Voluntarios. La Asamblea General puede crearlos y también puede desafectarlos mediante resolución expresa en otra sesión (Art. 122 RLCH). Cubren: salud, educación, vivienda, jubilación, pensiones por vejez y muerte, y otras previsiones que la Asamblea estime convenientes.</p>
+    </div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 122 RLCH</span>
+      <span class="art-card-titulo">Reservas y fondos: irrepartibles — y la excepción de la Asamblea</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p style="font-size:11px;font-weight:600;color:var(--texto-ter);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Párrafo 1 — Regla general</p>
+      <p class="art-verbatim">"Las reservas y los fondos creados de los excedentes, son irrepartibles, la utilización de los mismos se debe ajustar estrictamente a la finalidad que las disposiciones legales, estatutarias o resoluciones asamblearias tuvieron al constituirlos."</p>
+      <p class="art-nota" style="margin-bottom:1rem;">Irrepartible significa que no pueden entregarse a los afiliados/as bajo ninguna circunstancia. Cualquier uso debe ajustarse estrictamente a la finalidad original.</p>
+      <p style="font-size:11px;font-weight:600;color:var(--verde);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Párrafo 2 — La excepción: la Asamblea puede desafectar</p>
+      <p class="art-verbatim" style="border-left-color:var(--amarillo);">"No obstante, los fondos específicos creados por la Asamblea General pueden desafectarse de la finalidad que les dio origen mediante resolución expresa adoptada en otra sesión de Asamblea General, la que debe disponer el destino del saldo."</p>
+      <p class="art-nota">Tres condiciones para desafectar: (1) el fondo lo creó la Asamblea, no la JD; (2) se requiere resolución expresa en otra sesión de Asamblea; (3) esa resolución debe disponer a qué va el saldo. La JD no puede desafectar por sí sola bajo ninguna circunstancia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 02 �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t02">
+  <h1 class="cap-titulo">Excedentes con terceros</h1>
+  <div class="cap-meta">LCH Arts. 7, 45 · RLCH Arts. 127, 128</div>
+  <p class="cap-intro">
+    Cuando una cooperativa genera excedentes en operaciones con personas que no son afiliadas, esos excedentes tienen un destino específico que la Ley determina. No se distribuyen entre los afiliados/as ni quedan a libre disposición.
+  </p>
+
+  <p class="sec-h">Qué son los actos cooperativos</p>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 7 RLCH</span>
+      <span class="art-card-titulo">Actos cooperativos: definición y tipos</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Son actos cooperativos los que realice la Cooperativa: a) Con sus Cooperativistas como persona natural o jurídicas sin fines de lucro, en su condición de tal; b) Con otra u otras Cooperativas de igual o diferente actividad principal o del mismo o distinto grado de integración; c) Con no Cooperativistas, siempre que se refiera cumplir su objeto social y en cuya relación no se persiga fines de lucro."</p>
+      <p class="art-nota">Los tres literales son actos cooperativos: con afiliados/as, entre cooperativas y con terceros (siempre que sea para cumplir el objeto social y sin fines de lucro). El literal c es el que habilita operar con no afiliados/as dentro del marco legal.</p>
+    </div>
+  </div>
+
+  <p class="sec-h">Qué pasa con los excedentes que resultan de operar con terceros</p>
+  <div class="insight">
+    <strong>El ejemplo de la Ley.</strong> Si una cooperativa genera L 1,000,000 en el ejercicio: L 400,000 vinieron de operaciones con afiliados/as y L 600,000 de operaciones con terceros. Los L 400,000 siguen el proceso normal de distribución. Los L 600,000 no pueden darse a los afiliados/as (ellos no los produjeron) ni a los terceros. Quedan dentro de la cooperativa y van a Programas de Desarrollo Cooperativo. (Art. 45 LCH + Art. 127 RLCH)
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 45 LCH · Art. 127 RLCH</span>
+      <span class="art-card-titulo">Destino de excedentes con no afiliados/as</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Art. 45 LCH: Los excedentes netos generados por operaciones con no afiliados, se destinarán por la cooperativa, preferentemente a programas de desarrollo cooperativista. Art. 127 RLCH: Para los efectos del Artículo 45 de la Ley, se consideran operaciones con no Afiliados(as) las que realice la Cooperativa con personas que no tengan la calidad de Cooperativista en la propia Cooperativa y los excedentes provenientes de dichas operaciones, se deben destinar a la formación de Programa de Desarrollo Cooperativo."</p>
+      <p class="art-nota">El Art. 45 dice "preferentemente"; el Art. 127 RLCH lo convierte en obligatorio: los excedentes de terceros "se deben destinar" a Programas de Desarrollo Cooperativo. El Reglamento cierra la posibilidad de interpretación discrecional.</p>
+    </div>
+  </div>
+
+  <p class="sec-h">Qué se considera Programa de Desarrollo Cooperativo</p>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 128 RLCH</span>
+      <span class="art-card-titulo">Programas de Desarrollo Cooperativo: 9 categorías</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Se consideran Programas de Desarrollo Cooperativo: a) Los que busquen el mejoramiento cuantitativo y cualitativo de los servicios cooperativos; b) Planes estratégicos y posicionamiento de la marca Cooperativa; c) Los orientados a capacitación, filosófica, tecnológica, investigación científica, de mercado y estudios técnicos, con propósito de incrementar la producción y productividad de la Cooperativa; d) Al sostenimiento de los organismos de integración nacional e internacional; e) Pago del aporte obligatorio al CONSUCOOP; f) Pago en concepto de prima al fondo de seguro de depósitos Cooperativo, para las cooperativas de ahorro y crédito; g) La atención de objetivos de incidencia social, cultural y ambiental en el área en que la Cooperativa desarrolle sus actividades; h) Investigación y ejecución de proyectos de impacto social o ambiental; e i) Ejecución del sexto (6to) principio de cooperación entre Cooperativas."</p>
+      <p class="art-nota">Las categorías van desde mejoras de servicio y capacitación (a, b, c) hasta obligaciones con el sistema cooperativo (d, e, f), incidencia social y ambiental (g, h) y el principio de cooperación entre cooperativas (i).</p>
+    </div>
+  </div>
+
+  <p class="sec-h">Las 9 categorías en detalle</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Literal</th><th>Programa de desarrollo</th></tr></thead>
+      <tbody>
+        <tr><td>a</td><td>Mejoramiento cuantitativo y cualitativo de los servicios cooperativos</td></tr>
+        <tr><td>b</td><td>Planes estratégicos y posicionamiento de la marca cooperativa</td></tr>
+        <tr><td>c</td><td>Capacitación filosófica, tecnológica, investigación científica, de mercado y estudios técnicos</td></tr>
+        <tr><td>d</td><td>Sostenimiento de organismos de integración nacional e internacional</td></tr>
+        <tr><td>e</td><td>Pago del aporte obligatorio al CONSUCOOP</td></tr>
+        <tr><td>f</td><td>Prima al fondo de seguro de depósitos cooperativo (solo cooperativas de A&C)</td></tr>
+        <tr><td>g</td><td>Objetivos de incidencia social, cultural y ambiental en el área de operaciones</td></tr>
+        <tr><td>h</td><td>Investigación y ejecución de proyectos de impacto social o ambiental</td></tr>
+        <tr><td>i</td><td>Ejecución del sexto principio: cooperación entre cooperativas</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 03 �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t03">
+  <h1 class="cap-titulo">Distribución y métodos</h1>
+  <div class="cap-meta">LCH Art. 44 · RLCH Arts. 123, 129</div>
+  <p class="cap-intro">
+    Una vez constituidos todos los fondos obligatorios, el monto restante puede distribuirse entre los afiliados/as elegibles. Pero la forma en que se distribuye, si se capitaliza o se entrega, y en qué cuenta queda, son decisiones con fundamento legal preciso.
+  </p>
+
+  <p class="sec-h">Distribución según el tipo de cooperativa</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Tipo de cooperativa</th><th>Criterio de distribución</th><th>Base legal</th></tr></thead>
+      <tbody>
+        <tr><td>Consumo</td><td>Según el valor de las mercaderías que sus afiliados/as compren</td><td>Art. 123-a RLCH</td></tr>
+        <tr><td>Ahorro y crédito</td><td>Según el monto de intereses pagados por los créditos recibidos</td><td>Art. 123-b RLCH</td></tr>
+        <tr><td>Producción</td><td>Según el trabajo no remunerado o el patrocinio de cada afiliado/a</td><td>Art. 123-c RLCH</td></tr>
+        <tr><td>Mixtas</td><td>Por actividad realizada y uso de servicio</td><td>Art. 123-d RLCH</td></tr>
+        <tr><td>Otros tipos</td><td>Según el patrocinio</td><td>Art. 123-e RLCH</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <strong>La distribución es según patrocinio, no según capital.</strong> Cada afiliado/a recibe en proporción a cuánto usó los servicios de la cooperativa durante el ejercicio. Quien no usó los servicios no tiene derecho al excedente aunque haya aportado capital. Esa distinción es estructural: diferencia a la cooperativa de una sociedad mercantil.
+  </div>
+
+  <p class="sec-h">Métodos: ¿qué se hace con lo repartible</p>
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">1</div>
+      <div class="punto-texto">
+        <strong>Entrega directa.</strong> La Asamblea General Ordinaria puede acordar que el monto repartible se entregue directamente a cada afiliado/a elegible según su patrocinio. La forma concreta (transferencia, cheque, acreditación) la define el estatuto.
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">2</div>
+      <div class="punto-texto">
+        <strong>Cuenta de aportaciones.</strong> El excedente repartible se puede acreditar a la cuenta de aportaciones de cada afiliado/a, aumentando su capital social en la cooperativa. Esto fortalece el patrimonio cooperativo.
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">3</div>
+      <div class="punto-texto">
+        <strong>Cuenta retirable.</strong> El excedente se acredita a una cuenta que el afiliado/a puede retirar según las condiciones que defina el estatuto o el reglamento interno.
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">4</div>
+      <div class="punto-texto">
+        <strong>Capitalización total o parcial (Art. 44-ch LCH).</strong> La Asamblea General puede acordar incorporar los excedentes distribuidos y no pagados al capital social de la cooperativa, siempre que cuente con los recursos que garanticen su sostenibilidad. Una vez capitalizado, solo otra asamblea puede revertirlo.
+      </div>
+    </div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 129 RLCH</span>
+      <span class="art-card-titulo">Las pérdidas bloquean la distribución</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"El excedente repartible no puede distribuirse hasta que las pérdidas de ejercicios anteriores fueren totalmente cubiertas, en la forma que acuerde la Asamblea General Ordinaria."</p>
+      <p class="art-nota">Si la cooperativa tiene pérdidas acumuladas de ejercicios anteriores, ningún excedente puede repartirse hasta que esas pérdidas estén cubiertas. La Asamblea decide la forma de cubrirlas, pero no puede saltarse el requisito.</p>
+    </div>
+  </div>
+
+  <p class="sec-h">Paso previo obligatorio: notificación al CONSUCOOP</p>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 44 inciso d) LCH</span>
+      <span class="art-card-titulo">30 días hábiles antes de la AGO</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Treinta (30) días hábiles antes de la celebración de la Asamblea General Ordinaria, la Junta Directiva debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribución de excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situación financiera inestable."</p>
+      <p class="art-nota">Este paso ocurre antes de la asamblea, no durante. El CONSUCOOP no aprueba la distribución: puede objetarla. Si objeta, la distribución no puede ejecutarse hasta que la situación financiera se normalice. El plazo es en días hábiles, no calendario.</p>
+    </div>
+  </div>
+  <div class="insight">
+    <strong>Antes de que la Asamblea decida, el CONSUCOOP ya revisó.</strong> La secuencia correcta es: (1) la JD prepara el proyecto de distribución; (2) lo notifica al CONSUCOOP 30 días hábiles antes de la AGO; (3) si no hay objeción, la AGO discute y aprueba; (4) se ejecuta la distribución. Una cooperativa que lleva el proyecto de distribución directamente a la asamblea sin notificar al CONSUCOOP viola el Art. 44-d LCH.
+  </div>
+
+  <p class="sec-h">¿Quién decide qué</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Decisión</th><th>Quién la toma</th><th>Base legal</th></tr></thead>
+      <tbody>
+        <tr><td>Notificar el proyecto de distribución al CONSUCOOP</td><td>Junta Directiva — 30 días hábiles antes de la AGO</td><td>Art. 44-d LCH</td></tr>
+        <tr><td>Objetar la distribución por situación financiera inestable</td><td>CONSUCOOP</td><td>Art. 44-d LCH</td></tr>
+        <tr><td>Si se distribuye o se capitaliza</td><td>Asamblea General Ordinaria</td><td>Art. 44 LCH</td></tr>
+        <tr><td>Monto de la reserva legal (sobre el mínimo del 10%)</td><td>Asamblea General Ordinaria</td><td>Art. 44-a LCH</td></tr>
+        <tr><td>Fondos especiales: capital, patrimonio, activos de riesgo</td><td>Junta Directiva</td><td>Art. 44-b LCH</td></tr>
+        <tr><td>Fondos especiales adicionales voluntarios</td><td>Asamblea General</td><td>Art. 122 RLCH</td></tr>
+        <tr><td>Superar el tope del 50% de reservas</td><td>Asamblea General Ordinaria o CONSUCOOP</td><td>Art. 123 RLCH</td></tr>
+        <tr><td>Capitalización de excedentes distribuidos no pagados</td><td>Asamblea General</td><td>Art. 44-ch LCH</td></tr>
+        <tr><td>Cómo cubrir pérdidas de ejercicios anteriores</td><td>Asamblea General Ordinaria</td><td>Art. 129 RLCH</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 04 — CALCULADORA �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t04">
+  <h1 class="cap-titulo">Calculadora de excedentes</h1>
+  <div class="cap-meta">Arts. 44, 45 LCH · 122, 123, 125, 127 RLCH</div>
+  <p class="cap-intro">
+    Ingresa los excedentes del período separando operaciones propias y con terceros. Ajusta cada fondo y observa en tiempo real todos los datos numéricos de la distribución.
+  </p>
+
+  <!-- INPUTS PRINCIPALES -->
+  <p class="sec-h">Excedentes del período</p>
+  <div class="calc-top">
+    <div class="calc-input-box">
+      <span class="calc-input-label">Excedente propio (afiliados/as)</span>
+      <div class="calc-input-row">
+        <input type="range" id="sl-propio" min="0" max="10000000" step="50000" value="700000">
+        <input type="number" class="calc-field" id="nf-propio" value="700000" min="0">
+      </div>
+      <div class="calc-big" id="disp-propio">L 700,000</div>
+      <div style="font-size:11px;color:var(--texto-ter);margin-top:3px;">Art. 43 LCH — operaciones con afiliados/as</div>
+    </div>
+    <div class="calc-input-box">
+      <span class="calc-input-label">Excedente con terceros</span>
+      <div class="calc-input-row">
+        <input type="range" id="sl-terceros" min="0" max="10000000" step="50000" value="300000">
+        <input type="number" class="calc-field" id="nf-terceros" value="300000" min="0">
+      </div>
+      <div class="calc-big" id="disp-terceros">L 300,000</div>
+      <div style="font-size:11px;color:var(--texto-ter);margin-top:3px;">Art. 45 LCH — va a Programas de Desarrollo Cooperativo</div>
+    </div>
+  </div>
+
+  <!-- FONDOS EDITABLES -->
+  <p class="sec-h">Fondos del excedente propio</p>
+  <div class="fondos-grid">
+    <div class="fondo-input-card">
+      <span class="fondo-dot" style="background:#1c6b4a"></span>
+      <span class="fondo-nombre">Reserva legal</span>
+      <span class="fondo-art">Art. 44-a LCH — mínimo 10%</span>
+      <div class="fondo-input-row">
+        <label>%</label>
+        <input type="number" class="fondo-pct-input" id="pct-reserva" value="10" min="10" max="100" step="1">
+      </div>
+      <div class="fondo-resultado" id="val-reserva">L 0</div>
+    </div>
+    <div class="fondo-input-card">
+      <span class="fondo-dot" style="background:#3a8f68"></span>
+      <span class="fondo-nombre">Fondos especiales (JD)</span>
+      <span class="fondo-art">Art. 44-b LCH — sin mínimo legal</span>
+      <div class="fondo-input-row">
+        <label>%</label>
+        <input type="number" class="fondo-pct-input" id="pct-especiales" value="10" min="0" max="100" step="1">
+      </div>
+      <div class="fondo-resultado" id="val-especiales">L 0</div>
+    </div>
+    <div class="fondo-input-card" style="grid-column:span 2">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <span class="fondo-dot" style="background:#87dcad"></span>
+        <span class="fondo-nombre">Fondo de educación cooperativa</span>
+      </div>
+      <span class="fondo-art">Art. 125 RLCH — los tres forman un solo fondo; mínimo total 3%</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.75rem;">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--texto-ter);margin-bottom:4px;">Comité de Educación</div>
+          <div style="font-size:10px;color:var(--verde);font-style:italic;margin-bottom:5px;">Art. 125-a RLCH — 2% sugerido</div>
+          <div class="fondo-input-row">
+            <label>%</label>
+            <input type="number" class="fondo-pct-input" id="pct-edu-cap" value="2" min="0" max="100" step="1">
+          </div>
+          <div class="fondo-resultado" id="val-edu-cap" style="font-size:17px;margin-top:.3rem;">L 0</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--texto-ter);margin-bottom:4px;">Comité de Juventud y Género</div>
+          <div style="font-size:10px;color:var(--verde);font-style:italic;margin-bottom:5px;">Art. 125-b RLCH — 1% sugerido</div>
+          <div class="fondo-input-row">
+            <label>%</label>
+            <input type="number" class="fondo-pct-input" id="pct-edu-jg" value="1" min="0" max="100" step="1">
+          </div>
+          <div class="fondo-resultado" id="val-edu-jg" style="font-size:17px;margin-top:.3rem;">L 0</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.75rem;padding-top:.6rem;border-top:1px solid var(--gris-borde);">
+        <span style="font-size:12px;color:var(--texto-ter);">Total fondo</span>
+        <div class="fondo-resultado" id="val-educacion" style="font-size:17px;">L 0</div>
+      </div>
+    </div>
+    <div class="fondo-input-card" style="border-color:#e6c94a;background:#fffbeb">
+      <span class="fondo-dot" style="background:#f4c20d"></span>
+      <span class="fondo-nombre">Monto potencialmente repartible</span>
+      <span class="fondo-art">Art. 123 RLCH — según Asamblea</span>
+      <div style="margin-top:.6rem;font-size:12px;color:var(--texto-ter);">Calculado automáticamente</div>
+      <div class="fondo-resultado" id="val-repartible">L 0</div>
+    </div>
+  </div>
+
+  <div class="aviso" id="aviso-tope">
+    El total de reservas y fondos supera el 50% del excedente propio. Art. 123 RLCH establece ese tope salvo resolución expresa de la Asamblea General o del CONSUCOOP.
+  </div>
+
+  <!-- BARRA DE DISTRIBUCIÓN -->
+  <p class="sec-h">Distribución visual del excedente propio</p>
+  <div class="bar-wrap" id="bar-main" aria-label="Barra de distribución"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem;font-size:12px;color:var(--texto-sec)">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1c6b4a;margin-right:4px;vertical-align:middle"></span>Reserva legal</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#3a8f68;margin-right:4px;vertical-align:middle"></span>Fondos especiales</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#87dcad;margin-right:4px;vertical-align:middle"></span>Fondo de educación</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#f4c20d;margin-right:4px;vertical-align:middle"></span>Repartible</span>
+  </div>
+
+  <!-- GR�?FICO DE PIE -->
+  <p class="sec-h">Composición del ejercicio completo</p>
+  <div class="pie-section">
+    <div class="pie-wrap">
+      <svg id="pie-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="pie-legend" id="pie-legend"></div>
+  </div>
+
+  <!-- RESUMEN NUMÉRICO COMPLETO -->
+  <p class="sec-h">Todos los datos del ejercicio</p>
+  <div class="resumen-grid">
+    <div class="resumen-card">
+      <div class="resumen-label">Excedente total del ejercicio</div>
+      <div class="resumen-val" id="r-total">L 0</div>
+      <span class="resumen-art">Art. 43 LCH</span>
+    </div>
+    <div class="resumen-card highlight">
+      <div class="resumen-label">Excedente propio (afiliados/as)</div>
+      <div class="resumen-val" id="r-propio">L 0</div>
+      <div class="resumen-sub" id="r-propio-pct">0% del total</div>
+      <span class="resumen-art">Art. 43 LCH</span>
+    </div>
+    <div class="resumen-card highlight-azul">
+      <div class="resumen-label">Excedente con terceros</div>
+      <div class="resumen-val" id="r-terceros">L 0</div>
+      <div class="resumen-sub" id="r-terceros-pct">0% del total</div>
+      <span class="resumen-art">Art. 45 LCH — va a Prog. Desarrollo</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Reserva legal</div>
+      <div class="resumen-val" id="r-reserva">L 0</div>
+      <div class="resumen-sub" id="r-reserva-pct">0% del excedente propio</div>
+      <span class="resumen-art">Art. 44-a LCH</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Fondos especiales (JD)</div>
+      <div class="resumen-val" id="r-especiales">L 0</div>
+      <div class="resumen-sub" id="r-especiales-pct">0% del excedente propio</div>
+      <span class="resumen-art">Art. 44-b LCH</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Fondo de educación (total 3%)</div>
+      <div class="resumen-val" id="r-educacion">L 0</div>
+      <div class="resumen-sub" id="r-educacion-sub">Comité Educación 2% + Comité Juventud y Género 1%</div>
+      <span class="resumen-art">Art. 125 RLCH</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Comité de Educación (2%)</div>
+      <div class="resumen-val" id="r-edu-cap">L 0</div>
+      <div class="resumen-sub">Educación y capacitación a cooperativistas</div>
+      <span class="resumen-art">Art. 125-a RLCH</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Comité de Juventud y Género (1%)</div>
+      <div class="resumen-val" id="r-edu-jg">L 0</div>
+      <div class="resumen-sub">Educación y capacitación de la juventud y género</div>
+      <span class="resumen-art">Art. 125-b RLCH</span>
+    </div>
+    <div class="resumen-card">
+      <div class="resumen-label">Total fondos del excedente propio</div>
+      <div class="resumen-val" id="r-total-fondos">L 0</div>
+      <div class="resumen-sub" id="r-total-fondos-pct">0% — tope legal 50%</div>
+      <span class="resumen-art">Art. 123 RLCH</span>
+    </div>
+    <div class="resumen-card highlight-amarillo">
+      <div class="resumen-label">Monto potencialmente repartible</div>
+      <div class="resumen-val" id="r-rep">L 0</div>
+      <div class="resumen-sub" id="r-rep-pct">0% del excedente propio</div>
+      <span class="resumen-art">Art. 123 RLCH — según resolución asamblearia</span>
+    </div>
+    <div class="resumen-card highlight-azul">
+      <div class="resumen-label">Prog. Desarrollo Cooperativo</div>
+      <div class="resumen-val" id="r-prog">L 0</div>
+      <div class="resumen-sub">100% del excedente con terceros</div>
+      <span class="resumen-art">Arts. 45 LCH · 127-128 RLCH</span>
+    </div>
+  </div>
+
+  <!-- DESGLOSE TERCEROS -->
+  <p class="sec-h">Desglose de excedentes con terceros</p>
+  <div class="terceros-split">
+    <div class="terceros-box">
+      <span class="terceros-label">Para el ejercicio</span>
+      <div class="terceros-val" id="t-ejercicio">L 0</div>
+      <div class="terceros-sub">Va a Programas de Desarrollo Cooperativo</div>
+      <span class="terceros-art">Art. 127 RLCH</span>
+    </div>
+    <div class="terceros-box">
+      <span class="terceros-label">Como % del excedente total</span>
+      <div class="terceros-val" id="t-pct">0%</div>
+      <div class="terceros-sub">No se distribuye entre afiliados/as</div>
+      <span class="terceros-art">Art. 45 LCH</span>
+    </div>
+  </div>
+</div>
+
+<!-- �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? TAB 05 �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? -->
+<div class="panel" id="panel-t05">
+  <h1 class="cap-titulo">Artículos del módulo</h1>
+  <div class="cap-meta">LCH Decreto 65-87 · RLCH Acuerdo 041-2014</div>
+  <p class="cap-intro">Textos literales de los artículos que fundamentan el módulo. Nunca parafraseados.</p>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 43 LCH</span><span class="art-card-titulo">Definición de excedentes</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Se consideran excedentes los saldos que a favor de una cooperativa resulten de sus operaciones al final de cada ejercicio social."</p><p class="art-nota">El excedente no es utilidad ni ganancia: es el sobrante. La distinción es estructural en la lógica cooperativa.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 44 LCH</span><span class="art-card-titulo">Distribución de excedentes</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Los excedentes se distribuirán en la forma siguiente: a) Por lo menos un 10% para formar un fondo de reserva legal acumulable anualmente, no repartible y que servirá para cubrir pérdidas de acuerdo con la liquidez de la cooperativa en los porcentajes que establezca el reglamento de esta Ley, el fondo de reserva se invertirá en bonos u otros títulos de fácil convertibilidad, emitidos por federaciones de cooperativas, instituciones bancarias o del estado; b) La formación de fondos especiales: requerimiento de capital y patrimonio, reservas para activos de riesgo y otros que establezca la Junta Directiva; c) Distribuciones entre los cooperativistas de acuerdo al patrocinio efectuado con la cooperativa, después de constituir la reserva legal, las requeridas por el Organismo Supervisor del Sector Cooperativo y reservas especiales aprobadas por la Asamblea General; ch) La Asamblea General podrá acordar la capitalización total o parcial de los excedentes distribuidos y no pagados, siempre que la cooperativa cuente con los recursos que le garantice su sostenibilidad; y, d) Treinta (30) días hábiles antes de la celebración de la Asamblea General Ordinaria, la Junta Directiva debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribución de excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situación financiera inestable."</p><p class="art-nota">El literal d establece un paso obligatorio previo: 30 días hábiles antes de la asamblea, la JD notifica al CONSUCOOP el proyecto. El CONSUCOOP puede objetarlo.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 45 LCH</span><span class="art-card-titulo">Excedentes con no afiliados/as</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Los excedentes netos generados por operaciones con no afiliados, se destinarán por la cooperativa, preferentemente a programas de desarrollo cooperativista."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 44 inciso d) LCH</span><span class="art-card-titulo">Notificación al CONSUCOOP — 30 días hábiles antes de la AGO</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Treinta (30) días hábiles antes de la celebración de la Asamblea General Ordinaria, la Junta Directiva debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribución de excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situación financiera inestable."</p><p class="art-nota">Días hábiles, no calendario. El CONSUCOOP no aprueba: puede objetar. Si objeta, la distribución no puede ejecutarse. Este paso es previo a la asamblea, no parte del orden del día.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 119-B LCH</span><span class="art-card-titulo">Intermediación financiera cooperativa</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"La intermediación financiera cooperativa es la realización de cualquier acto de captación de dinero de sus propios afiliados con el propósito de destinar esos recursos al otorgamiento de crédito a sus afiliados o de inversión en el mercado financiero, cualquiera que sea el documento en que se formalice la operación."</p><p class="art-nota">Este es el modelo de negocio de las cooperativas de ahorro y crédito: captación de afiliados para colocación en créditos o inversiones.</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 122 RLCH</span><span class="art-card-titulo">Irrepartibilidad de reservas y fondos</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Las reservas y los fondos creados de los excedentes, son irrepartibles, la utilización de los mismos se debe ajustar estrictamente a la finalidad que las disposiciones legales, estatutarias o resoluciones asamblearias tuvieron al constituirlos. No obstante, los fondos específicos creados por la Asamblea General pueden desafectarse de la finalidad que les dio origen mediante resolución expresa adoptada en otra sesión de Asamblea General, la que debe disponer el destino del saldo."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 123 RLCH</span><span class="art-card-titulo">Restricciones y distribución de excedentes</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Las reservas y fondos que se establezcan no pueden ser mayores del cincuenta por ciento (50%) del total de excedentes que arroje el resultado del ejercicio social, salvo disposición de la Asamblea General Ordinaria o del CONSUCOOP. Los excedentes restantes podrán distribuir entre los Cooperativistas de acuerdo a su clase y lo que su Asamblea General ordinaria acuerde, en la forma siguiente: a) En una Cooperativa de Consumo, de acuerdo al valor de las mercaderías que sus Afiliados(as) compren; b) En las Cooperativas de Ahorro y Crédito, podrá capitalizarse o distribuirse en relación al monto de intereses pagados por los créditos recibidos; c) En las Cooperativas de Producción de acuerdo con el trabajo no remunerado o el patrocinio, realizado por cada Afiliado(a); d) En las Cooperativas Mixtas por actividad realizada y uso de servicio; y, e) En otros tipos de Cooperativas de acuerdo al patrocinio."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 125 RLCH</span><span class="art-card-titulo">Fondo de educación cooperativa</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"El Fondo de Educación Cooperativo no puede ser inferior al tres por ciento (3%) del ingreso neto anual del presupuesto, calculado del periodo fiscal anterior. Este debe distribuirse de la forma siguiente: a) Dos por ciento (2%) a Educación y Capacitación a Cooperativistas; y, b) Uno por ciento (1%) a Educación y Capacitación de la Juventud y Género; Los excedentes del fondo no ejecutados en un ejercicio económico, se deben mantener en la dotación del ejercicio siguiente. En caso de no ser utilizados en dicho término, debe ser trasladado proporcionalmente al CONSUCOOP y a los organismos de integración nacional."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 127 RLCH</span><span class="art-card-titulo">Destino de excedentes con no afiliados/as</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Para los efectos del Artículo 45 de la Ley, se consideran operaciones con no Afiliados(as) las que realice la Cooperativa con personas que no tengan la calidad de Cooperativista en la propia Cooperativa y los excedentes provenientes de dichas operaciones, se deben destinar a la formación de Programa de Desarrollo Cooperativo."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 128 RLCH</span><span class="art-card-titulo">Programas de Desarrollo Cooperativo</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"Se consideran Programas de Desarrollo Cooperativo: a) Los que busquen el mejoramiento cuantitativo y cualitativo de los servicios cooperativos; b) Planes estratégicos y posicionamiento de la marca Cooperativa; c) Los orientados a capacitación, filosófica, tecnológica, investigación científica, de mercado y estudios técnicos, con propósito de incrementar la producción y productividad de la Cooperativa; d) Al sostenimiento de los organismos de integración nacional e internacional; e) Pago del aporte obligatorio al CONSUCOOP; f) Pago en concepto de prima al fondo de seguro de depósitos Cooperativo, para las cooperativas de ahorro y crédito; g) La atención de objetivos de incidencia social, cultural y ambiental en el área en que la Cooperativa desarrolle sus actividades; h) Investigación y ejecución de proyectos de impacto social o ambiental; e i) Ejecución del sexto (6to) principio de cooperación entre Cooperativas."</p></div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header"><span class="art-card-id">Art. 129 RLCH</span><span class="art-card-titulo">Pérdidas bloquean la distribución</span><svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="art-card-body"><p class="art-verbatim">"El excedente repartible no puede distribuirse hasta que las pérdidas de ejercicios anteriores fueren totalmente cubiertas, en la forma que acuerde la Asamblea General Ordinaria."</p></div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+const fmt = n => 'L ' + Math.round(n).toLocaleString('es-HN');
+const pct = (n, d) => d === 0 ? '0%' : (n / d * 100).toFixed(1) + '%';
+
+function getPropio() { return Math.max(0, parseFloat(document.getElementById('nf-propio').value) || 0); }
+function getTerceros() { return Math.max(0, parseFloat(document.getElementById('nf-terceros').value) || 0); }
+function getPctReserva() { return Math.max(10, parseFloat(document.getElementById('pct-reserva').value) || 10); }
+function getPctEspeciales() { return Math.max(0, parseFloat(document.getElementById('pct-especiales').value) || 0); }
+function getPctEducacion() {
+  const cap = Math.max(0, parseFloat(document.getElementById('pct-edu-cap').value) || 0);
+  const jg  = Math.max(0, parseFloat(document.getElementById('pct-edu-jg').value)  || 0);
+  return { cap, jg, total: Math.max(3, cap + jg) };
+}
+
+function render() {
+  const propio = getPropio();
+  const terceros = getTerceros();
+  const total = propio + terceros;
+
+  const pReserva = getPctReserva();
+  const pEsp = getPctEspeciales();
+  const eduPct = getPctEducacion();
+  const pEdu = eduPct.total;
+  const pEduCap = eduPct.cap;
+  const pEduJG = eduPct.jg;
+  const pTotalFondos = pReserva + pEsp + pEdu;
+  const pRep = Math.max(0, 100 - pTotalFondos);
+
+  const vReserva = propio * pReserva / 100;
+  const vEsp = propio * pEsp / 100;
+  const vEdu = propio * pEdu / 100;
+  const vEduCap = propio * pEduCap / 100;
+  const vEduJG  = propio * pEduJG  / 100;
+  const vTotalFondos = vReserva + vEsp + vEdu;
+  const vRep = Math.max(0, propio - vTotalFondos);
+
+  // displays principales
+  document.getElementById('disp-propio').textContent = fmt(propio);
+  document.getElementById('disp-terceros').textContent = fmt(terceros);
+
+  // fondos
+  document.getElementById('val-reserva').textContent = fmt(vReserva);
+  document.getElementById('val-especiales').textContent = fmt(vEsp);
+  document.getElementById('val-educacion').textContent = fmt(vEdu);
+  document.getElementById('val-edu-cap').textContent = fmt(vEduCap);
+  document.getElementById('val-edu-jg').textContent = fmt(vEduJG);
+  document.getElementById('val-repartible').textContent = fmt(vRep);
+
+  // aviso tope
+  document.getElementById('aviso-tope').classList.toggle('on', pTotalFondos > 50);
+
+  // BARRA
+  const bar = document.getElementById('bar-main');
+  bar.innerHTML = '';
+  const segs = [
+    { pct: pReserva, color: '#1c6b4a', lbl: pReserva.toFixed(0)+'%', lblColor: '#fff' },
+    { pct: pEsp,     color: '#3a8f68', lbl: pEsp.toFixed(0)+'%',     lblColor: '#fff' },
+    { pct: pEdu,     color: '#87dcad', lbl: pEdu.toFixed(0)+'%',     lblColor: '#1c6b4a' },
+    { pct: pRep,     color: '#f4c20d', lbl: pRep.toFixed(0)+'%',     lblColor: '#7a5c00' },
+  ];
+  segs.forEach(s => {
+    if (s.pct <= 0) return;
+    const d = document.createElement('div');
+    d.className = 'seg';
+    d.style.cssText = 'width:'+s.pct+'%;background:'+s.color;
+    const l = document.createElement('div');
+    l.className = 'seg-lbl';
+    l.style.color = s.lblColor;
+    l.textContent = s.lbl;
+    d.appendChild(l);
+    bar.appendChild(d);
+  });
+
+  // PIE (todo el ejercicio: reserva, especiales, educación, repartible, terceros)
+  const pieData = [
+    { label: 'Reserva legal',          val: vReserva,  color: '#1c6b4a' },
+    { label: 'Fondos especiales',       val: vEsp,      color: '#3a8f68' },
+    { label: 'Fondo de educación',      val: vEdu,      color: '#87dcad' },
+    { label: 'Monto repartible',        val: vRep,      color: '#f4c20d' },
+    { label: 'Excedente con terceros',  val: terceros,  color: '#4a90d9' },
+  ].filter(d => d.val > 0);
+
+  const svgEl = document.getElementById('pie-svg');
+  const legend = document.getElementById('pie-legend');
+  svgEl.innerHTML = '';
+  legend.innerHTML = '';
+
+  const cx = 100, cy = 100, r = 80;
+  const totalPie = pieData.reduce((s, d) => s + d.val, 0);
+
+  if (totalPie > 0) {
+    let startAngle = -Math.PI / 2;
+    pieData.forEach(d => {
+      const angle = (d.val / totalPie) * 2 * Math.PI;
+      const endAngle = startAngle + angle;
+      const x1 = cx + r * Math.cos(startAngle);
+      const y1 = cy + r * Math.sin(startAngle);
+      const x2 = cx + r * Math.cos(endAngle);
+      const y2 = cy + r * Math.sin(endAngle);
+      const large = angle > Math.PI ? 1 : 0;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M${cx},${cy} L${x1.toFixed(2)},${y1.toFixed(2)} A${r},${r} 0 ${large},1 ${x2.toFixed(2)},${y2.toFixed(2)} Z`);
+      path.setAttribute('fill', d.color);
+      path.setAttribute('stroke', '#fff');
+      path.setAttribute('stroke-width', '2');
+      svgEl.appendChild(path);
+      startAngle = endAngle;
+
+      const li = document.createElement('div');
+      li.className = 'pie-legend-item';
+      li.innerHTML = `<span class="pie-legend-dot" style="background:${d.color}"></span><span>${d.label}</span><span class="pie-legend-val">${fmt(d.val)}</span>`;
+      legend.appendChild(li);
+    });
+  } else {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+    circle.setAttribute('fill', '#e4e4e0');
+    svgEl.appendChild(circle);
+  }
+
+  // RESUMEN
+  document.getElementById('r-total').textContent = fmt(total);
+  document.getElementById('r-propio').textContent = fmt(propio);
+  document.getElementById('r-propio-pct').textContent = total > 0 ? pct(propio, total) + ' del total' : '—';
+  document.getElementById('r-terceros').textContent = fmt(terceros);
+  document.getElementById('r-terceros-pct').textContent = total > 0 ? pct(terceros, total) + ' del total' : '—';
+  document.getElementById('r-reserva').textContent = fmt(vReserva);
+  document.getElementById('r-reserva-pct').textContent = propio > 0 ? pReserva.toFixed(1) + '% del excedente propio' : '—';
+  document.getElementById('r-especiales').textContent = fmt(vEsp);
+  document.getElementById('r-especiales-pct').textContent = propio > 0 ? pEsp.toFixed(1) + '% del excedente propio' : '—';
+  document.getElementById('r-educacion').textContent = fmt(vEdu);
+  document.getElementById('r-edu-cap').textContent = fmt(vEduCap);
+  document.getElementById('r-edu-jg').textContent = fmt(vEduJG);
+  document.getElementById('r-total-fondos').textContent = fmt(vTotalFondos);
+  document.getElementById('r-total-fondos-pct').textContent = propio > 0 ? pTotalFondos.toFixed(1) + '% — tope legal 50%' : '—';
+  document.getElementById('r-rep').textContent = fmt(vRep);
+  document.getElementById('r-rep-pct').textContent = propio > 0 ? pct(vRep, propio) + ' del excedente propio' : '—';
+  document.getElementById('r-prog').textContent = fmt(terceros);
+  document.getElementById('t-ejercicio').textContent = fmt(terceros);
+  document.getElementById('t-pct').textContent = total > 0 ? pct(terceros, total) : '0%';
+}
+
+// SLIDERS
+document.getElementById('sl-propio').addEventListener('input', e => {
+  document.getElementById('nf-propio').value = e.target.value; render();
+});
+document.getElementById('nf-propio').addEventListener('input', e => {
+  const v = Math.max(0, parseFloat(e.target.value) || 0);
+  document.getElementById('sl-propio').value = Math.min(v, 10000000); render();
+});
+document.getElementById('sl-terceros').addEventListener('input', e => {
+  document.getElementById('nf-terceros').value = e.target.value; render();
+});
+document.getElementById('nf-terceros').addEventListener('input', e => {
+  const v = Math.max(0, parseFloat(e.target.value) || 0);
+  document.getElementById('sl-terceros').value = Math.min(v, 10000000); render();
+});
+['pct-reserva','pct-especiales','pct-edu-cap','pct-edu-jg'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+
+function abrirMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function tab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+  document.querySelectorAll('.nb-nav button').forEach(b => b.classList.remove('activo'));
+  document.getElementById('panel-'+id).classList.add('activo');
+  btn.classList.add('activo');
+  if (window.innerWidth <= 700) cerrarMenu();
+}
+function toggleArt(card) { card.classList.toggle('abierto'); }
+
+render();
+</script>
+</body>
+</html>
