@@ -828,6 +828,10 @@ async function closeRoom() {
 async function boot() {
   try {
     const firebaseConfig = await loadFirebaseConfig();
+    const domainProjectId = (firebaseConfig.authDomain || "").replace(".firebaseapp.com", "");
+    if (domainProjectId && firebaseConfig.projectId !== domainProjectId) {
+      firebaseConfig.projectId = domainProjectId;
+    }
     firebaseProjectId = firebaseConfig.projectId;
 
     app = initializeApp(firebaseConfig);
