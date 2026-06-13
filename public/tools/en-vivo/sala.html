@@ -194,7 +194,7 @@ Innovacion en servicios</textarea>
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
-  getFirestore, doc, setDoc, updateDoc, collection, onSnapshot,
+  initializeFirestore, doc, setDoc, updateDoc, collection, onSnapshot,
   serverTimestamp, query, orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -378,6 +378,15 @@ async function hashText(value) {
   return Array.from(new Uint8Array(digest))
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
+}
+
+function withTimeout(promise, milliseconds, message) {
+  let timeoutId;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(message)), milliseconds);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
 }
 
 function makeRoomCode() {
@@ -611,7 +620,11 @@ async function createRoom() {
     };
     if (engines) activityData.engines = engines;
 
-    await setDoc(doc(db, "activities", code), activityData);
+    await withTimeout(
+      setDoc(doc(db, "activities", code), activityData),
+      10000,
+      "Firestore tardo demasiado en responder. Revisa reglas, red o vuelve a intentar."
+    );
     setNotice("Sala creada. Comparte el codigo y la clave con el grupo.");
     openRoom(code, true, accessKey);
   } catch (error) {
@@ -629,10 +642,14 @@ async function testFirebase() {
   }
 
   try {
-    await setDoc(doc(db, "diagnostics", currentUser.uid), {
-      checkedAt: serverTimestamp(),
-      uid: currentUser.uid,
-    });
+    await withTimeout(
+      setDoc(doc(db, "diagnostics", currentUser.uid), {
+        checkedAt: serverTimestamp(),
+        uid: currentUser.uid,
+      }),
+      10000,
+      "Firestore tardo demasiado en responder."
+    );
     setNotice("Conexion correcta: Firebase permite escribir. Ya puedes crear una sala.");
   } catch (error) {
     setNotice(`Firebase conectado, pero no permite escribir: ${friendlyFirebaseError(error)}`, true);
@@ -687,12 +704,16 @@ async function sendAnswer() {
   els.sendAnswerBtn.disabled = true;
 
   try {
-    await setDoc(doc(db, "activities", currentCode, "responses", currentUser.uid), {
-      answers: selectedAnswers,
-      participantUid: currentUser.uid,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
+    await withTimeout(
+      setDoc(doc(db, "activities", currentCode, "responses", currentUser.uid), {
+        answers: selectedAnswers,
+        participantUid: currentUser.uid,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      }),
+      10000,
+      "Firestore tardo demasiado en guardar la respuesta."
+    );
     setAnswerNotice("Respuesta guardada. Puedes cambiarla mientras la sala este activa.");
   } catch (error) {
     setAnswerNotice(`No se pudo enviar: ${error.message}`, true);
@@ -715,7 +736,9 @@ async function boot() {
 
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-    db = getFirestore(app);
+    db = initializeFirestore(app, {
+      experimentalAutoDetectLongPolling: true,
+    });
 
     onAuthStateChanged(auth, (user) => {
       currentUser = user;
