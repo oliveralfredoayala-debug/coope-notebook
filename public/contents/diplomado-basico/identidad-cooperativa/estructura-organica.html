@@ -1095,22 +1095,32 @@ function programarGuardadoRemoto(){
   clearTimeout(saveTimer);
   saveTimer = setTimeout(guardarDeckRemoto, 650);
 }
+function conTimeout(promise, ms, message){
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error(message || 'timeout')), ms)),
+  ]);
+}
 async function guardarDeckRemoto(){
   const ready = await iniciarFirebasePresentacion();
   if(!ready || !firebaseDb || !firebaseUser || !window.presentationFirestore) return;
   try{
     syncStatus('Guardando en Firebase...');
     const {doc, setDoc, serverTimestamp} = window.presentationFirestore;
-    await setDoc(doc(firebaseDb, 'presentations', presentationId), {
+    await conTimeout(setDoc(doc(firebaseDb, 'presentations', presentationId), {
       topicId: presentationId,
       sourcePath: 'public/contents/diplomado-basico/identidad-cooperativa/estructura-organica.html',
       slides: deckParaFirestore(editableDeck),
       ownerUid: firebaseUser.uid,
       updatedAt: serverTimestamp(),
-    }, {merge:true});
+    }, {merge:true}), 8000, 'firestore-save-timeout');
     syncStatus('Guardado en Firebase');
   }catch(error){
-    syncStatus(firebasePresentationError(error), true);
+    if(error && error.message === 'firestore-save-timeout'){
+      syncStatus('Firebase tardo demasiado: quedo guardado local', true);
+    }else{
+      syncStatus(firebasePresentationError(error), true);
+    }
     console.warn('Could not save remote presentation', error);
   }
 }
