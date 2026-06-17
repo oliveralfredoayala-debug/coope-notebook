@@ -131,6 +131,26 @@ p.cuerpo.intro{font-size:15.5px;color:var(--gris-sec);font-weight:300;line-heigh
 .cap-nav-btn.vacio{visibility:hidden;}
 .autoria{font-size:11px;color:var(--gris-suave);font-weight:300;}
 
+@media(min-width: 769px) {
+  .hamburger {
+    display: none !important;
+  }
+  .drawer {
+    transform: translateX(0) !important;
+    box-shadow: none !important;
+  }
+  .overlay {
+    display: none !important;
+  }
+  .topbar {
+    margin-left: var(--drawer-w) !important;
+    width: calc(100% - var(--drawer-w)) !important;
+  }
+  .contenido {
+    margin-left: var(--drawer-w) !important;
+    width: calc(100% - var(--drawer-w)) !important;
+  }
+}
 @media(max-width:560px){
   .indice-num{font-size:18px;min-width:34px;}
   .indice-tit{font-size:15px;}
