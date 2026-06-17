@@ -165,7 +165,7 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <a class="nb-marca" href="../index.html" aria-label="Volver a herramientas">
-    <div class="nb-wordmark"><span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span></div>
+    <div class="nb-wordmark"><span class="nb-wm-coop">Coope</span><span class="nb-wm-notebook">Notebook</span></div>
     <span class="nb-marca-titulo">Trabajo en equipo</span>
   </a>
   <ul class="nb-nav">
@@ -178,7 +178,7 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
 </nav>
 <main class="main">
 <div class="wrap">
-  <div class="cab-marca"><span class="cab-coop">Coop</span><span class="cab-notebook">Notebook</span></div>
+  <div class="cab-marca"><span class="cab-coop">Coope</span><span class="cab-notebook">Notebook</span></div>
 
   <div id="vistaPortada">
     <h1>Construyamos un perfil</h1>
@@ -455,7 +455,7 @@ function construirDocumento(forWord) {
     + 'ul{margin:4pt 0 4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}'
     + '.formula{background:#1c6b4a;color:#fff;padding:10pt 14pt;margin-top:16pt;text-align:center}.formula b{font-size:15pt}'
     + '</style></head><body>'
-    + '<div class="marca">CoopNotebook</div><h1>Construyamos un perfil</h1>'
+    + '<div class="marca">CoopeNotebook</div><h1>Construyamos un perfil</h1>'
     + '<div class="caso"><b>Caso ' + (casoSel+1) + ' &mdash; ' + esc(d.c.t) + '</b><br>' + esc(d.c.d) + '</div>'
     + '<h2>Saber &mdash; conocimientos</h2>' + lista(d.saber)
     + '<h2>Saber hacer &mdash; habilidades</h2>' + lista(d.hacer)
@@ -510,7 +510,7 @@ document.getElementById('btnPPT').addEventListener('click', () => {
   // Portada
   let s = pptx.addSlide();
   s.background = { color: 'FFFFFF' };
-  s.addText('CoopNotebook', { x: 0.6, y: 0.5, fontSize: 14, bold: true, color: VERDE });
+  s.addText('CoopeNotebook', { x: 0.6, y: 0.5, fontSize: 14, bold: true, color: VERDE });
   s.addText('Construyamos un perfil', { x: 0.6, y: 2.4, w: 12, fontSize: 40, bold: true, color: '1A1A18' });
   s.addShape(pptx.ShapeType.rect, { x: 0.65, y: 3.5, w: 1.6, h: 0.08, fill: { color: VERDE } });
   s.addText('Caso ' + (casoSel+1) + ' — ' + d.c.t, { x: 0.6, y: 3.8, w: 12, fontSize: 22, color: VERDE, bold: true });

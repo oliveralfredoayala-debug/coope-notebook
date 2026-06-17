@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+if(new URLSearchParams(location.search).get('panel') === '1'){
+  document.documentElement.classList.add('panel-mode');
+}
+</script>
 <title>Calculadora de delegados</title>
 <style>
 :root{
@@ -186,6 +191,59 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--blanco);col
   .nb-overlay.visible{opacity:1;pointer-events:auto}
   .main{padding-top:4.5rem}
 }
+
+.panel-mode body{font-size:14px}
+.panel-mode .nb-toggle,.panel-mode .nb-overlay,.panel-mode .nb-cerrar{display:none}
+.panel-mode .shell{display:block;min-height:100vh}
+.panel-mode .sidebar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  width:100%;
+  height:auto;
+  border-right:0;
+  border-bottom:1px solid var(--gris-borde);
+  transform:none;
+  box-shadow:none;
+}
+.panel-mode .nb-marca{display:none}
+.panel-mode .nb-nav{
+  display:flex;
+  gap:4px;
+  overflow-x:auto;
+  padding:.45rem;
+  scrollbar-width:none;
+}
+.panel-mode .nb-nav::-webkit-scrollbar{display:none}
+.panel-mode .nb-nav button{
+  border-left:0;
+  border-radius:8px;
+  flex:0 0 auto;
+  width:auto;
+  padding:.55rem .7rem;
+  font-size:12px;
+  white-space:nowrap;
+}
+.panel-mode .nb-nav-num{display:none}
+.panel-mode .nb-conceptos{display:none}
+.panel-mode .main{
+  max-width:none;
+  padding:1.1rem .95rem 3rem;
+}
+.panel-mode .cap-titulo{font-size:21px}
+.panel-mode .cap-meta{margin-bottom:1.2rem}
+.panel-mode .cap-intro{
+  font-size:13.5px;
+  margin-bottom:1.3rem;
+  padding-bottom:1.2rem;
+}
+.panel-mode .sec-h{margin:1.5rem 0 .75rem}
+.panel-mode .tabla-wrap{overflow-x:auto}
+.panel-mode .tabla-wrap table{min-width:520px}
+.panel-mode .punto,.panel-mode .complemento,.panel-mode .interp{padding:.85rem .9rem}
+.panel-mode .calc-grid{grid-template-columns:1fr}
+.panel-mode .calc-box{padding:1rem}
+.panel-mode .calc-res{font-size:25px}
 </style>
 </head>
 <body>
@@ -200,7 +258,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--blanco);col
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <a class="nb-marca" href="../index.html" aria-label="Volver a herramientas">
-    <div class="nb-wordmark"><span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span></div>
+    <div class="nb-wordmark"><span class="nb-wm-coop">Coope</span><span class="nb-wm-notebook">Notebook</span></div>
     <span class="nb-marca-titulo">Asambleas por delegados</span>
   </a>
   <ul class="nb-nav">

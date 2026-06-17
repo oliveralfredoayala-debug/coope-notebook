@@ -955,6 +955,7 @@ const deckDefaults = [
 let editableDeck = cargarDeck();
 let firebaseDb = null;
 let firebaseUser = null;
+let firebaseProjectId = '';
 let firebaseReadyPromise = null;
 let remoteDeckLoaded = false;
 let saveTimer = null;
@@ -1013,6 +1014,43 @@ function deckDesdeFirestore(deck){
     }),
   }));
 }
+function toFirestoreValue(value){
+  if(value === null || value === undefined) return {nullValue:null};
+  if(Array.isArray(value)) return {arrayValue:{values:value.map(toFirestoreValue)}};
+  if(typeof value === 'boolean') return {booleanValue:value};
+  if(typeof value === 'number') return Number.isInteger(value) ? {integerValue:String(value)} : {doubleValue:value};
+  if(typeof value === 'object'){
+    const fields = {};
+    Object.entries(value).forEach(([key,item]) => { fields[key] = toFirestoreValue(item); });
+    return {mapValue:{fields}};
+  }
+  return {stringValue:String(value)};
+}
+function toFirestoreFields(data){
+  const fields = {};
+  Object.entries(data).forEach(([key,value]) => { fields[key] = toFirestoreValue(value); });
+  return fields;
+}
+function fromFirestoreValue(value){
+  if(!value) return null;
+  if('stringValue' in value) return value.stringValue;
+  if('booleanValue' in value) return value.booleanValue;
+  if('integerValue' in value) return Number(value.integerValue);
+  if('doubleValue' in value) return Number(value.doubleValue);
+  if('timestampValue' in value) return value.timestampValue;
+  if('arrayValue' in value) return (value.arrayValue.values || []).map(fromFirestoreValue);
+  if('mapValue' in value){
+    const output = {};
+    Object.entries(value.mapValue.fields || {}).forEach(([key,item]) => { output[key] = fromFirestoreValue(item); });
+    return output;
+  }
+  return null;
+}
+function fromFirestoreDocument(document){
+  const output = {};
+  Object.entries((document && document.fields) || {}).forEach(([key,value]) => { output[key] = fromFirestoreValue(value); });
+  return output;
+}
 async function loadFirebaseConfig(){
   try{
     const response = await fetch('/api/firebase-config', {cache:'no-store'});
@@ -1047,6 +1085,7 @@ async function iniciarFirebasePresentacion(){
       import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js'),
     ]);
     const config = await loadFirebaseConfig();
+    firebaseProjectId = config.projectId || ((config.authDomain || '').replace('.firebaseapp.com',''));
     const app = initializeApp(config, 'presentation-workbench');
     const auth = authMod.getAuth(app);
     firebaseDb = firestoreMod.initializeFirestore(app, {
@@ -1065,6 +1104,41 @@ async function iniciarFirebasePresentacion(){
   });
   return firebaseReadyPromise;
 }
+async function firestoreRestRequest(path, options = {}){
+  if(!firebaseUser || !firebaseProjectId) throw new Error('firebase-rest-not-ready');
+  const token = await firebaseUser.getIdToken(true);
+  const response = await conTimeout(fetch(`https://firestore.googleapis.com/v1/projects/${firebaseProjectId}/databases/(default)/documents/${path}`, {
+    ...options,
+    headers:{
+      Authorization:`Bearer ${token}`,
+      'Content-Type':'application/json',
+      ...(options.headers || {}),
+    },
+  }), 9000, 'firestore-rest-timeout');
+  if(!response.ok){
+    const text = await response.text();
+    const error = new Error(text || `Firestore REST ${response.status}`);
+    error.code = response.status === 403 ? 'permission-denied' : `rest-${response.status}`;
+    throw error;
+  }
+  return response.json();
+}
+async function restSetPresentation(){
+  return firestoreRestRequest(`presentations/${presentationId}`, {
+    method:'PATCH',
+    body:JSON.stringify({fields:toFirestoreFields({
+      topicId:presentationId,
+      sourcePath:'public/contents/diplomado-basico/identidad-cooperativa/estructura-organica.html',
+      slides:deckParaFirestore(editableDeck),
+      ownerUid:firebaseUser.uid,
+      updatedAt:new Date().toISOString(),
+    })}),
+  });
+}
+async function restGetPresentation(){
+  const document = await firestoreRestRequest(`presentations/${presentationId}`);
+  return fromFirestoreDocument(document);
+}
 async function cargarDeckRemoto(){
   if(remoteDeckLoaded) return;
   const ready = await iniciarFirebasePresentacion();
@@ -1072,9 +1146,15 @@ async function cargarDeckRemoto(){
   try{
     const {doc, getDoc} = window.presentationFirestore;
     const ref = doc(firebaseDb, 'presentations', presentationId);
-    const snapshot = await getDoc(ref);
-    if(snapshot.exists()){
-      const data = snapshot.data();
+    let data = null;
+    try{
+      const snapshot = await conTimeout(getDoc(ref), 4500, 'firestore-read-timeout');
+      if(snapshot.exists()) data = snapshot.data();
+    }catch(error){
+      if(error && error.message === 'firestore-read-timeout') data = await restGetPresentation();
+      else throw error;
+    }
+    if(data){
       if(Array.isArray(data.slides) && data.slides.length){
         editableDeck = deckDesdeFirestore(data.slides);
         localStorage.setItem(deckStorageKey, JSON.stringify(editableDeck));
@@ -1107,16 +1187,25 @@ async function guardarDeckRemoto(){
   try{
     syncStatus('Guardando en Firebase...');
     const {doc, setDoc, serverTimestamp} = window.presentationFirestore;
-    await conTimeout(setDoc(doc(firebaseDb, 'presentations', presentationId), {
-      topicId: presentationId,
-      sourcePath: 'public/contents/diplomado-basico/identidad-cooperativa/estructura-organica.html',
-      slides: deckParaFirestore(editableDeck),
-      ownerUid: firebaseUser.uid,
-      updatedAt: serverTimestamp(),
-    }, {merge:true}), 8000, 'firestore-save-timeout');
+    try{
+      await conTimeout(setDoc(doc(firebaseDb, 'presentations', presentationId), {
+        topicId: presentationId,
+        sourcePath: 'public/contents/diplomado-basico/identidad-cooperativa/estructura-organica.html',
+        slides: deckParaFirestore(editableDeck),
+        ownerUid: firebaseUser.uid,
+        updatedAt: serverTimestamp(),
+      }, {merge:true}), 4500, 'firestore-save-timeout');
+    }catch(error){
+      if(error && error.message === 'firestore-save-timeout'){
+        syncStatus('SDK tardo; probando REST...');
+        await restSetPresentation();
+      }else{
+        throw error;
+      }
+    }
     syncStatus('Guardado en Firebase');
   }catch(error){
-    if(error && error.message === 'firestore-save-timeout'){
+    if(error && (error.message === 'firestore-save-timeout' || error.message === 'firestore-rest-timeout')){
       syncStatus('Firebase tardo demasiado: quedo guardado local', true);
     }else{
       syncStatus(firebasePresentationError(error), true);

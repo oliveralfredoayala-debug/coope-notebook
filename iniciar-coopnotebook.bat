@@ -1,6 +1,6 @@
 @echo off
 title CoopNotebook local
-cd /d C:\coopnotebook\public
+cd /d C:\chc-notebook\public
 echo.
 echo CoopNotebook esta iniciando en:
 echo http://127.0.0.1:8788/tools/en-vivo/sala.html

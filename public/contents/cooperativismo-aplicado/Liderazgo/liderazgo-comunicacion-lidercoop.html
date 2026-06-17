@@ -134,6 +134,12 @@ body { font-family: system-ui, -apple-system, sans-serif; background: var(--blan
 .discutir-q { width: 26px; height: 26px; border-radius: 50%; background: #e8f4ef; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--verde); margin-top: 1px; }
 .discutir-txt { font-size: 14px; color: var(--texto-sec); line-height: 1.55; }
 .discutir-txt em { font-style: normal; color: var(--texto); font-weight: 500; }
+.actividad-vivo { margin: 1.75rem 0; border: 1px solid var(--verde); border-radius: var(--radio); background: #fbfdfc; padding: 1.25rem; }
+.actividad-vivo-k { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--verde-sec); font-weight: 700; margin-bottom: .35rem; }
+.actividad-vivo-t { font-size: 18px; font-weight: 650; color: var(--texto); line-height: 1.25; margin-bottom: .35rem; }
+.actividad-vivo-p { font-size: 14px; color: var(--texto-sec); line-height: 1.55; margin-bottom: .9rem; }
+.actividad-vivo-a { display: inline-flex; align-items: center; gap: .45rem; min-height: 40px; padding: .55rem .85rem; border-radius: var(--radio-sm); background: var(--verde); color: #fff; text-decoration: none; font-size: 14px; font-weight: 650; }
+.actividad-vivo-a:hover { background: #155539; }
 /* IMAGEN EMBEBIDA */
 .figura { margin: 1.75rem 0; border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 1.5rem; background: var(--gris-bg); }
 .figura img { width: 100%; height: auto; display: block; }
@@ -256,7 +262,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background: var(--blan
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div class="nb-marca">
-    <div class="nb-wordmark"><span class="nb-wm-coop">Coop</span><span class="nb-wm-notebook">Notebook</span></div>
+    <div class="nb-wordmark"><span class="nb-wm-coop">Coope</span><span class="nb-wm-notebook">Notebook</span></div>
     <span class="nb-marca-titulo">Habilidades de Liderazgo y Comunicación</span>
   </div>
   <ul class="nb-nav">
@@ -281,13 +287,22 @@ body { font-family: system-ui, -apple-system, sans-serif; background: var(--blan
   <div class="capsula-meta">Clausura del programa · Sesión presencial</div>
   <p class="capsula-intro">Una reflexión sobre la responsabilidad del liderazgo con sentido: <strong>escuchar para entender, comunicar para desarrollar y crear condiciones</strong> para que otros descubran y amplíen sus propias capacidades. No es un repaso de técnicas, sino una conversación sobre qué clase de líder elegimos ser.</p>
 
-  <p class="detonadora">¿Quién creyó en ti antes de que tú creyeras en ti mismo</p>
-  <p class="prosa">Detente en esa persona. Probablemente no recuerdes con precisión qué te dijo ni los datos que te compartió. Recuerdas lo que te hizo sentir capaz.</p>
+  <p class="detonadora">El mapa de nuestros recuerdos</p>
+  <p class="prosa">Antes de hablar de técnicas de liderazgo, conviene mirar qué aprendizajes se quedan vivos en la memoria. No siempre recordamos el dato exacto; muchas veces recordamos el momento, la emoción y la persona que nos ayudó a descubrir una capacidad.</p>
+
+  <div class="actividad-vivo">
+    <div class="actividad-vivo-k">Actividad en vivo</div>
+    <div class="actividad-vivo-t">Crear sala: El mapa de nuestros recuerdos</div>
+    <p class="actividad-vivo-p">Usa esta dinámica para recoger respuestas del grupo en tiempo real: nube de palabras, barras por tipo de experiencia y escalas de acuerdo.</p>
+    <a class="actividad-vivo-a" href="../../../tools/en-vivo/sala.html">Abrir sala en vivo →</a>
+  </div>
 
   <div class="discutir">
-    <div class="discutir-item"><span class="discutir-q">1</span><span class="discutir-txt">Trae a la memoria a quien creyó en ti. ¿Qué hizo exactamente que te marcó: lo que te <em>dijo</em> o lo que te hizo <em>vivir</em></span></div>
-    <div class="discutir-item"><span class="discutir-q">2</span><span class="discutir-txt">Cuando una experiencia de aprendizaje te marca, ¿qué queda más presente: la actividad, la información o lo que te hizo sentir</span></div>
-    <div class="discutir-item"><span class="discutir-q">3</span><span class="discutir-txt">¿Qué condición emocional ayuda más a que una persona se anime a participar, aprender o asumir un reto</span></div>
+    <div class="discutir-item"><span class="discutir-q">1</span><span class="discutir-txt">Una lección que la vida te enseñó y que hoy no cambiarías por nada.</span></div>
+    <div class="discutir-item"><span class="discutir-q">2</span><span class="discutir-txt">Esa lección, ¿de qué tipo de momento nació?</span></div>
+    <div class="discutir-item"><span class="discutir-q">3</span><span class="discutir-txt">La emoción pegada a esa lección, en una palabra.</span></div>
+    <div class="discutir-item"><span class="discutir-q">4</span><span class="discutir-txt">“Mis lecciones más importantes vinieron de momentos cargados de emoción.”</span></div>
+    <div class="discutir-item"><span class="discutir-q">5</span><span class="discutir-txt">“Esas emociones intensas fueron siempre negativas.”</span></div>
   </div>
 </div>
 
