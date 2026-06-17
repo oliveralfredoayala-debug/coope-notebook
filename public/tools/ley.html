@@ -136,7 +136,7 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 .group-divider::after{content:'';flex:1;height:1px;background:var(--gris-borde)}
 
 /* Parallel reading */
-.par-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;margin-top:8px}
+.par-cols{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;margin-top:8px}
 .par-col{border:1px solid var(--gris-borde);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
 .par-head{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--gris-borde);background:#fafafa}
 .par-tag{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--verde);background:var(--verde-claro);padding:4px 8px;border-radius:6px}
@@ -145,11 +145,26 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 .par-filter{padding:12px 14px;border-bottom:1px solid #ededed}
 .par-filter .searchbar{border-radius:8px;padding:0 12px}
 .par-filter input{font-size:14px;padding:10px 0;min-height:42px}
-.par-scroll{max-height:64vh;overflow-y:auto;padding:0 14px}
+.par-scroll{max-height:none;overflow-y:visible;padding:0 14px}
 .par-scroll .row-head{padding:13px 2px}
 .par-scroll .art-title-full{font-size:15.5px}
 .par-scroll .para,.par-scroll .inciso{font-size:13.5px}
-@media(max-width:760px){.par-cols{grid-template-columns:1fr}.par-scroll{max-height:none}}
+
+@media(min-width:600px){
+  body.no-scroll-layout{overflow:hidden;height:100vh}
+  body.no-scroll-layout .footnote{display:none}
+  
+  #panel4{height:calc(100vh - 114px);overflow:hidden}
+  #panel4 .stage{max-width:1240px;height:100%;padding:24px 40px 24px;margin:0 auto;display:flex;flex-direction:column;box-sizing:border-box}
+  #panel4 .lede{flex-shrink:0}
+  #panel4 .sub{flex-shrink:0;margin-bottom:16px}
+  #panel4 .par-cols{grid-template-columns:1fr 1fr;flex:1;min-height:0;margin-top:0}
+  #panel4 .par-col{height:100%}
+  #panel4 .par-scroll{flex:1;min-height:0;max-height:none;overflow-y:auto}
+
+  .panel-mode #panel4{height:calc(100vh - 40px)}
+  .panel-mode #panel4 .stage{max-width:none;padding:14px 14px 14px}
+}
 
 /* Footnote */
 .footnote{padding:0 40px 40px;max-width:840px;margin:0 auto;animation:fadeUp .4s ease .2s both}
@@ -208,7 +223,6 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 .panel-mode .row-body{padding:4px 2px 22px}
 .panel-mode .art-title-full{font-size:15px}
 .panel-mode .para,.panel-mode .inciso{font-size:13.5px;line-height:1.62}
-.panel-mode .par-cols{grid-template-columns:1fr}
 </style>
 </head>
 <body>
@@ -321,6 +335,7 @@ function go(i){
   document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
   document.querySelectorAll('.panel').forEach((p,k)=>p.classList.toggle('active',k===i));
   document.getElementById('crumb').innerHTML='Ley de Cooperativas de Honduras › <b>'+TAB[i]+'</b>';
+  document.body.classList.toggle('no-scroll-layout', i === 4);
   window.scrollTo({top:0});
 }
 
