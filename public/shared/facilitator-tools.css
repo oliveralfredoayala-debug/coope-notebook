@@ -70,18 +70,39 @@
 /* Drag Handle for Resizing */
 .ft-resize-handle {
   position: absolute;
-  left: -4px;
+  left: -6px; /* Centered on the border */
   top: 0;
-  width: 8px;
+  width: 12px; /* Wider hit area for easier grabbing */
   height: 100%;
   cursor: col-resize;
   z-index: 140;
   background: transparent;
   transition: background .15s;
 }
+
+/* Dotted vertical line handle indicator on hover/drag */
+.ft-resize-handle::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 60px;
+  background: transparent;
+  border-left: 2px dotted #1c6b4a;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
 .ft-resize-handle:hover,
 .ft-resize-handle.ft-active {
-  background: rgba(28, 107, 74, 0.35); /* Green theme accent on hover/drag */
+  background: rgba(28, 107, 74, 0.12); /* Subtle green stripe background */
+}
+
+.ft-resize-handle:hover::after,
+.ft-resize-handle.ft-active::after {
+  opacity: 0.8; /* Show the dotted handle line */
 }
 
 .ft-head {
@@ -205,12 +226,6 @@ body.ft-panel-open .ft-dock {
   display: none;
 }
 
-/* RESIZING TRANSITIONS DISABLE */
-body.ft-resizing,
-body.ft-resizing .ft-shell {
-  transition: none !important;
-}
-
 @media(min-width: 980px) {
   body.ft-panel-open {
     padding-right: min(500px, 40vw); /* Matches default width */
@@ -253,4 +268,11 @@ body.ft-resizing .ft-shell {
   .ft-resize-handle {
     display: none; /* No resizing handles on mobile */
   }
+}
+
+/* RESIZING TRANSITIONS DISABLE (Placed at absolute bottom for specificity) */
+body.ft-resizing,
+body.ft-resizing *,
+body.ft-resizing .ft-shell {
+  transition: none !important;
 }
