@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nombre de la Lección - CoopeNotebook</title>
+  <style>
+    :root {
+      /* Paleta de colores estándar CoopeNotebook */
+      --verde: #1c6b4a;            /* Verde principal del logotipo */
+      --verde-sec: #2fa36b;        /* Verde secundario */
+      --verde-bg: #e8f4ef;         /* Fondo verde muy tenue */
+      --amarillo: #f4c20d;         /* Amarillo de acento */
+      --blanco: #ffffff;
+      --gris-bg: #f7f7f5;          /* Fondo gris claro */
+      --gris-borde: #e4e4e0;       /* Bordes */
+      --texto: #1a1a18;            /* Texto principal */
+      --texto-sec: #3a3a36;        /* Texto secundario */
+      --texto-ter: #6a6a64;        /* Texto de apoyo */
+      --radio: 10px;
+      --radio-sm: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* 1. TOPBAR (Cabecera Principal - Unificada y más grande) */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+
+    .back {
+      font-size: 13px;
+      color: var(--texto-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back:hover {
+      color: var(--verde);
+    }
+
+    /* Botón hamburguesa (solo móvil) */
+    .nb-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      color: var(--verde);
+    }
+
+    .nb-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* 2. MAQUETACIÓN GENERAL (Shell) */
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    /* Barra lateral (Navegación interna por pestañas/paneles) */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nb-marca-titulo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--verde);
+      line-height: 1.35;
+    }
+
+    /* Menú de pestañas */
+    .nb-nav {
+      list-style: none;
+      padding: 0.75rem 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nb-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 14px;
+      color: var(--texto-sec);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    /* Efecto hover con sombra verde clara */
+    .nb-nav button:hover {
+      background: var(--verde-bg);
+      color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+    }
+
+    /* Pestaña activa */
+    .nb-nav button.activo {
+      background: var(--verde-bg);
+      color: var(--verde);
+      font-weight: 600;
+      border-left-color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+    }
+
+    .nb-nav-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      min-width: 20px;
+      padding-top: 1px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nb-nav button.activo .nb-nav-num {
+      color: var(--verde-sec);
+    }
+
+    /* Conceptos relacionados */
+    .nb-conceptos {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      flex-shrink: 0;
+    }
+
+    .nb-conceptos-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .nb-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nb-tag {
+      font-size: 12px;
+      color: var(--verde);
+      background: var(--verde-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #dcebe2;
+    }
+
+    /* Botón de cierre del menú (solo móvil) */
+    .nb-cerrar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--texto-ter);
+    }
+
+    .nb-cerrar svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Contenido principal */
+    .main {
+      flex: 1;
+      max-width: 860px;
+      padding: 3.5rem 4rem;
+      overflow-y: auto;
+    }
+
+    /* Pestañas (paneles) de contenido */
+    .panel {
+      display: none;
+    }
+
+    .panel.activo {
+      display: block;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 3. DISEÑO DE TEXTOS Y ELEMENTOS INTERNOS */
+    .cap-titulo {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--verde); /* Título en verde CoopeNotebook */
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .cap-meta {
+      font-size: 13px;
+      color: var(--texto-ter);
+      margin-bottom: 2.5rem;
+    }
+
+    .cap-intro {
+      font-size: 17px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .cap-intro strong {
+      color: var(--texto);
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--verde);
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 15.5px;
+      color: var(--texto-sec);
+      line-height: 1.65;
+    }
+
+    p strong {
+      color: var(--texto);
+    }
+
+    /* Recuadros de andamiaje / notas */
+    .insight-box {
+      background: var(--gris-bg);
+      border-left: 3px solid var(--amarillo);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    .insight-box strong {
+      color: var(--texto);
+    }
+
+    .tip-box {
+      background: var(--verde-bg);
+      border-left: 3px solid var(--verde-sec);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    .tip-box strong {
+      color: var(--verde);
+    }
+
+    /* Estructuras de cuadriculado */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .info-card {
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.5rem;
+      background: var(--blanco);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .info-card:hover {
+      border-color: #cfe0d7;
+      box-shadow: 0 6px 20px rgba(28, 107, 74, 0.06);
+    }
+
+    .info-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--texto);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      font-size: 12.5px;
+      color: var(--texto-ter);
+      line-height: 1.5;
+    }
+
+    /* 4. RESPONSIVE Y MÓVIL */
+    .nb-overlay {
+      display: none;
+    }
+
+    @media (max-width: 820px) {
+      .nb-toggle {
+        display: flex;
+      }
+
+      .nb-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 55;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.26s ease;
+      }
+
+      .nb-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .sidebar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+        width: 84%;
+        max-width: 300px;
+        height: 100vh;
+        border-right: 1px solid var(--gris-borde);
+        transform: translateX(-100%);
+        transition: transform 0.26s ease;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
+      }
+
+      .sidebar.abierto {
+        transform: translateX(0);
+      }
+
+      .nb-cerrar {
+        display: flex;
+      }
+
+      .main {
+        padding: 2.5rem 1.5rem;
+        max-width: 100%;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+  <!-- Topbar Unificada -->
+  <header class="topbar">
+    <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    
+    <!-- CoopeNotebook lleva siempre a la raíz -->
+    <a class="brand" href="../../index.html"><strong>Coope</strong>Notebook</a>
+    
+    <!-- Botón volver al índice de la sección específica -->
+    <a class="back" href="../index.html">&larr; Volver al índice</a>
+  </header>
+
+  <!-- Overlay para oscurecer fondo en móviles -->
+  <div class="nb-overlay" onclick="cerrarMenu()"></div>
+
+  <div class="shell">
+    
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar">
+      <button class="nb-cerrar" onclick="cerrarMenu()" aria-label="Cerrar menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      
+      <!-- Título de la Lección en la barra lateral -->
+      <div class="nb-marca-titulo">
+        Nombre de la Lección
+      </div>
+
+      <!-- Menú de Pestañas (Pestaña 00 Portada es obligatoria) -->
+      <ul class="nb-nav">
+        <li>
+          <button class="activo" onclick="tab('portada', this)">
+            <span class="nb-nav-num">00</span>Portada
+          </button>
+        </li>
+        <li>
+          <button onclick="tab('t01', this)">
+            <span class="nb-nav-num">01</span>Nombre de Pestaña 1
+          </button>
+        </li>
+        <li>
+          <button onclick="tab('t02', this)">
+            <span class="nb-nav-num">02</span>Nombre de Pestaña 2
+          </button>
+        </li>
+      </ul>
+
+      <!-- Conceptos Relacionados -->
+      <div class="nb-conceptos">
+        <span class="nb-conceptos-label">Conceptos relacionados</span>
+        <div class="nb-tags">
+          <span class="nb-tag">concepto 1</span>
+          <span class="nb-tag">concepto 2</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenedor de Contenidos -->
+    <main class="main">
+
+      <!-- Panel 00: Portada (Resumen obligatorio) -->
+      <div class="panel activo" id="panel-portada">
+        <h1 class="cap-titulo">Nombre de la Lección</h1>
+        <div class="cap-meta">Referencias Legales Cortas (ej: LCH Art. X)</div>
+        <p class="cap-intro">
+          Este es el resumen obligatorio de lo que el usuario encontrará en esta lección, describiendo los objetivos principales y los artículos de la ley que se abordarán.
+        </p>
+        
+        <h2>Objetivos de aprendizaje</h2>
+        <p>Al finalizar esta lección, el usuario podrá comprender:</p>
+        <div class="tip-box">
+          <strong>Objetivo clave:</strong> Explicar el concept principal y su aplicación práctica bajo la Ley de Cooperativas de Honduras.
+        </div>
+      </div>
+
+      <!-- Panel 01: Contenido -->
+      <div class="panel" id="panel-t01">
+        <h1 class="cap-titulo">Nombre de Pestaña 1</h1>
+        <div class="cap-meta">LCH Art. Y</div>
+        <p class="cap-intro">
+          Texto introductorio de esta sección que resume la norma técnica y legal de manera sobria y profesional.
+        </p>
+        
+        <h2>Ejemplo de Sección Interna</h2>
+        <p>Desarrollo conceptual sin distinciones de modos "guiado", "balanceado" o "experto". Se expone de forma directa y clara.</p>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Componente A</h3>
+            <p>Descripción técnica del componente A a la luz de la legislación cooperativa.</p>
+          </div>
+          <div class="info-card">
+            <h3>Componente B</h3>
+            <p>Descripción técnica del componente B a la luz de la legislación cooperativa.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 02: Contenido -->
+      <div class="panel" id="panel-t02">
+        <h1 class="cap-titulo">Nombre de Pestaña 2</h1>
+        <div class="cap-meta">LCH Art. Z</div>
+        <p class="cap-intro">
+          Introducción al siguiente tema importante dentro de esta lección.
+        </p>
+        
+        <h2>Conceptos Prácticos</h2>
+        <p>Toda la teoría se presenta enfocada en el pensamiento cooperativista real y la legislación correspondiente.</p>
+        
+        <div class="insight-box">
+          <strong>Consejo práctico:</strong> Evitar vacíos de poder asumiendo el rol correspondiente según las competencias asignadas por ley.
+        </div>
+      </div>
+
+      <!-- Footer General de la Lección -->
+      <footer>
+        CoopeNotebook · Oliver Ayala. Transcripción y análisis de la Ley de Cooperativas de Honduras y su Reglamento.
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Navegación entre Pestañas (Paneles)
+    function tab(id, btn) {
+      // Ocultar todos los paneles
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+      // Desactivar todos los botones del menú
+      document.querySelectorAll('.nb-nav button').forEach(b => b.classList.remove('activo'));
+      
+      // Mostrar panel activo y marcar botón
+      document.getElementById('panel-' + id).classList.add('activo');
+      btn.classList.add('activo');
+      
+      // Cerrar menú si estamos en vista móvil
+      if (window.innerWidth <= 820) {
+        cerrarMenu();
+      }
+      // Volver scroll al inicio del contenedor
+      document.querySelector('.main').scrollTop = 0;
+    }
+
+    // Funciones de Menú Drawer (Móvil)
+    function abrirMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.nb-overlay');
+      if (sidebar) sidebar.classList.add('abierto');
+      if (overlay) overlay.classList.add('visible');
+    }
+
+    function cerrarMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.nb-overlay');
+      if (sidebar) sidebar.classList.remove('abierto');
+      if (overlay) overlay.classList.remove('visible');
+    }
+  </script>
+  
+  <script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>
