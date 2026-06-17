@@ -47,13 +47,13 @@
   flex-shrink: 0;
 }
 
-/* SHELL PANEL (Facilitator tools aside) */
+/* SHELL PANEL (Resizable Facilitator tools panel) */
 .ft-shell {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 130;
-  width: min(430px, 92vw);
+  width: min(500px, 40vw); /* Default wider width for comfortable reading */
   height: 100vh;
   background: #ffffff;
   border-left: 1px solid #d8d8d8;
@@ -65,6 +65,23 @@
 }
 .ft-shell.ft-open {
   transform: translateX(0);
+}
+
+/* Drag Handle for Resizing */
+.ft-resize-handle {
+  position: absolute;
+  left: -4px;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 140;
+  background: transparent;
+  transition: background .15s;
+}
+.ft-resize-handle:hover,
+.ft-resize-handle.ft-active {
+  background: rgba(28, 107, 74, 0.35); /* Green theme accent on hover/drag */
 }
 
 .ft-head {
@@ -188,13 +205,16 @@ body.ft-panel-open .ft-dock {
   display: none;
 }
 
+/* RESIZING TRANSITIONS DISABLE */
+body.ft-resizing,
+body.ft-resizing .ft-shell {
+  transition: none !important;
+}
+
 @media(min-width: 980px) {
   body.ft-panel-open {
-    padding-right: min(430px, 34vw);
+    padding-right: min(500px, 40vw); /* Matches default width */
     transition: padding-right .26s cubic-bezier(.4,0,.2,1);
-  }
-  .ft-shell {
-    width: min(430px, 34vw);
   }
   .ft-backdrop {
     display: none;
@@ -229,5 +249,8 @@ body.ft-panel-open .ft-dock {
   }
   .ft-shell {
     width: 100vw;
+  }
+  .ft-resize-handle {
+    display: none; /* No resizing handles on mobile */
   }
 }

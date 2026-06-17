@@ -1,12 +1,5 @@
 (function(){
   // Determine relative paths for tools depending on the folder depth of the current page
-  // The script runs on pages like public/contents/diplomado-basico/identidad-cooperativa/historia-cooperativismo.html (depth 3 from root)
-  // Let's resolve the root path dynamically by checking the current pathname depth
-  var depth = window.location.pathname.split('/').filter(Boolean).length;
-  // If we are in "contents/diplomado-basico/identidad-cooperativa/page.html", depth from root is typically:
-  // /contents/diplomado-basico/identidad-cooperativa/page.html (4 items when split by '/')
-  // In Vercel, it might be slightly different, but we can compute path prefix relative to public/contents
-  // Let's see:
   var pathPrefix = "../../.."; // Default for 3-depth pages
   if (window.location.pathname.indexOf('/contents/diplomado-basico/identidad-cooperativa/') !== -1 ||
       window.location.pathname.indexOf('/contents/diplomado-basico/administracion-asambleas/') !== -1 ||
@@ -48,7 +41,6 @@
   function create(){
     if(document.querySelector('.ft-shell')) return;
 
-    // Create the dock on the right
     var dock = document.createElement('div');
     dock.className = 'ft-dock';
 
@@ -59,6 +51,7 @@
     shell.className = 'ft-shell';
     shell.setAttribute('aria-label','Herramientas de facilitador');
     shell.innerHTML =
+      '<div class="ft-resize-handle"></div>' +
       '<div class="ft-head">' +
         '<div class="ft-title"><span class="ft-kicker">Herramienta</span><span class="ft-name">Ley</span></div>' +
         '<button class="ft-icon-btn ft-pop" type="button" aria-label="Abrir herramienta en una pestaña nueva">'+icon('external')+'</button>' +
@@ -130,7 +123,47 @@
       if(evt.key === 'Escape') close();
     });
 
-    // Default load first tool, but don't open by default
+    // --- DRAGGABLE RESIZE LOGIC ---
+    var handle = shell.querySelector('.ft-resize-handle');
+    var isResizing = false;
+    var startX, startWidth;
+
+    handle.addEventListener('mousedown', function(e) {
+      isResizing = true;
+      startX = e.clientX;
+      startWidth = shell.offsetWidth;
+      handle.classList.add('ft-active');
+      document.body.classList.add('ft-resizing');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      frame.style.pointerEvents = 'none'; // Prevent iframe from capturing mouse events
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!isResizing) return;
+      var width = startWidth + (startX - e.clientX); // Left drag increases width
+      var minWidth = 320;
+      var maxWidth = window.innerWidth * 0.85; // Max 85% of screen width
+      if (width >= minWidth && width <= maxWidth) {
+        shell.style.width = width + 'px';
+        if (window.innerWidth >= 980) {
+          document.body.style.paddingRight = width + 'px';
+        }
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (isResizing) {
+        isResizing = false;
+        handle.classList.remove('ft-active');
+        document.body.classList.remove('ft-resizing');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        frame.style.pointerEvents = 'auto'; // Re-enable iframe mouse events
+      }
+    });
+
+    // Default load first tool
     load(active);
   }
 
