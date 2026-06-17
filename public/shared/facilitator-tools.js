@@ -1,30 +1,56 @@
 (function(){
+  // Determine relative paths for tools depending on the folder depth of the current page
+  // The script runs on pages like public/contents/diplomado-basico/identidad-cooperativa/historia-cooperativismo.html (depth 3 from root)
+  // Let's resolve the root path dynamically by checking the current pathname depth
+  var depth = window.location.pathname.split('/').filter(Boolean).length;
+  // If we are in "contents/diplomado-basico/identidad-cooperativa/page.html", depth from root is typically:
+  // /contents/diplomado-basico/identidad-cooperativa/page.html (4 items when split by '/')
+  // In Vercel, it might be slightly different, but we can compute path prefix relative to public/contents
+  // Let's see:
+  var pathPrefix = "../../.."; // Default for 3-depth pages
+  if (window.location.pathname.indexOf('/contents/diplomado-basico/identidad-cooperativa/') !== -1 ||
+      window.location.pathname.indexOf('/contents/diplomado-basico/administracion-asambleas/') !== -1 ||
+      window.location.pathname.indexOf('/contents/diplomado-basico/cuerpos-directivos/') !== -1 ||
+      window.location.pathname.indexOf('/contents/diplomado-basico/legislacion-cooperativista/') !== -1 ||
+      window.location.pathname.indexOf('/contents/diplomado-basico/liderazgo-diplomado/') !== -1 ||
+      window.location.pathname.indexOf('/contents/cooperativismo-aplicado/identidad-standalones/') !== -1 ||
+      window.location.pathname.indexOf('/contents/cooperativismo-aplicado/Liderazgo/') !== -1) {
+    pathPrefix = "../../..";
+  } else if (window.location.pathname.indexOf('/contents/diplomado-basico/') !== -1 ||
+             window.location.pathname.indexOf('/contents/cooperativismo-aplicado/') !== -1) {
+    pathPrefix = "../..";
+  }
+
   var tools = [
-    { id:'ley', label:'Ley', url:'/tools/ley.html?panel=1' },
-    { id:'delegados', label:'Delegados', url:'/tools/temas-artefacto/calculadora-delegados.html?panel=1' },
-    { id:'excedentes', label:'Excedentes', url:'/tools/temas-artefacto/explorador-excedentes.html?panel=1' },
-    { id:'anio', label:'A\u00f1o social', url:'/tools/temas-artefacto/ano-social-fiscal.html?panel=1' },
-    { id:'incidencia', label:'Incidencia', url:'/tools/temas-artefacto/plan-incidencia-politica.html?panel=1' },
-    { id:'perfil', label:'Perfil l\u00edder', url:'/tools/trabajo-equipo/perfil-lider.html?panel=1' }
+    { id:'ley', label:'Ley de Coop.', url: pathPrefix + '/tools/ley.html?panel=1', iconName: 'ley' },
+    { id:'delegados', label:'Delegados', url: pathPrefix + '/tools/temas-artefacto/calculadora-delegados.html?panel=1', iconName: 'delegados' },
+    { id:'excedentes', label:'Excedentes', url: pathPrefix + '/tools/temas-artefacto/explorador-excedentes.html?panel=1', iconName: 'excedentes' },
+    { id:'anio', label:'Año social', url: pathPrefix + '/tools/temas-artefacto/ano-social-fiscal.html?panel=1', iconName: 'anio' },
+    { id:'incidencia', label:'Incidencia', url: pathPrefix + '/tools/temas-artefacto/plan-incidencia-politica.html?panel=1', iconName: 'incidencia' },
+    { id:'perfil', label:'Perfil líder', url: pathPrefix + '/tools/trabajo-equipo/perfil-lider.html?panel=1', iconName: 'perfil' }
   ];
 
   function icon(name){
     var icons = {
       tools:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a6 6 0 0 1-7.9 7.9l-5.6 5.6a2.1 2.1 0 0 1-3-3l5.6-5.6a6 6 0 0 1 7.9-7.9l-3.1 3.1Z"/></svg>',
       x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>',
-      external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>'
+      external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
+      ley:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h10"/></svg>',
+      delegados:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+      excedentes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+      anio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      incidencia:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      perfil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
     };
-    return icons[name] || '';
+    return icons[name] || icons['tools'];
   }
 
   function create(){
     if(document.querySelector('.ft-shell')) return;
 
-    var toggle = document.createElement('button');
-    toggle.className = 'ft-toggle';
-    toggle.type = 'button';
-    toggle.setAttribute('aria-label','Abrir herramientas de facilitador');
-    toggle.innerHTML = icon('tools');
+    // Create the dock on the right
+    var dock = document.createElement('div');
+    dock.className = 'ft-dock';
 
     var backdrop = document.createElement('div');
     backdrop.className = 'ft-backdrop';
@@ -34,14 +60,14 @@
     shell.setAttribute('aria-label','Herramientas de facilitador');
     shell.innerHTML =
       '<div class="ft-head">' +
-        '<div class="ft-title"><span class="ft-kicker">Facilitador</span><span class="ft-name">Ley</span></div>' +
-        '<button class="ft-icon-btn ft-pop" type="button" aria-label="Abrir herramienta en una pesta\u00f1a nueva">'+icon('external')+'</button>' +
+        '<div class="ft-title"><span class="ft-kicker">Herramienta</span><span class="ft-name">Ley</span></div>' +
+        '<button class="ft-icon-btn ft-pop" type="button" aria-label="Abrir herramienta en una pestaña nueva">'+icon('external')+'</button>' +
         '<button class="ft-icon-btn ft-close" type="button" aria-label="Cerrar herramientas">'+icon('x')+'</button>' +
       '</div>' +
       '<div class="ft-list" role="tablist"></div>' +
       '<div class="ft-frame-wrap"><iframe class="ft-frame" title="Herramienta de facilitador"></iframe></div>';
 
-    document.body.appendChild(toggle);
+    document.body.appendChild(dock);
     document.body.appendChild(backdrop);
     document.body.appendChild(shell);
 
@@ -51,12 +77,28 @@
     var active = tools[0];
 
     tools.forEach(function(tool){
+      // 1. Build dock button
+      var dockBtn = document.createElement('button');
+      dockBtn.className = 'ft-dock-btn';
+      dockBtn.type = 'button';
+      dockBtn.setAttribute('title', tool.label);
+      dockBtn.innerHTML = icon(tool.iconName) + '<span>' + tool.label + '</span>';
+      dockBtn.addEventListener('click', function(){
+        load(tool);
+        open();
+      });
+      dock.appendChild(dockBtn);
+
+      // 2. Build inner tab list button
       var btn = document.createElement('button');
       btn.className = 'ft-tool';
       btn.type = 'button';
       btn.textContent = tool.label;
       btn.dataset.tool = tool.id;
-      btn.addEventListener('click', function(){ load(tool); open(); });
+      btn.addEventListener('click', function(){
+        load(tool);
+        open();
+      });
       list.appendChild(btn);
     });
 
@@ -79,7 +121,6 @@
       document.body.classList.remove('ft-panel-open');
     }
 
-    toggle.addEventListener('click', function(){ open(); });
     backdrop.addEventListener('click', close);
     shell.querySelector('.ft-close').addEventListener('click', close);
     shell.querySelector('.ft-pop').addEventListener('click', function(){
@@ -89,6 +130,7 @@
       if(evt.key === 'Escape') close();
     });
 
+    // Default load first tool, but don't open by default
     load(active);
   }
 
