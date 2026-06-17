@@ -1,5 +1,3 @@
-# CoopeNotebook — Ley y Reglamento de Cooperativas de Honduras
-
 BuscarEstructuraIndice LCHIndice RLCHLectura paralela
 
 # Buscar en **Ley y Reglamento** 
