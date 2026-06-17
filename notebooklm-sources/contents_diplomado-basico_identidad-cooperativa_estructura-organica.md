@@ -1,4 +1,4 @@
-Presentar CoopeNotebookEstructura Orgánica
+Presentar CoopeNotebook← Volver al índiceEstructura Orgánica
 
 * 00Portada
 * 01Estructura orgánica

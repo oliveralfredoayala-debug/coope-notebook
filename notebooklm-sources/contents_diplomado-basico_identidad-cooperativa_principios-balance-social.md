@@ -1,4 +1,4 @@
-Los principiosCómo se aplicanRendición de cuentasReferencias legalesCoopeNotebookPrincipios y balance socialMarco legal
+Los principiosCómo se aplicanRendición de cuentasReferencias legales← Volver al índiceCoopeNotebook← Volver al índicePrincipios y balance socialMarco legal
 · Principios cooperativistasLos principiosCómo se aplicanRendición de cuentasReferencias legales
 
 #### Conceptos relacionados

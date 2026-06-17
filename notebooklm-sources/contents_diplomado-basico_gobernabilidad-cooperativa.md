@@ -1,4 +1,4 @@
-CoopeNotebookGobernabilidad cooperativaRecorrido
+CoopeNotebook← Volver al índiceGobernabilidad cooperativaRecorrido
 
 * ¿Te suena esto?
 * La analogía del carro

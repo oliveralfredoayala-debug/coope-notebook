@@ -1,4 +1,4 @@
-CerrarCoopeNotebookTrabajo práctico
+CerrarCoopeNotebook← Volver al índiceTrabajo práctico
 
 * 00Inicio
 * 01Nivel

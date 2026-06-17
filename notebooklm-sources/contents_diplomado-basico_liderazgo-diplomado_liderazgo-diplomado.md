@@ -1,4 +1,4 @@
-CoopeNotebookLiderazgo cooperativo y oportunidades
+CoopeNotebook← Volver al índiceLiderazgo cooperativo y oportunidades
 
 * 00Apertura
 * 01El perfil del líder cooperativista

@@ -1,4 +1,4 @@
-CoopeNotebookClasificación de Cooperativas
+CoopeNotebook← Volver al índiceClasificación de Cooperativas
 
 * 01Aprendizaje
 * 02Análisis crítico

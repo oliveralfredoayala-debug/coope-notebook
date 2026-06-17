@@ -1,4 +1,4 @@
-CoopeNotebookTu primera asamblea sectorial
+CoopeNotebook← Volver al índiceTu primera asamblea sectorial
 
 * 00Portada
 * 01Qué hace distinta a una cooperativa

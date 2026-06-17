@@ -1,4 +1,4 @@
-CerrarCoopeNotebookGobernabilidad cooperativa
+CerrarCoopeNotebook← Volver al índiceGobernabilidad cooperativa
 
 * 00Inicio
 * 01Nivel
