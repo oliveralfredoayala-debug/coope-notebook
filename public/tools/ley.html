@@ -27,26 +27,74 @@ input{font-family:inherit}
 mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 
 /* Topbar */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:0;z-index:30}
-.topbar-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
-.logo-img{height:26px;width:auto;display:block}
-@media(max-width:600px){.logo-img{height:23px}}
-.topbar-wordmark{display:flex;flex-direction:column;line-height:1.05}
-.wordmark-top{font-size:11px;font-weight:400;color:#999}
-.wordmark-bottom{font-size:13px;font-weight:500;color:#1a1a1a}
-.topbar-breadcrumb{font-size:12px;font-weight:300;color:var(--gris-sec)}
-.topbar-breadcrumb b{font-weight:500;color:var(--gris-texto)}
-@media(max-width:600px){.topbar{padding:13px 20px}.topbar-breadcrumb{display:none}}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 2rem;
+  height: 72px;
+  border-bottom: 1px solid var(--gris-borde);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.brand {
+  color: var(--gris-texto);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.brand strong {
+  color: var(--verde);
+  font-weight: 700;
+}
+.back {
+  font-size: 13px;
+  color: var(--gris-sec);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.back:hover {
+  color: var(--verde);
+}
+.topbar-breadcrumb {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gris-sec);
+}
+.topbar-breadcrumb b {
+  font-weight: 500;
+  color: var(--gris-texto);
+}
+@media(max-width:600px){
+  .topbar {
+    padding: 1.25rem 1.25rem;
+  }
+  .topbar-breadcrumb {
+    display: none;
+  }
+}
 
 /* Tabs */
-.tabbar{display:flex;padding:0 40px;border-bottom:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:57px;z-index:20;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabbar{display:flex;padding:0 40px;border-bottom:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;z-index:20;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tab{position:relative;display:flex;align-items:center;gap:7px;padding:14px 0;margin-right:26px;font-size:14px;font-weight:400;color:var(--gris-sec);white-space:nowrap;min-height:44px;transition:color .18s}
 .tab svg{width:15px;height:15px;opacity:.8}
 .tab:hover{color:var(--gris-texto)}
 .tab.active{color:var(--verde);font-weight:500}
 .tab::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--verde);transform:scaleX(0);transition:transform .2s}
 .tab.active::after{transform:scaleX(1)}
-@media(max-width:600px){.tabbar{padding:0 16px;top:56px}.tab{margin-right:18px;font-size:13px}.tab span{display:none}}
+@media(max-width:600px){.tabbar{padding:0 16px;top:72px}.tab{margin-right:18px;font-size:13px}.tab span{display:none}}
 
 /* Layout */
 .stage{max-width:840px;margin:0 auto;padding:42px 40px 120px}
@@ -154,7 +202,7 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
   body.no-scroll-layout{overflow:hidden;height:100vh}
   body.no-scroll-layout .footnote{display:none}
   
-  #panel4{height:calc(100vh - 114px);overflow:hidden}
+  #panel4{height:calc(100vh - 129px);overflow:hidden}
   #panel4 .stage{max-width:1240px;height:100%;padding:24px 40px 24px;margin:0 auto;display:flex;flex-direction:column;box-sizing:border-box}
   #panel4 .lede{flex-shrink:0}
   #panel4 .sub{flex-shrink:0;margin-bottom:16px}
@@ -311,10 +359,12 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 </head>
 <body>
 <header class="topbar">
-  <a href="index.html" class="topbar-brand" aria-label="Volver a herramientas">
-    <img class="logo-img" src="../assets/coopnotebook-logo.png" alt="CoopeNotebook">
-  </a>
+  <a class="brand" href="../index.html"><strong>Coope</strong>Notebook</a>
   <span class="topbar-breadcrumb" id="crumb"></span>
+  <a class="back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Herramientas
+  </a>
 </header>
 
 <nav class="tabbar">

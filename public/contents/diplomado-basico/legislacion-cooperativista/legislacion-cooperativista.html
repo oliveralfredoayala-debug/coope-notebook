@@ -1,782 +1,2146 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legislación Cooperativista · CoopeNotebook</title>
-<style>
-:root{
-  --blanco:#ffffff;--ink:#111111;--paper:#fafaf8;
-  --amarillo:#f5f0e0;--amarillo-borde:#e0d5b0;--amarillo-ink:#5a4a20;
-  --verde:#1c6b4a;--verde-sec:#2fa36b;--verde-claro:#e8f4ef;--verde-borde:#b8dccc;
-  --gris-texto:#1a1a1a;--gris-sec:#4a4a4a;--gris-suave:#8a8a8a;--gris-borde:#e2e2de;--gris-fondo:#f2f2ee;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--blanco);color:var(--ink);line-height:1.7;font-size:15px;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legislación Cooperativista - CoopeNotebook</title>
+  <style>
+    :root {
+      /* Paleta de colores estándar CoopeNotebook */
+      --verde: #1c6b4a;            /* Verde principal del logotipo */
+      --verde-sec: #2fa36b;        /* Verde secundario */
+      --verde-bg: #e8f4ef;         /* Fondo verde muy tenue */
+      --amarillo: #f4c20d;         /* Amarillo de acento */
+      --blanco: #ffffff;
+      --gris-bg: #f7f7f5;          /* Fondo gris claro */
+      --gris-borde: #e4e4e0;       /* Bordes */
+      --texto: #1a1a18;            /* Texto principal */
+      --texto-sec: #3a3a36;        /* Texto secundario */
+      --texto-ter: #6a6a64;        /* Texto de apoyo */
+      --radio: 10px;
+      --radio-sm: 6px;
+      
+      --amarillo-bg: #fdf8e8;       /* Fijos de complemento */
+      --amarillo-ink: #5a4a20;
+      --amarillo-borde: #e0d5b0;
+    }
 
-/* TOPBAR mobile */
-.topbar{display:none;align-items:center;gap:14px;padding:12px 18px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--gris-borde);position:sticky;top:0;z-index:70;}
-.hamb{width:40px;height:40px;min-width:40px;border:1px solid var(--gris-borde);border-radius:6px;background:var(--blanco);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.hamb svg{width:20px;height:20px;stroke:var(--ink);}
-.topbar-word{font-size:17px;font-weight:650;color:var(--verde);}
-.topbar-cap{font-size:12px;color:var(--gris-suave);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42%;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* SHELL */
-.shell{display:grid;grid-template-columns:300px 1fr;min-height:100vh;}
-.overlay{display:none;}
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
 
-/* DRAWER */
-.drawer{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--blanco);border-right:1px solid var(--gris-borde);padding:34px 26px 50px;scrollbar-width:thin;}
-.wordmark{font-size:20px;font-weight:650;color:var(--verde);line-height:1.05;margin-bottom:4px;letter-spacing:-.02em;}
-.wordmark-sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris-suave);margin-bottom:30px;}
-.nav-list{list-style:none;}
-.nav-item{margin-bottom:2px;}
-.nav-link{display:flex;gap:12px;padding:9px 10px;border-radius:6px;cursor:pointer;color:var(--gris-sec);border-left:2px solid transparent;transition:background .15s,color .15s;align-items:baseline;}
-.nav-link:hover{background:var(--gris-fondo);}
-.nav-link.activo{background:var(--verde-claro);color:var(--verde);border-left:2px solid var(--verde);}
-.nav-num{font-size:11px;font-weight:700;color:var(--verde-sec);min-width:20px;font-variant-numeric:tabular-nums;}
-.nav-text{font-size:13.5px;font-weight:400;line-height:1.35;}
-.nav-link.activo .nav-text{font-weight:500;}
+    /* 1. TOPBAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
 
-/* CONTENIDO */
-main{padding:0;}
-.cap{display:none;max-width:780px;margin: 0;padding:60px clamp(22px,5vw,64px) 110px;}
-.cap.activo{display:block;animation:fade .35s ease;}
-@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+    .brand {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
 
-.cap-eyebrow{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--verde);margin-bottom:14px;}
-.cap-titulo{font-size:clamp(30px,5vw,44px);font-weight:650;line-height:1.1;letter-spacing:0;margin-bottom:20px;}
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
 
-.bloque{margin-top:46px;padding-top:30px;border-top:1px solid var(--gris-borde);}
-.bloque:first-of-type{border-top:none;padding-top:0;margin-top:32px;}
-.bloque-eyebrow{font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--gris-suave);margin-bottom:8px;}
-.bloque-titulo{font-size:clamp(20px,3vw,26px);font-weight:650;line-height:1.2;letter-spacing:0;margin-bottom:16px;}
-.cuerpo{font-size:15px;color:var(--gris-texto);line-height:1.74;margin-bottom:15px;}
-.cuerpo.intro{font-size:17px;font-weight:300;color:var(--gris-sec);line-height:1.6;}
-.cuerpo strong{font-weight:500;}
-.sub-h{font-size:15px;font-weight:500;color:var(--ink);margin:26px 0 9px;}
+    .back {
+      font-size: 13px;
+      color: var(--texto-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-.norma{display:inline-block;font-size:11.5px;font-weight:650;color:var(--verde);background:var(--verde-claro);padding:2px 8px;border-radius:4px;white-space:nowrap;}
+    .back:hover {
+      color: var(--verde);
+    }
 
-.lista{list-style:none;margin:14px 0 18px;padding-left:0;}
-.lista li{font-size:15px;color:var(--gris-sec);line-height:1.7;margin-bottom:10px;padding-left:26px;position:relative;}
-.lista li::before{content:'';position:absolute;left:5px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--verde-sec);}
+    /* Botón hamburguesa (móvil) */
+    .nb-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      color: var(--verde);
+    }
 
-.cita-bloque{font-size:clamp(16px,2.4vw,19px);line-height:1.5;color:var(--gris-sec);border-left:3px solid var(--verde);padding:12px 0 12px 22px;margin:26px 0;background:#fbfdfc;}
-.cita-autor{display:block;font-style:normal;font-size:13px;color:var(--gris-suave);margin-top:12px;letter-spacing:.02em;}
+    .nb-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
 
-.callout{border-radius:6px;padding:16px 20px;margin:22px 0;font-size:14.5px;line-height:1.66;}
-.callout-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:block;}
-.callout.verde{background:var(--verde-claro);border:1px solid var(--verde-borde);color:var(--gris-sec);}
-.callout.verde .callout-label{color:var(--verde);}
-.interp{background:var(--blanco);border:1px solid var(--gris-borde);border-left:3px solid var(--verde-sec);border-radius:6px;padding:16px 20px;margin:22px 0;font-size:14.5px;line-height:1.66;color:var(--gris-sec);}
-.interp .callout-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-sec);margin-bottom:6px;display:block;}
-.complemento{background:var(--amarillo);border:1px solid var(--amarillo-borde);color:var(--amarillo-ink);border-radius:6px;padding:16px 20px;margin:22px 0;font-size:14.5px;line-height:1.66;}
-.complemento .callout-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:block;color:var(--amarillo-ink);}
+    /* 2. MAQUETACIÓN GENERAL (Shell) */
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
 
-.def-bloque{margin:14px 0;padding:14px 18px;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:6px;}
-.def-termino{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--verde);margin-bottom:5px;}
-.def-texto{font-size:14.5px;color:var(--gris-sec);line-height:1.6;}
+    /* Barra lateral */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
 
-.tabla-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;}
-table.t{width:100%;border-collapse:collapse;font-size:14px;min-width:480px;}
-table.t th{text-align:left;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gris-suave);padding:10px 12px;border-bottom:2px solid var(--gris-borde);}
-table.t td{padding:11px 12px;border-bottom:1px solid var(--gris-borde);vertical-align:top;color:var(--gris-sec);line-height:1.5;}
-table.t tr:nth-child(even) td{background:var(--gris-fondo);}
-table.t td strong{color:var(--ink);font-weight:500;}
+    .nb-marca-titulo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--verde);
+      line-height: 1.35;
+    }
 
-/* ===== ARTÍCULO LITERAL — numerado + espaciado + resaltado ===== */
-.art{border:1px solid var(--gris-borde);border-radius:6px;margin:12px 0;background:var(--blanco);overflow:hidden;}
-.art-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 16px;cursor:pointer;min-height:44px;}
-.art-head:hover{background:var(--gris-fondo);}
-.art-num{font-size:12px;font-weight:650;color:var(--ink);}
-.art-ley{font-size:10.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--verde);background:var(--verde-claro);padding:2px 7px;border-radius:4px;}
-.art-resumen{font-size:13.5px;color:var(--gris-sec);}
-.art-ver{margin-left:auto;font-size:12px;color:var(--verde-sec);font-weight:500;white-space:nowrap;}
-.art-texto{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.art-texto-in{padding:4px 20px 18px;}
-.art-encab{font-size:12.5px;font-weight:650;color:var(--ink);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--gris-borde);}
-.art-parrafo{font-size:14px;color:var(--gris-sec);line-height:1.7;margin-bottom:12px;}
-.art-incisos{list-style:none;margin:0;padding:0;}
-.art-incisos li{font-size:14px;color:var(--gris-sec);line-height:1.66;margin-bottom:11px;padding-left:34px;position:relative;}
-.art-incisos li .lit{position:absolute;left:0;top:0;font-size:12px;font-weight:650;color:var(--verde-sec);}
-.hl{color:var(--verde);font-weight:500;background:var(--verde-claro);padding:0 3px;border-radius:3px;}
+    /* Menú de pestañas */
+    .nb-nav {
+      list-style: none;
+      padding: 0.75rem 0 0.25rem;
+    }
 
-/* ===== ESQUEMA PIRÁMIDE ===== */
-.piramide{margin:26px 0;display:flex;flex-direction:column;gap:8px;align-items:center;}
-.pir-nivel{width:100%;border-radius:6px;padding:14px 20px;text-align:center;border:1px solid var(--verde-borde);}
-.pir-n1{max-width:46%;background:var(--verde);color:#fff;border-color:var(--verde);}
-.pir-n2{max-width:62%;background:var(--verde-sec);color:#fff;border-color:var(--verde-sec);}
-.pir-n3{max-width:80%;background:var(--verde-claro);color:var(--verde);}
-.pir-n4{max-width:96%;background:var(--amarillo);color:var(--amarillo-ink);border-color:var(--amarillo-borde);}
-.pir-nivel .pir-tit{font-weight:500;font-size:15px;margin-bottom:2px;}
-.pir-nivel .pir-sub{font-size:12.5px;opacity:.92;line-height:1.4;}
-.pir-conector{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-suave);}
-@media(max-width:480px){.pir-n1,.pir-n2,.pir-n3,.pir-n4{max-width:100%;}}
+    .nb-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 14px;
+      color: var(--texto-sec);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      border-left: 3px solid transparent;
+    }
 
-/* nivel-conjunto (ley+rgto+normativa juntos) */
-.nivel-conjunto{display:flex;gap:8px;width:100%;max-width:80%;}
-.nivel-conjunto .pir-nivel{flex:1;max-width:none;}
-@media(max-width:480px){.nivel-conjunto{flex-direction:column;max-width:100%;}}
+    .nb-nav button:hover {
+      background: var(--verde-bg);
+      color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+    }
 
-/* ===== ESQUEMA INTERPRETACIÓN (3 vías) ===== */
-.vias{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0;}
-.via{border:1px solid var(--gris-borde);border-top:3px solid var(--verde-sec);border-radius:6px;padding:16px 16px 18px;background:var(--blanco);}
-.via-n{font-family:'DM Mono',monospace;font-size:12px;color:var(--verde-sec);margin-bottom:6px;}
-.via-tit{font-weight:500;font-size:15px;color:var(--ink);margin-bottom:8px;}
-.via-txt{font-size:13.5px;color:var(--gris-sec);line-height:1.6;}
-@media(max-width:640px){.vias{grid-template-columns:1fr;}}
+    .nb-nav button.activo {
+      background: var(--verde-bg);
+      color: var(--verde);
+      font-weight: 600;
+      border-left-color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+    }
 
-/* frase clave chips */
-.frase{display:inline-block;font-family:'DM Mono',monospace;font-size:13px;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);padding:4px 12px;border-radius:6px;margin:0 8px 10px 0;}
+    .nb-nav-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      min-width: 20px;
+      padding-top: 1px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
 
-/* acordeón */
-.acord{border:1px solid var(--gris-borde);border-radius:6px;margin:10px 0;background:var(--blanco);overflow:hidden;}
-.acord-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;min-height:44px;}
-.acord-head:hover{background:var(--gris-fondo);}
-.acord-ico{width:18px;height:18px;min-width:18px;position:relative;transition:transform .25s;}
-.acord-ico::before,.acord-ico::after{content:'';position:absolute;background:var(--verde);border-radius:1px;}
-.acord-ico::before{width:18px;height:2px;top:8px;left:0;}
-.acord-ico::after{width:2px;height:18px;left:8px;top:0;}
-.acord.abierto .acord-ico{transform:rotate(135deg);}
-.acord-titulo{font-size:14.5px;font-weight:500;color:var(--ink);}
-.acord-cuerpo{max-height:0;overflow:hidden;transition:max-height .3s ease;}
-.acord-cuerpo-in{padding:0 18px 16px;font-size:14.5px;color:var(--gris-sec);line-height:1.66;}
-.acord-cuerpo-in .cuerpo{font-size:14.5px;}
+    .nb-nav button.activo .nb-nav-num {
+      color: var(--verde-sec);
+    }
 
-/* universo político / empresarial */
-.universo{border:1px solid var(--gris-borde);border-radius:6px;padding:16px 18px;margin:12px 0;}
-.universo.pol{border-left:3px solid var(--verde);background:var(--verde-claro);}
-.universo.emp{border-left:3px solid var(--gris-suave);background:var(--gris-fondo);}
-.universo-tag{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px;}
-.universo.pol .universo-tag{color:var(--verde);}
-.universo.emp .universo-tag{color:var(--gris-suave);}
-.universo-txt{font-size:14px;color:var(--gris-sec);line-height:1.6;}
+    /* Sub-navegadores dentro del sidebar */
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin: 14px 1.5rem 6px;
+    }
 
-/* timeline */
-.tl-wrap{margin:26px 0;}
-.tl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
-.tl-eje{position:relative;display:flex;gap:0;min-width:540px;padding:30px 0 8px;}
-.tl-eje::before{content:'';position:absolute;left:0;right:0;top:38px;height:2px;background:var(--gris-borde);}
-.tl-nodo{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;cursor:pointer;background:none;border:none;position:relative;padding:0 6px;}
-.tl-fecha{font-size:16px;font-weight:650;color:var(--gris-sec);margin-bottom:8px;transition:color .2s;}
-.tl-punto{width:14px;height:14px;border-radius:50%;background:var(--blanco);border:2px solid var(--verde-sec);z-index:2;transition:background .2s,transform .2s;}
-.tl-rotulo{font-size:11.5px;color:var(--gris-suave);text-align:center;margin-top:10px;line-height:1.35;max-width:110px;}
-.tl-nodo.activo .tl-fecha{color:var(--verde);}
-.tl-nodo.activo .tl-punto{background:var(--verde);border-color:var(--verde);transform:scale(1.2);}
-.tl-nodo.activo .tl-rotulo{color:var(--verde);}
-.tl-detalle{margin-top:18px;background:var(--blanco);border:1px solid var(--gris-borde);border-left:3px solid var(--verde);border-radius:6px;padding:18px 22px;}
-.tl-det-fecha{font-size:20px;font-weight:650;color:var(--verde);margin-bottom:4px;}
-.tl-det-rotulo{font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--gris-suave);margin-bottom:10px;}
-.tl-det-texto{font-size:14.5px;color:var(--gris-sec);line-height:1.66;}
+    .nav-sub {
+      display: block;
+      font-size: 13px;
+      color: var(--texto-sec);
+      padding: 6px 1.5rem 6px 2.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-align: left;
+      width: 100%;
+      line-height: 1.3;
+      transition: color 0.15s;
+    }
 
-/* conceptos */
-.conceptos{margin-top:44px;padding-top:24px;border-top:1px solid var(--gris-borde);}
-.conceptos-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-suave);margin-bottom:12px;}
-.chip{display:inline-block;font-size:12.5px;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);padding:4px 12px;border-radius:20px;margin:0 6px 8px 0;}
+    .nav-sub:hover {
+      color: var(--verde);
+    }
 
-/* nav inferior */
-.cap-nav{display:flex;justify-content:space-between;gap:14px;margin-top:50px;padding-top:24px;border-top:1px solid var(--gris-borde);}
-.cap-nav button{flex:1;text-align:left;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:6px;padding:14px 18px;cursor:pointer;min-height:44px;transition:border-color .15s,background .15s;}
-.cap-nav button:hover:not(:disabled){border-color:var(--verde-sec);background:var(--gris-fondo);}
-.cap-nav button:disabled{opacity:.35;cursor:default;}
-.cap-nav .cn-dir{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-suave);margin-bottom:3px;}
-.cap-nav .cn-tit{font-size:13.5px;color:var(--verde);font-weight:500;}
-.cap-nav .next{text-align:right;}
+    .nav-divider {
+      height: 1px;
+      background: var(--gris-borde);
+      margin: 16px 1.5rem 8px;
+    }
 
-/* portada */
-.portada{max-width:780px;}
-.portada .pcita{font-size:clamp(16px,2.4vw,19px);line-height:1.5;color:var(--gris-sec);border-left:3px solid var(--verde);padding:12px 0 12px 22px;margin:30px 0 36px;background:#fbfdfc;}
-.def-grande{margin:22px 0;}
-.df-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0;}
-.df-card{border:1px solid var(--gris-borde);border-top:3px solid var(--verde);border-radius:6px;padding:16px;background:var(--blanco);}
-.df-verbo{font-size:20px;font-weight:650;color:var(--verde);margin-bottom:6px;}
-.df-txt{font-size:13.5px;color:var(--gris-sec);line-height:1.55;}
-@media(max-width:640px){.df-3{grid-template-columns:1fr;}}
-.portada-cta{margin-top:30px;}
-.portada-cta button{background:var(--verde);color:#fff;border:none;border-radius:6px;padding:14px 26px;font-size:14px;font-weight:500;cursor:pointer;min-height:44px;font-family:inherit;}
-.portada-cta button:hover{background:#155539;}
+    /* Conceptos relacionados */
+    .nb-conceptos {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      margin-top: auto;
+      flex-shrink: 0;
+    }
 
-.pie{margin-top:60px;padding-top:22px;border-top:1px solid var(--gris-borde);font-size:11.5px;color:var(--gris-suave);font-weight:300;}
+    .nb-conceptos-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
 
-/* MOBILE */
-@media(max-width:820px){
-  .shell{grid-template-columns:1fr;}
-  .topbar{display:flex;}
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:75;}
-  .overlay.activo{display:block;}
-  .drawer{position:fixed;left:0;top:0;width:280px;max-width:84vw;z-index:80;transform:translateX(-100%);transition:transform .3s ease;}
-  .drawer.abierto{transform:translateX(0);}
-  .cap{padding:38px 22px 90px;}
-  .cap.activo{animation:none;}
-}
-@media(max-width:480px){ body{font-size:15px;} }
-</style>
+    .nb-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nb-tag {
+      font-size: 12px;
+      color: var(--verde);
+      background: var(--verde-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #dcebe2;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nb-tag:hover {
+      background: var(--verde-sec);
+      color: #fff;
+    }
+
+    .nb-tag.flash {
+      background: var(--amarillo);
+      color: var(--texto);
+    }
+
+    /* Botón de cierre del menú (móvil) */
+    .nb-cerrar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--texto-ter);
+    }
+
+    .nb-cerrar svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Contenido principal */
+    .main {
+      flex: 1;
+      max-width: 860px;
+      padding: 3.5rem 4rem;
+      overflow-y: auto;
+    }
+
+    /* Pestañas (paneles) de contenido */
+    .panel {
+      display: none;
+    }
+
+    .panel.activo {
+      display: block;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 3. TEXTOS Y ELEMENTOS INTERNOS */
+    .cap-titulo {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--verde);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .cap-meta {
+      font-size: 13px;
+      color: var(--texto-ter);
+      margin-bottom: 2.5rem;
+    }
+
+    .cap-intro {
+      font-size: 17px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .cap-intro strong {
+      color: var(--texto);
+      font-weight: 600;
+    }
+
+    .bloque {
+      margin-bottom: 38px;
+    }
+
+    .bloque-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 10px;
+    }
+
+    .bloque-titulo {
+      font-size: 22px;
+      font-weight: 650;
+      line-height: 1.2;
+      margin-bottom: 15px;
+      color: var(--verde);
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--verde);
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 15.5px;
+      color: var(--texto-sec);
+      line-height: 1.65;
+    }
+
+    p strong {
+      color: var(--texto);
+    }
+
+    .cuerpo.intro {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--texto);
+    }
+
+    .sub-h {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--texto);
+      margin: 24px 0 8px;
+    }
+
+    /* Recuadros de notas y andamiajes */
+    .cita-bloque {
+      border-left: 3px solid var(--verde-sec);
+      padding: 14px 20px;
+      margin: 24px 0;
+      font-size: 16px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+      background: var(--gris-bg);
+      border-radius: 0 var(--radio) var(--radio) 0;
+    }
+
+    .cita-autor {
+      font-size: 11px;
+      font-style: normal;
+      color: var(--texto-ter);
+      margin-top: 8px;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    .norma {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--verde);
+      background: var(--verde-bg);
+      padding: 1px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+      vertical-align: middle;
+      border: 1px solid #dcebe2;
+    }
+
+    .lista {
+      list-style: none;
+      margin: 14px 0 18px;
+      padding-left: 0;
+    }
+
+    .lista li {
+      font-size: 15px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 10px;
+      padding-left: 26px;
+      position: relative;
+    }
+
+    .lista li::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--verde-sec);
+    }
+
+    /* Tipos de Callouts */
+    .callout {
+      border-radius: var(--radio);
+      padding: 16px 20px;
+      margin: 22px 0;
+      font-size: 14.5px;
+      line-height: 1.66;
+    }
+
+    .callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .callout.verde {
+      background: var(--verde-bg);
+      border: 1px solid #dcebe2;
+      color: var(--texto-sec);
+    }
+
+    .callout.verde .callout-label {
+      color: var(--verde);
+    }
+
+    .interp {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-left: 3px solid var(--verde-sec);
+      border-radius: var(--radio);
+      padding: 16px 20px;
+      margin: 22px 0;
+      font-size: 14.5px;
+      line-height: 1.66;
+      color: var(--texto-sec);
+    }
+
+    .interp .callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--verde-sec);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .complemento {
+      background: var(--amarillo-bg);
+      border: 1px solid var(--amarillo-borde);
+      color: var(--amarillo-ink);
+      border-radius: var(--radio);
+      padding: 16px 20px;
+      margin: 22px 0;
+      font-size: 14.5px;
+      line-height: 1.66;
+    }
+
+    .complemento .callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+      color: var(--amarillo-ink);
+    }
+
+    .insight-box {
+      background: var(--gris-bg);
+      border-left: 3px solid var(--amarillo);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    /* Glosario / Definiciones */
+    .def-bloque {
+      margin: 14px 0;
+      padding: 14px 18px;
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+    }
+
+    .def-termino {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 5px;
+    }
+
+    .def-texto {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    /* Tablas */
+    .tabla-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 20px 0;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+    }
+
+    table.t {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 480px;
+    }
+
+    table.t th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--gris-borde);
+      background: var(--gris-bg);
+    }
+
+    table.t td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--gris-borde);
+      vertical-align: top;
+      color: var(--texto-sec);
+      line-height: 1.5;
+    }
+
+    table.t tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.t tr:nth-child(even) td {
+      background: var(--gris-bg);
+    }
+
+    table.t td strong {
+      color: var(--texto);
+      font-weight: 600;
+    }
+
+    /* Portada recorrido */
+    .indice {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .indice li {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--gris-borde);
+      cursor: pointer;
+      transition: padding-left 0.2s;
+    }
+
+    .indice li:last-child {
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .indice li:hover {
+      padding-left: 8px;
+    }
+
+    .indice-num {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--verde-sec);
+      min-width: 30px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .indice-txt {
+      font-size: 16px;
+      color: var(--texto-sec);
+      line-height: 1.4;
+    }
+
+    .indice li:hover .indice-txt {
+      color: var(--verde);
+    }
+
+    .indice-txt b {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .df-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .df-card {
+      border: 1px solid var(--gris-borde);
+      border-top: 3px solid var(--verde);
+      border-radius: var(--radio);
+      padding: 16px;
+      background: var(--blanco);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .df-card:hover {
+      border-color: #cfe0d7;
+      box-shadow: 0 6px 20px rgba(28, 107, 74, 0.06);
+    }
+
+    .df-verbo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 6px;
+    }
+
+    .df-txt {
+      font-size: 13.5px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+    }
+
+    /* ===== ARTÍCULO LITERAL ===== */
+    .art {
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      margin: 12px 0;
+      background: var(--blanco);
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .art:hover {
+      border-color: #cfe0d7;
+    }
+
+    .art-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 13px 16px;
+      cursor: pointer;
+      min-height: 44px;
+      background: var(--gris-bg);
+      transition: background 0.15s;
+    }
+
+    .art-head:hover {
+      background: #eef3f0;
+    }
+
+    .art-num {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--texto);
+    }
+
+    .art-ley {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--verde);
+      background: var(--verde-bg);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid #dcebe2;
+    }
+
+    .art-resumen {
+      font-size: 13.5px;
+      color: var(--texto-sec);
+      font-weight: 500;
+    }
+
+    .art-ver {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--verde-sec);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .art-texto {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+      background: var(--blanco);
+    }
+
+    .art-texto-in {
+      padding: 14px 20px 18px;
+      border-top: 1px solid var(--gris-borde);
+    }
+
+    .art-encab {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--texto);
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .art-parrafo {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .art-incisos {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .art-incisos li {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.66;
+      margin-bottom: 11px;
+      padding-left: 34px;
+      position: relative;
+    }
+
+    .art-incisos li .lit {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--verde-sec);
+    }
+
+    .hl {
+      color: var(--verde);
+      font-weight: 600;
+      background: var(--verde-bg);
+      padding: 0 4px;
+      border-radius: 3px;
+    }
+
+    /* ===== ESQUEMA PIRÁMIDE ===== */
+    .piramide {
+      margin: 26px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .pir-nivel {
+      width: 100%;
+      border-radius: var(--radio);
+      padding: 14px 20px;
+      text-align: center;
+      border: 1px solid var(--verde-borde);
+      transition: transform 0.15s;
+    }
+
+    .pir-nivel:hover {
+      transform: scale(1.01);
+    }
+
+    .pir-n1 {
+      max-width: 50%;
+      background: var(--verde);
+      color: #fff;
+      border-color: var(--verde);
+    }
+
+    .pir-n2 {
+      max-width: 70%;
+      background: var(--verde-sec);
+      color: #fff;
+      border-color: var(--verde-sec);
+    }
+
+    .pir-n3 {
+      max-width: 85%;
+      background: var(--verde-bg);
+      color: var(--verde);
+    }
+
+    .pir-n4 {
+      max-width: 98%;
+      background: var(--amarillo-bg);
+      color: var(--amarillo-ink);
+      border-color: var(--amarillo-borde);
+    }
+
+    .pir-nivel .pir-tit {
+      font-weight: 700;
+      font-size: 15.5px;
+      margin-bottom: 2px;
+    }
+
+    .pir-nivel .pir-sub {
+      font-size: 12.5px;
+      opacity: .92;
+      line-height: 1.4;
+    }
+
+    .pir-conector {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+    }
+
+    .nivel-conjunto {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      max-width: 85%;
+    }
+
+    .nivel-conjunto .pir-nivel {
+      flex: 1;
+      max-width: none;
+    }
+
+    /* ===== ESQUEMA INTERPRETACIÓN (3 vías) ===== */
+    .vias {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .via {
+      border: 1px solid var(--gris-borde);
+      border-top: 3px solid var(--verde-sec);
+      border-radius: var(--radio);
+      padding: 16px;
+      background: var(--blanco);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .via:hover {
+      border-color: #cfe0d7;
+      box-shadow: 0 6px 20px rgba(28, 107, 74, 0.06);
+    }
+
+    .via-n {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--verde-sec);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .via-tit {
+      font-weight: 700;
+      font-size: 15.5px;
+      color: var(--texto);
+      margin-bottom: 8px;
+    }
+
+    .via-txt {
+      font-size: 13.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    /* Frase clave chips */
+    .frase {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--verde);
+      background: var(--verde-bg);
+      border: 1px solid var(--verde-borde);
+      padding: 5px 12px;
+      border-radius: var(--radio-sm);
+      margin: 0 8px 10px 0;
+    }
+
+    /* Acordeones */
+    .acord {
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      margin: 10px 0;
+      background: var(--blanco);
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .acord:hover {
+      border-color: #cfe0d7;
+    }
+
+    .acord-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      min-height: 44px;
+      background: var(--gris-bg);
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+
+    .acord-head:hover {
+      background: #eef3f0;
+    }
+
+    .acord-ico {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      position: relative;
+      transition: transform .25s;
+    }
+
+    .acord-ico::before, .acord-ico::after {
+      content: '';
+      position: absolute;
+      background: var(--verde);
+      border-radius: 1px;
+    }
+
+    .acord-ico::before {
+      width: 18px;
+      height: 2px;
+      top: 8px;
+      left: 0;
+    }
+
+    .acord-ico::after {
+      width: 2px;
+      height: 18px;
+      left: 8px;
+      top: 0;
+    }
+
+    .acord.abierto .acord-ico {
+      transform: rotate(135deg);
+    }
+
+    .acord-titulo {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--texto);
+    }
+
+    .acord-cuerpo {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      background: var(--blanco);
+    }
+
+    .acord-cuerpo-in {
+      padding: 14px 18px 16px;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.66;
+      border-top: 1px solid var(--gris-borde);
+    }
+
+    /* Universo político / empresarial */
+    .universo {
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 16px 18px;
+      margin: 12px 0;
+      transition: border-color 0.15s;
+    }
+
+    .universo:hover {
+      border-color: #cfe0d7;
+    }
+
+    .universo.pol {
+      border-left: 4px solid var(--verde);
+      background: var(--verde-bg);
+    }
+
+    .universo.emp {
+      border-left: 4px solid var(--texto-ter);
+      background: var(--gris-bg);
+    }
+
+    .universo-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .universo.pol .universo-tag {
+      color: var(--verde);
+    }
+
+    .universo.emp .universo-tag {
+      color: var(--texto);
+    }
+
+    .universo-txt {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    /* Línea de tiempo de la Ley */
+    .tl-wrap {
+      margin: 26px 0;
+    }
+
+    .tl-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      background: var(--gris-bg);
+    }
+
+    .tl-eje {
+      position: relative;
+      display: flex;
+      gap: 0;
+      min-width: 600px;
+      padding: 30px 0 8px;
+    }
+
+    .tl-eje::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 38px;
+      height: 2px;
+      background: var(--gris-borde);
+    }
+
+    .tl-nodo {
+      flex: 1;
+      min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      position: relative;
+      padding: 0 6px;
+      font-family: inherit;
+    }
+
+    .tl-fecha {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--texto-ter);
+      margin-bottom: 8px;
+      transition: color .2s;
+    }
+
+    .tl-punto {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--blanco);
+      border: 2px solid var(--verde-sec);
+      z-index: 2;
+      transition: background .2s, transform .2s;
+    }
+
+    .tl-rotulo {
+      font-size: 11.5px;
+      color: var(--texto-ter);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.35;
+      max-width: 110px;
+      transition: color .2s;
+    }
+
+    .tl-nodo:hover .tl-punto {
+      border-color: var(--verde);
+    }
+
+    .tl-nodo:hover .tl-fecha, .tl-nodo:hover .tl-rotulo {
+      color: var(--verde);
+    }
+
+    .tl-nodo.activo .tl-fecha {
+      color: var(--verde);
+    }
+
+    .tl-nodo.activo .tl-punto {
+      background: var(--verde);
+      border-color: var(--verde);
+      transform: scale(1.2);
+    }
+
+    .tl-nodo.activo .tl-rotulo {
+      color: var(--texto);
+      font-weight: 600;
+    }
+
+    .tl-detalle {
+      margin-top: 18px;
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-left: 4px solid var(--verde);
+      border-radius: 0 var(--radio) var(--radio) 0;
+      padding: 18px 22px;
+      min-height: 120px;
+      animation: fadeUp .35s ease both;
+    }
+
+    .tl-det-fecha {
+      font-size: 22px;
+      font-weight: 750;
+      color: var(--verde);
+      margin-bottom: 4px;
+    }
+
+    .tl-det-rotulo {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 10px;
+    }
+
+    .tl-det-texto {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.66;
+    }
+
+    .tl-det-texto strong {
+      font-weight: 600;
+      color: var(--texto);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      font-size: 12.5px;
+      color: var(--texto-ter);
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media(max-width: 820px) {
+      .nb-toggle {
+        display: flex;
+      }
+
+      .nb-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 55;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.26s ease;
+      }
+
+      .nb-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .shell {
+        display: block;
+      }
+
+      .sidebar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+        width: 84%;
+        max-width: 300px;
+        height: 100vh;
+        border-right: 1px solid var(--gris-borde);
+        transform: translateX(-100%);
+        transition: transform 0.26s ease;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
+      }
+
+      .sidebar.abierto {
+        transform: translateX(0);
+      }
+
+      .nb-cerrar {
+        display: block;
+        margin: 0.75rem 1.25rem 0;
+        background: none;
+        border: 1px solid var(--gris-borde);
+        border-radius: var(--radio-sm);
+        padding: 0.55rem 0.75rem;
+        color: var(--verde);
+        font-family: inherit;
+        font-weight: 700;
+      }
+
+      .main {
+        padding: 2.25rem 1.5rem 6rem;
+      }
+
+      .df-3, .vias {
+        grid-template-columns: 1fr;
+      }
+
+      .pir-n1, .pir-n2, .pir-n3, .pir-n4 {
+        max-width: 100%;
+      }
+
+      .nivel-conjunto {
+        flex-direction: column;
+        max-width: 100%;
+      }
+    }
+  </style>
   <link rel="stylesheet" href="/shared/facilitator-tools.css">
 </head>
 <body>
 
-<div class="topbar">
-  <button class="hamb" id="hamb" aria-label="Abrir navegación">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
-  <span class="topbar-word">CoopeNotebook</span>
-  <span class="topbar-cap" id="topbar-cap">Portada</span>
-</div>
+  <!-- Topbar Unificada -->
+  <header class="topbar">
+    <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    
+    <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+    
+    <a class="back" href="../index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Diplomado Básico
+    </a>
+  </header>
 
-<div class="overlay" id="overlay"></div>
+  <!-- Overlay para móviles -->
+  <div class="nb-overlay" onclick="cerrarMenu()"></div>
 
-<div class="shell">
+  <div class="shell">
+    
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar" aria-label="Navegación de la lección">
+      <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+      
+      <div class="nb-marca-titulo">Legislación cooperativista</div>
+      
+      <ul class="nb-nav">
+        <li><button onclick="tab('t00', this)" class="activo"><span class="nb-nav-num">00</span>Portada</button></li>
+        <li><button onclick="tab('t01', this)"><span class="nb-nav-num">01</span>Por qué importa</button></li>
+        <li><button onclick="tab('t02', this)"><span class="nb-nav-num">02</span>La pirámide normativa</button></li>
+        <li><button onclick="tab('t03', this)"><span class="nb-nav-num">03</span>Cómo se interpreta</button></li>
+        <li><button onclick="tab('t04', this)"><span class="nb-nav-num">04</span>Límites y coincidencia</button></li>
+        <li><button onclick="tab('t05', this)"><span class="nb-nav-num">05</span>El tiempo en el derecho</button></li>
+        <li><button onclick="tab('t06', this)"><span class="nb-nav-num">06</span>Quién cambia qué</button></li>
+        <li><button onclick="tab('t07', this)"><span class="nb-nav-num">07</span>Historia de la ley</button></li>
+      </ul>
 
-  <nav class="drawer" id="drawer">
-    <div class="wordmark">Coope<br>Notebook</div>
-    <div class="wordmark-sub">Legislación cooperativista</div>
-    <ul class="nav-list" id="nav-list">
-      <li class="nav-item"><div class="nav-link" data-cap="0"><span class="nav-num">00</span><span class="nav-text">Portada</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="1"><span class="nav-num">01</span><span class="nav-text">Por qué la ley te importa</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="2"><span class="nav-num">02</span><span class="nav-text">La pirámide normativa</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="3"><span class="nav-num">03</span><span class="nav-text">Cómo se interpreta la ley</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="4"><span class="nav-num">04</span><span class="nav-text">Cuando las normas se encuentran</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="5"><span class="nav-num">05</span><span class="nav-text">El tiempo en el derecho</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="6"><span class="nav-num">06</span><span class="nav-text">Quién cambia qué</span></div></li>
-      <li class="nav-item"><div class="nav-link" data-cap="7"><span class="nav-num">07</span><span class="nav-text">Historia de la ley</span></div></li>
-    </ul>
-  </nav>
+      <!-- Sub-navegación dinámica -->
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">En esta sección</div>
+      
+      <div id="sub-t00">
+        <button class="nav-sub" onclick="document.getElementById('panel-t00').scrollIntoView({behavior:'smooth'})">¿Qué es legislación?</button>
+      </div>
+      
+      <div id="sub-t01" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c1-b1').scrollIntoView({behavior:'smooth'})">Somos dueños y dueñas</button>
+        <button class="nav-sub" onclick="document.getElementById('c1-b2').scrollIntoView({behavior:'smooth'})">Conocer es poder</button>
+      </div>
+      
+      <div id="sub-t02" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c2-b1').scrollIntoView({behavior:'smooth'})">Orden y jerarquía</button>
+        <button class="nav-sub" onclick="document.getElementById('c2-b2').scrollIntoView({behavior:'smooth'})">¿Qué otras leyes aplican?</button>
+      </div>
+      
+      <div id="sub-t03" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c3-b1').scrollIntoView({behavior:'smooth'})">Las tres vías</button>
+        <button class="nav-sub" onclick="document.getElementById('c3-b2').scrollIntoView({behavior:'smooth'})">Caso de excedentes</button>
+      </div>
+      
+      <div id="sub-t04" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c4-b1').scrollIntoView({behavior:'smooth'})">Palabras y límites</button>
+        <button class="nav-sub" onclick="document.getElementById('c4-b2').scrollIntoView({behavior:'smooth'})">Piso vs. Techo</button>
+        <button class="nav-sub" onclick="document.getElementById('c4-b3').scrollIntoView({behavior:'smooth'})">El caso del mínimo</button>
+      </div>
+      
+      <div id="sub-t05" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c5-b1').scrollIntoView({behavior:'smooth'})">Hitos del tiempo</button>
+        <button class="nav-sub" onclick="document.getElementById('c5-b2').scrollIntoView({behavior:'smooth'})">Tres comportamientos</button>
+        <button class="nav-sub" onclick="document.getElementById('c5-b3').scrollIntoView({behavior:'smooth'})">Irretroactividad y plazos</button>
+      </div>
+      
+      <div id="sub-t06" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c6-b1').scrollIntoView({behavior:'smooth'})">Corrección por nivel</button>
+        <button class="nav-sub" onclick="document.getElementById('c6-b2').scrollIntoView({behavior:'smooth'})">Cambio del Estatuto</button>
+        <button class="nav-sub" onclick="document.getElementById('c6-b3').scrollIntoView({behavior:'smooth'})">Normativas internas</button>
+      </div>
+      
+      <div id="sub-t07" style="display:none">
+        <button class="nav-sub" onclick="document.getElementById('c7-b1').scrollIntoView({behavior:'smooth'})">Actualización por capas</button>
+      </div>
 
-  <main id="main">
-
-    <!-- ===== PORTADA 00 ===== -->
-    <section class="cap activo portada" id="cap-0">
-      <div class="cap-eyebrow">CoopeNotebook</div>
-      <h1 class="cap-titulo">Legislación<br>cooperativista</h1>
-      <p class="pcita">La ley no es un texto que se memoriza, sino un sistema que se aprende a leer, a interpretar y a navegar.</p>
-
-      <div class="bloque" style="border:none;padding:0;margin-top:10px;">
-        <div class="bloque-eyebrow">Para empezar</div>
-        <h2 class="bloque-titulo">¿Qué es la legislación?</h2>
-        <p class="cuerpo intro">Legislar es crear normas obligatorias para una comunidad. La <strong>legislación</strong> es el conjunto de esas normas vigentes que ordenan la vida en común. En el cooperativismo, es el marco que define cómo nace, se gobierna y se sostiene una cooperativa.</p>
-        <p class="cuerpo">En su forma más simple, una norma hace tres cosas:</p>
-        <div class="df-3">
-          <div class="df-card"><div class="df-verbo">Manda</div><div class="df-txt">Obliga a hacer algo. Por ejemplo, celebrar al menos una asamblea ordinaria al año.</div></div>
-          <div class="df-card"><div class="df-verbo">Prohíbe</div><div class="df-txt">Impide hacer algo. Por ejemplo, que una persona empleada sea a la vez directiva.</div></div>
-          <div class="df-card"><div class="df-verbo">Permite</div><div class="df-txt">Autoriza una conducta o reconoce un derecho. Por ejemplo, elegir y ser electo/a para un cargo.</div></div>
+      <!-- Conceptos relacionados -->
+      <div class="nb-conceptos">
+        <span class="nb-conceptos-label">Conceptos relacionados</span>
+        <div class="nb-tags">
+          <span class="nb-tag" data-k="jerarquia">Jerarquía normativa</span>
+          <span class="nb-tag" data-k="interpretacion">LCH y su Reglamento</span>
+          <span class="nb-tag" data-k="plazos">Vigencia y adecuación</span>
         </div>
-        <p class="cuerpo">Junto a las leyes existen <strong>normas con rango de ley</strong> y otros instrumentos de cumplimiento obligatorio: reglamentos, normativas y resoluciones. No todo lo obligatorio es una "ley" del Congreso. Distinguirlos y aprender a leerlos es lo que recorre este notebook.</p>
-        <div class="portada-cta"><button data-cap="1">Comenzar la exploración →</button></div>
       </div>
+    </nav>
 
-      <div class="pie">CoopeNotebook · Oliver Ayala</div>
-    </section>
+    <!-- Contenedor principal de contenidos -->
+    <main class="main">
+      
+      <!-- Panel 00: Portada -->
+      <div class="panel activo" id="panel-t00">
+        <div class="cap-meta">Diplomado Básico · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Legislación cooperativista</h1>
+        <p class="cap-intro">
+          La ley no es un texto que se memoriza, sino un sistema que se aprende a leer, a interpretar y a navegar.
+        </p>
 
-    <!-- ===== CAPÍTULO 01 ===== -->
-    <section class="cap" id="cap-1">
-      <div class="cap-eyebrow">Capítulo 01</div>
-      <h1 class="cap-titulo">Por qué la ley te importa</h1>
+        <div class="cita-bloque">
+          "La legislación es el conjunto de esas normas vigentes que ordenan la vida en común. En el cooperativismo, es el marco que define cómo nace, se gobierna y se sostiene una cooperativa."
+          <div class="cita-autor">Apertura de la exploración</div>
+        </div>
 
-      <div class="bloque" id="c1-b1">
-        <div class="bloque-eyebrow">El punto de partida</div>
-        <h2 class="bloque-titulo">Somos dueños y dueñas de la cooperativa</h2>
-        <p class="cuerpo intro">En una cooperativa no hay clientes ni accionistas externos: los afiliados y afiliadas son, a la vez, dueños y usuarios. Y como dueños, todos debemos tener claridad de nuestros derechos y nuestros deberes.</p>
-        <p class="cuerpo">Conocer la legislación no es un requisito reservado a abogados ni a la Junta Directiva. Es parte de ejercer la propiedad colectiva con responsabilidad. Quien conoce el marco legal participa con criterio; quien lo ignora depende de que otros decidan por él.</p>
-      </div>
-
-      <div class="bloque" id="c1-b2">
-        <div class="bloque-eyebrow">La idea central</div>
-        <h2 class="bloque-titulo">Conocer es poder</h2>
-        <p class="cuerpo">Conocer la ley no es opcional, ni para los cuerpos directivos ni para los afiliados/as. Y ese conocimiento es, sobre todo, una forma de poder constructivo:</p>
-        <ul class="lista">
-          <li><strong>Poder de acuerpar a sus directivos.</strong> Un afiliado/a que conoce el marco legal respalda con criterio las decisiones bien fundamentadas de su Junta Directiva, y sabe distinguir cuándo una decisión se ajusta a la norma.</li>
-          <li><strong>Poder de tomar buenas decisiones.</strong> En la asamblea, votar con conocimiento de causa fortalece a la cooperativa; votar a ciegas la debilita.</li>
-          <li><strong>Poder de garantizar la legalidad de las acciones.</strong> Cuando la membresía conoce las reglas, la cooperativa actúa dentro de la ley con naturalidad, y se previenen errores antes de que ocurran.</li>
-        </ul>
-        <div class="cita-bloque">El conocimiento del marco legal es lo que convierte a un afiliado o afiliada en dueño consciente de su cooperativa, no en simple espectador.
-        <span class="cita-autor">Idea central de este notebook</span></div>
-      </div>
-
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">legislación</span><span class="chip">derechos y deberes</span><span class="chip">propiedad colectiva</span><span class="chip">gobierno cooperativo</span>
-      </div>
-
-      <div class="cap-nav">
-        <button disabled><span class="cn-dir">Inicio</span><span class="cn-tit">—</span></button>
-        <button class="next" data-cap="2"><span class="cn-dir">Siguiente</span><span class="cn-tit">La pirámide normativa →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 02 · PIRÁMIDE ===== -->
-    <section class="cap" id="cap-2">
-      <div class="cap-eyebrow">Capítulo 02</div>
-      <h1 class="cap-titulo">La pirámide normativa</h1>
-
-      <div class="bloque" id="c2-b1">
-        <div class="bloque-eyebrow">El orden de las normas</div>
-        <h2 class="bloque-titulo">Quién manda sobre quién</h2>
-        <p class="cuerpo intro">No todas las normas tienen el mismo rango. Se ordenan en una jerarquía: la norma superior prevalece y ninguna inferior puede contradecirla. Ese orden, aplicado al cooperativismo, se ve así.</p>
-
-        <div class="piramide">
-          <div class="pir-nivel pir-n1"><div class="pir-tit">Constitución de la República</div><div class="pir-sub">Arts. 334 y 338 — promoción y regulación del cooperativismo</div></div>
-          <div class="pir-conector">↓</div>
-          <div class="nivel-conjunto">
-            <div class="pir-nivel pir-n2" style="background:var(--verde-sec);"><div class="pir-tit">Ley · LCH</div><div class="pir-sub">Decreto 65-87 y reformas</div></div>
-            <div class="pir-nivel pir-n2" style="background:var(--verde-sec);"><div class="pir-tit">Reglamento · RLCH</div><div class="pir-sub">Acuerdo 041-2014</div></div>
-            <div class="pir-nivel pir-n2" style="background:var(--verde-sec);"><div class="pir-tit">Normativas CONSUCOOP</div><div class="pir-sub">Resoluciones y normas prudenciales</div></div>
+        <div class="bloque">
+          <div class="bloque-eyebrow">Para empezar</div>
+          <h2 class="bloque-titulo">¿Qué hace una norma?</h2>
+          <p>En su forma más simple, una norma hace tres cosas:</p>
+          <div class="df-3">
+            <div class="df-card">
+              <div class="df-verbo">Manda</div>
+              <div class="df-txt">Obliga a hacer algo. Por ejemplo, celebrar al menos una asamblea ordinaria al año.</div>
+            </div>
+            <div class="df-card">
+              <div class="df-verbo">Prohíbe</div>
+              <div class="df-txt">Impide hacer algo. Por ejemplo, que una persona empleada sea a la vez directiva.</div>
+            </div>
+            <div class="df-card">
+              <div class="df-verbo">Permite</div>
+              <div class="df-txt">Autoriza una conducta o reconoce un derecho. Por ejemplo, elegir y ser electo/a para un cargo.</div>
+            </div>
           </div>
-          <div class="pir-conector">↓</div>
-          <div class="pir-nivel pir-n3"><div class="pir-tit">Estatuto</div><div class="pir-sub">Norma propia de cada cooperativa, aprobada por la Asamblea</div></div>
-          <div class="pir-conector">↓</div>
-          <div class="pir-nivel pir-n4"><div class="pir-tit">Normativa interna</div><div class="pir-sub">Reglamentos administrativos: crédito, ética, dietas, viáticos</div></div>
+          <p>Junto a las leyes existen <strong>normas con rango de ley</strong> y otros instrumentos de cumplimiento obligatorio: reglamentos, normativas y resoluciones. No todo lo obligatorio es una "ley" del Congreso. Distinguirlos y aprender a leerlos es lo que recorre este notebook.</p>
         </div>
 
-        <div class="callout verde">
-          <span class="callout-label">El nivel del marco legal cooperativo</span>
-          La Ley, su Reglamento y las normativas de CONSUCOOP conforman juntas el marco legal del sector: operan en el mismo plano de aplicación. El Reglamento desarrolla la Ley, y las normativas de CONSUCOOP la hacen operativa; las tres obligan a la cooperativa. Aunque las normativas de CONSUCOOP no son "leyes" del Congreso, son instrumentos de cumplimiento obligatorio.
-        </div>
-      </div>
-
-      <div class="bloque" id="c2-b2">
-        <div class="bloque-eyebrow">No solo la ley cooperativa</div>
-        <h2 class="bloque-titulo">¿Qué otras leyes aplican?</h2>
-        <p class="cuerpo">La cooperativa no vive solo bajo la LCH. Para entender qué otras leyes le aplican, conviene recordar que la cooperativa tiene dos universos: uno <strong>político</strong> (los cuerpos directivos electos) y uno <strong>empresarial</strong> (de la gerencia hacia abajo, la operación).</p>
-
-        <div class="universo pol">
-          <div class="universo-tag">Universo político · cuerpos directivos</div>
-          <div class="universo-txt">Quienes ejercen cargos de dirección y vigilancia responden, además de la LCH, ante el <strong>Código Penal</strong> por los actos cometidos en el ejercicio de sus funciones. La responsabilidad de dirigir conlleva responsabilidad legal personal.</div>
-        </div>
-        <div class="universo emp">
-          <div class="universo-tag">Universo empresarial · de la gerencia hacia abajo</div>
-          <div class="universo-txt">La operación de la cooperativa se rige también por el <strong>Código del Trabajo</strong> en su relación con las personas empleadas. Y en el subsector de ahorro y crédito, las cooperativas supervisadas quedan alcanzadas por normativas vinculadas a la <strong>Comisión Nacional de Bancos y Seguros (CNBS)</strong>.</div>
-        </div>
-
-        <div class="interp">
-          <span class="callout-label">Precisión sobre la CNBS</span>
-          La LCH (Art. 119-U, reforma de 2019) establece que la CNBS supervisa a la Superintendencia de Cooperativas de Ahorro y Crédito, y que ciertas normas prudenciales del subsector remiten a parámetros del Banco Central y de la CNBS. El alcance de la CNBS se concentra en el subsector de ahorro y crédito, no sobre toda cooperativa por igual.
-        </div>
-        <div class="def-bloque"><div class="def-termino">Supletoriedad</div><div class="def-texto">Cuando una norma no regula un punto, se acude a otra de forma complementaria para llenar el vacío, respetando siempre la jerarquía.</div></div>
-      </div>
-
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">jerarquía normativa</span><span class="chip">supletoriedad</span><span class="chip">universo político</span><span class="chip">universo empresarial</span><span class="chip">CNBS</span>
-      </div>
-
-      <div class="cap-nav">
-        <button data-cap="1"><span class="cn-dir">Anterior</span><span class="cn-tit">← Por qué la ley te importa</span></button>
-        <button class="next" data-cap="3"><span class="cn-dir">Siguiente</span><span class="cn-tit">Cómo se interpreta la ley →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 03 · INTERPRETACIÓN ===== -->
-    <section class="cap" id="cap-3">
-      <div class="cap-eyebrow">Capítulo 03</div>
-      <h1 class="cap-titulo">Cómo se interpreta la ley</h1>
-
-      <div class="bloque" id="c3-b1">
-        <div class="bloque-eyebrow">La herramienta central</div>
-        <h2 class="bloque-titulo">Tres vías para leer una norma</h2>
-        <p class="cuerpo intro">Ya con claridad de qué normas nos regulan, el siguiente paso es saber leerlas. Interpretar es desentrañar qué dice la norma, cómo se conecta con el resto y para qué fue creada. Tres vías se complementan.</p>
-        <div class="vias">
-          <div class="via"><div class="via-n">Vía 1</div><div class="via-tit">Gramatical</div><div class="via-txt">Atiende al significado exacto de las palabras: qué dice la norma, tal cual está escrita.</div></div>
-          <div class="via"><div class="via-n">Vía 2</div><div class="via-tit">Contextual</div><div class="via-txt">Lee la norma dentro del conjunto del cuerpo legal: una disposición se entiende junto a las demás, no aislada.</div></div>
-          <div class="via"><div class="via-n">Vía 3</div><div class="via-tit">Teleológica</div><div class="via-txt">Atiende a la finalidad o "espíritu" de la norma: para qué fue creada y qué busca proteger.</div></div>
-        </div>
-      </div>
-
-      <div class="bloque" id="c3-b2">
-        <div class="bloque-eyebrow">Caso de interpretación</div>
-        <h2 class="bloque-titulo">Los excedentes por operaciones con terceros</h2>
-        <p class="cuerpo">Una cooperativa puede generar excedentes de operaciones con personas que no son afiliadas. ¿Esos excedentes se reparten entre la membresía, como los demás? Leamos las normas con las tres vías.</p>
-
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 45</span><span class="art-ley">LCH</span><span class="art-resumen">Excedentes con no afiliados/as</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 45.- Excedentes por operaciones con no afiliados(as).</div>
-            <p class="art-parrafo">Los excedentes provenientes de las operaciones que la cooperativa realice con personas que <span class="hl">no tengan la calidad de afiliado(a)</span> no se distribuyen entre los cooperativistas, sino que se destinan a la formación de un Programa de Desarrollo Cooperativo, conforme lo establezca el Reglamento.</p>
-          </div></div>
-        </div>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 127</span><span class="art-ley">RLCH</span><span class="art-resumen">Destino de esos excedentes</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 127.- Destino de los Excedentes por Operaciones con no Afiliados(as).</div>
-            <p class="art-parrafo">Para los efectos del Artículo 45 de la Ley, se consideran operaciones con no Afiliados(as) las que realice la Cooperativa con personas que no tengan la calidad de Cooperativista en la propia Cooperativa y los excedentes provenientes de dichas operaciones, <span class="hl">se deben destinar a la formación de Programa de Desarrollo Cooperativo</span>.</p>
-          </div></div>
-        </div>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 128</span><span class="art-ley">RLCH</span><span class="art-resumen">Qué son los Programas de Desarrollo</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 128.- Programas de Desarrollo Cooperativo. Se consideran Programas de Desarrollo Cooperativo:</div>
-            <ul class="art-incisos">
-              <li><span class="lit">a)</span>Los que busquen el mejoramiento cuantitativo y cualitativo de los servicios cooperativos;</li>
-              <li><span class="lit">b)</span>Planes estratégicos y posicionamiento de la marca Cooperativa;</li>
-              <li><span class="lit">c)</span>Los orientados a capacitación, filosófica, tecnológica, investigación científica, de mercado y estudios técnicos, con propósito de incrementar la producción y productividad de la Cooperativa;</li>
-              <li><span class="lit">d)</span>Al sostenimiento de los organismos de integración nacional e internacional;</li>
-              <li><span class="lit">e)</span>Pago del aporte obligatorio al CONSUCOOP;</li>
-              <li><span class="lit">f)</span>Pago en concepto de prima al fondo de seguro de depósitos Cooperativo, para las cooperativas de ahorro y crédito;</li>
-              <li><span class="lit">g)</span>La atención de objetivos de incidencia social, cultural y ambiental en el área en que la Cooperativa desarrolle sus actividades;</li>
-              <li><span class="lit">h)</span>Investigación y ejecución de proyectos de impacto social o ambiental; y,</li>
-              <li><span class="lit">i)</span>Ejecución del sexto (6to) principio de cooperación entre Cooperativas.</li>
-            </ul>
-          </div></div>
-        </div>
-
-        <p class="sub-h">Vía gramatical</p>
-        <p class="cuerpo">Leídas literalmente, las normas dicen tres cosas claras: la cooperativa <strong>sí puede tener</strong> excedentes con terceros; esos excedentes <strong>tienen un destino específico</strong> (el Programa de Desarrollo Cooperativo); y <strong>tienen restricciones específicas</strong> (no se reparten entre afiliados/as).</p>
-
-        <p class="sub-h">Vía contextual</p>
-        <p class="cuerpo">Leídas dentro del conjunto, se entiende el porqué: permitir excedentes con terceros le da a la cooperativa libertad de entablar relaciones comerciales que fortalecen la institución y aumentan su patrimonio. Y el Art. 128 RLCH muestra que ese excedente alimenta el crecimiento cooperativo y programas sociales, no el bolsillo individual.</p>
-
-        <p class="sub-h">Vía teleológica</p>
-        <p class="cuerpo">El espíritu de la norma es proteger el modelo cooperativo. Los excedentes solo se reparten de lo que resulta del propio modelo de negocio con los afiliados/as, porque solo ahí pueden distribuirse de forma justa según el patrocinio de cada quien. Repartir excedentes de terceros no tendría sentido ni sería equitativo: no provienen de la relación cooperativa. Por eso la ley los canaliza al crecimiento, al patrimonio y a la función social del sector.</p>
-
-        <div class="complemento">
-          <span class="callout-label">La conclusión</span>
-          La cooperativa gana al operar con terceros, pero esa ganancia no se reparte: se reinvierte en desarrollo cooperativo. La interpretación de las tres vías converge en lo mismo: proteger el modelo, permitir el crecimiento del patrimonio y fortalecer la función social de las cooperativas según sus principios.
-        </div>
-      </div>
-
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">espíritu de la ley</span><span class="chip">excedentes con terceros</span><span class="chip">Programa de Desarrollo Cooperativo</span><span class="chip">patrocinio</span>
-      </div>
-
-      <div class="cap-nav">
-        <button data-cap="2"><span class="cn-dir">Anterior</span><span class="cn-tit">← La pirámide normativa</span></button>
-        <button class="next" data-cap="4"><span class="cn-dir">Siguiente</span><span class="cn-tit">Cuando las normas se encuentran →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 04 · NORMAS QUE SE ENCUENTRAN ===== -->
-    <section class="cap" id="cap-4">
-      <div class="cap-eyebrow">Capítulo 04</div>
-      <h1 class="cap-titulo">Cuando las normas se encuentran</h1>
-
-      <div class="bloque" id="c4-b1">
-        <div class="bloque-eyebrow">Leer con atención</div>
-        <h2 class="bloque-titulo">Las palabras que fijan límites</h2>
-        <p class="cuerpo intro">Una norma cambia por completo según una sola palabra. Aprender a detectar las frases que fijan límites es buena parte de saber leer la ley. Estas son las que más importan.</p>
-        <div style="margin:20px 0;">
-          <span class="frase">no menos de</span><span class="frase">al menos</span><span class="frase">por lo menos</span><span class="frase">hasta un</span><span class="frase">no más de</span><span class="frase">no menor de</span><span class="frase">no mayor de</span>
-        </div>
-        <p class="cuerpo">Unas fijan un <strong>piso</strong> ("no menos de", "al menos", "por lo menos"): se puede más, nunca menos. Otras fijan un <strong>techo</strong> ("hasta un", "no más de", "no mayor de"): se puede menos, nunca más. Confundirlas cambia el sentido de la obligación.</p>
-      </div>
-
-      <div class="bloque" id="c4-b2">
-        <div class="bloque-eyebrow">Ejemplos de piso y techo</div>
-        <h2 class="bloque-titulo">La misma idea, distinto límite</h2>
-
-        <p class="sub-h">Piso · la reserva legal "por lo menos 10%"</p>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 44 lit. a</span><span class="art-ley">LCH</span><span class="art-resumen">Fondo de reserva legal</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 44.- Los excedentes se distribuirán en la forma siguiente:</div>
-            <ul class="art-incisos">
-              <li><span class="lit">a)</span><span class="hl">Por lo menos un 10%</span> para formar un fondo de reserva legal acumulable anualmente, no repartible y que servirá para cubrir pérdidas de acuerdo con la liquidez de la cooperativa en los porcentajes que establezca el reglamento de esta Ley; el fondo de reserva se invertirá en bonos u otros títulos de fácil convertibilidad, emitidos por federaciones de cooperativas, instituciones bancarias o del estado;</li>
-            </ul>
-          </div></div>
-        </div>
-        <p class="cuerpo">"Por lo menos un 10%" es un piso: la cooperativa puede destinar más a su reserva legal, pero nunca menos del 10%. Una asamblea que aprobara un 8% estaría violando la ley.</p>
-
-        <p class="sub-h">Techo · la JD puede contratar "hasta el 10%"</p>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 29-A lit. g</span><span class="art-ley">LCH</span><span class="art-resumen">Límite de contratación de la JD</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 29-A.- Corresponde a la Junta Directiva:</div>
-            <ul class="art-incisos">
-              <li><span class="lit">g)</span>Fijar las bases y firmar contratos y convenios en que sea parte la cooperativa, cuando el monto sea <span class="hl">menor al Diez (10%)</span> de los activos totales de ésta;</li>
-            </ul>
-          </div></div>
-        </div>
-        <p class="cuerpo">Aquí el 10% funciona como techo de la competencia de la Junta Directiva: puede contratar por montos por debajo de ese límite. Cuando el monto lo supera, la decisión sube a la Asamblea (Art. 24, inciso correspondiente). El mismo número, sentido contrario.</p>
-      </div>
-
-      <div class="bloque" id="c4-b3">
-        <div class="bloque-eyebrow">El caso clásico</div>
-        <h2 class="bloque-titulo">Constituir una cooperativa: 12 y 30 no se contradicen</h2>
-        <p class="cuerpo">Es la confusión más común: la Ley dice doce, el Reglamento dice treinta. ¿Se contradicen? No. Hay que leer con atención qué dice exactamente cada una.</p>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 10</span><span class="art-ley">LCH</span><span class="art-resumen">Número mínimo de cooperativistas</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 10.- Número mínimo para constituir.</div>
-            <p class="art-parrafo">Ninguna Cooperativa de Primer Grado puede constituirse con un número menor de <span class="hl">doce (12) cooperativistas</span>, sin perjuicio de lo que establezca el Reglamento de esta Ley, en cuanto a un número mayor para Subsectores Especiales. Y las de Segundo Grado se constituirán con un número no menor de veinte (20) cooperativas.</p>
-          </div></div>
-        </div>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 9 lit. b</span><span class="art-ley">RLCH</span><span class="art-resumen">Quórum de la asamblea constitutiva</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 9 inciso b).- Quórum de la asamblea constitutiva.</div>
-            <p class="art-parrafo">La Asamblea queda constituida con un número de asistentes <span class="hl">no menor de doce (12) personas</span>; sin embargo, para las cooperativas de ahorro y crédito y cooperativas regionales, este requisito se eleva a <span class="hl">no menos de treinta (30) personas</span>.</p>
-          </div></div>
-        </div>
-        <div class="complemento">
-          <span class="callout-label">Por qué no hay contradicción</span>
-          La Ley fija la regla general: no menos de doce. El propio Art. 10 deja la puerta abierta — "sin perjuicio de lo que establezca el Reglamento... para Subsectores Especiales". El Reglamento usa esa puerta y eleva el mínimo a treinta para ahorro y crédito y regionales. La norma inferior especifica dentro del margen que la superior le dejó: la complementa, no la contradice.
-        </div>
-        <div class="interp">
-          <span class="callout-label">Una nota honesta</span>
-          En el marco cooperativo hondureño, la Ley y su Reglamento están diseñados para complementarse, no para chocar. Cuando parece haber una "contradicción", casi siempre es una lectura apresurada: la respuesta está en leer con cuidado las frases que fijan los límites.
-        </div>
-      </div>
-
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">piso y techo</span><span class="chip">complementación</span><span class="chip">subsectores especiales</span><span class="chip">lectura literal</span>
-      </div>
-
-      <div class="cap-nav">
-        <button data-cap="3"><span class="cn-dir">Anterior</span><span class="cn-tit">← Cómo se interpreta la ley</span></button>
-        <button class="next" data-cap="5"><span class="cn-dir">Siguiente</span><span class="cn-tit">El tiempo en el derecho →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 05 · TIEMPO ===== -->
-    <section class="cap" id="cap-5">
-      <div class="cap-eyebrow">Capítulo 05</div>
-      <h1 class="cap-titulo">El tiempo en el derecho</h1>
-
-      <div class="bloque" id="c5-b1">
-        <div class="bloque-eyebrow">Las normas tienen fecha</div>
-        <h2 class="bloque-titulo">Vigencia, adecuación y caducidad</h2>
-        <p class="cuerpo intro">Una norma no rige para siempre ni desde siempre. Nace, vive y puede morir. Entender el tiempo de las normas evita un error común: juzgar un acto del pasado con una regla que aún no existía.</p>
-        <div class="def-bloque"><div class="def-termino">Vigencia</div><div class="def-texto">Período en que una norma obliga. Por regla general comienza con su publicación oficial, salvo que la norma fije otra fecha.</div></div>
-        <div class="def-bloque"><div class="def-termino">Derogación</div><div class="def-texto">Una norma nueva deja sin vigencia, total o parcialmente, a una anterior.</div></div>
-        <div class="def-bloque"><div class="def-termino">Período de adecuación</div><div class="def-texto">Plazo que la norma concede para que sus destinatarios se ajusten antes de exigir cumplimiento pleno.</div></div>
-        <div class="def-bloque"><div class="def-termino">Caducidad programada</div><div class="def-texto">Algunas disposiciones nacen con fecha de vencimiento: rigen solo hasta un día determinado.</div></div>
-      </div>
-
-      <div class="bloque" id="c5-b2">
-        <div class="bloque-eyebrow">Tres comportamientos en el tiempo</div>
-        <h2 class="bloque-titulo">Casos reales de la Normativa de Educación 2025</h2>
-        <div class="acord">
-          <div class="acord-head"><span class="acord-ico"></span><span class="acord-titulo">Derogación · la norma nueva apaga a la vieja</span></div>
-          <div class="acord-cuerpo"><div class="acord-cuerpo-in"><p class="cuerpo">La Normativa para la Educación Cooperativa de 2025 deroga expresamente la Resolución de normativa del 17 de diciembre de 2014. Desde su vigencia, la regla de 2014 deja de aplicarse. Una sola norma puede reemplazar a otra por completo.</p><span class="norma">Art. 26 · Normativa 2025</span></div></div>
-        </div>
-        <div class="acord">
-          <div class="acord-head"><span class="acord-ico"></span><span class="acord-titulo">Período de adecuación · existe, pero da plazo</span></div>
-          <div class="acord-cuerpo"><div class="acord-cuerpo-in"><p class="cuerpo">La misma Normativa de 2025 concede a las cooperativas plazo para adecuarse <strong>hasta el 30 de abril de 2026</strong>. Una cooperativa que en marzo de 2026 todavía no se ajusta no está infringiendo: está dentro del plazo que la propia norma le otorgó.</p><span class="norma">Art. 28 · Normativa 2025</span></div></div>
-        </div>
-        <div class="acord">
-          <div class="acord-head"><span class="acord-ico"></span><span class="acord-titulo">Caducidad programada · vigencia con fecha de corte</span></div>
-          <div class="acord-cuerpo"><div class="acord-cuerpo-in"><p class="cuerpo">En la misma fecha, la tabla de provisiones para créditos al "Migrante Retornado" rige solo hasta el 31 de diciembre de 2029; vencido ese plazo, se aplica otra tabla. La norma nace ya con su propia fecha de vencimiento.</p><span class="norma">Acuerdo J.D. 002-17-07-2025</span></div></div>
-        </div>
-      </div>
-
-      <div class="bloque" id="c5-b3">
-        <div class="bloque-eyebrow">La pregunta clave</div>
-        <h2 class="bloque-titulo">¿Qué pasa con lo que se hizo bajo la norma de su tiempo?</h2>
-        <p class="cuerpo">Un acto se juzga con la norma vigente en el momento en que ocurrió. Si algo se hizo correctamente bajo la regla de su fecha, sigue siendo válido aunque la regla cambie después. Eso es la <strong>irretroactividad</strong>.</p>
-        <div class="def-bloque"><div class="def-termino">Irretroactividad</div><div class="def-texto">La norma nueva rige hacia el futuro. Un acto realizado válidamente bajo la norma vigente en su fecha no se vuelve inválido porque después cambie la ley.</div></div>
-        <p class="cuerpo">Existen además causas que justifican el incumplimiento de un plazo. El caso de las asambleas durante la pandemia lo ilustra: la Ley obliga a celebrar la asamblea ordinaria dentro de los tres meses siguientes al cierre del ejercicio, pero por <strong>fuerza mayor</strong> (la emergencia sanitaria) CONSUCOOP eximió de responsabilidad y otorgó un plazo prudencial.</p>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 24</span><span class="art-ley">LCH</span><span class="art-resumen">Asamblea ordinaria anual</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 24.- Asamblea General Ordinaria anual.</div>
-            <p class="art-parrafo">Cada Cooperativa debe realizar por lo menos una Asamblea General Ordinaria al año, <span class="hl">dentro de los tres (3) meses siguientes al cierre de cada ejercicio social</span>, para tratar los asuntos que la Ley señala.</p>
-          </div></div>
-        </div>
-        <div class="interp">
-          <span class="callout-label">Lectura interpretativa</span>
-          Los plazos legales son de obligatorio cumplimiento, pero la propia legislación admite que la fuerza mayor o el caso fortuito los suspendan. Una cooperativa que no celebró su asamblea en pandemia, dentro del plazo que CONSUCOOP autorizó, no incurrió en falta.
-        </div>
-        <div class="callout verde">
-          <span class="callout-label">Cómo citar una norma con su fecha</span>
-          Decir "la ley" o "una resolución" no basta. Una cita completa identifica la norma, su número y su publicación: <strong>Acuerdo No. J.D. 001-17-07-2025</strong>, del 5 de noviembre de 2025. Así cualquiera puede ubicarla y verificar qué decía y desde cuándo regía.
-        </div>
-      </div>
-
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">vigencia</span><span class="chip">derogación</span><span class="chip">irretroactividad</span><span class="chip">fuerza mayor</span><span class="chip">caducidad</span>
-      </div>
-
-      <div class="cap-nav">
-        <button data-cap="4"><span class="cn-dir">Anterior</span><span class="cn-tit">← Cuando las normas se encuentran</span></button>
-        <button class="next" data-cap="6"><span class="cn-dir">Siguiente</span><span class="cn-tit">Quién cambia qué →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 06 · QUIÉN CAMBIA QUÉ ===== -->
-    <section class="cap" id="cap-6">
-      <div class="cap-eyebrow">Capítulo 06</div>
-      <h1 class="cap-titulo">Quién cambia qué</h1>
-
-      <div class="bloque" id="c6-b1">
-        <div class="bloque-eyebrow">La regla de cierre</div>
-        <h2 class="bloque-titulo">Cada norma se corrige en su nivel</h2>
-        <p class="cuerpo intro">Si una norma de abajo contradice a la ley, la solución no es ignorar la ley: es ir a corregir esa norma <strong>en el nivel que le corresponde</strong>. Y cada nivel tiene su autoridad competente.</p>
-        <div class="tabla-wrap">
-          <table class="t">
-            <thead><tr><th>Norma</th><th>Quién la cambia</th><th>Cómo</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Ley de Cooperativas</strong></td><td>El Congreso Nacional</td><td>Por decreto: crear, reformar, derogar. Así nacieron las reformas 174-2013 y 146-2019.</td></tr>
-              <tr><td><strong>Reglamento (RLCH)</strong></td><td>El Poder Ejecutivo</td><td>Por Acuerdo, a propuesta de CONSUCOOP (Acuerdo 041-2014, reformado por 015-2021).</td></tr>
-              <tr><td><strong>Normativas prudenciales</strong></td><td>CONSUCOOP</td><td>Por resolución o acuerdo de su Junta Directiva.</td></tr>
-              <tr><td><strong>Estatuto</strong></td><td>La Asamblea General Extraordinaria</td><td>La JD elabora el anteproyecto y CONSUCOOP dictamina.</td></tr>
-              <tr><td><strong>Reglamentos internos</strong></td><td>La Junta Directiva</td><td>Por ser instrumentos administrativos del órgano que administra.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="bloque" id="c6-b2">
-        <div class="bloque-eyebrow">Cambiar el Estatuto</div>
-        <h2 class="bloque-titulo">La Asamblea General Extraordinaria</h2>
-        <p class="cuerpo">El Estatuto es la norma propia de la cooperativa, y solo la máxima autoridad puede modificarlo: la Asamblea, reunida en sesión <strong>extraordinaria</strong>. Modificar el documento constitutivo y el Estatuto es precisamente uno de los asuntos reservados a ella.</p>
-        <div class="art">
-          <div class="art-head"><span class="art-num">Art. 24-A</span><span class="art-ley">LCH</span><span class="art-resumen">Asuntos de la Asamblea Extraordinaria</span><span class="art-ver">Ver texto</span></div>
-          <div class="art-texto"><div class="art-texto-in">
-            <div class="art-encab">ARTÍCULO 24-A.- Son Asambleas Generales Extraordinarias las que se reúnen para tratar uno o más de los asuntos siguientes:</div>
-            <ul class="art-incisos">
-              <li><span class="lit">a)</span><span class="hl">Modificación del documento constitutivo y el Estatuto;</span></li>
-              <li><span class="lit">b)</span>La enajenación de los bienes propiedad de la cooperativa, cuando sobrepase del Diez (10%) del valor de su patrimonio;</li>
-              <li><span class="lit">c)</span>La disolución voluntaria de la cooperativa, la cual debe ser justificada ante el Organismo Supervisor de Cooperativas; y,</li>
-              <li><span class="lit">ch)</span>La fusión, incorporación o transformación de acuerdo con esta Ley, el Reglamento y el Estatuto.</li>
-            </ul>
-          </div></div>
-        </div>
-        <p class="cuerpo">El recorrido completo para reformar un Estatuto: la JD elabora el anteproyecto, la Asamblea Extraordinaria lo aprueba y CONSUCOOP dictamina. Tres niveles colaborando, cada uno en su rol.</p>
-      </div>
-
-      <div class="bloque" id="c6-b3">
-        <div class="bloque-eyebrow">La normativa interna</div>
-        <h2 class="bloque-titulo">Los reglamentos que aprueba la Junta Directiva</h2>
-        <p class="cuerpo">Los reglamentos internos son instrumentos administrativos. Los aprueba la Junta Directiva porque es el órgano que administra la cooperativa. Entre los más comunes:</p>
-        <ul class="lista">
-          <li><strong>Reglamento de crédito</strong> — condiciones, tasas y requisitos de los préstamos.</li>
-          <li><strong>Código de ética</strong> — conducta esperada de directivos, afiliados/as y empleados/as.</li>
-          <li><strong>Reglamento de dietas</strong> — montos y condiciones de las dietas por asistencia.</li>
-          <li><strong>Reglamento de viáticos</strong> — gastos de traslado y representación.</li>
+        <h2>El recorrido</h2>
+        <ul class="indice">
+          <li onclick="irHacia('t01')">
+            <span class="indice-num">01</span>
+            <span class="indice-txt"><b>Por qué la ley te importa</b> — Somos dueños y dueñas y conocer es poder</span>
+          </li>
+          <li onclick="irHacia('t02')">
+            <span class="indice-num">02</span>
+            <span class="indice-txt"><b>La pirámide normativa</b> — El orden y la jerarquía de las normas en Honduras</span>
+          </li>
+          <li onclick="irHacia('t03')">
+            <span class="indice-num">03</span>
+            <span class="indice-txt"><b>Cómo se interpreta la ley</b> — Las tres vías de lectura aplicadas al caso real de excedentes</span>
+          </li>
+          <li onclick="irHacia('t04')">
+            <span class="indice-num">04</span>
+            <span class="indice-txt"><b>Límites y coincidencia</b> — La diferencia entre pisos, techos y normas complementarias</span>
+          </li>
+          <li onclick="irHacia('t05')">
+            <span class="indice-num">05</span>
+            <span class="indice-txt"><b>El tiempo en el derecho</b> — Vigencia, derogación, irretroactividad y plazos</span>
+          </li>
+          <li onclick="irHacia('t06')">
+            <span class="indice-num">06</span>
+            <span class="indice-txt"><b>Quién cambia qué</b> — Cada norma se corrige en su nivel competente</span>
+          </li>
+          <li onclick="irHacia('t07')">
+            <span class="indice-num">07</span>
+            <span class="indice-txt"><b>Historia de la ley</b> — Los hitos y decretos de la Ley de Cooperativas en Honduras</span>
+          </li>
         </ul>
-        <div class="callout verde">
-          <span class="callout-label">Actividad · ¿Cuánto cobramos de interés por un préstamo?</span>
-          ¿Por qué esta decisión la toma la JD y no la Asamblea? Porque la Asamblea puede tomar decisiones a favor de los afiliados/as, pero no en perjuicio de la cooperativa. Si la tasa de interés se votara en asamblea, la tentación sería fijarla muy baja para beneficio inmediato de quienes piden préstamos, comprometiendo la sostenibilidad de la cooperativa. Por eso es un instrumento administrativo del órgano que administra.
-        </div>
-        <div class="interp">
-          <span class="callout-label">La regla en una frase</span>
-          Si lo de abajo contradice a la ley, no se obedece lo de abajo: se va a corregirlo en su nivel. La ley la arregla el Congreso; el estatuto, la Asamblea Extraordinaria; el reglamento interno, la Junta Directiva. Cada quien en su nivel.
-        </div>
       </div>
 
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">competencia</span><span class="chip">Asamblea Extraordinaria</span><span class="chip">reglamento interno</span><span class="chip">anteproyecto</span>
-      </div>
-
-      <div class="cap-nav">
-        <button data-cap="5"><span class="cn-dir">Anterior</span><span class="cn-tit">← El tiempo en el derecho</span></button>
-        <button class="next" data-cap="7"><span class="cn-dir">Accesorio</span><span class="cn-tit">Historia de la ley →</span></button>
-      </div>
-    </section>
-
-    <!-- ===== CAPÍTULO 07 · HISTORIA (accesorio) ===== -->
-    <section class="cap" id="cap-7">
-      <div class="cap-eyebrow">Capítulo 07 · Accesorio</div>
-      <h1 class="cap-titulo">Historia de la Ley de Cooperativas</h1>
-
-      <div class="bloque" id="c7-b1">
-        <div class="bloque-eyebrow">Contexto</div>
-        <h2 class="bloque-titulo">Un marco que se actualiza por capas</h2>
-        <p class="cuerpo intro">La Ley de Cooperativas no es un texto congelado en 1987. Ha sido reformada varias veces, y a su alrededor se siguen emitiendo reglamentos y normativas. Este recorrido ayuda a ubicar de dónde viene el marco que hoy nos rige.</p>
-        <div class="tl-wrap">
-          <div class="tl-scroll"><div class="tl-eje" id="tl-eje"></div></div>
-          <div class="tl-detalle" id="tl-detalle"></div>
+      <!-- Panel 01: Por qué la ley te importa -->
+      <div class="panel" id="panel-t01">
+        <div class="cap-meta">Capítulo 01 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Por qué la ley te importa</h1>
+        
+        <div class="bloque" id="c1-b1">
+          <div class="bloque-eyebrow">El punto de partida</div>
+          <h2 class="bloque-titulo">Somos dueños y dueñas de la cooperativa</h2>
+          <p class="cuerpo intro">En una cooperativa no hay clientes ni accionistas externos: los afiliados y afiliadas son, a la vez, dueños y usuarios. Y como dueños, todos debemos tener claridad de nuestros derechos y nuestros deberes.</p>
+          <p>Conocer la legislación no es un requisito reservado a abogados ni a la Junta Directiva. Es parte de ejercer la propiedad colectiva con responsabilidad. Quien conoce el marco legal participa con criterio; quien lo ignora depende de que otros decidan por él.</p>
         </div>
-        <div class="interp">
-          <span class="callout-label">Lectura interpretativa</span>
-          Cada reforma responde a una necesidad del propio movimiento cooperativo: profesionalizar el gobierno, ordenar el ahorro y crédito, fortalecer la supervisión. El marco legal cooperativo se entiende mejor como una conquista que se renueva, no como una imposición externa.
+
+        <div class="bloque" id="c1-b2">
+          <div class="bloque-eyebrow">La idea central</div>
+          <h2 class="bloque-titulo">Conocer es poder</h2>
+          <p>Conocer la ley no es opcional, ni para los cuerpos directivos ni para los afiliados/as. Y ese conocimiento es, sobre todo, una forma de poder constructivo:</p>
+          <ul class="lista">
+            <li><strong>Poder de acuerpar a sus directivos.</strong> Un afiliado/a que conoce el marco legal respalda con criterio las decisiones bien fundamentadas de su Junta Directiva, y sabe distinguir cuándo una decisión se ajusta a la norma.</li>
+            <li><strong>Poder de tomar buenas decisiones.</strong> En la asamblea, votar con conocimiento de causa fortalece a la cooperativa; votar a ciegas la debilita.</li>
+            <li><strong>Poder de garantizar la legalidad de las acciones.</strong> Cuando la membresía conoce las reglas, la cooperativa actúa dentro de la ley con naturalidad, y se previenen errores antes de que ocurran.</li>
+          </ul>
+          <div class="cita-bloque">
+            "El conocimiento del marco legal es lo que convierte a un afiliado o afiliada en dueño consciente de su cooperativa, no en simple espectador."
+            <div class="cita-autor">Idea central de este notebook</div>
+          </div>
         </div>
       </div>
 
-      <div class="conceptos">
-        <div class="conceptos-label">Conceptos relacionados</div>
-        <span class="chip">reforma</span><span class="chip">decreto</span><span class="chip">evolución normativa</span>
+      <!-- Panel 02: La pirámide normativa -->
+      <div class="panel" id="panel-t02">
+        <div class="cap-meta">Capítulo 02 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">La pirámide normativa</h1>
+
+        <div class="bloque" id="c2-b1" data-concept="jerarquia">
+          <div class="bloque-eyebrow">El orden de las normas</div>
+          <h2 class="bloque-titulo">Quién manda sobre quién</h2>
+          <p class="cuerpo intro">No todas las normas tienen el mismo rango. Se ordenan en una jerarquía: la norma superior prevalece y ninguna inferior puede contradecirla. Ese orden, aplicado al cooperativismo, se ve así.</p>
+
+          <div class="piramide">
+            <div class="pir-nivel pir-n1">
+              <div class="pir-tit">Constitución de la República</div>
+              <div class="pir-sub">Arts. 334 y 338 — promoción y regulación del cooperativismo</div>
+            </div>
+            <div class="pir-conector">↓</div>
+            <div class="nivel-conjunto">
+              <div class="pir-nivel pir-n2">
+                <div class="pir-tit">Ley · LCH</div>
+                <div class="pir-sub">Decreto 65-87 y reformas</div>
+              </div>
+              <div class="pir-nivel pir-n2">
+                <div class="pir-tit">Reglamento · RLCH</div>
+                <div class="pir-sub">Acuerdo 041-2014</div>
+              </div>
+              <div class="pir-nivel pir-n2">
+                <div class="pir-tit">Normativas CONSUCOOP</div>
+                <div class="pir-sub">Resoluciones y normas prudenciales</div>
+              </div>
+            </div>
+            <div class="pir-conector">↓</div>
+            <div class="pir-nivel pir-n3">
+              <div class="pir-tit">Estatuto</div>
+              <div class="pir-sub">Norma propia de cada cooperativa, aprobada por la Asamblea</div>
+            </div>
+            <div class="pir-conector">↓</div>
+            <div class="pir-nivel pir-n4">
+              <div class="pir-tit">Normativa interna</div>
+              <div class="pir-sub">Reglamentos administrativos: crédito, ética, dietas, viáticos</div>
+            </div>
+          </div>
+
+          <div class="callout verde">
+            <span class="callout-label">El nivel del marco legal cooperativo</span>
+            La Ley, su Reglamento y las normativas de CONSUCOOP conforman juntas el marco legal del sector: operan en el mismo plano de aplicación. El Reglamento desarrolla la Ley, y las normativas de CONSUCOOP la hacen operativa; las tres obligan a la cooperativa. Aunque las normativas de CONSUCOOP no son "leyes" del Congreso, son instrumentos de cumplimiento obligatorio.
+          </div>
+        </div>
+
+        <div class="bloque" id="c2-b2">
+          <div class="bloque-eyebrow">No solo la ley cooperativa</div>
+          <h2 class="bloque-titulo">¿Qué otras leyes aplican?</h2>
+          <p>La cooperativa no vive solo bajo la LCH. Para entender qué otras leyes le aplican, conviene recordar que la cooperativa tiene dos universos: uno <strong>político</strong> (los cuerpos directivos electos) y uno <strong>empresarial</strong> (de la gerencia hacia abajo, la operación).</p>
+
+          <div class="universo pol">
+            <div class="universo-tag">Universo político · cuerpos directivos</div>
+            <div class="universo-txt">Quienes ejercen cargos de dirección y vigilancia responden, además de la LCH, ante el <strong>Código Penal</strong> por los actos cometidos en el ejercicio de sus funciones. La responsabilidad de dirigir conlleva responsabilidad legal personal.</div>
+          </div>
+          <div class="universo emp">
+            <div class="universo-tag">Universo empresarial · de la gerencia hacia abajo</div>
+            <div class="universo-txt">La operación de la cooperativa se rige también por el <strong>Código del Trabajo</strong> en su relación con las personas empleadas. Y en el subsector de ahorro y crédito, las cooperativas supervisadas quedan alcanzadas por normativas vinculadas a la <strong>Comisión Nacional de Bancos y Seguros (CNBS)</strong>.</div>
+          </div>
+
+          <div class="interp">
+            <span class="callout-label">Precisión sobre la CNBS</span>
+            La LCH (Art. 119-U, reforma de 2019) establece que la CNBS supervisa a la Superintendencia de Cooperativas de Ahorro y Crédito, y que ciertas normas prudenciales del subsector remiten a parámetros del Banco Central y de la CNBS. El alcance de la CNBS se concentra en el subsector de ahorro y crédito, no sobre toda cooperativa por igual.
+          </div>
+          
+          <div class="def-bloque">
+            <div class="def-termino">Supletoriedad</div>
+            <div class="def-texto">Cuando una norma no regula un punto, se acude a otra de forma complementaria para llenar el vacío, respetando siempre la jerarquía.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="cap-nav">
-        <button data-cap="6"><span class="cn-dir">Anterior</span><span class="cn-tit">← Quién cambia qué</span></button>
-        <button class="next" data-cap="0"><span class="cn-dir">Volver</span><span class="cn-tit">Portada →</span></button>
+      <!-- Panel 03: Cómo se interpreta la ley -->
+      <div class="panel" id="panel-t03">
+        <div class="cap-meta">Capítulo 03 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Cómo se interpreta la ley</h1>
+
+        <div class="bloque" id="c3-b1">
+          <div class="bloque-eyebrow">La herramienta central</div>
+          <h2 class="bloque-titulo">Tres vías para leer una norma</h2>
+          <p class="cuerpo intro">Ya con claridad de qué normas nos regulan, el siguiente paso es saber leerlas. Interpretar es desentrañar qué dice la norma, cómo se conecta con el resto y para qué fue creada. Tres vías se complementan.</p>
+          <div class="vias">
+            <div class="via">
+              <div class="via-n">Vía 1</div>
+              <div class="via-tit">Gramatical</div>
+              <div class="via-txt">Atiende al significado exacto de las palabras: qué dice la norma, tal cual está escrita.</div>
+            </div>
+            <div class="via">
+              <div class="via-n">Vía 2</div>
+              <div class="via-tit">Contextual</div>
+              <div class="via-txt">Lee la norma dentro del conjunto del cuerpo legal: una disposición se entiende junto a las demás, no aislada.</div>
+            </div>
+            <div class="via">
+              <div class="via-n">Vía 3</div>
+              <div class="via-tit">Teleológica</div>
+              <div class="via-txt">Atiende a la finalidad o "espíritu" de la norma: para qué fue creada y qué busca proteger.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bloque" id="c3-b2" data-concept="interpretacion">
+          <div class="bloque-eyebrow">Caso de interpretación</div>
+          <h2 class="bloque-titulo">Los excedentes por operaciones con terceros</h2>
+          <p>Una cooperativa puede generar excedentes de operaciones con personas que no son afiliadas. ¿Esos excedentes se reparten entre la membresía, como los demás? Leamos las normas con las tres vías.</p>
+
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 45</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Excedentes con no afiliados/as</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 45.- Excedentes por operaciones con no afiliados(as).</div>
+                <p class="art-parrafo">Los excedentes provenientes de las operaciones que la cooperativa realice con personas que <span class="hl">no tengan la calidad de afiliado(a)</span> no se distribuyen entre los cooperativistas, sino que se destinan a la formación de un Programa de Desarrollo Cooperativo, conforme lo establezca el Reglamento.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 127</span>
+              <span class="art-ley">RLCH</span>
+              <span class="art-resumen">Destino de esos excedentes</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 127.- Destino de los Excedentes por Operaciones con no Afiliados(as).</div>
+                <p class="art-parrafo">Para los efectos del Artículo 45 de la Ley, se consideran operaciones con no Afiliados(as) las que realice la Cooperativa con personas que no tengan la calidad de Cooperativista en la propia Cooperativa y los excedentes provenientes de dichas operaciones, <span class="hl">se deben destinar a la formación de Programa de Desarrollo Cooperativo</span>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 128</span>
+              <span class="art-ley">RLCH</span>
+              <span class="art-resumen">Qué son los Programas de Desarrollo</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 128.- Programas de Desarrollo Cooperativo. Se consideran Programas de Desarrollo Cooperativo:</div>
+                <ul class="art-incisos">
+                  <li><span class="lit">a)</span>Los que busquen el mejoramiento cuantitativo y cualitativo de los servicios cooperativos;</li>
+                  <li><span class="lit">b)</span>Planes estratégicos y posicionamiento de la marca Cooperativa;</li>
+                  <li><span class="lit">c)</span>Los orientados a capacitación, filosófica, tecnológica, investigación científica, de mercado y estudios técnicos, con propósito de incrementar la producción y productividad de la Cooperativa;</li>
+                  <li><span class="lit">d)</span>Al sostenimiento de los organismos de integración nacional e internacional;</li>
+                  <li><span class="lit">e)</span>Pago del aporte obligatorio al CONSUCOOP;</li>
+                  <li><span class="lit">f)</span>Pago en concepto de prima al fondo de seguro de depósitos Cooperativo, para las cooperativas de ahorro y crédito;</li>
+                  <li><span class="lit">g)</span>La atención de objetivos de incidencia social, cultural y ambiental en el área en que la Cooperativa desarrolle sus actividades;</li>
+                  <li><span class="lit">h)</span>Investigación y ejecución de proyectos de impacto social o ambiental; y,</li>
+                  <li><span class="lit">i)</span>Ejecución del sexto (6to) principio de cooperación entre Cooperativas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="sub-h">Vía gramatical</p>
+          <p>Leídas literalmente, las normas dicen tres cosas claras: la cooperativa <strong>sí puede tener</strong> excedentes con terceros; esos excedentes <strong>tienen un destino específico</strong> (el Programa de Desarrollo Cooperativo); y <strong>tienen restricciones específicas</strong> (no se reparten entre afiliados/as).</p>
+
+          <p class="sub-h">Vía contextual</p>
+          <p>Leídas dentro del conjunto, se entiende el porqué: permitir excedentes con terceros le da a la cooperativa libertad de entablar relaciones comerciales que fortalecen la institución y aumentan su patrimonio. Y el Art. 128 RLCH muestra que ese excedente alimenta el crecimiento cooperativo y programas sociales, no el bolsillo individual.</p>
+
+          <p class="sub-h">Vía teleológica</p>
+          <p>El espíritu de la norma es proteger el modelo cooperativo. Los excedentes solo se reparten de lo que resulta del propio modelo de negocio con los afiliados/as, porque solo ahí pueden distribuirse de forma justa según el patrocinio de cada quien. Repartir excedentes de terceros no tendría sentido ni sería equitativo: no provienen de la relación cooperativa. Por eso la ley los canaliza al crecimiento, al patrimonio y a la función social del sector.</p>
+
+          <div class="complemento">
+            <span class="callout-label">La conclusión</span>
+            La cooperativa gana al operar con terceros, pero esa ganancia no se reparte: se reinvierte en desarrollo cooperativo. La interpretación de las tres vías converge en lo mismo: proteger el modelo, permitir el crecimiento del patrimonio y fortalecer la función social de las cooperativas según sus principios.
+          </div>
+        </div>
       </div>
 
-      <div class="pie">CoopeNotebook · Oliver Ayala</div>
-    </section>
+      <!-- Panel 04: Límites y coincidencia -->
+      <div class="panel" id="panel-t04">
+        <div class="cap-meta">Capítulo 04 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Límites y coincidencia de normas</h1>
 
-  </main>
-</div>
+        <div class="bloque" id="c4-b1">
+          <div class="bloque-eyebrow">Leer con atención</div>
+          <h2 class="bloque-titulo">Las palabras que fijan límites</h2>
+          <p class="cuerpo intro">Una norma cambia por completo según una sola palabra. Aprender a detectar las frases que fijan límites es buena parte de saber leer la ley. Estas son las que más importan.</p>
+          <div style="margin: 20px 0;">
+            <span class="frase">no menos de</span>
+            <span class="frase">al menos</span>
+            <span class="frase">por lo menos</span>
+            <span class="frase">hasta un</span>
+            <span class="frase">no más de</span>
+            <span class="frase">no menor de</span>
+            <span class="frase">no mayor de</span>
+          </div>
+          <p>Unas fijan un <strong>piso</strong> ("no menos de", "al menos", "por lo menos"): se puede más, nunca menos. Otras fijan un <strong>techo</strong> ("hasta un", "no más de", "no mayor de"): se puede menos, nunca más. Confundirlas cambia el sentido de la obligación.</p>
+        </div>
 
-<script>
-(function(){
-  var TITULOS = ["Portada","Por qué la ley te importa","La pirámide normativa","Cómo se interpreta la ley","Cuando las normas se encuentran","El tiempo en el derecho","Quién cambia qué","Historia de la ley"];
-  var navLinks = document.querySelectorAll('.nav-link');
-  var caps = document.querySelectorAll('.cap');
-  var drawer = document.getElementById('drawer');
-  var overlay = document.getElementById('overlay');
-  var hamb = document.getElementById('hamb');
-  var topbarCap = document.getElementById('topbar-cap');
+        <div class="bloque" id="c4-b2">
+          <div class="bloque-eyebrow">Ejemplos de piso y techo</div>
+          <h2 class="bloque-titulo">La misma idea, distinto límite</h2>
 
-  function cerrarDrawer(){ drawer.classList.remove('abierto'); overlay.classList.remove('activo'); }
+          <p class="sub-h">Piso · la reserva legal "por lo menos 10%"</p>
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 44 lit. a</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Fondo de reserva legal</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 44.- Los excedentes se distribuirán en la forma siguiente:</div>
+                <ul class="art-incisos">
+                  <li><span class="lit">a)</span><span class="hl">Por lo menos un 10%</span> para formar un fondo de reserva legal acumulable anualmente, no repartible y que servirá para cubrir pérdidas de acuerdo con la liquidez de la cooperativa en los porcentajes que establezca el reglamento de esta Ley; el fondo de reserva se invertirá en bonos u otros títulos de fácil convertibilidad, emitidos por federaciones de cooperativas, instituciones bancarias o del estado;</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p>"Por lo menos un 10%" es un piso: la cooperativa puede destinar más a su reserva legal, pero nunca menos del 10%. Una asamblea que aprobara un 8% estaría violando la ley.</p>
 
-  function irACap(n){
-    caps.forEach(function(c){ c.classList.remove('activo'); });
-    var target = document.getElementById('cap-'+n);
-    if(target){ target.classList.add('activo'); }
-    navLinks.forEach(function(l){ l.classList.toggle('activo', l.getAttribute('data-cap')===String(n)); });
-    topbarCap.textContent = TITULOS[n] || '';
-    cerrarDrawer();
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+          <p class="sub-h">Techo · la JD puede contratar "hasta el 10%"</p>
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 29-A lit. g</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Límite de contratación de la JD</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 29-A.- Corresponde a la Junta Directiva:</div>
+                <ul class="art-incisos">
+                  <li><span class="lit">g)</span>Fijar las bases y firmar contratos y convenios en que sea parte la cooperativa, cuando el monto sea <span class="hl">menor al Diez (10%)</span> de los activos totales de ésta;</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p>Aquí el 10% funciona como techo de la competencia de la Junta Directiva: puede contratar por montos por debajo de ese límite. Cuando el monto lo supera, la decisión sube a la Asamblea. El mismo número, sentido contrario.</p>
+        </div>
 
-  navLinks.forEach(function(l){ l.addEventListener('click', function(){ irACap(l.getAttribute('data-cap')); }); });
-  document.querySelectorAll('[data-cap]').forEach(function(el){
-    if(el.classList.contains('nav-link')) return;
-    el.addEventListener('click', function(){ irACap(el.getAttribute('data-cap')); });
-  });
+        <div class="bloque" id="c4-b3">
+          <div class="bloque-eyebrow">El caso clásico</div>
+          <h2 class="bloque-titulo">Constituir una cooperativa: 12 y 30 no se contradicen</h2>
+          <p>Es la confusión más común: la Ley dice doce, el Reglamento dice treinta. ¿Se contradicen? No. Hay que leer con atención qué dice exactamente cada una.</p>
+          
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 10</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Número mínimo de cooperativistas</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 10.- Número mínimo para constituir.</div>
+                <p class="art-parrafo">Ninguna Cooperativa de Primer Grado puede constituirse con un número menor de <span class="hl">doce (12) cooperativistas</span>, sin perjuicio de lo que establezca el Reglamento de esta Ley, en cuanto a un número mayor para Subsectores Especiales. Y las de Segundo Grado se constituirán con un número no menor de veinte (20) cooperativas.</p>
+              </div>
+            </div>
+          </div>
 
-  hamb.addEventListener('click', function(){ drawer.classList.toggle('abierto'); overlay.classList.toggle('activo'); });
-  overlay.addEventListener('click', cerrarDrawer);
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 9 lit. b</span>
+              <span class="art-ley">RLCH</span>
+              <span class="art-resumen">Quórum de la asamblea constitutiva</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 9 inciso b).- Quórum de la asamblea constitutiva.</div>
+                <p class="art-parrafo">La Asamblea queda constituida con un número de asistentes <span class="hl">no menor de doce (12) personas</span>; sin embargo, para las cooperativas de ahorro y crédito y cooperativas regionales, este requisito se eleva a <span class="hl">no menos de treinta (30) personas</span>.</p>
+              </div>
+            </div>
+          </div>
 
-  document.querySelectorAll('.acord-head').forEach(function(h){
-    h.addEventListener('click', function(){
-      var acord = h.parentElement;
-      var cuerpo = h.nextElementSibling;
+          <div class="complemento">
+            <span class="callout-label">Por qué no hay contradicción</span>
+            La Ley fija la regla general: no menos de doce. El propio Art. 10 deja la puerta abierta — "sin perjuicio de lo que establezca el Reglamento... para Subsectores Especiales". El Reglamento usa esa puerta y eleva el mínimo a treinta para ahorro y crédito y regionales. La norma inferior especifica dentro del margen que la superior le dejó: la complementa, no la contradice.
+          </div>
+          
+          <div class="interp">
+            <span class="callout-label">Una nota honesta</span>
+            En el marco cooperativo hondureño, la Ley y su Reglamento están diseñados para complementarse, no para chocar. Cuando parece haber una "contradicción", casi siempre es una lectura apresurada: la respuesta está en leer con cuidado las frases que fijan los límites.
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 05: El tiempo en el derecho -->
+      <div class="panel" id="panel-t05">
+        <div class="cap-meta">Capítulo 05 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">El tiempo en el derecho</h1>
+
+        <div class="bloque" id="c5-b1" data-concept="plazos">
+          <div class="bloque-eyebrow">Las normas tienen fecha</div>
+          <h2 class="bloque-titulo">Vigencia, adecuación y caducidad</h2>
+          <p class="cuerpo intro">Una norma no rige para siempre ni desde siempre. Nace, vive y puede morir. Entender el tiempo de las normas evita un error común: juzgar un acto del pasado con una regla que aún no existía.</p>
+          <div class="def-bloque">
+            <div class="def-termino">Vigencia</div>
+            <div class="def-texto">Período en que una norma obliga. Por regla general comienza con su publicación oficial, salvo que la norma fije otra fecha.</div>
+          </div>
+          <div class="def-bloque">
+            <div class="def-termino">Derogación</div>
+            <div class="def-texto">Una norma nueva deja sin vigencia, total o parcialmente, a una anterior.</div>
+          </div>
+          <div class="def-bloque">
+            <div class="def-termino">Período de adecuación</div>
+            <div class="def-texto">Plazo que la norma concede para que sus destinatarios se ajusten antes de exigir cumplimiento pleno.</div>
+          </div>
+          <div class="def-bloque">
+            <div class="def-termino">Caducidad programada</div>
+            <div class="def-texto">Algunas disposiciones nacen con fecha de vencimiento: rigen solo hasta un día determinado.</div>
+          </div>
+        </div>
+
+        <div class="bloque" id="c5-b2">
+          <div class="bloque-eyebrow">Tres comportamientos en el tiempo</div>
+          <h2 class="bloque-titulo">Casos reales de la Normativa de Educación 2025</h2>
+          
+          <div class="acord">
+            <div class="acord-head" onclick="toggleAcordLegacy(this)">
+              <span class="acord-ico"></span>
+              <span class="acord-titulo">Derogación · la norma nueva apaga a la vieja</span>
+            </div>
+            <div class="acord-cuerpo">
+              <div class="acord-cuerpo-in">
+                <p>La Normativa para la Educación Cooperativa de 2025 deroga expresamente la Resolución de normativa del 17 de diciembre de 2014. Desde su vigencia, la regla de 2014 deja de aplicarse. Una sola norma puede reemplazar a otra por completo.</p>
+                <span class="norma">Art. 26 · Normativa 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="acord">
+            <div class="acord-head" onclick="toggleAcordLegacy(this)">
+              <span class="acord-ico"></span>
+              <span class="acord-titulo">Período de adecuación · existe, pero da plazo</span>
+            </div>
+            <div class="acord-cuerpo">
+              <div class="acord-cuerpo-in">
+                <p>La misma Normativa de 2025 concede a las cooperativas plazo para adecuarse <strong>hasta el 30 de abril de 2026</strong>. Una cooperativa que en marzo de 2026 todavía no se ajusta no está infringiendo: está dentro del plazo que la propia norma le otorgó.</p>
+                <span class="norma">Art. 28 · Normativa 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="acord">
+            <div class="acord-head" onclick="toggleAcordLegacy(this)">
+              <span class="acord-ico"></span>
+              <span class="acord-titulo">Caducidad programada · vigencia con fecha de corte</span>
+            </div>
+            <div class="acord-cuerpo">
+              <div class="acord-cuerpo-in">
+                <p>En la misma fecha, la tabla de provisiones para créditos al "Migrante Retornado" rige solo hasta el 31 de diciembre de 2029; vencido ese plazo, se aplica otra tabla. La norma nace ya con su propia fecha de vencimiento.</p>
+                <span class="norma">Acuerdo J.D. 002-17-07-2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bloque" id="c5-b3">
+          <div class="bloque-eyebrow">La pregunta clave</div>
+          <h2 class="bloque-titulo">¿Qué pasa con lo que se hizo bajo la norma de su tiempo?</h2>
+          <p>Un acto se juzga con la norma vigente en el momento en que ocurrió. Si algo se hizo correctamente bajo la regla de su fecha, sigue siendo válido aunque la regla cambie después. Eso es la <strong>irretroactividad</strong>.</p>
+          
+          <div class="def-bloque">
+            <div class="def-termino">Irretroactividad</div>
+            <div class="def-texto">La norma nueva rige hacia el futuro. Un acto realizado válidamente bajo la norma vigente en su fecha no se vuelve inválido porque después cambie la ley.</div>
+          </div>
+          
+          <p>Existen además causas que justifican el incumplimiento de un plazo. El caso de las asambleas durante la pandemia lo ilustra: la Ley obliga a celebrar la asamblea ordinaria dentro de los tres meses siguientes al cierre del ejercicio, pero por <strong>fuerza mayor</strong> (la emergencia sanitaria) CONSUCOOP eximió de responsabilidad y otorgó un plazo prudencial.</p>
+          
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 24</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Asamblea ordinaria anual</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 24.- Asamblea General Ordinaria anual.</div>
+                <p class="art-parrafo">Cada Cooperativa debe realizar por lo menos una Asamblea General Ordinaria al año, <span class="hl">dentro de los tres (3) meses siguientes al cierre de cada ejercicio social</span>, para tratar los asuntos que la Ley señala.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="interp">
+            <span class="callout-label">Lectura interpretativa</span>
+            Los plazos legales son de obligatorio cumplimiento, pero la propia legislación admite que la fuerza mayor o el caso fortuito los suspendan. Una cooperativa que no celebró su asamblea en pandemia, dentro del plazo que CONSUCOOP autorizó, no incurrió en falta.
+          </div>
+          <div class="callout verde">
+            <span class="callout-label">Cómo citar una norma con su fecha</span>
+            Decir "la ley" o "una resolución" no basta. Una cita completa identifica la norma, su número y su publicación: <strong>Acuerdo No. J.D. 001-17-07-2025</strong>, del 5 de noviembre de 2025. Así cualquiera puede ubicarla y verificar qué decía y desde cuándo regía.
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 06: Quién cambia qué -->
+      <div class="panel" id="panel-t06">
+        <div class="cap-meta">Capítulo 06 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Quién cambia qué</h1>
+
+        <div class="bloque" id="c6-b1">
+          <div class="bloque-eyebrow">La regla de cierre</div>
+          <h2 class="bloque-titulo">Cada norma se corrige en su nivel</h2>
+          <p class="cuerpo intro">Si una norma de abajo contradice a la ley, la solución no es ignorar la ley: es ir a corregir esa norma <strong>en el nivel que le corresponde</strong>. Y cada nivel tiene su autoridad competente.</p>
+          <div class="tabla-wrap">
+            <table class="t">
+              <thead><tr><th>Norma</th><th>Quién la cambia</th><th>Cómo</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Ley de Cooperativas</strong></td><td>El Congreso Nacional</td><td>Por decreto: crear, reformar, derogar. Así nacieron las reformas 174-2013 y 146-2019.</td></tr>
+                <tr><td><strong>Reglamento (RLCH)</strong></td><td>El Poder Ejecutivo</td><td>Por Acuerdo, a propuesta de CONSUCOOP (Acuerdo 041-2014, reformado por 015-2021).</td></tr>
+                <tr><td><strong>Normativas prudenciales</strong></td><td>CONSUCOOP</td><td>Por resolución o acuerdo de su Junta Directiva.</td></tr>
+                <tr><td><strong>Estatuto</strong></td><td>La Asamblea General Extraordinaria</td><td>La JD elabora el anteproyecto y CONSUCOOP dictamina.</td></tr>
+                <tr><td><strong>Reglamentos internos</strong></td><td>La Junta Directiva</td><td>Por ser instrumentos administrativos del órgano que administra.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bloque" id="c6-b2">
+          <div class="bloque-eyebrow">Cambiar el Estatuto</div>
+          <h2 class="bloque-titulo">La Asamblea General Extraordinaria</h2>
+          <p>El Estatuto es la norma propia de la cooperativa, y solo la máxima autoridad puede modificarlo: la Asamblea, reunida en sesión <strong>extraordinaria</strong>. Modificar el documento constitutivo y el Estatuto es precisamente uno de los asuntos reservados a ella.</p>
+          
+          <div class="art">
+            <div class="art-head" onclick="toggleArt(this)">
+              <span class="art-num">Art. 24-A</span>
+              <span class="art-ley">LCH</span>
+              <span class="art-resumen">Asuntos de la Asamblea Extraordinaria</span>
+              <span class="art-ver">Ver texto</span>
+            </div>
+            <div class="art-texto">
+              <div class="art-texto-in">
+                <div class="art-encab">ARTÍCULO 24-A.- Son Asambleas Generales Extraordinarias las que se reúnen para tratar uno o más de los asuntos siguientes:</div>
+                <ul class="art-incisos">
+                  <li><span class="lit">a)</span><span class="hl">Modificación del documento constitutivo y el Estatuto;</span></li>
+                  <li><span class="lit">b)</span>La enajenación de los bienes propiedad de la cooperativa, cuando sobrepase del Diez (10%) del valor de su patrimonio;</li>
+                  <li><span class="lit">c)</span>La disolución voluntaria de la cooperativa, la cual debe ser justificada ante el Organismo Supervisor de Cooperativas; y,</li>
+                  <li><span class="lit">ch)</span>La fusión, incorporación o transformación de acuerdo con esta Ley, el Reglamento y el Estatuto.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p>El recorrido completo para reformar un Estatuto: la JD elabora el anteproyecto, la Asamblea Extraordinaria lo aprueba y CONSUCOOP dictamina. Tres niveles colaborando, cada uno en su rol.</p>
+        </div>
+
+        <div class="bloque" id="c6-b3">
+          <div class="bloque-eyebrow">La normativa interna</div>
+          <h2 class="bloque-titulo">Los reglamentos que aprueba la Junta Directiva</h2>
+          <p>Los reglamentos internos son instrumentos administrativos. Los aprueba la Junta Directiva porque es el órgano que administra la cooperativa. Entre los más comunes:</p>
+          <ul class="lista">
+            <li><strong>Reglamento de crédito</strong> — condiciones, tasas y requisitos de los préstamos.</li>
+            <li><strong>Código de ética</strong> — conducta esperada de directivos, afiliados/as y empleados/as.</li>
+            <li><strong>Reglamento de dietas</strong> — montos y condiciones de las dietas por asistencia.</li>
+            <li><strong>Reglamento de viáticos</strong> — gastos de traslado y representación.</li>
+          </ul>
+          <div class="callout verde">
+            <span class="callout-label">Actividad · ¿Cuánto cobramos de interés por un préstamo?</span>
+            ¿Por qué esta decisión la toma la JD y no la Asamblea? Porque la Asamblea puede tomar decisiones a favor de los afiliados/as, pero no en perjuicio de la cooperativa. Si la tasa de interés se votara en asamblea, la tentación sería fijarla muy baja para beneficio inmediato de quienes piden préstamos, comprometiendo la sostenibilidad de la cooperativa. Por eso es un instrumento administrativo del órgano que administra.
+          </div>
+          <div class="interp">
+            <span class="callout-label">La regla en una frase</span>
+            Si lo de abajo contradice a la ley, no se obedece lo de abajo: se va a corregirlo en su nivel. La ley la arregla el Congreso; el estatuto, la Asamblea Extraordinaria; el reglamento interno, la Junta Directiva. Cada quien en su nivel.
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 07: Historia de la ley -->
+      <div class="panel" id="panel-t07">
+        <div class="cap-meta">Capítulo 07 · Legislación Cooperativista</div>
+        <h1 class="cap-titulo">Historia de la Ley de Cooperativas</h1>
+
+        <div class="bloque" id="c7-b1">
+          <div class="bloque-eyebrow">Contexto</div>
+          <h2 class="bloque-titulo">Un marco que se actualiza por capas</h2>
+          <p class="cuerpo intro">La Ley de Cooperativas no es un texto congelado en 1987. Ha sido reformada varias veces, y a su alrededor se siguen emitiendo reglamentos y normativas. Este recorrido ayuda a ubicar de dónde viene el marco que hoy nos rige.</p>
+          
+          <div class="tl-wrap">
+            <div class="tl-scroll">
+              <div class="tl-eje" id="tl-eje"></div>
+            </div>
+            <div class="tl-detalle" id="tl-detalle"></div>
+          </div>
+
+          <div class="interp">
+            <span class="callout-label">Lectura interpretativa</span>
+            Cada reforma responde a una necesidad del propio movimiento cooperativo: profesionalizar el gobierno, ordenar el ahorro y crédito, fortalecer la supervisión. El marco legal cooperativo se entiende mejor como una conquista que se renueva, no como una imposición externa.
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer General -->
+      <footer>
+        CoopeNotebook · Oliver Ayala. Transcripción y análisis de la Ley de Cooperativas de Honduras y su Reglamento.
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Navegación entre Pestañas (Paneles)
+    var TITULOS = [
+      "Portada",
+      "Por qué la ley te importa",
+      "La pirámide normativa",
+      "Cómo se interpreta la ley",
+      "Límites y coincidencia",
+      "El tiempo en el derecho",
+      "Quién cambia qué",
+      "Historia de la ley"
+    ];
+
+    function tab(id, btn) {
+      // Ocultar todos los paneles
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+      // Desactivar todos los botones del menú
+      document.querySelectorAll('.nb-nav button').forEach(b => b.classList.remove('activo'));
+      
+      // Mostrar panel activo y marcar botón
+      document.getElementById('panel-' + id).classList.add('activo');
+      btn.classList.add('activo');
+
+      // Mostrar/ocultar los sub-links correspondientes
+      document.querySelectorAll('[id^="sub-"]').forEach(s => {
+        s.style.display = (s.id === 'sub-' + id) ? 'block' : 'none';
+      });
+      
+      // Cerrar menú si estamos en vista móvil
+      if (window.innerWidth <= 820) {
+        cerrarMenu();
+      }
+      // Volver scroll al inicio del contenedor
+      document.querySelector('.main').scrollTop = 0;
+    }
+
+    // Ir hacia una pestaña específica desde la portada
+    function irHacia(id) {
+      var btn = document.querySelector('.nb-nav button[onclick*="' + id + '"]');
+      if (btn) {
+        tab(id, btn);
+      }
+    }
+
+    // Funciones de Menú Drawer (Móvil)
+    function abrirMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.nb-overlay');
+      if (sidebar) sidebar.classList.add('abierto');
+      if (overlay) overlay.classList.add('visible');
+    }
+
+    function cerrarMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.nb-overlay');
+      if (sidebar) sidebar.classList.remove('abierto');
+      if (overlay) overlay.classList.remove('visible');
+    }
+
+    // Acordeones interactivos (Legacy)
+    function toggleAcordLegacy(btn) {
+      var acord = btn.parentElement;
+      var cuerpo = btn.nextElementSibling;
       var abierto = acord.classList.toggle('abierto');
       cuerpo.style.maxHeight = abierto ? cuerpo.scrollHeight + 'px' : '0';
-    });
-  });
+    }
 
-  document.querySelectorAll('.art-head').forEach(function(h){
-    h.addEventListener('click', function(){
-      var texto = h.nextElementSibling;
-      var ver = h.querySelector('.art-ver');
+    // Artículos colapsables
+    function toggleArt(btn) {
+      var texto = btn.nextElementSibling;
+      var ver = btn.querySelector('.art-ver');
       var abierto = texto.style.maxHeight && texto.style.maxHeight !== '0px';
-      if(abierto){ texto.style.maxHeight = '0'; if(ver) ver.textContent = 'Ver texto'; }
-      else { texto.style.maxHeight = texto.scrollHeight + 'px'; if(ver) ver.textContent = 'Ocultar'; }
-    });
-  });
+      if (abierto) {
+        texto.style.maxHeight = '0';
+        if (ver) ver.textContent = 'Ver texto';
+      } else {
+        texto.style.maxHeight = texto.scrollHeight + 'px';
+        if (ver) ver.textContent = 'Ocultar';
+      }
+    }
 
-  var TL = [
-    { f:"1987", r:"Ley de Cooperativas", t:"Se emite la Ley de Cooperativas de Honduras mediante Decreto No. 65-87. Es el marco legal base que sigue vigente hasta hoy, con sus reformas." },
-    { f:"2013", r:"Primera gran reforma", t:"El Decreto No. 174-2013 reforma una amplia serie de artículos y crea el CONSUCOOP como organismo supervisor del sector, sustituyendo al IHDECOOP." },
-    { f:"2016", r:"Reforma intermedia", t:"El Decreto Legislativo No. 168-2016 introduce ajustes adicionales a la Ley, continuando la actualización del marco cooperativo." },
-    { f:"2019", r:"Segunda gran reforma", t:"El Decreto No. 146-2019 reforma artículos clave —entre ellos la duración de los cuerpos directivos a tres años— y fortalece la supervisión del sector." },
-    { f:"2025", r:"Normativas CONSUCOOP", t:"CONSUCOOP emite la Normativa para la Educación Cooperativa (Acuerdo J.D. 001-17-07-2025) y reformas sobre cartera de crédito. El marco sigue creciendo por capas." }
-  ];
-  var eje = document.getElementById('tl-eje');
-  var detalle = document.getElementById('tl-detalle');
-  function renderTL(i){
-    var d = TL[i];
-    detalle.innerHTML = '<div class="tl-det-fecha">'+d.f+'</div><div class="tl-det-rotulo">'+d.r+'</div><div class="tl-det-texto">'+d.t+'</div>';
-    eje.querySelectorAll('.tl-nodo').forEach(function(n,idx){ n.classList.toggle('activo', idx===i); });
-  }
-  TL.forEach(function(d,i){
-    var b = document.createElement('button');
-    b.className = 'tl-nodo';
-    b.innerHTML = '<span class="tl-fecha">'+d.f+'</span><span class="tl-punto"></span><span class="tl-rotulo">'+d.r+'</span>';
-    b.addEventListener('click', function(){ renderTL(i); });
-    eje.appendChild(b);
-  });
-  renderTL(0);
-})();
-</script>
-<script src="/shared/facilitator-tools.js"></script>
+    // Línea de tiempo de la Ley
+    var TL = [
+      { f:"1987", r:"Ley de Cooperativas", t:"Se emite la Ley de Cooperativas de Honduras mediante Decreto No. 65-87. Es el marco legal base que sigue vigente hasta hoy, con sus reformas." },
+      { f:"2013", r:"Primera gran reforma", t:"El Decreto No. 174-2013 reforma una amplia serie de artículos y crea el CONSUCOOP como organismo supervisor del sector, sustituyendo al IHDECOOP." },
+      { f:"2016", r:"Reforma intermedia", t:"El Decreto Legislativo No. 168-2016 introduce ajustes adicionales a la Ley, continuando la actualización del marco cooperativo." },
+      { f:"2019", r:"Segunda gran reforma", t:"El Decreto No. 146-2019 reforma artículos clave —entre ellos la duración de los cuerpos directivos a tres años— y fortalece la supervisión del sector." },
+      { f:"2025", r:"Normativas CONSUCOOP", t:"CONSUCOOP emite la Normativa para la Educación Cooperativa (Acuerdo J.D. 001-17-07-2025) y reformas sobre cartera de crédito. El marco sigue creciendo por capas." }
+    ];
+
+    var eje = document.getElementById('tl-eje');
+    var detalle = document.getElementById('tl-detalle');
+
+    function renderTL(i) {
+      var d = TL[i];
+      detalle.innerHTML = '<div class="tl-det-fecha">' + d.f + '</div><div class="tl-det-rotulo">' + d.r + '</div><div class="tl-det-texto">' + d.t + '</div>';
+      eje.querySelectorAll('.tl-nodo').forEach(function(n, idx) { n.classList.toggle('activo', idx === i); });
+    }
+
+    // Crear nodos de la línea de tiempo
+    TL.forEach(function(d, i) {
+      var b = document.createElement('button');
+      b.className = 'tl-nodo';
+      b.innerHTML = '<span class="tl-fecha">' + d.f + '</span><span class="tl-punto"></span><span class="tl-rotulo">' + d.r + '</span>';
+      b.addEventListener('click', function() { renderTL(i); });
+      eje.appendChild(b);
+    });
+
+    // Inicializar timeline
+    renderTL(0);
+
+    // Interacción con etiquetas conceptuales
+    (function() {
+      var chips = [].slice.call(document.querySelectorAll('.nb-tag'));
+      chips.forEach(function(c) {
+        c.addEventListener('click', function() {
+          var k = c.dataset.k;
+          var t = document.querySelector('[data-concept="' + k + '"]');
+          if (t) {
+            var panel = t.closest('.panel');
+            if (panel) {
+              var panelId = panel.id.replace('panel-', '');
+              var btn = document.querySelector('.nb-nav button[onclick*="' + panelId + '"]');
+              if (btn) {
+                tab(panelId, btn);
+              }
+            }
+            setTimeout(function() {
+              t.scrollIntoView({behavior: 'smooth', block: 'center'});
+              t.style.transition = 'box-shadow .3s';
+              t.style.boxShadow = '0 0 0 3px rgba(244,194,13,.5)';
+              setTimeout(function() { t.style.boxShadow = ''; }, 1400);
+            }, 100);
+          }
+          chips.forEach(function(x) { x.classList.remove('flash'); });
+          c.classList.add('flash');
+          setTimeout(function() { c.classList.remove('flash'); }, 900);
+        });
+      });
+    })();
+  </script>
+  
+  <script src="/shared/facilitator-tools.js"></script>
 </body>
 </html>
