@@ -282,7 +282,7 @@ body.ft-resizing .ft-shell {
   .nb-toggle {
     display: flex !important;
     position: fixed !important;
-    top: 58% !important; /* Slightly below center matching the user reference screenshot */
+    top: 75% !important; /* Positioned lower on the screen for easy mobile thumb reach */
     left: 0 !important;
     transform: translate(-30%, -50%) !important; /* Shifts the left portion of the circle off-screen */
     z-index: 50 !important; /* Above page content, below overlay (55) */
