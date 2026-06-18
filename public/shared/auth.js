@@ -19,7 +19,7 @@
       // On home page: hide body instantly to avoid flash of content
       var css = document.createElement('style');
       css.id = 'auth-hide-body';
-      css.innerHTML = 'body { display: none !important; }';
+      css.innerHTML = 'body > :not(#auth-overlay) { display: none !important; }';
       document.documentElement.appendChild(css);
 
       // Once DOM is ready, build and inject the premium login form
