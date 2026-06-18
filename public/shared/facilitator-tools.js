@@ -1,17 +1,19 @@
 (function(){
-  // Determine relative paths for tools depending on the folder depth of the current page
-  var pathPrefix = "../../.."; // Default for 3-depth pages
-  if (window.location.pathname.indexOf('/contents/diplomado-basico/identidad-cooperativa/') !== -1 ||
-      window.location.pathname.indexOf('/contents/diplomado-basico/administracion-asambleas/') !== -1 ||
-      window.location.pathname.indexOf('/contents/diplomado-basico/cuerpos-directivos/') !== -1 ||
-      window.location.pathname.indexOf('/contents/diplomado-basico/legislacion-cooperativista/') !== -1 ||
-      window.location.pathname.indexOf('/contents/diplomado-basico/liderazgo-diplomado/') !== -1 ||
-      window.location.pathname.indexOf('/contents/cooperativismo-aplicado/identidad-standalones/') !== -1 ||
-      window.location.pathname.indexOf('/contents/cooperativismo-aplicado/Liderazgo/') !== -1) {
-    pathPrefix = "../../..";
-  } else if (window.location.pathname.indexOf('/contents/diplomado-basico/') !== -1 ||
-             window.location.pathname.indexOf('/contents/cooperativismo-aplicado/') !== -1) {
-    pathPrefix = "../..";
+  // Determine relative paths for tools dynamically depending on the folder depth of the current page
+  var pathPrefix = ".";
+  var path = window.location.pathname;
+  var contentsIdx = path.indexOf('/contents/');
+  var toolsIdx = path.indexOf('/tools/');
+  var startIdx = contentsIdx !== -1 ? contentsIdx : (toolsIdx !== -1 ? toolsIdx : -1);
+  
+  if (startIdx !== -1) {
+    var subPath = path.substring(startIdx + 1);
+    var slashes = (subPath.match(/\//g) || []).length;
+    var steps = [];
+    for (var i = 0; i < slashes; i++) {
+      steps.push('..');
+    }
+    pathPrefix = steps.length > 0 ? steps.join('/') : '.';
   }
 
   var tools = [
