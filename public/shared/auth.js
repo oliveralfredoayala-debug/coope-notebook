@@ -170,6 +170,7 @@
 
         function checkAuth() {
           var val = input.value.trim().toLowerCase();
+          console.log('Comparing:', JSON.stringify(val), 'with:', JSON.stringify(passwordCorrect));
           if (val === passwordCorrect) {
             // Correct password
             sessionStorage.setItem(authKey, passwordCorrect);
