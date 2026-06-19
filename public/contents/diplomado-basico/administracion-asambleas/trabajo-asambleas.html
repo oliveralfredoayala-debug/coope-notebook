@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabajo pr&aacute;ctico: Administraci&oacute;n de asambleas</title>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <style>
+    :root{
+      --verde:#1c6b4a;--verde-sec:#2fa36b;--verde-claro:#e8f4ef;--verde-borde:#b8dccc;
+      --amarillo:#f4c20d;--blanco:#fff;--gris-bg:#f7f7f5;--gris-borde:#e4e4e0;
+      --texto:#1a1a18;--texto-sec:#3a3a36;--texto-ter:#6a6a64;--rojo:#b83232;
+      --radio:10px;--radio-sm:6px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--gris-bg);color:var(--texto);font-size:16px;line-height:1.6;min-height:100vh}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem 2rem;height:72px;border-bottom:1px solid var(--gris-borde);background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40}
+    .brand{color:var(--texto);text-decoration:none;font-size:20px;font-weight:500;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center}
+    .brand strong{color:var(--verde);font-weight:700}
+    .back{font-size:13px;color:var(--texto-sec);text-decoration:none;font-weight:500;transition:color 0.15s;display:flex;align-items:center;gap:6px}
+    .back:hover{color:var(--verde)}
+    .nb-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);cursor:pointer;color:var(--verde)}
+    .nb-toggle svg{width:22px;height:22px}
+    .shell{display:flex;min-height:calc(100vh - 72px)}
+    .sidebar{width:260px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;display:flex;flex-direction:column}
+    .nb-marca-titulo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-borde);font-size:14px;font-weight:600;color:var(--verde);line-height:1.35}
+    .nb-nav{list-style:none;padding:.5rem 0;flex:1}.nb-nav a{width:100%;text-align:left;background:none;border:none;padding:.75rem 1.5rem;font-size:14px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .15s,color .15s,box-shadow .15s;border-left:3px solid transparent;text-decoration:none}
+    .nb-nav a:hover{background:var(--verde-claro);color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.08)}
+    .nb-nav a.activo{background:var(--verde-claro);color:var(--verde);font-weight:600;border-left-color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.12)}
+    .nb-nav-num{font-size:10px;font-weight:700;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
+    .sidebar-foot{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);font-size:12px;color:var(--texto-ter);line-height:1.45}
+    .main{flex:1;padding:1.5rem;min-width:0}.wrap{max-width:820px;margin:0 auto;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2.25rem 2.5rem}
+    h1{font-size:26px;font-weight:650;line-height:1.25;margin-bottom:.45rem;padding-bottom:.55rem;position:relative}h1::after{content:"";display:block;width:2.5rem;height:3px;background:var(--verde);margin-top:.55rem;border-radius:2px}
+    .intro{font-size:15px;color:var(--texto-sec);line-height:1.7;margin-bottom:1.5rem}.intro strong{color:var(--texto);font-weight:600}
+    .meta-line{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.35rem}.pill{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:999px;padding:.28rem .65rem}
+    .seccion-h{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin:2rem 0 .9rem}
+    .pasos{display:flex;flex-direction:column;gap:.65rem;margin:1rem 0 1.75rem}.paso{display:flex;gap:.875rem;align-items:flex-start}.paso-num{width:24px;height:24px;border-radius:50%;background:var(--verde);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.paso-texto{font-size:14.5px;color:var(--texto-sec);line-height:1.55}.paso-texto strong{color:var(--texto);font-weight:600}
+    .callout{background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio);padding:1rem 1.25rem;font-size:14px;color:var(--texto-sec);line-height:1.6;margin:1.5rem 0}.callout strong{color:var(--verde);font-weight:700}
+    .nivel-grid,.casos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin:1rem 0}.casos-grid{grid-template-columns:1fr}
+    .nivel-card,.caso-card{border:1.5px solid var(--gris-borde);border-radius:var(--radio);padding:1rem 1.1rem;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;gap:.85rem;align-items:flex-start;background:#fff;text-align:left;font-family:inherit;color:inherit}.nivel-card:hover,.caso-card:hover{background:var(--verde-claro);border-color:var(--verde-borde)}.nivel-card.activo{border-color:var(--verde);box-shadow:inset 0 0 0 1px var(--verde);background:#fbfdfc}
+    .nivel-tag{font-size:11px;font-weight:700;color:#fff;background:var(--verde);border-radius:999px;padding:.2rem .5rem;white-space:nowrap}.nivel-card[data-level="principiante"] .nivel-tag{background:#2f7da3}.nivel-card[data-level="avanzado"] .nivel-tag{background:#805c16}
+    .nivel-title,.caso-card-titulo{font-size:15px;font-weight:650;color:var(--texto);margin-bottom:.2rem}.nivel-desc,.caso-card-desc{font-size:13.5px;color:var(--texto-sec);line-height:1.5}
+    .caso-num{width:26px;height:26px;border-radius:50%;background:var(--verde);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.caso-card-cont{flex:1}.caso-flecha{color:var(--texto-ter);font-size:18px;align-self:center}
+    #vistaTrabajo{display:none}.volver{display:inline-flex;align-items:center;gap:.4rem;font-size:13px;color:var(--verde);background:none;border:none;cursor:pointer;font-family:inherit;padding:.4rem 0;margin-bottom:1rem}.volver:hover{text-decoration:underline}
+    .banner{background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio);padding:1.1rem 1.35rem;margin-bottom:1.5rem}.banner-label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--verde);margin-bottom:.35rem}.banner-title{font-size:19px;font-weight:650;color:var(--texto);line-height:1.3;margin-bottom:.35rem}.banner-text{font-size:14.5px;color:var(--texto-sec);line-height:1.5}.banner-question{font-size:14px;color:var(--texto-sec);margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--verde-borde)}
+    .repaso{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1rem 0}.repaso-item{border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.85rem 1rem;background:#fff;font-size:13.5px;color:var(--texto-sec);line-height:1.55}.repaso-item strong{color:var(--texto)}
+    .guia{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;margin:1rem 0 1.5rem}.guia-head{background:#fbfdfc;border-bottom:1px solid var(--gris-borde);padding:.85rem 1rem}.guia-title{font-size:14px;font-weight:700;color:var(--verde)}.guia-sub{font-size:12.5px;color:var(--texto-ter);margin-top:.15rem}.guia-list{padding:.85rem 1.2rem .95rem 1.35rem;color:var(--texto-sec);font-size:14px;line-height:1.55}.guia-list li{margin:.25rem 0}
+    .nivel-extra{display:none;border:1px solid var(--verde-borde);border-radius:var(--radio);background:#fbfdfc;padding:1rem 1.1rem;margin:1.25rem 0 1.75rem}.nivel-extra.visible{display:block}.nivel-extra-title{font-size:15px;font-weight:700;color:var(--verde);margin-bottom:.25rem}.nivel-extra-copy{font-size:13.5px;color:var(--texto-sec);line-height:1.55;margin-bottom:1rem}.criterios-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}.criterio{background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.85rem}.criterio-title{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:.2rem}.criterio-sub{font-size:12.5px;color:var(--texto-ter);line-height:1.45;margin-bottom:.65rem}
+    .ref-intro{font-size:13.5px;color:var(--texto-sec);line-height:1.6;margin-bottom:1rem}.ref-grupo-h{font-size:13px;font-weight:700;color:var(--verde);margin:1.25rem 0 .6rem}
+    .art-card{margin-bottom:.6rem;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}.art-card-header{padding:.7rem 1rem;display:flex;align-items:center;cursor:pointer;transition:background .15s;gap:.7rem;min-height:44px}.art-card-header:hover{background:var(--gris-bg)}.art-num{font-size:12px;font-weight:700;color:var(--verde);flex-shrink:0}.art-ley{font-size:10px;font-weight:700;color:var(--texto-ter);background:var(--gris-bg);padding:2px 6px;border-radius:4px;flex-shrink:0}.art-resumen{font-size:13.5px;color:var(--texto);flex:1}.art-chev{width:16px;height:16px;flex-shrink:0;color:var(--texto-ter);transition:transform .2s}.art-card.abierto .art-chev{transform:rotate(180deg)}.art-texto{display:none;padding:.85rem 1rem;font-size:13px;color:var(--texto-sec);line-height:1.7;border-top:1px solid var(--gris-borde);background:var(--gris-bg)}.art-card.abierto .art-texto{display:block}.legal-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin:.15rem 0 .45rem}.legal-text{background:#fff;border-left:3px solid var(--verde-sec);border-radius:0 var(--radio-sm) var(--radio-sm) 0;padding:.8rem .95rem;color:var(--texto);white-space:pre-line}.legal-exp{margin-top:.8rem;padding:.75rem .9rem;background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio-sm);color:var(--texto-sec)}.legal-exp strong{color:var(--verde)}.ref-aviso{font-size:12px;color:var(--texto-ter);margin-top:1rem;line-height:1.5;padding:.75rem 1rem;border:1px dashed var(--gris-borde);border-radius:var(--radio-sm)}
+    .capa{margin-bottom:1.75rem}.capa-titulo{font-size:15px;font-weight:700;color:var(--verde);margin-bottom:.15rem}.capa-sub{font-size:13px;color:var(--texto-ter);margin-bottom:.7rem}.lineas{display:flex;flex-direction:column;gap:.5rem;min-height:8px}.linea{display:flex;align-items:center;gap:.4rem;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.35rem .4rem .35rem .55rem}.linea input{flex:1;min-width:0;font-family:inherit;font-size:15px;padding:.5rem .4rem;border:none;color:var(--texto);background:transparent}.linea input:focus{outline:none}.linea-btns{display:flex;gap:1px;flex-shrink:0}.minibtn{width:30px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:none;background:none;color:var(--texto-ter);cursor:pointer;border-radius:4px;font-size:14px;line-height:1}.minibtn:hover{background:var(--gris-bg);color:var(--verde)}.minibtn.del:hover{color:var(--rojo);background:#fdecea}.minibtn:disabled{opacity:.25;cursor:default}.minibtn svg{width:15px;height:15px}.add-linea{margin-top:.55rem;display:inline-flex;align-items:center;gap:.4rem;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio-sm);padding:.5rem .9rem;cursor:pointer;min-height:40px}.add-linea:hover{background:#ddeee5}
+    .mover-pop{position:fixed;z-index:50;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);box-shadow:0 6px 24px rgba(0,0,0,.14);padding:.4rem;min-width:210px}.mover-pop-h{font-size:11px;color:var(--texto-ter);padding:.35rem .6rem .45rem;text-transform:uppercase;letter-spacing:.05em}.mover-opt{display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;font-size:14px;color:var(--texto);padding:.55rem .6rem;border-radius:var(--radio-sm);cursor:pointer}.mover-opt:hover{background:var(--verde-claro)}.mover-opt:disabled{opacity:.35;cursor:default}.mover-backdrop{position:fixed;inset:0;z-index:49}
+    .discusion{background:var(--gris-bg);border-left:3px solid var(--amarillo);padding:1rem 1.15rem;border-radius:0 var(--radio-sm) var(--radio-sm) 0;font-size:14px;color:var(--texto-sec);line-height:1.6;margin:1.5rem 0}
+    .acciones{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}.btn{font-family:inherit;font-size:15px;font-weight:700;padding:.75rem 1.35rem;border-radius:var(--radio-sm);cursor:pointer;border:1px solid transparent;min-height:44px;transition:background .15s,border-color .15s}.btn-primario{background:var(--verde);color:#fff}.btn-primario:hover{background:#155539}.btn-sec{background:var(--blanco);color:var(--verde);border-color:var(--verde-borde)}.btn-sec:hover{background:var(--verde-claro)}.aviso{font-size:13px;color:var(--texto-ter);margin-top:.9rem;line-height:1.5}
+    .nb-overlay{display:none}
+    @media (max-width: 820px) {
+      .shell { display: block; }
+      .nb-toggle { display: flex; }
+      .nb-overlay { display: block; position: fixed; inset: 0; z-index: 55; background: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity 0.26s ease; }
+      .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+      .sidebar { display: flex; position: fixed; top: 0; left: 0; z-index: 60; width: 84%; max-width: 300px; height: 100vh; border-right: 1px solid var(--gris-borde); transform: translateX(-100%); transition: transform 0.26s ease; box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12); }
+      .sidebar.abierto { transform: translateX(0); }
+      .nb-cerrar { display: block; margin: .75rem 1.25rem 0; background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .55rem .75rem; color: var(--verde); font-family: inherit; font-weight: 700; }
+      .main { padding: 2.25rem 1rem 6rem; }
+      .wrap { padding: 1.6rem 1.1rem; }
+      .nivel-grid, .repaso, .criterios-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .linea { align-items: flex-start; }
+      .linea-btns { padding-top: .15rem; flex-wrap: wrap; width: 62px; }
+      .minibtn { width: 28px; height: 32px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+  <a class="back" href="../index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Volver al índice
+  </a>
+</header>
+
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<div class="shell">
+<nav class="sidebar" aria-label="Navegación del trabajo">
+  <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+  <div class="nb-marca-titulo">
+    Administraci&oacute;n de asambleas
+  </div>
+  <ul class="nb-nav">
+    <li><a class="activo" href="#vistaPortada"><span class="nb-nav-num">00</span>Inicio</a></li>
+    <li><a href="#selectorNivel"><span class="nb-nav-num">01</span>Nivel</a></li>
+    <li><a href="#selectorCaso"><span class="nb-nav-num">02</span>Casos</a></li>
+    <li><a href="#repasoClave"><span class="nb-nav-num">03</span>Repaso</a></li>
+    <li><a href="#referenciaLegal"><span class="nb-nav-num">04</span>Referencia</a></li>
+    <li><a href="#perfilCapas"><span class="nb-nav-num">05</span>Trabajo</a></li>
+    <li><a href="#discusionFinal"><span class="nb-nav-num">06</span>Discusi&oacute;n</a></li>
+  </ul>
+  <div class="sidebar-foot">Un mismo enlace para Zoom, aula presencial o trabajo h&iacute;brido.</div>
+</nav>
+<main class="main">
+<div class="wrap">
+
+  <div id="vistaPortada">
+    <div class="meta-line"><span class="pill">Administraci&oacute;n de asambleas</span><span class="pill">Trabajo en equipo</span><span class="pill">35-60 min</span></div>
+    <h1>Taller de Gesti&oacute;n de Asambleas</h1>
+    <p class="intro">Cada equipo trabaja <strong>un caso de asamblea cooperativa</strong>: analiza convocatorias nulas, qu&oacute;rums insuficientes, mociones e impugnaciones de resoluciones bajo el marco legal de la LCH y su Reglamento.</p>
+
+    <p class="seccion-h">C&oacute;mo trabajamos</p>
+    <div class="pasos">
+      <div class="paso"><div class="paso-num">1</div><div class="paso-texto"><strong>El facilitador asigna el nivel y el caso.</strong> Todos usan este enlace, pero cada equipo trabaja su ruta.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-texto">Revisen el <strong>repaso breve</strong> y la referencia legal para sustentar sus resoluciones.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-texto">Resuelvan en cuatro capas: <strong>vicio del proceso, base legal de nulidad, propuesta de subsanaci&oacute;n y acuerdo final.</strong></div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-texto">Preparen la plenaria y descarguen el trabajo en <strong>PDF, Word o PowerPoint</strong>.</div></div>
+    </div>
+    <div class="callout"><strong>Para la plenaria:</strong> cada equipo expone su dictamen. Esto ayuda a comprender la formalidad y el rigor que exige el &oacute;rgano supremo de decisi&oacute;n de la cooperativa.</div>
+
+    <p class="seccion-h" id="selectorNivel">Elijan el nivel asignado</p>
+    <div class="nivel-grid" id="nivelGrid">
+      <button class="nivel-card" data-level="principiante"><span class="nivel-tag">Principiante</span><span><span class="nivel-title">M&aacute;s guiado</span><span class="nivel-desc">Identificar errores evidentes de plazos o qu&oacute;rum y proponer soluciones.</span></span></button>
+      <button class="nivel-card activo" data-level="balanceado"><span class="nivel-tag">Balanceado</span><span><span class="nivel-title">Est&aacute;ndar</span><span class="nivel-desc">An&aacute;lisis del procedimiento de asamblea y propuesta de resoluci&oacute;n formal.</span></span></button>
+      <button class="nivel-card" data-level="avanzado"><span class="nivel-tag">Avanzado</span><span><span class="nivel-title">M&aacute;s exigente</span><span class="nivel-desc">Riesgos de impugnaci&oacute;n legal de acuerdos, actas y mayor&iacute;as especiales.</span></span></button>
+    </div>
+
+    <p class="seccion-h" id="selectorCaso">Elijan su caso</p>
+    <div class="casos-grid" id="casosGrid"></div>
+  </div>
+
+  <div id="vistaTrabajo">
+    <button class="volver" id="btnVolver">&larr; Elegir otro caso o nivel</button>
+    <div class="banner">
+      <div class="banner-label" id="casoActivoLabel">Caso</div>
+      <div class="banner-title" id="casoActivoTitulo"></div>
+      <div class="banner-text" id="casoActivoTexto"></div>
+      <div class="banner-question" id="casoActivoPregunta"></div>
+    </div>
+
+    <p class="seccion-h" id="repasoClave">Repaso breve: convocatoria, qu&oacute;rum y acuerdos</p>
+    <div class="repaso">
+      <div class="repaso-item"><strong>La Asamblea es Soberana... pero con l&iacute;mites.</strong> Sus acuerdos son obligatorios, siempre que no violen la Ley Nacional de Cooperativas ni el Estatuto.</div>
+      <div class="repaso-item"><strong>Convocatoria obligatoria.</strong> Debe ser publicada con al menos 15 d&iacute;as de anticipaci&oacute;n indicando claramente d&iacute;a, hora, lugar y agenda detallada.</div>
+      <div class="repaso-item"><strong>Qu&oacute;rum constitutivo.</strong> En primera convocatoria, la mitad m&aacute;s uno de los socios/delegados. En segunda convocatoria (una hora despu&eacute;s), se sesiona con los presentes si el estatuto no fija un m&iacute;nimo.</div>
+      <div class="repaso-item"><strong>Ordinaria vs. Extraordinaria.</strong> Las reformas estatutarias, fusiones, disoluciones y transformaciones son de competencia exclusiva de Asambleas Extraordinarias.</div>
+    </div>
+
+    <div class="guia">
+      <div class="guia-head">
+        <div class="guia-title" id="guiaTitulo">Nivel balanceado</div>
+        <div class="guia-sub" id="guiaSub">Gu&iacute;a de trabajo para el equipo</div>
+      </div>
+      <ol class="guia-list" id="guiaLista"></ol>
+    </div>
+
+    <div class="nivel-extra" id="bloqueAvanzado">
+      <div class="nivel-extra-title">An&aacute;lisis Avanzado de Impugnaci&oacute;n</div>
+      <p class="nivel-extra-copy">Antes del diagn&oacute;stico b&aacute;sico, eval&uacute;en la validez jurídica de los acuerdos tomados y los riesgos de impugnaci&oacute;n legal.</p>
+      <div class="criterios-grid">
+        <div class="criterio">
+          <div class="criterio-title">Riesgo de impugnaci&oacute;n</div>
+          <div class="criterio-sub">Identifiquen qui&eacute;n puede demandar y bajo qu&eacute; cargos de nulidad absoluta.</div>
+          <div class="lineas" data-capa="advInd"></div>
+          <button class="add-linea" data-capa="advInd">+ Agregar an&aacute;lisis</button>
+        </div>
+        <div class="criterio">
+          <div class="criterio-title">Vicio de procedimiento</div>
+          <div class="criterio-sub">¿Qu&eacute; formalidad del qu&oacute;rum, agenda o elecci&oacute;n fall&oacute;?</div>
+          <div class="lineas" data-capa="advDes"></div>
+          <button class="add-linea" data-capa="advDes">+ Agregar an&aacute;lisis</button>
+        </div>
+        <div class="criterio">
+          <div class="criterio-title">Medida preventiva de actas</div>
+          <div class="criterio-sub">Directriz para la redacci&oacute;n de actas o fiscalizaci&oacute;n de la JV en el evento.</div>
+          <div class="lineas" data-capa="advRiesgo"></div>
+          <button class="add-linea" data-capa="advRiesgo">+ Agregar medida</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="seccion-h" id="referenciaLegal">Referencia legal: Ley de Cooperativas de Honduras (LCH)</p>
+    <p class="ref-intro">Utilicen estos art&iacute;culos espec&iacute;ficos para guiar sus dict&aacute;menes sobre la legalidad de los procesos asamblearios.</p>
+    <div class="ref-grupo-h">Supremac&iacute;a y Competencias</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 23</span><span class="art-ley">LCH</span><span class="art-resumen">Supremac&iacute;a de la Asamblea y acuerdos obligatorios</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 23.- La Asamblea General es el &oacute;rgano supremo de la Cooperativa. Sus acuerdos son obligatorios para todos los cooperativistas, inclusive para los ausentes y disidentes, siempre que se adopten de conformidad con esta Ley y el Estatuto.</div><div class="legal-exp"><strong>Para el trabajo:</strong> Muestra que un acuerdo de asamblea no es v&aacute;lido si contradice la LCH o el Estatuto de la cooperativa, permitiendo su impugnaci&oacute;n.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 24</span><span class="art-ley">LCH</span><span class="art-resumen">Asamblea Ordinaria: Plazo y atribuciones</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 24.- La Asamblea General Ordinaria se celebrar&aacute; por lo menos una vez al a&ntilde;o, dentro de los tres meses siguientes al cierre del ejercicio social. Corresponde a esta:
+a) Conocer y aprobar los Estados Financieros del ejercicio anterior;
+b) Distribuir los excedentes netos o resolver sobre las p&eacute;rdidas;
+d) Elegir y remover a los miembros de la Junta Directiva y de Vigilancia;
+e) Aprobar el plan operativo y el presupuesto general de la cooperativa.</div><div class="legal-exp"><strong>Para el trabajo:</strong> Establece las atribuciones exclusivas de la ordinaria y el plazo legal improrrogable de 3 meses posteriores al cierre.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 24-A</span><span class="art-ley">LCH</span><span class="art-resumen">Asamblea Extraordinaria: Atribuciones exclusivas</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 24-A.- Corresponde a la Asamblea General Extraordinaria:
+a) Reformar el Estatuto;
+b) Resolver sobre la transformaci&oacute;n, fus&iacute;on e incorporaci&oacute;n de la Cooperativa;
+c) Acordar la disoluci&oacute;n voluntaria de la Cooperativa;
+ch) Resolver sobre cualquier otro asunto de car&aacute;cter urgente que no pueda esperar...</div><div class="legal-exp"><strong>Para el trabajo:</strong> Estos asuntos no pueden ser aprobados v&aacute;lidamente en una asamblea ordinaria. Requieren convocatoria extraordinaria espec&iacute;fica.</div></div></div>
+
+    <div class="ref-grupo-h">Procedimiento y Convocatoria (RLCH)</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 91</span><span class="art-ley">RLCH</span><span class="art-resumen">Plazo m&iacute;nimo de convocatoria (15 d&iacute;as)</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 91.- La convocatoria... deber&aacute; hacerse por escrito con no menos de quince (15) d&iacute;as calendarios de anticipaci&oacute;n a la fecha fijada para la sesi&oacute;n... indicando d&iacute;a, hora, lugar y los puntos espec&iacute;ficos a tratar.</div><div class="legal-exp"><strong>Para el trabajo:</strong> "No menos de 15 d&iacute;as" es un piso legal. Convocar con menos tiempo invalida el acto ante el ente supervisor.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 95 & 96</span><span class="art-ley">RLCH</span><span class="art-resumen">Qu&oacute;rums y segundas convocatorias</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 95.- En primera convocatoria, el qu&oacute;rum de la Asamblea General quedar&aacute; constituido con la asistencia de la mitad m&aacute;s uno de los cooperativistas o delegados...
+ART&Iacute;CULO 96.- Si a la hora se&ntilde;alada en la convocatoria no se lograra el qu&oacute;rum, se esperar&aacute; una hora para celebrar la reuni&oacute;n, en cuyo caso la Asamblea quedar&aacute; legalmente constituida con el n&uacute;mero de asistentes presentes... siempre que el Estatuto no establezca un m&iacute;nimo.</div><div class="legal-exp"><strong>Para el trabajo:</strong> Define el procedimiento formal de segundas convocatorias. Sesionar antes de que pase la hora de espera genera nulidad.</div></div></div>
+
+    <p class="seccion-h" id="perfilCapas">Diagn&oacute;stico en cuatro capas</p>
+    <div class="capa">
+      <div class="capa-titulo">Vicio del proceso</div>
+      <div class="capa-sub" id="subSaber">Identifiquen el error o la falta de formalidad en la convocatoria, qu&oacute;rum o agenda.</div>
+      <div class="lineas" data-capa="saber"></div>
+      <button class="add-linea" data-capa="saber">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Base legal de nulidad</div>
+      <div class="capa-sub" id="subHacer">Citen el art&iacute;culo de la LCH/RLCH que sustenta por qu&eacute; el acuerdo o proceso es inv&aacute;lido.</div>
+      <div class="lineas" data-capa="hacer"></div>
+      <button class="add-linea" data-capa="hacer">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Propuesta de subsanaci&oacute;n</div>
+      <div class="capa-sub" id="subSer">¿C&oacute;mo debe actuar la Junta Directiva o la Junta de Vigilancia para corregir legalmente la situaci&oacute;n?</div>
+      <div class="lineas" data-capa="ser"></div>
+      <button class="add-linea" data-capa="ser">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Acuerdo para plenaria</div>
+      <div class="capa-sub" id="subConcl">Enunciado resumido: conclusi&oacute;n del equipo sobre la validez del proceso y la salida legal.</div>
+      <div class="lineas" data-capa="concl"></div>
+      <button class="add-linea" data-capa="concl">+ Agregar l&iacute;nea</button>
+    </div>
+
+    <p class="seccion-h" id="discusionFinal">Preparar la discusi&oacute;n final</p>
+    <div class="discusion" id="discusionTexto"></div>
+
+    <div class="acciones">
+      <button class="btn btn-primario" id="btnPDF">Descargar PDF</button>
+      <button class="btn btn-sec" id="btnWord">Descargar Word</button>
+      <button class="btn btn-sec" id="btnPPT">Descargar PowerPoint</button>
+      <button class="btn btn-sec" id="btnLimpiar">Limpiar respuestas</button>
+    </div>
+    <p class="aviso">PDF y Word generan un documento completo. PowerPoint crea una presentaci&oacute;n para la plenaria.</p>
+  </div>
+</div>
+</main>
+</div>
+
+<script>
+function abrirMenu(){document.querySelector('.sidebar').classList.add('abierto');document.querySelector('.nb-overlay').classList.add('visible')}
+function cerrarMenu(){document.querySelector('.sidebar').classList.remove('abierto');document.querySelector('.nb-overlay').classList.remove('visible')}
+document.querySelectorAll('.nb-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.nb-nav a').forEach(x=>x.classList.remove('activo'));a.classList.add('activo');if(window.innerWidth<=800)cerrarMenu()}));
+
+const CASOS=[
+  {t:"La convocatoria express",d:"La Junta Directiva, preocupada por los costos postales y de prensa, decide publicar la convocatoria para la Asamblea General Ordinaria en el Facebook de la cooperativa y enviar mensajes masivos por WhatsApp a todos los socios solo 8 d&iacute;as antes de la reuni&oacute;n.",p:"&iquest;Cumple esta acci&oacute;n con los plazos y formas del Art&iacute;culo 91 del RLCH? &iquest;Cu&aacute;l es el riesgo legal ante el ente supervisor?"},
+  {t:"Reforma de estatutos express",d:"En el punto de 'Puntos Varios' de una Asamblea General Ordinaria, un socio propone modificar el Estatuto de la cooperativa para elevar las dietas de los directivos. La propuesta es acuerpada con entusiasmo y aprobada de inmediato por la mayor&iacute;a simple de los asistentes.",p:"&iquest;Se pueden reformar estatutos en una Asamblea Ordinaria? Citen el Art&iacute;culo 24-A de la LCH para argumentar."},
+  {t:"La prisa por el qu&oacute;rum",d:"A la hora se&ntilde;alada en la convocatoria para la Asamblea General de una cooperativa de caficultores, solo asiste el 30% de la membres&iacute;a (el qu&oacute;rum requerido en primera es la mitad m&aacute;s uno). El Presidente, viendo que ya est&aacute;n casi todos los directores, instala la sesi&oacute;n e inicia las votaciones a los 10 minutos de la hora programada.",p:"&iquest;Qu&eacute; vicio de qu&oacute;rum se cometi&oacute; seg&uacute;n los Art&iacute;culos 95 y 96 del RLCH? &iquest;Qu&eacute; plazo de espera debi&oacute; respetarse?"},
+  {t:"Conflicto de intereses en el escrutinio",d:"Durante la elecci&oacute;n de los nuevos miembros de la Junta Directiva, la Asamblea General nombra como comisionados de escrutinio (encargados de contar los votos f&iacute;sicos) al hermano del candidato m&aacute;s votado y al yerno de otra candidata. Varios socios protestan la imparcialidad del conteo.",p:"&iquest;Qu&eacute; dice el Reglamento de la LCH (Art. 97 y otros) sobre conflictos de inter&eacute;s en asambleas? &iquest;Es impugnable la elecci&oacute;n?"},
+  {t:"La directiva desobedece a la asamblea",d:"La Asamblea General aprueba por mayor&iacute;a de dos tercios destinar un 5% extra de los excedentes netos a la compra de un terreno comunitario para una cl&iacute;nica m&eacute;dica. La Junta Directiva, en su primera reuni&oacute;n post-asamblea, decide engavetar la resoluci&oacute;n argumentando que la compra no es t&eacute;cnicamente viable y desviar&aacute; fondos necesarios.",p:"Analicen el alcance del Art&iacute;culo 23 de la LCH en cuanto a la obligatoriedad de los acuerdos de la Asamblea para la JD."},
+  {t:"La convocatoria denegada",d:"Un grupo que representa al 35% de los socios activos de una cooperativa solicita formalmente a la Junta Directiva la convocatoria a una Asamblea General Extraordinaria para tratar la remoci&oacute;n de dos directores. La Junta Directiva ignora la petici&oacute;n y alega que convocar cuesta mucho y da&ntilde;a la estabilidad de la cooperativa.",p:"&iquest;Qu&eacute; derechos tienen los socios seg&uacute;n el Art&iacute;culo 114 del RLCH si la JD se niega a convocar?"}
+];
+
+const NIVELES={
+  principiante:{
+    nombre:"Principiante",bajada:"Identificar errores procedimentales evidentes.",
+    guia:["Identifiquen si el error del caso fue de convocatoria (tiempo), qu&oacute;rum (personas presentes) o agenda (temas).","Se&ntilde;alen el art&iacute;culo de la LCH/RLCH que explica la regla.","Planteen una soluci&oacute;n pr&aacute;ctica y directa para corregir el error."],
+    sub:{saber:"&iquest;Qu&eacute; error de procedimiento (tiempo, qu&oacute;rum o agenda) se cometi&oacute; en este caso?",hacer:"&iquest;Qu&eacute; art&iacute;culo del marco legal se viol&oacute;?",ser:"&iquest;Qu&eacute; debe hacer la cooperativa para subsanar el error y actuar legalmente?",concl:"Acuerdo de equipo: Diagnosticamos un error de ___ y la correcci&oacute;n inmediata es ___."},
+    disc:"Para la plenaria: Comenten qu&eacute; consecuencias f&iacute;sicas y de credibilidad tiene para la cooperativa llevar a cabo un proceso con vicios."
+  },
+  balanceado:{
+    nombre:"Balanceado",bajada:"Analizar el vicio legal y redactar la subsanaci&oacute;n formal.",
+    guia:["Analicen el impacto de la violaci&oacute;n en la validez jurídica de los acuerdos.","Citen espec&iacute;ficamente la LCH y el RLCH para justificar la invalidez.","Propongan un procedimiento formal detallado para que la Junta Directiva convoque o act&uacute;e correctamente."],
+    sub:{saber:"Describan el vicio legal del caso y por qu&eacute; invalida la toma de decisiones.",hacer:"Base legal: citen los art&iacute;culos de la LCH y del RLCH infringidos.",ser:"Procedimiento de subsanaci&oacute;n: &iquest;cu&aacute;les son los pasos legales exactos para regularizar el proceso?",concl:"Acuerdo final: Nuestro diagn&oacute;stico de vicio es ___ y la soluci&oacute;n formal es ___."},
+    disc:"Para la plenaria: Defiendan por qu&eacute; la formalidad en las asambleas protege el derecho democr&aacute;tico de todos los asociados."
+  },
+  avanzado:{
+    nombre:"Avanzado",bajada:"Riesgos de impugnaci&oacute;n legal de acuerdos, actas y mayor&iacute;as especiales.",
+    guia:["Llenen primero el bloque avanzado: riesgo de impugnaci&oacute;n, vicio de procedimiento y medida preventiva.","Eval&uacute;en la responsabilidad del Secretario de la JD en la redacci&oacute;n de actas y de la JV en la fiscalizaci&oacute;n del qu&oacute;rum.","Dise&ntilde;en una gu&iacute;a de control o checklist para que los comit&eacute;s organicen asambleas sin vicios legales."],
+    sub:{saber:"Hip&oacute;tesis de impugnaci&oacute;n: ¿c&oacute;mo podr&iacute;a un grupo disidente anular legalmente los acuerdos tomados en CONSUCOOP?",hacer:"Mecanismos de fiscalizaci&oacute;n: c&oacute;mo debi&oacute; actuar la Junta de Vigilancia para detener el vicio durante el evento.",ser:"Propuesta de resoluci&oacute;n correctiva y checklist preventivo para futuras asambleas.",concl:"Acuerdo avanzado: Diagnosticamos un riesgo de nulidad ___ y la estrategia de blindaje es ___."},
+    disc:"Para la plenaria: Defiendan su estrategia frente al grupo simulando ser la comisi&oacute;n legal que debe 'blindar' la pr&oacute;xima asamblea contra demandas de nulidad."
+  }
+};
+
+const CAPAS={saber:"Vicio del proceso",hacer:"Base legal de nulidad",ser:"Propuesta de subsanaci&oacute;n",concl:"Acuerdo para plenaria",advInd:"Riesgo de impugnaci&oacute;n",advDes:"Vicio de procedimiento",advRiesgo:"Medida preventiva de actas"};
+let nivelSel="balanceado",casoSel=-1;
+const grid=document.getElementById('casosGrid'),vistaPortada=document.getElementById('vistaPortada'),vistaTrabajo=document.getElementById('vistaTrabajo');
+
+function capasDisponibles(){return nivelSel==='avanzado'?CAPAS:{saber:CAPAS.saber,hacer:CAPAS.hacer,ser:CAPAS.ser,concl:CAPAS.concl}}
+function decodeHtml(html){const t=document.createElement('textarea');t.innerHTML=html;return t.value}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function textoCaso(campo){return decodeHtml(CASOS[casoSel][campo])}
+document.querySelectorAll('.nivel-card').forEach(btn=>btn.addEventListener('click',()=>{nivelSel=btn.dataset.level;document.querySelectorAll('.nivel-card').forEach(x=>x.classList.remove('activo'));btn.classList.add('activo')}));
+CASOS.forEach((c,i)=>{const card=document.createElement('button');card.type='button';card.className='caso-card';card.innerHTML='<span class="caso-num">'+(i+1)+'</span><span class="caso-card-cont"><span class="caso-card-titulo">'+c.t+'</span><span class="caso-card-desc">'+c.d+'</span></span><span class="caso-flecha">&rarr;</span>';card.addEventListener('click',()=>abrirCaso(i));grid.appendChild(card)});
+
+function abrirCaso(i){
+  casoSel=i;
+  const n=NIVELES[nivelSel];
+  document.getElementById('casoActivoLabel').textContent='Caso '+(i+1)+' de '+CASOS.length+' · Nivel '+n.nombre;
+  document.getElementById('casoActivoTitulo').textContent=CASOS[i].t;
+  document.getElementById('casoActivoTexto').innerHTML=CASOS[i].d;
+  document.getElementById('casoActivoPregunta').innerHTML=CASOS[i].p;
+  aplicarNivel();
+  vistaPortada.style.display='none';vistaTrabajo.style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+}
+function aplicarNivel(){
+  const n=NIVELES[nivelSel];
+  document.getElementById('guiaTitulo').textContent='Nivel '+n.nombre;
+  document.getElementById('guiaSub').innerHTML=n.bajada;
+  document.getElementById('guiaLista').innerHTML=n.guia.map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('subSaber').innerHTML=n.sub.saber;
+  document.getElementById('subHacer').innerHTML=n.sub.hacer;
+  document.getElementById('subSer').innerHTML=n.sub.ser;
+  document.getElementById('subConcl').innerHTML=n.sub.concl;
+  document.getElementById('discusionTexto').innerHTML='<strong>Antes de presentar:</strong> '+n.disc;
+  document.getElementById('bloqueAvanzado').classList.toggle('visible',nivelSel==='avanzado');
+}
+document.getElementById('btnVolver').addEventListener('click',()=>{vistaTrabajo.style.display='none';vistaPortada.style.display='block';window.scrollTo({top:0,behavior:'smooth'})});
+document.querySelectorAll('.art-card-header').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('abierto')));
+
+const ICON_UP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>';
+const ICON_DOWN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>';
+const ICON_MOVE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>';
+const ICON_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
+function crearLinea(valor){
+  const row=document.createElement('div');row.className='linea';
+  row.innerHTML='<input type="text" placeholder="Escriban aqu&iacute;..." value="'+esc(valor||'')+'"><span class="linea-btns"><button class="minibtn up" title="Subir">'+ICON_UP+'</button><button class="minibtn down" title="Bajar">'+ICON_DOWN+'</button><button class="minibtn mover" title="Mover a otra capa">'+ICON_MOVE+'</button><button class="minibtn del" title="Borrar">'+ICON_DEL+'</button></span>';
+  row.querySelector('.up').addEventListener('click',()=>{const p=row.previousElementSibling;if(p)row.parentNode.insertBefore(row,p);refrescarTodo()});
+  row.querySelector('.down').addEventListener('click',()=>{const n=row.nextElementSibling;if(n)row.parentNode.insertBefore(n,row);refrescarTodo()});
+  row.querySelector('.del').addEventListener('click',()=>{row.remove();refrescarTodo()});
+  row.querySelector('.mover').addEventListener('click',e=>abrirMover(e,row));
+  return row;
+}
+function refrescarTodo(){document.querySelectorAll('.lineas').forEach(cont=>{const rows=[...cont.querySelectorAll('.linea')];rows.forEach((r,idx)=>{r.querySelector('.up').disabled=idx===0;r.querySelector('.down').disabled=idx===rows.length-1})})}
+document.querySelectorAll('.add-linea').forEach(btn=>btn.addEventListener('click',()=>{const cont=document.querySelector('.lineas[data-capa="'+btn.dataset.capa+'"]');const row=crearLinea('');cont.appendChild(row);row.querySelector('input').focus();refrescarTodo()}));
+function abrirMover(ev,row){
+  cerrarMover();const origen=row.closest('.lineas').dataset.capa;
+  const back=document.createElement('div');back.className='mover-backdrop';back.addEventListener('click',cerrarMover);
+  const pop=document.createElement('div');pop.className='mover-pop';
+  const capas=capasDisponibles();
+  pop.innerHTML='<div class="mover-pop-h">Mover a...</div>'+Object.keys(capas).map(k=>'<button class="mover-opt" data-dest="'+k+'" '+(k===origen?'disabled':'')+'>'+capas[k]+'</button>').join('');
+  document.body.appendChild(back);document.body.appendChild(pop);
+  const r=ev.currentTarget.getBoundingClientRect();let top=r.bottom+6,left=Math.min(r.left,window.innerWidth-225);if(top+240>window.innerHeight)top=Math.max(8,r.top-240);pop.style.top=top+'px';pop.style.left=Math.max(8,left)+'px';
+  pop.querySelectorAll('.mover-opt').forEach(opt=>{if(opt.disabled)return;opt.addEventListener('click',()=>{document.querySelector('.lineas[data-capa="'+opt.dataset.dest+'"]').appendChild(row);cerrarMover();refrescarTodo()})});
+}
+function cerrarMover(){document.querySelectorAll('.mover-pop,.mover-backdrop').forEach(e=>e.remove())}
+document.getElementById('btnLimpiar').addEventListener('click',()=>{document.querySelectorAll('.lineas').forEach(c=>c.innerHTML='')});
+function lineasDe(capa){return[...document.querySelectorAll('.lineas[data-capa="'+capa+'"] .linea input')].map(i=>i.value.trim()).filter(Boolean)}
+function datos(){return{nivel:NIVELES[nivelSel],caso:CASOS[casoSel],saber:lineasDe('saber'),hacer:lineasDe('hacer'),ser:lineasDe('ser'),concl:lineasDe('concl'),advInd:lineasDe('advInd'),advDes:lineasDe('advDes'),advRiesgo:lineasDe('advRiesgo')}}
+function slugCaso(){return (casoSel+1)+'-'+decodeHtml(CASOS[casoSel].t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+nivelSel}
+function lista(arr){return arr.length?'<ul>'+arr.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p class="vacio">(sin respuesta)</p>'}
+function construirDocumento(forWord){
+  const d=datos(),wordMeta=forWord?'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->':'';
+  const avanzado=nivelSel==='avanzado'?'<h2>Riesgo de impugnaci&oacute;n</h2>'+lista(d.advInd)+'<h2>Vicio de procedimiento</h2>'+lista(d.advDes)+'<h2>Medida preventiva de actas</h2>'+lista(d.advRiesgo):'';
+  return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Taller de Gesti&oacute;n de Asambleas</title>'+wordMeta+'<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}h2{font-size:12pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}ul{margin:4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}body{background-image:none}</style>'
+    + '</head><body><div class="marca">CoopeNotebook</div><h1>Trabajo pr&aacute;ctico: Taller de Gesti&oacute;n de Asambleas</h1><div class="caso"><b>Caso '+(casoSel+1)+' - '+esc(decodeHtml(d.caso.t))+'</b><br><b>Nivel:</b> '+esc(d.nivel.nombre)+'<br>'+esc(decodeHtml(d.caso.d))+'<br><em>'+esc(decodeHtml(d.caso.p))+'</em></div>'+avanzado+'<h2>Vicio del proceso</h2>'+lista(d.saber)+'<h2>Base legal de nulidad</h2>'+lista(d.hacer)+'<h2>Propuesta de subsanaci&oacute;n</h2>'+lista(d.ser)+'<h2>Acuerdo para plenaria</h2>'+lista(d.concl)+'</body></html>';
+}
+
+document.getElementById('btnPDF').addEventListener('click',()=>{if(casoSel<0)return;const old=document.getElementById('print-frame');if(old)old.remove();const frame=document.createElement('iframe');frame.id='print-frame';frame.style.position='fixed';frame.style.right='0';frame.style.bottom='0';frame.style.width='0';frame.style.height='0';frame.style.border='0';document.body.appendChild(frame);const fdoc=frame.contentWindow.document;fdoc.open();fdoc.write(construirDocumento(false));fdoc.close();setTimeout(()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}},300)});
+document.getElementById('btnWord').addEventListener('click',()=>{if(casoSel<0)return;const blob=new Blob(['\ufeff'+construirDocumento(true)],{type:'application/msword'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='asambleas-'+slugCaso()+'.doc';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000)});
+document.getElementById('btnPPT').addEventListener('click',()=>{
+  if(casoSel<0)return;if(typeof PptxGenJS==='undefined'){alert('No se pudo cargar la biblioteca PowerPoint. Verifique conexi&oacute;n.');return}
+  const d=datos(),pptx=new PptxGenJS();pptx.defineLayout({name:'W',width:13.333,height:7.5});pptx.layout='W';
+  const VERDE='1C6B4A',AMAR='F4C20D',GRIS='3A3A36';let s=pptx.addSlide();s.background={color:'FFFFFF'};s.addText('CoopeNotebook',{x:.6,y:.5,fontSize:14,bold:true,color:VERDE});s.addText('Taller de Gesti&oacute;n de Asambleas',{x:.6,y:2.1,w:12,fontSize:36,bold:true,color:'1A1A18'});s.addShape(pptx.ShapeType.rect,{x:.65,y:3.18,w:1.6,h:.08,fill:{color:VERDE}});s.addText('Caso '+(casoSel+1)+' - '+decodeHtml(d.caso.t),{x:.6,y:3.55,w:12,fontSize:21,color:VERDE,bold:true});s.addText('Nivel: '+d.nivel.nombre,{x:.6,y:4.05,w:12,fontSize:15,color:GRIS});
+  const secciones=nivelSel==='avanzado'
+    ? [['Riesgo de impugnaci&oacute;n',d.advInd],['Vicio de procedimiento',d.advDes],['Medida de actas',d.advRiesgo],['Vicio del proceso',d.saber],['Base legal de nulidad',d.hacer],['Propuesta de subsanaci&oacute;n',d.ser],['Acuerdo para plenaria',d.concl]]
+    : [['Vicio del proceso',d.saber],['Base legal de nulidad',d.hacer],['Propuesta de subsanaci&oacute;n',d.ser],['Acuerdo para plenaria',d.concl]];
+  secciones.forEach(([titulo,items])=>{const arr=items.length?items:['(sin respuesta)'];for(let p=0;p<Math.ceil(arr.length/3);p++){const trozo=arr.slice(p*3,(p+1)*3),sl=pptx.addSlide();sl.background={color:'FFFFFF'};sl.addShape(pptx.ShapeType.rect,{x:0,y:0,w:.25,h:7.5,fill:{color:VERDE}});sl.addText(decodeHtml(titulo)+(arr.length>3?' ('+(p+1)+'/'+Math.ceil(arr.length/3)+')':''),{x:.8,y:.55,w:11.8,fontSize:30,bold:true,color:VERDE});sl.addShape(pptx.ShapeType.rect,{x:.85,y:1.5,w:1.4,h:.07,fill:{color:AMAR}});sl.addText(trozo.map(t=>({text:t,options:{bullet:{code:'2022'},color:'1A1A18',fontSize:22,paraSpaceAfter:14}})),{x:.95,y:1.95,w:11.4,h:4.8,valign:'top'});sl.addText('Caso '+(casoSel+1)+' - Nivel '+d.nivel.nombre,{x:.8,y:6.95,w:11.8,fontSize:11,color:'6A6A64'})}});
+  const sf=pptx.addSlide();sf.background={color:VERDE};sf.addText('Para la plenaria',{x:.5,y:1.5,w:12.3,align:'center',fontSize:34,bold:true,color:'FFFFFF'});sf.addText(decodeHtml(d.nivel.disc),{x:1.3,y:2.7,w:10.7,h:2.3,align:'center',fontSize:20,color:'D8EDE2'});pptx.writeFile({fileName:'asambleas-'+slugCaso()+'.pptx'});
+});
+</script>
+<script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabajo pr&aacute;ctico: Legislaci&oacute;n cooperativista</title>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <style>
+    :root{
+      --verde:#1c6b4a;--verde-sec:#2fa36b;--verde-claro:#e8f4ef;--verde-borde:#b8dccc;
+      --amarillo:#f4c20d;--blanco:#fff;--gris-bg:#f7f7f5;--gris-borde:#e4e4e0;
+      --texto:#1a1a18;--texto-sec:#3a3a36;--texto-ter:#6a6a64;--rojo:#b83232;
+      --radio:10px;--radio-sm:6px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--gris-bg);color:var(--texto);font-size:16px;line-height:1.6;min-height:100vh}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem 2rem;height:72px;border-bottom:1px solid var(--gris-borde);background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40}
+    .brand{color:var(--texto);text-decoration:none;font-size:20px;font-weight:500;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center}
+    .brand strong{color:var(--verde);font-weight:700}
+    .back{font-size:13px;color:var(--texto-sec);text-decoration:none;font-weight:500;transition:color 0.15s;display:flex;align-items:center;gap:6px}
+    .back:hover{color:var(--verde)}
+    .nb-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);cursor:pointer;color:var(--verde)}
+    .nb-toggle svg{width:22px;height:22px}
+    .shell{display:flex;min-height:calc(100vh - 72px)}
+    .sidebar{width:260px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;display:flex;flex-direction:column}
+    .nb-marca-titulo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-borde);font-size:14px;font-weight:600;color:var(--verde);line-height:1.35}
+    .nb-nav{list-style:none;padding:.5rem 0;flex:1}.nb-nav a{width:100%;text-align:left;background:none;border:none;padding:.75rem 1.5rem;font-size:14px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .15s,color .15s,box-shadow .15s;border-left:3px solid transparent;text-decoration:none}
+    .nb-nav a:hover{background:var(--verde-claro);color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.08)}
+    .nb-nav a.activo{background:var(--verde-claro);color:var(--verde);font-weight:600;border-left-color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.12)}
+    .nb-nav-num{font-size:10px;font-weight:700;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
+    .sidebar-foot{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);font-size:12px;color:var(--texto-ter);line-height:1.45}
+    .main{flex:1;padding:1.5rem;min-width:0}.wrap{max-width:820px;margin:0 auto;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2.25rem 2.5rem}
+    h1{font-size:26px;font-weight:650;line-height:1.25;margin-bottom:.45rem;padding-bottom:.55rem;position:relative}h1::after{content:"";display:block;width:2.5rem;height:3px;background:var(--verde);margin-top:.55rem;border-radius:2px}
+    .intro{font-size:15px;color:var(--texto-sec);line-height:1.7;margin-bottom:1.5rem}.intro strong{color:var(--texto);font-weight:600}
+    .meta-line{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.35rem}.pill{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:999px;padding:.28rem .65rem}
+    .seccion-h{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin:2rem 0 .9rem}
+    .pasos{display:flex;flex-direction:column;gap:.65rem;margin:1rem 0 1.75rem}.paso{display:flex;gap:.875rem;align-items:flex-start}.paso-num{width:24px;height:24px;border-radius:50%;background:var(--verde);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.paso-texto{font-size:14.5px;color:var(--texto-sec);line-height:1.55}.paso-texto strong{color:var(--texto);font-weight:600}
+    .callout{background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio);padding:1rem 1.25rem;font-size:14px;color:var(--texto-sec);line-height:1.6;margin:1.5rem 0}.callout strong{color:var(--verde);font-weight:700}
+    .nivel-grid,.casos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin:1rem 0}.casos-grid{grid-template-columns:1fr}
+    .nivel-card,.caso-card{border:1.5px solid var(--gris-borde);border-radius:var(--radio);padding:1rem 1.1rem;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;gap:.85rem;align-items:flex-start;background:#fff;text-align:left;font-family:inherit;color:inherit}.nivel-card:hover,.caso-card:hover{background:var(--verde-claro);border-color:var(--verde-borde)}.nivel-card.activo{border-color:var(--verde);box-shadow:inset 0 0 0 1px var(--verde);background:#fbfdfc}
+    .nivel-tag{font-size:11px;font-weight:700;color:#fff;background:var(--verde);border-radius:999px;padding:.2rem .5rem;white-space:nowrap}.nivel-card[data-level="principiante"] .nivel-tag{background:#2f7da3}.nivel-card[data-level="avanzado"] .nivel-tag{background:#805c16}
+    .nivel-title,.caso-card-titulo{font-size:15px;font-weight:650;color:var(--texto);margin-bottom:.2rem}.nivel-desc,.caso-card-desc{font-size:13.5px;color:var(--texto-sec);line-height:1.5}
+    .caso-num{width:26px;height:26px;border-radius:50%;background:var(--verde);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.caso-card-cont{flex:1}.caso-flecha{color:var(--texto-ter);font-size:18px;align-self:center}
+    #vistaTrabajo{display:none}.volver{display:inline-flex;align-items:center;gap:.4rem;font-size:13px;color:var(--verde);background:none;border:none;cursor:pointer;font-family:inherit;padding:.4rem 0;margin-bottom:1rem}.volver:hover{text-decoration:underline}
+    .banner{background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio);padding:1.1rem 1.35rem;margin-bottom:1.5rem}.banner-label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--verde);margin-bottom:.35rem}.banner-title{font-size:19px;font-weight:650;color:var(--texto);line-height:1.3;margin-bottom:.35rem}.banner-text{font-size:14.5px;color:var(--texto-sec);line-height:1.5}.banner-question{font-size:14px;color:var(--texto-sec);margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--verde-borde)}
+    .repaso{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1rem 0}.repaso-item{border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.85rem 1rem;background:#fff;font-size:13.5px;color:var(--texto-sec);line-height:1.55}.repaso-item strong{color:var(--texto)}
+    .guia{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;margin:1rem 0 1.5rem}.guia-head{background:#fbfdfc;border-bottom:1px solid var(--gris-borde);padding:.85rem 1rem}.guia-title{font-size:14px;font-weight:700;color:var(--verde)}.guia-sub{font-size:12.5px;color:var(--texto-ter);margin-top:.15rem}.guia-list{padding:.85rem 1.2rem .95rem 1.35rem;color:var(--texto-sec);font-size:14px;line-height:1.55}.guia-list li{margin:.25rem 0}
+    .nivel-extra{display:none;border:1px solid var(--verde-borde);border-radius:var(--radio);background:#fbfdfc;padding:1rem 1.1rem;margin:1.25rem 0 1.75rem}.nivel-extra.visible{display:block}.nivel-extra-title{font-size:15px;font-weight:700;color:var(--verde);margin-bottom:.25rem}.nivel-extra-copy{font-size:13.5px;color:var(--texto-sec);line-height:1.55;margin-bottom:1rem}.criterios-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}.criterio{background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.85rem}.criterio-title{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:.2rem}.criterio-sub{font-size:12.5px;color:var(--texto-ter);line-height:1.45;margin-bottom:.65rem}
+    .ref-intro{font-size:13.5px;color:var(--texto-sec);line-height:1.6;margin-bottom:1rem}.ref-grupo-h{font-size:13px;font-weight:700;color:var(--verde);margin:1.25rem 0 .6rem}
+    .art-card{margin-bottom:.6rem;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}.art-card-header{padding:.7rem 1rem;display:flex;align-items:center;cursor:pointer;transition:background .15s;gap:.7rem;min-height:44px}.art-card-header:hover{background:var(--gris-bg)}.art-num{font-size:12px;font-weight:700;color:var(--verde);flex-shrink:0}.art-ley{font-size:10px;font-weight:700;color:var(--texto-ter);background:var(--gris-bg);padding:2px 6px;border-radius:4px;flex-shrink:0}.art-resumen{font-size:13.5px;color:var(--texto);flex:1}.art-chev{width:16px;height:16px;flex-shrink:0;color:var(--texto-ter);transition:transform .2s}.art-card.abierto .art-chev{transform:rotate(180deg)}.art-texto{display:none;padding:.85rem 1rem;font-size:13px;color:var(--texto-sec);line-height:1.7;border-top:1px solid var(--gris-borde);background:var(--gris-bg)}.art-card.abierto .art-texto{display:block}.legal-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin:.15rem 0 .45rem}.legal-text{background:#fff;border-left:3px solid var(--verde-sec);border-radius:0 var(--radio-sm) var(--radio-sm) 0;padding:.8rem .95rem;color:var(--texto);white-space:pre-line}.legal-exp{margin-top:.8rem;padding:.75rem .9rem;background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio-sm);color:var(--texto-sec)}.legal-exp strong{color:var(--verde)}.ref-aviso{font-size:12px;color:var(--texto-ter);margin-top:1rem;line-height:1.5;padding:.75rem 1rem;border:1px dashed var(--gris-borde);border-radius:var(--radio-sm)}
+    .capa{margin-bottom:1.75rem}.capa-titulo{font-size:15px;font-weight:700;color:var(--verde);margin-bottom:.15rem}.capa-sub{font-size:13px;color:var(--texto-ter);margin-bottom:.7rem}.lineas{display:flex;flex-direction:column;gap:.5rem;min-height:8px}.linea{display:flex;align-items:center;gap:.4rem;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio-sm);padding:.35rem .4rem .35rem .55rem}.linea input{flex:1;min-width:0;font-family:inherit;font-size:15px;padding:.5rem .4rem;border:none;color:var(--texto);background:transparent}.linea input:focus{outline:none}.linea-btns{display:flex;gap:1px;flex-shrink:0}.minibtn{width:30px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:none;background:none;color:var(--texto-ter);cursor:pointer;border-radius:4px;font-size:14px;line-height:1}.minibtn:hover{background:var(--gris-bg);color:var(--verde)}.minibtn.del:hover{color:var(--rojo);background:#fdecea}.minibtn:disabled{opacity:.25;cursor:default}.minibtn svg{width:15px;height:15px}.add-linea{margin-top:.55rem;display:inline-flex;align-items:center;gap:.4rem;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:var(--radio-sm);padding:.5rem .9rem;cursor:pointer;min-height:40px}.add-linea:hover{background:#ddeee5}
+    .mover-pop{position:fixed;z-index:50;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);box-shadow:0 6px 24px rgba(0,0,0,.14);padding:.4rem;min-width:210px}.mover-pop-h{font-size:11px;color:var(--texto-ter);padding:.35rem .6rem .45rem;text-transform:uppercase;letter-spacing:.05em}.mover-opt{display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;font-size:14px;color:var(--texto);padding:.55rem .6rem;border-radius:var(--radio-sm);cursor:pointer}.mover-opt:hover{background:var(--verde-claro)}.mover-opt:disabled{opacity:.35;cursor:default}.mover-backdrop{position:fixed;inset:0;z-index:49}
+    .discusion{background:var(--gris-bg);border-left:3px solid var(--amarillo);padding:1rem 1.15rem;border-radius:0 var(--radio-sm) var(--radio-sm) 0;font-size:14px;color:var(--texto-sec);line-height:1.6;margin:1.5rem 0}
+    .acciones{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}.btn{font-family:inherit;font-size:15px;font-weight:700;padding:.75rem 1.35rem;border-radius:var(--radio-sm);cursor:pointer;border:1px solid transparent;min-height:44px;transition:background .15s,border-color .15s}.btn-primario{background:var(--verde);color:#fff}.btn-primario:hover{background:#155539}.btn-sec{background:var(--blanco);color:var(--verde);border-color:var(--verde-borde)}.btn-sec:hover{background:var(--verde-claro)}.aviso{font-size:13px;color:var(--texto-ter);margin-top:.9rem;line-height:1.5}
+    .nb-overlay{display:none}
+    @media (max-width: 820px) {
+      .shell { display: block; }
+      .nb-toggle { display: flex; }
+      .nb-overlay { display: block; position: fixed; inset: 0; z-index: 55; background: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity 0.26s ease; }
+      .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+      .sidebar { display: flex; position: fixed; top: 0; left: 0; z-index: 60; width: 84%; max-width: 300px; height: 100vh; border-right: 1px solid var(--gris-borde); transform: translateX(-100%); transition: transform 0.26s ease; box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12); }
+      .sidebar.abierto { transform: translateX(0); }
+      .nb-cerrar { display: block; margin: .75rem 1.25rem 0; background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .55rem .75rem; color: var(--verde); font-family: inherit; font-weight: 700; }
+      .main { padding: 2.25rem 1rem 6rem; }
+      .wrap { padding: 1.6rem 1.1rem; }
+      .nivel-grid, .repaso, .criterios-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .linea { align-items: flex-start; }
+      .linea-btns { padding-top: .15rem; flex-wrap: wrap; width: 62px; }
+      .minibtn { width: 28px; height: 32px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+  <a class="back" href="../index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Volver al índice
+  </a>
+</header>
+
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+<div class="shell">
+<nav class="sidebar" aria-label="Navegación del trabajo">
+  <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+  <div class="nb-marca-titulo">
+    Legislaci&oacute;n cooperativa
+  </div>
+  <ul class="nb-nav">
+    <li><a class="activo" href="#vistaPortada"><span class="nb-nav-num">00</span>Inicio</a></li>
+    <li><a href="#selectorNivel"><span class="nb-nav-num">01</span>Nivel</a></li>
+    <li><a href="#selectorCaso"><span class="nb-nav-num">02</span>Casos</a></li>
+    <li><a href="#repasoClave"><span class="nb-nav-num">03</span>Repaso</a></li>
+    <li><a href="#referenciaLegal"><span class="nb-nav-num">04</span>Referencia</a></li>
+    <li><a href="#perfilCapas"><span class="nb-nav-num">05</span>Trabajo</a></li>
+    <li><a href="#discusionFinal"><span class="nb-nav-num">06</span>Discusi&oacute;n</a></li>
+  </ul>
+  <div class="sidebar-foot">Un mismo enlace para Zoom, aula presencial o trabajo h&iacute;brido.</div>
+</nav>
+<main class="main">
+<div class="wrap">
+
+  <div id="vistaPortada">
+    <div class="meta-line"><span class="pill">Legislaci&oacute;n cooperativista</span><span class="pill">Trabajo en equipo</span><span class="pill">35-60 min</span></div>
+    <h1>Taller de Aplicaci&oacute;n Legal</h1>
+    <p class="intro">Cada equipo trabaja <strong>un caso de aplicaci&oacute;n legal cooperativa</strong>: analiza conflictos de jerarqu&iacute;a normativa, interpretaciones teleol&oacute;gicas o l&iacute;mites regulatorios (piso/techo) establecidos en la LCH y su Reglamento.</p>
+
+    <p class="seccion-h">C&oacute;mo trabajamos</p>
+    <div class="pasos">
+      <div class="paso"><div class="paso-num">1</div><div class="paso-texto"><strong>El facilitador asigna el nivel y el caso.</strong> Todos usan este enlace, pero cada equipo trabaja su ruta.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-texto">Revisen el <strong>repaso de jerarqu&iacute;a</strong> y los art&iacute;culos de referencia para fundamentar sus dict&aacute;menes.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-texto">Resuelvan en cuatro capas: <strong>conflicto normativo, interpretaci&oacute;n legal, soluci&oacute;n propuesta y acuerdo final.</strong></div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-texto">Preparen la exposici&oacute;n y descarguen el informe en <strong>PDF, Word o PowerPoint</strong>.</div></div>
+    </div>
+    <div class="callout"><strong>Para la plenaria:</strong> la discusi&oacute;n gira en torno a c&oacute;mo aplicar la ley no como una traba, sino como una herramienta que protege la legalidad y los derechos de los socios en la cooperativa.</div>
+
+    <p class="seccion-h" id="selectorNivel">Elijan el nivel asignado</p>
+    <div class="nivel-grid" id="nivelGrid">
+      <button class="nivel-card" data-level="principiante"><span class="nivel-tag">Principiante</span><span><span class="nivel-title">M&aacute;s guiado</span><span class="nivel-desc">Identificar la norma que pesa m&aacute;s y resolver contradicciones b&aacute;sicas.</span></span></button>
+      <button class="nivel-card activo" data-level="balanceado"><span class="nivel-tag">Balanceado</span><span><span class="nivel-title">Est&aacute;ndar</span><span class="nivel-desc">Analizar usando las 3 v&iacute;as de interpretaci&oacute;n (gramatical, contextual y teleol&oacute;gica).</span></span></button>
+      <button class="nivel-card" data-level="avanzado"><span class="nivel-tag">Avanzado</span><span><span class="nivel-title">M&aacute;s exigente</span><span class="nivel-desc">Conflictos complejos de jerarqu&iacute;a de leyes y plazos de vigencia legal.</span></span></button>
+    </div>
+
+    <p class="seccion-h" id="selectorCaso">Elijan su caso</p>
+    <div class="casos-grid" id="casosGrid"></div>
+  </div>
+
+  <div id="vistaTrabajo">
+    <button class="volver" id="btnVolver">&larr; Elegir otro caso o nivel</button>
+    <div class="banner">
+      <div class="banner-label" id="casoActivoLabel">Caso</div>
+      <div class="banner-title" id="casoActivoTitulo"></div>
+      <div class="banner-text" id="casoActivoTexto"></div>
+      <div class="banner-question" id="casoActivoPregunta"></div>
+    </div>
+
+    <p class="seccion-h" id="repasoClave">Repaso breve: jerarqu&iacute;a e interpretaci&oacute;n</p>
+    <div class="repaso">
+      <div class="repaso-item"><strong>Pir&aacute;mide Normativa.</strong> La ley superior prevalece. La Constituci&oacute;n manda, luego la LCH, luego el Reglamento, el Estatuto y finalmente los reglamentos internos.</div>
+      <div class="repaso-item"><strong>Los l&iacute;mites (piso/techo).</strong> "Por lo menos" marca un piso (se puede m&aacute;s, no menos). "Hasta" o "no mayor de" marca un techo (se puede menos, no m&aacute;s).</div>
+      <div class="repaso-item"><strong>Tres v&iacute;as para interpretar.</strong> Gramatical (el significado literal de las palabras), Contextual (la norma en su conjunto legal) y Teleol&oacute;gica (el fin o "esp&iacute;ritu" de la norma).</div>
+      <div class="repaso-item"><strong>El tiempo en el derecho.</strong> La vigencia manda. Un acto se juzga con la ley de su momento; los plazos de adecuaci&oacute;n suspenden temporalmente las sanciones.</div>
+    </div>
+
+    <div class="guia">
+      <div class="guia-head">
+        <div class="guia-title" id="guiaTitulo">Nivel balanceado</div>
+        <div class="guia-sub" id="guiaSub">Gu&iacute;a de trabajo para el equipo</div>
+      </div>
+      <ol class="guia-list" id="guiaLista"></ol>
+    </div>
+
+    <div class="nivel-extra" id="bloqueAvanzado">
+      <div class="nivel-extra-title">Criterios Avanzados de Interpretaci&oacute;n</div>
+      <p class="nivel-extra-copy">Antes de resolver la soluci&oacute;n, clasifiquen la jerarqu&iacute;a y el m&eacute;todo de interpretaci&oacute;n id&oacute;neo para este caso.</p>
+      <div class="criterios-grid">
+        <div class="criterio">
+          <div class="criterio-title">Jerarqu&iacute;a de normas</div>
+          <div class="criterio-sub">Identifiquen cu&aacute;l es la norma superior y la inferior en conflicto.</div>
+          <div class="lineas" data-capa="advInd"></div>
+          <button class="add-linea" data-capa="advInd">+ Agregar criterio</button>
+        </div>
+        <div class="criterio">
+          <div class="criterio-title">Esp&iacute;ritu de la norma</div>
+          <div class="criterio-sub">¿Cu&aacute;l es el fin protector o la intenci&oacute;n teleol&oacute;gica del legislador?</div>
+          <div class="lineas" data-capa="advDes"></div>
+          <button class="add-linea" data-capa="advDes">+ Agregar criterio</button>
+        </div>
+        <div class="criterio">
+          <div class="criterio-title">Riesgo de ilegalidad</div>
+          <div class="criterio-sub">Consecuencias para la cooperativa si se mantiene la norma inferior o mala lectura.</div>
+          <div class="lineas" data-capa="advRiesgo"></div>
+          <button class="add-linea" data-capa="advRiesgo">+ Agregar riesgo</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="seccion-h" id="referenciaLegal">Referencia legal: Jerarqu&iacute;a y Art&iacute;culos Clave</p>
+    <p class="ref-intro">Utilicen estas normas de la LCH y su Reglamento como base legal de su taller.</p>
+    
+    <div class="ref-grupo-h">Jerarqu&iacute;a y Qu&oacute;rum Constitutivo</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 10</span><span class="art-ley">LCH</span><span class="art-resumen">M&iacute;nimo de cooperativistas para constituir</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 10.- Ninguna Cooperativa de Primer Grado puede constituirse con un n&uacute;mero menor de doce (12) cooperativistas, sin perjuicio de lo que establezca el Reglamento de esta Ley, en cuanto a un n&uacute;mero mayor para Subsectores Especiales. Y las de Segundo Grado se constituir&aacute;n con un n&uacute;mero no menor de veinte (20) cooperativas.</div><div class="legal-exp"><strong>Para el trabajo:</strong> Muestra c&oacute;mo la Ley general delega en el Reglamento para establecer l&iacute;mites superiores en casos especiales.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 9 lit. b</span><span class="art-ley">RLCH</span><span class="art-resumen">Qu&oacute;rum de asamblea constitutiva por subsector</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 9 inciso b).- Qu&oacute;rum de la asamblea constitutiva. La Asamblea queda constituida con un n&uacute;mero de asistentes no menor de doce (12) personas; sin embargo, para las cooperativas de ahorro y cr&eacute;dito y cooperativas regionales, este requisito se eleva a no menos de treinta (30) personas.</div><div class="legal-exp"><strong>Para el trabajo:</strong> Aqu&iacute; el Reglamento complementa a la Ley elevando el qu&oacute;rum constitutivo para subsectores espec&iacute;ficos. No hay contradicci&oacute;n, hay complementaci&oacute;n.</div></div></div>
+
+    <div class="ref-grupo-h">L&iacute;mites, Excedentes e Inversi&oacute;n Social</div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 44 lit. a</span><span class="art-ley">LCH</span><span class="art-resumen">Fondo de reserva legal (Por lo menos 10%)</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 44.- Los excedentes se distribuir&aacute;n en la forma siguiente:
+a) Por lo menos un 10% para formar un fondo de reserva legal acumulable anualmente, no repartible y que servir&aacute; para cubrir p&eacute;rdidas...</div><div class="legal-exp"><strong>Para el trabajo:</strong> "Por lo menos" indica un piso. La Asamblea General puede autorizar un porcentaje mayor, pero nunca menor al 10%.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 29-A lit. g</span><span class="art-ley">LCH</span><span class="art-resumen">L&iacute;mite de contrataci&oacute;n de la JD (Hasta el 10% de activos)</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 29-A.- Corresponde a la Junta Directiva:
+g) Fijar las bases y firmar contratos y convenios... cuando el monto sea menor al Diez (10%) de los activos totales de &eacute;sta.</div><div class="legal-exp"><strong>Para el trabajo:</strong> "Menor al" funciona como techo. Si el contrato supera ese porcentaje, la competencia es exclusiva de la Asamblea General.</div></div></div>
+    <div class="art-card"><div class="art-card-header"><span class="art-num">Art. 45</span><span class="art-ley">LCH</span><span class="art-resumen">Excedentes por operaciones con no afiliados(as)</span><svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="art-texto"><span class="legal-label">Texto legal</span><div class="legal-text">ART&Iacute;CULO 45.- Los excedentes provenientes de las operaciones que la cooperativa realice con personas que no tengan la calidad de afiliado(a) no se distribuyen entre los cooperativistas, sino que se destinan a la formaci&oacute;n de un Programa de Desarrollo Cooperativo, conforme lo establezca el Reglamento.</div><div class="legal-exp"><strong>Para el trabajo:</strong> L&iacute;mite literal y teleol&oacute;gico. Estos excedentes no pueden repartirse de forma individual a los cooperativistas; van a programas de beneficio colectivo.</div></div></div>
+
+    <p class="seccion-h" id="perfilCapas">Diagn&oacute;stico en cuatro capas</p>
+    <div class="capa">
+      <div class="capa-titulo">Conflicto normativo o de l&iacute;mites</div>
+      <div class="capa-sub" id="subSaber">Describan la discrepancia de normas o la confusi&oacute;n sobre l&iacute;mites (piso/techo) encontrada.</div>
+      <div class="lineas" data-capa="saber"></div>
+      <button class="add-linea" data-capa="saber">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Interpretaci&oacute;n y base legal</div>
+      <div class="capa-sub" id="subHacer">Hechos y art&iacute;culos aplicados, justificando con la lectura gramatical, contextual o teleol&oacute;gica.</div>
+      <div class="lineas" data-capa="hacer"></div>
+      <button class="add-linea" data-capa="hacer">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Soluci&oacute;n legal propuesta</div>
+      <div class="capa-sub" id="subSer">¿Qu&eacute; norma debe prevalecer y qu&eacute; modificaci&oacute;n o acuerdo debe tomarse para actuar dentro de la legalidad?</div>
+      <div class="lineas" data-capa="ser"></div>
+      <button class="add-linea" data-capa="ser">+ Agregar l&iacute;nea</button>
+    </div>
+    <div class="capa">
+      <div class="capa-titulo">Acuerdo para plenaria</div>
+      <div class="capa-sub" id="subConcl">En una frase: dictamen del equipo sobre la aplicaci&oacute;n legal del caso.</div>
+      <div class="lineas" data-capa="concl"></div>
+      <button class="add-linea" data-capa="concl">+ Agregar l&iacute;nea</button>
+    </div>
+
+    <p class="seccion-h" id="discusionFinal">Preparar la discusi&oacute;n final</p>
+    <div class="discusion" id="discusionTexto"></div>
+
+    <div class="acciones">
+      <button class="btn btn-primario" id="btnPDF">Descargar PDF</button>
+      <button class="btn btn-sec" id="btnWord">Descargar Word</button>
+      <button class="btn btn-sec" id="btnPPT">Descargar PowerPoint</button>
+      <button class="btn btn-sec" id="btnLimpiar">Limpiar respuestas</button>
+    </div>
+    <p class="aviso">PDF y Word generan un documento completo de apoyo. PowerPoint crea una presentaci&oacute;n de diapositivas para la plenaria.</p>
+  </div>
+</div>
+</main>
+</div>
+
+<script>
+function abrirMenu(){document.querySelector('.sidebar').classList.add('abierto');document.querySelector('.nb-overlay').classList.add('visible')}
+function cerrarMenu(){document.querySelector('.sidebar').classList.remove('abierto');document.querySelector('.nb-overlay').classList.remove('visible')}
+document.querySelectorAll('.nb-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.nb-nav a').forEach(x=>x.classList.remove('activo'));a.classList.add('activo');if(window.innerWidth<=800)cerrarMenu()}));
+
+const CASOS=[
+  {t:"El reglamento interno ilegal",d:"La Asamblea General de una cooperativa aprueba una reforma a su Reglamento de Pr&eacute;stamos que permite cobrar un cargo extra administrativo del 5% del saldo vencido, acumulativo mensualmente. La comisi&oacute;n legal advierte que esto excede los l&iacute;mites de tasas de inter&eacute;s y usura de las leyes nacionales de Honduras y normas de CONSUCOOP, pero los directivos dicen que el reglamento interno de la asamblea es soberano.",p:"&iquest;Qu&eacute; norma prevalece y c&oacute;mo aplica la jerarqu&iacute;a normativa en este caso? &iquest;La soberan&iacute;a de la asamblea permite ir por encima de las leyes de la Rep&uacute;blica?"},
+  {t:"El estatuto desactualizado",d:"Una cooperativa fundada en 1995 mantiene en sus estatutos que las votaciones para elecciones se realizar&aacute;n 'por aclamaci&oacute;n en la sala'. Sin embargo, una reforma del Reglamento de la LCH del 2014 y las directrices de CONSUCOOP exigen voto secreto y voto por delegados/as en cooperativas con m&aacute;s de 3,000 afiliados/as.",p:"&iquest;Debe aplicarse la regla del estatuto o la del reglamento nacional de la LCH? Justifique su respuesta con la pir&aacute;mide de jerarqu&iacute;a de normas."},
+  {t:"Excedentes de terceros para las aportaciones",d:"En la Asamblea Ordinaria se presenta que el 30% de los excedentes del ejercicio social provienen de ventas a no afiliados. Un grupo de socios propone distribuir este monto directamente a las cuentas de aportaciones de todos los socios activos. Argumentan que as&iacute; se capitaliza la cooperativa y se beneficia a la membres&iacute;a.",p:"¿Qu&eacute; proh&iacute;be el Art&iacute;culo 45 de la LCH? ¿C&oacute;mo se interpreta este art&iacute;culo a la luz de las tres v&iacute;as (gramatical, contextual y teleol&oacute;gica)?"},
+  {t:"Reglamento de Cr&eacute;dito vs Estatuto",d:"La Junta Directiva, para agilizar la colocaci&oacute;n de cartera, reforma el Reglamento de Cr&eacute;dito permitiendo pr&eacute;stamos de hasta 200,000 Lempiras con garant&iacute;a fiduciaria simple. Sin embargo, el Estatuto de la cooperativa establece expl&iacute;citamente que todo pr&eacute;stamo mayor a 100,000 Lempiras requiere garant&iacute;a hipotecaria.",p:"&iquest;Cu&aacute;l es la jerarqu&iacute;a entre la Junta Directiva (que reforma el reglamento) y la Asamblea General (que aprob&oacute; el Estatuto)? &iquest;Es v&aacute;lido el reglamento reformado?"},
+  {t:"El dilema de la adecuaci&oacute;n temporal",d:"CONSUCOOP publica una circular que exige un incremento en las provisiones para cr&eacute;ditos vencidos. La circular concede un plazo de adecuaci&oacute;n de 6 meses. La Junta de Vigilancia exige sancionar a la Gerencia al tercer mes porque todav&iacute;a no se ha alcanzado la meta de provisiones. El Gerente alega que est&aacute; en per&oacute;odo de gracia.",p:"&iquest;C&oacute;mo influye el factor tiempo y el plazo de adecuaci&oacute;n en la exigibilidad de una norma legal?"},
+  {t:"La Asamblea aprueba una reserva del 8%",d:"Debido a p&eacute;rdidas causadas por una sequ&iacute;a en la cooperativa de producci&oacute;n, un directivo propone a la Asamblea General destinar solo el 8% de los excedentes de este a&ntilde;o al fondo de reserva legal para aliviar la situaci&oacute;n, y la Asamblea lo aprueba por mayor&iacute;a simple.",p:"&iquest;El Art&iacute;culo 44 de la LCH ('por lo menos un 10%') establece un l&iacute;mite de piso o de techo? &iquest;Es legal el acuerdo de la Asamblea?"}
+];
+
+const NIVELES={
+  principiante:{
+    nombre:"Principiante",bajada:"Identificar jerarqu&iacute;as normativas y l&iacute;mites literales.",
+    guia:["Identifiquen las dos normas en conflicto y cu&aacute;l tiene mayor rango legal.","Definan si el l&iacute;mite en conflicto es un piso ('al menos') o un techo ('hasta').","Propongan una decisi&oacute;n que se ajuste estrictamente a la letra de la ley."],
+    sub:{saber:"&iquest;Cu&aacute;les son las normas que entran en conflicto en este caso?",hacer:"&iquest;Cu&aacute;l de ellas tiene mayor rango y debe respetarse?",ser:"&iquest;Qu&eacute; acci&oacute;n correctiva inmediata proponen para cumplir la legalidad?",concl:"Acuerdo de equipo: Determinamos que debe prevalecer la norma ___ y la acci&oacute;n a tomar es ___."},
+    disc:"Para la plenaria: Expliquen por qu&eacute; el estatuto o el reglamento de la cooperativa no pueden violar la Ley Nacional de Cooperativas."
+  },
+  balanceado:{
+    nombre:"Balanceado",bajada:"Interpretar la norma usando las tres v&iacute;as cl&aacute;sicas.",
+    guia:["Identifiquen cu&aacute;l de las tres v&iacute;as de interpretaci&oacute;n (gramatical, contextual o teleol&oacute;gica) aclara mejor la intenci&oacute;n de la norma.","Justifiquen con base en la pir&aacute;mide normativa.","Planteen una soluci&oacute;n que resuelva el vac&iacute;o de forma legal y viable."],
+    sub:{saber:"Conflicto legal: describan la violaci&oacute;n o contradicci&oacute;n normativa del caso.",hacer:"Interpretaci&oacute;n legal: &iquest;cu&aacute;l es el esp&iacute;ritu o intenci&oacute;n protectora de la norma superior afectada?",ser:"Resoluci&oacute;n propuesta: &iquest;qu&eacute; cambio de reglamento, estatuto o acuerdo debe decretar la cooperativa?",concl:"Acuerdo final: Nuestro dictamen interpretativo es ___ y se debe resolver ___."},
+    disc:"Para la plenaria: Justifiquen c&oacute;mo la interpretaci&oacute;n teleol&oacute;gica (el esp&iacute;ritu de la ley) ayuda a evitar lecturas ama&ntilde;adas o da&ntilde;inas."
+  },
+  avanzado:{
+    nombre:"Avanzado",bajada:"Conflictos normativos complejos, vigencia y consecuencias de la inaplicaci&oacute;n.",
+    guia:["Llenen primero el bloque avanzado: jerarqu&iacute;a de normas, esp&iacute;ritu y riesgos de ilegalidad.","Eval&uacute;en los riesgos de impugnaci&oacute;n legal ante CONSUCOOP o nulidad de los acuerdos de asamblea.","Dise&ntilde;en una pol&iacute;tica de regularizaci&oacute;n legal para el estatuto o los procesos de la cooperativa."],
+    sub:{saber:"Hip&oacute;tesis de riesgo normativo: &iquest;qu&eacute; responsabilidades o demandas legales corre la cooperativa si se act&uacute;a ilegalmente?",hacer:"Vigencia y temporalidad: c&oacute;mo afecta el per&oacute;odo de vigencia o adecuaci&oacute;n en la resoluci&oacute;n del caso.",ser:"Propuesta de regularizaci&oacute;n y plan de acci&oacute;n legal ante los &oacute;rganos de control.",concl:"Acuerdo avanzado: Diagnosticamos una violaci&oacute;n de rango ___ y proponemos el plan de adecuaci&oacute;n ___."},
+    disc:"Para la plenaria: Defiendan su propuesta ante el grupo analizando las responsabilidades y sanciones a las que se expone la Junta Directiva si ejecuta el acuerdo ilegal aprobado por la Asamblea."
+  }
+};
+
+const CAPAS={saber:"Conflicto normativo o de l&iacute;mites",hacer:"Interpretaci&oacute;n y base legal",ser:"Soluci&oacute;n legal propuesta",concl:"Acuerdo para plenaria",advInd:"Jerarqu&iacute;a de normas",advDes:"Esp&iacute;ritu de la norma",advRiesgo:"Riesgo de ilegalidad"};
+let nivelSel="balanceado",casoSel=-1;
+const grid=document.getElementById('casosGrid'),vistaPortada=document.getElementById('vistaPortada'),vistaTrabajo=document.getElementById('vistaTrabajo');
+
+function capasDisponibles(){return nivelSel==='avanzado'?CAPAS:{saber:CAPAS.saber,hacer:CAPAS.hacer,ser:CAPAS.ser,concl:CAPAS.concl}}
+function decodeHtml(html){const t=document.createElement('textarea');t.innerHTML=html;return t.value}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function textoCaso(campo){return decodeHtml(CASOS[casoSel][campo])}
+document.querySelectorAll('.nivel-card').forEach(btn=>btn.addEventListener('click',()=>{nivelSel=btn.dataset.level;document.querySelectorAll('.nivel-card').forEach(x=>x.classList.remove('activo'));btn.classList.add('activo')}));
+CASOS.forEach((c,i)=>{const card=document.createElement('button');card.type='button';card.className='caso-card';card.innerHTML='<span class="caso-num">'+(i+1)+'</span><span class="caso-card-cont"><span class="caso-card-titulo">'+c.t+'</span><span class="caso-card-desc">'+c.d+'</span></span><span class="caso-flecha">&rarr;</span>';card.addEventListener('click',()=>abrirCaso(i));grid.appendChild(card)});
+
+function abrirCaso(i){
+  casoSel=i;
+  const n=NIVELES[nivelSel];
+  document.getElementById('casoActivoLabel').textContent='Caso '+(i+1)+' de '+CASOS.length+' · Nivel '+n.nombre;
+  document.getElementById('casoActivoTitulo').textContent=CASOS[i].t;
+  document.getElementById('casoActivoTexto').innerHTML=CASOS[i].d;
+  document.getElementById('casoActivoPregunta').innerHTML=CASOS[i].p;
+  aplicarNivel();
+  vistaPortada.style.display='none';vistaTrabajo.style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+}
+function aplicarNivel(){
+  const n=NIVELES[nivelSel];
+  document.getElementById('guiaTitulo').textContent='Nivel '+n.nombre;
+  document.getElementById('guiaSub').innerHTML=n.bajada;
+  document.getElementById('guiaLista').innerHTML=n.guia.map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('subSaber').innerHTML=n.sub.saber;
+  document.getElementById('subHacer').innerHTML=n.sub.hacer;
+  document.getElementById('subSer').innerHTML=n.sub.ser;
+  document.getElementById('subConcl').innerHTML=n.sub.concl;
+  document.getElementById('discusionTexto').innerHTML='<strong>Antes de presentar:</strong> '+n.disc;
+  document.getElementById('bloqueAvanzado').classList.toggle('visible',nivelSel==='avanzado');
+}
+document.getElementById('btnVolver').addEventListener('click',()=>{vistaTrabajo.style.display='none';vistaPortada.style.display='block';window.scrollTo({top:0,behavior:'smooth'})});
+document.querySelectorAll('.art-card-header').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('abierto')));
+
+const ICON_UP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>';
+const ICON_DOWN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>';
+const ICON_MOVE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>';
+const ICON_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
+function crearLinea(valor){
+  const row=document.createElement('div');row.className='linea';
+  row.innerHTML='<input type="text" placeholder="Escriban aqu&iacute;..." value="'+esc(valor||'')+'"><span class="linea-btns"><button class="minibtn up" title="Subir">'+ICON_UP+'</button><button class="minibtn down" title="Bajar">'+ICON_DOWN+'</button><button class="minibtn mover" title="Mover a otra capa">'+ICON_MOVE+'</button><button class="minibtn del" title="Borrar">'+ICON_DEL+'</button></span>';
+  row.querySelector('.up').addEventListener('click',()=>{const p=row.previousElementSibling;if(p)row.parentNode.insertBefore(row,p);refrescarTodo()});
+  row.querySelector('.down').addEventListener('click',()=>{const n=row.nextElementSibling;if(n)row.parentNode.insertBefore(n,row);refrescarTodo()});
+  row.querySelector('.del').addEventListener('click',()=>{row.remove();refrescarTodo()});
+  row.querySelector('.mover').addEventListener('click',e=>abrirMover(e,row));
+  return row;
+}
+function refrescarTodo(){document.querySelectorAll('.lineas').forEach(cont=>{const rows=[...cont.querySelectorAll('.linea')];rows.forEach((r,idx)=>{r.querySelector('.up').disabled=idx===0;r.querySelector('.down').disabled=idx===rows.length-1})})}
+document.querySelectorAll('.add-linea').forEach(btn=>btn.addEventListener('click',()=>{const cont=document.querySelector('.lineas[data-capa="'+btn.dataset.capa+'"]');const row=crearLinea('');cont.appendChild(row);row.querySelector('input').focus();refrescarTodo()}));
+function abrirMover(ev,row){
+  cerrarMover();const origen=row.closest('.lineas').dataset.capa;
+  const back=document.createElement('div');back.className='mover-backdrop';back.addEventListener('click',cerrarMover);
+  const pop=document.createElement('div');pop.className='mover-pop';
+  const capas=capasDisponibles();
+  pop.innerHTML='<div class="mover-pop-h">Mover a...</div>'+Object.keys(capas).map(k=>'<button class="mover-opt" data-dest="'+k+'" '+(k===origen?'disabled':'')+'>'+capas[k]+'</button>').join('');
+  document.body.appendChild(back);document.body.appendChild(pop);
+  const r=ev.currentTarget.getBoundingClientRect();let top=r.bottom+6,left=Math.min(r.left,window.innerWidth-225);if(top+240>window.innerHeight)top=Math.max(8,r.top-240);pop.style.top=top+'px';pop.style.left=Math.max(8,left)+'px';
+  pop.querySelectorAll('.mover-opt').forEach(opt=>{if(opt.disabled)return;opt.addEventListener('click',()=>{document.querySelector('.lineas[data-capa="'+opt.dataset.dest+'"]').appendChild(row);cerrarMover();refrescarTodo()})});
+}
+function cerrarMover(){document.querySelectorAll('.mover-pop,.mover-backdrop').forEach(e=>e.remove())}
+document.getElementById('btnLimpiar').addEventListener('click',()=>{document.querySelectorAll('.lineas').forEach(c=>c.innerHTML='')});
+function lineasDe(capa){return[...document.querySelectorAll('.lineas[data-capa="'+capa+'"] .linea input')].map(i=>i.value.trim()).filter(Boolean)}
+function datos(){return{nivel:NIVELES[nivelSel],caso:CASOS[casoSel],saber:lineasDe('saber'),hacer:lineasDe('hacer'),ser:lineasDe('ser'),concl:lineasDe('concl'),advInd:lineasDe('advInd'),advDes:lineasDe('advDes'),advRiesgo:lineasDe('advRiesgo')}}
+function slugCaso(){return (casoSel+1)+'-'+decodeHtml(CASOS[casoSel].t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+nivelSel}
+function lista(arr){return arr.length?'<ul>'+arr.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p class="vacio">(sin respuesta)</p>'}
+function construirDocumento(forWord){
+  const d=datos(),wordMeta=forWord?'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->':'';
+  const avanzado=nivelSel==='avanzado'?'<h2>Jerarqu&iacute;a de normas</h2>'+lista(d.advInd)+'<h2>Esp&iacute;ritu de la norma</h2>'+lista(d.advDes)+'<h2>Riesgo de ilegalidad</h2>'+lista(d.advRiesgo):'';
+  return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Taller de Aplicaci&oacute;n Legal</title>'+wordMeta+'<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}h2{font-size:12pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}ul{margin:4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}body{background-image:none}</style>'
+    + '</head><body><div class="marca">CoopeNotebook</div><h1>Trabajo pr&aacute;ctico: Taller de Aplicaci&oacute;n Legal</h1><div class="caso"><b>Caso '+(casoSel+1)+' - '+esc(decodeHtml(d.caso.t))+'</b><br><b>Nivel:</b> '+esc(d.nivel.nombre)+'<br>'+esc(decodeHtml(d.caso.d))+'<br><em>'+esc(decodeHtml(d.caso.p))+'</em></div>'+avanzado+'<h2>Conflicto normativo o de l&iacute;mites</h2>'+lista(d.saber)+'<h2>Interpretaci&oacute;n y base legal</h2>'+lista(d.hacer)+'<h2>Soluci&oacute;n legal propuesta</h2>'+lista(d.ser)+'<h2>Acuerdo para plenaria</h2>'+lista(d.concl)+'</body></html>';
+}
+
+document.getElementById('btnPDF').addEventListener('click',()=>{if(casoSel<0)return;const old=document.getElementById('print-frame');if(old)old.remove();const frame=document.createElement('iframe');frame.id='print-frame';frame.style.position='fixed';frame.style.right='0';frame.style.bottom='0';frame.style.width='0';frame.style.height='0';frame.style.border='0';document.body.appendChild(frame);const fdoc=frame.contentWindow.document;fdoc.open();fdoc.write(construirDocumento(false));fdoc.close();setTimeout(()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}},300)});
+document.getElementById('btnWord').addEventListener('click',()=>{if(casoSel<0)return;const blob=new Blob(['\ufeff'+construirDocumento(true)],{type:'application/msword'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='legislacion-'+slugCaso()+'.doc';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000)});
+document.getElementById('btnPPT').addEventListener('click',()=>{
+  if(casoSel<0)return;if(typeof PptxGenJS==='undefined'){alert('No se pudo cargar la biblioteca PowerPoint. Verifique conexi&oacute;n.');return}
+  const d=datos(),pptx=new PptxGenJS();pptx.defineLayout({name:'W',width:13.333,height:7.5});pptx.layout='W';
+  const VERDE='1C6B4A',AMAR='F4C20D',GRIS='3A3A36';let s=pptx.addSlide();s.background={color:'FFFFFF'};s.addText('CoopeNotebook',{x:.6,y:.5,fontSize:14,bold:true,color:VERDE});s.addText('Taller de Aplicaci&oacute;n Legal',{x:.6,y:2.1,w:12,fontSize:36,bold:true,color:'1A1A18'});s.addShape(pptx.ShapeType.rect,{x:.65,y:3.18,w:1.6,h:.08,fill:{color:VERDE}});s.addText('Caso '+(casoSel+1)+' - '+decodeHtml(d.caso.t),{x:.6,y:3.55,w:12,fontSize:21,color:VERDE,bold:true});s.addText('Nivel: '+d.nivel.nombre,{x:.6,y:4.05,w:12,fontSize:15,color:GRIS});
+  const secciones=nivelSel==='avanzado'
+    ? [['Jerarqu&iacute;a de normas',d.advInd],['Esp&iacute;ritu de la norma',d.advDes],['Riesgo de ilegalidad',d.advRiesgo],['Conflicto normativo',d.saber],['Interpretaci&oacute;n y base legal',d.hacer],['Soluci&oacute;n propuesta',d.ser],['Acuerdo para plenaria',d.concl]]
+    : [['Conflicto normativo',d.saber],['Interpretaci&oacute;n y base legal',d.hacer],['Soluci&oacute;n propuesta',d.ser],['Acuerdo para plenaria',d.concl]];
+  secciones.forEach(([titulo,items])=>{const arr=items.length?items:['(sin respuesta)'];for(let p=0;p<Math.ceil(arr.length/3);p++){const trozo=arr.slice(p*3,(p+1)*3),sl=pptx.addSlide();sl.background={color:'FFFFFF'};sl.addShape(pptx.ShapeType.rect,{x:0,y:0,w:.25,h:7.5,fill:{color:VERDE}});sl.addText(decodeHtml(titulo)+(arr.length>3?' ('+(p+1)+'/'+Math.ceil(arr.length/3)+')':''),{x:.8,y:.55,w:11.8,fontSize:30,bold:true,color:VERDE});sl.addShape(pptx.ShapeType.rect,{x:.85,y:1.5,w:1.4,h:.07,fill:{color:AMAR}});sl.addText(trozo.map(t=>({text:t,options:{bullet:{code:'2022'},color:'1A1A18',fontSize:22,paraSpaceAfter:14}})),{x:.95,y:1.95,w:11.4,h:4.8,valign:'top'});sl.addText('Caso '+(casoSel+1)+' - Nivel '+d.nivel.nombre,{x:.8,y:6.95,w:11.8,fontSize:11,color:'6A6A64'})}});
+  const sf=pptx.addSlide();sf.background={color:VERDE};sf.addText('Para la plenaria',{x:.5,y:1.5,w:12.3,align:'center',fontSize:34,bold:true,color:'FFFFFF'});sf.addText(decodeHtml(d.nivel.disc),{x:1.3,y:2.7,w:10.7,h:2.3,align:'center',fontSize:20,color:'D8EDE2'});pptx.writeFile({fileName:'legislacion-'+slugCaso()+'.pptx'});
+});
+</script>
+<script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>
