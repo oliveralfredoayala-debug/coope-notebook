@@ -1,37 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script src="/shared/auth.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trabajo pr&aacute;ctico: Perfil de liderazgo cooperativo</title>
+<title>Trabajo práctico: Perfil de liderazgo cooperativo</title>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <style>
-:root{
-  --verde:#1c6b4a;--verde-sec:#2fa36b;--verde-claro:#e8f4ef;--verde-borde:#b8dccc;
-  --amarillo:#f4c20d;--blanco:#fff;--gris-bg:#f7f7f5;--gris-borde:#e4e4e0;
-  --texto:#1a1a18;--texto-sec:#3a3a36;--texto-ter:#6a6a64;--rojo:#b83232;
-  --radio:10px;--radio-sm:6px;
+:root {
+  --verde: #1c6b4a; --verde-sec: #2fa36b; --verde-claro: #e8f4ef; --verde-borde: #b8dccc;
+  --amarillo: #f4c20d; --blanco: #ffffff; --gris-bg: #f7f7f5; --gris-borde: #e4e4e0;
+  --texto: #1a1a18; --texto-sec: #3a3a36; --texto-ter: #6a6a64; --rojo: #b83232;
+  --radio: 10px; --radio-sm: 6px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--gris-bg);color:var(--texto);font-size:16px;line-height:1.6;min-height:100vh}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem 2rem;height:72px;border-bottom:1px solid var(--gris-borde);background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40}
-.brand{color:var(--texto);text-decoration:none;font-size:20px;font-weight:500;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center}
-.brand strong{color:var(--verde);font-weight:700}
-.back{font-size:13px;color:var(--texto-sec);text-decoration:none;font-weight:500;transition:color 0.15s;display:flex;align-items:center;gap:6px}
-.back:hover{color:var(--verde)}
-.nb-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid var(--gris-borde);border-radius:var(--radio-sm);cursor:pointer;color:var(--verde)}
-.nb-toggle svg{width:22px;height:22px}
-.shell{display:flex;min-height:calc(100vh - 72px)}
-.sidebar{width:260px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;display:flex;flex-direction:column}
-.nb-marca-titulo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-borde);font-size:14px;font-weight:600;color:var(--verde);line-height:1.35}
-.nb-nav{list-style:none;padding:.5rem 0;flex:1}.nb-nav a{width:100%;text-align:left;background:none;border:none;padding:.75rem 1.5rem;font-size:14px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .15s,color .15s,box-shadow .15s;border-left:3px solid transparent;text-decoration:none}
-.nb-nav a:hover{background:var(--verde-claro);color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.08)}
-.nb-nav a.activo{background:var(--verde-claro);color:var(--verde);font-weight:600;border-left-color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.12)}
-.nb-nav-num{font-size:10px;font-weight:700;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.sidebar-foot{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);font-size:12px;color:var(--texto-ter);line-height:1.45}
-.main{flex:1;padding:1.5rem;min-width:0}.wrap{max-width:820px;margin:0 auto;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2.25rem 2.5rem}
-.nb-overlay{display:none}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--gris-bg); color: var(--texto); font-size: 16px; line-height: 1.6; min-height: 100vh; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.25rem 2rem; height: 72px; border-bottom: 1px solid var(--gris-borde); background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 40; }
+.brand { color: var(--texto); text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; }
+.brand strong { color: var(--verde); font-weight: 700; }
+.nb-toggle { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); cursor: pointer; color: var(--verde); }
+.nb-toggle svg { width: 22px; height: 22px; }
+.shell { display: flex; min-height: calc(100vh - 72px); }
+.sidebar { width: 260px; flex-shrink: 0; border-right: 1px solid var(--gris-borde); background: var(--blanco); position: sticky; top: 72px; height: calc(100vh - 72px); overflow-y: auto; display: flex; flex-direction: column; }
+.nb-marca-titulo { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--gris-borde); font-size: 14px; font-weight: 600; color: var(--verde); line-height: 1.35; }
+.nb-nav { list-style: none; padding: .5rem 0; flex: 1; }
+.nb-nav a { width: 100%; text-align: left; background: none; border: none; padding: .75rem 1.5rem; font-size: 14px; color: var(--texto-sec); cursor: pointer; font-family: inherit; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; transition: background .15s, color .15s, box-shadow .15s; border-left: 3px solid transparent; text-decoration: none; }
+.nb-nav a:hover { background: var(--verde-claro); color: var(--verde); box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08); }
+.nb-nav a.activo { background: var(--verde-claro); color: var(--verde); font-weight: 600; border-left-color: var(--verde); box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12); }
+.nb-nav-num { font-size: 10px; font-weight: 700; color: var(--texto-ter); min-width: 18px; padding-top: 1px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.sidebar-foot { padding: 1rem 1.25rem; border-top: 1px solid var(--gris-borde); font-size: 12px; color: var(--texto-ter); line-height: 1.45; }
+.main { flex: 1; padding: 1.5rem; min-width: 0; }
+.wrap { max-width: 820px; margin: 0 auto; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 2.25rem 2.5rem; }
+.nb-overlay { display: none; }
+
+.meta-line { display: flex; gap: .5rem; margin-bottom: .6rem; }
+.pill { font-size: 11px; font-weight: 700; color: var(--verde); background: var(--verde-claro); padding: 3px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+h1 { font-size: 25px; font-weight: 600; line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .55rem; border-radius: 2px; }
+.intro { font-size: 15px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 1.5rem; }
+.intro strong { color: var(--texto); font-weight: 600; }
+.seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2rem 0 .9rem; }
+.pasos { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0 1.75rem; }
+.paso { display: flex; gap: .875rem; align-items: flex-start; }
+.paso-num { width: 24px; height: 24px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.paso-texto { font-size: 14.5px; color: var(--texto-sec); line-height: 1.55; }
+.paso-texto strong { color: var(--texto); font-weight: 600; }
+.callout { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1rem 1.25rem; font-size: 14px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.callout strong { color: var(--verde); font-weight: 600; }
+
+.nivel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; margin: 1rem 0 1.5rem; }
+.nivel-card { border: 1.5px solid var(--gris-borde); border-radius: var(--radio); padding: 1.1rem 1.25rem; cursor: pointer; transition: border-color .15s, background .15s; background: #fff; text-align: left; font-family: inherit; color: inherit; width: 100%; display: flex; flex-direction: column; gap: .4rem; }
+.nivel-card:hover { background: var(--verde-claro); border-color: var(--verde-borde); }
+.nivel-card.activo { border-color: var(--verde); background: var(--verde-claro); box-shadow: 0 4px 12px rgba(28,107,74,.08); }
+.nivel-tag { font-size: 10px; font-weight: 700; color: var(--verde-sec); background: var(--blanco); border: 1px solid var(--verde-borde); border-radius: 4px; padding: 2px 6px; width: fit-content; text-transform: uppercase; letter-spacing: .04em; }
+.nivel-card.activo .nivel-tag { background: var(--verde); color: #fff; border-color: var(--verde); }
+.nivel-title { display: block; font-size: 15px; font-weight: 700; color: var(--texto); }
+.nivel-desc { display: block; font-size: 12.5px; color: var(--texto-ter); line-height: 1.4; margin-top: 1px; }
+
+.casos-grid { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0; }
+.caso-card { border: 1.5px solid var(--gris-borde); border-radius: var(--radio); padding: 1rem 1.2rem; cursor: pointer; transition: border-color .15s, background .15s; display: flex; gap: .9rem; align-items: flex-start; background: #fff; text-align: left; font-family: inherit; color: inherit; width: 100%; }
+.caso-card:hover { background: var(--verde-claro); border-color: var(--verde-borde); }
+.caso-num { width: 26px; height: 26px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.caso-card-cont { flex: 1; }
+.caso-card-titulo { font-size: 15px; font-weight: 600; color: var(--texto); margin-bottom: .2rem; }
+.caso-card-desc { font-size: 13.5px; color: var(--texto-sec); line-height: 1.5; }
+.caso-flecha { color: var(--texto-ter); font-size: 18px; flex-shrink: 0; align-self: center; }
+
+.volver { display: inline-flex; align-items: center; gap: .4rem; font-size: 13px; color: var(--verde); background: none; border: none; cursor: pointer; font-family: inherit; padding: .4rem 0; margin-bottom: 1rem; }
+.volver:hover { text-decoration: underline; }
+
+.banner { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1.1rem 1.35rem; margin-bottom: 1.5rem; }
+.banner-label { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--verde); margin-bottom: .35rem; }
+.banner-title { font-size: 19px; font-weight: 650; color: var(--texto); line-height: 1.3; margin-bottom: .35rem; }
+.banner-text { font-size: 14.5px; color: var(--texto-sec); line-height: 1.5; }
+.banner-question { font-size: 14px; color: var(--texto-sec); margin-top: .65rem; padding-top: .65rem; border-top: 1px solid var(--verde-borde); }
+
+.repaso { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; margin: 1rem 0; }
+.repaso-item { border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .85rem 1rem; background: #fff; font-size: 13.5px; color: var(--texto-sec); line-height: 1.55; }
+.repaso-item strong { color: var(--texto); }
+
+.guia { border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; margin: 1rem 0 1.5rem; }
+.guia-head { background: #fbfdfc; border-bottom: 1px solid var(--gris-borde); padding: .85rem 1rem; }
+.guia-title { font-size: 14px; font-weight: 700; color: var(--verde); }
+.guia-sub { font-size: 12.5px; color: var(--texto-ter); margin-top: .15rem; }
+.guia-list { padding: .85rem 1.2rem .95rem 1.35rem; color: var(--texto-sec); font-size: 14px; line-height: 1.55; }
+.guia-list li { margin: .25rem 0; }
+
+.nivel-extra { display: none; border: 1px solid var(--verde-borde); border-radius: var(--radio); background: #fbfdfc; padding: 1rem 1.1rem; margin: 1.25rem 0 1.75rem; }
+.nivel-extra.visible { display: block; }
+.nivel-extra-title { font-size: 15px; font-weight: 700; color: var(--verde); margin-bottom: .25rem; }
+.nivel-extra-copy { font-size: 13.5px; color: var(--texto-sec); line-height: 1.55; margin-bottom: 1rem; }
+.criterios-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
+.criterio { background: #fff; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .85rem; }
+.criterio-title { font-size: 13.5px; font-weight: 700; color: var(--texto); margin-bottom: .2rem; }
+.criterio-sub { font-size: 12.5px; color: var(--texto-ter); line-height: 1.45; margin-bottom: .65rem; }
+
+.ref-intro { font-size: 13.5px; color: var(--texto-sec); line-height: 1.6; margin-bottom: 1rem; }
+.ref-grupo-h { font-size: 13px; font-weight: 700; color: var(--verde); margin: 1.25rem 0 .6rem; }
+.art-card { margin-bottom: .6rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
+.art-card-header { padding: .7rem 1rem; display: flex; align-items: center; cursor: pointer; transition: background .15s; gap: .7rem; min-height: 44px; }
+.art-card-header:hover { background: var(--gris-bg); }
+.art-num { font-size: 12px; font-weight: 700; color: var(--verde); flex-shrink: 0; }
+.art-ley { font-size: 10px; font-weight: 700; color: var(--texto-ter); background: var(--gris-bg); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.art-resumen { font-size: 13.5px; color: var(--texto); flex: 1; }
+.art-chev { width: 16px; height: 16px; flex-shrink: 0; color: var(--texto-ter); transition: transform .2s; }
+.art-card.abierto .art-chev { transform: rotate(180deg); }
+.art-texto { display: none; padding: .85rem 1rem; font-size: 13px; color: var(--texto-sec); line-height: 1.7; border-top: 1px solid var(--gris-borde); background: var(--gris-bg); }
+.art-card.abierto .art-texto { display: block; }
+.legal-label { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--verde); margin: .15rem 0 .45rem; }
+.legal-text { background: #fff; border-left: 3px solid var(--verde-sec); border-radius: 0 var(--radio-sm) var(--radio-sm) 0; padding: .8rem .95rem; color: var(--texto); white-space: pre-line; }
+.legal-exp { margin-top: .8rem; padding: .75rem .9rem; background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); color: var(--texto-sec); }
+.legal-exp strong { color: var(--verde); }
+.ref-aviso { font-size: 12px; color: var(--texto-ter); margin-top: 1rem; line-height: 1.5; padding: .75rem 1rem; border: 1px dashed var(--gris-borde); border-radius: var(--radio-sm); }
+
+.capa { margin-bottom: 1.75rem; }
+.capa-titulo { font-size: 15px; font-weight: 700; color: var(--verde); margin-bottom: .15rem; }
+.capa-sub { font-size: 13px; color: var(--texto-ter); margin-bottom: .7rem; }
+.lineas { display: flex; flex-direction: column; gap: .5rem; min-height: 8px; }
+.linea { display: flex; align-items: center; gap: .4rem; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .35rem .4rem .35rem .55rem; }
+.linea input { flex: 1; min-width: 0; font-family: inherit; font-size: 15px; padding: .5rem .4rem; border: none; color: var(--texto); background: transparent; }
+.linea input:focus { outline: none; }
+.linea-btns { display: flex; gap: 1px; flex-shrink: 0; }
+.minibtn { width: 30px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: none; background: none; color: var(--texto-ter); cursor: pointer; border-radius: 4px; font-size: 14px; line-height: 1; }
+.minibtn:hover { background: var(--gris-bg); color: var(--verde); }
+.minibtn.del:hover { color: var(--rojo); background: #fdecea; }
+.minibtn:disabled { opacity: .25; cursor: default; }
+.minibtn svg { width: 15px; height: 15px; }
+.add-linea { margin-top: .55rem; display: inline-flex; align-items: center; gap: .4rem; font-family: inherit; font-size: 13.5px; font-weight: 700; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); padding: .5rem .9rem; cursor: pointer; min-height: 40px; }
+.add-linea:hover { background: #ddeee5; }
+
+.mover-pop { position: fixed; z-index: 50; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); box-shadow: 0 6px 24px rgba(0,0,0,.14); padding: .4rem; min-width: 210px; }
+.mover-pop-h { font-size: 11px; color: var(--texto-ter); padding: .35rem .6rem .45rem; text-transform: uppercase; letter-spacing: .05em; }
+.mover-opt { display: block; width: 100%; text-align: left; background: none; border: none; font-family: inherit; font-size: 14px; color: var(--texto); padding: .55rem .6rem; border-radius: var(--radio-sm); cursor: pointer; }
+.mover-opt:hover { background: var(--verde-claro); }
+.mover-opt:disabled { opacity: .35; cursor: default; }
+.mover-backdrop { position: fixed; inset: 0; z-index: 49; }
+
+.discusion { background: var(--gris-bg); border-left: 3px solid var(--amarillo); padding: 1rem 1.15rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; font-size: 14px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.acciones { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.btn { font-family: inherit; font-size: 15px; font-weight: 700; padding: .75rem 1.35rem; border-radius: var(--radio-sm); cursor: pointer; border: 1px solid transparent; min-height: 44px; transition: background .15s, border-color .15s; }
+.btn-primario { background: var(--verde); color: #fff; }
+.btn-primario:hover { background: #155539; }
+.btn-sec { background: var(--blanco); color: var(--verde); border-color: var(--verde-borde); }
+.btn-sec:hover { background: var(--verde-claro); }
+.btn-oro { background: var(--amarillo); color: var(--texto); }
+.btn-oro:hover { filter: brightness(.95); }
+.aviso { font-size: 13px; color: var(--texto-ter); margin-top: .9rem; line-height: 1.5; }
+
 @media (max-width: 820px) {
   .shell { display: block; }
   .nb-toggle { display: flex; }
@@ -57,11 +171,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
-  <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
-  <a class="back" href="../index.html">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Volver al índice
-  </a>
+  <div class="brand"><strong>Coope</strong>Notebook</div>
 </header>
 
 <div class="nb-overlay" onclick="cerrarMenu()"></div>
@@ -110,7 +220,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     <div class="casos-grid" id="casosGrid"></div>
   </div>
 
-  <div id="vistaTrabajo">
+  <div id="vistaTrabajo" style="display: none;">
     <button class="volver" id="btnVolver">&larr; Elegir otro caso o nivel</button>
     <div class="banner">
       <div class="banner-label" id="casoActivoLabel">Caso</div>
@@ -261,124 +371,281 @@ En caso de conflicto sobre el cumplimiento de las recomendaciones decidir&aacute
 </div>
 </main>
 </div>
-
 <script>
-function abrirMenu(){document.querySelector('.sidebar').classList.add('abierto');document.querySelector('.nb-overlay').classList.add('visible')}
-function cerrarMenu(){document.querySelector('.sidebar').classList.remove('abierto');document.querySelector('.nb-overlay').classList.remove('visible')}
-document.querySelectorAll('.nb-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.nb-nav a').forEach(x=>x.classList.remove('activo'));a.classList.add('activo');if(window.innerWidth<=800)cerrarMenu()}));
+function abrirMenu() {
+  document.querySelector('.sidebar').classList.add('abierto');
+  document.querySelector('.nb-overlay').classList.add('visible');
+}
+function cerrarMenu() {
+  document.querySelector('.sidebar').classList.remove('abierto');
+  document.querySelector('.nb-overlay').classList.remove('visible');
+}
 
-const CASOS=[
-  {t:"El perfil de quien quiero elegir",d:"&iquest;En qu&eacute; deber&iacute;amos fijarnos al votar por la Junta Directiva o la Junta de Vigilancia?",p:"Piensen en la pr&oacute;xima elecci&oacute;n: &iquest;qu&eacute; cualidades y competencias buscar&iacute;an en quien reciba su voto?"},
-  {t:"Mi propio perfil",d:"&iquest;Qu&eacute; ya tenemos y qu&eacute; nos falta aprender para llegar a un cargo directivo?",p:"Hagan un autodiagn&oacute;stico honesto del equipo: fortalezas que ya traen y lo que necesitan desarrollar."},
-  {t:"El perfil para un comit&eacute;",d:"Si tuvi&eacute;ramos que elegir a alguien para presidir o integrar un comit&eacute;, &iquest;qu&eacute; buscar&iacute;amos?",p:"Elijan un comit&eacute; y definan el perfil de quien deber&iacute;a integrarlo."},
-  {t:"El perfil que le falta a mi cooperativa",d:"&iquest;Qu&eacute; tipo de liderazgo necesita hoy nuestra cooperativa y todav&iacute;a no tiene?",p:"Miren su realidad: &iquest;qu&eacute; competencias o actitudes hacen falta en quienes hoy dirigen?"},
-  {t:"El relevo",d:"&iquest;A qui&eacute;n estamos formando para que tome nuestro lugar, y qu&eacute; necesita desarrollar?",p:"Piensen en la persona que viene detr&aacute;s: &iquest;qu&eacute; perfil tiene y qu&eacute; le falta para asumir el cargo?"}
+const CASOS = [
+  { t: "El perfil de quien quiero elegir", d: "¿En qué deberíamos fijarnos al votar por la Junta Directiva o la Junta de Vigilancia?", p: "Piensen en la próxima elección: ¿qué cualidades y competencias buscarían en quien reciba su voto?" },
+  { t: "Mi propio perfil", d: "¿Qué ya tenemos y qué nos falta aprender para llegar a un cargo directivo?", p: "Hagan un autodiagnóstico honesto del equipo: fortalezas que ya traen y lo que necesitan desarrollar." },
+  { t: "El perfil para un comité", d: "Si tuviéramos que elegir a alguien para presidir o integrar un comité, ¿qué buscaríamos?", p: "Elijan un comité y definan el perfil de quien debería integrarlo." },
+  { t: "El perfil que le falta a mi cooperativa", d: "¿Qué tipo de liderazgo necesita hoy nuestra cooperativa y todavía no tiene?", p: "Miren su realidad: ¿qué competencias o actitudes hacen falta en quienes hoy dirigen?" },
+  { t: "El relevo", d: "¿A quién estamos formando para que tome nuestro lugar, y qué necesita desarrollar?", p: "Piensen en la persona que viene detrás: ¿qué perfil tiene y qué le falta para asumir el cargo?" }
 ];
-const NIVELES={
-  principiante:{
-    nombre:"Principiante",bajada:"M&aacute;s gu&iacute;a, menos ambig&uuml;edad.",
-    guia:["Escriban al menos 2 ideas por cada capa.","Usen palabras sencillas y ejemplos de la vida cooperativa.","Marquen una idea como la m&aacute;s importante para compartir.","No busquen respuestas perfectas: busquen claridad."],
-    sub:{saber:"&iquest;Qu&eacute; debe conocer esta persona? Piensen en ley, estatuto, cooperativa y funciones.",hacer:"&iquest;Qu&eacute; debe saber hacer? Piensen en escuchar, comunicar, coordinar y resolver problemas.",ser:"&iquest;C&oacute;mo debe comportarse? Piensen en servicio, honestidad, respeto y responsabilidad.",concl:"Completen una idea central que puedan explicar en menos de un minuto."},
-    disc:"Para la plenaria, elijan una idea de cada capa y expliquen por qu&eacute; esa idea ayuda a elegir o formar mejores liderazgos."
+
+const NIVELES = {
+  principiante: {
+    nombre: "Principiante", bajada: "Más guía, menos ambigüedad.",
+    guia: ["Escriban al menos 2 ideas por cada capa.", "Usen palabras sencillas y ejemplos de la vida cooperativa.", "Marquen una idea como la más importante para compartir.", "No busquen respuestas perfectas: busquen claridad."],
+    sub: { saber: "¿Qué debe conocer esta persona? Piensen en ley, estatuto, cooperativa y funciones.", hacer: "¿Qué debe saber hacer? Piensen en escuchar, comunicar, coordinar y resolver problemas.", ser: "¿Cómo debe comportarse? Piensen en servicio, honestidad, respeto y responsabilidad.", concl: Completen una idea central que puedan explicar en menos de un minuto. },
+    disc: "Para la plenaria, elijan una idea de cada capa y expliquen por qué esa idea ayuda a elegir o formar mejores liderazgos."
   },
-  balanceado:{
-    nombre:"Balanceado",bajada:"Gu&iacute;a est&aacute;ndar para decidir y priorizar.",
-    guia:["Construyan entre 3 y 5 ideas por cada capa.","Distingan lo indispensable de lo deseable.","Usen la referencia legal para sostener al menos una respuesta.","Cierren con una conclusi&oacute;n que conecte conocimientos, habilidades y actitud."],
-    sub:{saber:"Conocimientos relevantes para ejercer el cargo o participar con criterio.",hacer:"Habilidades necesarias para actuar, coordinar y tomar decisiones.",ser:"Actitudes y valores que sostienen la confianza cooperativa.",concl:"Sinteticen qu&eacute; pesa m&aacute;s en este perfil y por qu&eacute;."},
-    disc:"Para la plenaria, preparen dos ideas defendibles: una competencia indispensable y una actitud que no deber&iacute;a negociarse."
+  balanceado: {
+    nombre: "Balanceado", bajada: "Guía estándar para decidir y priorizar.",
+    guia: ["Construyan entre 3 y 5 ideas por cada capa.", "Distingan lo indispensable de lo deseable.", "Usen la referencia legal para sostener al menos una respuesta.", "Cierren con una conclusión que conecte conocimientos, habilidades y actitud."],
+    sub: { saber: "Conocimientos relevantes para ejercer el cargo o participar con criterio.", hacer: "Habilidades necesarias para actuar, coordinar y tomar decisiones.", ser: "Actitudes y valores que sostienen la confianza cooperativa.", concl: "Sinteticen qué pesa más en este perfil y por qué." },
+    disc: "Para la plenaria, preparen dos ideas defendibles: una competencia indispensable y una actitud que no debería negociarse."
   },
-  avanzado:{
-    nombre:"Avanzado",bajada:"M&aacute;s an&aacute;lisis, justificaci&oacute;n y tensi&oacute;n real.",
-    guia:["Llenen primero el bloque de criterios avanzados: indispensable, deseable y riesgo si falta.","Incluyan al menos una tensi&oacute;n: popularidad vs. capacidad, experiencia vs. relevo, control vs. confianza.","Justifiquen sus prioridades con referencia legal o situaci&oacute;n cooperativa concreta.","Cierren con una recomendaci&oacute;n accionable para elegir, formar o acompa&ntilde;ar liderazgos."],
-    sub:{saber:"Conocimientos cr&iacute;ticos y consecuencias de no tenerlos.",hacer:"Habilidades que permiten actuar bajo presi&oacute;n, conflicto o ambig&uuml;edad.",ser:"Actitudes que protegen la confianza incluso cuando hay intereses en tensi&oacute;n.",concl:"Formulen una recomendaci&oacute;n clara y defendible para la cooperativa."},
-    disc:"Para la plenaria, preparen una decisi&oacute;n que defender&iacute;an ante otro equipo y un riesgo que deber&iacute;a vigilarse."
+  avanzado: {
+    nombre: "Avanzado", bajada: "Más análisis, justificación y tensión real.",
+    guia: ["Llenen primero el bloque de criterios avanzados: indispensable, deseable y riesgo si falta.", "Incluyan al menos una tensión: popularidad vs. capacidad, experiencia vs. relevo, control vs. confianza.", "Justifiquen sus prioridades con referencia legal o situación cooperativa concreta.", "Cierren con una recomendación accionable para elegir, formar o acompañar liderazgos."],
+    sub: { saber: "Conocimientos críticos y consecuencias de no tenerlos.", hacer: "Habilidades que permiten actuar bajo presión, conflicto o ambigüedad.", ser: "Actitudes que protegen la confianza incluso cuando hay intereses en tensión.", concl: "Formulen una recomendación clara y defendible para la cooperativa." },
+    disc: "Para la plenaria, preparen una decisión que defenderían ante otro equipo y un riesgo que debería vigilarse."
   }
 };
-const CAPAS={saber:"Saber",hacer:"Saber hacer",ser:"Saber ser",concl:"Conclusi&oacute;n del equipo",advInd:"Indispensable",advDes:"Deseable",advRiesgo:"Riesgo si falta"};
-let nivelSel="balanceado",casoSel=-1;
-const grid=document.getElementById('casosGrid'),vistaPortada=document.getElementById('vistaPortada'),vistaTrabajo=document.getElementById('vistaTrabajo');
 
-function capasDisponibles(){return nivelSel==='avanzado'?CAPAS:{saber:CAPAS.saber,hacer:CAPAS.hacer,ser:CAPAS.ser,concl:CAPAS.concl}}
-function decodeHtml(html){const t=document.createElement('textarea');t.innerHTML=html;return t.value}
-function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function textoCaso(campo){return decodeHtml(CASOS[casoSel][campo])}
-document.querySelectorAll('.nivel-card').forEach(btn=>btn.addEventListener('click',()=>{nivelSel=btn.dataset.level;document.querySelectorAll('.nivel-card').forEach(x=>x.classList.remove('activo'));btn.classList.add('activo')}));
-CASOS.forEach((c,i)=>{const card=document.createElement('button');card.type='button';card.className='caso-card';card.innerHTML='<span class="caso-num">'+(i+1)+'</span><span class="caso-card-cont"><span class="caso-card-titulo">'+c.t+'</span><span class="caso-card-desc">'+c.d+'</span></span><span class="caso-flecha">&rarr;</span>';card.addEventListener('click',()=>abrirCaso(i));grid.appendChild(card)});
+const CAPAS = { saber: "Saber", hacer: "Saber hacer", ser: "Saber ser", concl: "Conclusión del equipo", advInd: "Indispensable", advDes: "Deseable", advRiesgo: "Riesgo si falta" };
+let nivelSel = "balanceado", casoSel = -1;
+const grid = document.getElementById('casosGrid'), vistaPortada = document.getElementById('vistaPortada'), vistaTrabajo = document.getElementById('vistaTrabajo');
 
-function abrirCaso(i){
-  casoSel=i;
-  const n=NIVELES[nivelSel];
-  document.getElementById('casoActivoLabel').textContent='Caso '+(i+1)+' de '+CASOS.length+' · Nivel '+n.nombre;
-  document.getElementById('casoActivoTitulo').textContent=CASOS[i].t;
-  document.getElementById('casoActivoTexto').innerHTML=CASOS[i].d;
-  document.getElementById('casoActivoPregunta').innerHTML=CASOS[i].p;
+function capasDisponibles() { return nivelSel === 'avanzado' ? CAPAS : { saber: CAPAS.saber, hacer: CAPAS.hacer, ser: CAPAS.ser, concl: CAPAS.concl } }
+function decodeHtml(html) { const t = document.createElement('textarea'); t.innerHTML = html; return t.value }
+function esc(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") }
+function textoCaso(campo) { return decodeHtml(CASOS[casoSel][campo]) }
+
+document.querySelectorAll('.nivel-card').forEach(btn => btn.addEventListener('click', () => {
+  nivelSel = btn.dataset.level;
+  document.querySelectorAll('.nivel-card').forEach(x => x.classList.remove('activo'));
+  btn.classList.add('activo');
+}));
+
+CASOS.forEach((c, i) => {
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'caso-card';
+  card.innerHTML = '<span class="caso-num">' + (i + 1) + '</span><span class="caso-card-cont"><span class="caso-card-titulo">' + c.t + '</span><span class="caso-card-desc">' + c.d + '</span></span><span class="caso-flecha">&rarr;</span>';
+  card.addEventListener('click', () => abrirCaso(i));
+  grid.appendChild(card);
+});
+
+function mostrarPortada() {
+  vistaPortada.style.display = 'block';
+  vistaTrabajo.style.display = 'none';
+  document.querySelectorAll('.nb-nav a').forEach(x => {
+    x.classList.toggle('activo', x.getAttribute('href') === '#vistaPortada');
+  });
+}
+
+function mostrarTrabajo() {
+  vistaPortada.style.display = 'none';
+  vistaTrabajo.style.display = 'block';
+}
+
+function abrirCaso(i) {
+  casoSel = i;
+  const n = NIVELES[nivelSel];
+  document.getElementById('casoActivoLabel').textContent = 'Caso ' + (i + 1) + ' de ' + CASOS.length + ' · Nivel ' + n.nombre;
+  document.getElementById('casoActivoTitulo').textContent = CASOS[i].t;
+  document.getElementById('casoActivoTexto').innerHTML = CASOS[i].d;
+  document.getElementById('casoActivoPregunta').innerHTML = CASOS[i].p;
+  
   aplicarNivel();
-  vistaPortada.style.display='none';vistaTrabajo.style.display='block';window.scrollTo({top:0,behavior:'smooth'});
-}
-function aplicarNivel(){
-  const n=NIVELES[nivelSel];
-  document.getElementById('guiaTitulo').textContent='Nivel '+n.nombre;
-  document.getElementById('guiaSub').innerHTML=n.bajada;
-  document.getElementById('guiaLista').innerHTML=n.guia.map(x=>'<li>'+x+'</li>').join('');
-  document.getElementById('subSaber').innerHTML=n.sub.saber;
-  document.getElementById('subHacer').innerHTML=n.sub.hacer;
-  document.getElementById('subSer').innerHTML=n.sub.ser;
-  document.getElementById('subConcl').innerHTML=n.sub.concl;
-  document.getElementById('discusionTexto').innerHTML='<strong>Antes de presentar:</strong> '+n.disc;
-  document.getElementById('bloqueAvanzado').classList.toggle('visible',nivelSel==='avanzado');
-}
-document.getElementById('btnVolver').addEventListener('click',()=>{vistaTrabajo.style.display='none';vistaPortada.style.display='block';window.scrollTo({top:0,behavior:'smooth'})});
-document.querySelectorAll('.art-card-header').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('abierto')));
+  mostrarTrabajo();
+  
+  cargarLineasGuardadas(casoSel, nivelSel);
 
-const ICON_UP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>';
-const ICON_DOWN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>';
-const ICON_MOVE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>';
-const ICON_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
-function crearLinea(valor){
-  const row=document.createElement('div');row.className='linea';
-  row.innerHTML='<input type="text" placeholder="Escriban aqu&iacute;..." value="'+esc(valor||'')+'"><span class="linea-btns"><button class="minibtn up" title="Subir">'+ICON_UP+'</button><button class="minibtn down" title="Bajar">'+ICON_DOWN+'</button><button class="minibtn mover" title="Mover a otra capa">'+ICON_MOVE+'</button><button class="minibtn del" title="Borrar">'+ICON_DEL+'</button></span>';
-  row.querySelector('.up').addEventListener('click',()=>{const p=row.previousElementSibling;if(p)row.parentNode.insertBefore(row,p);refrescarTodo()});
-  row.querySelector('.down').addEventListener('click',()=>{const n=row.nextElementSibling;if(n)row.parentNode.insertBefore(n,row);refrescarTodo()});
-  row.querySelector('.del').addEventListener('click',()=>{row.remove();refrescarTodo()});
-  row.querySelector('.mover').addEventListener('click',e=>abrirMover(e,row));
+  document.querySelectorAll('.nb-nav a').forEach(x => {
+    x.classList.toggle('activo', x.getAttribute('href') === '#repasoClave');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function aplicarNivel() {
+  const n = NIVELES[nivelSel];
+  document.getElementById('guiaTitulo').textContent = 'Nivel ' + n.nombre;
+  document.getElementById('guiaSub').innerHTML = n.bajada;
+  document.getElementById('guiaLista').innerHTML = n.guia.map(x => '<li>' + x + '</li>').join('');
+  document.getElementById('subSaber').innerHTML = n.sub.saber;
+  document.getElementById('subHacer').innerHTML = n.sub.hacer;
+  document.getElementById('subSer').innerHTML = n.sub.ser;
+  document.getElementById('subConcl').innerHTML = n.sub.concl;
+  document.getElementById('discusionTexto').innerHTML = '<strong>Antes de presentar:</strong> ' + n.disc;
+  document.getElementById('bloqueAvanzado').classList.toggle('visible', nivelSel === 'avanzado');
+}
+
+function cargarLineasGuardadas(caso, nivel) {
+  document.querySelectorAll('.lineas').forEach(cont => cont.innerHTML = '');
+  
+  const saved = localStorage.getItem('perfil-lider-diplomado-caso-' + caso + '-nivel-' + nivel);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      ['saber', 'hacer', 'ser', 'concl', 'advInd', 'advDes', 'advRiesgo'].forEach(capa => {
+        const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+        if (cont && data[capa] && Array.isArray(data[capa])) {
+          data[capa].forEach(val => {
+            cont.appendChild(crearLinea(val));
+          });
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    const listsToPopulate = ['saber', 'hacer', 'ser'];
+    if (nivel === 'avanzado') {
+      listsToPopulate.push('advInd', 'advDes', 'advRiesgo');
+    }
+    listsToPopulate.forEach(capa => {
+      const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+      if (cont) {
+        cont.appendChild(crearLinea(''));
+      }
+    });
+  }
+  refrescarTodo();
+}
+
+function guardarDatos() {
+  if (casoSel < 0) return;
+  const data = {
+    saber: lineasDe('saber'),
+    hacer: lineasDe('hacer'),
+    ser: lineasDe('ser'),
+    concl: lineasDe('concl'),
+    advInd: lineasDe('advInd'),
+    advDes: lineasDe('advDes'),
+    advRiesgo: lineasDe('advRiesgo')
+  };
+  localStorage.setItem('perfil-lider-diplomado-caso-' + casoSel + '-nivel-' + nivelSel, JSON.stringify(data));
+}
+
+document.getElementById('btnVolver').addEventListener('click', () => {
+  mostrarPortada();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.querySelectorAll('.nb-nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const href = a.getAttribute('href');
+
+    if (href === '#vistaPortada' || href === '#selectorNivel' || href === '#selectorCaso') {
+      mostrarPortada();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+      a.classList.add('activo');
+    } else {
+      if (casoSel === -1) {
+        alert('Por favor, selecciona un caso asignado en la página de Inicio primero.');
+        return;
+      }
+      mostrarTrabajo();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+      a.classList.add('activo');
+    }
+    if (window.innerWidth <= 820) cerrarMenu();
+  });
+});
+
+document.querySelectorAll('.art-card-header').forEach(h => h.addEventListener('click', () => h.parentElement.classList.toggle('abierto')));
+
+const ICON_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>';
+const ICON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>';
+const ICON_MOVE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>';
+const ICON_DEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
+
+function crearLinea(valor) {
+  const row = document.createElement('div'); row.className = 'linea';
+  row.innerHTML = '<input type="text" placeholder="Escriban aquí..." value="' + esc(valor || '') + '"><span class="linea-btns"><button class="minibtn up" title="Subir">' + ICON_UP + '</button><button class="minibtn down" title="Bajar">' + ICON_DOWN + '</button><button class="minibtn mover" title="Mover a otra capa">' + ICON_MOVE + '</button><button class="minibtn del" title="Borrar">' + ICON_DEL + '</button></span>';
+  row.querySelector('.up').addEventListener('click', () => { const p = row.previousElementSibling; if (p) row.parentNode.insertBefore(row, p); refrescarTodo() });
+  row.querySelector('.down').addEventListener('click', () => { const n = row.nextElementSibling; if (n) row.parentNode.insertBefore(n, row); refrescarTodo() });
+  row.querySelector('.del').addEventListener('click', () => { row.remove(); refrescarTodo() });
+  row.querySelector('.mover').addEventListener('click', e => abrirMover(e, row));
   return row;
 }
-function refrescarTodo(){document.querySelectorAll('.lineas').forEach(cont=>{const rows=[...cont.querySelectorAll('.linea')];rows.forEach((r,idx)=>{r.querySelector('.up').disabled=idx===0;r.querySelector('.down').disabled=idx===rows.length-1})})}
-document.querySelectorAll('.add-linea').forEach(btn=>btn.addEventListener('click',()=>{const cont=document.querySelector('.lineas[data-capa="'+btn.dataset.capa+'"]');const row=crearLinea('');cont.appendChild(row);row.querySelector('input').focus();refrescarTodo()}));
-function abrirMover(ev,row){
-  cerrarMover();const origen=row.closest('.lineas').dataset.capa;
-  const back=document.createElement('div');back.className='mover-backdrop';back.addEventListener('click',cerrarMover);
-  const pop=document.createElement('div');pop.className='mover-pop';
-  const capas=capasDisponibles();
-  pop.innerHTML='<div class="mover-pop-h">Mover a...</div>'+Object.keys(capas).map(k=>'<button class="mover-opt" data-dest="'+k+'" '+(k===origen?'disabled':'')+'>'+capas[k]+'</button>').join('');
-  document.body.appendChild(back);document.body.appendChild(pop);
-  const r=ev.currentTarget.getBoundingClientRect();let top=r.bottom+6,left=Math.min(r.left,window.innerWidth-225);if(top+240>window.innerHeight)top=Math.max(8,r.top-240);pop.style.top=top+'px';pop.style.left=Math.max(8,left)+'px';
-  pop.querySelectorAll('.mover-opt').forEach(opt=>{if(opt.disabled)return;opt.addEventListener('click',()=>{document.querySelector('.lineas[data-capa="'+opt.dataset.dest+'"]').appendChild(row);cerrarMover();refrescarTodo()})});
+
+function refrescarTodo() {
+  document.querySelectorAll('.lineas').forEach(cont => {
+    const rows = [...cont.querySelectorAll('.linea')];
+    rows.forEach((r, idx) => {
+      r.querySelector('.up').disabled = idx === 0;
+      r.querySelector('.down').disabled = idx === rows.length - 1;
+    });
+  });
+  guardarDatos();
 }
-function cerrarMover(){document.querySelectorAll('.mover-pop,.mover-backdrop').forEach(e=>e.remove())}
-document.getElementById('btnLimpiar').addEventListener('click',()=>{document.querySelectorAll('.lineas').forEach(c=>c.innerHTML='')});
-function lineasDe(capa){return[...document.querySelectorAll('.lineas[data-capa="'+capa+'"] .linea input')].map(i=>i.value.trim()).filter(Boolean)}
-function datos(){return{nivel:NIVELES[nivelSel],caso:CASOS[casoSel],saber:lineasDe('saber'),hacer:lineasDe('hacer'),ser:lineasDe('ser'),concl:lineasDe('concl'),advInd:lineasDe('advInd'),advDes:lineasDe('advDes'),advRiesgo:lineasDe('advRiesgo')}}
-function slugCaso(){return (casoSel+1)+'-'+decodeHtml(CASOS[casoSel].t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+nivelSel}
-function lista(arr){return arr.length?'<ul>'+arr.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p class="vacio">(sin respuesta)</p>'}
-function construirDocumento(forWord){
-  const d=datos(),wordMeta=forWord?'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->':'';
-  const avanzado=nivelSel==='avanzado'?'<h2>Criterios avanzados: indispensable</h2>'+lista(d.advInd)+'<h2>Criterios avanzados: deseable</h2>'+lista(d.advDes)+'<h2>Criterios avanzados: riesgo si falta</h2>'+lista(d.advRiesgo):'';
-  return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Perfil de liderazgo cooperativo</title>'+wordMeta+'<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}h2{font-size:12pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}ul{margin:4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}.disc{background:#f7f7f5;border-left:3pt solid #f4c20d;padding:9pt 12pt;margin-top:16pt}</style>'
-    + '<link rel="stylesheet" href="/shared/facilitator-tools.css"></head><body><div class="marca">CoopeNotebook</div><h1>Trabajo pr&aacute;ctico: Perfil de liderazgo cooperativo</h1><div class="caso"><b>Caso '+(casoSel+1)+' - '+esc(decodeHtml(d.caso.t))+'</b><br><b>Nivel:</b> '+esc(d.nivel.nombre)+'<br>'+esc(decodeHtml(d.caso.d))+'<br><em>'+esc(decodeHtml(d.caso.p))+'</em></div>'+avanzado+'<h2>Saber</h2>'+lista(d.saber)+'<h2>Saber hacer</h2>'+lista(d.hacer)+'<h2>Saber ser</h2>'+lista(d.ser)+'<h2>Conclusi&oacute;n del equipo</h2>'+lista(d.concl)+'<div class="disc"><b>Discusi&oacute;n final:</b> '+esc(decodeHtml(d.nivel.disc))+'</div><script src="/shared/facilitator-tools.js"><\/script>'
+
+document.addEventListener('input', e => {
+  if (e.target.closest('.lineas input')) {
+    guardarDatos();
+  }
+});
+
+document.querySelectorAll('.add-linea').forEach(btn => btn.addEventListener('click', () => {
+  const cont = document.querySelector('.lineas[data-capa="' + btn.dataset.capa + '"]');
+  const row = crearLinea('');
+  cont.appendChild(row);
+  row.querySelector('input').focus();
+  refrescarTodo();
+}));
+
+function abrirMover(ev, row) {
+  cerrarMover(); const origen = row.closest('.lineas').dataset.capa;
+  const back = document.createElement('div'); back.className = 'mover-backdrop'; back.addEventListener('click', cerrarMover);
+  const pop = document.createElement('div'); pop.className = 'mover-pop';
+  const capas = capasDisponibles();
+  pop.innerHTML = '<div class="mover-pop-h">Mover a...</div>' + Object.keys(capas).map(k => '<button class="mover-opt" data-dest="' + k + '" ' + (k === origen ? 'disabled' : '') + '>' + capas[k] + '</button>').join('');
+  document.body.appendChild(back); document.body.appendChild(pop);
+  const r = ev.currentTarget.getBoundingClientRect(); let top = r.bottom + 6, left = Math.min(r.left, window.innerWidth - 225); if (top + 240 > window.innerHeight) top = Math.max(8, r.top - 240); pop.style.top = top + 'px'; pop.style.left = Math.max(8, left) + 'px';
+  pop.querySelectorAll('.mover-opt').forEach(opt => { if (opt.disabled) return; opt.addEventListener('click', () => { document.querySelector('.lineas[data-capa="' + opt.dataset.dest + '"]').appendChild(row); cerrarMover(); refrescarTodo() }) });
+}
+
+function cerrarMover() { document.querySelectorAll('.mover-pop,.mover-backdrop').forEach(e => e.remove()) }
+
+document.getElementById('btnLimpiar').addEventListener('click', () => {
+  if (confirm('¿Están seguros de que desean limpiar todo el trabajo de este caso?')) {
+    document.querySelectorAll('.lineas').forEach(c => c.innerHTML = '');
+    refrescarTodo();
+  }
+});
+
+function lineasDe(capa) { return [...document.querySelectorAll('.lineas[data-capa="' + capa + '"] .linea input')].map(i => i.value.trim()).filter(Boolean) }
+function datos() { return { nivel: NIVELES[nivelSel], caso: CASOS[casoSel], saber: lineasDe('saber'), hacer: lineasDe('hacer'), ser: lineasDe('ser'), concl: lineasDe('concl'), advInd: lineasDe('advInd'), advDes: lineasDe('advDes'), advRiesgo: lineasDe('advRiesgo') } }
+function slugCaso() { return (casoSel + 1) + '-' + decodeHtml(CASOS[casoSel].t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + nivelSel }
+function lista(arr) { return arr.length ? '<ul>' + arr.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '<p class="vacio">(sin respuesta)</p>' }
+function construirDocumento(forWord) {
+  const d = datos(), wordMeta = forWord ? '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->' : '';
+  const avanzado = nivelSel === 'avanzado' ? '<h2>Criterios avanzados: indispensable</h2>' + lista(d.advInd) + '<h2>Criterios avanzados: deseable</h2>' + lista(d.advDes) + '<h2>Criterios avanzados: riesgo si falta</h2>' + lista(d.advRiesgo) : '';
+  return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Perfil de liderazgo cooperativo</title>' + wordMeta + '<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}h2{font-size:12pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}ul{margin:4pt 0;padding-left:20pt}li{margin-bottom:3pt}.vacio{color:#888;font-style:italic;margin:4pt 0}.disc{background:#f7f7f5;border-left:3pt solid #f4c20d;padding:9pt 12pt;margin-top:16pt}</style>'
+    + '<link rel="stylesheet" href="/shared/facilitator-tools.css"></head><body><div class="marca">CoopeNotebook</div><h1>Trabajo práctico: Perfil de liderazgo cooperativo</h1><div class="caso"><b>Caso ' + (casoSel + 1) + ' - ' + esc(decodeHtml(d.caso.t)) + '</b><br><b>Nivel:</b> ' + esc(d.nivel.nombre) + '<br>' + esc(decodeHtml(d.caso.d)) + '<br><em>' + esc(decodeHtml(d.caso.p)) + '</em></div>' + avanzado + '<h2>Saber</h2>' + lista(d.saber) + '<h2>Saber hacer</h2>' + lista(d.hacer) + '<h2>Saber ser</h2>' + lista(d.ser) + '<h2>Conclusión del equipo</h2>' + lista(d.concl) + '<div class="disc"><b>Discusión final:</b> ' + esc(decodeHtml(d.nivel.disc)) + '</div><script src="/shared/facilitator-tools.js"><\/script>'
     + '</body></html>';
 }
-document.getElementById('btnPDF').addEventListener('click',()=>{if(casoSel<0)return;const old=document.getElementById('print-frame');if(old)old.remove();const frame=document.createElement('iframe');frame.id='print-frame';frame.style.position='fixed';frame.style.right='0';frame.style.bottom='0';frame.style.width='0';frame.style.height='0';frame.style.border='0';document.body.appendChild(frame);const fdoc=frame.contentWindow.document;fdoc.open();fdoc.write(construirDocumento(false));fdoc.close();setTimeout(()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}},300)});
-document.getElementById('btnWord').addEventListener('click',()=>{if(casoSel<0)return;const blob=new Blob(['\ufeff'+construirDocumento(true)],{type:'application/msword'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='perfil-lider-'+slugCaso()+'.doc';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000)});
-document.getElementById('btnPPT').addEventListener('click',()=>{
-  if(casoSel<0)return;if(typeof PptxGenJS==='undefined'){alert('No se pudo cargar la herramienta de PowerPoint. Verifiquen la conexi&oacute;n a internet e int&eacute;ntenlo de nuevo.');return}
-  const d=datos(),pptx=new PptxGenJS();pptx.defineLayout({name:'W',width:13.333,height:7.5});pptx.layout='W';
-  const VERDE='1C6B4A',AMAR='F4C20D',GRIS='3A3A36';let s=pptx.addSlide();s.background={color:'FFFFFF'};s.addText('CoopeNotebook',{x:.6,y:.5,fontSize:14,bold:true,color:VERDE});s.addText('Perfil de liderazgo cooperativo',{x:.6,y:2.1,w:12,fontSize:36,bold:true,color:'1A1A18'});s.addShape(pptx.ShapeType.rect,{x:.65,y:3.18,w:1.6,h:.08,fill:{color:VERDE}});s.addText('Caso '+(casoSel+1)+' - '+decodeHtml(d.caso.t),{x:.6,y:3.55,w:12,fontSize:21,color:VERDE,bold:true});s.addText('Nivel: '+d.nivel.nombre,{x:.6,y:4.05,w:12,fontSize:15,color:GRIS});s.addText(decodeHtml(d.caso.d),{x:.6,y:4.55,w:11.5,fontSize:15,color:GRIS});
-  const secciones=nivelSel==='avanzado'
-    ? [['Indispensable',d.advInd],['Deseable',d.advDes],['Riesgo si falta',d.advRiesgo],['Saber',d.saber],['Saber hacer',d.hacer],['Saber ser',d.ser],['Conclusi&oacute;n',d.concl]]
-    : [['Saber',d.saber],['Saber hacer',d.hacer],['Saber ser',d.ser],['Conclusi&oacute;n',d.concl]];
-  secciones.forEach(([titulo,items])=>{const arr=items.length?items:['(sin respuesta)'];for(let p=0;p<Math.ceil(arr.length/3);p++){const trozo=arr.slice(p*3,(p+1)*3),sl=pptx.addSlide();sl.background={color:'FFFFFF'};sl.addShape(pptx.ShapeType.rect,{x:0,y:0,w:.25,h:7.5,fill:{color:VERDE}});sl.addText(decodeHtml(titulo)+(arr.length>3?' ('+(p+1)+'/'+Math.ceil(arr.length/3)+')':''),{x:.8,y:.55,w:11.8,fontSize:30,bold:true,color:VERDE});sl.addShape(pptx.ShapeType.rect,{x:.85,y:1.5,w:1.4,h:.07,fill:{color:AMAR}});sl.addText(trozo.map(t=>({text:t,options:{bullet:{code:'2022'},color:'1A1A18',fontSize:22,paraSpaceAfter:14}})),{x:.95,y:1.95,w:11.4,h:4.8,valign:'top'});sl.addText('Caso '+(casoSel+1)+' - Nivel '+d.nivel.nombre,{x:.8,y:6.95,w:11.8,fontSize:11,color:'6A6A64'})}});
-  const sf=pptx.addSlide();sf.background={color:VERDE};sf.addText('Para la plenaria',{x:.5,y:1.5,w:12.3,align:'center',fontSize:34,bold:true,color:'FFFFFF'});sf.addText(decodeHtml(d.nivel.disc),{x:1.3,y:2.7,w:10.7,h:2.3,align:'center',fontSize:20,color:'D8EDE2'});pptx.writeFile({fileName:'perfil-lider-'+slugCaso()+'.pptx'});
+document.getElementById('btnPDF').addEventListener('click', () => { if (casoSel < 0) return; const old = document.getElementById('print-frame'); if (old) old.remove(); const frame = document.createElement('iframe'); frame.id = 'print-frame'; frame.style.position = 'fixed'; frame.style.right = '0'; frame.style.bottom = '0'; frame.style.width = '0'; frame.style.height = '0'; frame.style.border = '0'; document.body.appendChild(frame); const fdoc = frame.contentWindow.document; fdoc.open(); fdoc.write(construirDocumento(false)); fdoc.close(); setTimeout(() => { try { frame.contentWindow.focus(); frame.contentWindow.print() } catch (e) { window.print() } }, 300) });
+document.getElementById('btnWord').addEventListener('click', () => { if (casoSel < 0) return; const blob = new Blob(['\ufeff' + construirDocumento(true)], { type: 'application/msword' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'perfil-lider-' + slugCaso() + '.doc'; document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(() => URL.revokeObjectURL(url), 1000) });
+document.getElementById('btnPPT').addEventListener('click', () => {
+  if (casoSel < 0) return; if (typeof PptxGenJS === 'undefined') { alert('No se pudo cargar la herramienta de PowerPoint. Verifiquen la conexión a internet e inténtenlo de nuevo.'); return }
+  const d = datos(), pptx = new PptxGenJS(); pptx.defineLayout({ name: 'W', width: 13.333, height: 7.5 }); pptx.layout = 'W';
+  const VERDE = '1C6B4A', AMAR = 'F4C20D', GRIS = '3A3A36'; let s = pptx.addSlide(); s.background = { color: 'FFFFFF' }; s.addText('CoopeNotebook', { x: .6, y: .5, fontSize: 14, bold: true, color: VERDE }); s.addText('Perfil de liderazgo cooperativo', { x: .6, y: 2.1, w: 12, fontSize: 36, bold: true, color: '1A1A18' }); s.addShape(pptx.ShapeType.rect, { x: .65, y: 3.18, w: 1.6, h: .08, fill: { color: VERDE } }); s.addText('Caso ' + (casoSel + 1) + ' - ' + decodeHtml(d.caso.t), { x: .6, y: 3.55, w: 12, fontSize: 21, color: VERDE, bold: true }); s.addText('Nivel: ' + d.nivel.nombre, { x: .6, y: 4.05, w: 12, fontSize: 15, color: GRIS }); s.addText(decodeHtml(d.caso.d), { x: .6, y: 4.55, w: 11.5, fontSize: 15, color: GRIS });
+  const secciones = nivelSel === 'avanzado'
+    ? [['Indispensable', d.advInd], ['Deseable', d.advDes], ['Riesgo si falta', d.advRiesgo], ['Saber', d.saber], ['Saber hacer', d.hacer], ['Saber ser', d.ser], ['Conclusión', d.concl]]
+    : [['Saber', d.saber], ['Saber hacer', d.hacer], ['Saber ser', d.ser], ['Conclusión', d.concl]];
+  secciones.forEach(([titulo, items]) => { const arr = items.length ? items : ['(sin respuesta)']; for (let p = 0; p < Math.ceil(arr.length / 3); p++) { const trozo = arr.slice(p * 3, (p + 1) * 3), sl = pptx.addSlide(); sl.background = { color: 'FFFFFF' }; sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: .25, h: 7.5, fill: { color: VERDE } }); sl.addText(decodeHtml(titulo) + (arr.length > 3 ? ' (' + (p + 1) + '/' + Math.ceil(arr.length / 3) + ')' : ''), { x: .8, y: .55, w: 11.8, fontSize: 30, bold: true, color: VERDE }); sl.addShape(pptx.ShapeType.rect, { x: .85, y: 1.5, w: 1.4, h: .07, fill: { color: AMAR } }); sl.addText(trozo.map(t => ({ text: t, options: { bullet: { code: '2022' }, color: '1A1A18', fontSize: 22, paraSpaceAfter: 14 } })), { x: .95, y: 1.95, w: 11.4, h: 4.8, valign: 'top' }); sl.addText('Caso ' + (casoSel + 1) + ' - Nivel ' + d.nivel.nombre, { x: .8, y: 6.95, w: 11.8, fontSize: 11, color: '6A6A64' }) } });
+  const sf = pptx.addSlide(); sf.background = { color: VERDE }; sf.addText('Para la plenaria', { x: .5, y: 1.5, w: 12.3, align: 'center', fontSize: 34, bold: true, color: 'FFFFFF' }); sf.addText(decodeHtml(d.nivel.disc), { x: 1.3, y: 2.7, w: 10.7, h: 2.3, align: 'center', fontSize: 20, color: 'D8EDE2' }); pptx.writeFile({ fileName: 'perfil-lider-' + slugCaso() + '.pptx' });
 });
 </script>
 <script src="/shared/facilitator-tools.js"></script>
