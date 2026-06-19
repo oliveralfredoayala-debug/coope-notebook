@@ -14,16 +14,27 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Se
 .canvas{width:min(100%,860px);margin:0 auto;padding:4rem 1.25rem 5rem}.page-header{margin-bottom:2.5rem;padding-bottom:1.75rem;border-bottom:1px solid var(--gris-borde)}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.75rem}.title{font-size:clamp(30px,5vw,44px);font-weight:650;line-height:1.1;margin-bottom:.75rem}.rule{width:2.75rem;height:3px;background:var(--verde);border-radius:2px;margin:.85rem 0 0}.intro{max-width:640px;font-size:15px;color:var(--texto-sec)}
 .list{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;background:#fff}.row{position:relative;color:inherit;text-decoration:none;background:#fff;padding:1.25rem 1.35rem;transition:background .15s,border-color .15s,transform .15s;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--gris-borde);min-height:78px}.row:last-child{border-bottom:0}.row:hover{background:#fbfdfc;transform:translateY(-1px)}.accent{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--verde);opacity:0;transition:opacity .15s}.row:hover .accent{opacity:1}.code{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin-bottom:.25rem}.name{display:block;font-size:16px;font-weight:650;line-height:1.25;color:var(--texto)}.desc{display:block;font-size:13px;color:var(--texto-sec);line-height:1.55;margin-top:.2rem}.arrow{color:var(--verde);font-weight:700;flex-shrink:0}.credit{margin-top:2rem;font-size:12px;color:#a8a8a0;text-align:center}
 @media(max-width:640px){.canvas{padding-top:2.5rem}.row{align-items:flex-start}.title{font-size:32px}}
-  </style>
+  
+.group{margin-top:2rem}
+.group-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.75rem}
+</style>
 </head>
 <body>
 <header class="topbar"><a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a><a class="back" href="../index.html">Diplomado B&aacute;sico</a></header>
 <main class="canvas">
   <section class="page-header"><p class="eyebrow">Diplomado B&aacute;sico</p><h1 class="title">Gobernabilidad cooperativa</h1><p class="intro">Recursos sobre gobernabilidad, legalidad y contrapesos institucionales en la cooperativa.</p><div class="rule"></div></section>
-  <nav class="list" aria-label="Navegacion">
-    <a class="row" href="gobernabilidad-cooperativa.html"><span class="accent"></span><span><span class="code">DB-05</span><span class="name">Gobernabilidad cooperativa</span><span class="desc">Contenido interactivo del taller.</span></span><span class="arrow">&rarr;</span></a>
-    <a class="row" href="trabajo-gobernabilidad-cooperativa.html"><span class="accent"></span><span><span class="code">Trabajo pr&aacute;ctico</span><span class="name">Diagn&oacute;stico de gobernabilidad</span><span class="desc">Actividad de equipo con casos, niveles de desaf&iacute;o y descarga en PDF, Word o PowerPoint.</span></span><span class="arrow">&rarr;</span></a>
-  </nav>
+    <section class="group">
+    <h2 class="group-title">Cápsulas de teoría</h2>
+    <nav class="list" aria-label="Cápsulas de teoría">
+      <a class="row" href="gobernabilidad-cooperativa.html"><span class="accent"></span><span><span class="code">DB-05</span><span class="name">Gobernabilidad cooperativa</span><span class="desc">Contenido interactivo del taller.</span></span><span class="arrow">&rarr;</span></a>
+    </nav>
+  </section>
+  <section class="group">
+    <h2 class="group-title">Trabajos prácticos</h2>
+    <nav class="list" aria-label="Trabajos prácticos">
+      <a class="row" href="trabajo-gobernabilidad-cooperativa.html"><span class="accent"></span><span><span class="code">Trabajo pr&aacute;ctico</span><span class="name">Diagn&oacute;stico de gobernabilidad</span><span class="desc">Actividad de equipo con casos, niveles de desaf&iacute;o y descarga en PDF, Word o PowerPoint.</span></span><span class="arrow">&rarr;</span></a>
+    </nav>
+  </section>
   
 </main>
 </body>
