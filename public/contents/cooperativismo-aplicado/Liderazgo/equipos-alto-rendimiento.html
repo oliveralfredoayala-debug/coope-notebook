@@ -167,16 +167,29 @@
     }
     .nb-tags {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      flex-direction: column;
+      gap: 4px;
     }
-    .nb-tag {
-      font-size: 12px;
-      color: var(--verde);
+    .concepto {
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--texto-sec);
+      padding: 6px 8px;
+      border-radius: var(--radio-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .concepto:hover {
       background: var(--verde-bg);
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid #dcebe2;
+      color: var(--verde);
+    }
+    .concepto.activo {
+      background: var(--amarillo);
+      color: var(--texto);
+      font-weight: 600;
     }
     
     .nb-cerrar {
@@ -195,36 +208,127 @@
     }
     .nb-cerrar svg { width: 22px; height: 22px; }
     
-    .main { flex: 1; max-width: 760px; padding: 3rem 3.5rem; overflow-y: auto; }
+    .main { flex: 1; max-width: 820px; padding: 2.5rem 3rem; overflow-y: auto; }
     .panel { display: none; }
     .panel.activo { display: block; }
     
+    /* MODOS SELECTOR */
+    .modos-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--gris-borde);
+      padding-bottom: 1rem;
+    }
+    .modos-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .modos-wrap {
+      display: inline-flex;
+      background: var(--gris-bg);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--gris-borde);
+    }
+    .modo-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--texto-sec);
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .modo-btn:hover { color: var(--verde); }
+    .modo-btn.activo {
+      background: var(--blanco);
+      color: var(--verde);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
     /* 3. CONTENIDOS */
-    .capsula-titulo { font-size: 26px; font-weight: 600; color: var(--texto); line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+    .capsula-titulo { font-size: 32px; font-weight: 750; color: var(--texto); line-height: 1.2; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; letter-spacing: -0.02em; }
     .capsula-titulo::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .5rem; border-radius: 2px; }
-    .capsula-meta { font-size: 12px; color: var(--texto-ter); margin-bottom: 2rem; }
-    .capsula-intro { font-size: 16px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gris-borde); }
+    .capsula-meta { font-size: 12px; color: var(--texto-ter); margin-bottom: 1.5rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+    .capsula-intro { font-size: 17px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gris-borde); }
     .capsula-intro strong { color: var(--texto); font-weight: 500; }
     
-    .seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2.5rem 0 1rem; }
-    .detonadora { font-size: 19px; font-weight: 600; line-height: 1.4; color: var(--verde); margin: 1.5rem 0; padding-left: 1rem; border-left: 3px solid var(--amarillo); }
+    .seccion-h { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2rem 0 1rem; }
+    .detonadora { font-size: 18px; font-weight: 600; line-height: 1.45; color: var(--verde); margin: 1.5rem 0; padding-left: 1rem; border-left: 3px solid var(--amarillo); }
     .prosa { font-size: 15px; color: var(--texto-sec); line-height: 1.7; margin: 1.25rem 0; }
-    .prosa strong { color: var(--texto); font-weight: 500; }
+    .prosa strong { color: var(--texto); font-weight: 600; }
+    .sep { height: 1px; background: var(--gris-borde); margin: 2.5rem 0; }
+
+    /* TEXT DEPTH VISIBILITY */
+    .glosa {
+      display: none;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      background: var(--verde-bg);
+      border-left: 3px solid var(--verde-sec);
+      border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+      padding: 1.1rem 1.25rem;
+      margin: 1.5rem 0;
+      line-height: 1.6;
+    }
+    .densa {
+      display: none;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      background: #fafafa;
+      border: 1px dashed var(--gris-borde);
+      border-radius: var(--radio-sm);
+      padding: 1.1rem 1.25rem;
+      margin: 1.5rem 0;
+      line-height: 1.6;
+    }
+    body[data-depth="guided"] .glosa { display: block; }
+    body[data-depth="expert"] .densa { display: block; }
     
-    .idea { background: var(--gris-bg); border-left: 3px solid var(--verde); padding: 1.25rem 1.5rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; margin: 1.75rem 0; }
-    .idea-rotulo { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--verde-sec); font-weight: 600; margin-bottom: .5rem; }
-    .idea-texto { font-size: 16px; font-weight: 500; line-height: 1.55; color: var(--texto); }
-    .idea-texto em { font-style: normal; color: var(--verde); font-weight: 600; }
+    .def-bloque {
+      background: var(--verde-bg);
+      border-left: 3px solid var(--verde-sec);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+      margin: 1.75rem 0;
+    }
+    .def-bloque .t { font-weight: 700; font-size: 14px; color: var(--verde); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: .3rem; }
+    .def-bloque .d { font-size: 15px; color: var(--texto); line-height: 1.6; }
+
+    .interp {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-left: 3px solid var(--verde);
+      padding: 1.1rem 1.35rem;
+      border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+      margin: 1.5rem 0;
+    }
+    .interp .et { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--verde-sec); margin-bottom: .4rem; }
+    .interp p { margin: 0; font-size: 14.5px; color: var(--texto-sec); }
+
+    .cita-bloque {
+      border-left: 3px solid var(--amarillo);
+      padding: 0.5rem 0 0.5rem 1.25rem;
+      margin: 1.75rem 0;
+    }
+    .cita-bloque .q { font-size: 17px; line-height: 1.55; color: var(--texto); font-weight: 500; font-style: italic; }
+    .cita-bloque .a { font-size: 12.5px; color: var(--texto-ter); margin-top: .5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
     
     .cita { margin: 1.75rem 0; padding: 1.25rem 1.5rem; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); }
     .cita-texto { font-size: 15px; line-height: 1.6; font-weight: 500; color: var(--texto-sec); font-style: italic; }
     .cita-texto::before { content: '\201C'; color: var(--amarillo); font-weight: 700; font-size: 20px; }
     .cita-texto::after { content: '\201D'; color: var(--amarillo); font-weight: 700; font-size: 20px; }
     .cita-autor { font-size: 12px; color: var(--texto-ter); margin-top: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    
-    .insight { background: var(--gris-bg); border-left: 3px solid var(--amarillo); padding: 1rem 1.25rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; margin: 1.75rem 0; font-size: 14px; color: var(--texto-sec); line-height: 1.65; }
-    .insight strong { color: var(--texto); font-weight: 500; }
-    
+
     /* GRID DE CONTENIDO */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
     .punto { border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 1.25rem; background: var(--blanco); }
@@ -234,12 +338,13 @@
     /* FASES */
     .fase { margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); background: var(--blanco); }
     .fase-head { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
-    .fase-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radio-sm); background: var(--verde); color: #fff; font-weight: 700; font-size: 14px; }
+    .fase-num { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radio-sm); background: var(--verde); color: #fff; font-weight: 700; font-size: 13.5px; }
     .fase-h { font-size: 18px; font-weight: 600; color: var(--texto); }
     .necesita { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
-    .chip { font-size: 12px; font-weight: 500; color: var(--texto-sec); background: var(--gris-bg); border: 1px solid var(--gris-borde); border-radius: 20px; padding: 4px 10px; }
+    .chip { font-size: 12px; font-weight: 500; color: var(--texto-sec); background: var(--gris-bg); border: 1px solid var(--gris-borde); border-radius: 20px; padding: 4px 10px; transition: background 0.15s, color 0.15s; }
+    .chip.resalta { background: var(--amarillo); color: var(--texto); font-weight: 600; border-color: #f0bd0b; }
     
-    /* COMPARACIONES */
+    /* TABLAS */
     .tabla-wrap { margin: 1.25rem 0; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
     .tabla-wrap table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 450px; }
     .tabla-wrap thead tr { background: var(--verde); }
@@ -251,21 +356,22 @@
     .tabla-wrap td.grupo { color: var(--texto-ter); }
     .tabla-wrap td.equipo { font-weight: 600; color: var(--verde); }
     
-    /* TALLER Y CASOS */
+    /* ESCENARIOS Y CASOS */
     .caso-taller { background: #fafcfa; border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1.5rem; margin: 1.5rem 0; }
     .caso-tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--verde); letter-spacing: 0.05em; margin-bottom: .5rem; }
     .caso-taller h3 { font-size: 18px; font-weight: 600; color: var(--texto); margin-bottom: .5rem; }
-    .caso-taller .situacion { font-size: 14px; color: var(--texto-sec); line-height: 1.6; margin-bottom: 1rem; }
+    .caso-taller .situacion { font-size: 14.5px; color: var(--texto-sec); line-height: 1.6; margin-bottom: 1rem; }
     .caso-taller .pregunta { font-size: 14.5px; font-weight: 600; color: var(--texto); margin-bottom: 1rem; }
+    
     .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radio-sm); font-size: 13px; font-weight: 600; padding: .6rem 1.25rem; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; min-height: 38px; }
     .btn-verde { background: var(--verde); color: #fff; }
     .btn-verde:hover { background: #155539; }
     .btn-borde { background: none; border-color: var(--gris-borde); color: var(--texto-sec); }
     .btn-borde:hover { background: var(--gris-bg); border-color: var(--texto-ter); color: var(--texto); }
-    .pista-bloque { display: none; margin-top: 1rem; background: var(--amarillo-fondo); border: 1px solid #f6e2a8; border-radius: var(--radio-sm); padding: 1rem; font-size: 13.5px; color: var(--texto-sec); line-height: 1.55; }
+    
+    .pista-bloque { display: none; margin-top: 1rem; background: var(--verde-bg); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); padding: 1rem; font-size: 13.5px; color: var(--texto-sec); line-height: 1.55; }
     .pista-bloque.visible { display: block; }
     
-    /* CRONOMETRO Y SORTEO */
     .taller-box { background: var(--gris-bg); border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 1.5rem; margin: 2rem 0; }
     .taller-box h3 { font-size: 18px; font-weight: 600; margin-bottom: .5rem; color: var(--texto); }
     .taller-controles { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
@@ -275,7 +381,7 @@
     .sorteo-res div { margin-bottom: .5rem; }
     .sorteo-res div:last-child { margin-bottom: 0; }
     
-    /* ACORDEÓN MARCOS */
+    /* ACORDEONES MARCOS */
     .marco { border: 1px solid var(--gris-borde); border-radius: var(--radio); margin-bottom: .75rem; background: var(--blanco); overflow: hidden; }
     .marco-head { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1.1rem 1.5rem; background: none; border: none; font-family: inherit; cursor: pointer; text-align: left; }
     .marco-head .mt { font-size: 15px; font-weight: 600; color: var(--texto); }
@@ -287,6 +393,7 @@
     .marco.abierto .marco-head .icono { transform: rotate(45deg); }
     .marco-body { display: none; padding: 0 1.5rem 1.5rem; font-size: 14.5px; color: var(--texto-sec); line-height: 1.6; border-top: 1px solid var(--gris-borde); background: #fafafa; }
     .marco.abierto .marco-body { display: block; }
+    .marco-body .fuente { font-size: 12px; color: var(--texto-ter); margin-top: 10px; display: block; }
     
     /* AUTOEVALUACION */
     .item { border: 1px solid var(--gris-borde); border-radius: var(--radio); padding: 1.5rem; background: var(--blanco); margin-bottom: 1.5rem; }
@@ -340,7 +447,7 @@
   </style>
   <link rel="stylesheet" href="/shared/facilitator-tools.css">
 </head>
-<body>
+<body data-depth="balanced">
 
   <!-- Topbar Unificada -->
   <header class="topbar">
@@ -352,7 +459,7 @@
     
     <a class="back" href="../index.html">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-      Liderazgo
+      Cooperativismo Aplicado
     </a>
   </header>
 
@@ -368,35 +475,49 @@
       <div class="nb-marca-titulo">Equipos de Alto Rendimiento</div>
       
       <ul class="nb-nav">
-        <li><button onclick="tab('portada', this)" class="activo"><span class="nb-nav-num">00</span>Apertura</button></li>
-        <li><button onclick="tab('exploracion', this)"><span class="nb-nav-num">01</span>Exploración</button></li>
-        <li><button onclick="tab('ciclo', this)"><span class="nb-nav-num">02</span>Ciclo del equipo</button></li>
-        <li><button onclick="tab('metodologia', this)"><span class="nb-nav-num">03</span>Metodologías</button></li>
-        <li><button onclick="tab('marcos', this)"><span class="nb-nav-num">04</span>Marcos y roles</button></li>
-        <li><button onclick="tab('taller', this)"><span class="nb-nav-num">05</span>Taller de casos</button></li>
-        <li><button onclick="tab('verifica', this)"><span class="nb-nav-num">06</span>Autoevaluación</button></li>
+        <li><button onclick="tab('exploracion', this)" class="activo" id="btnNavExploracion"><span class="nb-nav-num">01</span>Exploración</button></li>
+        <li><button onclick="tab('escenarios', this)"><span class="nb-nav-num">02</span>Escenarios</button></li>
+        <li><button onclick="tab('marcos', this)"><span class="nb-nav-num">03</span>Marcos de referencia</button></li>
+        <li><button onclick="tab('verifica', this)"><span class="nb-nav-num">04</span>Verifica tu lectura</button></li>
       </ul>
       
       <div class="nb-conceptos">
         <span class="nb-conceptos-label">Conceptos relacionados</span>
         <div class="nb-tags">
-          <span class="nb-tag">cohesión</span>
-          <span class="nb-tag">autodirección</span>
-          <span class="nb-tag">feedback</span>
-          <span class="nb-tag">metas SMART</span>
-          <span class="nb-tag">método IDS</span>
+          <button class="concepto" onclick="clickConcepto('responsabilidad', this)">responsabilidad mutua</button>
+          <button class="concepto" onclick="clickConcepto('sinergia', this)">sinergia</button>
+          <button class="concepto" onclick="clickConcepto('autodireccion', this)">autodirección</button>
+          <button class="concepto" onclick="clickConcepto('roles', this)">roles de equipo</button>
+          <button class="concepto" onclick="clickConcepto('cohesion', this)">cohesión</button>
+          <button class="concepto" onclick="clickConcepto('desacuerdo', this)">desacuerdo constructivo</button>
+          <button class="concepto" onclick="clickConcepto('interdependencia', this)">interdependencia</button>
+          <button class="concepto" onclick="clickConcepto('mandato', this)">mandato</button>
         </div>
       </div>
     </nav>
     
     <main class="main">
 
-      <!-- 00 · APERTURA -->
-      <div class="panel activo" id="panel-portada">
+      <!-- MODOS DE LECTURA -->
+      <div class="modos-container">
+        <span class="modos-label">Profundidad de lectura:</span>
+        <div class="modos-wrap">
+          <button class="modo-btn" data-depth="guided" onclick="cambiarModo('guided', this)">Guiada</button>
+          <button class="modo-btn activo" data-depth="balanced" onclick="cambiarModo('balanced', this)">Balanceada</button>
+          <button class="modo-btn" data-depth="expert" onclick="cambiarModo('expert', this)">Experta</button>
+        </div>
+      </div>
+
+      <!-- ===================== EXPLORACIÓN ===================== -->
+      <div class="panel activo" id="panel-exploracion">
         <p class="capsula-meta">Tema · Liderazgo y Trabajo en Equipo</p>
         <h1 class="capsula-titulo">Equipos de alto rendimiento</h1>
-        <p class="capsula-intro">El alto rendimiento no surge por casualidad, ni es una suma de talentos individuales. Es un recorrido sistemático en el que cada competencia y metodología se activa en la fase exacta en que el equipo la requiere.</p>
         
+        <p class="prosa">No como un temario de cualidades sueltas, sino como un recorrido: cada cosa que un equipo necesita aparece en el momento del ciclo en que la necesita.</p>
+
+        <div class="glosa">Este recorrido sigue el ciclo de vida de un equipo. En lugar de estudiar objetivos, confianza, comunicación y liderazgo por separado, los vas a encontrar dentro de la fase donde el equipo realmente los pone en juego.</div>
+
+        <!-- Invocación y Objetivos (Opcional - Apertura) -->
         <div class="cita">
           <div class="cita-texto">Elevemos nuestro espíritu a Dios que es fuente de bondad y ejemplo de justicia, que él encienda en nuestros corazones la sed de servir a nuestro prójimo, inspirados en los nobles principios del cooperativismo; ilumine nuestro entendimiento y guíe nuestras decisiones, exentas de egoísmo y espíritu de lucro, a fin de alcanzar la resolución de nuestros problemas económicos sociales y los de nuestros hermanos, para fomentar, conseguir y preservar la paz del mundo. Así sea.</div>
           <div class="cita-autor">Invocación del Movimiento Cooperativista</div>
@@ -404,40 +525,32 @@
         
         <p class="seccion-h">Objetivos de aprendizaje</p>
         <div class="detonadora">Objetivo General: Analizar los componentes de los equipos de alto rendimiento aplicados al sector cooperativista para internalizar hábitos y metodologías de construcción de equipos para las distintas necesidades de estas.</div>
-        
-        <div class="grid">
-          <div class="punto">
-            <div class="pt">Entender el funcionamiento</div>
-            <div class="pd">Analizar las características de la conformación y el funcionamiento interno de los equipos de alto rendimiento.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Desarrollar competencias</div>
-            <div class="pd">Explorar competencias específicas que se necesita desarrollar para integrarse con éxito a un equipo de alto rendimiento.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Aplicar metodologías</div>
-            <div class="pd">Explorar y practicar herramientas y metodologías de gestión efectivas aplicables al trabajo colectivo.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Liderar con efectividad</div>
-            <div class="pd">Estudiar y comprender la función transversal y el rol evolutivo del líder de un equipo de trabajo.</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- 01 · EXPLORACIÓN -->
-      <div class="panel" id="panel-exploracion">
-        <h2 class="capsula-titulo">Qué es, y qué no es</h2>
+        <div class="sep"></div>
+
+        <h2 class="capsula-titulo" style="font-size: 24px; margin-bottom: 1rem;">Qué es, y qué no es</h2>
         <p class="prosa">Un equipo de alto rendimiento es un conjunto delimitado de personas con capacidades complementarias, organizadas alrededor de un propósito y resultados comunes, que cuentan con autoridad, recursos y métodos claros de trabajo, asumen responsabilidad mutua y mejoran su capacidad colectiva mientras producen resultados sobresalientes.</p>
-        
-        <div class="idea">
-          <div class="idea-rotulo">El Diferenciador Cooperativo</div>
-          <div class="idea-texto">En las cooperativas se añade un criterio ético: que esos resultados sobresalientes sean <em>coherentes con la identidad, los principios y la responsabilidad social</em> del modelo cooperativo.</div>
+        <p class="prosa">En clave cooperativa, se agrega un criterio más: que esos resultados sean coherentes con la identidad, los principios y las responsabilidades de la cooperativa.</p>
+
+        <div class="def-bloque" data-anchor="responsabilidad">
+          <div class="t">El diferenciador: responsabilidad mutua</div>
+          <div class="d">No basta con que cada persona cumpla su parte. El equipo completo responde por el resultado. Esta es la frontera real entre un grupo que trabaja junto y un equipo.</div>
         </div>
 
-        <p class="prosa">Katzenbach y Smith identifican que la frontera real entre un grupo y un equipo reside en la <strong>responsabilidad mutua</strong>. En un grupo de trabajo, la responsabilidad es únicamente individual; en un equipo de alto rendimiento, el colectivo responde en su totalidad por el resultado final. No basta con cumplir una cuota; el equipo entero gana o aprende en conjunto.</p>
+        <p class="prosa">Katzenbach y Smith resumen seis componentes: número manejable de integrantes, competencias complementarias, propósito común, metas concretas de desempeño, método compartido de trabajo y responsabilidad mutua. Hackman aporta otra mirada: el alto rendimiento no se define solo por lo que el equipo es por dentro, sino por las condiciones que lo hacen posible.</p>
 
-        <p class="seccion-h">Grupo frente a Equipo</p>
+        <div class="glosa">Hackman señala cinco condiciones: ser un equipo real y delimitado, una dirección convincente, una estructura que facilite el trabajo, apoyo de la organización y acompañamiento competente. Y propone medir la efectividad en tres niveles: produce resultados de calidad, fortalece su capacidad de trabajar a futuro y contribuye al aprendizaje y bienestar de sus miembros.</div>
+
+        <div class="interp">
+          <div class="et">Lectura</div>
+          <p>Un equipo puede alcanzar una meta una vez y quedar destruido después. Eso es rendimiento momentáneo, no alto rendimiento. El alto rendimiento incluye conservar la viabilidad para los próximos retos.</p>
+        </div>
+
+        <div class="densa">
+          <p>La distinción Hackman matiza la lectura puramente interna de Katzenbach & Smith: el desempeño es función tanto de los atributos del equipo como del diseño organizacional que lo habilita. Por eso un equipo sin mandato, recursos o autoridad no es un equipo deficiente, sino un equipo mal habilitado.</p>
+        </div>
+
+        <p class="seccion-h">Grupo no es lo mismo que equipo</p>
         <div class="tabla-wrap">
           <table>
             <thead>
@@ -459,388 +572,358 @@
           </table>
         </div>
 
-        <p class="seccion-h">Los Pilares de la Confianza Mutua</p>
-        <p class="prosa">La confianza mutua es la creencia y seguridad de que cada miembro del equipo actúa con integridad, competencias y buenas intenciones hacia los demás. Se sustenta en tres pilares fundamentales extraídos de la práctica de equipos de alto rendimiento:</p>
-        <div class="grid">
-          <div class="punto">
-            <div class="pt">Medición del cumplimiento</div>
-            <div class="pd">Fomentar la responsabilidad de evaluar y cumplir los compromisos adquiridos sin necesidad de un control punitivo.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Transparencia absoluta</div>
-            <div class="pd">Compartir información clave, intenciones y procesos de manera abierta, eliminando las agendas ocultas.</div>
-          </div>
-          <div class="punto" style="grid-column: span 2;">
-            <div class="pt">Apertura a la vulnerabilidad</div>
-            <div class="pd">Tener la seguridad psicológica necesaria para admitir errores, debilidades, dudas o pedir ayuda sin temor a represalias o juicios.</div>
-          </div>
-        </div>
+        <div class="sep"></div>
 
-        <p class="seccion-h">Zona de Reflexión: Llevar la Carreta</p>
-        <p class="prosa">Haciendo referencia a la dinámica de "Llevar la Carreta" (metáfora de empujar el esfuerzo común), plantéate las siguientes preguntas con tu equipo:</p>
-        <div class="grid">
-          <div class="punto">
-            <div class="pt">¿A quién tienes en tu equipo?</div>
-            <div class="pd">¿Cómo determinas qué tipo de persona, roles y actitudes tienes en tu equipo de trabajo actual?</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Mínimo Viable</div>
-            <div class="pd">¿Cuál es el mínimo viable de compromiso, competencia y actitud que podemos permitir en el equipo?</div>
-          </div>
-          <div class="punto" style="grid-column: span 2;">
-            <div class="pt">Plan de Contingencia</div>
-            <div class="pd">¿Qué alternativas estratégicas podríamos tomar en caso de que no consigamos de entrada a todos los miembros ideales?</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 02 · CICLO DEL EQUIPO -->
-      <div class="panel" id="panel-ciclo">
-        <h2 class="capsula-titulo">El ciclo de vida del equipo</h2>
-        <p class="prosa">Los equipos no nacen maduros, sino que evolucionan. Aunque el modelo clásico de Tuckman describe el avance del grupo, en CoopeNotebook comprendemos que el <strong>alto rendimiento</strong> es una fase superior de viabilidad y excelencia.</p>
+        <h2 class="capsula-titulo" style="font-size: 24px; margin-bottom: 1rem;">El ciclo de vida del equipo</h2>
+        <p class="prosa">Seis fases. El modelo clásico de Tuckman (formación, conflicto, normalización, desempeño, cierre) está adentro, pero con una precisión: llegar a "desempeño" no es todavía alto rendimiento. El alto rendimiento es una fase propia.</p>
 
         <!-- FASE 1 -->
         <div class="fase">
-          <div class="fase-head"><span class="fase-num">1</span><h3 class="fase-h">Nace el equipo (Formación)</h3></div>
-          <p class="prosa">Se define el problema, los recursos, quiénes lo integran y el <strong>mandato</strong>. El mandato es el encargo de qué se espera del equipo, su alcance y su nivel de autonomía. Sin él, el equipo improvisa su razón de ser.</p>
-          <div class="necesita">
-            <span class="chip">propósito y mandato</span>
-            <span class="chip">objetivos compartidos</span>
-            <span class="chip">recursos básicos</span>
+          <div class="fase-head"><span class="fase-num">1</span><h3 class="fase-h">Nace el equipo</h3></div>
+          <p class="prosa">Antes de cualquier dinámica, hay decisiones que definen si el equipo siquiera puede existir: el problema o necesidad que lo origina, su propósito, su mandato, quiénes lo integran y con qué recursos y autoridad cuenta.</p>
+          <div class="def-bloque" data-anchor="mandato">
+            <div class="t">Mandato</div>
+            <div class="d">El encargo claro de qué se espera del equipo, con qué alcance y hasta dónde puede decidir. Sin mandato, el equipo improvisa su razón de ser.</div>
           </div>
+          <p class="prosa">Aquí los objetivos hacen el trabajo más importante: no son el adorno inicial, son la señal de qué está trabajando el equipo. El valor no está solo en alcanzar el objetivo, sino en el progreso continuo hacia él. Conviene hacerlos colaborativos, fáciles de actualizar y propios del equipo.</p>
+          <div class="necesita">
+            <span class="chip" data-c="mandato">propósito y mandato</span>
+            <span class="chip">objetivos compartidos</span>
+            <span class="chip">recursos y autoridad</span>
+          </div>
+          <div class="glosa">Si un equipo arranca sin saber qué se espera de él ni hasta dónde puede decidir, todo lo que venga después cargará con esa ambigüedad inicial. Por eso esta fase es la base.</div>
         </div>
 
         <!-- FASE 2 -->
         <div class="fase">
-          <div class="fase-head"><span class="fase-num">2</span><h3 class="fase-h">Se encuentra con sus diferencias (Conflicto / Storming)</h3></div>
-          <p class="prosa">Las personas llegan con expectativas y métodos de trabajo diferentes. Se prueban los límites de las funciones y emergen los primeros roces. No es una falla; es la etapa necesaria para descubrir de qué está hecho el equipo.</p>
+          <div class="fase-head"><span class="fase-num">2</span><h3 class="fase-h">Se encuentra con sus diferencias</h3></div>
+          <p class="prosa">Las personas llegan con expectativas, intereses y competencias distintas. Aparecen los primeros conflictos y se prueban los límites de las funciones. Esta fricción no es una falla: es la etapa donde el equipo descubre de qué está hecho.</p>
+          <p class="prosa">Las competencias complementarias —que en el grupo eran solo diferencias— empiezan a verse como roles. Un equipo necesita perfiles variados que se completen entre sí.</p>
           
-          <p class="prosa">Para guiar adecuadamente al equipo, es fundamental identificar la naturaleza del conflicto:</p>
-          <div class="grid">
-            <div class="punto">
-              <div class="pt">Conflicto de Tarea</div>
-              <div class="pd">Divergencias sobre el contenido y los objetivos del trabajo. Es sano y estimula ideas diversas cuando hay seguridad psicológica.</div>
-            </div>
-            <div class="punto">
-              <div class="pt">Conflicto de Proceso</div>
-              <div class="pd">Discusiones sobre cómo se realiza el trabajo, las metodologías, la asignación de recursos y la logística operativa.</div>
-            </div>
-            <div class="punto" style="grid-column: span 2;">
-              <div class="pt">Conflicto de Relación / Realización</div>
-              <div class="pd">Roces interpersonales, choques de personalidad y tensiones emocionales. Tiende a desgastar y erosionar la cohesión si no se interviene con empatía.</div>
-            </div>
+          <div class="grid" data-anchor="roles">
+            <div class="punto"><div class="pt">Creativo</div><div class="pd">Aporta ideas y soluciones nuevas.</div></div>
+            <div class="punto"><div class="pt">Investigador de recursos</div><div class="pd">Explora contactos y posibilidades fuera del equipo.</div></div>
+            <div class="punto"><div class="pt">Coordinador</div><div class="pd">Organiza y orienta hacia los objetivos.</div></div>
+            <div class="punto"><div class="pt">Impulsor</div><div class="pd">Empuja para que las cosas avancen.</div></div>
+            <div class="punto"><div class="pt">Evaluador</div><div class="pd">Analiza opciones con criterio frío.</div></div>
+            <div class="punto"><div class="pt">Implementador</div><div class="pd">Convierte las ideas en tareas concretas.</div></div>
+            <div class="punto"><div class="pt">Finalizador</div><div class="pd">Cuida los detalles y cierra lo pendiente.</div></div>
+            <div class="punto"><div class="pt">Cohesionador</div><div class="pd">Sostiene las relaciones y el clima del equipo.</div></div>
           </div>
-
+          
+          <div class="interp">
+            <div class="et">Lectura</div>
+            <p>Los roles de equipo (modelo de Belbin) son una referencia para conversar sobre diferencias, no una etiqueta fija. Las personas combinan varios roles y los cambian según el equipo.</p>
+          </div>
           <div class="necesita">
-            <span class="chip">roles de Belbin</span>
-            <span class="chip">manejo de conflictos</span>
-            <span class="chip">seguridad psicológica</span>
+            <span class="chip" data-c="roles">roles complementarios</span>
+            <span class="chip" data-c="desacuerdo">conflicto temprano</span>
+            <span class="chip">límites de funciones</span>
           </div>
         </div>
 
         <!-- FASE 3 -->
         <div class="fase">
-          <div class="fase-head"><span class="fase-num">3</span><h3 class="fase-h">Construye su forma de trabajar (Normalización)</h3></div>
-          <p class="prosa">El equipo pacta sus normas, canales y roles. Se construye la <strong>cohesión</strong> y la <strong>interdependencia</strong> (donde el resultado de cada quien depende del esfuerzo de los demás). Crece la potencia colectiva.</p>
+          <div class="fase-head"><span class="fase-num">3</span><h3 class="fase-h">Construye su forma de trabajar</h3></div>
+          <p class="prosa">Tras la fricción, el equipo acuerda cómo va a operar: roles, normas, canales de comunicación, cómo toma decisiones y cómo da seguimiento. Aquí se construye la cohesión, que no es que todos se caigan bien, sino que el equipo funcione como una unidad.</p>
+          
+          <div class="def-bloque" data-anchor="cohesion">
+            <div class="t">Cohesión</div>
+            <div class="d">El grado en que el equipo se mantiene unido y orientado hacia sus metas. Se fortalece con metas comunes, mayor interacción y atracción hacia valores compartidos.</div>
+          </div>
+          <p class="prosa">La cohesión crece cuando hay metas y destinos en común. Aquí entra la interdependencia: la medida en que el equipo requiere que sus miembros interactúen y sientan juntos las consecuencias del trabajo.</p>
+          
+          <div class="def-bloque" data-anchor="interdependencia">
+            <div class="t">Interdependencia</div>
+            <div class="d">Cuando el resultado de cada quien depende del de los demás. Un grado alto de interdependencia aumenta el sentimiento de potencia: la creencia compartida de que el equipo puede ser efectivo.</div>
+          </div>
           <div class="necesita">
-            <span class="chip">normas de convivencia</span>
-            <span class="chip">cohesión</span>
-            <span class="chip">interdependencia mutua</span>
+            <span class="chip">normas y roles</span>
+            <span class="chip" data-c="cohesion">cohesión</span>
+            <span class="chip" data-c="interdependencia">interdependencia</span>
+            <span class="chip">comunicación abierta</span>
           </div>
         </div>
 
         <!-- FASE 4 -->
         <div class="fase">
-          <div class="fase-head"><span class="fase-num">4</span><h3 class="fase-h">Aprende a producir resultados (Desempeño / Performing)</h3></div>
-          <p class="prosa">El equipo coordina de manera fluida y se enfoca en resolver tareas. La responsabilidad mutua se vuelve práctica diaria y se combate la evasión de responsabilidades (evitando las disfunciones de Lencioni).</p>
+          <div class="fase-head"><span class="fase-num">4</span><h3 class="fase-h">Aprende a producir resultados</h3></div>
+          <p class="prosa">El equipo ya coordina, confía y resuelve problemas juntos. Esta es la etapa de "desempeño" de Tuckman: el equipo puede concentrarse en la tarea. Aquí la responsabilidad mutua deja de ser un principio y se vuelve práctica diaria.</p>
+          <p class="prosa">Generar una cultura de rendición de cuentas hace que el equipo sea transparente. En la cooperativa esa rendición de cuentas tiene su lugar propio: ante la asamblea y los afiliados/as, no solo hacia dentro del equipo. La cultura de aprender de los errores fortalece al equipo cuando responde a problemas y reconoce los buenos resultados.</p>
+          
+          <div class="interp">
+            <div class="et">Espejo: las cinco disfunciones</div>
+            <p>Lo que erosiona a un equipo en esta fase, según Lencioni: ausencia de confianza, temor al conflicto, falta de compromiso, evitación de responsabilidades y falta de atención a los resultados. Cada disfunción es el reverso de algo que el equipo necesita construir.</p>
+          </div>
           <div class="necesita">
-            <span class="chip">rendición de cuentas</span>
-            <span class="chip">confianza mutua</span>
-            <span class="chip">eficacia en tareas</span>
+            <span class="chip" data-c="responsabilidad">responsabilidad mutua</span>
+            <span class="chip">confianza</span>
+            <span class="chip">resolución de problemas</span>
+            <span class="chip">adaptación</span>
           </div>
         </div>
 
         <!-- FASE 5 -->
         <div class="fase">
           <div class="fase-head"><span class="fase-num">5</span><h3 class="fase-h">Alcanza el alto rendimiento</h3></div>
-          <p class="prosa">El equipo madura hacia la <strong>autodirección</strong> (amplio margen de autonomía responsable). Las discusiones son abiertas y sinceras (<strong>desacuerdo constructivo</strong>), el conflicto es el motor del aprendizaje y se alcanza una productividad excepcional y sostenible en armonía con los valores cooperativos.</p>
+          <p class="prosa">Aquí aparece lo que distingue a un equipo de alto rendimiento: resultados superiores, autonomía responsable, aprendizaje colectivo, mejora continua y coherencia con la identidad cooperativa. Llegar a "desempeño" era poder trabajar bien; el alto rendimiento es trabajar de forma excepcional y sostenerlo.</p>
+          
+          <div class="def-bloque" data-anchor="autodireccion">
+            <div class="t">Autodirección</div>
+            <div class="d">El equipo tiene amplio margen para establecer sus líneas de actuación y autonomía para ejecutarlas. Autodirección no significa "sin líder": significa que el liderazgo se distribuye y el equipo asume sus decisiones.</div>
+          </div>
+          
+          <div class="cita-bloque">
+            <div class="q">Como cualquier árbol, necesita raíces sólidas: compromiso, foco, apertura, respeto y coraje. Si las raíces son fuertes, el árbol crece recto y alto.</div>
+            <div class="a">La metáfora del árbol — los valores sostienen el crecimiento del equipo</div>
+          </div>
+          <p class="prosa">Las hojas de ese árbol son las conductas del equipo maduro: autoorganizado en vez de depender de roles rígidos, empoderado en sus decisiones, convencido de que puede resolver cualquier problema, comprometido con el éxito, dueño de sus decisiones y capaz de vivir en desacuerdo constructivo permanente.</p>
+          
+          <div class="def-bloque" data-anchor="desacuerdo">
+            <div class="t">Desacuerdo constructivo</div>
+            <div class="d">El equipo maduro discute con franqueza sin romperse. El conflicto se vuelve motor de mejores decisiones, no amenaza a la relación.</div>
+          </div>
           <div class="necesita">
-            <span class="chip">autodirección</span>
+            <span class="chip" data-c="autodireccion">autodirección</span>
             <span class="chip">aprendizaje colectivo</span>
-            <span class="chip">desacuerdo constructivo</span>
+            <span class="chip">mejora continua</span>
+            <span class="chip">coherencia cooperativa</span>
           </div>
         </div>
 
         <!-- FASE 6 -->
         <div class="fase">
-          <div class="fase-head"><span class="fase-num">6</span><h3 class="fase-h">Se renueva, transforma o cierra (Disolución / Adjourning)</h3></div>
-          <p class="prosa">Ningún equipo es eterno. Al terminar su encargo, el equipo realiza una evaluación, sistematiza lo aprendido, reconoce el esfuerzo mutuo, decide la rotación de miembros o el cierre del ciclo con orden.</p>
+          <div class="fase-head"><span class="fase-num">6</span><h3 class="fase-h">Se renueva, transforma o cierra</h3></div>
+          <p class="prosa">Ningún equipo dura para siempre en la misma forma. Esta fase evalúa lo logrado, recoge aprendizajes y decide: rotar o incorporar miembros, recibir un nuevo mandato, o disolverse con orden. La medición no es vigilancia, es la base de esa decisión.</p>
+          <p class="prosa">Medir y evaluar ayuda a reconocer fortalezas, aumentar la productividad colectiva y crear un entorno transparente. Se observa la toma de decisiones, el cumplimiento de plazos, el sentido de responsabilidad, el desarrollo de habilidades, la iniciativa y la actitud.</p>
+          
+          <div class="interp">
+            <div class="et">Lectura cooperativa</div>
+            <p>En la cooperativa, cerrar bien un equipo también es un acto de responsabilidad: dejar registro, transferir aprendizajes y reconocer a quienes participaron, para que el siguiente equipo no empiece de cero.</p>
+          </div>
           <div class="necesita">
-            <span class="chip">evaluación de procesos</span>
+            <span class="chip">evaluación</span>
+            <span class="chip">aprendizajes</span>
             <span class="chip">rotación o cierre</span>
-            <span class="chip">traspaso de aprendizajes</span>
+            <span class="chip">nuevo mandato</span>
           </div>
         </div>
 
-        <p class="seccion-h">El Líder Evolutivo</p>
-        <p class="prosa">El líder no tiene una función fija: cambia su rol según el ciclo del equipo. En el nacimiento y conflicto, guía, aclara funciones y ayuda a limar asperezas. En fases maduras, delega, fomenta la autodirección y evita el estancamiento impulsando nuevos aprendizajes.</p>
+        <div class="sep"></div>
 
-        <p class="seccion-h">Cualidades Clave del Líder de Equipos</p>
-        <p class="prosa">Para liderar de manera efectiva a través de estas fases, se requiere el desarrollo de competencias específicas:</p>
+        <h2 class="capsula-titulo" style="font-size: 24px; margin-bottom: 1rem;">El líder a lo largo del ciclo</h2>
+        <p class="prosa">El liderazgo no es una fase: cambia de papel en cada una. En la formación, ayuda a reconocer falencias, a respetarse y a limar asperezas. Cuando el equipo madura y se vuelve autónomo, el líder no desaparece: motiva para que no se estanque y para que emprenda nuevos aprendizajes.</p>
         <div class="grid">
-          <div class="punto">
-            <div class="pt">Misión clara y competencia</div>
-            <div class="pd">Tener competencia técnica y una visión de futuro nítida para dar sentido de dirección al equipo.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Escucha activa y comunicación</div>
-            <div class="pd">Transmitir metas con claridad y concisión, escuchando con empatía para entender las inquietudes de los miembros.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Autocontrol y resolución</div>
-            <div class="pd">Ser capaz de tomar decisiones firmes ante problemas y mantener la templanza en momentos de alta tensión.</div>
-          </div>
-          <div class="punto">
-            <div class="pt">Visión global e integridad</div>
-            <div class="pd">Actuar con honestidad y ética cooperativa, comprendiendo cómo encaja el esfuerzo del equipo en la organización.</div>
-          </div>
+          <div class="punto"><div class="pt">Fijar metas y expectativas</div><div class="pd">Da dirección sin imponer.</div></div>
+          <div class="punto"><div class="pt">Invertir en las personas</div><div class="pd">Potencia el talento de cada quien.</div></div>
+          <div class="punto"><div class="pt">Comunicación y escucha activa</div><div class="pd">Sostiene el flujo de información.</div></div>
+          <div class="punto"><div class="pt">Predicar con el ejemplo</div><div class="pd">Encarna los valores que pide al equipo.</div></div>
         </div>
+        <div class="glosa">Cualidades que suele tener un líder de equipos: ser competente, tener clara su misión, gran capacidad de comunicación, saber escuchar, ser resolutivo, autocontrol, honestidad e integridad, y visión global. Ninguna sustituye a la siguiente: se sostienen juntas.</div>
       </div>
 
-      <!-- 03 · METODOLOGÍAS -->
-      <div class="panel" id="panel-metodologia">
-        <h2 class="capsula-titulo">Metodologías de gestión</h2>
-        <p class="prosa">Un equipo de alto rendimiento opera mediante herramientas estructuradas. Aquí abordamos tres metodologías esenciales extraídas del marco operativo cooperativo:</p>
-        
-        <p class="seccion-h">1. Gestión de Objetivos SMART</p>
-        <p class="prosa">Todo equipo debe definir metas específicas para priorizar su esfuerzo. La regla de oro es formular objetivos <strong>SMART</strong>:</p>
-        <div class="grid">
-          <div class="punto">
-            <div class="pt">S · Específico (Specific)</div>
-            <div class="pd">¿Qué se quiere lograr exactamente? ¿Dónde? ¿Con quién?</div>
-          </div>
-          <div class="punto">
-            <div class="pt">M · Medible (Measurable)</div>
-            <div class="pd">¿Qué indicador o métrica usaremos para evaluar el proceso?</div>
-          </div>
-          <div class="punto">
-            <div class="pt">A · Alcanzable (Achievable)</div>
-            <div class="pd">¿Contamos con los recursos y competencias necesarios para lograrlo?</div>
-          </div>
-          <div class="punto">
-            <div class="pt">R · Relevante (Relevant)</div>
-            <div class="pd">¿Está alineado con nuestros valores y principios cooperativos?</div>
-          </div>
-          <div class="punto" style="grid-column: span 2;">
-            <div class="pt">T · Temporal (Time-bound)</div>
-            <div class="pd">¿Cuál es el plazo o fecha límite establecida para la entrega?</div>
-          </div>
-        </div>
-        <div class="idea">
-          <div class="idea-rotulo">Ejemplo de Meta SMART</div>
-          <div class="idea-texto">"Incrementar las solicitudes de afiliación en jóvenes en un 15% mediante talleres virtuales en centros comunitarios durante el próximo trimestre."</div>
-        </div>
+      <!-- ===================== ESCENARIOS ===================== -->
+      <div class="panel" id="panel-escenarios">
+        <h2 class="capsula-titulo">Escenarios</h2>
+        <p class="prosa">Situaciones reales de cooperativas hondureñas. Cada una pide lo mismo: analizar qué pasa, decidir qué hacer y justificar la decisión con criterio de equipo y coherencia cooperativa.</p>
 
-        <p class="seccion-h">2. Tácticas de Feedback e Ideas de Mejora</p>
-        <p class="prosa">Dar retroalimentación oportuna y constructiva es indispensable para el desarrollo de competencias individuales y colectivas (Giraldo, 2019):</p>
-        <div class="tabla-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Técnica</th>
-                <th>Enfoque y Descripción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Encuadre</strong></td>
-                <td>Análisis estructurado de los problemas conforme a las inquietudes, capacidades y aspiraciones del equipo o participante.</td>
-              </tr>
-              <tr>
-                <td><strong>Concordar y discordar</strong></td>
-                <td>Evidenciar y contrastar los temas que causan confusión para generar debate guiado e interés genuino por aprender.</td>
-              </tr>
-              <tr>
-                <td><strong>Razonamiento</strong></td>
-                <td>Aclarar conceptos de forma participativa, estimulando al equipo a tomar decisiones basadas en el análisis colectivo de puntos de vista.</td>
-              </tr>
-              <tr>
-                <td><strong>Asesores técnicos</strong></td>
-                <td>Proveer bibliografía de apoyo de antemano para que el equipo asista preparado para debatir y el líder retroalimente las brechas identificadas.</td>
-              </tr>
-              <tr>
-                <td><strong>Formación Blended</strong></td>
-                <td>Equilibrar la teoría virtual (puro e-learning) con evaluaciones o actividades prácticas presenciales para afianzar el saber hacer.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="seccion-h">3. Metodología IDS (Identify, Discuss, Solve)</p>
-        <p class="prosa">Para evitar reuniones eternas e improductivas, los equipos de alto rendimiento adoptan el flujo <strong>IDS</strong> en sus reuniones semanales:</p>
-        <div class="flujo" data-flujo="ids">
-          <div class="flujo-nodo" data-paso="1">1. Identify (Identificar) <small>Recopilar la lista de problemas o pendientes de la semana.</small></div>
-          <div class="flujo-flecha" data-paso="2"></div>
-          <div class="flujo-nodo acento" data-paso="3">2. Discuss (Discutir) <small>Votar prioridades, el dueño del problema lo explica y el equipo aporta ideas.</small></div>
-          <div class="flujo-flecha" data-paso="4"></div>
-          <div class="flujo-nodo" data-paso="5">3. Solve (Resolver) <small>Los responsables definen un plan de acción concreto y tareas asignadas.</small></div>
-        </div>
-      </div>
-
-      <!-- 04 · MARCOS Y ROLES -->
-      <div class="panel" id="panel-marcos">
-        <h2 class="capsula-titulo">Marcos teóricos de referencia</h2>
-        <p class="prosa">El estudio de los equipos de alto rendimiento se fundamenta en marcos consolidados de la administración y comportamiento organizacional. Conoce a los autores detrás del diseño:</p>
-
-        <div class="marco">
-          <button class="marco-head"><span><span class="mt">Katzenbach &amp; Smith</span> <span class="ms">— La Sabiduría de los Equipos</span></span><span class="icono"></span></button>
-          <div class="marco-body">
-            <p class="prosa">Definen al equipo real como un número pequeño de personas con habilidades complementarias comprometidas con un propósito común, objetivos de rendimiento y un enfoque de trabajo compartido, bajo una responsabilidad mutua.</p>
-          </div>
-        </div>
-
-        <div class="marco">
-          <button class="marco-head"><span><span class="mt">J. Richard Hackman</span> <span class="ms">— Condiciones del Rendimiento</span></span><span class="icono"></span></button>
-          <div class="marco-body">
-            <p class="prosa">Establece que el éxito no depende solo del esfuerzo individual, sino de 5 condiciones organizacionales: ser un equipo real, dirección convincente, estructura habilitadora, contexto de apoyo y coaching competente.</p>
-          </div>
-        </div>
-
-        <div class="marco">
-          <button class="marco-head"><span><span class="mt">Patrick Lencioni</span> <span class="ms">— Las 5 Disfunciones</span></span><span class="icono"></span></button>
-          <div class="marco-body">
-            <p class="prosa">Describe las barreras que bloquean el alto rendimiento: 1) Ausencia de confianza, 2) Temor al conflicto, 3) Falta de compromiso, 4) Evitación de responsabilidades, y 5) Falta de atención a los resultados.</p>
-          </div>
-        </div>
-
-        <div class="marco">
-          <button class="marco-head"><span><span class="mt">Meredith Belbin</span> <span class="ms">— Roles de Equipo</span></span><span class="icono"></span></button>
-          <div class="marco-body">
-            <p class="prosa">Identifica 9 roles de equipo organizados en tres categorías: orientados a las personas (Cohesionador, Investigador, Coordinador), orientados a la acción (Impulsor, Implementador, Finalizador) y de pensamiento (Creativo, Evaluador, Especialista).</p>
-          </div>
-        </div>
-
-        <div class="marco">
-          <button class="marco-head"><span><span class="mt">Indicador 16Personalities</span> <span class="ms">— Sinergia y diversidad</span></span><span class="icono"></span></button>
-          <div class="marco-body">
-            <p class="prosa">El entendimiento mutuo requiere comprender que las personas tienen distintas preferencias y perfiles. Herramientas de autoconocimiento como el test de personalidad de Myers-Briggs (<a href="https://www.16personalities.com/es" target="_blank" style="color:var(--verde); font-weight:600; text-decoration:none;">16Personalities</a>) ayudan a identificar las fortalezas individuales en comunicación, toma de decisiones y organización para potenciar la sinergia y complementariedad del equipo.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 05 · TALLER DE CASOS -->
-      <div class="panel" id="panel-taller">
-        <h2 class="capsula-titulo">Taller práctico de resolución</h2>
-        <p class="prosa">Fórmense en equipos, analicen las siguientes situaciones de cooperativas hondureñas reales y determinen la mejor intervención basándose en el ciclo de vida del equipo.</p>
-        
         <!-- Caso 1 -->
         <div class="caso-taller">
-          <span class="caso-tag">Caso 1 · Fase 1 (Origen)</span>
+          <span class="caso-tag">Caso 1 · Fase 1 (Nace el equipo)</span>
           <h3>El comité de educación que arrancó sin rumbo</h3>
-          <p class="situacion">La Cooperativa Las Mercedes nombró un comité de educación integrado por cinco afiliados y afiliadas entusiastas. Tres meses después, el comité no ha producido nada: cada sesión termina con ideas distintas, no saben quién tiene la coordinación y dudan si pueden utilizar el fondo de educación directamente o necesitan una autorización adicional.</p>
-          <p class="pregunta">¿Qué componente clave del diseño de equipos falta aquí y cómo lo resolverías?</p>
+          <p class="situacion">La Cooperativa Las Mercedes nombró un comité de educación con cinco afiliados/as entusiastas. Tres meses después no han producido nada: cada reunión termina en ideas distintas, nadie sabe quién decide y dudan si pueden gastar del fondo de educación o necesitan autorización.</p>
+          <p class="pregunta">¿Qué le falta a este equipo antes de poder funcionar, y qué decisión tomarías para destrabarlo?</p>
           <button class="btn btn-borde" onclick="togglePista(this)">Ver pista de análisis</button>
-          <div class="pista-bloque">Le falta un <strong>mandato claro</strong> (Fase 1). No tienen un propósito acotado ni límites de autoridad sobre los recursos. La solución requiere reunirse con el Consejo de Administración para estructurar el mandato, fijar el alcance del presupuesto del comité y definir quién asume la coordinación.</div>
+          <div class="pista-bloque">El problema no es de actitud sino de origen: falta mandato. No tienen claro su propósito, su alcance ni hasta dónde pueden decidir sobre recursos. Antes de cualquier dinámica de equipo, hay que volver a la Fase 1 y definir con la cooperativa: qué se espera del comité, qué autoridad tiene sobre el fondo y quién coordina. Sin ese encargo claro, ninguna técnica de equipo lo va a destrabar.</div>
         </div>
 
         <!-- Caso 2 -->
         <div class="caso-taller">
-          <span class="caso-tag">Caso 2 · Fase 2-3 (Conflictos y Roles)</span>
+          <span class="caso-tag">Caso 2 · Fase 2–3 (Diferencias y forma de trabajar)</span>
           <h3>Dos personas peleando por la misma función</h3>
-          <p class="situacion">En el comité logístico de la asamblea anual, dos miembros se atribuyen la coordinación general. Chocan en cada sesión de trabajo, otros miembros guardan silencio para evitar incomodidades y la toma de decisiones se encuentra paralizada.</p>
-          <p class="pregunta">¿Qué disfunción y problemas de roles se manifiestan, y qué harías?</p>
+          <p class="situacion">En el equipo que organiza la asamblea, dos afiliados/as chocan constantemente: ambos se atribuyen la coordinación logística. Las reuniones se tensan, otros integrantes evitan opinar para no entrar en el conflicto y el trabajo se atrasa.</p>
+          <p class="pregunta">¿Qué disfunción está operando y qué intervención propondrías?</p>
           <button class="btn btn-borde" onclick="togglePista(this)">Ver pista de análisis</button>
-          <div class="pista-bloque">Falta definición de <strong>límites de funciones</strong> (Fase 2) y se manifiesta la disfunción de <strong>temor al conflicto</strong> (Lencioni). Se debe convocar a una sesión de aclaración de roles donde se asigne formalmente quién coordina qué parte, y guiar al equipo a debatir de forma transparente mediante el desacuerdo constructivo.</div>
+          <div class="pista-bloque">Hay dos cosas juntas: límites de funciones sin definir (Fase 2) y temor al conflicto en el resto del equipo, que se silencia para no involucrarse (disfunción de Lencioni). La salida no es elegir un "ganador", sino completar la Fase 3: acordar explícitamente roles y normas. Una intervención posible es clarificar funciones con todo el equipo presente y convertir el desacuerdo soterrado en desacuerdo constructivo abierto.</div>
         </div>
 
         <!-- Caso 3 -->
         <div class="caso-taller">
-          <span class="caso-tag">Caso 3 · Fase 6 (Cierre y Viabilidad)</span>
+          <span class="caso-tag">Caso 3 · Fase 6 (Renovar, transformar o cerrar)</span>
           <h3>Cumplieron la meta, pero quedaron agotados</h3>
-          <p class="situacion">El equipo encargado del nuevo sistema tecnológico cumplió la meta con éxito y a tiempo. Sin embargo, el esfuerzo causó un gran desgaste físico y mental. Dos personas ya manifestaron que quieren renunciar del comité, pero la gerencia les quiere asignar otro proyecto de inmediato.</p>
-          <p class="pregunta">¿Cuál es la recomendación correcta según la viabilidad del equipo?</p>
+          <p class="situacion">El equipo que llevó adelante el proyecto de digitalización de la cooperativa lo terminó con éxito. Pero el proceso fue intenso: hay desgaste, dos integrantes quieren salir y la gerencia ya piensa en darles un nuevo encargo de inmediato.</p>
+          <p class="pregunta">¿Renovar, rotar o cerrar? Decide y justifica tu recomendación.</p>
           <button class="btn btn-borde" onclick="togglePista(this)">Ver pista de análisis</button>
-          <div class="pista-bloque">El rendimiento momentáneo no es alto rendimiento. Según Hackman, la efectividad real mide si el equipo mantiene su capacidad de trabajar a futuro. Deben cerrar formalmente el ciclo actual (Fase 6): evaluar el proceso, celebrar el logro, permitir la rotación de miembros agotados y descansar antes de asumir un nuevo encargo.</div>
+          <div class="pista-bloque">Lograron un resultado, pero la efectividad real (Hackman) también mide si el equipo conserva su capacidad de trabajar a futuro y el bienestar de sus miembros. Lanzarlos de inmediato a un nuevo mandato sin evaluación ni descanso arriesga el rendimiento momentáneo en lugar del alto rendimiento sostenido. Una recomendación defendible: cerrar formalmente este ciclo (evaluar, registrar aprendizajes, reconocer), permitir la rotación de quienes se van e incorporar nuevos integrantes antes de aceptar el nuevo encargo.</div>
         </div>
 
-        <!-- Caja de Herramientas del Facilitador -->
+        <!-- Taller en Equipo -->
         <div class="taller-box">
-          <h3>Panel de control del taller</h3>
-          <p class="prosa" style="font-size:13.5px;">Herramientas en vivo para el facilitador del curso. Permite sortear los casos y cronometrar las exposiciones de los equipos en la plenaria.</p>
+          <h3>Trabajo en equipo — guía de la sesión</h3>
+          <p class="prosa" style="font-size: 13.5px;">Se forman equipos, se sortea un caso a cada uno, lo analizan y exponen. Cada exposición se evalúa con la rúbrica.</p>
           
           <div class="taller-controles">
-            <button class="btn btn-verde" id="btnSorteo">Sortear casos a equipos</button>
+            <button class="btn btn-verde" id="btnSorteo">Sortear caso por equipo</button>
+            <span style="font-size:13px; color:var(--texto-ter)">o asígnalos a mano</span>
+          </div>
+          <div class="sorteo-res" id="sorteoRes"></div>
+
+          <div style="margin-top: 1.5rem;">
+            <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 0.5rem;">Estructura de la exposición (10 min por equipo)</div>
+            <div class="tabla-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Momento</th>
+                    <th>Qué presentar</th>
+                    <th>Tiempo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Diagnóstico</td><td>Qué fase del ciclo está fallando y por qué</td><td>3 min</td></tr>
+                  <tr><td>Decisión</td><td>Qué harían concretamente</td><td>3 min</td></tr>
+                  <tr><td>Justificación</td><td>Con qué criterio de equipo y coherencia cooperativa</td><td>3 min</td></tr>
+                  <tr><td>Cierre</td><td>Una idea para llevarse a su cooperativa</td><td>1 min</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="taller-controles" style="margin-top: 2rem;">
             <span class="crono" id="crono">10:00</span>
             <button class="btn btn-verde" id="btnCrono">Iniciar tiempo</button>
             <button class="btn btn-borde" id="btnReset">Reiniciar</button>
           </div>
-          <div class="sorteo-res" id="sorteoRes"></div>
+
+          <div style="margin-top: 1.5rem;">
+            <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 0.5rem;">Rúbrica de evaluación (100 puntos)</div>
+            <div class="tabla-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Criterio</th>
+                    <th>Qué se valora</th>
+                    <th style="text-align: right;">Pts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Diagnóstico</td><td>Identifica correctamente la fase y la disfunción</td><td style="text-align: right; font-weight: 600; color: var(--verde);">25</td></tr>
+                  <tr><td>Decisión</td><td>La acción propuesta es concreta y viable</td><td style="text-align: right; font-weight: 600; color: var(--verde);">25</td></tr>
+                  <tr><td>Justificación</td><td>Fundamenta con criterios del ciclo y de identidad cooperativa</td><td style="text-align: right; font-weight: 600; color: var(--verde);">25</td></tr>
+                  <tr><td>Trabajo de equipo</td><td>Exposición coordinada, participación de todos/as</td><td style="text-align: right; font-weight: 600; color: var(--verde);">25</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 06 · AUTOEVALUACIÓN -->
+      <!-- ===================== MARCOS ===================== -->
+      <div class="panel" id="panel-marcos">
+        <h2 class="capsula-titulo">Marcos de referencia</h2>
+        <p class="prosa">Este tema no se apoya en la Ley de Cooperativas, sino en literatura de gestión de equipos. Estos son los autores y modelos detrás del recorrido, citados con honestidad como fuentes externas.</p>
+
+        <div class="marco">
+          <button class="marco-head"><span><span class="mt">Katzenbach & Smith</span> <span class="ms">— qué es un equipo</span></span><span class="icono"></span></button>
+          <div class="marco-body">
+            <p class="prosa">Definen el equipo como un número reducido de personas con capacidades complementarias, comprometidas con un propósito común, objetivos de desempeño y una forma compartida de trabajar, por cuyos resultados se consideran mutuamente responsables. El alto rendimiento añade resultados superiores y un compromiso particularmente profundo entre los miembros.</p>
+            <span class="fuente">Origen: investigación sobre equipos en numerosas organizaciones (The Wisdom of Teams).</span>
+          </div>
+        </div>
+
+        <div class="marco">
+          <button class="marco-head"><span><span class="mt">Hackman</span> <span class="ms">— condiciones y efectividad</span></span><span class="icono"></span></button>
+          <div class="marco-body">
+            <p class="prosa">Define la efectividad no solo por las características internas, sino por las condiciones que la hacen posible: ser un equipo real y delimitado, dirección convincente, estructura que facilite el trabajo, apoyo de la organización y acompañamiento competente. Evalúa la efectividad en tres niveles: resultados de calidad, capacidad de trabajar a futuro, y aprendizaje y bienestar de los miembros.</p>
+          </div>
+        </div>
+
+        <div class="marco">
+          <button class="marco-head"><span><span class="mt">Tuckman</span> <span class="ms">— etapas del desarrollo</span></span><span class="icono"></span></button>
+          <div class="marco-body">
+            <p class="prosa">Propone que los equipos atraviesan etapas: formación, conflicto (storming), normalización, desempeño (performing) y, añadida después con Jensen, el cierre. El modelo original de 1965 contenía las primeras cuatro. Matiz clave de este recorrido: "performing" significa que el equipo ya puede concentrarse en la tarea, pero no equivale automáticamente a alto rendimiento.</p>
+            <span class="fuente">La etapa de cierre fue incorporada posteriormente con Mary Ann Jensen.</span>
+          </div>
+        </div>
+
+        <div class="marco">
+          <button class="marco-head"><span><span class="mt">Lencioni</span> <span class="ms">— las cinco disfunciones</span></span><span class="icono"></span></button>
+          <div class="marco-body">
+            <p class="prosa">Describe cinco disfunciones encadenadas: ausencia de confianza, temor al conflicto, falta de compromiso, evitación de responsabilidades y falta de atención a los resultados. En este recorrido funcionan como espejo: cada disfunción es el reverso de algo que un equipo sano construye.</p>
+          </div>
+        </div>
+
+        <div class="marco">
+          <button class="marco-head"><span><span class="mt">Belbin</span> <span class="ms">— roles de equipo</span></span><span class="icono"></span></button>
+          <div class="marco-body">
+            <p class="prosa">Propone que en un equipo coexisten roles complementarios (creativo, investigador de recursos, coordinador, impulsor, evaluador, implementador, finalizador, cohesionador). Es una referencia para conversar sobre diferencias, no una clasificación rígida: las personas combinan varios roles y los varían según el equipo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== VERIFICA ===================== -->
       <div class="panel" id="panel-verifica">
         <h2 class="capsula-titulo">Verifica tu lectura</h2>
-        <p class="capsula-intro">Pon a prueba tu comprensión sobre las fases y componentes de los equipos de alto rendimiento. Una sola opción es correcta.</p>
+        <p class="prosa">Cinco ítems sobre el recorrido. Una sola opción correcta por ítem.</p>
 
         <!-- Q1 -->
         <div class="item" data-correcta="1">
-          <div class="preg">1. Según Katzenbach &amp; Smith, ¿cuál es el rasgo que mejor distingue a un equipo de un grupo que solo comparte oficina o tareas?</div>
+          <div class="preg">1. Según Katzenbach & Smith, ¿cuál es el rasgo que mejor distingue a un equipo de un grupo que solo trabaja junto?</div>
           <div class="opciones">
-            <button class="opcion">Que todos tengan el mismo nivel de jerarquía en la cooperativa</button>
-            <button class="opcion">Que asuman responsabilidad mutua por el resultado final del equipo</button>
-            <button class="opcion">Que tengan un manual de funciones extremadamente largo</button>
-            <button class="opcion">Que el líder resuelva individualmente todos los desacuerdos</button>
+            <button class="opcion">Que todos tengan las mismas competencias</button>
+            <button class="opcion">Que asuman responsabilidad mutua por el resultado</button>
+            <button class="opcion">Que tengan un líder con autoridad formal</button>
+            <button class="opcion">Que sean un número grande de integrantes</button>
           </div>
-          <div class="explica">¡Correcto! La responsabilidad mutua significa que el equipo completo responde por los logros y fallas, superando el individualismo del grupo de trabajo.</div>
+          <div class="explica">La responsabilidad mutua es el diferenciador: no basta con que cada quien cumpla su parte, el equipo completo responde por el resultado.</div>
         </div>
 
         <!-- Q2 -->
         <div class="item" data-correcta="1">
-          <div class="preg">2. En el modelo de desarrollo de Tuckman, alcanzar la etapa de "desempeño" (performing) indica que el equipo...</div>
+          <div class="preg">2. En el modelo de Tuckman, llegar a la etapa de "desempeño" (performing) significa que el equipo…</div>
           <div class="opciones">
-            <button class="opcion">Ya ha alcanzado la excelencia máxima y no necesita mejorar</button>
-            <button class="opcion">Ya puede trabajar de manera funcional en la tarea, pero aún no llega a alto rendimiento</button>
-            <button class="opcion">Se encuentra paralizado por los roces y diferencias individuales</button>
-            <button class="opcion">Está listo para disolverse de inmediato</button>
+            <button class="opcion">Ya es automáticamente un equipo de alto rendimiento</button>
+            <button class="opcion">Ya puede concentrarse funcionalmente en la tarea, pero aún no es alto rendimiento</button>
+            <button class="opcion">Está a punto de disolverse</button>
+            <button class="opcion">Todavía no ha resuelto sus conflictos internos</button>
           </div>
-          <div class="explica">¡Correcto! Performing es poder hacer la tarea funcionalmente. El alto rendimiento es un nivel superior que añade resultados excepcionales sostenidos y gran autonomía.</div>
+          <div class="explica">"Performing" indica que el equipo puede trabajar bien en la tarea. El alto rendimiento es un nivel superior que suma resultados excepcionales, autonomía y viabilidad sostenida.</div>
         </div>
 
         <!-- Q3 -->
-        <div class="item" data-correcta="0">
-          <div class="preg">3. Si un equipo tiene resultados sobresalientes a corto plazo pero sus miembros terminan agotados y rotando de forma masiva, ¿cumple con la efectividad de Hackman?</div>
+        <div class="item" data-correcta="1">
+          <div class="preg">3. ¿Cuál es el orden correcto de las primeras tres fases del ciclo de vida del equipo?</div>
           <div class="opciones">
-            <button class="opcion">No, porque la efectividad de Hackman exige conservar la viabilidad del equipo a futuro</button>
-            <button class="opcion">Sí, porque el único indicador real de efectividad son los números de los resultados</button>
-            <button class="opcion">Sí, siempre y cuando se haya cumplido con el cronograma y presupuesto</button>
-            <button class="opcion">No, a menos que el Consejo de Administración no se haya quejado</button>
+            <button class="opcion">Construye su forma de trabajar → Nace → Se encuentra con sus diferencias</button>
+            <button class="opcion">Nace → Se encuentra con sus diferencias → Construye su forma de trabajar</button>
+            <button class="opcion">Se encuentra con sus diferencias → Nace → Alcanza el alto rendimiento</button>
+            <button class="opcion">Nace → Construye su forma de trabajar → Se renueva o cierra</button>
           </div>
-          <div class="explica">¡Correcto! Hackman define la efectividad en tres dimensiones: calidad de resultados, bienestar/aprendizaje de miembros y preservación de la capacidad de trabajar a futuro.</div>
+          <div class="explica">El equipo primero nace (propósito, mandato, recursos), luego se encuentra con sus diferencias (roles, conflicto) y después construye su forma de trabajar (normas, cohesión).</div>
         </div>
 
         <!-- Q4 -->
-        <div class="item" data-correcta="2">
-          <div class="preg">4. En la metodología de reuniones semanales IDS, ¿cuál es el significado de las siglas en orden correcto?</div>
+        <div class="item" data-correcta="0">
+          <div class="preg">4. El "temor al conflicto" es una de las disfunciones de Lencioni. ¿Cuál es su antídoto en un equipo sano?</div>
           <div class="opciones">
-            <button class="opcion">Information, Decision, Success (Información, Decisión, Éxito)</button>
-            <button class="opcion">Integrate, Delegate, Standardize (Integrar, Delegar, Estandarizar)</button>
-            <button class="opcion">Identify, Discuss, Solve (Identificar, Discutir, Resolver)</button>
-            <button class="opcion">Innovation, Development, Sustainability (Innovación, Desarrollo, Sostenibilidad)</button>
+            <button class="opcion">El desacuerdo constructivo: discutir con franqueza sin romper la relación</button>
+            <button class="opcion">Evitar toda discusión para mantener la armonía</button>
+            <button class="opcion">Dejar que el líder decida solo para no debatir</button>
+            <button class="opcion">Reducir el número de integrantes del equipo</button>
           </div>
-          <div class="explica">¡Correcto! IDS significa Identificar los problemas, Discutirlos en equipo de forma priorizada, y Resolverlos asignando planes de acción claros.</div>
+          <div class="explica">El equipo maduro convierte el conflicto en desacuerdo constructivo: discute abiertamente y eso mejora las decisiones, en lugar de silenciar las diferencias.</div>
         </div>
 
         <!-- Q5 -->
         <div class="item" data-correcta="3">
-          <div class="preg">5. ¿Qué significa que un equipo de alto rendimiento sea autodirigido respecto a la función del líder?</div>
+          <div class="preg">5. Cuando se dice que un equipo de alto rendimiento sea autodirigido, ¿qué significa respecto al líder?</div>
           <div class="opciones">
-            <button class="opcion">Que el líder ya no es necesario y el equipo no tiene guía alguna</button>
-            <button class="opcion">Que el líder toma el control total para evitar que el equipo cometa errores</button>
-            <button class="opcion">Que el liderazgo solo es útil durante las primeras fases de formación del equipo</button>
-            <button class="opcion">Que el liderazgo se distribuye, pero el líder motiva y guía para evitar el estancamiento</button>
+            <button class="opcion">Que el equipo ya no necesita ningún tipo de liderazgo</button>
+            <button class="opcion">Que el líder toma todas las decisiones por el equipo</button>
+            <button class="opcion">Que el liderazgo solo importa en la fase de formación</button>
+            <button class="opcion">Que el liderazgo se distribuye y el equipo asume sus decisiones, pero el líder sigue motivando para que no se estanque</button>
           </div>
-          <div class="explica">¡Correcto! La autodirección distribuye el liderazgo en el equipo, pero el líder transversal sigue siendo clave para promover el aprendizaje y la mejora continua.</div>
+          <div class="explica">Autodirección no es ausencia de líder. El liderazgo se reparte y el equipo es dueño de sus decisiones, mientras el líder sigue impulsando nuevos aprendizajes.</div>
         </div>
       </div>
 
@@ -867,6 +950,56 @@
     function cerrarMenu() {
       document.querySelector('.sidebar').classList.remove('abierto');
       document.querySelector('.nb-overlay').classList.remove('visible');
+    }
+
+    // Modos de lectura
+    function cambiarModo(depth, btn) {
+      document.body.setAttribute('data-depth', depth);
+      document.querySelectorAll('.modo-btn').forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+    }
+
+    // Highlight de conceptos
+    let conceptoActivo = null;
+    
+    function limpiarConceptos() {
+      document.querySelectorAll('[data-anchor]').forEach(el => {
+        el.style.outline = '';
+        el.style.outlineOffset = '';
+      });
+      document.querySelectorAll('.chip.resalta').forEach(c => c.classList.remove('resalta'));
+      document.querySelectorAll('.concepto').forEach(c => c.classList.remove('activo'));
+    }
+    
+    function clickConcepto(c, btn) {
+      if (conceptoActivo === c) {
+        limpiarConceptos();
+        conceptoActivo = null;
+        return;
+      }
+      limpiarConceptos();
+      conceptoActivo = c;
+      btn.classList.add('activo');
+      
+      // Asegurarse de estar en la pestaña de exploración
+      tab('exploracion', document.getElementById('btnNavExploracion'));
+      
+      let primero = null;
+      document.querySelectorAll('[data-anchor="' + c + '"]').forEach(el => {
+        el.style.outline = '2px solid var(--amarillo)';
+        el.style.outlineOffset = '4px';
+        if (!primero) primero = el;
+      });
+      
+      document.querySelectorAll('.chip[data-c="' + c + '"]').forEach(ch => {
+        ch.classList.add('resalta');
+      });
+      
+      if (primero) {
+        setTimeout(() => {
+          primero.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 120);
+      }
     }
 
     // Acordeón de marcos
@@ -902,9 +1035,9 @@
 
     // Taller: Sorteador de Casos
     const casos = [
-      'Caso 1 — Comité de educación sin rumbo (Fase 1)',
-      'Caso 2 — Conflicto por la misma función (Fase 2-3)',
-      'Caso 3 — Cumplieron pero quedaron agotados (Fase 6)'
+      'Caso 1 — Comité de educación sin rumbo',
+      'Caso 2 — Conflicto por la misma función',
+      'Caso 3 — Cumplieron pero quedaron agotados'
     ];
     document.getElementById('btnSorteo').addEventListener('click', () => {
       const res = document.getElementById('sorteoRes');
