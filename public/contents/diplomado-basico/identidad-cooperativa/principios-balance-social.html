@@ -611,6 +611,155 @@ p:last-child { margin-bottom: 0; }
   .modulo-header { padding: 18px 16px; }
   .header-titulo h1 { font-size: 24px; }
 }
+
+/* ── DISEÑO DE INFOGRAFÍA INTERACTIVA (Principios e Indicadores) ── */
+.infografia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.info-card {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  padding: 1.15rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* Variantes de colores suaves de fondo y bordes al activarse o pasar el mouse */
+.info-card[data-color="blue"] { --accent-color: #2f7da3; --bg-soft: #e8f0f8; --border-soft: #b8d4ec; }
+.info-card[data-color="green"] { --accent-color: #1c6b4a; --bg-soft: #e8f4ef; --border-soft: #b8dccc; }
+.info-card[data-color="gold"] { --accent-color: #a87600; --bg-soft: #fff8e6; --border-soft: #fce3a1; }
+.info-card[data-color="purple"] { --accent-color: #7242a3; --bg-soft: #f4effa; --border-soft: #dacbe6; }
+.info-card[data-color="teal"] { --accent-color: #166461; --bg-soft: #e6f6f5; --border-soft: #c1ecea; }
+.info-card[data-color="orange"] { --accent-color: #a64f26; --bg-soft: #fff3eb; --border-soft: #ffd2b8; }
+.info-card[data-color="emerald"] { --accent-color: #156627; --bg-soft: #e8f8eb; --border-soft: #bcecc5; }
+
+.info-card:hover, .info-card.open {
+  background: var(--bg-soft);
+  border-color: var(--border-soft);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.info-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s;
+}
+
+.info-card:hover .info-card-icon, .info-card.open .info-card-icon {
+  background: var(--blanco);
+  transform: scale(1.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.info-card-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.info-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.info-card-num {
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--blanco);
+  background: var(--accent-color);
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.info-card-title {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--gris-texto);
+  line-height: 1.2;
+}
+
+.info-card-excerpt {
+  font-size: 13px;
+  color: var(--gris-sec);
+  line-height: 1.45;
+}
+
+.info-card-details {
+  display: none;
+  font-size: 13px;
+  color: var(--gris-texto);
+  line-height: 1.55;
+  border-top: 1px dashed var(--border-soft);
+  padding-top: 0.6rem;
+  margin-top: 0.15rem;
+  animation: slideDown 0.22s ease both;
+}
+
+.info-card.open .info-card-details {
+  display: block;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.info-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-color);
+  padding-top: 0.15rem;
+}
+
+.info-card-footer span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-card-arrow {
+  transition: transform 0.2s;
+}
+
+.info-card.open .info-card-arrow {
+  transform: rotate(180deg);
+}
 </style>
   <link rel="stylesheet" href="/shared/facilitator-tools.css">
 </head>
@@ -677,88 +826,188 @@ p:last-child { margin-bottom: 0; }
         <strong>Art. 7 inciso b) LCH:</strong> Las cooperativas deben funcionar bajo los principios de adhesión voluntaria y abierta, gestión democrática, participación económica, autonomía e independencia, educación, formación e información, interés por la comunidad, protección del ambiente, equidad e igualdad en derechos y obligaciones.
       </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">1°</span>
-          <span>Membresía abierta y voluntaria</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas son organizaciones voluntarias, abiertas para todas aquellas personas dispuestas a utilizar sus servicios y dispuestas a aceptar las responsabilidades que conlleva la membresía, sin discriminación de género, raza, clase social, posición política o religiosa.</p>
-          <span class="tag-legal">Art. 8 primer principio RLCH</span>
+      <div class="infografia-grid">
+        <!-- 1° -->
+        <div class="info-card" data-color="blue">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">1° Principio</span>
+              <h3 class="info-card-title">Membresía abierta y voluntaria</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Organizaciones voluntarias sin discriminación de género, raza o religión.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones voluntarias, abiertas para todas aquellas personas dispuestas a utilizar sus servicios y dispuestas a aceptar las responsabilidades que conlleva la membresía, sin discriminación de género, raza, clase social, posición política o religiosa.</p>
+            <span class="tag-legal">Art. 8 primer principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">2°</span>
-          <span>Control democrático de los miembros</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de las políticas y en la toma de decisiones. Los hombres y mujeres elegidos para representar a su cooperativa, responden ante los miembros. En las cooperativas de base los miembros tienen igual derecho de voto (un miembro, un voto), mientras en las cooperativas de otros niveles también se organizan con procedimientos democráticos.</p>
-          <span class="tag-legal">Art. 8 segundo principio RLCH</span>
+        <!-- 2° -->
+        <div class="info-card" data-color="green">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 12l2 2 4-4"/>
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">2° Principio</span>
+              <h3 class="info-card-title">Control democrático</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Control democrático por sus miembros con igual derecho a voto (un miembro, un voto).</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de las políticas y en la toma de decisiones. Los hombres y mujeres elegidos para representar a su cooperativa, responden ante los miembros. En las cooperativas de base los miembros tienen igual derecho de voto (un miembro, un voto), mientras en las cooperativas de otros niveles también se organizan con procedimientos democráticos.</p>
+            <span class="tag-legal">Art. 8 segundo principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">3°</span>
-          <span>Participación económica de los miembros</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Los miembros contribuyen de manera equitativa y controlan de manera democrática el capital de la cooperativa. Por lo menos una parte de ese capital es propiedad común de la cooperativa.</p>
-          <p>Usualmente reciben una compensación limitada, si es que la hay, sobre el capital suscrito como condición de membresía. Los miembros asignan excedentes para cualquiera de los siguientes propósitos: el desarrollo de la cooperativa mediante la posible creación de reservas, de la cual al menos una parte debe ser indivisible; los beneficios para los miembros en proporción con sus transacciones con la cooperativa; y el apoyo a otras actividades según lo apruebe la membresía.</p>
-          <span class="tag-legal">Art. 8 tercer principio RLCH</span>
+        <!-- 3° -->
+        <div class="info-card" data-color="gold">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">3° Principio</span>
+              <h3 class="info-card-title">Participación económica</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Contribución equitativa y control democrático del capital común.</p>
+          <div class="info-card-details">
+            <p>Los miembros contribuyen de manera equitativa y controlan de manera democrática el capital de la cooperativa. Por lo menos una parte de ese capital es propiedad común de la cooperativa.</p>
+            <p>Usualmente reciben una compensación limitada, si es que la hay, sobre el capital suscrito como condición de membresía. Los miembros asignan excedentes para el desarrollo de la cooperativa, creación de reservas indivisibles, retornos proporcionales a sus transacciones o actividades comunitarias aprobadas.</p>
+            <span class="tag-legal">Art. 8 tercer principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">4°</span>
-          <span>Autonomía e independencia</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobiernos) o tienen capital de fuentes externas, lo realizan en términos que aseguren el control democrático por parte de sus miembros y mantengan la autonomía de la cooperativa.</p>
-          <span class="tag-legal">Art. 8 cuarto principio RLCH</span>
+        <!-- 4° -->
+        <div class="info-card" data-color="purple">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">4° Principio</span>
+              <h3 class="info-card-title">Autonomía e independencia</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Garantía de autonomía y control democrático en todo acuerdo con gobiernos u otros entes.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobiernos) o tienen capital de fuentes externas, lo realizan en términos que aseguren el control democrático por parte de sus miembros y mantengan la autonomía de la cooperativa.</p>
+            <span class="tag-legal">Art. 8 cuarto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">5°</span>
-          <span>Educación, formación e información</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas brindan educación y entrenamiento a sus miembros, a sus dirigentes electos, gerentes y empleados, de tal forma que contribuyan eficazmente al desarrollo de sus cooperativas. Las cooperativas informan al público en general, particularmente a jóvenes y creadores de opinión, acerca de la naturaleza y beneficios del cooperativismo.</p>
-          <span class="tag-legal">Art. 8 quinto principio RLCH</span>
+        <!-- 5° -->
+        <div class="info-card" data-color="teal">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">5° Principio</span>
+              <h3 class="info-card-title">Educación e información</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Formación constante a directores, gerentes, empleados y educación al público.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas brindan educación y entrenamiento a sus miembros, a sus dirigentes electos, gerentes y empleados, de tal forma que contribuyan eficazmente al desarrollo de sus cooperativas. Las cooperativas informan al público en general, particularmente a jóvenes y creadores de opinión, acerca de la naturaleza y beneficios del cooperativismo.</p>
+            <span class="tag-legal">Art. 8 quinto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">6°</span>
-          <span>Cooperación entre cooperativas</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales.</p>
-          <span class="tag-legal">Art. 8 sexto principio RLCH</span>
+        <!-- 6° -->
+        <div class="info-card" data-color="orange">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="18" r="3"/>
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="6" r="3"/>
+                <line x1="6" y1="9" x2="6" y2="15"/>
+                <line x1="9" y1="6" x2="15" y2="6"/>
+                <line x1="18" y1="9" x2="18" y2="15"/>
+                <line x1="9" y1="18" x2="15" y2="18"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">6° Principio</span>
+              <h3 class="info-card-title">Cooperación entre cooperativas</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Fortalecimiento del movimiento cooperativo a través de estructuras conjuntas.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales.</p>
+            <span class="tag-legal">Art. 8 sexto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">7°</span>
-          <span>Compromiso con la comunidad</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Las cooperativas trabajan para el desarrollo sostenible de su comunidad y la protección del medio ambiente, a través de políticas aceptadas por sus miembros, promoviendo la gestión responsable de los recursos naturales para garantizar el equilibrio ecológico y el bienestar humano.</p>
-          <span class="tag-legal">Art. 8 séptimo principio RLCH</span>
+        <!-- 7° -->
+        <div class="info-card" data-color="emerald">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 8v8M8 12h8"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">7° Principio</span>
+              <h3 class="info-card-title">Compromiso con la comunidad</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Desarrollo sostenible de la comunidad y preservación ecológica del entorno.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas trabajan para el desarrollo sostenible de su comunidad y la protección del medio ambiente, a través de políticas aceptadas por sus miembros, promoviendo la gestión responsable de los recursos naturales para garantizar el equilibrio ecológico y el bienestar humano.</p>
+            <span class="tag-legal">Art. 8 séptimo principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
       </div>
 
@@ -1003,94 +1252,190 @@ p:last-child { margin-bottom: 0; }
 
       <p>Para construir los indicadores, el Art. 93 RLCH establece los principios que deben observarse. Cada indicador debe responder a uno de estos ejes:</p>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">a)</span>
-          <span>Prelación del trabajo sobre el capital</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Prelación del trabajo sobre el capital y de los intereses colectivos sobre los individuales.</p>
-          <p>Indicadores posibles: proporción de excedentes destinados a reservas colectivas vs. distribución individual; relación entre beneficios a afiliados y capitalización de la cooperativa.</p>
-          <span class="tag-legal">Art. 93 inciso a) RLCH</span>
+      <div class="infografia-grid">
+        <!-- Eje a -->
+        <div class="info-card" data-color="blue">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje a</span>
+              <h3 class="info-card-title">Prelación del trabajo</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Prioridad del trabajo sobre el capital e intereses colectivos sobre individuales.</p>
+          <div class="info-card-details">
+            <p>Prelación del trabajo sobre el capital y de los intereses colectivos sobre los individuales.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> proporción de excedentes destinados a reservas colectivas vs. distribución individual; relación entre beneficios a afiliados y capitalización de la cooperativa.</p>
+            <span class="tag-legal">Art. 93 inciso a) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">b)</span>
-          <span>Asociación voluntaria, equitativa y respeto a la identidad</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Asociación voluntaria, equitativa y respeto a la identidad en general.</p>
-          <p>Indicadores posibles: número de solicitudes de ingreso aceptadas y rechazadas; rotación de membresía; composición de la membresía por género, edad y sector.</p>
-          <span class="tag-legal">Art. 93 inciso b) RLCH</span>
+        <!-- Eje b -->
+        <div class="info-card" data-color="green">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <polyline points="17 11 19 13 23 9"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje b</span>
+              <h3 class="info-card-title">Asociación voluntaria y equitativa</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Asociación voluntaria, equitativa y respeto a la identidad en general.</p>
+          <div class="info-card-details">
+            <p>Asociación voluntaria, equitativa y respeto a la identidad en general.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> número de solicitudes de ingreso aceptadas y rechazadas; rotación de membresía; composición de la membresía por género, edad y sector.</p>
+            <span class="tag-legal">Art. 93 inciso b) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">c)</span>
-          <span>Autogestión y autonomía</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Autogestión y autonomía.</p>
-          <p>Indicadores posibles: participación en asambleas sectoriales y ordinarias; número de afiliados que ejercieron voto; porcentaje del capital bajo control propio vs. financiamiento externo; convenios vigentes con terceros y su naturaleza.</p>
-          <span class="tag-legal">Art. 93 inciso c) RLCH</span>
+        <!-- Eje c -->
+        <div class="info-card" data-color="purple">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje c</span>
+              <h3 class="info-card-title">Autogestión y autonomía</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Control democrático e independencia frente a capitales o convenios externos.</p>
+          <div class="info-card-details">
+            <p>Autogestión y autonomía.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> participación en asambleas sectoriales y ordinarias; número de afiliados que ejercieron voto; porcentaje del capital bajo control propio vs. financiamiento externo; convenios vigentes con terceros y su naturaleza.</p>
+            <span class="tag-legal">Art. 93 inciso c) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">d)</span>
-          <span>Participación económica solidaria y distribución equitativa</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Participación económica solidaria, y distribución equitativa de excedentes.</p>
-          <p>Indicadores posibles: monto total de excedentes distribuidos; criterio de distribución aplicado; porcentaje destinado al Fondo de Reserva Legal; afiliados que recibieron retorno de excedentes.</p>
-          <span class="tag-legal">Art. 93 inciso d) RLCH</span>
+        <!-- Eje d -->
+        <div class="info-card" data-color="gold">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje d</span>
+              <h3 class="info-card-title">Participación económica</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Participación económica solidaria y distribución equitativa de excedentes.</p>
+          <div class="info-card-details">
+            <p>Participación económica solidaria, y distribución equitativa de excedentes.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> monto total de excedentes distribuidos; criterio de distribución aplicado; porcentaje destinado al Fondo de Reserva Legal; afiliados que recibieron retorno de excedentes.</p>
+            <span class="tag-legal">Art. 93 inciso d) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">e)</span>
-          <span>Educación, capacitación y comunicación</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Educación, capacitación y comunicación.</p>
-          <p>Indicadores posibles: número de actividades de formación realizadas; afiliados capacitados por categoría (directivos, gerencia, afiliados generales); ejecución del Fondo de Educación (Art. 125 RLCH); actividades de información al público.</p>
-          <span class="tag-legal">Art. 93 inciso e) RLCH</span>
+        <!-- Eje e -->
+        <div class="info-card" data-color="teal">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje e</span>
+              <h3 class="info-card-title">Educación y capacitación</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Formación constante, comunicación y ejecución del Fondo de Educación.</p>
+          <div class="info-card-details">
+            <p>Educación, capacitación y comunicación.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> número de actividades de formación realizadas; afiliados capacitados por categoría (directivos, gerencia, afiliados generales); ejecución del Fondo de Educación (Art. 125 RLCH); actividades de información al público.</p>
+            <span class="tag-legal">Art. 93 inciso e) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">f)</span>
-          <span>Compromiso social, solidario, comunitario y ambiental</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Compromiso social, solidario, comunitario y ambiental.</p>
-          <p>Indicadores posibles: proyectos comunitarios ejecutados; inversión en iniciativas de impacto social; acciones de protección ambiental; vinculación con organismos de integración del movimiento cooperativista.</p>
-          <span class="tag-legal">Art. 93 inciso f) RLCH</span>
+        <!-- Eje f -->
+        <div class="info-card" data-color="orange">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje f</span>
+              <h3 class="info-card-title">Compromiso social y ambiental</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Proyectos comunitarios, inversión social y acciones ecológicas en el entorno.</p>
+          <div class="info-card-details">
+            <p>Compromiso social, solidario, comunitario y ambiental.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> proyectos comunitarios ejecutados; inversión en iniciativas de impacto social; acciones de protección ambiental; vinculación con organismos de integración del movimiento cooperativista.</p>
+            <span class="tag-legal">Art. 93 inciso f) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
-      </div>
 
-      <div class="acord">
-        <button class="acord-btn">
-          <span class="acord-num">g)</span>
-          <span>Participación de juventud y mujeres</span>
-          <span class="acord-flecha">▸</span>
-        </button>
-        <div class="acord-body">
-          <p>Indicadores que evidencien haber propiciado la apertura de espacios de participación para la juventud y las mujeres en igualdad de oportunidades.</p>
-          <p>Indicadores posibles: composición por género de los cuerpos directivos; porcentaje de mujeres y jóvenes en actividades educativas; existencia y actividad del Comité de Género y Comité de Juventud (Art. 71 RLCH).</p>
-          <span class="tag-legal">Art. 93 inciso g) RLCH</span>
+        <!-- Eje g -->
+        <div class="info-card" data-color="emerald">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje g</span>
+              <h3 class="info-card-title">Juventud y mujeres</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Apertura de espacios de participación e igualdad de oportunidades.</p>
+          <div class="info-card-details">
+            <p>Indicadores que evidencien haber propiciado la apertura de espacios de participación para la juventud y las mujeres en igualdad de oportunidades.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> composición por género de los cuerpos directivos; porcentaje de mujeres y jóvenes en actividades educativas; existencia y actividad del Comité de Género y Comité de Juventud (Art. 71 RLCH).</p>
+            <span class="tag-legal">Art. 93 inciso g) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
         </div>
       </div>
 
@@ -1363,6 +1708,20 @@ document.querySelectorAll('.acord-btn').forEach(function(btn) {
     if (!abierto) {
       this.classList.add('open');
       body.classList.add('open');
+    }
+  });
+});
+
+// ── INFOGRAFÍAS (TARJETAS) ──
+document.querySelectorAll('.info-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    var panel = this.closest('.panel');
+    var abierto = this.classList.contains('open');
+    panel.querySelectorAll('.info-card.open').forEach(function(c) {
+      c.classList.remove('open');
+    });
+    if (!abierto) {
+      this.classList.add('open');
     }
   });
 });
