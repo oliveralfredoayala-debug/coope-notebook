@@ -344,7 +344,7 @@ body.pres-activo .main {
   width: 100vw;
   height: 100vh;
   max-width: none !important;
-  padding: 4rem 2rem 8rem 2rem !important;
+  padding: 7.5rem 2.5rem 8.5rem 2.5rem !important; /* Incrementado el espacio superior (safe zone para proyectores) */
   display: flex;
   flex-direction: column;
   justify-content: center;
