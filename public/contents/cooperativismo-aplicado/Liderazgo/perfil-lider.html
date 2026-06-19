@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Construyamos un perfil — Trabajo en equipo</title>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-<style>:root {
+<style>
+:root {
   --verde: #1c6b4a; --verde-sec: #2fa36b; --verde-claro: #e8f4ef; --verde-borde: #b8dccc;
   --amarillo: #f4c20d; --blanco: #ffffff; --gris-bg: #f7f7f5; --gris-borde: #e4e4e0;
   --texto: #1a1a18; --texto-sec: #3a3a36; --texto-ter: #6a6a64; --radio: 10px; --radio-sm: 6px;
@@ -22,14 +23,105 @@ body { font-family: system-ui, -apple-system, sans-serif; background: var(--gris
 .shell{display:flex;min-height:calc(100vh - 72px)}
 .sidebar{width:260px;flex-shrink:0;border-right:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto;display:flex;flex-direction:column}
 .nb-marca-titulo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-borde);font-size:14px;font-weight:600;color:var(--verde);line-height:1.35}
-.nb-nav{list-style:none;padding:.5rem 0;flex:1}.nb-nav a{width:100%;text-align:left;background:none;border:none;padding:.75rem 1.5rem;font-size:14px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .15s,color .15s,box-shadow .15s;border-left:3px solid transparent;text-decoration:none}
+.nb-nav{list-style:none;padding:.5rem 0;flex:1}
+.nb-nav a{width:100%;text-align:left;background:none;border:none;padding:.75rem 1.5rem;font-size:14px;color:var(--texto-sec);cursor:pointer;font-family:inherit;line-height:1.4;display:flex;align-items:flex-start;gap:10px;transition:background .15s,color .15s,box-shadow .15s;border-left:3px solid transparent;text-decoration:none}
 .nb-nav a:hover{background:var(--verde-claro);color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.08)}
 .nb-nav a.activo{background:var(--verde-claro);color:var(--verde);font-weight:600;border-left-color:var(--verde);box-shadow:0 4px 12px rgba(28, 107, 74, 0.12)}
 .nb-nav-num{font-size:10px;font-weight:700;color:var(--texto-ter);min-width:18px;padding-top:1px;flex-shrink:0;font-variant-numeric:tabular-nums}
 .sidebar-foot{padding:1rem 1.25rem;border-top:1px solid var(--gris-borde);font-size:12px;color:var(--texto-ter);line-height:1.45}
-.main{flex:1;padding:1.5rem;min-width:0}.wrap{max-width:820px;margin:0 auto;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2.25rem 2.5rem}
+.main{flex:1;padding:1.5rem;min-width:0;}
+.wrap{max-width:820px;margin:0 auto;background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2.25rem 2.5rem}
 .nb-overlay{display:none}
 .nb-cerrar{display:none}
+
+/* --- CUSTOM STYLES FOR PORTADA & STEPS --- */
+h1 { font-size: 25px; font-weight: 600; line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .55rem; border-radius: 2px; }
+.intro { font-size: 15px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 1.5rem; }
+.intro strong { color: var(--texto); font-weight: 600; }
+.seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2rem 0 .9rem; }
+.pasos { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0 1.75rem; }
+.paso { display: flex; gap: .875rem; align-items: flex-start; }
+.paso-num { width: 24px; height: 24px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.paso-texto { font-size: 14.5px; color: var(--texto-sec); line-height: 1.55; }
+.paso-texto strong { color: var(--texto); font-weight: 600; }
+.callout { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1rem 1.25rem; font-size: 14px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.callout strong { color: var(--verde); font-weight: 600; }
+
+/* --- CASOS GRID & CASE SELECTOR CARDS --- */
+.casos-grid { display: flex; flex-direction: column; gap: .65rem; margin: 1rem 0; }
+.caso-card { border: 1.5px solid var(--gris-borde); border-radius: var(--radio); padding: 1rem 1.2rem; cursor: pointer; transition: border-color .15s, background .15s; display: flex; gap: .9rem; align-items: flex-start; background: #fff; text-align: left; font-family: inherit; color: inherit; width: 100%; }
+.caso-card:hover { background: var(--verde-claro); border-color: var(--verde-borde); }
+.caso-num { width: 26px; height: 26px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.caso-card-cont { flex: 1; }
+.caso-card-titulo { font-size: 15px; font-weight: 600; color: var(--texto); margin-bottom: .2rem; }
+.caso-card-desc { font-size: 13.5px; color: var(--texto-sec); line-height: 1.5; }
+.caso-flecha { color: var(--texto-ter); font-size: 18px; flex-shrink: 0; align-self: center; }
+
+/* --- VOLVER BUTTON & BANNER --- */
+.volver { display: inline-flex; align-items: center; gap: .4rem; font-size: 13px; color: var(--verde); background: none; border: none; cursor: pointer; font-family: inherit; padding: .4rem 0; margin-bottom: 1rem; }
+.volver:hover { text-decoration: underline; }
+.caso-activo-banner { background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio); padding: 1.1rem 1.35rem; margin-bottom: 1.5rem; }
+.caso-activo-label { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--verde); margin-bottom: .35rem; }
+.caso-activo-titulo { font-size: 18px; font-weight: 600; color: var(--texto); line-height: 1.3; margin-bottom: .35rem; }
+.caso-activo-texto { font-size: 14.5px; color: var(--texto-sec); line-height: 1.5; }
+.caso-activo-pregunta { font-size: 14px; color: var(--texto-sec); margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(--verde-borde); }
+
+/* --- LEGAL REFERENCES --- */
+.ref-intro { font-size: 13.5px; color: var(--texto-sec); line-height: 1.6; margin-bottom: 1rem; }
+.ref-grupo-h { font-size: 13px; font-weight: 600; color: var(--verde); margin: 1.25rem 0 .6rem; }
+.art-card { margin-bottom: .6rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
+.art-card-header { padding: .7rem 1rem; display: flex; align-items: center; cursor: pointer; transition: background .15s; gap: .7rem; min-height: 44px; }
+.art-card-header:hover { background: var(--gris-bg); }
+.art-num { font-size: 12px; font-weight: 700; color: var(--verde); flex-shrink: 0; }
+.art-ley { font-size: 10px; font-weight: 600; color: var(--texto-ter); background: var(--gris-bg); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.art-resumen { font-size: 13.5px; color: var(--texto); flex: 1; }
+.art-chev { width: 16px; height: 16px; flex-shrink: 0; color: var(--texto-ter); transition: transform .2s; }
+.art-card.abierto .art-chev { transform: rotate(180deg); }
+.art-texto { display: none; padding: .85rem 1rem; font-size: 13px; color: var(--texto-sec); line-height: 1.7; border-top: 1px solid var(--gris-borde); background: var(--gris-bg); }
+.art-card.abierto .art-texto { display: block; }
+.ref-aviso { font-size: 12px; color: var(--texto-ter); margin-top: 1rem; line-height: 1.5; padding: .75rem 1rem; border: 1px dashed var(--gris-borde); border-radius: var(--radio-sm); }
+
+/* --- PERFIL LAYERS & DYNAMIC LINES --- */
+.capa { margin-bottom: 1.75rem; }
+.capa-titulo { font-size: 15px; font-weight: 600; color: var(--verde); margin-bottom: .15rem; }
+.capa-sub { font-size: 13px; color: var(--texto-ter); margin-bottom: .7rem; }
+.lineas { display: flex; flex-direction: column; gap: .5rem; min-height: 8px; }
+.lineas.drag-over { outline: 2px dashed var(--verde-sec); outline-offset: 3px; border-radius: var(--radio-sm); }
+.linea { display: flex; align-items: center; gap: .4rem; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: .35rem .4rem .35rem .55rem; transition: box-shadow .15s, opacity .15s; }
+.linea.dragging { opacity: .4; }
+.linea-handle { cursor: grab; color: var(--texto-ter); font-size: 15px; padding: 0 .25rem; user-select: none; flex-shrink: 0; touch-action: none; }
+.linea-handle:active { cursor: grabbing; }
+.linea input { flex: 1; min-width: 0; font-family: inherit; font-size: 15px; padding: .5rem .4rem; border: none; color: var(--texto); background: transparent; }
+.linea input:focus { outline: none; }
+.linea-btns { display: flex; gap: 1px; flex-shrink: 0; }
+.minibtn { width: 30px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: none; background: none; color: var(--texto-ter); cursor: pointer; border-radius: 4px; font-size: 14px; line-height: 1; }
+.minibtn:hover { background: var(--gris-bg); color: var(--verde); }
+.minibtn.del:hover { color: #c0392b; background: #fdecea; }
+.minibtn:disabled { opacity: .25; cursor: default; }
+.minibtn svg { width: 15px; height: 15px; }
+.add-linea { margin-top: .55rem; display: inline-flex; align-items: center; gap: .4rem; font-family: inherit; font-size: 13.5px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); padding: .55rem .9rem; cursor: pointer; min-height: 40px; }
+.add-linea:hover { background: #ddeee5; }
+
+/* --- MOVER CAPA POPUP --- */
+.mover-pop { position: fixed; z-index: 50; background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: var(--radio); box-shadow: 0 6px 24px rgba(0,0,0,.14); padding: .4rem; min-width: 190px; }
+.mover-pop-h { font-size: 11px; color: var(--texto-ter); padding: .35rem .6rem .45rem; text-transform: uppercase; letter-spacing: .05em; }
+.mover-opt { display: block; width: 100%; text-align: left; background: none; border: none; font-family: inherit; font-size: 14px; color: var(--texto); padding: .55rem .6rem; border-radius: var(--radio-sm); cursor: pointer; }
+.mover-opt:hover { background: var(--verde-claro); }
+.mover-opt:disabled { opacity: .35; cursor: default; }
+.mover-backdrop { position: fixed; inset: 0; z-index: 49; }
+
+/* --- ACCIONES & FORMULA --- */
+.formula-nota { background: var(--gris-bg); border-left: 3px solid var(--amarillo); padding: .85rem 1.1rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; font-size: 13.5px; color: var(--texto-sec); line-height: 1.6; margin: 1.5rem 0; }
+.formula-nota strong { color: var(--texto); font-weight: 600; }
+.acciones { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.btn { font-family: inherit; font-size: 15px; font-weight: 600; padding: .75rem 1.4rem; border-radius: var(--radio-sm); cursor: pointer; border: 1px solid transparent; min-height: 44px; transition: background .15s, border-color .15s; }
+.btn-primario { background: var(--verde); color: #fff; }
+.btn-primario:hover { background: #155539; }
+.btn-sec { background: var(--blanco); color: var(--verde); border-color: var(--verde-borde); }
+.btn-sec:hover { background: var(--verde-claro); }
+.aviso { font-size: 13px; color: var(--texto-ter); margin-top: .9rem; line-height: 1.5; }
+
 @media (max-width: 820px) {
   .shell { display: block; }
   .nb-toggle { display: flex; }
@@ -167,13 +259,6 @@ function cerrarMenu() {
   if (sidebar) sidebar.classList.remove('abierto');
   if (overlay) overlay.classList.remove('visible');
 }
-document.querySelectorAll('.nb-nav a').forEach(a => {
-  a.addEventListener('click', () => {
-    document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
-    a.classList.add('activo');
-    if (window.innerWidth <= 700) cerrarMenu();
-  });
-});
 const CASOS = [
   { t: "El perfil de quien quiero elegir", d: "¿En qué deberíamos fijarnos al votar por la Junta Directiva o la Junta de Vigilancia?", p: "Piensen en la próxima elección: ¿qué cualidades y competencias buscarían en quien reciba su voto?" },
   { t: "Mi propio perfil", d: "¿Qué ya tenemos y qué nos falta aprender para llegar a un cargo directivo?", p: "Hagan un autodiagnóstico honesto del equipo: fortalezas que ya traen y lo que necesitan desarrollar." },
@@ -196,21 +281,91 @@ CASOS.forEach((c, i) => {
   grid.appendChild(card);
 });
 
+function mostrarPortada() {
+  vistaPortada.style.display = 'block';
+  vistaTrabajo.style.display = 'none';
+  document.querySelectorAll('.nb-nav a').forEach(x => {
+    x.classList.toggle('activo', x.getAttribute('href') === '#vistaPortada');
+  });
+}
+
+function mostrarTrabajo() {
+  vistaPortada.style.display = 'none';
+  vistaTrabajo.style.display = 'block';
+}
+
 function abrirCaso(i) {
   casoSel = i;
   document.getElementById('casoActivoLabel').textContent = 'Caso ' + (i+1) + ' de ' + CASOS.length;
   document.getElementById('casoActivoTitulo').textContent = CASOS[i].t;
   document.getElementById('casoActivoTexto').textContent = CASOS[i].d;
   document.getElementById('casoActivoPregunta').textContent = CASOS[i].p;
-  vistaPortada.style.display = 'none';
-  vistaTrabajo.style.display = 'block';
+  
+  mostrarTrabajo();
+  
+  document.querySelectorAll('.lineas').forEach(cont => cont.innerHTML = '');
+  
+  const saved = localStorage.getItem('perfil-lider-caso-' + i);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      ['saber', 'hacer', 'ser', 'concl'].forEach(capa => {
+        const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+        if (data[capa] && Array.isArray(data[capa])) {
+          data[capa].forEach(val => {
+            cont.appendChild(crearLinea(val));
+          });
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    ['saber', 'hacer', 'ser'].forEach(capa => {
+      const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+      cont.appendChild(crearLinea(''));
+    });
+  }
+  
+  refrescarTodo();
+
+  document.querySelectorAll('.nb-nav a').forEach(x => {
+    x.classList.toggle('activo', x.getAttribute('href') === '#vistaTrabajo');
+  });
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 document.getElementById('btnVolver').addEventListener('click', () => {
-  vistaTrabajo.style.display = 'none';
-  vistaPortada.style.display = 'block';
+  mostrarPortada();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+document.querySelectorAll('.nb-nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const href = a.getAttribute('href');
+
+    if (href === '#vistaPortada') {
+      mostrarPortada();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      if (casoSel === -1) {
+        alert('Por favor, selecciona un caso asignado en la página de Inicio primero.');
+        return;
+      }
+      mostrarTrabajo();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+      a.classList.add('activo');
+    }
+    if (window.innerWidth <= 820) cerrarMenu();
+  });
+});
+
 document.querySelectorAll('.art-card-header').forEach(h => {
   h.addEventListener('click', () => h.parentElement.classList.toggle('abierto'));
 });
@@ -248,6 +403,17 @@ function crearLinea(valor) {
   return row;
 }
 
+function guardarDatos() {
+  if (casoSel < 0) return;
+  const data = {
+    saber: lineasDe('saber'),
+    hacer: lineasDe('hacer'),
+    ser: lineasDe('ser'),
+    concl: lineasDe('concl')
+  };
+  localStorage.setItem('perfil-lider-caso-' + casoSel, JSON.stringify(data));
+}
+
 function refrescarTodo() {
   document.querySelectorAll('.lineas').forEach(cont => {
     const rows = [...cont.querySelectorAll('.linea')];
@@ -256,7 +422,14 @@ function refrescarTodo() {
       r.querySelector('.down').disabled = (idx === rows.length - 1);
     });
   });
+  guardarDatos();
 }
+
+document.addEventListener('input', e => {
+  if (e.target.closest('.lineas input')) {
+    guardarDatos();
+  }
+});
 
 document.querySelectorAll('.add-linea').forEach(btn => {
   btn.addEventListener('click', () => {
