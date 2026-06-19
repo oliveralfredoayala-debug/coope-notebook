@@ -46,15 +46,112 @@ h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 
 .guia li { margin-bottom: 8px; }
 .guia li b { color: var(--verde); }
 
-.caso { border: 1px solid var(--gris-borde); border-radius: 14px; padding: 2rem; margin-top: 2rem; background: var(--blanco); box-shadow: 0 4px 15px rgba(0,0,0,0.02); scroll-margin-top: 90px; }
-.caso-tag { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--verde-sec); }
-.caso h3 { font-size: 22px; font-weight: 700; margin-top: 4px; color: var(--texto); }
-.caso .naturaleza { display: inline-block; font-size: 12px; font-weight: 600; color: var(--verde); background: var(--verde-claro); padding: 4px 12px; border-radius: 99px; margin-top: 10px; border: 1px solid var(--verde-borde); }
-.situacion { font-size: 15px; margin-top: 15px; line-height: 1.65; color: var(--texto-sec); }
-.pistas { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--gris-borde); }
-.pistas-label { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-ter); margin-bottom: 8px; }
-.pista { display: flex; gap: 8px; font-size: 14px; color: var(--texto-sec); padding: 4px 0; align-items: flex-start; }
-.pista::before { content: ""; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--verde-sec); margin-top: 8px; }
+/* CASOS GRID & CARD SELECTOR */
+.casos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.caso-card {
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: #fff;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+}
+.caso-card:hover {
+  background: var(--verde-claro);
+  border-color: var(--verde-borde);
+  box-shadow: 0 4px 12px rgba(28, 107, 74, 0.05);
+}
+.caso-card-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 0.25rem;
+}
+.caso-card-desc {
+  font-size: 13.5px;
+  color: var(--texto-sec);
+  line-height: 1.5;
+}
+.caso-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--verde);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.caso-card-cont {
+  flex: 1;
+}
+.caso-flecha {
+  color: var(--texto-ter);
+  font-size: 18px;
+  align-self: center;
+}
+
+/* VOLVER BUTTON */
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-sm);
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--texto-sec);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background-color .15s;
+  margin-bottom: 1.5rem;
+}
+.volver:hover {
+  border-color: var(--verde-sec);
+  color: var(--verde);
+  background: var(--verde-claro);
+}
+
+.caso-activo-banner {
+  border: 1px solid var(--gris-borde);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  margin-bottom: 2rem;
+}
+.caso-activo-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--verde-sec);
+}
+.caso-activo-titulo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--texto);
+  margin-top: 4px;
+  margin-bottom: 0.5rem;
+}
 
 /* EDITOR */
 .editor { margin-top: 20px; }
@@ -115,11 +212,11 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
       <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
       <div class="nb-marca-titulo">Análisis de Conflicto</div>
       <ul class="nb-nav">
-        <li><a class="nav-item activo" href="#intro"><span class="nb-nav-num">00</span>Guía de análisis</a></li>
-        <li><a class="nav-item" href="#caso1"><span class="nb-nav-num">01</span>Equipo 1 · Proceso</a></li>
-        <li><a class="nav-item" href="#caso2"><span class="nb-nav-num">02</span>Equipo 2 · Información</a></li>
-        <li><a class="nav-item" href="#caso3"><span class="nb-nav-num">03</span>Equipo 3 · Valores</a></li>
-        <li><a class="nav-item" href="#caso4"><span class="nb-nav-num">04</span>Equipo 4 · Relación</a></li>
+        <li><a class="nav-item activo" href="#vistaPortada"><span class="nb-nav-num">00</span>Inicio</a></li>
+        <li><a class="nav-item" href="#casoActivo"><span class="nb-nav-num">01</span>El Caso</a></li>
+        <li><a class="nav-item" href="#seccionGuia"><span class="nb-nav-num">02</span>Guía de análisis</a></li>
+        <li><a class="nav-item" href="#seccionAnalisis"><span class="nb-nav-num">03</span>Análisis del equipo</a></li>
+        <li><a class="nav-item" href="#seccionExportar"><span class="nb-nav-num">04</span>Descargar</a></li>
       </ul>
 
       <div class="conceptos">
@@ -138,11 +235,12 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
     <main class="main">
       <div class="wrap">
 
-        <section id="intro" style="scroll-margin-top: 90px;">
+        <!-- PORTADA / SELECCIÓN DE CASO -->
+        <div id="vistaPortada">
           <h1>Leer un conflicto antes de resolverlo</h1>
           <p class="intro-sub">Cada equipo recibe un caso de conflicto en comisiones o comités. El trabajo práctico consiste en <strong>leerlo adecuadamente</strong>: identificar su naturaleza real, mapear en qué etapa se encuentra y proponer una intervención efectiva.</p>
 
-          <div class="guia">
+          <div class="guia" style="margin-bottom: 2rem;">
             <h3>Guía de análisis — las cinco lecturas</h3>
             <ol>
               <li><b>¿Problema o conflicto?</b> ¿Sigue centrado en el asunto, o ya se volvió personal?</li>
@@ -152,99 +250,83 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
               <li><b>Mecanismo</b> — ¿se puede solucionar de forma directa, o requiere mediación de un tercero?</li>
             </ol>
           </div>
-          <p class="lead" style="margin-top:22px">Escriban el análisis de su equipo en el bloque respectivo. Al finalizar, descarguen el informe completo.</p>
-        </section>
 
-        <!-- CASO 1 -->
-        <section class="caso" id="caso1">
-          <div class="caso-tag">Equipo 1</div>
-          <h3>El gasto que nadie consultó</h3>
-          <span class="naturaleza">Proceso y poder</span>
-          <p class="situacion">La Gerencia de una cooperativa de ahorro y crédito contrató una reparación urgente del sistema eléctrico por HNL 28,000.00 sin consultarlo antes con la Junta Directiva. La Gerencia sostiene que era una emergencia y que la parte operativa le corresponde a ella. Varios miembros de la JD se sienten pasados por encima y dicen que toda decisión de ese monto debía aprobarse en sesión. En la última reunión el tono subió y se mencionó que "así no se puede trabajar".</p>
-          <div class="pistas">
-            <div class="pistas-label">Pistas para leerlo</div>
-            <div class="pista">¿El choque es sobre el gasto en sí, o sobre quién tenía la potestad de decidir?</div>
-            <div class="pista">¿Hay acuerdo en la meta (resolver la emergencia) y desacuerdo en el cómo?</div>
-            <div class="pista">¿Falta claridad de roles entre la parte operativa y la que ejecuta los acuerdos?</div>
+          <p class="seccion-h">Cómo trabajamos</p>
+          <div style="margin: 1rem 0 2rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; gap: 10px; font-size: 14.5px; color: var(--texto-sec);"><div style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--verde-claro); color: var(--verde); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px;">1</div><div><strong>Cada equipo elige un caso.</strong> Seleccionen el número de caso asignado a su equipo abajo.</div></div>
+            <div style="display: flex; gap: 10px; font-size: 14.5px; color: var(--texto-sec);"><div style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--verde-claro); color: var(--verde); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px;">2</div><div><strong>Leánlo con atención.</strong> Analicen la situación y las pistas de lectura provistas.</div></div>
+            <div style="display: flex; gap: 10px; font-size: 14.5px; color: var(--texto-sec);"><div style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--verde-claro); color: var(--verde); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px;">3</div><div><strong>Completen su análisis.</strong> Respondan a las 4 preguntas de la plantilla técnica.</div></div>
+            <div style="display: flex; gap: 10px; font-size: 14.5px; color: var(--texto-sec);"><div style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--verde-claro); color: var(--verde); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px;">4</div><div><strong>Descarguen el informe.</strong> Exporten el resultado final en PDF, Word o PowerPoint para su presentación grupal.</div></div>
           </div>
-          <div class="editor" data-caso="1">
-            <div class="campo"><label>Lectura del conflicto <span class="ayuda">— ¿problema o conflicto? ¿qué naturaleza?</span></label><textarea data-campo="lectura" placeholder="Escriban aquí su lectura…"></textarea></div>
-            <div class="campo"><label>Etapa y qué lo alimenta <span class="ayuda">— ¿hasta dónde escaló y por qué?</span></label><textarea data-campo="etapa" placeholder="…"></textarea></div>
-            <div class="campo"><label>Mecanismo propuesto <span class="ayuda">— ¿negociación directa, mediación…?</span></label><textarea data-campo="mecanismo" placeholder="…"></textarea></div>
-            <div class="campo"><label>Qué haríamos como cuerpo directivo</label><textarea data-campo="accion" placeholder="…"></textarea></div>
-          </div>
-        </section>
 
-        <!-- CASO 2 -->
-        <section class="caso" id="caso2">
-          <div class="caso-tag">Equipo 2</div>
-          <h3>Lo que se supo por el pasillo</h3>
-          <span class="naturaleza">Información</span>
-          <p class="situacion">La asamblea aprobó un ajuste en las condiciones de los créditos, pero la decisión no se comunicó con claridad a los/las afiliados/as. La noticia circuló por rumores y versiones distintas. Un grupo de afiliados/as está molesto: creen que se decidió "a sus espaldas". En los grupos de mensajería se habla mucho de la dirigencia, pero casi nadie ha ido a preguntar directamente. La dirigencia, por su parte, asume que ya todos saben.</p>
-          <div class="pistas">
-            <div class="pistas-label">Pistas para leerlo</div>
-            <div class="pista">¿Cuánto del malestar se desinflaría si la información hubiera circulado bien?</div>
-            <div class="pista">¿Se está hablando "de" las personas en vez de "con" ellas? ¿qué etapa sugiere eso?</div>
-            <div class="pista">¿El núcleo es la decisión, o cómo (no) se comunicó?</div>
-          </div>
-          <div class="editor" data-caso="2">
-            <div class="campo"><label>Lectura del conflicto <span class="ayuda">— ¿problema o conflicto? ¿qué naturaleza?</span></label><textarea data-campo="lectura" placeholder="Escriban aquí su lectura…"></textarea></div>
-            <div class="campo"><label>Etapa y qué lo alimenta <span class="ayuda">— ¿hasta dónde escaló y por qué?</span></label><textarea data-campo="etapa" placeholder="…"></textarea></div>
-            <div class="campo"><label>Mecanismo propuesto <span class="ayuda">— ¿negociación directa, mediación…?</span></label><textarea data-campo="mecanismo" placeholder="…"></textarea></div>
-            <div class="campo"><label>Qué haríamos como cuerpo directivo</label><textarea data-campo="accion" placeholder="…"></textarea></div>
-          </div>
-        </section>
-
-        <!-- CASO 3 -->
-        <section class="caso" id="caso3">
-          <div class="caso-tag">Equipo 3</div>
-          <h3>Dos formas de entender el excedente</h3>
-          <span class="naturaleza">Tarea y valores</span>
-          <p class="situacion">Al cierre del año social, la Junta Directiva discute qué hacer con los excedentes. Una corriente quiere fortalecer el fondo de educación y la formación de afiliados/as; otra prefiere priorizar el retorno a los/las afiliados/as este año, argumentando que muchos lo necesitan. Cada lado defiende su posición con firmeza y escucha poco a la otra. No hay ataques personales todavía, pero las reuniones se traban y no se llega a acuerdo.</p>
-          <div class="pistas">
-            <div class="pistas-label">Pistas para leerlo</div>
-            <div class="pista">¿Es un desacuerdo sobre el qué hacer, o ya hay roce entre personas?</div>
-            <div class="pista">¿Detrás de las posiciones hay intereses y valores cooperativos distintos?</div>
-            <div class="pista">¿Cómo se pasa de defender posiciones a explorar los intereses de ambos lados?</div>
-          </div>
-          <div class="editor" data-caso="3">
-            <div class="campo"><label>Lectura del conflicto <span class="ayuda">— ¿problema o conflicto? ¿qué naturaleza?</span></label><textarea data-campo="lectura" placeholder="Escriban aquí su lectura…"></textarea></div>
-            <div class="campo"><label>Etapa y qué lo alimenta <span class="ayuda">— ¿hasta dónde escaló y por qué?</span></label><textarea data-campo="etapa" placeholder="…"></textarea></div>
-            <div class="campo"><label>Mecanismo propuesto <span class="ayuda">— ¿negociación directa, mediación…?</span></label><textarea data-campo="mecanismo" placeholder="…"></textarea></div>
-            <div class="campo"><label>Qué haríamos como cuerpo directivo</label><textarea data-campo="accion" placeholder="…"></textarea></div>
-          </div>
-        </section>
-
-        <!-- CASO 4 -->
-        <section class="caso" id="caso4">
-          <div class="caso-tag">Equipo 4</div>
-          <h3>Ya no es el tema, son ellos</h3>
-          <span class="naturaleza">Relación y temperamento</span>
-          <p class="situacion">En el comité de educación, dos integrantes chocan en casi todo. Empezó por una diferencia sobre cómo organizar una capacitación, pero ahora discrepan en cada punto del orden del día, sin importar cuál sea. Se interrumpen, se atribuyen malas intenciones y el resto del comité empieza a tomar partido. El asunto que se discute cambia cada semana; lo que se mantiene es el roce entre las dos personas.</p>
-          <div class="pistas">
-            <div class="pistas-label">Pistas para leerlo</div>
-            <div class="pista">Si el tema cambia pero el choque sigue, ¿qué dice eso sobre su naturaleza?</div>
-            <div class="pista">¿En qué etapa está si ya hay personificación y el comité se divide?</div>
-            <div class="pista">¿Por qué discutir el tema de fondo no resolvería este conflicto?</div>
-          </div>
-          <div class="editor" data-caso="4">
-            <div class="campo"><label>Lectura del conflicto <span class="ayuda">— ¿problema o conflicto? ¿qué naturaleza?</span></label><textarea data-campo="lectura" placeholder="Escriban aquí su lectura…"></textarea></div>
-            <div class="campo"><label>Etapa y qué lo alimenta <span class="ayuda">— ¿hasta dónde escaló y por qué?</span></label><textarea data-campo="etapa" placeholder="…"></textarea></div>
-            <div class="campo"><label>Mecanismo propuesto <span class="ayuda">— ¿negociación directa, mediación…?</span></label><textarea data-campo="mecanismo" placeholder="…"></textarea></div>
-            <div class="campo"><label>Qué haríamos como cuerpo directivo</label><textarea data-campo="accion" placeholder="…"></textarea></div>
-          </div>
-        </section>
-
-        <div class="export-bar">
-          <span class="et">Descargar informe del taller:</span>
-          <button class="btn btn-primario" id="exp-word">Descargar Word</button>
-          <button class="btn btn-sec" id="exp-pdf">Descargar PDF</button>
-          <button class="btn btn-oro" id="exp-ppt">Descargar PowerPoint</button>
+          <p class="seccion-h">Elijan su caso asignado</p>
+          <div class="casos-grid" id="casosGrid"></div>
         </div>
 
-        <footer style="margin-top: 30px; border-top: 1px solid var(--gris-borde); padding-top: 15px; font-size: 13px; color: var(--texto-ter);">
-          Cooperativa Notebook · Trabajo práctico basado en el módulo de Estrategias de manejo de conflictos cooperativistas.
-        </footer>
+        <!-- ESPACIO DE TRABAJO (CASO ACTIVO) -->
+        <div id="vistaTrabajo" style="display: none;">
+          <button class="volver" id="btnVolver">&larr; Elegir otro caso</button>
+          
+          <!-- CASO MOSTRADO -->
+          <section class="caso-activo-banner" id="casoActivo" style="scroll-margin-top: 90px;">
+            <div class="caso-activo-label" id="casoActivoLabel">Equipo 1</div>
+            <h3 class="caso-activo-titulo" id="casoActivoTitulo">El gasto que nadie consultó</h3>
+            <div id="casoActivoNat" style="display: inline-block; font-size: 12px; font-weight: 600; color: var(--verde); background: var(--verde-claro); padding: 4px 12px; border-radius: 99px; margin-top: 10px; border: 1px solid var(--verde-borde);">Proceso y poder</div>
+            <p class="situacion" id="casoActivoTexto"></p>
+            
+            <div class="pistas" id="casoActivoPistas" style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--gris-borde);">
+              <div class="pistas-label" style="font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-ter); margin-bottom: 8px;">Pistas para leerlo</div>
+              <div id="pistasLista"></div>
+            </div>
+          </section>
+
+          <!-- GUIA EN EL ESPACIO DE TRABAJO -->
+          <section id="seccionGuia" class="guia" style="scroll-margin-top: 90px; margin-top: 2rem;">
+            <h3>Guía de análisis — las cinco lecturas</h3>
+            <ol>
+              <li><b>¿Problema o conflicto?</b> ¿Sigue centrado en el asunto, o ya se volvió personal?</li>
+              <li><b>Naturaleza</b> — ¿es de tarea (qué hacer), de proceso (cómo/quién), de relación, de poder, de información o de valores?</li>
+              <li><b>Etapa</b> — ¿apenas un desacuerdo, ya hay polarización, o se cortó el diálogo directo?</li>
+              <li><b>Qué lo alimenta</b> — ¿información bloqueada, roles ambiguos, temor a perder algo, lucha de poder?</li>
+              <li><b>Mecanismo</b> — ¿se puede solucionar de forma directa, o requiere mediación de un tercero?</li>
+            </ol>
+          </section>
+
+          <!-- PLANTILLA DE EDITOR -->
+          <section id="seccionAnalisis" style="scroll-margin-top: 90px; margin-top: 2rem;">
+            <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 1rem; color: var(--verde);">Análisis de su equipo</h2>
+            <div class="editor">
+              <div class="campo">
+                <label>Lectura del conflicto <span class="ayuda">— ¿problema o conflicto? ¿qué naturaleza?</span></label>
+                <textarea data-campo="lectura" placeholder="Escriban aquí su lectura…"></textarea>
+              </div>
+              <div class="campo">
+                <label>Etapa y qué lo alimenta <span class="ayuda">— ¿hasta dónde escaló y por qué?</span></label>
+                <textarea data-campo="etapa" placeholder="…"></textarea>
+              </div>
+              <div class="campo">
+                <label>Mecanismo propuesto <span class="ayuda">— ¿negociación directa, mediación…?</span></label>
+                <textarea data-campo="mecanismo" placeholder="…"></textarea>
+              </div>
+              <div class="campo">
+                <label>Qué haríamos como cuerpo directivo</label>
+                <textarea data-campo="accion" placeholder="…"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- BARRA DE EXPORTACIÓN -->
+          <div class="export-bar" id="seccionExportar" style="scroll-margin-top: 90px; margin-top: 2.5rem;">
+            <span class="et">Descargar informe del taller:</span>
+            <button class="btn btn-primario" id="exp-word">Descargar Word</button>
+            <button class="btn btn-sec" id="exp-pdf">Descargar PDF</button>
+            <button class="btn btn-oro" id="exp-ppt">Descargar PowerPoint</button>
+          </div>
+
+          <footer style="margin-top: 30px; border-top: 1px solid var(--gris-borde); padding-top: 15px; font-size: 13px; color: var(--texto-ter);">
+            Cooperativa Notebook · Trabajo práctico basado en el módulo de Estrategias de manejo de conflictos cooperativistas.
+          </footer>
+        </div>
 
       </div>
     </main>
@@ -261,43 +343,184 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
     };
 
     (function(){
-      // Navegación
+      const CASOS = [
+        {
+          n: '1',
+          titulo: 'El gasto que nadie consultó',
+          nat: 'Proceso y poder',
+          situacion: 'La Gerencia de una cooperativa de ahorro y crédito contrató una reparación urgente del sistema eléctrico por HNL 28,000.00 sin consultarlo antes con la Junta Directiva. La Gerencia sostiene que era una emergencia y que la parte operativa le corresponde a ella. Varios miembros de la JD se sienten pasados por encima y dicen que toda decisión de ese monto debía aprobarse en sesión. En la última reunión el tono subió y se mencionó que "así no se puede trabajar".',
+          pistas: [
+            '¿El choque es sobre el gasto en sí, o sobre quién tenía la potestad de decidir?',
+            '¿Hay acuerdo en la meta (resolver la emergencia) y desacuerdo en el cómo?',
+            '¿Falta claridad de roles entre la parte operativa y la que ejecuta los acuerdos?'
+          ]
+        },
+        {
+          n: '2',
+          titulo: 'Lo que se supo por el pasillo',
+          nat: 'Información',
+          situacion: 'La asamblea aprobó un ajuste en las condiciones de los créditos, pero la decisión no se comunicó con claridad a los/las afiliados/as. La noticia circuló por rumores y versiones distintas. Un grupo de afiliados/as está molesto: creen que se decidió "a sus espaldas". En los grupos de mensajería se habla mucho de la dirigencia, pero casi nadie ha ido a preguntar directamente. La dirigencia, por su parte, asume que ya todos saben.',
+          pistas: [
+            '¿Cuánto del malestar se desinflaría si la información hubiera circulado bien?',
+            '¿Se está hablando "de" las personas en vez de "con" ellas? ¿qué etapa sugiere eso?',
+            '¿El núcleo es la decisión, o cómo (no) se comunicó?'
+          ]
+        },
+        {
+          n: '3',
+          titulo: 'Dos formas de entender el excedente',
+          nat: 'Tarea y valores',
+          situacion: 'Al cierre del año social, la Junta Directiva discute qué hacer con los excedentes. Una corriente quiere fortalecer el fondo de educación y la formación de afiliados/as; otra prefiere priorizar el retorno a los/las afiliados/as este año, argumentando que muchos lo necesitan. Cada lado defiende su posición con firmeza y escucha poco a la otra. No hay ataques personales todavía, pero las reuniones se traban y no se llega a acuerdo.',
+          pistas: [
+            '¿Es un desacuerdo sobre el qué hacer, o ya hay roce entre personas?',
+            '¿Detrás de las posiciones hay intereses y valores cooperativos distintos?',
+            '¿Cómo se pasa de defender posiciones a explorar los intereses de ambos lados?'
+          ]
+        },
+        {
+          n: '4',
+          titulo: 'Ya no es el tema, son ellos',
+          nat: 'Relación y temperamento',
+          situacion: 'En el comité de educación, dos integrantes chocan en casi todo. Empezó por una diferencia sobre cómo organizar una capacitación, pero ahora discrepan en cada punto del orden del día, sin importar cuál sea. Se interrumpen, se atribuyen malas intenciones y el resto del comité empieza a tomar partido. El asunto que se discute cambia cada semana; lo que se mantiene es el roce entre las dos personas.',
+          pistas: [
+            'Si el tema cambia pero el choque sigue, ¿qué dice eso sobre su naturaleza?',
+            '¿En qué etapa está si ya hay personificación y el comité se divide?',
+            '¿Por qué discutir el tema de fondo no resolvería este conflicto?'
+          ]
+        }
+      ];
+
+      const CAMPOS = [
+        ['lectura', 'Lectura del conflicto'],
+        ['etapa', 'Etapa y qué lo alimenta'],
+        ['mecanismo', 'Mecanismo propuesto'],
+        ['accion', 'Qué haríamos como cuerpo directivo']
+      ];
+
+      let casoSel = -1;
+
+      function mostrarPortada() {
+        document.getElementById('vistaPortada').style.display = 'block';
+        document.getElementById('vistaTrabajo').style.display = 'none';
+        document.querySelectorAll('.nb-nav a').forEach(x => {
+          x.classList.toggle('activo', x.getAttribute('href') === '#vistaPortada');
+        });
+      }
+
+      function mostrarTrabajo() {
+        document.getElementById('vistaPortada').style.display = 'none';
+        document.getElementById('vistaTrabajo').style.display = 'block';
+      }
+
+      function abrirCaso(i) {
+        casoSel = i;
+        mostrarTrabajo();
+
+        const c = CASOS[i];
+        document.getElementById('casoActivoLabel').textContent = 'Equipo ' + c.n;
+        document.getElementById('casoActivoTitulo').textContent = c.titulo;
+        document.getElementById('casoActivoNat').textContent = c.nat;
+        document.getElementById('casoActivoTexto').textContent = c.situacion;
+
+        const list = document.getElementById('pistasLista');
+        list.innerHTML = '';
+        c.pistas.forEach(p => {
+          const d = document.createElement('div');
+          d.className = 'pista';
+          d.textContent = p;
+          list.appendChild(d);
+        });
+
+        CAMPOS.forEach(([k]) => {
+          const val = localStorage.getItem('conflicto-caso-' + c.n + '-' + k) || '';
+          document.querySelector('textarea[data-campo="' + k + '"]').value = val;
+        });
+
+        document.querySelectorAll('.nb-nav a').forEach(x => {
+          x.classList.toggle('activo', x.getAttribute('href') === '#casoActivo');
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Populate cover grid
+      const grid = document.getElementById('casosGrid');
+      CASOS.forEach((c, i) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'caso-card';
+        card.innerHTML = '<span class="caso-num">' + c.n + '</span>'
+          + '<div class="caso-card-cont">'
+          + '  <div class="caso-card-titulo">' + c.titulo + '</div>'
+          + '  <div class="caso-card-desc">Naturaleza: ' + c.nat + '</div>'
+          + '</div>'
+          + '<span class="caso-flecha">&rarr;</span>';
+        card.addEventListener('click', () => abrirCaso(i));
+        grid.appendChild(card);
+      });
+
+      // Back button
+      document.getElementById('btnVolver').addEventListener('click', () => {
+        mostrarPortada();
+      });
+
+      // Save input changes dynamically
+      CAMPOS.forEach(([k]) => {
+        const ta = document.querySelector('textarea[data-campo="' + k + '"]');
+        ta.addEventListener('input', () => {
+          if (casoSel !== -1) {
+            const c = CASOS[casoSel];
+            localStorage.setItem('conflicto-caso-' + c.n + '-' + k, ta.value);
+          }
+        });
+      });
+
+      // Sidebar navigation click handler
       document.querySelectorAll('.nb-nav a').forEach(a => {
         a.addEventListener('click', e => {
           e.preventDefault();
-          document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
-          a.classList.add('activo');
-          const targetId = a.getAttribute('href');
-          const targetEl = document.querySelector(targetId);
-          if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const href = a.getAttribute('href');
+
+          if (href === '#vistaPortada') {
+            mostrarPortada();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            if (casoSel === -1) {
+              alert('Por favor, selecciona un caso asignado en la página de Inicio primero.');
+              return;
+            }
+            mostrarTrabajo();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+            a.classList.add('activo');
           }
           if (window.innerWidth <= 820) cerrarMenu();
         });
       });
 
-      const CASOS = [
-        {n:'1', titulo:'El gasto que nadie consultó', nat:'Proceso y poder'},
-        {n:'2', titulo:'Lo que se supo por el pasillo', nat:'Información'},
-        {n:'3', titulo:'Dos formas de entender el excedente', nat:'Tarea y valores'},
-        {n:'4', titulo:'Ya no es el tema, son ellos', nat:'Relación y temperamento'}
-      ];
-      const CAMPOS = [
-        ['lectura','Lectura del conflicto'],
-        ['etapa','Etapa y qué lo alimenta'],
-        ['mecanismo','Mecanismo propuesto'],
-        ['accion','Qué haríamos como cuerpo directivo']
-      ];
-
-      function getVal(caso, campo){
-        const ed = document.querySelector('.editor[data-caso="'+caso+'"]');
-        const t = ed.querySelector('textarea[data-campo="'+campo+'"]');
+      function getVal(campo) {
+        const t = document.querySelector('textarea[data-campo="' + campo + '"]');
         return (t && t.value.trim()) ? t.value.trim() : '—';
       }
-      function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-      // DOCUMENTO HTML BASE PARA EXPORTACIÓN
+      function esc(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function slugCaso() {
+        if (casoSel === -1) return '';
+        const c = CASOS[casoSel];
+        return c.n + '-' + c.titulo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      }
+
+      // ---------- EXPORTS ----------
       function construirDocumento(forWord) {
+        if (casoSel === -1) return '';
+        const c = CASOS[casoSel];
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const wordMeta = forWord ? '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->' : '';
         let html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
           + '<head><meta charset="utf-8"><title>Trabajo Práctico: Leer un Conflicto</title>' + wordMeta
@@ -309,77 +532,94 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
           + 'p{margin:8pt 0} .lbl{font-weight:bold;color:#1c6b4a;display:block;margin-top:10pt}'
           + '</style></head><body>'
           + '<div class="marca">CoopeNotebook</div><h1>Trabajo Práctico: Leer un Conflicto</h1>';
-        
-        CASOS.forEach(c => {
-          html += '<h2>Equipo ' + c.n + ' &mdash; ' + esc(c.titulo) + '</h2>'
-            + '<div class="nat">' + esc(c.nat) + '</div>';
-          CAMPOS.forEach(([k, lbl]) => {
-            html += '<p><span class="lbl">' + lbl + ':</span><br>' + esc(getVal(c.n, k)).replace(/\n/g, '<br>') + '</p>';
-          });
+
+        html += '<h2>Equipo ' + c.n + ' &mdash; ' + esc(c.titulo) + '</h2>'
+          + '<div class="nat">Naturaleza: ' + esc(c.nat) + '</div>'
+          + '<p><b>Situación del caso:</b><br>' + esc(c.situacion) + '</p>';
+        CAMPOS.forEach(([k, lbl]) => {
+          html += '<p><span class="lbl">' + lbl + ':</span><br>' + esc(getVal(k)).replace(/\n/g, '<br>') + '</p>';
         });
         html += '</body></html>';
         return html;
       }
 
-      // WORD EXPORT
-      document.getElementById('exp-word').addEventListener('click', ()=>{
+      // Word Export
+      document.getElementById('exp-word').addEventListener('click', () => {
+        if (casoSel === -1) return;
         const blob = new Blob(['\ufeff' + construirDocumento(true)], { type: 'application/msword' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'leer-un-conflicto-equipo.doc';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'leer-un-conflicto-caso-' + slugCaso() + '.doc';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       });
 
-      // PDF PRINT
-      document.getElementById('exp-pdf').addEventListener('click', ()=>{
+      // PDF Print
+      document.getElementById('exp-pdf').addEventListener('click', () => {
+        if (casoSel === -1) return;
         const html = construirDocumento(false);
         const old = document.getElementById('print-frame');
         if (old) old.remove();
         const frame = document.createElement('iframe');
         frame.id = 'print-frame';
         frame.style.position = 'fixed';
-        frame.style.right = '0'; frame.style.bottom = '0';
-        frame.style.width = '0'; frame.style.height = '0';
+        frame.style.right = '0';
+        frame.style.bottom = '0';
+        frame.style.width = '0';
+        frame.style.height = '0';
         frame.style.border = '0';
         document.body.appendChild(frame);
         const fdoc = frame.contentWindow.document;
-        fdoc.open(); fdoc.write(html); fdoc.close();
+        fdoc.open();
+        fdoc.write(html);
+        fdoc.close();
         const lanzar = () => {
-          try { frame.contentWindow.focus(); frame.contentWindow.print(); }
-          catch (e) { window.print(); }
+          try {
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+          } catch (e) {
+            window.print();
+          }
         };
         if (frame.contentWindow.document.readyState === 'complete') setTimeout(lanzar, 300);
         else frame.onload = () => setTimeout(lanzar, 300);
       });
 
-      // POWERPOINT EXPORT
-      document.getElementById('exp-ppt').addEventListener('click', ()=>{
-        if(typeof PptxGenJS==='undefined'){alert('No se pudo cargar PowerPoint. Verificá tu conexión a internet e intentá de nuevo.');return;}
+      // PowerPoint Export
+      document.getElementById('exp-ppt').addEventListener('click', () => {
+        if (casoSel === -1) return;
+        if (typeof PptxGenJS === 'undefined') {
+          alert('No se pudo cargar PowerPoint. Verificá tu conexión a internet e intentá de nuevo.');
+          return;
+        }
         const pptx = new PptxGenJS();
-        const VERDE='1C6B4A', VERDESEC='2FA36B';
-        
+        const VERDE = '1C6B4A', VERDESEC = '2FA36B';
+
         // Portada
         let s = pptx.addSlide();
-        s.background={color:'FFFFFF'};
-        s.addText('Leer un conflicto',{x:0.6,y:2.0,w:9,h:1,fontFace:'Arial',fontSize:40,bold:true,color:VERDE});
-        s.addText('Trabajo en equipo · Cooperativa Notebook',{x:0.6,y:3.0,w:9,h:0.5,fontFace:'Arial',fontSize:18,color:'52615B'});
-        
-        // Casos
-        CASOS.forEach(c => {
-          const sl = pptx.addSlide();
-          sl.background={color:'FFFFFF'};
-          sl.addText('Equipo '+c.n,{x:0.6,y:0.45,w:9,h:0.4,fontFace:'Arial',fontSize:14,bold:true,color:VERDESEC});
-          sl.addText(c.titulo,{x:0.6,y:0.85,w:9,h:0.7,fontFace:'Arial',fontSize:28,bold:true,color:VERDE});
-          sl.addText(c.nat,{x:0.6,y:1.6,w:9,h:0.4,fontFace:'Arial',fontSize:13,italic:true,color:'52615B'});
-          
-          let y=2.15;
-          CAMPOS.forEach(([k,lbl])=>{
-            sl.addText(lbl,{x:0.6,y:y,w:9,h:0.3,fontFace:'Arial',fontSize:13,bold:true,color:VERDE});
-            sl.addText(getVal(c.n,k),{x:0.6,y:y+0.3,w:9,h:0.7,fontFace:'Arial',fontSize:12,color:'1A1A18',valign:'top'});
-            y+=1.15;
-          });
+        s.background = { color: 'FFFFFF' };
+        s.addText('Leer un conflicto', { x: 0.6, y: 2.0, w: 9, h: 1, fontFace: 'Arial', fontSize: 40, bold: true, color: VERDE });
+        s.addText('Trabajo en equipo · Cooperativa Notebook', { x: 0.6, y: 3.0, w: 9, h: 0.5, fontFace: 'Arial', fontSize: 18, color: '52615B' });
+
+        // Caso
+        const c = CASOS[casoSel];
+        const sl = pptx.addSlide();
+        sl.background = { color: 'FFFFFF' };
+        sl.addText('Equipo ' + c.n, { x: 0.6, y: 0.45, w: 9, h: 0.4, fontFace: 'Arial', fontSize: 14, bold: true, color: VERDESEC });
+        sl.addText(c.titulo, { x: 0.6, y: 0.85, w: 9, h: 0.7, fontFace: 'Arial', fontSize: 28, bold: true, color: VERDE });
+        sl.addText(c.nat, { x: 0.6, y: 1.6, w: 9, h: 0.4, fontFace: 'Arial', fontSize: 13, italic: true, color: '52615B' });
+
+        let y = 2.15;
+        CAMPOS.forEach(([k, lbl]) => {
+          sl.addText(lbl, { x: 0.6, y: y, w: 9, h: 0.3, fontFace: 'Arial', fontSize: 13, bold: true, color: VERDE });
+          sl.addText(getVal(k), { x: 0.6, y: y + 0.3, w: 9, h: 0.7, fontFace: 'Arial', fontSize: 12, color: '1A1A18', valign: 'top' });
+          y += 1.15;
         });
-        pptx.writeFile({fileName:'leer-un-conflicto-equipo.pptx'});
+
+        pptx.writeFile({ fileName: 'leer-un-conflicto-caso-' + slugCaso() + '.pptx' });
       });
 
     })();
