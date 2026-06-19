@@ -19,6 +19,8 @@
       --texto-ter: #6a6a64;
       --radio: 10px;
       --vacante: #c0392b;
+      --rojo-claro: #fdf6f6;
+      --rojo-borde: #d9534f;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -72,14 +74,14 @@
     }
 
     .canvas {
-      width: min(100%, 920px);
+      width: min(100%, 720px); /* Ajustado para pantallas más angostas */
       margin: 0 auto;
-      padding: 3rem 1.25rem 5rem;
+      padding: 2.5rem 1.25rem 5rem;
     }
 
     .page-header {
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
       border-bottom: 1px solid var(--gris-borde);
     }
 
@@ -89,19 +91,18 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--texto-ter);
-      margin-bottom: .75rem;
+      margin-bottom: .5rem;
     }
 
     .title {
-      font-size: clamp(28px, 4vw, 38px);
+      font-size: clamp(26px, 4vw, 34px);
       font-weight: 650;
       line-height: 1.15;
       margin-bottom: .75rem;
     }
 
     .intro {
-      max-width: 680px;
-      font-size: 15px;
+      font-size: 14.5px;
       color: var(--texto-sec);
     }
 
@@ -113,62 +114,178 @@
       margin: .85rem 0 0;
     }
 
-    /* ── DISEÑO DE LA HERRAMIENTA ── */
-    .tool-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 2rem;
+    /* ── NAVEGACIÓN POR PESTAÑAS ── */
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      border-bottom: 2px solid var(--gris-borde);
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 768px) {
-      .tool-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
+    .tab-btn {
+      padding: 10px 16px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--texto-sec);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--verde);
+    }
+
+    .tab-btn.active {
+      color: var(--verde);
+      border-bottom-color: var(--verde);
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: tabFade 0.25s ease both;
+    }
+
+    @keyframes tabFade {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MAQUETACIÓN VERTICAL (APILADA) ── */
+    .tool-layout-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     .column-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: .05em;
       text-transform: uppercase;
       color: var(--texto-ter);
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.75rem;
     }
 
+    /* ── TEORÍA ── */
+    .bloque-teorico {
+      margin-bottom: 2.5rem;
+    }
+
+    .bloque-teorico h3 {
+      font-size: 18px;
+      font-weight: 650;
+      margin-bottom: 0.75rem;
+      color: var(--texto);
+    }
+
+    .bloque-teorico p {
+      font-size: 15px;
+      color: var(--texto-sec);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .bloque-teorico strong {
+      color: var(--texto);
+    }
+
+    .def-bloque {
+      background: var(--gris-bg);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 1rem 0;
+      border-left: 3px solid var(--verde-sec);
+    }
+
+    .def-termino {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--verde);
+      margin-bottom: 2px;
+    }
+
+    .def-texto {
+      font-size: 13.5px;
+      color: var(--texto-sec);
+    }
+
+    /* ── ADVERTENCIAS Y ALERTAS ── */
+    .warning-callout {
+      background: var(--rojo-claro);
+      border-left: 4px solid var(--rojo-borde);
+      padding: 1.25rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.5rem 0;
+      font-size: 14px;
+      color: #7a2d2d;
+      line-height: 1.6;
+    }
+
+    .warning-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--rojo-borde);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .callout {
+      background: var(--verde-bg);
+      border-left: 4px solid var(--verde);
+      padding: 1rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.5rem 0;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #1f4a38;
+    }
+
+    .callout strong {
+      color: var(--verde);
+    }
+
+    /* ── DIAGRAMA Y FILAS ── */
     .diagrama-wrap {
       background: var(--gris-bg);
       border: 1px solid var(--gris-borde);
       border-radius: var(--radio);
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
 
     .cargos-columna {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .cargo-fila {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 10px 14px;
+      gap: 12px;
+      padding: 8px 12px;
       border-radius: 8px;
       background: #fff;
       border: 1px solid var(--gris-borde);
-      transition: all .45s cubic-bezier(.4, 0, .2, 1);
+      transition: all .4s cubic-bezier(.4, 0, .2, 1);
     }
 
     .cargo-fila.es-vacante {
       border-color: var(--vacante);
-      background: rgba(192, 57, 43, 0.05);
+      background: rgba(192, 57, 43, 0.04);
     }
 
     .cargo-fila.recibe {
       border-color: var(--verde-sec);
-      background: rgba(47, 163, 107, 0.08);
+      background: rgba(47, 163, 107, 0.07);
     }
 
     .cargo-fila.elegible {
@@ -177,36 +294,36 @@
 
     .cargo-fila.elegible:hover {
       border-color: var(--verde);
-      background: rgba(28, 107, 74, 0.05);
+      background: rgba(28, 107, 74, 0.04);
     }
 
     .cargo-nombre {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
-      width: 130px;
+      width: 110px;
       flex-shrink: 0;
     }
 
     .cargo-ocupante {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--texto-ter);
       flex: 1;
       transition: opacity .3s;
     }
 
     .cargo-figura {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       color: #fff;
       background: var(--verde-sec);
-      transition: all .45s;
+      transition: all .4s;
     }
 
     .cargo-figura.vacia {
@@ -221,28 +338,28 @@
     }
 
     .diag-paso-label {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--texto-sec);
-      min-height: 44px;
-      margin-bottom: 1rem;
+      min-height: 48px;
+      margin-bottom: 0.75rem;
       font-weight: 500;
       line-height: 1.4;
     }
 
     .diag-controles {
       display: flex;
-      gap: 10px;
-      margin-top: 1.5rem;
+      gap: 8px;
+      margin-top: 1.25rem;
     }
 
     .btn {
       font-family: inherit;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       border-radius: 8px;
-      padding: 10px 18px;
+      padding: 8px 16px;
       cursor: pointer;
-      min-height: 38px;
+      min-height: 36px;
       transition: all .15s;
       border: none;
     }
@@ -272,24 +389,10 @@
     }
 
     .diag-nota {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--texto-ter);
-      margin-top: 1rem;
-      line-height: 1.5;
-    }
-
-    .callout {
-      background: var(--verde-bg);
-      border-left: 4px solid var(--verde);
-      padding: 1rem;
-      border-radius: 0 var(--radio) var(--radio) 0;
-      margin-top: 1.5rem;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .callout strong {
-      color: var(--verde);
+      margin-top: 0.75rem;
+      line-height: 1.45;
     }
   </style>
 </head>
@@ -305,42 +408,100 @@
 
   <main class="canvas">
     <section class="page-header">
-      <p class="eyebrow">Simulador</p>
+      <p class="eyebrow">Herramienta</p>
       <h1 class="title">Corrimiento de cargos</h1>
-      <p class="intro">Simulador interactivo de prelación y sucesión en la Junta Directiva ante ausencias definitivas de sus miembros titulares.</p>
+      <p class="intro">Análisis teórico y simulador interactivo de prelación y sucesión en la Junta Directiva ante vacantes definitivas.</p>
       <div class="rule"></div>
     </section>
 
-    <div class="tool-layout">
-      <!-- Columna Izquierda: Jerarquía Base -->
-      <div>
-        <h2 class="column-title">01 · Jerarquía de la Junta</h2>
-        <div class="diagrama-wrap">
-          <div class="cargos-columna" id="cadena-base"></div>
-          <div class="diag-nota">La Junta Directiva está ordenada como una cadena de prelación de arriba hacia abajo. La suplencia es el único punto de entrada nuevo, ingresando siempre por el extremo inferior.</div>
-        </div>
-        <div class="callout">
-          <strong>Regla General:</strong> En caso de ausencia definitiva (renuncia, fallecimiento o separación), la suplencia no reemplaza directamente la posición vacante. Se realiza un corrimiento jerárquico ascendente y el suplente asume la última vocalía.
+    <!-- Pestañas de Navegación -->
+    <div class="tab-nav">
+      <button class="tab-btn active" id="tab-teoria" onclick="irATab('teoria')">Exploración Teórica</button>
+      <button class="tab-btn" id="tab-simulador" onclick="irATab('simulador')">Simulador Práctico</button>
+    </div>
+
+    <!-- PANEL 1: EXPLORACIÓN TEÓRICA -->
+    <div class="panel active" id="panel-teoria">
+      <div class="bloque-teorico">
+        <h3>Qué significa correr los cargos</h3>
+        <p>Correr los cargos es el mecanismo de continuidad de la dirección: cuando una posición de la Junta Directiva queda libre, las demás suben en orden jerárquico y la suplencia entra por el extremo inferior. La Junta nunca queda incompleta ni paralizada.</p>
+        <div class="def-bloque">
+          <div class="def-termino">Continuidad de la dirección</div>
+          <div class="def-texto">El Art. 68 RLCH ordena elegir la Junta en orden jerárquico precisamente para darle continuidad al proceso de dirección y administración.</div>
         </div>
       </div>
 
-      <!-- Columna Derecha: Simulador Interactivo -->
-      <div>
-        <h2 class="column-title">02 · Simulador de Sucesión</h2>
-        <div class="diagrama-wrap">
-          <div class="diag-paso-label" id="paso-label">Elegí la posición que queda vacante: tocá una fila de la columna.</div>
-          <div class="cargos-columna" id="cadena-sim"></div>
-          <div class="diag-controles">
-            <button class="btn btn-verde" id="btn-siguiente" disabled>Siguiente Paso</button>
-            <button class="btn btn-borde" id="btn-reiniciar">Reiniciar</button>
+      <div class="bloque-teorico">
+        <h3>Ausencia temporal y ausencia definitiva</h3>
+        <p>No toda ausencia produce un corrimiento permanente. Es crucial distinguir estas dos situaciones:</p>
+        <div class="def-bloque">
+          <div class="def-termino">Ausencia temporal</div>
+          <div class="def-texto">Una persona directiva falta a una sesión y no se alcanza el quórum. La suplencia completa el quórum de esa sesión. No hay reordenamiento permanente.</div>
+        </div>
+        <div class="def-bloque">
+          <div class="def-termino">Ausencia definitiva</div>
+          <div class="def-texto">Una posición queda vacante por renuncia, fallecimiento o separación. Se activa el corrimiento: cada quien sube y la suplencia asume la última vocalía, por el tiempo que falte del período.</div>
+        </div>
+      </div>
+
+      <!-- ALERTA DE EXCEPCIÓN ESTATUTARIA (WARN SOLICITADO) -->
+      <div class="warning-callout">
+        <span class="warning-tag">Advertencia de Excepción Estatutaria</span>
+        <p>El estatuto social de la cooperativa puede establecer que ciertos cargos altamente especializados (como la <strong>Tesorería</strong> o la <strong>Secretaría</strong>) estén excluidos del corrimiento jerárquico automático para asegurar que las personas con perfiles idóneos continúen en sus funciones técnicas.</p>
+        <p style="margin-top: 8px;">En tal caso, por ejemplo, si la presidencia o secretaría quedan vacantes, la vicepresidencia sube, pero el cargo de tesorería <strong>no se mueve a secretaría</strong>. En su lugar, la vacante sería llenada directamente por la vocalía jerárquicamente superior (Vocal 1), saltándose la tesorería.</p>
+      </div>
+
+      <div class="bloque-teorico">
+        <h3>Límites del mecanismo</h3>
+        <p>El corrimiento no es una elección nueva, no requiere convocar una asamblea extraordinaria y no permite nombrar a una persona ajena a la Junta para llenar la vacante directamente. Es un reordenamiento interno por orden de precedencia legal.</p>
+      </div>
+    </div>
+
+    <!-- PANEL 2: SIMULADOR PRÁCTICO (MAQUETADO VERTICAL/PARA ABAJO) -->
+    <div class="panel" id="panel-simulador">
+      <div class="tool-layout-vertical">
+        <!-- Parte Superior: Jerarquía Base -->
+        <div>
+          <h2 class="column-title">01 · Jerarquía Inicial de la Junta</h2>
+          <div class="diagrama-wrap">
+            <div class="cargos-columna" id="cadena-base"></div>
+            <div class="diag-nota">Esta es la cadena de prelación ordenada jerárquicamente por la Ley de Cooperativas de Honduras y su Reglamento (Presidente, Vicepresidente, Secretario, Tesorero, Vocal, Suplente).</div>
           </div>
-          <div class="diag-nota">Simula cómo la vacante se propaga y cómo entra la suplencia por abajo para completar el quórum y el número legal de directores.</div>
+        </div>
+
+        <!-- Parte Inferior: Simulador Interactivo -->
+        <div>
+          <h2 class="column-title">02 · Simulador de Corrimiento de Cargos</h2>
+          <div class="diagrama-wrap">
+            <div class="diag-paso-label" id="paso-label">Elegí la posición que queda vacante: tocá una fila de la columna.</div>
+            <div class="cargos-columna" id="cadena-sim"></div>
+            <div class="diag-controles">
+              <button class="btn btn-verde" id="btn-siguiente" disabled>Siguiente Paso</button>
+              <button class="btn btn-borde" id="btn-reiniciar">Reiniciar</button>
+            </div>
+            <div class="diag-nota">Observa cómo la vacante se desplaza hacia abajo en la jerarquía y cómo el suplente se incorpora para asumir el último puesto de Vocal.</div>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
   <script>
+    // ── LÓGICA DE PESTAÑAS ──
+    function irATab(tabId) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+      if (tabId === 'teoria') {
+        document.getElementById('panel-teoria').classList.add('active');
+        document.getElementById('tab-teoria').classList.add('active');
+      } else {
+        document.getElementById('panel-simulador').classList.add('active');
+        document.getElementById('tab-simulador').classList.add('active');
+      }
+      document.querySelector('.canvas').scrollTop = 0;
+    }
+
     // ── Datos de la cadena ──
     const CADENA = [
       {cargo:'Presidencia', n:'P'},
