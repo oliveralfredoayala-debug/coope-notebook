@@ -919,6 +919,38 @@
         border-bottom: 1px solid var(--linea-suave);
       }
     }
+
+    /* Analogía interactiva del carro */
+    .analogia-container {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .analogia-grafico {
+      background: var(--hueso);
+      border: 1px solid var(--gris-borde);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.01);
+    }
+    .analogia-svg .svg-part {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .analogia-svg .svg-part:hover {
+      filter: drop-shadow(0px 4px 12px rgba(28, 107, 74, 0.15));
+      opacity: 0.9;
+    }
+    .car-card {
+      cursor: pointer;
+    }
+    .car-card.destacada {
+      border-color: var(--verde-sec) !important;
+      background: var(--verde-bg) !important;
+      box-shadow: 0 6px 18px rgba(28, 107, 74, 0.08) !important;
+      transform: translateY(-2px);
+    }
   </style>
   <link rel="stylesheet" href="/shared/facilitator-tools.css">
 </head>
@@ -1022,7 +1054,111 @@
       
       <p>Para conducir una cooperativa hacen falta tres cosas a la vez: un carro que <em>pueda</em> ser conducido, una persona que <em>sepa</em> conducirlo y reglas que digan <em>cómo</em> conducir. Cada una corresponde a un término distinto que solemos mezclar.</p>
 
-      <div class="car-grid">
+      <div class="analogia-container">
+        <div class="analogia-grafico">
+          <svg viewBox="0 0 800 360" class="analogia-svg" width="100%" height="auto" style="display: block;">
+            <defs>
+              <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3a3a38" />
+                <stop offset="100%" stop-color="#222220" />
+              </linearGradient>
+              <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f8faf9" />
+                <stop offset="100%" stop-color="#ffffff" />
+              </linearGradient>
+            </defs>
+
+            <!-- Fondo -->
+            <rect width="800" height="360" fill="url(#skyGrad)" rx="12" />
+
+            <!-- La Calle / Carretera (Gobernanza) -->
+            <g class="svg-part" data-target="gobernanza">
+              <path d="M 0 260 Q 400 210 800 260 L 800 360 L 0 360 Z" fill="url(#roadGrad)" />
+              <!-- Línea divisoria discontinua -->
+              <path d="M 0 310 Q 400 280 800 310" stroke="#ffffff" stroke-width="4" stroke-dasharray="16 12" fill="none" opacity="0.6" />
+              <!-- Señal de tránsito (Reglas) -->
+              <line x1="100" y1="150" x2="100" y2="280" stroke="#8a8a84" stroke-width="3" />
+              <circle cx="100" cy="140" r="20" fill="var(--verde)" />
+              <!-- Icono de balanza/normas minimalista dentro de la señal -->
+              <path d="M 94 135 L 106 135 M 97 135 L 97 145 M 103 135 L 103 145 M 95 145 L 105 145" stroke="#ffffff" stroke-width="2" fill="none" />
+              <!-- Cartel "Leyes" -->
+              <rect x="65" y="175" width="70" height="20" rx="3" fill="#3a3a38" />
+              <text x="100" y="189" fill="#ffffff" font-size="9" font-weight="700" text-anchor="middle" letter-spacing="0.05em">LEYES</text>
+            </g>
+
+            <!-- El Propietario / Llaves (Gobierno) -->
+            <g class="svg-part" data-target="gobierno">
+              <!-- Siluetas de afiliados colectivos -->
+              <circle cx="260" cy="160" r="14" fill="#a87600" opacity="0.7" />
+              <path d="M 242 195 A 18 18 0 0 1 278 195 Z" fill="#a87600" opacity="0.7" />
+
+              <circle cx="300" cy="150" r="14" fill="#a87600" />
+              <path d="M 282 185 A 18 18 0 0 1 318 185 Z" fill="#a87600" />
+
+              <circle cx="340" cy="160" r="14" fill="#a87600" opacity="0.7" />
+              <path d="M 322 195 A 18 18 0 0 1 358 195 Z" fill="#a87600" opacity="0.7" />
+
+              <!-- Llave del carro (Símbolo de delegación de poder) -->
+              <circle cx="300" cy="215" r="8" fill="#e8b84b" stroke="#ffffff" stroke-width="2" />
+              <path d="M 300 223 L 300 242 L 305 242 L 305 237 L 300 237 L 300 232 L 305 232 L 305 227 L 300 227" stroke="#e8b84b" stroke-width="2.5" fill="none" stroke-linecap="round" />
+              <text x="300" y="125" fill="#a87600" font-size="12" font-weight="700" text-anchor="middle">Afiliados (Dueños)</text>
+            </g>
+
+            <!-- El Carro (Gobernabilidad) -->
+            <g class="svg-part" data-target="gobernabilidad">
+              <!-- Chasis y cuerpo del carro -->
+              <path d="M 440 250 Q 470 200 520 195 Q 580 190 620 195 Q 670 200 700 250 L 720 270 Q 730 280 710 290 L 450 290 Q 430 280 440 250 Z" fill="none" stroke="var(--verde-sec)" stroke-width="3" stroke-linejoin="round" />
+              <path d="M 440 250 Q 470 200 520 195 Q 580 190 620 195 Q 670 200 700 250 L 720 270 Q 730 280 710 290 L 450 290 Q 430 280 440 250 Z" fill="var(--verde-bg)" opacity="0.4" />
+              
+              <!-- Ruedas (Bases del carro) -->
+              <circle cx="490" cy="290" r="22" fill="#222220" stroke="#ffffff" stroke-width="3" />
+              <circle cx="490" cy="290" r="8" fill="#8a8a84" />
+
+              <circle cx="670" cy="290" r="22" fill="#222220" stroke="#ffffff" stroke-width="3" />
+              <circle cx="670" cy="290" r="8" fill="#8a8a84" />
+
+              <!-- Motor / Frenos indicados con círculos de estado mecánico -->
+              <circle cx="455" cy="275" r="5" fill="var(--verde-sec)" />
+              <path d="M 445 275 L 465 275" stroke="var(--verde-sec)" stroke-width="1.5" />
+              <text x="580" y="115" fill="var(--verde)" font-size="12" font-weight="700" text-anchor="middle">Capacidad Mecánica</text>
+            </g>
+
+            <!-- Conductor / Volante (Gobernar) -->
+            <g class="svg-part" data-target="gobernar">
+              <!-- Cabina con conductor y volante -->
+              <circle cx="560" cy="230" r="12" fill="none" stroke="#7242a3" stroke-width="2" />
+              <circle cx="560" cy="230" r="3" fill="#7242a3" />
+              <line x1="560" y1="218" x2="560" y2="242" stroke="#7242a3" stroke-width="2" />
+              <line x1="548" y1="230" x2="572" y2="230" stroke="#7242a3" stroke-width="2" />
+              
+              <!-- Silueta del Conductor -->
+              <path d="M 590 220 C 590 210 610 210 610 220 L 610 250 L 590 250 Z" fill="#7242a3" opacity="0.8" />
+              <circle cx="600" cy="200" r="8" fill="#7242a3" />
+              <text x="600" y="175" fill="#7242a3" font-size="11" font-weight="700" text-anchor="middle">Conducción</text>
+            </g>
+
+            <!-- Etiquetas de las 4 dimensiones -->
+            <g transform="translate(10, 25)" font-size="10" font-weight="700" letter-spacing="0.08em" text-anchor="middle">
+              <!-- Gobernanza -->
+              <rect x="10" y="0" width="110" height="24" rx="4" fill="var(--verde)" />
+              <text x="65" y="15" fill="#ffffff">GOBERNANZA</text>
+
+              <!-- Gobierno -->
+              <rect x="230" y="0" width="110" height="24" rx="4" fill="#a87600" />
+              <text x="285" y="15" fill="#ffffff">GOBIERNO</text>
+
+              <!-- Gobernabilidad -->
+              <rect x="470" y="0" width="130" height="24" rx="4" fill="var(--verde-sec)" />
+              <text x="535" y="15" fill="#ffffff">GOBERNABILIDAD</text>
+
+              <!-- Gobernar -->
+              <rect x="660" y="0" width="110" height="24" rx="4" fill="#7242a3" />
+              <text x="715" y="15" fill="#ffffff">GOBERNAR</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="car-grid">
         <div class="car-card" data-concept="gobierno">
           <span class="car-tag">Gobierno</span>
           <h4>Quiénes tienen el poder</h4>
@@ -1051,6 +1187,7 @@
           <div class="car-row"><span class="ico coop">●</span><span class="txt">En la cooperativa: el <b>conjunto de procesos, normas y relaciones</b> por los que se ejerce el poder cooperativo.</span></div>
         </div>
       </div>
+    </div>
 
       <div class="def">
         <div class="t">El detalle cooperativo</div>
@@ -1342,6 +1479,56 @@
         chips.forEach(function(x){x.classList.remove('flash');});
         c.classList.add('flash');
         setTimeout(function(){c.classList.remove('flash');},900);
+      });
+    });
+  })();
+
+  // Lógica de interacción para la analogía del carro (Gobernabilidad)
+  (function(){
+    const svgParts = document.querySelectorAll('.analogia-svg .svg-part');
+    const carCards = document.querySelectorAll('.car-card');
+
+    svgParts.forEach(function(part) {
+      part.addEventListener('click', function() {
+        const concept = part.getAttribute('data-target');
+        carCards.forEach(function(card) {
+          if (card.getAttribute('data-concept') === concept) {
+            card.classList.add('destacada');
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            card.classList.remove('destacada');
+          }
+        });
+
+        // Sincronizar el SVG para resaltar la parte correspondiente
+        svgParts.forEach(function(p) {
+          if (p === part) {
+            p.style.opacity = '1';
+            p.style.filter = 'drop-shadow(0px 4px 12px rgba(28, 107, 74, 0.25))';
+          } else {
+            p.style.opacity = '0.35';
+            p.style.filter = 'none';
+          }
+        });
+      });
+    });
+
+    carCards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        const concept = card.getAttribute('data-concept');
+        carCards.forEach(function(c) { c.classList.remove('destacada'); });
+        card.classList.add('destacada');
+        
+        // Sincronizar el SVG para resaltar la parte correspondiente
+        svgParts.forEach(function(part) {
+          if (part.getAttribute('data-target') === concept) {
+            part.style.opacity = '1';
+            part.style.filter = 'drop-shadow(0px 4px 12px rgba(28, 107, 74, 0.25))';
+          } else {
+            part.style.opacity = '0.35';
+            part.style.filter = 'none';
+          }
+        });
       });
     });
   })();
