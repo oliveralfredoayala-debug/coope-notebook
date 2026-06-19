@@ -1121,6 +1121,354 @@
       .lencioni-container { grid-template-columns: 1fr; gap: 1.5rem; }
       .ids-flow { grid-template-columns: 1fr; gap: 10px; }
       .tree-leaves { grid-template-columns: repeat(3, 1fr); }
+      .lider-dual-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .lider-curva-steps { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .lider-curva-line { display: none; }
+      .lider-btn-group { flex-direction: column; gap: 8px; }
+    }
+
+    /* ESTILOS DE LIDERAZGO SITUACIONAL COOPERATIVO */
+    .lider-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .lider-dual-card {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.5rem;
+      box-shadow: var(--sombra);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .lider-dual-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--verde-borde);
+    }
+    .lider-dual-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .lider-dual-badge.ensamblar {
+      background: #eaf2ee;
+      color: var(--verde);
+    }
+    .lider-dual-badge.dirigir {
+      background: #fff9e6;
+      color: #b38600;
+    }
+    .lider-dual-card h4 {
+      font-size: 17px;
+      color: var(--texto);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .lider-dual-card p {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .lider-dual-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .lider-dual-card li {
+      font-size: 13.5px;
+      color: var(--texto-sec);
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .lider-dual-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--verde-sec);
+      font-weight: 700;
+    }
+    .lider-coop-twist {
+      background: linear-gradient(135deg, #e8f4ef 0%, #d8eae1 100%);
+      border-left: 5px solid var(--verde);
+      border-radius: 0 var(--radio) var(--radio) 0;
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+      box-shadow: 0 4px 15px rgba(28,107,74,0.06);
+    }
+    .lider-coop-twist-t {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--verde);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lider-coop-twist-d {
+      font-size: 15px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+    .lider-curva-container {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.75rem;
+      margin: 2.5rem 0;
+      box-shadow: var(--sombra);
+    }
+    .lider-curva-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .lider-curva-line {
+      position: absolute;
+      top: 24px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 3px;
+      background: var(--gris-borde);
+      z-index: 1;
+    }
+    .lider-curva-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-align: center;
+    }
+    .lider-curva-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blanco);
+      border: 3px solid var(--gris-borde);
+      color: var(--texto-ter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.25s;
+    }
+    .lider-curva-step:hover .lider-curva-dot {
+      border-color: var(--verde-sec);
+      color: var(--verde);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(47,163,107,0.12);
+    }
+    .lider-curva-step.activo .lider-curva-dot {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: var(--blanco);
+      box-shadow: var(--sombra-verde);
+    }
+    .lider-curva-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--texto-sec);
+      margin-top: 8px;
+      transition: color 0.2s;
+    }
+    .lider-curva-step.activo .lider-curva-label {
+      color: var(--verde);
+    }
+    .lider-curva-detail {
+      background: var(--gris-bg);
+      border-radius: var(--radio-sm);
+      padding: 1.25rem 1.5rem;
+      min-height: 120px;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+      transition: opacity 0.2s ease;
+    }
+    .lider-curva-detail h5 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--texto);
+      margin-bottom: 0.5rem;
+    }
+    .lider-curva-detail p {
+      margin-bottom: 0.75rem;
+    }
+    .lider-curva-detail ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+    }
+    .lider-curva-detail li {
+      font-size: 14px;
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      color: var(--texto-sec);
+    }
+    .lider-curva-detail li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--verde);
+      font-weight: 700;
+    }
+    .lider-curva-error {
+      margin-top: 1rem;
+      border-top: 1px solid var(--gris-borde);
+      padding-top: 0.75rem;
+      font-size: 13.5px;
+      color: #b83232;
+    }
+    .lider-caso-card {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--sombra);
+    }
+    .lider-caso-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--gris-borde);
+      padding-bottom: 0.75rem;
+    }
+    .lider-caso-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--texto);
+    }
+    .lider-caso-fase {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--verde-sec);
+      text-transform: uppercase;
+      background: var(--verde-bg);
+      padding: 4px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.05em;
+    }
+    .lider-caso-desc {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .lider-btn-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .lider-btn-opt {
+      flex: 1;
+      background: var(--blanco);
+      border: 1.5px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      padding: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--texto-sec);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lider-btn-opt:hover {
+      background: var(--verde-bg);
+      border-color: var(--verde-borde);
+      color: var(--verde);
+    }
+    .lider-btn-opt.activo {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: var(--blanco);
+      box-shadow: var(--sombra-verde);
+    }
+    .lider-justificacion-lbl {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 6px;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+    .lider-textarea {
+      width: 100%;
+      height: 80px;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--texto);
+      resize: vertical;
+      background: #fafaf9;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 1rem;
+    }
+    .lider-textarea:focus {
+      outline: none;
+      border-color: var(--verde);
+      background: var(--blanco);
+    }
+    .lider-btn-val {
+      background: var(--verde);
+      color: var(--blanco);
+      border: none;
+      border-radius: var(--radio-sm);
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lider-btn-val:hover {
+      background: var(--verde-sec);
+    }
+    .lider-fb-box {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1.15rem 1.25rem;
+      border-radius: var(--radio-sm);
+      font-size: 14px;
+      line-height: 1.55;
+      animation: fadeIn 0.25s ease;
+    }
+    .lider-fb-box.visible {
+      display: block;
+    }
+    .lider-fb-box.correcta {
+      background: #e6f7ef;
+      border-left: 4px solid #2fa36b;
+      color: #175e3c;
+    }
+    .lider-fb-box.incorrecta {
+      background: #fdf3f3;
+      border-left: 4px solid #b83232;
+      color: #b83232;
+    }
+    .lider-fb-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
     }
   </style>
 </head>
@@ -1164,11 +1512,14 @@
         <button onclick="tab('fase5', this)">
           <span class="nb-nav-num">05</span>Fase 5: Alto Rendimiento
         </button>
+        <button onclick="tab('liderazgo', this)">
+          <span class="nb-nav-num">06</span>Liderazgo Situacional
+        </button>
         <button onclick="tab('personalidad', this)">
-          <span class="nb-nav-num">06</span>Personalidad en el Equipo
+          <span class="nb-nav-num">07</span>Personalidad en el Equipo
         </button>
         <button onclick="tab('fase6', this)">
-          <span class="nb-nav-num">07</span>Fase 6: Cierre y Renovación
+          <span class="nb-nav-num">08</span>Fase 6: Cierre y Renovación
         </button>
       </nav>
 
@@ -1623,6 +1974,156 @@
           </div>
         </section>
 
+        <!-- =================== LIDERAZGO SITUACIONAL COOPERATIVO =================== -->
+        <section class="panel" id="panel-liderazgo">
+          <h1 class="capsula-titulo">Liderazgo Situacional Cooperativo</h1>
+          <div class="capsula-meta">Conducir en el Ciclo del Alto Rendimiento</div>
+
+          <div class="capsula-intro">
+            El liderazgo eficaz no se reduce a poseer una lista de cualidades estáticas. En el modelo cooperativo, el líder debe adaptar su estilo según el nivel de madurez y la fase de desarrollo del equipo. Su verdadero trabajo es responder al momento: saber cuándo estructurar y cuándo delegar.
+          </div>
+
+          <h2 class="seccion-h">Ensamblar ≠ Dirigir</h2>
+          <p class="prosa">Para el éxito de un comité o comisión cooperativa, es vital separar el trabajo de conformar el grupo de la tarea diaria de conducirlo:</p>
+
+          <div class="lider-dual-grid">
+            <div class="lider-dual-card">
+              <span class="lider-dual-badge ensamblar">Ensamblar (Fases 1–2)</span>
+              <h4>Componer el Equipo</h4>
+              <p>Es la estructuración y diseño de los integrantes. Consiste en definir quién entra, asegurar las competencias complementarias y dotar al equipo de mandato y recursos.</p>
+              <ul>
+                <li><strong>El error cooperativo común:</strong> Ensamblar por afinidad, amistad o confianza ciega ("los de siempre"). Esto produce comisiones homogéneas incapaces de ejecutar (ej. puros evaluadores que no arrancan, o puros impulsores que chocan y no cierran).</li>
+                <li><strong>El reto del líder:</strong> Tolerar la incomodidad de juntar perfiles complementarios que no congenian de entrada pero cuyas habilidades cruzadas son indispensables.</li>
+              </ul>
+            </div>
+            <div class="lider-dual-card">
+              <span class="lider-dual-badge dirigir">Dirigir (Fases 3–6)</span>
+              <h4>Conducir la Maduración</h4>
+              <p>Es la facilitación y dirección del equipo a lo largo del tiempo. Su principio fundamental es que el liderazgo debe volverse <strong>menos directivo</strong> a medida que el equipo se vuelve más autónomo.</p>
+              <ul>
+                <li><strong>Estilo Adaptativo:</strong> El nivel de intervención formal y control del líder disminuye a medida que el equipo adquiere seguridad psicológica y responsabilidad mutua.</li>
+                <li><strong>El reto del líder:</strong> Saber cuándo soltar las riendas para evitar la microgestión y cuándo volver a dar dirección para evitar el estancamiento.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="lider-coop-twist">
+            <div class="lider-coop-twist-t">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm14 10v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              El Giro Cooperativo: Conducir sin Mandar
+            </div>
+            <div class="lider-coop-twist-d">
+              En una cooperativa, el coordinador de un comité o comisión no es un jefe con autoridad jerárquica vertical como en la empresa de capital privado. <strong>Es un par entre pares afiliados</strong>. Esto condiciona el ensamblaje (muchas veces los integrantes son elegidos en asamblea o nombrados por reglamento, por lo que el coordinador no los selecciona libremente) y redefine la dirección, la cual se ejerce mediante la <strong>legitimidad de conducta, el respeto y el consenso</strong>, y nunca a través de la imposición jerárquica.
+            </div>
+          </div>
+
+          <h2 class="seccion-h">La Curva del Liderazgo Situado</h2>
+          <p class="prosa">Haz clic en cada etapa del ciclo para visualizar cómo debe ajustarse tu estilo de conducción y qué errores debes evitar en cada fase:</p>
+
+          <div class="lider-curva-container">
+            <div class="lider-curva-steps">
+              <div class="lider-curva-line"></div>
+              <div class="lider-curva-step activo" onclick="showLiderCurva('fase1', this)">
+                <div class="lider-curva-dot">1</div>
+                <div class="lider-curva-label">Directivo</div>
+              </div>
+              <div class="lider-curva-step" onclick="showLiderCurva('fase2', this)">
+                <div class="lider-curva-dot">2</div>
+                <div class="lider-curva-label">Facilitador</div>
+              </div>
+              <div class="lider-curva-step" onclick="showLiderCurva('fase34', this)">
+                <div class="lider-curva-dot">3-4</div>
+                <div class="lider-curva-label">Respaldo</div>
+              </div>
+              <div class="lider-curva-step" onclick="showLiderCurva('fase5', this)">
+                <div class="lider-curva-dot">5</div>
+                <div class="lider-curva-label">Delegador</div>
+              </div>
+            </div>
+
+            <div class="lider-curva-detail" id="liderCurvaDetail">
+              <h5 id="liderCurvaTitle">Fase 1: Estilo Directivo (Nacimiento / Tormenta)</h5>
+              <p><strong>Enfoque Clave:</strong> <span id="liderCurvaConcept" style="color: var(--verde); font-weight: 700;">Dar Estructura y Mandato</span></p>
+              <p id="liderCurvaDesc">El equipo acaba de nacer o se encuentra lidiando con sus primeras diferencias y fricciones. En esta etapa de inmadurez técnica y relacional, el equipo no cuenta con la capacidad de autorregularse.</p>
+              <ul id="liderCurvaActions">
+                <li>Fijar la estructura del trabajo de forma clara and explícita.</li>
+                <li>Definir y recordar el mandato, alcances, plazos y recursos del comité.</li>
+                <li>Asegurar el cumplimiento de normas de conducta básicas y frenar dinámicas de desrespeto.</li>
+                <li>Establecer y clarificar las primeras metas SMART del trimestre.</li>
+              </ul>
+              <div class="lider-curva-error" id="liderCurvaError">
+                <strong>El error común:</strong> Abandonar al equipo ("soltarlo") demasiado pronto bajo una falsa premisa de autonomía, dejándolo sin rumbo ni estructura en un momento crítico.
+              </div>
+            </div>
+          </div>
+
+          <h2 class="seccion-h">Ejercicio en Equipo: ¿Dirige, Facilita o Delega?</h2>
+          <p class="prosa">Analicen colectivamente los siguientes casos de comités cooperativos. Seleccionen el estilo de liderazgo situado que debe adoptar el coordinador en cada escenario, justifiquen su elección y validen su análisis:</p>
+
+          <!-- CASO 1 -->
+          <div class="lider-caso-card">
+            <div class="lider-caso-header">
+              <div class="lider-caso-title">Caso 1: El Comité de Educación recién nombrado</div>
+              <span class="lider-caso-fase">Fase 1: Nacimiento</span>
+            </div>
+            <p class="lider-caso-desc">
+              Los miembros de la comisión fueron electos en la Asamblea General. Hay entusiasmo, pero nadie se conoce en profundidad, no tienen claros sus límites de presupuesto ni la meta del próximo mes. En la primera sesión, dos integrantes ya discuten intensamente sobre quién debería encargarse de las minutas, paralizando la reunión.
+            </p>
+            <span class="lider-justificacion-lbl">Selecciona el Enfoque de Liderazgo:</span>
+            <div class="lider-btn-group">
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso1', 'dirigir', this)">Dirigir</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso1', 'facilitar', this)">Facilitar</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso1', 'delegar', this)">Delegar</button>
+            </div>
+            <span class="lider-justificacion-lbl">Justificación del Equipo:</span>
+            <textarea class="lider-textarea" id="liderJustificacion1" placeholder="Expliquen por qué seleccionaron este estilo y qué pasos concretos daría el líder..."></textarea>
+            <button class="lider-btn-val" onclick="validarLiderCaso('caso1')">Validar Enfoque</button>
+            <div class="lider-fb-box" id="fb-caso1"></div>
+          </div>
+
+          <!-- CASO 2 -->
+          <div class="lider-caso-card">
+            <div class="lider-caso-header">
+              <div class="lider-caso-title">Caso 2: El Comité de Deportes atascado en las normas</div>
+              <span class="lider-caso-fase">Fase 2-3: Diferencias y Reglas</span>
+            </div>
+            <p class="lider-caso-desc">
+              El comité lleva un mes organizando el Campeonato Intercooperativo. Han definido el calendario de juegos, pero están estancados en un debate álgido: la mitad insiste en cobrar inscripción a los equipos participantes para mejorar los premios, y la otra mitad sostiene que debe ser gratis por principio cooperativo. Las posiciones se han polarizado y el coordinador está en el medio.
+            </p>
+            <span class="lider-justificacion-lbl">Selecciona el Enfoque de Liderazgo:</span>
+            <div class="lider-btn-group">
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso2', 'dirigir', this)">Dirigir</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso2', 'facilitar', this)">Facilitar</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso2', 'delegar', this)">Delegar</button>
+            </div>
+            <span class="lider-justificacion-lbl">Justificación del Equipo:</span>
+            <textarea class="lider-textarea" id="liderJustificacion2" placeholder="Expliquen por qué seleccionaron este estilo y qué pasos concretos daría el líder..."></textarea>
+            <button class="lider-btn-val" onclick="validarLiderCaso('caso2')">Validar Enfoque</button>
+            <div class="lider-fb-box" id="fb-caso2"></div>
+          </div>
+
+          <!-- CASO 3 -->
+          <div class="lider-caso-card">
+            <div class="lider-caso-header">
+              <div class="lider-caso-title">Caso 3: La Comisión de Crédito experimentada en piloto automático</div>
+              <span class="lider-caso-fase">Fase 5: Alto Rendimiento</span>
+            </div>
+            <p class="lider-caso-desc">
+              Esta comisión cuenta con 3 años de experiencia y trabaja con gran fluidez. Analizan solicitudes a tiempo y de forma autónoma. No obstante, en las últimas semanas se limitan a seguir el trámite tradicional. No proponen mejoras a la política de evaluación de riesgos, ni se interesan en digitalizar la documentación. Cumplen, pero se nota inercia y complacencia.
+            </p>
+            <span class="lider-justificacion-lbl">Selecciona el Enfoque de Liderazgo:</span>
+            <div class="lider-btn-group">
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso3', 'dirigir', this)">Dirigir</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso3', 'facilitar', this)">Facilitar</button>
+              <button class="lider-btn-opt" onclick="selectLiderStyle('caso3', 'delegar', this)">Delegar</button>
+            </div>
+            <span class="lider-justificacion-lbl">Justificación del Equipo:</span>
+            <textarea class="lider-textarea" id="liderJustificacion3" placeholder="Expliquen por qué seleccionaron este estilo y qué pasos concretos daría el líder..."></textarea>
+            <button class="lider-btn-val" onclick="validarLiderCaso('caso3')">Validar Enfoque</button>
+            <div class="lider-fb-box" id="fb-caso3"></div>
+          </div>
+        </section>
+
         <!-- =================== PERSONALIDAD EN EL EQUIPO =================== -->
         <section class="panel" id="panel-personalidad">
           <h1 class="capsula-titulo">Personalidad y Dinámica de Equipo</h1>
@@ -1741,6 +2242,18 @@
         var firstBtn = document.querySelector('.pers-btn.analistas');
         if (firstBtn) {
           showPersonality('analistas', firstBtn);
+        }
+      }
+
+      // Cargar primera fase de liderazgo por defecto si entra al panel de liderazgo
+      if (id === 'liderazgo') {
+        var firstLiderBtn = document.querySelector('.lider-curva-step');
+        if (firstLiderBtn) {
+          // Resetear a la primera fase (fase1)
+          var allSteps = document.querySelectorAll('.lider-curva-step');
+          allSteps.forEach(s => s.classList.remove('activo'));
+          firstLiderBtn.classList.add('activo');
+          showLiderCurva('fase1', firstLiderBtn);
         }
       }
     }
@@ -2032,6 +2545,152 @@
 
       display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+
+    // ===== INTERACTIVIDAD: CURVA DE LIDERAZGO SITUACIONAL =====
+    var liderCurvaData = {
+      fase1: {
+        title: 'Fase 1: Estilo Directivo (Nacimiento / Tormenta)',
+        concept: 'Dar Estructura y Mandato',
+        desc: 'El equipo acaba de nacer o se encuentra lidiando con sus primeras diferencias y fricciones. En esta etapa de inmadurez técnica y relacional, el equipo no cuenta con la capacidad de autorregularse.',
+        action: [
+          'Fijar la estructura del trabajo de forma clara y explícita.',
+          'Definir y recordar el mandato, alcances, plazos y recursos del comité.',
+          'Asegurar el cumplimiento de normas de conducta básicas y frenar dinámicas de desrespeto.',
+          'Establecer y clarificar las primeras metas SMART del trimestre.'
+        ],
+        error: '<strong>El error común:</strong> Abandonar al equipo ("soltarlo") demasiado pronto bajo una falsa premisa de autonomía, dejándolo sin rumbo ni estructura en un momento crítico.'
+      },
+      fase2: {
+        title: 'Fase 2: Estilo Facilitador (Definición de Normas)',
+        concept: 'Consensuar Reglas y Roles',
+        desc: 'El equipo empieza a superar las peleas y se dispone a organizar su forma de trabajar de manera colaborativa. Es el momento de construir acuerdos conjuntos.',
+        action: [
+          'Ayudar a acordar normas de comunicación, debate y toma de decisiones en lugar de imponerlas.',
+          'Facilitar la definición y el reconocimiento de roles complementarios (Belbin).',
+          'Comenzar a delegar el control del proceso operativo de las reuniones al equipo.',
+          'Actuar como mediador para resolver malentendidos y canalizar el conflicto de tareas.'
+        ],
+        error: '<strong>El error común:</strong> Seguir microgestionando el equipo y decidiendo por ellos cómo deben hacer cada tarea, impidiendo que el grupo desarrolle corresponsabilidad.'
+      },
+      fase34: {
+        title: 'Fases 3 y 4: Estilo de Respaldo (Producción y Desempeño)',
+        concept: 'Sostener la Responsabilidad Mutua',
+        desc: 'El equipo ya produce resultados de manera fluida y cuenta con normas operativas. El rol del líder pasa de organizar y guiar a dar soporte y empoderamiento.',
+        action: [
+          'Sostener y recordar la responsabilidad mutua en el logro de los objetivos comunes.',
+          'Facilitar espacios de debate estructurado (IDS) y técnicas de feedback inteligente.',
+          'Dar apoyo y resolver cuellos de botella externos, pero no resolver los problemas internos de ejecución.',
+          'Fomentar la autoevaluación regular y la confianza en la vulnerabilidad.'
+        ],
+        error: '<strong>El error común:</strong> Asumir y resolver las tareas pendientes de los miembros débiles del equipo en lugar de confrontar constructivamente el bajo desempeño.'
+      },
+      fase5: {
+        title: 'Fase 5: Estilo Delegador (Alto Rendimiento)',
+        concept: 'Evitar el Estancamiento y la Inercia',
+        desc: 'El equipo es autónomo, ágil y toma decisiones en consenso de manera eficaz. El líder formal no desaparece, sino que cambia su foco estratégico.',
+        action: [
+          'Delegar la plena ejecución y el control diario del proyecto al equipo.',
+          'Evitar el estancamiento y la complacencia introduciendo nuevos desafíos y metas ambiciosas.',
+          'Cuidar que la autodirección no se convierta en inercia o burocracia.',
+          'Monitorear el clima relacional para evitar el agotamiento o la fatiga de roles.'
+        ],
+        error: '<strong>El error común:</strong> Desaparecer por completo o ignorar al equipo, provocando que se estanque por falta de nuevos retos o caiga en inercia operativa.'
+      }
+    };
+
+    function showLiderCurva(faseKey, element) {
+      document.querySelectorAll('.lider-curva-step').forEach(s => s.classList.remove('activo'));
+      element.classList.add('activo');
+
+      var data = liderCurvaData[faseKey];
+      var detailBox = document.getElementById('liderCurvaDetail');
+      detailBox.style.opacity = 0;
+
+      setTimeout(function() {
+        document.getElementById('liderCurvaTitle').textContent = data.title;
+        document.getElementById('liderCurvaConcept').textContent = data.concept;
+        document.getElementById('liderCurvaDesc').textContent = data.desc;
+        document.getElementById('liderCurvaError').innerHTML = data.error;
+
+        var actionList = document.getElementById('liderCurvaActions');
+        actionList.innerHTML = '';
+        data.action.forEach(function(item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          actionList.appendChild(li);
+        });
+
+        detailBox.style.opacity = 1;
+      }, 150);
+    }
+
+    // ===== INTERACTIVIDAD: EJERCICIO MINI-CASOS =====
+    var liderCasos = {
+      caso1: {
+        selected: null,
+        correct: 'dirigir',
+        fbCorrect: '<strong>¡Correcto!</strong> En la Fase 1 (Nacimiento), los miembros provienen de elecciones, no se conocen bien y carecen de límites y dirección claros. El líder debe ser <strong>Directivo</strong>: fijar la estructura inicial, aclarar el mandato oficial y establecer metas SMART. Dejar que un equipo en esta etapa se "autorregule" solo causará frustración y conflictos de proceso.',
+        fbIncorrect: '<strong>Enfoque inadecuado.</strong> Dejar que un equipo recién formado y que no se conoce intente resolver solo sin estructura ni límites de mandato (Facilitar o Delegar) aumentará la incertidumbre y la fricción. En esta Fase 1, el líder debe adoptar un estilo <strong>Directivo</strong> para estructurar y aclarar el rumbo del comité.'
+      },
+      caso2: {
+        selected: null,
+        correct: 'facilitar',
+        fbCorrect: '<strong>¡Correcto!</strong> El equipo se encuentra en la Fase de definición de normas de trabajo. Hay desacuerdo sobre un proceso importante (cobrar o no inscripción). El líder no debe decidir por ellos (directivo) ni desentenderse (delegar). Debe actuar como <strong>Facilitador</strong>, aplicando metodologías para el acuerdo mutuo sin imponer su opinión y ayudando a que alcancen un consenso técnico.',
+        fbIncorrect: '<strong>Enfoque inadecuado.</strong> Si el líder impone la decisión (Directivo), destruirá el compromiso y la confianza mutua. Si se desentiende (Delegar), el conflicto polarizará el equipo. En esta Fase de reglamentos y normas de juego, el líder debe actuar como <strong>Facilitador</strong> para que el equipo construya un acuerdo consensuado.'
+      },
+      caso3: {
+        selected: null,
+        correct: 'delegar',
+        fbCorrect: '<strong>¡Correcto!</strong> El equipo está en la Fase 5 (Alto Rendimiento); tienen excelente desempeño y autonomía. Intervenir de forma directiva o microgestionar sería un grave retroceso. El líder debe <strong>Delegar</strong> la operatividad, pero su papel clave es <strong>introducir nuevos retos</strong> y metas estimulantes para sacarlos del conformismo e impedir que caigan en inercia.',
+        fbIncorrect: '<strong>Enfoque inadecuado.</strong> Microgestionar a un equipo que ya es experto y autónomo (Directivo) o ponerse a facilitar discusiones de procesos que ellos dominan (Facilitar) puede desmotivarlos y frenar su agilidad. El líder debe <strong>Delegar</strong>, enfocando su esfuerzo en plantear nuevos retos y evitar que la complacencia apague su sinergia.'
+      }
+    };
+
+    function selectLiderStyle(casoKey, style, btn) {
+      liderCasos[casoKey].selected = style;
+      
+      // Desmarcar otros botones del caso
+      var container = btn.parentElement;
+      container.querySelectorAll('.lider-btn-opt').forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+    }
+
+    function validarLiderCaso(casoKey) {
+      var caso = liderCasos[casoKey];
+      var fbBox = document.getElementById('fb-' + casoKey);
+      
+      if (!caso.selected) {
+        fbBox.className = 'lider-fb-box visible incorrecta';
+        fbBox.innerHTML = '<div class="lider-fb-title">Acción Requerida</div>Por favor, selecciona un estilo de liderazgo (Dirigir, Facilitar o Delegar) antes de validar.';
+        return;
+      }
+
+      if (caso.selected === caso.correct) {
+        fbBox.className = 'lider-fb-box visible correcta';
+        fbBox.innerHTML = '<div class="lider-fb-title">Análisis Acertado</div>' + caso.fbCorrect;
+      } else {
+        fbBox.className = 'lider-fb-box visible incorrecta';
+        fbBox.innerHTML = '<div class="lider-fb-title">Ajuste de Enfoque</div>' + caso.fbIncorrect;
+      }
+      
+      fbBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Persistencia de las reflexiones del ejercicio de liderazgo
+    var liderTextareas = ['liderJustificacion1', 'liderJustificacion2', 'liderJustificacion3'];
+    liderTextareas.forEach(function(id) {
+      var elem = document.getElementById(id);
+      if (elem) {
+        // Cargar valor previo si existe
+        if (localStorage.getItem(id)) {
+          elem.value = localStorage.getItem(id);
+        }
+        // Guardar en cada pulsación
+        elem.addEventListener('input', function() {
+          localStorage.setItem(id, elem.value);
+        });
+      }
+    });
   </script>
   <script src="/shared/facilitator-tools.js"></script>
 </body>
