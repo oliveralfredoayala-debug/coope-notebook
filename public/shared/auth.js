@@ -27,20 +27,19 @@
         // Create full screen background overlay
         var overlay = document.createElement('div');
         overlay.id = 'auth-overlay';
-        overlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 30% 30%, #227e57, #11432e); font-family: system-ui, -apple-system, sans-serif; padding: 20px;';
+        overlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: #ffffff; font-family: system-ui, -apple-system, sans-serif; padding: 20px;';
 
         // CSS styles for the authentication interface
         var style = document.createElement('style');
         style.innerHTML = '\
           #auth-card {\
-            background: rgba(255, 255, 255, 0.95);\
-            backdrop-filter: blur(16px);\
-            border: 1px solid rgba(255, 255, 255, 0.2);\
+            background: #ffffff;\
+            border: 1px solid #e4e4e0;\
             border-radius: 16px;\
             padding: 3rem 2.5rem;\
             width: 100%;\
             max-width: 440px;\
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);\
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);\
             text-align: center;\
             animation: authFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;\
           }\
@@ -48,20 +47,16 @@
             from { opacity: 0; transform: translateY(20px); }\
             to { opacity: 1; transform: translateY(0); }\
           }\
-          #auth-logo {\
-            font-size: 28px;\
-            font-weight: 700;\
-            color: #1c6b4a;\
-            margin-bottom: 0.5rem;\
-            letter-spacing: -0.02em;\
-          }\
-          #auth-logo span {\
-            color: #1a1a18;\
-            font-weight: 500;\
+          #auth-logo-img {\
+            width: 100%;\
+            max-width: 280px;\
+            height: auto;\
+            margin: 0 auto 1.5rem;\
+            display: block;\
           }\
           #auth-subtitle {\
             font-size: 14px;\
-            color: #555550;\
+            color: #6a6a64;\
             margin-bottom: 2rem;\
             line-height: 1.5;\
           }\
@@ -145,7 +140,7 @@
         // Build the HTML template inside the card
         overlay.innerHTML = '\
           <div id="auth-card">\
-            <div id="auth-logo">Coope<span>Notebook</span></div>\
+            <img id="auth-logo-img" src="/assets/coopenotebook-main-logo.png" alt="CoopeNotebook">\
             <div id="auth-subtitle">Ingresa la contraseña del diplomado para continuar</div>\
             <form id="auth-form" onsubmit="return false;">\
               <div class="auth-input-group">\
