@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoopeNotebook — Estatuto Ejemplo Limitada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-claro: #e8f4ef;
+      --verde-borde: #b8dccc;
+      --gris-texto: #1e293b;
+      --gris-sec: #64748b;
+      --gris-borde: #e2e8f0;
+      --gris-bg: #f8fafc;
+      --blanco: #ffffff;
+      --amber: #b45309;
+      --amber-claro: #fef3c7;
+      --amber-borde: #fde68a;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-title: 'Outfit', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--gris-bg);
+      font-family: var(--font-body);
+      color: var(--gris-texto);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    input {
+      font-family: inherit;
+    }
+
+    ::selection {
+      background: var(--verde-claro);
+    }
+
+    mark {
+      background: #fde047;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .brand {
+      color: var(--gris-texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      font-family: var(--font-title);
+      display: flex;
+      align-items: center;
+    }
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+    .back {
+      font-size: 13px;
+      color: var(--gris-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back:hover {
+      color: var(--verde);
+    }
+    .topbar-breadcrumb {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gris-sec);
+    }
+    .topbar-breadcrumb b {
+      font-weight: 500;
+      color: var(--gris-texto);
+    }
+
+    /* Tabbar */
+    .tabbar {
+      display: flex;
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      z-index: 30;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 0;
+      margin-right: 28px;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--gris-sec);
+      white-space: nowrap;
+      min-height: 44px;
+      transition: color 0.18s;
+    }
+    .tab:hover {
+      color: var(--gris-texto);
+    }
+    .tab.active {
+      color: var(--verde);
+      font-weight: 600;
+    }
+    .tab::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2.5px;
+      background: var(--verde);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+    .tab.active::after {
+      transform: scaleX(1);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    /* Panels */
+    .panel {
+      display: none;
+    }
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Lede */
+    .lede {
+      font-family: var(--font-title);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .lede strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+    .subdesc {
+      font-size: 14.5px;
+      color: var(--gris-sec);
+      margin-bottom: 2rem;
+      max-width: 70ch;
+    }
+
+    /* EXPLORER LAYOUT */
+    .explorer-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: sticky;
+      top: 136px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .chapter-nav-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris-sec);
+      margin-bottom: 12px;
+    }
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .chapter-btn {
+      display: block;
+      text-align: left;
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: var(--gris-sec);
+      line-height: 1.4;
+      transition: background 0.15s, color 0.15s;
+    }
+    .chapter-btn:hover {
+      background: var(--verde-claro);
+      color: var(--verde);
+    }
+    .chapter-btn.active {
+      background: var(--verde);
+      color: var(--blanco);
+      font-weight: 600;
+    }
+
+    /* Search and Articles Area */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .searchbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      border-radius: 12px;
+      padding: 0 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .searchbar:focus-within {
+      border-color: var(--verde-borde);
+      box-shadow: 0 0 0 4px rgba(28, 107, 74, 0.15);
+    }
+    .searchbar svg {
+      color: var(--gris-sec);
+      flex-shrink: 0;
+    }
+    .searchbar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 0;
+      font-size: 15px;
+      color: var(--gris-texto);
+      background: transparent;
+    }
+    .searchbar input::placeholder {
+      color: #94a3b8;
+    }
+
+    .result-meta {
+      font-size: 13px;
+      color: var(--gris-sec);
+    }
+
+    /* Collapsible Article Cards */
+    .article-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .art-card {
+      border: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.01);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .art-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+    .art-head {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      gap: 16px;
+      transition: background 0.1s;
+    }
+    .art-head:hover {
+      background: #fafafa;
+    }
+    .art-num-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--verde);
+      background: var(--verde-claro);
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .art-title-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gris-texto);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .art-chev {
+      color: var(--gris-sec);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .art-card.open .art-chev {
+      transform: rotate(180deg);
+      color: var(--verde);
+    }
+    .art-body {
+      display: none;
+      padding: 4px 20px 20px;
+      border-top: 1px solid #f1f5f9;
+      background: #fafafa;
+      animation: slideDown 0.2s ease-out;
+    }
+    .art-card.open .art-body {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .art-full-title {
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--gris-texto);
+    }
+    .art-text-content {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #334155;
+      white-space: pre-wrap;
+    }
+
+    /* Comparison Callout Box */
+    .comp-callout {
+      margin-top: 16px;
+      background: var(--amber-claro);
+      border: 1px solid var(--amber-borde);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--amber);
+      line-height: 1.6;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .comp-callout svg {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* SCENARIOS TAB */
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .scenario-card {
+      border: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .scen-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 8px;
+    }
+    .scen-title {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .scen-cuerpo {
+      font-size: 14.5px;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .scen-preg {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--gris-texto);
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      background: var(--gris-bg);
+      border-left: 3px solid var(--verde);
+      border-radius: 0 8px 8px 0;
+    }
+    .scen-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--verde);
+      color: var(--blanco);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 2px 4px rgba(28, 107, 74, 0.2);
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .scen-btn:hover {
+      background: #154f36;
+      box-shadow: 0 4px 6px rgba(28, 107, 74, 0.3);
+    }
+    .scen-analisis {
+      display: none;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--gris-borde);
+      font-size: 14px;
+      line-height: 1.62;
+      color: #334155;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .scen-analisis.visible {
+      display: block;
+    }
+    .scen-analisis b {
+      color: var(--gris-texto);
+    }
+
+    /* QUIZ TAB */
+    .quizzes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .quiz-card {
+      border: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .quiz-pregunta {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 18px;
+      border: 1px solid var(--gris-borde);
+      background: var(--gris-bg);
+      border-radius: 10px;
+      font-size: 14.5px;
+      color: var(--gris-texto);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .quiz-option:hover {
+      border-color: var(--verde-borde);
+      background: var(--blanco);
+    }
+    .quiz-card.done .quiz-option {
+      cursor: not-allowed;
+    }
+    .quiz-option.correct {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      font-weight: 600;
+    }
+    .quiz-option.incorrect {
+      background: #fef2f2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b !important;
+    }
+    .quiz-fb-box {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      background: var(--verde-claro);
+      border: 1px solid var(--verde-borde);
+      font-size: 14px;
+      color: #154f36;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .quiz-fb-box.visible {
+      display: block;
+    }
+
+    /* REFERENCES TAB */
+    .ref-list-container {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .ref-searchbar {
+      margin-bottom: 20px;
+    }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .ref-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid #f1f5f9;
+      background: #fafafa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ref-item:hover {
+      background: var(--verde-claro);
+    }
+    .ref-item-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--verde);
+      background: var(--blanco);
+      border: 1px solid var(--verde-borde);
+      border-radius: 5px;
+      width: 50px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ref-item-title {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--gris-texto);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .explorer-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+      }
+      .chapter-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .chapter-btn {
+        white-space: nowrap;
+        width: auto;
+        padding: 8px 14px;
+      }
+    }
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 1rem 1.25rem;
+      }
+      .topbar-breadcrumb {
+        display: none;
+      }
+      .tabbar {
+        padding: 0 1.25rem;
+      }
+      .tab {
+        margin-right: 18px;
+        font-size: 13.5px;
+      }
+      .container {
+        padding: 1.5rem 1.25rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="../index.html"><strong>Coope</strong>Notebook</a>
+    <div class="topbar-breadcrumb">Herramientas / <b>Estatuto</b></div>
+    <a class="back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Herramientas
+    </a>
+  </header>
+
+  <nav class="tabbar" aria-label="Navegación de secciones">
+    <button class="tab active" data-panel="explorer" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      Explorador
+    </button>
+    <button class="tab" data-panel="scenarios" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+      Casos Prácticos
+    </button>
+    <button class="tab" data-panel="quizzes" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+      Evaluación
+    </button>
+    <button class="tab" data-panel="references" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      Referencias
+    </button>
+  </nav>
+
+  <main class="container">
+
+    <!-- PANEL 1: EXPLORER -->
+    <section class="panel active" id="panel-explorer">
+      <h1 class="lede">Estatuto de <strong>Ejemplo Limitada</strong></h1>
+      <p class="subdesc">Consulta interactiva de los 191 artículos, con comentarios especiales que señalan diferencias y ampliaciones frente a la Ley de Cooperativas.</p>
+
+      <div class="explorer-layout">
+        <aside class="sidebar">
+          <h2 class="chapter-nav-title">Capítulos</h2>
+          <div class="chapter-list" id="chapter-list-container">
+            <!-- Dynamically populated -->
+          </div>
+        </aside>
+
+        <div class="content-area">
+          <div class="searchbar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Buscar por palabra clave, tema o número de artículo (ej. Art. 49)...">
+          </div>
+
+          <div class="result-meta" id="result-meta-text">Mostrando todos los artículos</div>
+
+          <div class="article-cards" id="articles-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: SCENARIOS -->
+    <section class="panel" id="panel-scenarios">
+      <h1 class="lede">Casos Prácticos e <strong>Interpretación</strong></h1>
+      <p class="subdesc">Situaciones reales basadas en el estatuto que requieren análisis y toma de decisiones. Pon a prueba tu criterio legal.</p>
+
+      <div class="scenarios-grid" id="scenarios-container">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- PANEL 3: QUIZZES -->
+    <section class="panel" id="panel-quizzes">
+      <h1 class="lede">Cuestionario de <strong>Comprensión</strong></h1>
+      <p class="subdesc">Evalúa tus conocimientos sobre los aspectos clave de los estatutos de Ejemplo Limitada y su base jurídica.</p>
+
+      <div class="quizzes-list" id="quizzes-container">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- PANEL 4: REFERENCES -->
+    <section class="panel" id="panel-references">
+      <h1 class="lede">Referencias <strong>Rápidas</strong></h1>
+      <p class="subdesc">Un resumen rápido en una sola vista de todos los artículos del estatuto para facilitar localizaciones ágiles.</p>
+
+      <div class="ref-list-container">
+        <div class="searchbar ref-searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="ref-search-input" placeholder="Filtrar referencias rápidas por palabra o número...">
+        </div>
+        <div class="ref-grid" id="ref-grid-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Embed parsed data -->
+  <script id="estatuto-data" type="application/json">
+    {
+  "chapters": [
+    {
+      "id": "cap00",
+      "title": "El estatuto como ley interna",
+      "intro": "Antes de recorrer los 191 artÃ­culos: quÃ© lugar ocupa un estatuto dentro del orden normativo cooperativo, y por quÃ© se lee como ley y no como reglamento opcional.",
+      "arts": []
+    },
+    {
+      "id": "cap01",
+      "title": "De la cooperativa",
+      "intro": "Naturaleza, denominaciÃ³n, domicilio, principios, objetivos y las operaciones que esta cooperativa de ahorro y crÃ©dito puede realizar.",
+      "arts": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "id": "cap02",
+      "title": "DirecciÃ³n y organismos",
+      "intro": "Los cuatro Ã³rganos que dirigen, administran, vigilan y fiscalizan, y la obligaciÃ³n de auditorÃ­a anual.",
+      "arts": [
+        "9",
+        "10"
+      ]
+    },
+    {
+      "id": "cap03",
+      "title": "Asamblea General",
+      "intro": "La autoridad suprema: convocatoria, quÃ³rum, resoluciones, elecciÃ³n de cuerpos directivos y el rÃ©gimen de delegados/as.",
+      "arts": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "cap04",
+      "title": "Junta Directiva",
+      "intro": "IntegraciÃ³n, requisitos, atribuciones, comitÃ©s obligatorios, conflicto de intereses y funciones de cada cargo.",
+      "arts": [
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73"
+      ]
+    },
+    {
+      "id": "cap05",
+      "title": "Gerencia General",
+      "intro": "Nombramiento, cauciÃ³n obligatoria y las funciones operativas de la persona que ejecuta los acuerdos.",
+      "arts": [
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79"
+      ]
+    },
+    {
+      "id": "cap_contab",
+      "title": "Contabilidad y libros",
+      "intro": "Libros obligatorios, forma de llevar la contabilidad y conservaciÃ³n de registros.",
+      "arts": [
+        "80",
+        "81",
+        "82",
+        "83",
+        "84"
+      ]
+    },
+    {
+      "id": "cap06",
+      "title": "Junta de Vigilancia",
+      "intro": "FiscalizaciÃ³n ilimitada y permanente, auditorÃ­a interna y externa, y organismos complementarios.",
+      "arts": [
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96"
+      ]
+    },
+    {
+      "id": "cap07",
+      "title": "Recursos econÃ³micos",
+      "intro": "Patrimonio, aportaciones, depÃ³sitos, fondos de estabilizaciÃ³n y solvencia, certificados de participaciÃ³n y contratos.",
+      "arts": [
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119"
+      ]
+    },
+    {
+      "id": "cap_excedentes",
+      "title": "Ejercicio social, reservas y excedentes",
+      "intro": "AÃ±o social, distribuciÃ³n de excedentes, reserva legal, fondo de educaciÃ³n y tratamiento de pÃ©rdidas.",
+      "arts": [
+        "120",
+        "121",
+        "122",
+        "123",
+        "124",
+        "125",
+        "126",
+        "127",
+        "128",
+        "129",
+        "130",
+        "131",
+        "132",
+        "133",
+        "134",
+        "135",
+        "136",
+        "137"
+      ]
+    },
+    {
+      "id": "cap08",
+      "title": "DisoluciÃ³n y liquidaciÃ³n",
+      "intro": "Causas de disoluciÃ³n voluntaria o coactiva, comisiÃ³n liquidadora y destino de los recursos.",
+      "arts": [
+        "138",
+        "139",
+        "140",
+        "141",
+        "142",
+        "143",
+        "144",
+        "145",
+        "146",
+        "147",
+        "148",
+        "149"
+      ]
+    },
+    {
+      "id": "cap09",
+      "title": "Afiliados y afiliadas",
+      "intro": "CÃ³mo se adquiere y se pierde la calidad de afiliado/a, deberes, derechos, suspensiÃ³n, expulsiÃ³n y liquidaciÃ³n de cuenta.",
+      "arts": [
+        "150",
+        "151",
+        "152",
+        "153",
+        "154",
+        "155",
+        "156",
+        "157",
+        "158",
+        "159",
+        "160",
+        "161",
+        "162",
+        "163",
+        "164",
+        "165",
+        "166",
+        "167",
+        "168",
+        "169",
+        "170",
+        "171"
+      ]
+    },
+    {
+      "id": "cap10",
+      "title": "Disposiciones generales y transitorias",
+      "intro": "FusiÃ³n e incorporaciÃ³n, supervisiÃ³n pÃºblica, integraciÃ³n, reforma del estatuto y rÃ©gimen transitorio de alternabilidad.",
+      "arts": [
+        "172",
+        "173",
+        "174",
+        "175",
+        "176",
+        "177",
+        "178",
+        "179",
+        "180",
+        "181",
+        "182",
+        "183",
+        "184",
+        "185",
+        "186",
+        "187",
+        "188",
+        "189",
+        "190",
+        "191"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "num": "1",
+      "resumen": "DefiniciÃ³n de la cooperativa",
+      "texto": "ArtÃ­culo 1.- La cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\", es una empresa de propiedad conjunta y democrÃ¡ticamente controlada, constituida para brindar servicios financieros de carÃ¡cter solidario, en forma libre y voluntaria para satisfacer necesidades comunes de sus afiliados y de responsabilidad social con su comunidad. Su funcionalidad se desarrolla dentro de los principios y valores cooperativos mundialmente aceptados, cumpliendo las disposiciones legales vigentes y las que en el futuro sean aplicables y que regulen la actividad financiera en el paÃ­s.",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "2",
+      "resumen": "DenominaciÃ³n y naturaleza",
+      "texto": "ArtÃ­culo 2.- Con la denominaciÃ³n social de COOPERATIVA DE AHORRO Y CREDITO \"Ejemplo Limitada\" Constituyese una OrganizaciÃ³n Cooperativa de primer grado, como una asociaciÃ³n no lucrativa cuya actividad serÃ¡ los Servicios de Ahorro y CrÃ©dito de Responsabilidad Limitada y duraciÃ³n indefinida que se regirÃ¡ por la LegislaciÃ³n Cooperativa de Honduras, su Acta de ConstituciÃ³n, este Estatuto, las disposiciones del Consejo Nacional Supervisor de Cooperativas, \"CONSUCOOP\", la Superintendencia de Cooperativas de Ahorro y CrÃ©dito y los principios cooperativistas que en los mismos se adoptan.",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "3",
+      "resumen": "Domicilio legal",
+      "texto": "ArtÃ­culo 3.- El domicilio legal de la Cooperativa Ejemplo Limitada serÃ¡, el Municipio de Santa Rosa, Departamento de Copan, Honduras, Centro AmÃ©rica y podrÃ¡ organizar Centros Regionales o filiales en otras zonas del territorio Nacional o en el Extranjero si fuere necesario, previo dictamen favorable del CONSUCOOP.",
+      "chapter_id": "cap01",
+      "comparativa": "<b>Comparativa con la Ley:</b> La Ley (LCH Art. 12) faculta a las cooperativas a establecer su domicilio en sus estatutos. Este artículo concreta que el domicilio legal será en Santa Rosa de Copán, Honduras."
+    },
+    {
+      "num": "4",
+      "resumen": "Principios cooperativistas adoptados",
+      "texto": "ArtÃ­culo 4.- La Cooperativa adopta los siguientes principios Cooperativistas: a) MembresÃ­a abierta y voluntaria; b) Control democrÃ¡tico de los miembros; c) ParticipaciÃ³n econÃ³mica de los miembros; d) AutonomÃ­a e Independencia; e) EducaciÃ³n, FormaciÃ³n e InformaciÃ³n; f) CooperaciÃ³n entre cooperativas; g) Compromiso con la Comunidad",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "5",
+      "resumen": "Desarrollo de los principios",
+      "texto": "ArtÃ­culo 5.- De acuerdo a estos principios la COOPERATIVA DE AHORRO Y CREDITO \"Ejemplo Limitada\" Es una organizaciÃ³n voluntaria, abierta para todas aquellas personas dispuestas a utilizar sus Servicios y dispuestas a Aceptar las Responsabilidades que conlleva la MembresÃ­a sin discriminaciÃ³n de GÃ©nero, Raza, Clase Social, PosiciÃ³n PolÃ­tica y Religiosa. La Cooperativa es una organizaciÃ³n DemocrÃ¡tica Controlada por sus Miembros, quienes participan Activamente en la definiciÃ³n de las PolÃ­ticas y en la toma de Decisiones. - Los hombres y mujeres elegidos para representar a su Cooperativa responden ante los Miembros. a) Ejemplo Limitada es una cooperativa de base y los miembros tienen igual derecho de voto (un miembro, un voto). b) Los miembros contribuyen de manera equitativa y controlan de manera democrÃ¡tica el capital de la Cooperativa. - Por lo menos una parte de ese capital es propiedad comÃºn de la Cooperativa. Usualmente se recibe una compensaciÃ³n limitada, si es que la hay, sobre el capital suscrito como condiciÃ³n de membresÃ­a. c) Los miembros asignan excedentes para cualquiera de los siguientes propÃ³sitos: El desarrollo de la cooperativa mediante la posible creaciÃ³n de reserva, de la cual al menos una parte debe ser indivisible; los beneficios para los miembros en proporciÃ³n con sus transacciones con la cooperativa; y el apoyo a otras actividades segÃºn lo apruebe la membresÃ­a; d) La Cooperativa Ejemplo Limitada es una organizaciÃ³n autÃ³noma de ayuda mutua, controlada por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobierno), o tienen capital de fuentes externas, lo realizan en tÃ©rminos que aseguren el control democrÃ¡tico por parte de sus miembros y mantengan la autonomÃ­a de la cooperativa. e) La cooperativa Ejemplo Limitada brinda educaciÃ³n y entrenamiento a sus miembros, a sus dirigentes electos, gerentes y empleados, de tal forma que contribuyan eficazmente al desarrollo de la Cooperativa. La cooperativa informa al pÃºblico en general, particularmente a jÃ³venes y creadores de opiniÃ³n, acerca de la naturaleza y beneficios del cooperativismo; f) La cooperativa Ejemplo Limitada sirve a sus miembros eficazmente y fortalece el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales. g) La cooperativa Ejemplo Limitada trabaja para el desarrollo sostenible de su comunidad y la protecciÃ³n del medio ambiente, a travÃ©s de polÃ­ticas aceptadas por sus miembros, promoviendo la gestiÃ³n responsable de los recursos naturales para garantizar el equilibrio ecolÃ³gico y el bienestar humano.",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "6",
+      "resumen": "Objetivos de la cooperativa",
+      "texto": "ArtÃ­culo 6.- La Cooperativa tendrÃ¡ como objetivos: a) Mejorar la condiciÃ³n econÃ³mica, social, cultural y ambiental de los cooperativistas y de la comunidad en que actÃºan; b) Aumentar el patrimonio de los cooperativistas y el nacional, mediante el incremento de la producciÃ³n y la productividad, el estÃ­mulo al ahorro, la intervenciÃ³n, y la sana utilizaciÃ³n del crÃ©dito; c) Aumentar la renta nacional y las posibilidades de empleo con igualdad de condiciones y oportunidades; en el uso de los recursos naturales para incrementar y diversificar la producciÃ³n, productividad y la oferta exportable e impulsar el uso de tÃ©cnicas compatibles con el ambiente; d) Estimular la iniciativa individual y colectiva, la solidaridad, autoayuda y el espÃ­ritu de responsabilidad en todos los estratos de la poblaciÃ³n, para la soluciÃ³n de sus problemas econÃ³micos y sociales en particular y los del paÃ­s en general; e) Coadyuvar con el Estado y sus instituciones en la elaboraciÃ³n y ejecuciÃ³n de los planes de desarrollo econÃ³micos y sociales, en particular y los del paÃ­s en general; f) Fomentar la educaciÃ³n en general y principalmente cooperativista a todos los niveles a travÃ©s de la formaciÃ³n y capacitaciÃ³n; g) Promover la investigaciÃ³n en cooperativismo; h) Fomentar la expansiÃ³n del movimiento cooperativo y su integraciÃ³n a todos los niveles; i) Fomentar acciones formativas con enfoque a equidad de gÃ©nero; y j) Los demÃ¡s que se establezcan en el presente estatuto",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "7",
+      "resumen": "Operaciones y servicios",
+      "texto": "ArtÃ­culo 7.- La cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\" Supervisada por la Superintendencia de Cooperativas de Ahorro y CrÃ©dito del Consejo Nacional Supervisor de Cooperativas (CONSUCOOP) puede realizar las operaciones y servicios siguientes: a) Recibir las Aportaciones, depÃ³sitos de ahorro y a plazo en moneda nacional y extranjera; b) Otorgar prÃ©stamos en moneda nacional y extranjera, de conformidad a los lineamientos establecidos en el marco normativo que se emita al efecto; c) Brindar servicios de caja de seguridad; d) Recibir prÃ©stamos de instituciones financieras y no financieras del paÃ­s y del exterior; e) Efectuar operaciones de crÃ©dito con otras cooperativas o instituciones del Sistema Financiero; f) Adquirir los bienes muebles o inmuebles necesarios para el desarrollo de sus actividades, dentro de los lÃ­mites que se establezca en el marco normativo que se emita al efecto; g) Efectuar depÃ³sitos en instituciones financieras o en otras cooperativas en las que actÃºe como afiliada; h) Adquirir participaciones en sociedades que tengan por objeto brindar servicios a la cooperativa o que tengan compatibilidad con su objetivo social, dentro de los lÃ­mites establecidos en el marco normativo que se emita al efecto; i) Adquirir valores inscritos en el Registro PÃºblico del Mercado de Valores, que cuenten con una calificaciÃ³n como mÃ­nimo BBB- (hnd) emitidos por sociedades anÃ³nimas establecidas en el paÃ­s; j) Adquirir valores emitidos por el Banco Central de Honduras, la Secretaria de Estado en el Despacho de Finanzas o cualquier otro valor que cuente con la garantÃ­a del Estado de Honduras; k) Celebrar contratos de intermediaciÃ³n de recursos con instituciones especializadas para cumplir con los objetivos de la cooperativa; l) Recaudar pagos de servicios pÃºblicos y otros, a travÃ©s de la tercerizaciÃ³n de servicios; m) Suscribir y pagar aportaciones en organismos de segundo y tercer grado, asÃ­ como en otros auxiliares del sector cooperativo; n) Constituir convenios de cobranza de recursos con personas jurÃ­dicas con fines de lucro y que provengan de operaciones principalmente con afiliados(as); tal operaciÃ³n es permitida solamente en caso de que donde estÃ© ubicada la cooperativa no exista ninguna otra instituciÃ³n financiera que estÃ© autorizada para la captaciÃ³n de fondos a travÃ©s de cuentas de ahorro y de cheques.\"",
+      "chapter_id": "cap01",
+      "comparativa": "<b>Comparativa con la Ley:</b> Detalla las operaciones financieras permitidas por la LCH Art. 119-G para cooperativas de ahorro y crédito, incluyendo captaciones en moneda extranjera y convenios de corresponsalía."
+    },
+    {
+      "num": "8",
+      "resumen": "Operaciones en moneda extranjera",
+      "texto": "ArtÃ­culo 8.- La Superintendencia de Cooperativas de Ahorro y CrÃ©dito dependiente del Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), darÃ¡ la no objeciÃ³n a la cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\", cuando demuestre contar con capacidad financiera, estructura tecnolÃ³gica y operativa, cumpliendo con el marco legal vigente, para la prestaciÃ³n de las operaciones siguientes: a) Recibir depÃ³sitos de ahorro y a plazo en moneda extranjera; b) Otorgar prÃ©stamos en moneda extranjera, de conformidad a los lineamientos establecidos en el marco normativo que se emita al efecto; c) Comercializar o co-emitir tarjetas de crÃ©dito y tarjetas de dÃ©bito conforme a lo dispuesto en el marco legal vigente; d) Recaudar pagos de servicios pÃºblicos y otros de forma directa; e) Realizar operaciones de transferencias de fondos y remesas; f) Actuar como agente de pago de las transferencias condicionadas del Estado de Honduras; g) Comprar y vender cartera de crÃ©dito de otras cooperativas de ahorro y crÃ©dito e instituciones del Sistema Financiero; h) ComercializaciÃ³n de productos de seguros, micro seguros y micro pensiones con instituciones autorizadas por el marco legal vigente para prestar dichos servicios; y i) Cualquier otra actividad financiera que no le estÃ© expresamente autorizada en la presente Ley.",
+      "chapter_id": "cap01",
+      "comparativa": null
+    },
+    {
+      "num": "9",
+      "resumen": "Organismos de la cooperativa",
+      "texto": "ArtÃ­culo 9.- La DirecciÃ³n, AdministraciÃ³n, Vigilancia y fiscalizaciÃ³n interna de la Cooperativa se guiarÃ¡ bajo los principios de buen Gobierno Cooperativo y estarÃ¡ a cargo de: a) La Asamblea General; b) Junta Directiva; c) Junta de Vigilancia; y d) Gerencia General",
+      "chapter_id": "cap02",
+      "comparativa": null
+    },
+    {
+      "num": "10",
+      "resumen": "FiscalizaciÃ³n y auditorÃ­a anual",
+      "texto": "ArtÃ­culo 10.- La fiscalizaciÃ³n y la vigilancia en las cooperativas estarÃ¡n a cargo de la Junta de Vigilancia, sin embargo y de conformidad al reglamento de esta ley podrÃ¡n contemplar otros organismos y mecanismos de FiscalizaciÃ³n, sustitutivos, complementarios o auxiliares de esa Junta. La Cooperativa deberÃ¡ efectuar anualmente por lo menos una auditoria de sus operaciones.",
+      "chapter_id": "cap02",
+      "comparativa": null
+    },
+    {
+      "num": "11",
+      "resumen": "Autoridad suprema cooperativa",
+      "texto": "ArtÃ­culo 11.- La Asamblea General legalmente convocada y reunida, es la autoridad suprema de la Cooperativa, y expresa la voluntad colectiva de la misma. Las facultades que la Ley, Reglamento y este Estatuto no atribuyen a otro Ã³rgano de la Cooperativa serÃ¡n competencia de la Asamblea General.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "12",
+      "resumen": "Sesiones de afiliados o delegados",
+      "texto": "ArtÃ­culo 12.- Las sesiones de la Asamblea General deben ser de afiliados(as) o delegados, sean estas ordinarias o extraordinarias. Las normas de su funcionamiento deben ser definidas en el Reglamento de la presente Ley y por este Estatuto.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "13",
+      "resumen": "Asamblea ordinaria anual",
+      "texto": "ArtÃ­culo 13.- Cada Cooperativa debe realizar por lo menos una Asamblea General Ordinaria al aÃ±o, dentro de los tres (3) meses siguientes al cierre de cada ejercicio social; sin embargo, en casos especiales debidamente justificados el CONSUCOOP y a peticiÃ³n de la cooperativa puede ampliar este plazo, para realizar dicha asamblea, hasta un mÃ¡ximo de treinta dÃ­as (30) calendario, para tratar los asuntos siguientes: a) Conocer los Estados Financieros auditados y presentados por la Junta Directiva, despuÃ©s de oÃ­do el informe de la Junta de Vigilancia; b) En su caso, elegir o destituir a miembros de la Junta Directiva o Junta de Vigilancia, de acuerdo a las causales establecidas en el Reglamento de la Ley de cooperativas; c) Capitalizar los intereses devengados sobre las aportaciones pagadas por los cooperativistas; d) Aprobar sustentÃ¡ndolo en esta Ley, la forma de distribuciÃ³n de los excedentes de cada ejercicio social, si no mediare objeciÃ³n del Organismo Supervisor del Sector Cooperativo; e) Aprobar sobre la afiliaciÃ³n o desafiliaciÃ³n a los organismos de integraciÃ³n; f) Discutir y aprobar el Plan Operativo Anual presentado por la Junta Directiva; g) Discutir y aprobar el Presupuesto General Anual presentado por la Junta Directiva; h) Aprobar o improbar la expulsiÃ³n de afiliado(as), luego de conocido el informe presentado por la Junta Directiva y ejercido el derecho de defensa, certificado por la Junta de Vigilancia; i) Ratificar o no, la suspensiÃ³n de afiliados (as) efectuada por la Junta Directiva, de conformidad al procedimiento legal; j) Conocer y aprobar el balance social de la cooperativa presentado por la Junta Directiva; k) Autorizar a la Junta Directiva fijar y firmar las bases de contratos y convenios en que sea parte la cooperativa, cuando el monto sea mayor al Diez por ciento (10%) de los activos totales de la cooperativa; y, l) Los demÃ¡s que no sean competencia de la Asamblea General Extraordinaria.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "14",
+      "resumen": "Asambleas generales extraordinarias",
+      "texto": "ArtÃ­culo 14.- Son Asambleas Generales Extraordinarias las que se reÃºnen para tratar uno o mÃ¡s de los asuntos siguientes: a) ModificaciÃ³n del documento constitutivo y el Estatuto; b) La enajenaciÃ³n de los bienes propiedad de la cooperativa, cuando sobrepase del Diez (10%) del valor de su patrimonio; c) La disoluciÃ³n voluntaria de la cooperativa, la cual debe ser justificada ante el Organismo Supervisor de Cooperativas; y, d) La fusiÃ³n, incorporaciÃ³n o transformaciÃ³n de acuerdo con esta Ley, el Reglamento y el Estatuto.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "15",
+      "resumen": "Convocatoria de la asamblea",
+      "texto": "ArtÃ­culo 15.- La Asamblea General debe ser convocada por escrito mediante acuerdo de la Junta Directiva, con la anticipaciÃ³n de por lo menos quince (15) dÃ­as calendario a la celebraciÃ³n de la misma, por cualquiera de las formas siguientes: a) Mediante un listado que pase el Secretario a los Cooperativistas; b) Mediante cualquier medio electrÃ³nico validable, como ser correo electrÃ³nico, mensaje vÃ­a telÃ©fono mÃ³vil, redes sociales u otros; c) Mediante circular o publicaciÃ³n en un medio de comunicaciÃ³n escrito, radial o televisivo de difusiÃ³n nacional; y, d) El acuerdo de convocatoria debe ser ejecutado por el Secretario de la Junta Directiva, con evidencia del hecho.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "16",
+      "resumen": "QuÃ³rum primera convocatoria",
+      "texto": "ArtÃ­culo 16.- El quÃ³rum requerido para la instalaciÃ³n de una asamblea General Ordinaria o Extraordinaria en primera convocatoria serÃ¡ la mitad mÃ¡s uno de los Cooperativistas.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "17",
+      "resumen": "QuÃ³rum de presencia",
+      "texto": "ArtÃ­culo 17.- QuÃ³rum de Presencia. Si el dÃ­a y hora seÃ±alados en la convocatoria no se tuviere el quÃ³rum requerido, la Asamblea General se debe llevar a cabo en segunda convocatoria, una hora despuÃ©s con los Afiliados(as) presentes, siempre que su nÃºmero no sea menor de la mitad mÃ¡s uno de la asistencia que exige la Ley y su Reglamento para la constituciÃ³n de la Cooperativa de que se trate. La primera y la segunda convocatoria pueden hacerse simultÃ¡neamente. En el aviso de convocatoria se debe informar del mecanismo de constituciÃ³n en segunda convocatoria. Este procedimiento es tambiÃ©n aplicable para los casos que la Junta de Vigilancia convoque. Cuando por razones de fuerza mayor calificada, sea imposible celebrar la Asamblea General en segunda convocatoria, la Junta Directiva estÃ¡ obligada a convocar a la Asamblea General dentro de un plazo no mayor de diez (10) dÃ­as calendario, contados desde la fecha que se fijÃ³ en la convocatoria fallida. Un afiliado para ser elegible para votar en las asambleas debe ser mayor de dieciocho aÃ±os y para ocupar un cargo directivo de tener mayorÃ­a de edad. A excepciÃ³n de las cooperativas escolares.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "18",
+      "resumen": "QuÃ³rum de resoluciÃ³n",
+      "texto": "ArtÃ­culo 18.- QuÃ³rum de ResoluciÃ³n. Cuando la Asamblea General se instale en primera convocatoria, las resoluciones se deben tomar por la simple mayorÃ­a de votos. En segunda convocatoria, las resoluciones se deben tomar por las dos terceras partes de los Cooperativistas presentes.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "19",
+      "resumen": "DirecciÃ³n de la asamblea",
+      "texto": "ArtÃ­culo 19.- DirecciÃ³n de la Asamblea. La Asamblea General debe ser presidida por el Presidente de la Junta Directiva auxiliado por el Secretario de la misma. En caso de conflicto de interÃ©s, de conformidad a lo establecido en este Estatuto o por estado de salud, que imposibilite al Presidente o Secretario, sin que haya sustituto legal que lo supla, la Asamblea General si lo estima conveniente, puede nombrar como Presidente y secretario interino a un Cooperativista.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "20",
+      "resumen": "Escrutinio de la asamblea",
+      "texto": "ArtÃ­culo 20.- Escrutinio de la Asamblea General. El escrutinio en las elecciones o resoluciones de la Asamblea General debe ser realizado por el Secretario(a) de la Junta Directiva, con la asistencia de dos (2) o mÃ¡s personas designadas por el Presidente de la Junta Directiva. Los acuerdos tomados por la Asamblea General deben ser consignados en el acta respectiva, la que debe ser firmada por el Presidente y Secretario, una vez aprobada y al finalizar la Asamblea General.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "21",
+      "resumen": "Contenido de la agenda",
+      "texto": "ArtÃ­culo 21.- Contenido de la agenda. La agenda de la Asamblea General lo debe fijar el Ã³rgano que efectÃºa la convocatoria. La convocatoria de Asamblea General debe indicar: Ã³rgano que la convoca, Tipo de Asamblea, Agenda a tratar, lugar, fecha y hora de la celebraciÃ³n de la misma. Cuando los puntos de agenda se refieran a la discusiÃ³n de documentos, deberÃ¡ adjuntarse los mismos a la convocatoria.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "22",
+      "resumen": "ModificaciÃ³n de la agenda",
+      "texto": "ArtÃ­culo 22.- ModificaciÃ³n de la agenda de la Asamblea General. Cinco (5) dÃ­as antes de la realizaciÃ³n de la Asamblea de que se trate, uno o un grupo de afiliado(s) o cualquiera de los Ã³rganos estatutarios con potestad para convocar a una Asamblea General, puede solicitar por escrito y fundadamente a quien efectÃºo la convocatoria, la inclusiÃ³n de otros temas. DespuÃ©s de este plazo, no puede alterarse el orden del dÃ­a.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "23",
+      "resumen": "Disponibilidad de documentos",
+      "texto": "ArtÃ­culo 23.- Disponibilidad de Documentos a ser Tratados en la Asamblea. Los documentos a ser tratados en la Asamblea, y en particular, la memoria de la Junta Directiva, Estados Financieros auditados, dictamen y el informe de la Junta de Vigilancia, plan operativo anual y el presupuesto general de ingresos y egresos, deben estar a disposiciÃ³n de los Afiliados(as) o delegado(s) en las oficinas de la Cooperativa o enviada por medios electrÃ³nicos, el dÃ­a siguiente a su convocatoria legal.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "24",
+      "resumen": "Derecho a voz y voto",
+      "texto": "ArtÃ­culo 24.- Derecho a Voz y Voto en la Asamblea. Tienen derecho a voz y voto en la Asamblea los Afiliados(as) o delegado(s) que a la fecha de la respectiva convocatoria estÃ©n debidamente habilitados.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "25",
+      "resumen": "Un voto por cooperativista",
+      "texto": "ArtÃ­culo 25.- Cada Cooperativista tendrÃ¡ derecho a un voto, cualquiera que sea el monto de sus aportaciones; Ã©ste podrÃ¡ ser personalmente o por representaciÃ³n; mediante carta dirigida a la Junta Directiva. El Cooperativista no podrÃ¡ tener mÃ¡s de una representaciÃ³n en la Asamblea General. Los Miembros de la Junta Directiva, Junta de Vigilancia, el Gerente y demÃ¡s empleados de la Cooperativa no podrÃ¡ representar a otro Cooperativista en la Asamblea General.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "26",
+      "resumen": "Sistema de elecciÃ³n de directivos",
+      "texto": "ArtÃ­culo 26.- Sistema de ElecciÃ³n de Directivos. La elecciÃ³n de directivos para integrar los Ã³rganos previstos en el Estatuto social debe efectuarse en Asamblea General Ordinaria, Esta puede verificarse por votaciÃ³n directa, nominal o secreta, segÃºn lo decida la Asamblea. SerÃ¡n electos los candidatos que obtengan la mayor cantidad de votos.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "27",
+      "resumen": "ProhibiciÃ³n de planillas",
+      "texto": "ArtÃ­culo 27.- Queda terminantemente prohibido, cuando se trate de elegir los Miembros de los Cuerpos Directivos de la Cooperativa, hacer uso del sistema de planilla o fÃ³rmulas. La nominaciÃ³n y elecciÃ³n de los candidatos deberÃ¡ hacerse por separado, empezando por el Presidente y continuando en el orden jerÃ¡rquico correspondiente. No se podrÃ¡ practicar la elecciÃ³n de un Miembro, mientras no se haya elegido el Miembro inmediato anterior de acuerdo con la jerarquÃ­a correspondiente.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "28",
+      "resumen": "ParticipaciÃ³n de la mujer",
+      "texto": "ArtÃ­culo 28: ParticipaciÃ³n de la Mujer. La Asamblea General debe procurar elegir para los cargos de Junta Directiva y vigilancia no menos del cincuenta por ciento (50%) de afiliados(as) del sexo femenino. Igual representaciÃ³n se debe garantizar en cada comitÃ© que forme la cooperativa a excepciÃ³n del ComitÃ© de GÃ©nero que debe estar conformado por una mayorÃ­a de mujeres. No podrÃ¡ ser causal de impugnaciÃ³n a la elecciÃ³n de los miembros de Junta Directiva y Vigilancia aquellos casos en que los niveles de participaciÃ³n en las asambleas y cargos de elecciÃ³n en una Cooperativa no permitan cumplir lo establecido en el pÃ¡rrafo anterior.\"",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "29",
+      "resumen": "Equidad de gÃ©nero",
+      "texto": "ArtÃ­culo 29.- Para fomentar la equidad de gÃ©nero la Cooperativa se compromete a cumplir y hacer cumplir la Ley de Igualdad de Oportunidades para la Mujer, especialmente en los ArtÃ­culos: a) ArtÃ­culo 78: El estado tiene la obligaciÃ³n de elaborar programas de formaciÃ³n y capacitaciÃ³n para apoyar el surgimiento y consolidaciÃ³n de las organizaciones de mujeres y promover la participaciÃ³n activa en las organizaciones sociales, polÃ­ticas, econÃ³micas, empresas cooperativas, sindicales, Religiosas y estudiantiles. b) ArtÃ­culo 80: La sociedad civil fomentara la participaciÃ³n igualitaria de la mujer en los procesos de adopciÃ³n de decisiones de los grupos comunitarios, en organizaciones gubernamentales, sindicatos, cooperativas, gremios profesionales y otros; y su incorporaciÃ³n equitativa en las juntas Directivas.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "30",
+      "resumen": "ExcepciÃ³n de vacaciÃ³n del cargo",
+      "texto": "ArtÃ­culo 30.- ExcepciÃ³n de VacaciÃ³n del Cargo. Los miembros de la Junta Directiva deben continuar en el desempeÃ±o de sus funciones, aunque hubiese concluido el perÃ­odo para el que fueron electos, por las siguientes causas: a) Cuando por causa mayor y autorizado por el CONSUCOOP, no se haya celebrado Asamblea General para la elecciÃ³n de los nuevos miembros; b) Cuando habiendo sido electos los nuevos miembros, no hubieren tomado posesiÃ³n formal de sus cargos; y, c) Cuando habiÃ©ndose celebrado la Asamblea General, no hubiere acuerdo sobre la elecciÃ³n de los directivos",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "31",
+      "resumen": "Traspaso de funciones",
+      "texto": "ArtÃ­culo 31.- Traspaso de Funciones, Entrega de Sellos y Libros de Actas. Para el cumplimiento a lo indicado en el literal b) del ArtÃ­culo anterior, los miembros directivos salientes deben celebrar en setenta y dos (72) horas posteriores a la Asamblea General, reuniÃ³n de informe sobre la situaciÃ³n actual de la Cooperativa, casos importantes pendientes, entrega de sellos, libros de actas y cualquier documentaciÃ³n o bienes que por su cargo tenga en su poder, a los directivos entrantes. Pasado dicho tÃ©rmino, tal acto lo debe realizar el Gerente General o quien haga sus veces. Durante dicho tÃ©rmino, el directivo saliente no puede tomar decisiÃ³n alguna, despuÃ©s que sean electos los nuevos directivos.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "32",
+      "resumen": "Ãrgano de administraciÃ³n provisional",
+      "texto": "ArtÃ­culo 32.- Ãrgano de AdministraciÃ³n Provisional. Este Estatuto social puede establecer la elecciÃ³n en Asamblea General de una cantidad impar de miembros para conformar un Ã³rgano de administraciÃ³n provisional, en caso de que resolviere la remociÃ³n de los miembros de la Junta Directiva y que por disposiciones propias de la Asamblea no pudiere designarse en el mismo acto a los reemplazantes. Este Ã³rgano provisional tiene por objetivo principal, convocar a una nueva Asamblea General Ordinaria en un plazo no mayor de sesenta (60) dÃ­as.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "33",
+      "resumen": "Asamblea convocada por vigilancia",
+      "texto": "ArtÃ­culo 33.- Asamblea Convocada por la Junta de Vigilancia. Cuando la Junta de Vigilancia lo considere necesario, puede solicitar a la Junta Directiva que convoque a Asamblea General. Si la Junta Directiva no lo hiciere dentro del tÃ©rmino de treinta (30) dÃ­as calendario contados desde la fecha de recepciÃ³n de la relacionada solicitud, la Junta de Vigilancia debe acudir al CONSUCOOP; cuando la convocatoria no reuniere los requisitos indicados, en cuyo caso esta puede ser declarada nula, previa audiencia de los miembros de la Junta de Vigilancia. Este proceso serÃ¡ sumario y solo son admisibles pruebas documentales. Es justificable la convocatoria a Asamblea por parte de la Junta de Vigilancia cuando el Estatuto social o las resoluciones asamblearias sean transgredidos por la Junta Directiva.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "34",
+      "resumen": "Convocatoria por cooperativistas",
+      "texto": "ArtÃ­culo 34.- Convocatoria por Cooperativistas. Un nÃºmero no inferior al treinta por ciento (30%) de los Cooperativistas activos, pueden en cualquier tiempo solicitar por escrito a la Junta Directiva la convocatoria de una Asamblea General, para resolver los asuntos que indiquen en su solicitud, debiendo justificar la misma. Si la solicitud fuera rechazada por la Junta Directiva o no recibiere respuesta en el plazo de treinta (30) dÃ­as de su recepciÃ³n, los solicitantes pueden presentarse ante el CONSUCOOP, quien correrÃ¡ traslado de la misma, a la Junta Directiva de la Cooperativa, dentro de los diez (10) dÃ­as hÃ¡biles siguientes, a fin de que fundamente el rechazo u omisiÃ³n dentro de los diez (10) dÃ­as hÃ¡biles de que los directivos reciban la notificaciÃ³n oficial. Visto el descargo o vencido el plazo para presentarlo, el CONSUCOOP debe resolver lo pertinente admitiendo que se procesa o denegando la convocatoria.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "35",
+      "resumen": "Nulidad de acuerdos",
+      "texto": "ArtÃ­culo 35.- SerÃ¡n nulos los acuerdos que tome la Asamblea General, contraviniendo la ley, los Reglamentos y este Estatuto.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "36",
+      "resumen": "Asamblea por delegados (3,000)",
+      "texto": "ArtÃ­culo 36.- Si la Cooperativa Ejemplo Limitada, tiene mÃ¡s de tres mil (3,000) afiliados, realizarÃ¡ la Asamblea General mediante la designaciÃ³n de delegados, cada delegado electo representarÃ¡ un nÃºmero no menor de Diez (10) ni mayor de Cincuenta (50) afiliados presentes en la Asamblea, debiendo observar que tanto la oficina principal, como sus oficinas regionales y filiales estÃ©n representadas en funciÃ³n del nÃºmero de afiliados con el que cuenten cada una de ellas.",
+      "chapter_id": "cap03",
+      "comparativa": "<b>Comparativa con la Ley:</b> Fija el umbral para realizar la Asamblea General mediante delegados en más de 3,000 afiliados, coincidiendo con el límite establecido por el Art. 119-E de la Ley (LCH)."
+    },
+    {
+      "num": "37",
+      "resumen": "Asamblea sectorial y representaciÃ³n",
+      "texto": "ArtÃ­culo 37.- Asamblea Sectorial y la RepresentaciÃ³n de Afiliado (a). En el caso que la cooperativa Ejemplo Limitada, tenga varias filiales en la misma ciudad o departamento, debe de convocar y realizar asamblea sectorial para elecciÃ³n de delegados, con un nÃºmero no mayor de 5 filiales. Cada Afiliado(a) puede representar y ser representado en las Asambleas Sectoriales o local, por un Afiliado(a) inscrito en una misma localidad o sector, dicha representaciÃ³n debe constar por escrito.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "38",
+      "resumen": "Asamblea por delegado: proporciÃ³n",
+      "texto": "ArtÃ­culo 38.- Asamblea por Delegado. Para el cumplimiento del ArtÃ­culo 23 y 119-E, de la Ley, la Asamblea General, ya sea esta ordinaria o extraordinaria, por delegados de la Cooperativa Ejemplo Limitada, deben ser electos de los Afiliados presentes en la Asamblea, bajo el siguiente procedimiento: a) Por lo primeros 100 afiliados, se elegirÃ¡ 1 delegado por cada 10 cooperativistas; b) Por los siguientes 101, hasta 500 afiliados, se elegirÃ¡ 1 delegado por cada 20 cooperativistas; c) Por los siguientes 501, hasta 1000 afiliados, se elegirÃ¡ 1 delegado por cada 30 cooperativistas; d) Por los siguientes 1001, hasta 2000 afiliados, se elegirÃ¡ 1 delegado por cada 40 cooperativistas; y, e) De 2001 afiliados en adelante, 1 por cada 50 cooperativistas. Se deben elegir delegados suplentes en una proporciÃ³n de uno por cada diez (10) propietarios, en el orden en que hayan sido electos, para el caso de ausencia de un delegado propietario por fuerza mayor. Los delegados(as) electos, pueden ser convocados a Asambleas Generales Ordinarias o Extraordinarias en el periodo del aÃ±o, si la Junta Directiva convocare por temas especÃ­ficos.",
+      "chapter_id": "cap03",
+      "comparativa": "<b>Comparativa con la Ley:</b> Detalla la escala proporcional y el procedimiento para la elección de delegados, lo cual es una aplicación directa del Art. 100 del Reglamento de la Ley (RLCH)."
+    },
+    {
+      "num": "39",
+      "resumen": "Asambleas locales o sectoriales",
+      "texto": "ArtÃ­culo 39.- Las Asambleas locales o sectoriales para elecciÃ³n de delegados deben ser presididas por la Junta Directiva, dirigidas por el Presidente o quien lo sustituya. El Secretario de la Junta Directiva debe levantar y leer el acta de cada Asamblea para su discusiÃ³n, aprobaciÃ³n o improbaciÃ³n, ademÃ¡s debe acreditar a los delegados electos.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "40",
+      "resumen": "Requisitos para ser delegado",
+      "texto": "ArtÃ­culo 40.- Para ser Delegado se requiere: a) Ser mayor de edad. b) Estar en pleno goce de sus derechos como cooperativista. c) Saber leer y escribir, que tenga capacitaciÃ³n cooperativista. d) Estar presente en la Asamblea respectiva. e) Tener un mÃ­nimo de un aÃ±o de afiliaciÃ³n f) No laborar ni ostentar cargos de direcciÃ³n en otra cooperativa del mismo subsector. g) Que no hayan sido suspendido en los Ãºltimos cinco aÃ±os de la cooperativa. h) Que no hayan sido expulsados de cualquier otra cooperativa del sistema. i) No ser empleado de la cooperativa j) No ser ex empleado de la cooperativa, durante el tÃ©rmino de un aÃ±o previo a la asamblea general. k) DeclaraciÃ³n jurada de no tener antecedentes penales o policiales",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "41",
+      "resumen": "Sistema de elecciÃ³n de delegados",
+      "texto": "ArtÃ­culo 41.- La elecciÃ³n de los delegados se realizarÃ¡ mediante el sistema de votaciÃ³n directa, nominal o secreta, segÃºn lo decida la Asamblea.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "42",
+      "resumen": "PerÃ­odo y reelecciÃ³n de delegados",
+      "texto": "ArtÃ­culo 42.- Los Delegados serÃ¡n electos en Asambleas locales o sectoriales de Delegados por un perÃ­odo de dos aÃ±os, para participar en la prÃ³xima Asamblea General de conformidad con el Ejercicio Social de la Cooperativa. Su funciÃ³n y atribuciones terminan cuando se convoque a los nuevos Delegados electos para Asamblea General. Con opciÃ³n a reelecciÃ³n por dos perÃ­odos consecutivos con la salvedad de que para el tercer perÃ­odo debe contar con las dos terceras partes de la asamblea en primera o segunda convocatoria.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "43",
+      "resumen": "NÃºmero de delegados a elegir",
+      "texto": "ArtÃ­culo 43.- El Presidente de la Junta Directiva informarÃ¡ a la Asamblea sectorial o de filial el nÃºmero de delegados a elegir con base a los cooperativistas asistentes a la misma.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "44",
+      "resumen": "ElecciÃ³n uno en uno",
+      "texto": "ArtÃ­culo 44.- Los delegados serÃ¡n electos de uno en uno mediante el sistema de votaciÃ³n que decida la asamblea.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "45",
+      "resumen": "Propuestas de candidatos",
+      "texto": "ArtÃ­culo 45.- Las propuestas para elecciÃ³n de delegados, pueden ser por unanimidad o escogencia entre dos o un mÃ¡ximo de tres candidatos.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "46",
+      "resumen": "PÃ©rdida de representaciÃ³n del delegado",
+      "texto": "ArtÃ­culo 46.- Los delegados electos perderÃ¡n su derecho de representaciÃ³n en los casos siguiente: a) Cuando tengan dos cuotas vencidas en los crÃ©ditos concedidos por la cooperativa. b) Al estar demandado por haber servido de aval en la cooperativa. c) Por renuncia expresa. d) Por estar privados de sus derechos civiles e) Por estar en condiciÃ³n de inactividad f) Cuando pierda su condiciÃ³n de cooperativista",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "47",
+      "resumen": "Afiliados que no participan",
+      "texto": "ArtÃ­culo 47.- No podrÃ¡n participar en las asambleas sectoriales y de filiales para la elecciÃ³n de delegados los afiliados que: a) Presenten mora en cualquier obligaciÃ³n contraÃ­da con la Cooperativa. b) EstÃ©n privados de sus derechos civiles. c) Tengan acciones judiciales o administrativas en contra de la Cooperativa. d) No hayan acatado las resoluciones o acuerdos de Asamblea General o de los organismos directivos de la cooperativa. e) Tengan acciones judiciales o administrativas por parte de la Cooperativa.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "48",
+      "resumen": "Un voto por delegado",
+      "texto": "ArtÃ­culo 48.- Cada Delegado tendrÃ¡ derecho a un voto, cualquiera que sea el monto de sus aportaciones; Ã©ste podrÃ¡ ser personalmente o por representaciÃ³n de otro delegado, mediante carta dirigida a la Junta Directiva. El Delegado no podrÃ¡ tener mÃ¡s de una representaciÃ³n en la Asamblea General. Los Miembros de la Junta Directiva, Junta de Vigilancia, tendrÃ¡n derecho a voz y voto en la asamblea General, pero no podrÃ¡n representar a un Delegado ante la misma.",
+      "chapter_id": "cap03",
+      "comparativa": null
+    },
+    {
+      "num": "49",
+      "resumen": "IntegraciÃ³n de Junta Directiva",
+      "texto": "ArtÃ­culo 49.- La Junta Directiva estarÃ¡ integrada por: a) Un(a) Presidente(a); b) Un(a) Vice- Presidente; c) Un(a) Secretario(a); d) Vocal I; e) Vocal II; y, f) Suplente.",
+      "chapter_id": "cap04",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Establece que la Junta Directiva se integrará por <b>siete (7) miembros propietarios</b> y un suplente. Esto amplía la LCH Art. 26, que solo exige un mínimo de cinco (5) miembros propietarios."
+    },
+    {
+      "num": "50",
+      "resumen": "NÃºmero impar de integrantes",
+      "texto": "ArtÃ­culo 50.- El nÃºmero de integrantes titulares serÃ¡ impar y nunca menor a cinco (5).",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "51",
+      "resumen": "ElecciÃ³n alterna inicial",
+      "texto": "ArtÃ­culo 51.- Para darle continuidad al proceso de DirecciÃ³n y administraciÃ³n tal como se establece en el ArtÃ­culo 26 de la Ley de Cooperativas reformada y 68 del Reglamento de la misma Ley; la elecciÃ³n de los miembros de la Junta Directiva se harÃ¡ de forma alterna para dos miembros en el primer aÃ±o de funciones de la Cooperativa, la Asamblea decidirÃ¡ los cargos; y en las elecciones posteriores la normalizaciÃ³n se harÃ¡ de acuerdo a la Ley.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "52",
+      "resumen": "DuraciÃ³n tres aÃ±os, tres perÃ­odos",
+      "texto": "ArtÃ­culo 52.- Los miembros de la Junta Directiva durarÃ¡n en sus funciones tres (3) aÃ±os. NingÃºn cooperativista puede ser miembro de la Junta Directiva por mÃ¡s de tres (3) perÃ­odos consecutivos. En el caso de optar a un tercer periodo la votaciÃ³n debe realizarse por las dos terceras partes de la asamblea general, sea esta en primera o segunda convocatoria. Una vez que el directivo cese en sus funciones no podrÃ¡ ser miembro de Junta Directiva o Vigilancia, hasta despuÃ©s de un (1) aÃ±o de haber cesado de su cargo por cualquier motivo.",
+      "chapter_id": "cap04",
+      "comparativa": "<b>Comparativa con la Ley:</b> Limita la reelección de directivos a un máximo de tres (3) períodos consecutivos, requiriendo una mayoría calificada de 2/3 de la Asamblea para el tercero, tal como exige la LCH Art. 26 y el RLCH Art. 245."
+    },
+    {
+      "num": "53",
+      "resumen": "Requisitos para ser directivo",
+      "texto": "ArtÃ­culo 53.- Para ser directivo (a) se requiere: a) De Nacionalidad HondureÃ±a; b) Mayor de edad y miembro de la cooperativa. c) Saber leer y escribir d) Encontrarse solvente en sus obligaciones econÃ³micas y estatutarias con la cooperativa al momento de su elecciÃ³n; e) Haber aprobado el proceso de formaciÃ³n cooperativista establecido en el Estatuto de la cooperativa; y haber sido certificado por la CHC o cualquier ente autorizado. f) No ser cÃ³nyuges o parientes entre sÃ­ o con miembros de la Junta de Vigilancia y Gerencia General dentro del cuarto grado de consanguinidad o segunda de afinidad; g) No haber sido condenado por delitos que impliquen falta de probidad; h) No formar parte de los cuerpos directivos de otra cooperativa del mismo subsector; y, i) Los demÃ¡s requisitos que se establezcan en el presente estatuto de la cooperativa, reglamentos referidos por esta Ley y lo que indique el Organismo Supervisor del Sector Cooperativo, de acuerdo a la actividad y especializaciÃ³n de cada sub- sector.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "54",
+      "resumen": "AcreditaciÃ³n segÃºn activos",
+      "texto": "ArtÃ­culo 54.- En adiciÃ³n a lo dispuesto en el ArtÃ­culo anterior, para ser miembros de la Junta Directiva de la cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\", es aplicable lo siguiente: a) Con activos mayores a Quinientos Millones de Lempiras (L500,000,000.00) por lo menos tres (3) de sus miembros deben acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo; b) Con activos entre Cien Millones de Lempiras (L100,000,000.00) y Quinientos Millones de Lempiras (L500,000,000.00) por lo menos dos (2) de sus miembros deben acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo; y, c) Con activos menores a Cien Millones de Lempiras (L100, 000,000.00) por lo menos uno (1) de sus miembros debe acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo.\"",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "55",
+      "resumen": "Corresponde a la Junta Directiva",
+      "texto": "ArtÃ­culo 55.- Corresponde a la Junta Directiva: a) Cumplir y hacer cumplir los acuerdos, resoluciones y disposiciones de la Asamblea General; b) Cumplir y hacer cumplir las resoluciones y disposiciones que emita el Organismo Supervisor del Sector Cooperativo; c) Tomar las medidas pertinentes para salvaguardar los intereses de la cooperativa; d) Mantener al dÃ­a y correctamente los libros obligatorios y demÃ¡s documentos de la cooperativa; e) Presentar a la Asamblea General Ordinaria los Estados Financieros del ejercicio anterior debidamente auditados, la liquidaciÃ³n presupuestaria o cualquier otra informaciÃ³n que deba conocer la Asamblea General; f) Presentar a la Asamblea General, para su conocimiento el plan estratÃ©gico y para su aprobaciÃ³n el Plan Operativo Anual y proyecto de presupuesto, asÃ­ como otros documentos que requieran aprobaciÃ³n de Ã©sta; g) Autorizar la adquisiciÃ³n de bienes, contratar emprÃ©stitos y constituir garantÃ­as; h) Fijar las bases y firmar contratos y convenios en que sea parte la cooperativa, cuando el monto sea menor al Diez (10%) de los activos totales de Ã©sta; sujeto a reglamento de compra de activos. i) Fijar la tasa de interÃ©s que devengarÃ¡n anualmente las aportaciones totalmente pagadas; j) Decidir por sÃ­ misma o en forma delegada sobre las solicitudes de ingreso o retiro de la cooperativa; a travÃ©s de Gerencia General o el funcionario que este designe. k) Conocer sobre las acciones judiciales; l) Conferir poderes y revocarlos; m) Llevar los libros ordenados por la Ley y el Reglamento; n) Nombrar o destituir al(a) Gerente General, Gerentes Especiales y Ejecutivos Claves; o) Remitir a la Junta de Vigilancia para dictamen, los Estados Financieros del ejercicio social, con treinta (30) dÃ­as de anticipaciÃ³n a la celebraciÃ³n de la Asamblea General; p) Nombrar comitÃ©s y comisiones especiales necesarios para apoyar la gestiÃ³n del Gobierno Cooperativo; q) Remitir anualmente al Organismo Supervisor del Sector Cooperativo, el nÃºmero de afiliados(as) desagregados por edad y sexo, la conformaciÃ³n de cuerpos directivos, Gerente General, Estados Financieros y otra informaciÃ³n requerida; r) Acordar la suspensiÃ³n o exclusiÃ³n de un cooperativista y en los casos de expulsiÃ³n presentar el informe respectivo a la Asamblea General, para que Ã©sta tome la decisiÃ³n correspondiente; y, s) Las demÃ¡s que disponga esta Ley, su Reglamento, Estatuto y el Organismo Supervisor del Sector Cooperativo.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "56",
+      "resumen": "Sesiones de Junta Directiva",
+      "texto": "ArtÃ­culo 56.- Sesiones de Junta Directiva. La Junta Directiva debe sesionar ordinariamente por lo menos una vez al mes y extraordinariamente cuantas veces fuere necesario. Sus decisiones se deben tomar por mayorÃ­a de votos y en caso de empate, se debe realizar una segunda ronda de votaciÃ³n, de persistir el empate, el Presidente debe hacer uso de su voto de calidad o desempate.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "57",
+      "resumen": "AdministraciÃ³n y comitÃ©s",
+      "texto": "ArtÃ­culo 57.- AdministraciÃ³n. La Junta Directiva debe delegar funciones especÃ­ficas en los ComitÃ© de Gobierno Cooperativo y establecer sus normas de funcionamiento. Al CONSUCOOP corresponde determinar los ComitÃ©s de Gobierno Cooperativo que debe tener una Cooperativa, de conformidad a su actividad especial. Siendo obligatorio el ComitÃ© de gÃ©nero, de juventud, educaciÃ³n y que por normativas del CONSUCOOP sean creados. El comitÃ© de EducaciÃ³n serÃ¡ presidido por el vicepresidente de Junta directiva y debe contar con su propio reglamento. El comitÃ© de gÃ©nero serÃ¡ presidido por un miembro de Junta Directiva de preferencia por una mujer y coordinarÃ¡ sus acciones con el Consejo Nacional de la Mujer cooperativista CONAMUCOOP. Y debe contar con su propio reglamento",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "58",
+      "resumen": "Objetivo del ComitÃ© de GÃ©nero",
+      "texto": "ArtÃ­culo 58.- Objetivo del ComitÃ© de Genero. El comitÃ© de gÃ©nero tendrÃ¡ con objetivo principal, Impulsar la participaciÃ³n organizada de las mujeres cooperativistas en su cooperativa y los organismos de integraciÃ³n nacional e internacional. Coordinando acciones con el Consejo Nacional de la Mujer Cooperativista de Honduras (CONAMUCOOPH), para impulsar y fortalecer el liderazgo, la equidad de oportunidades de la mujer Cooperativistas y asÃ­ mismo lograr que se cumplan los objetivos, atribuciones y funciones del CONAMUCOOPH seÃ±alados en la ley y reglamento.",
+      "chapter_id": "cap04",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Establece y formaliza el Comité de Género, sus fines e integración mayoritariamente femenina, desarrollando la directriz de equidad del RLCH Art. 109 y el principio de educación."
+    },
+    {
+      "num": "59",
+      "resumen": "Funciones del ComitÃ© de GÃ©nero",
+      "texto": "ArtÃ­culo 59.- DirecciÃ³n y funciones del ComitÃ© de GÃ©nero. El ComitÃ© de GÃ©nero, serÃ¡ presidido de preferencia por un miembro de Junta Directiva del sexo femenino y tendrÃ¡ las siguientes funciones: a) Desarrollar programas formativos de equidad de gÃ©nero y masculinidad en coordinaciÃ³n con el CONAMUCOOPH; b) Mantener actualizados los datos estadÃ­sticos de la cooperativa por sexo para visibilizar la participaciÃ³n y aporte de las mujeres cooperativista; c) Elaborar diagnÃ³stico de la condiciÃ³n y posiciÃ³n de las mujeres en las cooperativas, desde el punto de vista polÃ­tico, social y econÃ³mico; d) Velar por el cumplimiento del porcentaje del 50% mÃ­nimo de participaciÃ³n de las mujeres en los Cuerpos Directivos y los comitÃ©s de gobierno Cooperativo a excepciÃ³n del ComitÃ© de GÃ©nero que debe estar conformado por una mayorÃ­a de mujeres; e) ParticipaciÃ³n activa para el cumplimiento del indicador del Balance Social, sobre la apertura de espacios de participaciÃ³n para la juventud y las mujeres en igualdad de condiciones en la vida polÃ­tico, social, y econÃ³mico de la cooperativa; y f) Dar seguimiento al cumplimiento de las Leyes Nacionales e internacionales que se promulguen en materia de derechos de las mujeres.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "60",
+      "resumen": "ComitÃ© de la Juventud",
+      "texto": "ArtÃ­culo 60.- DirecciÃ³n y funciones del ComitÃ© de la Juventud. ComitÃ© de la juventud Coordinara con el Consejo Nacional de la Juventud Cooperativista, para impulsar, promover y fortalecer el liderazgo y la participaciÃ³n de los JÃ³venes en el sector Cooperativo, para el logro de sus objetivos, atribuciones y funciones seÃ±alados en la ley y reglamento. El ComitÃ© de Juventud estarÃ¡ coordinado por un miembro de la Junta Directiva, para lo cual deberÃ¡ crearse un reglamento interno.",
+      "chapter_id": "cap04",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Crea y formaliza el Comité de la Juventud para promover la integración y formación de jóvenes, extendiendo los principios educativos y sociales de la LCH."
+    },
+    {
+      "num": "61",
+      "resumen": "Conflicto de intereses",
+      "texto": "ArtÃ­culo 61.- Conflicto de intereses. Los miembros de Gobierno Cooperativo, que se hallan en consideraciÃ³n de ser portadores o titulares de un interÃ©s doble; o sea de un interÃ©s como afiliado y de un interÃ©s extraÃ±o a tal condiciÃ³n, imponiendo la realizaciÃ³n de uno de ellos y el sacrificio del otro; no tendrÃ¡n derecho a discutir ni votar en acuerdos en que tengan por cuenta propia o ajena un interÃ©s contrario al de la Cooperativa. El interesado deberÃ¡ abandonar la reuniÃ³n por el tiempo que sea necesario.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "62",
+      "resumen": "ImpugnaciÃ³n por conflicto",
+      "texto": "ArtÃ­culo 62.- ImpugnaciÃ³n de acto por conflicto de intereses. Se estipula que puede impugnarse de nulidad la decisiÃ³n acordada, si el voto dado en una situaciÃ³n de conflicto de intereses contribuye a la formaciÃ³n de las mayorÃ­as que anteponen intereses ajenos a la Cooperativa por encima del interÃ©s colectivo. Tal impugnaciÃ³n se impondrÃ¡ a los directivos que con su voto hubieren violado la disposiciÃ³n contenida en el ArtÃ­culo anterior. AsÃ­ mismo se le deducirÃ¡n responsabilidades por los daÃ±os y perjuicios ocasionados en virtud de que sin su voto no se hubiera logrado la mayorÃ­a necesaria para la validez del acuerdo. El estatuto de la Cooperativa debe establecer los mecanismos para la resoluciÃ³n de conflictos.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "63",
+      "resumen": "DeclaraciÃ³n de dimitencia",
+      "texto": "ArtÃ­culo 63.- DeclaraciÃ³n De Dimitencia De Directivos. Los miembros de la Junta Directiva, que habiendo sido convocados en forma legal faltaren a tres (3) o mÃ¡s sesiones consecutivas sin causa justificada o cuatro (4) alternas en el aÃ±o de su ejercicio directivo, se consideran como dimitentes.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "64",
+      "resumen": "Responsabilidad solidaria de directivos",
+      "texto": "ArtÃ­culo 64.- La responsabilidad de los Directivos serÃ¡ solidaria y cubre: a) La efectividad de los pagos efectuados por Cooperativistas a la Cooperativa y viceversa; b) La autenticidad de los excedentes obtenidos o las pÃ©rdidas sufridas por la Cooperativa; c) La existencia de los libros sociales y la veracidad de las anotaciones hechas en los mismos, y; d) En General, velar por el cumplimiento de las obligaciones que imponen la Ley, los Reglamentos y Ã©ste Estatuto.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "65",
+      "resumen": "ExclusiÃ³n de responsabilidad",
+      "texto": "ArtÃ­culo 65.- El Directivo que desee excluir su responsabilidad por un acto que la mayorÃ­a de los Directivos acuerde, debe manifestar la salvedad de su voto y exigir que Ã©ste se consigne en el Acta de la sesiÃ³n respectiva. En todo caso aÃºn sin la exigencia del Directivo, la salvedad del voto se consignarÃ¡ obligatoriamente en el Acta correspondiente.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "66",
+      "resumen": "Funciones de la Presidencia",
+      "texto": "ArtÃ­culo 66.- Corresponde a la Presidencia de la Junta Directiva: a) Convocar y presidir las sesiones de Asamblea General y Junta Directiva en la forma reglamentaria; b) Autorizar con la SecretarÃ­a, las Actas de las sesiones antes mencionadas; c) Suscribir los informes que la Junta Directiva someta a la Asamblea General; d) Representar judicial o extra - judicialmente a la Cooperativa, teniendo plenas facultades para nombrar o delegar su representaciÃ³n. - Para el ejercicio de la representaciÃ³n judicial, el Presidente conferirÃ¡ poder a un miembro del Colegio de Abogados de Honduras con aprobaciÃ³n previa de Junta Directiva; y, e) Autorizar la expediciÃ³n de Titulos Valores y Retiros de Fondos de la Cooperativa conjuntamente con la gerencia.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "67",
+      "resumen": "Funciones de la Vicepresidencia",
+      "texto": "ArtÃ­culo 67.- Funciones de la Vice - Presidencia: a) Sustituir en ausencia al Presidente(a) o complementar las funciones del mismo en la gestiÃ³n de la Cooperativa; y, b) Presidir el ComitÃ© de EducaciÃ³n.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "68",
+      "resumen": "Funciones de la SecretarÃ­a",
+      "texto": "ArtÃ­culo 68.- Compete a la SecretarÃ­a de la Junta Directiva: a) Llevar los libros de Actas de la Asamblea General, Junta Directiva, anotando las resoluciones que se tomen; b) Autorizar con su firma y con la del Presidente(a) las Actas de las sesiones de Asamblea General y Junta Directiva; c) Manejar la correspondencia; d) Preparar y emitir las convocatorias que ordene el Presidente; e) Llevar el libro de Registro de los Cooperativistas; y, f) Cualquier otra actividad afin a la naturaleza de sus funciones.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "69",
+      "resumen": "Funciones de los Vocales",
+      "texto": "ArtÃ­culo 69.- Corresponde a los Vocales: a) Sustituir por su orden a los demÃ¡s miembros de la Junta Directiva en ausencia de Ã©stos; y, b) DesempeÃ±ar cualquier otra actividad que les fuera encomendada por la Junta Directiva",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "70",
+      "resumen": "Funciones del suplente",
+      "texto": "ArtÃ­culo 70.- Funciones del(a) suplente. El directivo suplente, tendrÃ¡ las siguientes funciones: a) Integrarse en las sesiones de Junta Directiva o Vigilancia, para formar el quÃ³rum de instalaciÃ³n y/o resoluciÃ³n. b) Participar en las reuniones con voz, pero sin voto; c) PodrÃ¡ sustituir la Ãºltima posiciÃ³n en el orden jerÃ¡rquico cuando no exista quÃ³rum de instalaciÃ³n y resoluciÃ³n; d) En ausencia definitiva por cualquier causa de un miembro Directivo o de Vigilancia, asumirÃ¡ la Ãºltima vocalÃ­a corriendo los cargos en su orden jerÃ¡rquico o prelaciÃ³n, durante el tiempo que faltare para concluir el periodo correspondiente; e) Los suplentes gozan de los mismos derechos establecidos en el marco legal vigente y en cuanto a las obligaciones siempre y cuando estÃ© integrado con voz y voto en la Junta Directiva. - f) DesempeÃ±ar cualquier otra actividad que les fuera encomendada por la Junta Directiva o Vigilancia.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "71",
+      "resumen": "DirecciÃ³n de comitÃ©s obligatorios",
+      "texto": "ArtÃ­culo 71.- DirecciÃ³n de ComitÃ©s Obligatorios. El ComitÃ© de educaciÃ³n, serÃ¡ presidido por el Vicepresidente de la Junta Directiva; El ComitÃ© de GÃ©nero, serÃ¡ presidido de preferencia por un miembro de Junta Directiva del sexo femenino y El ComitÃ© de Juventud por quien designe la Junta Directiva.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "72",
+      "resumen": "Informes de los comitÃ©s",
+      "texto": "ArtÃ­culo 72.- Informes de los ComitÃ©s. Los ComitÃ©s deben informar de todas sus gestiones y actuaciones en un resumen ejecutivo en la prÃ³xima sesiÃ³n de la Junta Directiva, poniendo a disposiciÃ³n de Ã©sta copias de las actas de toda sesiÃ³n que celebren.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "73",
+      "resumen": "CompensaciÃ³n a directivos",
+      "texto": "ArtÃ­culo 73.- CompensaciÃ³n a Directivos. Los miembros de la Junta Directiva y Junta de Vigilancia no perciben salario por sus servicios. No obstante, cuando la situaciÃ³n econÃ³mica de la Cooperativa lo permita, pueden compensar, dietas, viÃ¡ticos o gastos fijados por la Junta Directiva en un reglamento especial.",
+      "chapter_id": "cap04",
+      "comparativa": null
+    },
+    {
+      "num": "74",
+      "resumen": "Nombramiento del Gerente",
+      "texto": "ArtÃ­culo 74.- El(a) Gerente General serÃ¡ nombrado por la Junta Directiva quien para entrar en el desempeÃ±o de sus funciones debe rendir cauciÃ³n suficiente para garantizar su gestiÃ³n, misma que serÃ¡ fijada y calificada por la Junta Directiva. En ningÃºn caso un miembro de Junta Directiva o Vigilancia en funciones podrÃ¡ ser contratado como Gerente General, si no despuÃ©s de haber trascurrido un (1) aÃ±o de haber cesado de su cargo.",
+      "chapter_id": "cap05",
+      "comparativa": null
+    },
+    {
+      "num": "75",
+      "resumen": "CauciÃ³n y nulidad de actos",
+      "texto": "ArtÃ­culo 75.- CauciÃ³n y Nulidad de los Actos del(a) Gerente General o el que haga sus veces. El(a) Gerente General o el que haga sus veces, no puede tomar posesiÃ³n de su cargo sin haber rendido la cauciÃ³n respectiva. Son nulos los actos que por Ã©ste realice si no cumple con tal requisito, lo que ademÃ¡s le acarrea responsabilidad civil y criminal; en caso de pÃ©rdida material en perjuicio de la Cooperativa, la Junta Directiva es solidariamente responsable. Igualmente es aplicable el presente ArtÃ­culo a todos los funcionarios y Empleados que manejen fondos.",
+      "chapter_id": "cap05",
+      "comparativa": "<b>Comparativa con la Ley:</b> Regula la obligación de directores y gerentes de rendir caución antes de asumir su cargo, de acuerdo a las cauciones (hipotecaria, depósito, fianza) y límites contemplados en el RLCH Art. 87."
+    },
+    {
+      "num": "76",
+      "resumen": "Clases de cauciÃ³n",
+      "texto": "ArtÃ­culo 76.- Clases De CauciÃ³n. El Gerente General o el que haga sus veces, estÃ¡ obligado a rendir, previo a tomar posesiÃ³n de su cargo, cualquiera de las cauciones siguientes: a) Primera hipoteca sobre bienes inmuebles; b) DepÃ³sitos de dinero en la Cooperativa o a nombre de esta en una instituciÃ³n financiera; c) GarantÃ­a de fidelidad rendida por una instituciÃ³n de seguros; o, d) Fianza solidaria. Para los efectos de este ArtÃ­culo, la Cooperativa puede aceptar como valor de los inmuebles el que haya asignado la oficina catastral de la municipalidad respectiva o el de un avaluÃ³ practicado por un profesional certificado. La Junta Directiva dentro de la pÃ³liza institucional, podrÃ¡ comprender la fianza de los Gerentes y demÃ¡s funcionarios y empleados que manejen o tengan custodia de los fondos o bienes de la cooperativa. AdemÃ¡s, podrÃ¡ contratar pÃ³lizas de seguros que protejan a los directores, funcionarios, empleados, contra cualquier riesgo de responsabilidad civil en que incurra dicha persona en el ejercicio de sus funciones, siempre y cuando tal persona actÃºe con honestidad y buena fe, velando por el mejor interÃ©s de la cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\" La fianza solidaria puede aceptarse como cauciÃ³n, la cual debe ser rendida por persona que sea propietaria de bienes suficientes. La Cooperativa debe tener especial diligencia de analizar el activo y pasivo del fiador. El monto de la cauciÃ³n debe ser establecida por la Junta Directiva, la cual no debe ser mayor del 20% de la pÃ³liza de dinero y valores para las cooperativas de ahorro y crÃ©dito.",
+      "chapter_id": "cap05",
+      "comparativa": null
+    },
+    {
+      "num": "77",
+      "resumen": "Cooperativa no asume gastos del fiador",
+      "texto": "ArtÃ­culo 77.- La Cooperativa en ningÃºn caso asumirÃ¡ el pago de gastos y honorarios en que incurra el Gerente para rendir la cauciÃ³n y tampoco servirÃ¡ de fiador o contragarantÃ­a cuando lo requieran las entidades financieras o de otra Ã­ndole que concedan la fianza.",
+      "chapter_id": "cap05",
+      "comparativa": null
+    },
+    {
+      "num": "78",
+      "resumen": "Funciones del Gerente General",
+      "texto": "ArtÃ­culo 78.- Funciones del(a) Gerente General. El(a) Gerente General o quien haga sus veces tiene las funciones siguientes: a) Organizar y dirigir la administraciÃ³n de la Cooperativa en cumplimiento con las normas dictadas por la Junta Directiva; b) Presentar al tÃ©rmino de cada ejercicio social, un Balance General, Estado de Resultados, el Inventario General, LiquidaciÃ³n Presupuestaria, cumplimiento del plan estratÃ©gico, balance social y otros informes solicitados por la Junta Directiva; c) Presentar mensualmente informes, sobre los principales riesgos enfrentados por la cooperativa y las acciones adoptadas para administrarlos adecuadamente; d) Velar porque los libros de contabilidad sean llevados al dÃ­a y con claridad, de la que es directamente responsable; e) Asistir con voz a las sesiones de la Junta Directiva cuando para ello sea requerido; f) Ejecutar los acuerdos de Junta Directiva y Asamblea General; g) Dar a los Cooperativistas las explicaciones que pidan sobre la situaciÃ³n de la Cooperativa en los asuntos de su competencia; h) Cobrar las sumas adeudadas a la Cooperativa y hacer los pagos acordados por la Junta Directiva; i) Cumplir con las normativas y requerimientos que solicite el CONSUCOOP; j) Representar extrajudicialmente a la Cooperativa en aquellas transacciones que sean necesarias para la ejecuciÃ³n de las actividades y servicios de la organizaciÃ³n; k) Notificar a la Junta Directiva el nombramiento o destituciÃ³n del personal a su cargo; l) Determinar necesidades, mecanismos y opciones de financiamiento para que la Junta Directiva adopte las medidas del caso; m) Presentar mensualmente a la Junta Directiva los Estados Financieros y otros informes que le sean solicitados; n) Elaborar proyectos de presupuesto, ejecutarlos y controlarlos una vez aprobados por la Junta Directiva y la Asamblea General; o) Elaborar y ejecutar planes de desarrollo y los planes anuales de la Cooperativa; p) Presentar trimestralmente informes sobre el desempeÃ±o econÃ³mico y social de la cooperativa a la Junta Directiva, comparando ese informe con el correspondiente al trimestre anterior y con las metas previstas para dicho perÃ­odo; q) Presentar mensualmente a la Junta Directiva informes sobre los crÃ©ditos otorgados y la integraciÃ³n por riesgo de la cartera, asÃ­ como las inversiones y ventas de activos realizados; r) Cumplir y hacer cumplir la normativa de prevenciÃ³n de Lavado de Activos y Financiamiento al Terrorismo s) Velar por que se recauden los fondos de la Cooperativa; t) Autorizar con su firma los TÃ­tulos valores que de modo general obliguen a la Cooperativa. Cuando tales tÃ­tulos consistan u) En cheques, el Gerente podrÃ¡ suscribirlos conjuntamente con los funcionarios con firma autorizada segÃºn catÃ¡logo de firmas. v) Llevar al dÃ­a y con claridad el registro y control de las operaciones de la Cooperativa w) Informar mensualmente a la Junta Directiva y a la Junta de Vigilancia sobre el movimiento econÃ³mico y financiero de la Cooperativa; x) Depositar o cuidar que se depositen los fondos y valores de la Cooperativa en la instituciÃ³n que designe la Junta Directiva; y) Dar a los Cooperativistas las explicaciones que soliciten de sus cuentas personales; z) Cualquier otra informaciÃ³n que establezca el CONSUCOOP y que debe ser de conocimiento de la Junta Directiva de la cooperativa; y aa) Otras que especifique el Manual de OrganizaciÃ³n y Funciones de la Cooperativa. bb) Las conferidas mediante poder general de administraciÃ³n otorgado por la Junta Directiva.",
+      "chapter_id": "cap05",
+      "comparativa": null
+    },
+    {
+      "num": "79",
+      "resumen": "Finiquito de solvencia",
+      "texto": "ArtÃ­culo 79.- Para extender el finiquito de solvencia al(a) Gerente General o el que haga sus veces, el CONSUCOOP oirÃ¡ previamente a la Cooperativa de cuya gestiÃ³n se trate.",
+      "chapter_id": "cap05",
+      "comparativa": null
+    },
+    {
+      "num": "80",
+      "resumen": "Libros obligatorios",
+      "texto": "ArtÃ­culo 80.- Libros obligatorios. La cooperativa deberÃ¡ llevar los libros siguientes: a) Libro de Actas Asambleas General; b) Libro de Actas de la Junta Directiva; c) Libro de Actas de la Junta Vigilancia o del Ã³rgano de la fiscalizaciÃ³n que se hubiere adoptado; d) Libro de Registro de Cooperativistas; e) Libro de Aportaciones; f) Libro Diario General; g) Libro Mayor General; y h) Libro inventario y Balances.",
+      "chapter_id": "cap_contab",
+      "comparativa": null
+    },
+    {
+      "num": "81",
+      "resumen": "ExhibiciÃ³n de libros",
+      "texto": "ArtÃ­culo 81.- ExhibiciÃ³n De Libros. La cooperativa estarÃ¡ obligada a exhibir sus libros a los funcionarios del Organismo rector del; cooperativismo, autorizado para practicar revisiones y a otras personas, instituciones autorizadas por disposiciÃ³n de la ley o en virtud del mandato judicial, igualmente para enviar la informaciÃ³n estadÃ­sticas que requiere este mismo organismo.",
+      "chapter_id": "cap_contab",
+      "comparativa": null
+    },
+    {
+      "num": "82",
+      "resumen": "Forma de llevar contabilidad",
+      "texto": "ArtÃ­culo 82.- Forma de llevar la Contabilidad. La Cooperativa debe establecer y mantener un adecuado sistema de contabilidad. El cual debe llevar y mantener en oficina principal, con registros de contabilidad debidamente organizados en forma integra, de tal manera que indique en forma clara, razonable y precisa los resultados de sus operaciones anuales o fracciÃ³n de aÃ±o, en idioma espaÃ±ol y en moneda nacional. Los sistemas de contabilidad y controles internos deben asegurar la contabilizaciÃ³n apropiada y oportuna de todas las actividades, transacciones llevadas a cabo, que permitan ejercer un control efectivo sobre los bienes, derechos y obligaciones, asÃ­ como producir informaciÃ³n financiera relevante para los Afiliados(as), CONSUCOOP, pÃºblico en general, asÃ­ como para entes estatales que por sus funciones o atribuciones tengan interÃ©s en dicha informaciÃ³n. Los libros contables de la Cooperativa son documentos pÃºblicos que deben ser escritos o impresos con tinta negra, nitidez y exactitud, sin borrones, tachaduras, alteraciones o desprendimiento de sus folios. La cooperativa adoptarÃ¡ las medidas de seguridad tecnolÃ³gica, previo monitoreo de las operaciones por parte de la unidad de auditorÃ­a interna mediante el auditor(a) en sistemas con el fin de salvaguardar su informaciÃ³n.",
+      "chapter_id": "cap_contab",
+      "comparativa": null
+    },
+    {
+      "num": "83",
+      "resumen": "Libros legales sin espacios",
+      "texto": "ArtÃ­culo 83.- Libros Legales. Las actas y operaciones deben anotarse sin dejar espacios en blanco. Las correcciones que procedan en los libros legales deben salvarse al final del documento que se trate. La Cooperativa pueden llevar sus libros legales en forma manual, en hojas sueltas autorizadas por el CONSUCOOP, con mecanismos de seguridad o por sistemas mecanizados, magnÃ©ticos, electrÃ³nicos o cualquier otro sistema legalmente aceptado, este proceso aplica para los libros contables, siempre que el sistema que se adopte proporcione informaciÃ³n integra, veraz y confiable de la situaciÃ³n financiera de la Cooperativa.",
+      "chapter_id": "cap_contab",
+      "comparativa": null
+    },
+    {
+      "num": "84",
+      "resumen": "Archivo de libros legales",
+      "texto": "ArtÃ­culo 84.- Archivo de libros Legales. La cooperativa debe conservar en forma ordenada por un periodo mÃ­nimo de cinco (5) aÃ±os, los libros de contabilidad, otros libros y registros especiales, documentos y en su caso los programas, subprogramas y demÃ¡s registros procesados mediante sistemas electrÃ³nicos o de computaciÃ³n.",
+      "chapter_id": "cap_contab",
+      "comparativa": null
+    },
+    {
+      "num": "85",
+      "resumen": "IntegraciÃ³n Junta de Vigilancia",
+      "texto": "ArtÃ­culo 85.- La Asamblea General elegirÃ¡ de su seno una Junta de Vigilancia, compuesta por: a) Presidente(a); b) Secretario(a); c) Vocal 1; d) Vocal 2; e) Vocal 3; y f) Suplente. En nÃºmero impar no menor de tres (3) ni mayor de siete (7). DurarÃ¡n tres (3) aÃ±os en sus funciones y podrÃ¡n ser reelectos consecutivamente solo por dos perÃ­odos mÃ¡s. Una vez que el directivo cese en sus funciones, no podrÃ¡ ser miembro de Junta Directiva o Vigilancia, hasta despuÃ©s de un (1) aÃ±o de haber cesado de su cargo por cualquier motivo. Para ser miembro de la Junta de Vigilancia se requerirÃ¡ los mismos requisitos que para ser miembro de Junta Directiva segÃºn lo establecido en el ArtÃ­culo 28 de la Ley de Cooperativas de Honduras. Tanto en el caso de la Junta de Vigilancia como en el de la Junta Directiva, quien sea electo para sustituir a otro que no ha terminado su perÃ­odo, Ã©ste se elegirÃ¡ por el tiempo que faltare para concluir el mismo. La Junta de Vigilancia serÃ¡ solidariamente responsable con la Junta Directiva en los tÃ©rminos establecidos en el ArtÃ­culo 29, cuando hubiere omisiÃ³n o negligencia en el cumplimiento de sus funciones.",
+      "chapter_id": "cap06",
+      "comparativa": "<b>Comparativa con la Ley:</b> Establece la Junta de Vigilancia con tres (3) miembros propietarios y un suplente, acogiéndose al número mínimo requerido por el RLCH Art. 67."
+    },
+    {
+      "num": "86",
+      "resumen": "ElecciÃ³n alterna de vigilancia",
+      "texto": "ArtÃ­culo 86.- Para darle continuidad al proceso de fiscalizaciÃ³n tal como se establece en el ArtÃ­culo 32 de la Ley de Cooperativas reformada y ArtÃ­culo 76 del Reglamento de la misma Ley; la elecciÃ³n de los miembros de la Junta de Vigilancia se harÃ¡ de forma alterna para uno de los miembros en el primer aÃ±o de funciones de la Cooperativa; la Asamblea decidirÃ¡ los cargos, y en las elecciones posteriores la normalizaciÃ³n se harÃ¡ de acuerdo a la Ley.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "87",
+      "resumen": "Requisitos miembro de vigilancia",
+      "texto": "ArtÃ­culo 87.- Para ser miembro de Junta de Vigilancia se requiere: a) De Nacionalidad HondureÃ±a; b) Mayor de edad y miembro de la cooperativa. c) Saber leer y escribir; d) Encontrarse solvente en sus obligaciones econÃ³micas y estatutarias con la cooperativa al momento de su elecciÃ³n; y durante el desempeÃ±o de su cargo, e) Haber aprobado el proceso de formaciÃ³n cooperativista establecido en el Estatuto de la cooperativa y haber sido certificado por la CHC o cualquier ente autorizado. f) No ser cÃ³nyuges o parientes entre si o con miembros de la Junta Directiva y Gerencia General, dentro del cuarto grado de consanguinidad o segundo de afinidad; g) No haber sido condenado por delitos que impliquen falta de probidad; h) No formar parte de los cuerpos directivos de otra cooperativa del mismo subsector; y, i) Los demÃ¡s requisitos que se establezcan en el Reglamento Interno y lo que indique el Organismo Supervisor del Sector Cooperativo, de acuerdo a la actividad y especializaciÃ³n de cada sub- sector. j) Al menos (1) de los miembros de la Junta de Vigilancia debe acreditar experiencia en el Ã¡rea de fiscalizaciÃ³n.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "88",
+      "resumen": "Atribuciones de la vigilancia",
+      "texto": "ArtÃ­culo 88.- Sin perjuicio de las demÃ¡s seÃ±aladas en la Ley, su Reglamento y este Estatuto, la Junta de Vigilancia tendrÃ¡ las atribuciones siguientes: a) Fiscalizar la direcciÃ³n y administraciÃ³n de la cooperativa, a cuyo efecto sus miembros pueden asistir con voz, pero sin voto, a las sesiones de la Junta Directiva. Esta fiscalizaciÃ³n se cumplirÃ¡ en forma ilimitada y permanente sobre las operaciones sociales, legales, administrativas y financieras, pero sin intervenir en la gestiÃ³n administrativa; b) Ordenar una AuditorÃ­a Externa segÃºn los procedimientos autorizados por el Organismo Supervisor del Sector Cooperativo por lo menos una (1) vez al aÃ±o; c) Seleccionar al Auditor Interno y sus organismos complementarios, auxiliares o, los sustitutos de Ã©stos; d) Conocer y dictaminar los Estados Financieros mensualmente y emitir sus observaciones o recomendaciones a la Junta Directiva; e) Examinar los libros y documentos cuando lo juzgue conveniente; f) Verificar las transacciones financieras, las disponibilidades y tÃ­tulos valores, asÃ­ como las obligaciones y modo en que estas son cumplidas; g) Presentar a la Asamblea General Ordinaria un informe escrito y fundamentado sobre la situaciÃ³n econÃ³mica, financiera y social de la cooperativa; h) Suministrar a los cooperativistas que lo requieran, informaciÃ³n sobre las materias que son de su competencia, sin perjuicio de las restricciones establecidas en la Ley; i) Hacer incluir en el orden del dÃ­a de la Asamblea General los puntos que considere procedentes dentro del plazo previsto en este Estatuto; j) Dictaminar en los casos de suspensiÃ³n o exclusiÃ³n de cooperativistas; k) Vigilar que los Ã³rganos de administraciÃ³n acaten debidamente las leyes, Estatuto, Reglamentos y decisiones de la Asamblea General; y, l) Investigar, por sÃ­ o en forma delegada, cualquier irregularidad de orden legal, financiero o econÃ³mico-administrativo que se le denuncie o detectare. Las recomendaciones que hiciere la Junta de Vigilancia por incumplimiento de esta Ley, su Reglamento, Normativas especiales emitidas por el Organismo Supervisor del Sector Cooperativo, el Estatuto, polÃ­ticas internas y los acuerdos de la Asamblea General, serÃ¡n de obligatorio cumplimiento por la Junta Directiva, salvo lo dispuesto en el ArtÃ­culo 35 de la Ley de Cooperativas, relacionado al acto o gestiÃ³n administrativa. En caso de conflicto sobre el cumplimiento de las recomendaciones decidirÃ¡ el Organismo Supervisor del Sector Cooperativo.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "89",
+      "resumen": "AuditorÃ­a interna",
+      "texto": "ArtÃ­culo 89.- La Junta de Vigilancia de esta Cooperativa es la responsable de realizar las labores de auditorÃ­a interna mediante una Unidad de AuditorÃ­a Interna o un Auditor Interno propio o tercerizado, en los casos siguientes: a) Cuando se cuente con activos netos iguales o superiores a Cien Millones de Lempiras (L100,000,000.00) deben contar con una Unidad de AuditorÃ­a Interna a cargo de un contador pÃºblico a nivel universitario a tiempo completo cuya funciÃ³n principal es la evaluaciÃ³n permanente de la gestiÃ³n del riesgo y funcionamiento del sistema de control interno; y, b) Cuando la Cooperativa registre un activo neto inferior a Cien Millones de Lempiras (L100,000,000.00) las funciones de auditorÃ­a interna deben ser desempeÃ±adas por un perito mercantil y contador pÃºblico o en su caso a travÃ©s de la tercerizaciÃ³n a un organismo certificado por el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP). Al menos uno (1) de los miembros de la Junta de Vigilancia debe acreditar experiencia en el Ã¡rea de fiscalizaciÃ³n.\"",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "90",
+      "resumen": "Informe de resultados de vigilancia",
+      "texto": "ArtÃ­culo 90.- Informe de Resultados de la Junta de Vigilancia. El resultado de las acciones realizadas por la Junta de Vigilancia debe hacerse de conocimiento de la Junta Directiva mensualmente y presentar el informe anual a la Asamblea General. Las recomendaciones que emita la Junta de Vigilancia deben analizarse con la Junta Directiva a fin de adoptar los acuerdos convenientes al interÃ©s de la Cooperativa.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "91",
+      "resumen": "Presupuesto de la vigilancia",
+      "texto": "ArtÃ­culo 91.- Presupuesto De La Junta De Vigilancia. La Junta de Vigilancia de conformidad con el plan estratÃ©gico de la Cooperativa, debe elaborar su plan operativo anual y presupuesto los cuales deben presentarse oportunamente a la Junta Directiva para someterlo a la aprobaciÃ³n de la Asamblea General. La Junta de Vigilancia goza de independencia en la administraciÃ³n de su presupuesto, y se responsabiliza por su sana ejecutoria, a cuyo efecto la Junta Directiva a travÃ©s de la AdministraciÃ³n de la Cooperativa, debe brindarle el apoyo logÃ­stico que requiera.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "92",
+      "resumen": "Sesiones de la vigilancia",
+      "texto": "ArtÃ­culo 92.- La Junta De Vigilancia sesionarÃ¡ por lo menos una vez al mes en forma ordinaria y extraordinariamente las veces que sea necesarias Se considera dimitente, todo miembro la Junta de Vigilancia, que, habiendo sido convocados, en legal y debida forma y faltaren a tres (3) o mÃ¡s sesiones consecutivas sin causa justificada o cuatro (4) alternas en el aÃ±o de su ejercicio directivo.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "93",
+      "resumen": "Organismos complementarios",
+      "texto": "ArtÃ­culo 93.- Organismos Complementarios De FiscalizaciÃ³n. La funciÃ³n de fiscalizaciÃ³n puede ser complementada o auxiliada en Ã¡reas especificas, que para el fin indique la Junta de Vigilancia, pudiendo recaer en: a) Organismos de integraciÃ³n del sistema cooperativo, acreditados por el CONSUCOOP; b) Organismos auxiliares de integraciÃ³n del sistema cooperativo; c) AuditorÃ­a interna; d) AuditorÃ­a externa; y, e) Comisiones especiales",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "94",
+      "resumen": "Dependencia de complementarios",
+      "texto": "ArtÃ­culo 94.- Para el cumplimiento de sus funciones, los Organismos Complementarios o Auxiliares dependen de la Junta de Vigilancia quien es competente para seleccionarlos para su contrataciÃ³n por la Junta Directiva. La Junta Directiva no puede obstaculizar en forma alguna el funcionamiento de los Organismos Complementarios o Auxiliares de FiscalizaciÃ³n y carece de facultades para separar, suspender o despedir a sus integrantes, sin la autorizaciÃ³n de la Junta de Vigilancia o la Asamblea General. De presentarse conflictos de intereses su resoluciÃ³n es potestad del CONSUCOOP.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "95",
+      "resumen": "AuditorÃ­a externa",
+      "texto": "ArtÃ­culo 95.- Esta cooperativa, debe contratar los servicios de una firma de auditorÃ­a externa para revisar sus Estados Financieros anuales, de conformidad a la normativa que emita la ComisiÃ³n Nacional de Bancos y Seguros (CNBS) en consenso y con la debida socializaciÃ³n del Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), quien debe considerar los requisitos para inscribirla y calificaciÃ³n de firma a requerirse segÃºn el nivel de sus activos.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "96",
+      "resumen": "Plan anual de auditorÃ­a",
+      "texto": "ArtÃ­culo 96.- Plan Anual de Trabajo de AuditorÃ­a Interna. Para el cumplimiento de las disposiciones legales y normativas que rigen a las Cooperativas, asÃ­ como la suficiencia y efectividad del sistema de control Interno y ejecutar su trabajo de conformidad con las Normas Internacionales de Auditoria, Principios de Contabilidad Generalmente Aceptados (PCGA) y las que emita el CONSUCOOP. La Junta de Vigilancia, debe remitir al CONSUCOOP, el Plan Anual de Trabajo de AuditorÃ­a Interna a mÃ¡s tardar el 31 de diciembre de cada aÃ±o. El CONSUCOOP validarÃ¡ su cumplimiento en el ejercicio de sus labores de supervisiÃ³n.",
+      "chapter_id": "cap06",
+      "comparativa": null
+    },
+    {
+      "num": "97",
+      "resumen": "CÃ³mo se constituye el patrimonio",
+      "texto": "ArtÃ­culo 97.- El patrimonio de la Cooperativa serÃ¡ variable y podrÃ¡ constituirse de la forma siguiente: a) Con las aportaciones de los Cooperativistas que forman el haber social de la Cooperativa, asÃ­ como los excedentes, rendimientos capitalizados y las reservas acumuladas; b) Con bienes muebles o inmuebles, trabajo, industria, capacidad profesional o fuerza productiva que aporten los Cooperativistas; c) Con donaciones, herencias, legados, prÃ©stamos, crÃ©ditos, derechos y privilegios que reciban de personas naturales o jurÃ­dicas; del estado y de cooperantes extranjeros. d) Con el producto de las ventas de certificados de participaciÃ³n y/o bonos que la Cooperativa emita. Los bonos antes mencionados, devengarÃ¡n el interÃ©s que fije la Junta Directiva y no serÃ¡n negociables. e) Con los derechos, patentes, marcas de fÃ¡brica u otros intangibles de su propiedad; f) Con todos aquellos ingresos lÃ­citos provenientes de las operaciones que no involucre captaciÃ³n de recursos econÃ³micos de terceros no afiliados(as); y, g) Con los recursos provenientes de donaciones producto de convenios o contratos que suscriba la Junta Directiva y que debe ser utilizados exclusivamente para el propÃ³sito y destino establecido en dicho convenio y que tenga relaciÃ³n con la actividad principal de la cooperativa.\"",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "98",
+      "resumen": "Fondo de estabilizaciÃ³n cooperativa",
+      "texto": "ArtÃ­culo 98.- La cooperativa de ahorro y crÃ©dito Ejemplo Limitada debe mantener como fondo de estabilizaciÃ³n cooperativa un porcentaje no menor al que establezca el Banco Central de Honduras como encaje legal para instituciones del Sistema Financiero, rebajado en un 25% con el objeto de garantizar los depÃ³sitos de ahorro y depÃ³sitos a plazo captados de sus afiliados (as), dicho porcentaje debe estar invertido en valores de fÃ¡cil convertibilidad como ser bonos emitidos por la Secretaria de Estado en el Despacho de Finanzas y por el Banco Central de Honduras, asÃ­ como en depÃ³sitos en instituciones supervisadas por la ComisiÃ³n Nacional de Bancos y Seguros o en cooperativas de ahorro y crÃ©dito calificadas de conformidad a las disposiciones que se emitan sobre la materia. Dichas inversiones deben ser registradas en una cuenta especifica que facilite su identificaciÃ³n.",
+      "chapter_id": "cap07",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Fija el fondo de estabilización cooperativa en un porcentaje no menor al encaje legal del Banco Central de Honduras, rebajado en un 25% para cooperativas, conforme a los lineamientos prudenciales."
+    },
+    {
+      "num": "99",
+      "resumen": "Aporte al Fondo de Seguro de DepÃ³sitos",
+      "texto": "ArtÃ­culo 99.- Aporte Obligatorio al Fondo de Seguro de DepÃ³sitos Cooperativos. La Cooperativa debe aportar al Fondo de Seguro de DepÃ³sitos Cooperativos, para la restituciÃ³n de los depÃ³sitos en dinero efectuados por los afiliados(as), en caso de que haya sido declarada en liquidaciÃ³n forzosa, de conformidad a la normativa que emita el CONSUCOOP al respecto.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "100",
+      "resumen": "Solvencia patrimonial",
+      "texto": "ArtÃ­culo 100.- Solvencia Patrimonial. La cooperativa de ahorro y crÃ©dito Ejemplo Limitada, deberÃ¡ determinar y cumplir con un Ã­ndice de solvencia, el cual serÃ¡ establecido en las normas emitidas por el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), considerando para tal efecto el capital en riesgo y el capital institucional registrado por la cooperativa.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "101",
+      "resumen": "Plan de adecuaciÃ³n de solvencia",
+      "texto": "ArtÃ­culo 101.- En el caso que la cooperativa Ejemplo Limitada no cumpla con el Ã­ndice de solvencia, la Junta Directiva y Gerencia General, debe presentar un plan de adecuaciÃ³n para lograr y mantener el Ã­ndice de solvencia requerido, asimismo los excedentes obtenidos durante el ejercicio econÃ³mico afectado serÃ¡n capitalizados para fortalecer el patrimonio Institucional.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "102",
+      "resumen": "ConstituciÃ³n del capital en riesgo",
+      "texto": "ArtÃ­culo 102.- ConstituciÃ³n del capital en riesgo. El patrimonio de la cooperativa estarÃ¡ constituido por el capital en riesgo, integrado por las aportaciones obligatorias y extraordinarias, asÃ­ como por el capital institucional integrado por las reservas tÃ©cnicas, legales y voluntariamente constituidas.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "103",
+      "resumen": "Fondo de estabilizaciÃ³n",
+      "texto": "ArtÃ­culo 103.- Fondo de EstabilizaciÃ³n. La Cooperativa deberÃ¡ mantener recursos financieros como fondo de estabilizaciÃ³n, constituidos como un mecanismo de asistencia transitoria de liquidez, los cuales deberÃ¡n ser invertidos en instituciones calificadas de acuerdo a las normas que emita el CONSUCOOP. El Fondo de EstabilizaciÃ³n, puede ser utilizado como prestamista de Ãºltima instancia, para efecto de cubrir iliquidez transitoria de la Cooperativa; la cooperativa estÃ¡ autorizada a utilizar un porcentaje no mayor del 50% del fondo, el cual debe ser pagado en un plazo no mayor de noventa (90) dÃ­as. La Cooperativa previamente debe de solicitar por escrito a la superintendencia de ahorro y crÃ©dito del CONSUCOOP, la no objeciÃ³n de este proceso, quien deberÃ¡ pronunciarse en un tÃ©rmino no mayor de diez (10) dÃ­as hÃ¡biles, el silencio de la Superintendencia se tomarÃ¡ sin objeciÃ³n al mismo.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "104",
+      "resumen": "Aportaciones ordinarias",
+      "texto": "ArtÃ­culo 104.- Son aportaciones Ordinarias las sumas de dinero que los Cooperativistas entregan a la Cooperativa como obligaciÃ³n estatutaria para formar el haber social. Se caracteriza por ser nominativas, intransferibles e indivisibles.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "105",
+      "resumen": "Aportaciones extraordinarias",
+      "texto": "ArtÃ­culo 105.- Las aportaciones extraordinarias son las sumas de dinero que nuestros cooperativistas entregan a la cooperativa por acuerdo de la Asamblea General, con un destino o fin especifico con previa aprobaciÃ³n del CONSUCOOP.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "106",
+      "resumen": "AportaciÃ³n mÃ­nima anual",
+      "texto": "ArtÃ­culo 106.- Las aportaciones en la Cooperativa no serÃ¡n menores a L.360.00 (TRESCIENTOS SESENTA LEMPIRAS EXACTOS) anuales por Cooperativista, las que podrÃ¡n ser pagadas en cuotas mensuales de L.30.00 (TREINTA LEMPIRAS).",
+      "chapter_id": "cap07",
+      "comparativa": "<b>Comparativa con la Ley:</b> Fija las aportaciones mínimas anuales en L. 360.00 (y L. 120.00 para escolares), que coincide exactamente con los mínimos fijados por el Art. 115 del RLCH."
+    },
+    {
+      "num": "107",
+      "resumen": "InterÃ©s sobre aportaciones",
+      "texto": "ArtÃ­culo 107.- Las aportaciones totalmente pagadas devengarÃ¡n una tasa de interÃ©s que fijarÃ¡ anualmente la Junta Directiva; estos intereses serÃ¡n capitalizados a las mismas, total o parcialmente segÃºn lo acuerde la Asamblea General Ordinaria.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "108",
+      "resumen": "Pago de aportaciones",
+      "texto": "ArtÃ­culo 108.- El pago de las aportaciones se harÃ¡ una vez que haya sido aprobado el ingreso del Cooperativista por la Junta Directiva por intermedio de la Gerencia General o el funcionario que Ã©l designe.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "109",
+      "resumen": "Tope de aportaciÃ³n individual",
+      "texto": "ArtÃ­culo 109.- NingÃºn Cooperativista podrÃ¡ tener una aportaciÃ³n mayor de treinta (30%) del total de las aportaciones suscritas por todos los afiliados de la Cooperativa.",
+      "chapter_id": "cap07",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Fija el límite máximo de aportación individual en el 30% del total de aportaciones, que es el tope máximo absoluto permitido por el Art. 15 del RLCH."
+    },
+    {
+      "num": "110",
+      "resumen": "DepÃ³sitos de ahorro",
+      "texto": "ArtÃ­culo 110.- Los depÃ³sitos de ahorro son las cantidades que voluntariamente se depositan en la Cooperativa por Cooperativistas y no Cooperativistas y se regirÃ¡n de acuerdo a la reglamentaciÃ³n emitida por la Junta Directiva.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "111",
+      "resumen": "Tasa de interÃ©s por renuncia",
+      "texto": "ArtÃ­culo 111.- Tasa de InterÃ©s Anual de las Aportaciones por Renuncia. Las aportaciones totalmente pagadas y que aun habiendo renunciado el Afiliado(a) no hayan sido retiradas antes del cierre del Ejercicio EconÃ³mico siguiente, devengaran una tasa de interÃ©s anual fijada por la Junta Directiva de la Cooperativa.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "112",
+      "resumen": "Cuenta mancomunada",
+      "texto": "ArtÃ­culo 112.- Cuenta mancomunada. El afiliado de esta cooperativa podrÃ¡ designar a cualquier persona o personas para ser propietaria de una cuenta de ahorro mancomunada; en caso de muerte del cooperativista y los valores acumulados en sus aportaciones y ahorros diferentes a la cuenta mancomunada serÃ¡n entregados al beneficiario descrito en la solicitud de ingreso o en su defecto a los herederos legales.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "113",
+      "resumen": "Cuentas inactivas",
+      "texto": "ArtÃ­culo 113.- Cuentas inactivas. La cooperativa podrÃ¡ declarar abandonadas las cuentas inactivas en los casos siguientes: a) Si no ha habido actividad en la cuenta de aportaciones o depÃ³sito de un afiliado por un aÃ±o o mÃ¡s, la Junta directiva podrÃ¡ imponerle un cargo de mantenimiento razonable. La cooperativa previamente debe realizar todas las acciones pertinentes, para avisar al afiliado de esta acciÃ³n, en la Ãºltima direcciÃ³n conocida o en su defecto por un medio de comunicaciÃ³n escrito o radial, permitiÃ©ndole al menos treinta (30) dÃ­as calendario para retirar los valores o activar su cuenta. La cooperativa deberÃ¡ mantener un registro de contabilidad separado de todas estas cuentas. b) Las cuentas de aportaciones y depÃ³sitos, excedentes, intereses y otras sumas adeudadas a un afiliado y tenidas por la cooperativa, pueden considerarse abandonadas, a menos de que el propietario haya contactado a la cooperativa en persona o por escrito dentro del periodo prescrito. c) La Junta directiva podrÃ¡ acreditar los fondos abandonados a las reservas que seÃ±ala el ArtÃ­culo 81-A de la ley; despuÃ©s de esto, ningÃºn excedente o interÃ©s se acumularÃ¡ a las cuentas abandonadas y podrÃ¡ excluirse al afiliado de la cooperativa. d) El Afiliado(a) o su representante podrÃ¡ reclamar dichos fondos abandonados a travÃ©s de un proceso judicial o extrajudicial apropiado, reclamo que deberÃ¡ realizarse en el tÃ©rmino de dos aÃ±os, despuÃ©s de que la cooperativa haya acreditado las mismas a la cuenta contable respectiva.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "114",
+      "resumen": "Certificados o bonos de participaciÃ³n",
+      "texto": "ArtÃ­culo 114.- Certificados o Bonos de ParticipaciÃ³n. La emisiÃ³n de certificados de participaciÃ³n o bonos que emita la Cooperativa debe ser autorizada por el CONSUCOOP y deben ser, para cualquiera de los destinos siguientes: a) Desarrollo de proyectos especÃ­ficos; b) Ampliar la cobertura de servicios; y, c) Mejorar la liquidez de la Cooperativa. En ningÃºn caso el producto de los certificados de participaciÃ³n o bonos puede utilizarse para gasto corriente.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "115",
+      "resumen": "Derechos de certificados o bonos",
+      "texto": "ArtÃ­culo 115.- Derechos que Concede los Certificados o Bonos de ParticipaciÃ³n. Los certificados de participaciÃ³n o bonos de certificados de participaciÃ³n solamente confieren el derecho de percibir la participaciÃ³n de los beneficios que expresen y por el tiempo que indiquen; no dan derecho de intervenir en la administraciÃ³n de la Cooperativa, convertirse en aportaciones ni representan participaciÃ³n en el haber social. Los certificados y bonos no son negociables. La emisiÃ³n de certificados o bonos de participaciÃ³n debe ser acordado por la Asamblea General, autorizada por el CONSUCOOP e inscrito en el Registro Nacional de Cooperativas.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "116",
+      "resumen": "Contenido de certificados/bonos",
+      "texto": "ArtÃ­culo 116.- Contenido de los Certificados o Bonos de ParticipaciÃ³n. Los certificados o bonos deben contener la informaciÃ³n siguiente: a) DenominaciÃ³n, domicilio y nÃºmero de registro de la Cooperativa; b) Valor del certificado o bono; c) Monto y forma de pago del interÃ©s; d) Fecha de vencimiento; e) Fecha de resoluciÃ³n de aprobaciÃ³n de Asamblea General; f) PropÃ³sito de emisiÃ³n; g) NÃºmero y fecha de resoluciÃ³n de autorizaciÃ³n del CONSUCOOP; h) Nombre del que adquiere; y, i) Firma y sello del Presidente y Gerente de la Cooperativa",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "117",
+      "resumen": "Tasa de interÃ©s de certificados",
+      "texto": "ArtÃ­culo 117.- Tasa de InterÃ©s de los Certificados y Bonos de ParticipaciÃ³n. La tasa de interÃ©s fijada por la Junta Directiva para las aportaciones totalmente pagadas y las tasas de interÃ©s para los Certificados o bonos de ParticipaciÃ³n que se emitan no puede exceder las tasas de interÃ©s publicadas por el Banco Central de Honduras, para este tipo de operaciones en el mercado financiero.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "118",
+      "resumen": "AsociaciÃ³n con otras personas jurÃ­dicas",
+      "texto": "ArtÃ­culo 118.- AsociaciÃ³n con Otras Personas JurÃ­dicas, no cooperativas. La Cooperativa puede asociarse con personas de otra condiciÃ³n jurÃ­dica no cooperativas, para constituir otra entidad jurÃ­dica o celebrar contratos de participaciÃ³n, siempre que no se desvirtÃºe su propÃ³sito de servicio, ni se violente la Ley. En ningÃºn caso la Cooperativa puede trasladar a la nueva entidad o a la participante no Cooperativa los derechos y beneficio que la Ley les confiere, incluyendo beneficios ya obtenidos.",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "119",
+      "resumen": "Contratos de participaciÃ³n",
+      "texto": "ArtÃ­culo 119.- Contratos De ParticipaciÃ³n. La asociaciÃ³n o contratos de participaciÃ³n pueden hacerse o celebrarse con entidades de los sectores pÃºblicos y/o privados ya sea que los mismos persigan o no fines de lucro. Si el contrato de participaciÃ³n sobrepasa del diez (10%) de los activos de la Cooperativa, se deben llenar los requisitos siguientes: a) Acuerdo de la Asamblea General Ordinaria de la Cooperativa; b) Dictamen del organismo de integraciÃ³n del Movimiento Cooperativo HondureÃ±o al cual estÃ© afiliado la Cooperativa; y, c) Dictamen favorable de la DirecciÃ³n Ejecutiva del CONSUCOOP. Los excedentes que obtenga la Cooperativa como partÃ­cipe de la nueva entidad o del contrato de participaciÃ³n se deben entender generados por operaciones con no Afiliados (as) y tendrÃ¡n el destino a que se refiere el ArtÃ­culo 45 de la Ley",
+      "chapter_id": "cap07",
+      "comparativa": null
+    },
+    {
+      "num": "120",
+      "resumen": "Ejercicio social",
+      "texto": "ArtÃ­culo 120.- El ejercicio social de la Cooperativa inicia el primero de Enero y terminarÃ¡ el treinta y uno de Diciembre, de cada aÃ±o, exceptuando el primer ejercicio que inicia en la fecha de aprobaciÃ³n de Ã©ste Estatuto y termina el treinta y uno de diciembre.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "121",
+      "resumen": "PublicaciÃ³n de balances",
+      "texto": "ArtÃ­culo 121.- La cooperativa de ahorro y crÃ©dito \"Ejemplo Limitada\" PublicarÃ¡ dentro de los cuatro (4) meses siguientes al cierre de cada ejercicio anual, en su pÃ¡gina web, los balances y estados de excedentes o pÃ©rdidas al cierre de cada ejercicio con sus respectivas notas complementarias y dictamen del auditor externo. Se elaborarÃ¡ la memoria anual la cual deberÃ¡ incluir la informaciÃ³n establecida en el pÃ¡rrafo precedente y asegurar su disponibilidad para los afiliados(as).",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "122",
+      "resumen": "QuÃ© son excedentes",
+      "texto": "ArtÃ­culo 122.- Se consideran excedentes los saldos que a favor de la Cooperativa resulten de sus operaciones al final de cada ejercicio social.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "123",
+      "resumen": "DistribuciÃ³n de excedentes",
+      "texto": "ArtÃ­culo 123.- Los excedentes se distribuirÃ¡n en la forma siguiente: a) Por lo menos un 10% para formar un fondo de reserva legal acumulable anualmente, no repartible y que servirÃ¡ para cubrir pÃ©rdidas de acuerdo con la liquidez de la cooperativa en los porcentajes que establezca el reglamento de la Ley, el fondo de reserva se invertirÃ¡ en bonos u otros tÃ­tulos de fÃ¡cil convertibilidad, emitidos por la federaciÃ³n de cooperativas, instituciones bancarias o del estado; b) La formaciÃ³n de fondos especiales: requerimiento de capital y patrimonio, reservas para activos de riesgo y otros que establezca la Junta Directiva; c) Distribuciones entre los cooperativistas de acuerdo al patrocinio efectuado con la cooperativa, despuÃ©s de constituir la reserva legal, las requeridas por el Organismo Supervisor del Sector Cooperativo y reservas especiales aprobadas por la Asamblea General; d) La Asamblea General podrÃ¡ acordar la capitalizaciÃ³n total o parcial de los excedentes distribuidos y no pagados, siempre que la cooperativa cuente con los recursos que le garantice su sostenibilidad; y, e) Treinta (30) dÃ­as hÃ¡biles antes de la celebraciÃ³n de la Asamblea General Ordinaria, la Junta Directiva debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribuciÃ³n de excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situaciÃ³n financiera inestable.\"",
+      "chapter_id": "cap_excedentes",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Fija la distribución obligatoria de excedentes: 10% Reserva Legal, 10% Fondo de Educación, y detalla que el remanente se distribuirá entre afiliados conforme a su patrocinio. La LCH (Art. 44) solo exige el 10% de Reserva Legal y una asignación para educación (LCH Art. 7-g)."
+    },
+    {
+      "num": "124",
+      "resumen": "Excedentes de no afiliados",
+      "texto": "ArtÃ­culo 124.- Los excedentes netos generados por operaciones con no afiliados se destinarÃ¡n por la Cooperativa, a crear un fondo para programas de desarrollo Cooperativista.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "125",
+      "resumen": "Programas de desarrollo cooperativo",
+      "texto": "ArtÃ­culo 125.- Programas de Desarrollo Cooperativo. Se consideran programas de desarrollo cooperativo: a) Los que busquen el mejoramiento cuantitativo y cualitativo de los servicios cooperativos; b) Planes estratÃ©gicos y posicionamiento de la marca Cooperativa; c) Los orientados a capacitaciÃ³n, filosÃ³fica, tecnolÃ³gica, investigaciÃ³n cientÃ­fica, de mercado y estudios tÃ©cnicos, con propÃ³sito de incrementar la producciÃ³n y productividad de la Cooperativa; d) Al sostenimiento de los organismos de integraciÃ³n nacional e internacional; e) Pago del aporte obligatorio al CONSUCOOP; f) Pago en concepto de prima al fondo de seguro de depÃ³sitos Cooperativo; g) La atenciÃ³n de objetivos de incidencia social, cultural y ambiental en el Ã¡rea en que la Cooperativa desarrolle sus actividades; h) InvestigaciÃ³n y ejecuciÃ³n de proyectos de impacto social o ambiental; y, i) EjecuciÃ³n del sexto (6to) principio de cooperaciÃ³n entre Cooperativas.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "126",
+      "resumen": "Reservas y fondos",
+      "texto": "ArtÃ­culo 126.- Reservas y fondos. Las reservas y los fondos creados de los excedentes son irrepartibles, la utilizaciÃ³n de los mismos se debe ajustar estrictamente a la finalidad que las disposiciones legales, estatutarias o resoluciones asamblearias tuvieron al constituirlos. No obstante, los fondos especÃ­ficos creados por la Asamblea General pueden desafectarse de la finalidad que les dio origen mediante resoluciÃ³n expresa adoptada en otra sesiÃ³n de Asamblea General, la que debe disponer el destino del saldo.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "127",
+      "resumen": "Restricciones y distribuciÃ³n",
+      "texto": "ArtÃ­culo 127.- Restricciones y DistribuciÃ³n de Excedentes. Las reservas y fondos que se establezcan no pueden ser mayores del cincuenta por ciento (50%) del total de excedentes que arroje el resultado del ejercicio social, salvo disposiciÃ³n de la Asamblea General Ordinaria o del CONSUCOOP. Los excedentes restantes se podrÃ¡n distribuir o capitalizar en relaciÃ³n al monto de intereses pagados por los crÃ©ditos recibidos.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "128",
+      "resumen": "ConstituciÃ³n de reservas",
+      "texto": "ArtÃ­culo 128.- ConstituciÃ³n de reservas. La Cooperativa Ejemplo Limitada, debe establecer reservas especiales para cuentas de operaciones de riesgos, segÃºn la normativa que emita el CONSUCOOP. AsÃ­ mismo con el fin de beneficiar a sus Afiliados(as), puede constituir fondos de protecciÃ³n para atender las necesidades de salud, educaciÃ³n, vivienda, jubilaciÃ³n y pensiones por vejez y muerte, asÃ­ como otras previsiones que se estimen convenientes.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "129",
+      "resumen": "Fondo de EducaciÃ³n Cooperativo",
+      "texto": "ArtÃ­culo 129.- ConstituciÃ³n del Fondo de EducaciÃ³n Cooperativo. El Fondo de EducaciÃ³n Cooperativo no puede ser inferior al tres por ciento (3%) del ingreso neto anual del presupuesto, calculado del periodo fiscal anterior. Este debe distribuirse de la forma siguiente: a) Dos Por Ciento (2%) A EducaciÃ³n Y CapacitaciÃ³n A Cooperativistas; Y, b) Uno Por Ciento (1%) A EducaciÃ³n Y CapacitaciÃ³n De La Juventud Y GÃ©nero; Los excedentes del fondo no ejecutados en un ejercicio econÃ³mico, se deben mantener en la dotaciÃ³n del ejercicio siguiente. En caso de no ser utilizados en dicho tÃ©rmino, debe ser trasladado proporcionalmente al CONSUCOOP y a la CHC.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "130",
+      "resumen": "Reparto por expulsiÃ³n o fallecimiento",
+      "texto": "ArtÃ­culo 130.- Reparto de Excedentes por ExpulsiÃ³n o Fallecimiento. En caso de retiro o expulsiÃ³n de un Cooperativista antes del reparto de excedentes del periodo, al efectuarse el cÃ¡lculo de los mismos, Â¡se debe pagar la suma que tuviere derecho; en caso de muerte, dichas cantidades deben ser entregadas a sus beneficiarios o herederos, segÃºn el caso legalmente declarados como tales.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "131",
+      "resumen": "Excedentes con no afiliados",
+      "texto": "ArtÃ­culo 131.- Destino de los Excedentes por Operaciones con no Afiliados(as). Para los efectos del ArtÃ­culo 45 de la Ley, se consideran operaciones con no Afiliados(as) las que realice la Cooperativa con personas que no tengan la calidad de Cooperativista en la propia Cooperativa y los excedentes provenientes de dichas operaciones, se deben destinar a la formaciÃ³n de programa de desarrollo cooperativo.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "132",
+      "resumen": "PÃ©rdidas anuales",
+      "texto": "ArtÃ­culo 132.- Las pÃ©rdidas anuales se deben cubrir con la Reserva Legal y de no ser suficiente la misma, con un porcentaje de las otras reservas patrimoniales, de conformidad con las disposiciones que emita el Organismo Supervisor del Sector Cooperativo, de todo lo cual la Junta Directiva debe informar inmediatamente a la Asamblea General Ordinaria mÃ¡s prÃ³xima. Cuando esta cooperativa en su Estado Financiero anual refleje pÃ©rdidas, ademÃ¡s de cubrir las mismas con su reserva legal y patrimonial dentro del plazo que establezca el Reglamento, estÃ¡ en la obligaciÃ³n de presentar ante el Organismo Supervisor del Sector Cooperativo un Plan de EstabilizaciÃ³n Financiera, que contemple: a) Mecanismos de capitalizaciÃ³n, constituciÃ³n de las reservas, adecuaciÃ³n y saneamiento de activos y pasivos; y, b) Estrategias y cronograma para lograr la estabilizaciÃ³n y recuperaciÃ³n financiera. En caso de liquidaciÃ³n de la cooperativa, las pÃ©rdidas se distribuirÃ¡n entre los cooperativistas, en proporciÃ³n al monto de sus aportaciones.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "133",
+      "resumen": "Excedente repartible",
+      "texto": "ArtÃ­culo 133.- El excedente repartible no puede distribuirse hasta que las pÃ©rdidas de ejercicios anteriores fueren totalmente cubiertas, en la forma que acuerde la Asamblea General Ordinaria. El Afiliado(a) que perdiere tal calidad debe cubrir parte de la pÃ©rdida acumulada, para lo cual se debe tomar en consideraciÃ³n la proporciÃ³n del capital integrado respecto del total de la Cooperativa; el porcentaje que surja de dicha relaciÃ³n se debe aplicar al saldo de la pÃ©rdida acumulada que no cubra las reservas patrimoniales con miras a conocer el monto a debitar en la cuenta del cesante.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "134",
+      "resumen": "Donaciones, legados y subsidios",
+      "texto": "ArtÃ­culo 134.- Donaciones, Legados y Subsidios. Las donaciones, legados, subsidios y demÃ¡s recursos anÃ¡logos que la Cooperativa recibiere, no pueden distribuirse directa ni indirectamente entre los Afiliados(as). Las Cooperativas deben contabilizarlo, con crÃ©dito a una cuenta del patrimonio neto.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "135",
+      "resumen": "RevalorizaciÃ³n de activos",
+      "texto": "ArtÃ­culo 135.- RevalorizaciÃ³n de Activos. La Cooperativa puede revalorizar sus activos, una vez que hayan sido acordados por la Asamblea General de la cooperativa y previa autorizaciÃ³n del CONSUCOOP, conforme a la normativa que Ã©ste emita.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "136",
+      "resumen": "No retiro de excedentes en 5 aÃ±os",
+      "texto": "ArtÃ­culo 136.- En caso de que el Cooperativista no retire sus excedentes en el plazo de cinco (5) aÃ±os habiendo sido requerido para ello la Cooperativa tendrÃ¡ el derecho de disponer de estas cantidades para incrementar el fondo de Desarrollo Cooperativo.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "137",
+      "resumen": "Aportaciones como garantÃ­a",
+      "texto": "ArtÃ­culo 137.- Las aportaciones y demÃ¡s haberes de los Cooperativistas en la Cooperativa quedan afectados preferentemente como garantÃ­a de sus obligaciones con la misma.",
+      "chapter_id": "cap_excedentes",
+      "comparativa": null
+    },
+    {
+      "num": "138",
+      "resumen": "DisoluciÃ³n voluntaria o coactiva",
+      "texto": "ArtÃ­culo 138.- La disoluciÃ³n de la Cooperativa podrÃ¡ ser voluntaria o coactiva.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "139",
+      "resumen": "Causas de disoluciÃ³n",
+      "texto": "ArtÃ­culo 139.- La disoluciÃ³n de la Cooperativa, ya sea voluntaria o coactiva, podrÃ¡ fundamentarse en una o varias de las siguientes causas: a) DisminuciÃ³n del nÃºmero mÃ­nimo de sus afiliados (as) fijado por la Ley, durante el lapso de un (1) aÃ±o. b) Imposibilidad de realizar el fin especÃ­fico para el cual fue constituida durante el plazo de un (1) aÃ±o o, por extinciÃ³n del mismo. c) Perdida de los recursos econÃ³micos o de una parte de estos, que segÃºn provisiÃ³n del Estatuto o a juicio de la Asamblea General, haga imposible la continuaciÃ³n de las operaciones. d) Por fusiÃ³n con otra Cooperativa mediante incorporaciÃ³n total de una en la otra, o por constituciÃ³n de una nueva Cooperativa que asuma la totalidad de los patrimonios de las fusionadas en este Ãºltimo caso, la disoluciÃ³n afecta a ambas; y e) Por resoluciÃ³n fundada del CONSUCOOP.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "140",
+      "resumen": "DisoluciÃ³n voluntaria",
+      "texto": "ArtÃ­culo 140.- Se estimarÃ¡ disoluciÃ³n voluntaria cuando sea acordada en Asamblea General Extraordinaria, el acuerdo deberÃ¡ tomarse por las dos terceras partes de los cooperativistas presentes que tengan derecho a voto.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "141",
+      "resumen": "DisoluciÃ³n coactiva",
+      "texto": "ArtÃ­culo 141.- Se considera coactiva la disoluciÃ³n cuando de oficio el CONSUCOOP, comprobare que la Cooperativa se encuentra comprendida en los literales a), b) y c) del Articulo No. 139 de Reglamento de la Ley, y advirtiendo a la Junta Directiva de la misma que de no regularizar su situaciÃ³n se declarara su disoluciÃ³n.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "142",
+      "resumen": "Acuerdo de disoluciÃ³n",
+      "texto": "ArtÃ­culo 142.- El acuerdo de la Asamblea General que declare disuelta la Cooperativa serÃ¡ redactado con exposiciÃ³n de motivos y su redacciÃ³n constarÃ¡ en Escritura PÃºblica o Documento Privado. El representante legal de la Cooperativa, dentro de los diez (10) dÃ­as hÃ¡biles siguientes a la adopciÃ³n del acuerdo de disoluciÃ³n, mÃ¡s el tÃ©rmino de la distancia segÃºn el caso, solicitarÃ¡ la inscripciÃ³n del acuerdo en el Registro Nacional de Cooperativas.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "143",
+      "resumen": "Existencia para liquidaciÃ³n",
+      "texto": "ArtÃ­culo 143.- Acordada la disoluciÃ³n de la Cooperativa sÃ³lo conservarÃ¡ su existencia para efectos de liquidaciÃ³n y en los documentos emitidos deberÃ¡ expresar que estÃ¡ en liquidaciÃ³n.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "144",
+      "resumen": "Efecto de la disoluciÃ³n",
+      "texto": "ArtÃ­culo 144.- La disoluciÃ³n surtirÃ¡ efecto a partir de la cancelaciÃ³n de la inscripciÃ³n de la Personalidad JurÃ­dica de la Cooperativa en el Registro Nacional de Cooperativas.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "145",
+      "resumen": "ComisiÃ³n liquidadora",
+      "texto": "ArtÃ­culo 145.- Para la liquidaciÃ³n la Asamblea General Extraordinaria nombrarÃ¡ una comisiÃ³n de tres (3) miembros integrada de la siguiente manera: Un representante del CONSUCOOP, quien debe presidir y dos (2) Cooperativistas, la cual entrarÃ¡ en funciones dentro de los quince (15) dÃ­as siguientes a su nombramiento.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "146",
+      "resumen": "Liquidadores",
+      "texto": "ArtÃ­culo 146.- Los liquidadores durante el perÃ­odo de liquidaciÃ³n serÃ¡n administradores y representantes legales de la Cooperativa disuelta y actuarÃ¡n conforme a las facultades que les otorguen los Estatutos y/o disposiciones del CONSUCOOP, en su caso si no las determinara, solamente podrÃ¡n ejecutar aquellos actos que tiendan directamente a la liquidaciÃ³n de las operaciones de conformidad a lo ordenado en el ArtÃ­culo No. 69 de la Ley.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "147",
+      "resumen": "Destino de recursos en liquidaciÃ³n",
+      "texto": "ArtÃ­culo 147.- En caso de liquidaciÃ³n los recursos econÃ³micos de la Cooperativa se destinarÃ¡n: a) Satisfacer las deudas de la Cooperativa y los gastos de liquidaciÃ³n; b) A pagar a los Cooperativistas el valor de sus aportaciones; y, c) A distribuir entre los Cooperativistas el excedente social en proporciÃ³n a las aportaciones pagadas, salvo el fondo de reserva legal y demÃ¡s fondos sociales y de educaciÃ³n los cuales se entregarÃ¡n al organismo rector del Cooperativismo. d) Para el cumplimiento de los tres incisos anteriores se le darÃ¡ el derecho preferente al pago de las obligaciones del Pasivo Laboral",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "148",
+      "resumen": "PÃ©rdida prorrateada",
+      "texto": "ArtÃ­culo 148.- Si de la liquidaciÃ³n resultare pÃ©rdida, Ã©sta se prorratearÃ¡ entre los Cooperativistas en proporciÃ³n al monto de aportaciones pagadas.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "149",
+      "resumen": "Balance final de liquidaciÃ³n",
+      "texto": "ArtÃ­culo 149.- Previo a su inscripciÃ³n en el Registro Nacional de Cooperativas, la ComisiÃ³n liquidadora como resultado de su funciÃ³n elaborarÃ¡ un balance final de liquidaciÃ³n que serÃ¡ remitido a la aprobaciÃ³n de la Asamblea General de la Cooperativa, cuando se trate de disoluciÃ³n voluntaria y al CONSUCOOP, si la disoluciÃ³n es coactiva, posteriormente deberÃ¡ ser publicada en la forma ordenada en el ARTÃCULO 145 del Reglamento de la Ley de Cooperativas de Honduras.",
+      "chapter_id": "cap08",
+      "comparativa": null
+    },
+    {
+      "num": "150",
+      "resumen": "Calidad de cooperativista",
+      "texto": "ArtÃ­culo 150.- La calidad de Cooperativista se adquiere por: a) SuscripciÃ³n del Acta de ConstituciÃ³n; y, b) AdmisiÃ³n hecha por la Junta Directiva. La Junta Directiva puede delegar en la administraciÃ³n, la facultad de revisar y analizar las solicitudes de ingreso y renuncia de cooperativistas, debiendo Ã©sta, rendir informe mensual a la Junta Directiva para su conocimiento y validaciÃ³n.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "151",
+      "resumen": "NÃºmero de cooperativistas",
+      "texto": "ArtÃ­culo 151.- El nÃºmero de cooperativistas serÃ¡ ilimitado, pero nunca inferior a treinta (30) ningÃºn Cooperativista ni sus aportaciones tendrÃ¡ preferencia alguna.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "152",
+      "resumen": "Requisitos de admisiÃ³n",
+      "texto": "ArtÃ­culo 152.- PodrÃ¡n ser Cooperativistas las personas naturales o jurÃ­dicas que reÃºnan los siguientes requisitos: a) Pagar una cuota de ingreso no reembolsable de Lps.10.00 (Diez Lempiras), como mÃ­nimo y una aportaciÃ³n no menor de L. 30.00 (Treinta lempiras) mensuales o L. 360.00 (trecientos sesenta) anuales; b) Presentar y documentar su declaraciÃ³n de beneficiarios; c) Ser persona natural capaz de derechos y obligaciones, que sea mayor de dieciocho aÃ±os (18) y estar en pleno goce de sus derechos ciudadanos; d) Ser aprobado el ingreso por la Junta Directiva o el comitÃ© delegado; e) Acatar las disposiciones de Asamblea General y Cuerpos Directivos; y, f) Cumplir con los requerimientos, normativas, resoluciones exigidas por leyes especiales g) Otros requisitos estipulados por la Junta Directiva",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "153",
+      "resumen": "AfiliaciÃ³n de personas jurÃ­dicas",
+      "texto": "ArtÃ­culo 153.- Requisitos de AfiliaciÃ³n de Personas JurÃ­dicas. Las personas jurÃ­dicas referidas en el ArtÃ­culo 72 de la Ley, deben presentar para su afiliaciÃ³n a la Cooperativa, los siguientes documentos: a) PersonerÃ­a jurÃ­dica; b) Estatuto social o documento equivalente; c) CertificaciÃ³n del acta de Junta Directiva en donde conste la decisiÃ³n de afiliarse a la Cooperativa; d) CertificaciÃ³n del punto acta de la Junta Directiva, que acredite la persona que ostenta la representaciÃ³n legal de conformidad a su Estatuto; e) Constancia de inscripciÃ³n de la Junta Directiva en la Unidad de Registro y seguimiento de Sociedades Civiles (URSAC), Oficina del sector social (ODS) o su equivalente; f) Constancia de inscripciÃ³n de la junta directiva, de la persona jurÃ­dica sin fines de lucro, actualizada del ente donde se encuentre inscritas como tal. g) Documentos personales del representante legal; y, Las personas jurÃ­dicas de derecho pÃºblico, asÃ­ como las MIPYMES deben igualmente cumplir con las formalidades establecidas en la Ley, en todo cuanto fueren pertinentes. La Cooperativa se limitarÃ¡ a atender las MIPYME constituidas como comerciantes individuales, asÃ­ mismo la del sector social de la economÃ­a.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "154",
+      "resumen": "Recurso contra negaciÃ³n de admisiÃ³n",
+      "texto": "ArtÃ­culo 154.- Contra las resoluciones que se le niegue admisiÃ³n el interesado podrÃ¡ recurrir al CONSUCOOP, pudiendo este revocar la decisiÃ³n cuando ademÃ¡s de reunir el solicitante los requisitos legales, las circunstancias de la Cooperativa permitan el ingreso de nuevos Cooperativistas.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "155",
+      "resumen": "Deberes de los cooperativistas",
+      "texto": "ArtÃ­culo 155.- Los(as) Cooperativistas tendrÃ¡n respecto a esta Cooperativa los deberes siguientes: a) Cumplir sus obligaciones sociales y econÃ³micas con la Cooperativa; b) Hacer uso de los servicios de la Cooperativa; c) Aceptar y desempeÃ±ar los cargos para los que fueran electos salvo cuando por motivos justificados no puedan aceptar; d) Acatar y cumplir las resoluciones de la Asamblea General y de la Junta Directiva; e) Promover el ingreso de nuevos Cooperativistas; f) Asistir o hacerse representar a todas las Asambleas que celebre la Cooperativa y participar en las deliberaciones; g) Conocer el funcionamiento de la Cooperativa y velar por que Ã©sta se mantenga dentro de las disposiciones legales correspondientes, informando a la Junta Directiva y a la Junta de Vigilancia, someter a consideraciÃ³n todo asunto o problema que considere de importancia a fin de que estos organismos actÃºen de acuerdo a sus facultades; h) Cuidar de todos los bienes e instalaciones de la Cooperativa y del mejoramiento y progreso de la misma; i) Acatar fielmente las disposiciones contenidas en este Estatuto y Reglamentos de la Cooperativa; j) Colaborar con los Ã³rganos de direcciÃ³n, administraciÃ³n vigilancia y con los demÃ¡s Cooperativistas en las actividades de la organizaciÃ³n; k) Participar en las actividades educativas y de capacitaciÃ³n a que fuera invitado por la Cooperativa; y, l) En General actuar siempre con espÃ­ritu de servicio y contribuir al progreso de la Cooperativa, en el aspecto moral, social y econÃ³mico.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "156",
+      "resumen": "Derechos de los cooperativistas",
+      "texto": "ArtÃ­culo 156.- Son derechos de los(as) Cooperativistas los siguientes: a) Igualdad de derechos con respecto a los demÃ¡s miembros de la organizaciÃ³n; b) Voz y voto en las reuniones y Asambleas de cooperativistas, segÃºn las disposiciones del presente Estatuto o la ley y su Reglamento; c) Solicitar la convocatoria de Asamblea General conforme a este Estatuto; d) Estar informado de los resultados de la gestiÃ³n social; e) Impugnar conforme a la Ley, decisiones de la Asamblea General, la Junta Directiva, la Junta de Vigilancia, la Gerencia o cualquier Ã³rgano de la Cooperativa; f) Solicitar ante la Junta Directiva del organismo rector del cooperativismo la normalizaciÃ³n jurÃ­dica de la Cooperativa; g) Designar beneficiarios que les sucedan en sus derechos patrimoniales; h) Participar en las actividades, hacer uso de los servicios y gozar de los beneficios que ofrece la Cooperativa; i) Participar en la administraciÃ³n de la Cooperativa pudiendo elegir y ser electo para cualquier cargo; j) Presentar a la Junta Directiva o Junta de Vigilancia las quejas fundamentadas contra infracciones de funcionarios, empleados y demÃ¡s afiliados, recurriendo en Ãºltima instancia ante el CONSUCOOP; k) Pedir informaciÃ³n sobre todos los aspectos relacionados con la gestiÃ³n administrativa de la Cooperativa, y l) Percibir los intereses y excedentes a que tenga derecho conforme a lo dispuesto en este Estatuto y, de acuerdo a la distribuciÃ³n acordada por la Asamblea General.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "157",
+      "resumen": "PÃ©rdida de calidad de cooperativista",
+      "texto": "ArtÃ­culo 157.- La calidad del Cooperativista se pierde por: a) Fallecimiento del Cooperativista o pÃ©rdida de la personalidad jurÃ­dica de la Cooperativa; b) Por la liquidaciÃ³n de la Cooperativa; c) Por expulsiÃ³n acordada en Asamblea General, por las causas establecidas en Ã©ste Estatuto; d) Por renuncia escrita ante la Junta Directiva y aprobada por esta; e) Por no cumplir con sus obligaciones econÃ³micas y sociales con la cooperativa; f) Por haber detectado su aceptaciÃ³n en la cooperativa en forma fraudulenta y dolosa; g) Perdida de la capacidad civil, por sentencia condenatoria y criminal; h) Por atentar contra la cooperativa al divulgar informaciÃ³n confidencial a terceros; y, i) Por exclusiÃ³n; Los cooperativistas que renuncien, o sean excluidos no quedan exentos de cumplir con sus obligaciones contraÃ­das.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "158",
+      "resumen": "Medida de exclusiÃ³n",
+      "texto": "ArtÃ­culo 158.- La Junta Directiva debe adoptar la medida de ExclusiÃ³n cuando el Afiliado: a) PerdiÃ³ algÃºn requisito indispensable para seguir teniendo la calidad de tal, conforme con las condiciones estatutarias; o b) Dejo de aportar a su cooperativa por el tÃ©rmino de un (1) aÃ±o y no cuenta con el monto mÃ­nimo establecido en este Estatuto.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "159",
+      "resumen": "Valores por exclusiÃ³n",
+      "texto": "ArtÃ­culo 159.- Los valores originados por la exclusiÃ³n, no reclamado pasan a formar parte en forma proporcional a las reservas de la Cooperativa, en los programas de desarrollo.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "160",
+      "resumen": "Fallecimiento de cooperativista",
+      "texto": "ArtÃ­culo 160.- En caso de fallecimiento de un Cooperativista, su(s) beneficiario(s) o heredero tendrÃ¡n derecho a formar parte de la Cooperativa, siempre que satisfaga los requisitos Estatutarios de ingreso.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "161",
+      "resumen": "Causas de suspensiÃ³n",
+      "texto": "ArtÃ­culo 161.- Se establece en este Estatuto la suspensiÃ³n como sanciÃ³n previa a la expulsiÃ³n del Cooperativista; son causas de suspensiÃ³n: a) Negarse sin motivo justificado a desempeÃ±ar el cargo para el cual fue electo; b) Negarse sin motivo justificado a desempeÃ±ar comisiones que le encomiende la Junta Directiva; c) Haber sido electo directivo y estar afiliado a dos o mÃ¡s cooperativas del mismo subsector; d) Promover asuntos polÃ­ticos-partidistas, religiosos o raciales en el seno de la Cooperativa; e) Falta de cumplimiento a las obligaciones contraÃ­das con la Cooperativa; f) No acatar las resoluciones o acuerdos de los organismos administrativos; g) Por pÃ©rdida de la capacidad civil; h) Por realizar actos contrarios a los fines de la Cooperativa; i) Por valerse de la calidad de Cooperativista para negociar particularmente por su cuenta; j) Hacer participar directa o indirectamente a terceros de los beneficios econÃ³micos y legales de la Cooperativa; k) Por violaciÃ³n a la Ley de Cooperativas de Honduras, Estatuto y reglamento de la Cooperativa; y, l) Otros que se establezcan en ReglamentaciÃ³n Interna de la Cooperativa.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "162",
+      "resumen": "Causas de expulsiÃ³n",
+      "texto": "ArtÃ­culo 162.- Son causas de ExpulsiÃ³n: a) Conducta inapropiada, segÃºn el CÃ³digo de Ãtica; b) Causar grave perjuicio material, econÃ³mico o reputacional a la Cooperativa; c) Reincidencia en las causas de suspensiÃ³n d) Por delitos contra la Cooperativa y/o Cooperativistas; e) Por violaciÃ³n reiterada a la ley de Cooperativas, su Reglamento y este Estatuto; y, f) Otras que se establezcan en la ReglamentaciÃ³n Interna de la Cooperativa; Cuando la gravedad de la infracciÃ³n, su importancia social o econÃ³mica y los perjuicios causados, son relevantes, la Asamblea General Ordinaria de la Cooperativa puede expulsar sin haberse suspendido previamente al afiliado (a).",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "163",
+      "resumen": "Solicitud de suspensiÃ³n o expulsiÃ³n",
+      "texto": "ArtÃ­culo 163.- La solicitud de suspensiÃ³n o expulsiÃ³n de un Cooperativista podrÃ¡ hacerla la Junta Directiva o Junta de Vigilancia, presentando a la Asamblea General los cargos que se imputan y las pruebas que los amparan.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "164",
+      "resumen": "Eximentes",
+      "texto": "ArtÃ­culo 164.- Se consideran como eximentes de tales violaciones la fuerza mayor debidamente comprobada por una comisiÃ³n, nombrada en el seno de la Junta Directiva.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "165",
+      "resumen": "Derecho a la defensa",
+      "texto": "ArtÃ­culo 165.- Derecho a la Defensa. El Afiliado(a) tiene derecho a defenderse por sÃ­ mismo o su defensor, quien debe ser Cooperativista. En caso de no estar presente, se le debe nombrar un defensor de oficio, quien debe ser Cooperativista y estar presente en la Asamblea. Recibida y practicada la prueba propuesta y escuchados los alegatos, la Asamblea General debe resolver si procede o no la suspensiÃ³n o exclusiÃ³n.",
+      "chapter_id": "cap09",
+      "comparativa": "<b>Diferencia / Ampliación frente a la Ley:</b> Establece que en caso de ausencia del afiliado en proceso de expulsión, se le debe nombrar un defensor de oficio de entre los cooperativistas, garantizando el debido proceso interno de manera más robusta que el mínimo legal."
+    },
+    {
+      "num": "166",
+      "resumen": "Recursos contra sanciÃ³n",
+      "texto": "ArtÃ­culo 166.- Recursos contra la SuspensiÃ³n o ExpulsiÃ³n. Contra el acuerdo de SuspensiÃ³n o ExpulsiÃ³n de un Cooperativista, puede recurrirse en apelaciÃ³n ante el CONSUCOOP, de conformidad a lo establecido en este Reglamento. El acuerdo con que se sancione a un Cooperativista surte efecto una vez sea firme la misma, por haberse agotado los recursos contra ella. En caso de interponerse recurso de apelaciÃ³n y la sanciÃ³n sea de expulsiÃ³n, no se debe liquidar la cuenta del expulsado hasta que se resuelva el mismo, quedando en suspenso sus derechos y obligaciones de tipo contractual que estÃ©n pendientes al acordarse la expulsiÃ³n. Salvo los relativos al pago de los prÃ©stamos que se le hayan otorgado.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "167",
+      "resumen": "RevocaciÃ³n del acuerdo",
+      "texto": "ArtÃ­culo 167.- RevocaciÃ³n del acuerdo de SuspensiÃ³n o de ExpulsiÃ³n de un Cooperativista. El CONSUCOOP, al revocar la ResoluciÃ³n de suspensiÃ³n o de expulsiÃ³n de un Cooperativista, debe ordenar que Ã©ste sea reintegrado como tal, con todos sus derechos y obligaciones adquiridas; al momento de adoptarse deben tomar las medidas necesarias para el cumplimiento de su mandato.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "168",
+      "resumen": "Renuncia del cooperativista",
+      "texto": "ArtÃ­culo 168.- La renuncia de un Cooperativista debe hacerse por escrito ante la Junta Directiva, quien resolverÃ¡ dentro de los treinta dÃ­as siguientes al recibo de la misma. La voluntad de retirarse de un Cooperativista es inviolable, en caso necesario para la estabilidad econÃ³mica y social de la Cooperativa y de acuerdo a este Estatuto, Ã©sta podrÃ¡ cancelar las aportaciones del Cooperativista retirado de una sola vez o en desembolsos parciales dentro de un perÃ­odo no mayor de dieciocho (18) meses. La devoluciÃ³n de los excedentes que le correspondieren deberÃ¡ hacerse dentro del mes siguiente en que la Asamblea General ordinaria apruebe los Estados Financieros del ejercicio social correspondiente.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "169",
+      "resumen": "Reingreso del cooperativista",
+      "texto": "ArtÃ­culo 169.- El Cooperativista que se haya retirado voluntariamente sin causa justificada sÃ³lo podrÃ¡ reingresar a la Cooperativa seis (6) meses despuÃ©s de la fecha de su retiro y deberÃ¡ aportar el porcentaje que la Junta Directiva seÃ±ale de la suma que la Cooperativa le liquidÃ³.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "170",
+      "resumen": "LiquidaciÃ³n de cuenta",
+      "texto": "ArtÃ­culo 170.- Perdida la calidad de Cooperativista se liquidarÃ¡ la cuenta de Ã©ste, acreditÃ¡ndosele las aportaciones, los intereses y los excedentes no pagados, se debitarÃ¡n las obligaciones a su cargo y la parte proporcional de las pÃ©rdidas estimadas a la fecha de cierre del ejercicio social anual, en el cual ocurriere la cancelaciÃ³n. El saldo neto resultante de la liquidaciÃ³n si lo hubiere, serÃ¡ pagado al ex- Cooperativista o a sus beneficiarios o herederos. Los ex - Cooperativistas, mientras no se les cancelen las sumas adeudadas serÃ¡n considerados como acreedores de la Cooperativa, pero no podrÃ¡n intervenir en la Asamblea ni en las operaciones sociales de Ã©sta. La entrega a los beneficiarios se harÃ¡ sin sujetarse a los trÃ¡mites de declaratoria de heredero, no habiendo beneficiarios la entrega se harÃ¡ a los herederos declarados en legal forma.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "171",
+      "resumen": "LÃ­mite de liquidaciÃ³n",
+      "texto": "ArtÃ­culo 171.- En ningÃºn caso los Cooperativistas recibirÃ¡n por concepto de liquidaciÃ³n una suma mayor al monto de sus aportaciones, intereses y del excedente que hayan producido. Si el ex- Cooperativista resultarÃ© deudor, la Cooperativa ejercerÃ¡ sus derechos con arreglo a la Ley, en tal caso la certificaciÃ³n de la liquidaciÃ³n del crÃ©dito lleva aparejada ejecuciÃ³n.",
+      "chapter_id": "cap09",
+      "comparativa": null
+    },
+    {
+      "num": "172",
+      "resumen": "Acuerdo de fusiÃ³n",
+      "texto": "ArtÃ­culo 172.- El acuerdo de fusiÃ³n, incorporaciÃ³n y transformaciÃ³n de la Cooperativa se tomarÃ¡ en Asamblea General Extraordinaria de ambas Cooperativas, cumpliendo con los requisitos exigidos por el CONSUCOOP.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "173",
+      "resumen": "EjecuciÃ³n del acuerdo de fusiÃ³n",
+      "texto": "ArtÃ­culo 173.- El acuerdo de fusiÃ³n, incorporaciÃ³n y transformaciÃ³n de la Cooperativa serÃ¡ ejecutado mediante la suscripciÃ³n del Acta correspondiente por los representantes legalmente autorizados.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "174",
+      "resumen": "Solicitud al CONSUCOOP",
+      "texto": "ArtÃ­culo 174.- En caso de que la Cooperativa realice actos de fusiÃ³n, incorporaciÃ³n o transformaciÃ³n, presentarÃ¡ ante el CONSUCOOP, la solicitud correspondiente adjuntando el Acta respectiva, Proyecto de Estatutos, modificaciones de Ã©stos cuando proceda y sus Estados Financieros.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "175",
+      "resumen": "InscripciÃ³n del acuerdo",
+      "texto": "ArtÃ­culo 175.- El acuerdo de fusiÃ³n incorporaciÃ³n o transformaciÃ³n debe inscribirse en el Registro Nacional de Cooperativas debiendo publicarlo en el Diario Oficial La Gaceta o en un Diario de circulaciÃ³n nacional.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "176",
+      "resumen": "OposiciÃ³n a la fusiÃ³n",
+      "texto": "ArtÃ­culo 176.- Contra la fusiÃ³n, incorporaciÃ³n o transformaciÃ³n de la Cooperativa podrÃ¡ hacerse oposiciÃ³n ante el CONSUCOOP dentro de diez (10) dÃ­as hÃ¡biles contados desde la fecha de su inscripciÃ³n en el Registro Nacional de Cooperativas. El afiliado disconforme debe hacer constar sus disidencias en el acta de Asamblea General pertinente, si no hubiere oposiciÃ³n en el pÃ¡rrafo anterior, la fusiÃ³n, incorporaciÃ³n o transformaciÃ³n tendrÃ¡ efecto legal.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "177",
+      "resumen": "Derechos en fusiÃ³n",
+      "texto": "ArtÃ­culo 177.- En caso de fusiÃ³n, incorporaciÃ³n o transformaciÃ³n los Cooperativistas conservarÃ¡n los derechos econÃ³micos adquiridos y responderÃ¡n por las obligaciones contraÃ­das por la Cooperativa, antes de la celebraciÃ³n de tales actos, de conformidad a lo dispuesto en el ARTÃCULO 79 de la ley. La Cooperativa incorporante o la que resulte de la fusiÃ³n o transformaciÃ³n entregarÃ¡ a sus Cooperativistas nuevos tÃ­tulos de aportaciÃ³n.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "178",
+      "resumen": "SupervisiÃ³n pÃºblica",
+      "texto": "ArtÃ­culo 178.- SupervisiÃ³n PÃºblica. A los efectos del ejercicio de la SupervisiÃ³n Publica, la Cooperativa estÃ¡n obligadas a proporcionar al funcionario designado, bajo responsabilidad de sus directivos, todas las facilidades que requieran para el cumplimiento de su cometido. Los funcionarios del CONSUCOOP estÃ¡n facultados para requerir por escrito, a los directivos, auditor interno, funcionarios y empleados, los libros de contabilidad y todos los documentos justificativos de sus operaciones e informes de la Junta de Vigilancia y auditores internos y externos. En caso de negativa, el CONSUCOOP puede solicitar el auxilio judicial pertinente.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "179",
+      "resumen": "ProhibiciÃ³n de competencia",
+      "texto": "ArtÃ­culo 179.- Los miembros de la Junta Directiva, de la Junta de Vigilancia, los Cooperativistas y los empleados de la Cooperativa, no podrÃ¡n dedicarse por cuenta propia o ajena a trabajos o negocios que hagan competencia a la Cooperativa, si lo hicieren serÃ¡n excluidos de la misma inmediatamente que la Junta Directiva tenga conocimientos de la falta. No podrÃ¡n ser empleados de la Cooperativa, las personas que se dediquen por si o mediante terceros a trabajos o negocios que hagan competencia a la Cooperativa.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "180",
+      "resumen": "RepresentaciÃ³n ante integraciÃ³n",
+      "texto": "ArtÃ­culo 180.- La representaciÃ³n ante organismos de IntegraciÃ³n. Las representaciones de la Cooperativa ante el movimiento cooperativo, organismos de integraciÃ³n y otros organismos, corresponden a la cooperativa como persona jurÃ­dica. Dicha representaciÃ³n debe ser ocupados por miembros de Junta Directiva, Junta de Vigilancia e integrantes de los comitÃ©s segÃºn corresponda al tema de que se trate, previa delegaciÃ³n de la Junta Directiva y responderÃ¡ a los lineamientos que defina la Junta Directiva. En todo caso, estos deberÃ¡n presentar informes de su participaciÃ³n en sesiones de Cuerpos Integrados que realice la Cooperativa y/o cuando la Junta Directiva se lo solicite. La pÃ©rdida de la calidad de Cooperativista de un miembro de cualquier organismo de la Cooperativa lo hace perder automÃ¡ticamente sus funciones como tal.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "181",
+      "resumen": "Obligaciones previas al ingreso",
+      "texto": "ArtÃ­culo 181.- Todo Cooperativista responderÃ¡ como los demÃ¡s de las obligaciones contraÃ­das por la Cooperativa antes de su ingreso a la misma, serÃ¡ nula toda disposiciÃ³n en contrario.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "182",
+      "resumen": "AfiliaciÃ³n a organismo de integraciÃ³n",
+      "texto": "ArtÃ­culo 182.- La Cooperativa de acuerdo con el ARTÃCULO 10 literal m) del Reglamento de la Ley de Cooperativas de Honduras, debe afiliarse a un organismo de integraciÃ³n del Movimiento Cooperativo HondureÃ±o segÃºn su actividad principal. El acuerdo de afiliaciÃ³n deberÃ¡ ser tomado en Asamblea General Ordinaria y comunicarse al CONSUCOOP.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "183",
+      "resumen": "Aporte obligatorio al CONSUCOOP",
+      "texto": "ArtÃ­culo 183.- Aporte Obligatorio al CONSUCOOP. La Cooperativa debe de pagar el aporte anual obligatorio al CONSUCOOP, de conformidad al porcentaje establecido por la ley.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "184",
+      "resumen": "Inembargabilidad",
+      "texto": "ArtÃ­culo 184.- Los Tribunales no pueden decretar embargo o cualquier otro tipo de medida precautoria contra los bienes, derechos o acciones de una Cooperativa de cualquier grado, si no mediare sentencia definitiva y firme; sin embargo, la sentencia que se pronuncie contra la cooperativa condenÃ¡ndola al cumplimiento de obligaciones respecto a terceros, tendrÃ¡ fuerza de cosa juzgada. Debiendo los cooperativistas responder hasta el lÃ­mite de sus aportaciones.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "185",
+      "resumen": "PrescripciÃ³n de hipotecas",
+      "texto": "ArtÃ­culo 185.- PrescripciÃ³n de las Hipotecas. La Hipoteca registrada a favor de las Cooperativas reconocidas por la Ley, protege el derecho de esta por el termino de treinta y cinco (35) aÃ±os, no obstante, lo establecido en el ArtÃ­culo 2137 pÃ¡rrafo segundo del CÃ³digo Civil, los plazos de extinciÃ³n, prescripciÃ³n, registro y conservaciÃ³n del derecho del acreedor hipotecario a favor de las instituciones mencionadas en dicho ArtÃ­culo son tambiÃ©n de treinta y cinco (35) aÃ±os.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "186",
+      "resumen": "LimitaciÃ³n de actos electorales",
+      "texto": "ArtÃ­culo 186.- LimitaciÃ³n de actos de los ejecutivos, empleados y asesores externos. Los ejecutivos, empleados y asesores de una cooperativa, actuando en ejercicio de sus funciones, no podrÃ¡n realizar actividades de tipo electoral, a favor o en contra de los candidatos a miembros de la junta directiva o de la junta de vigilancia.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "187",
+      "resumen": "Constancia de cumplimiento",
+      "texto": "ArtÃ­culo 187.- Constancia de Cumplimiento de Obligaciones. La Cooperativa, debe solicitar anualmente constancia extendida por el CONSUCOOP, que acredite estar activas y en cumplimiento de sus obligaciones, Para acceder a los beneficios que les otorgue la ley y el reglamento. La inobservancia de esta disposiciÃ³n acarrea perjuicio a la instituciÃ³n que obvie la misma",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "188",
+      "resumen": "Lo no contemplado",
+      "texto": "ArtÃ­culo 188.- Todo lo no contemplado en este Estatuto se regularÃ¡ de acuerdo a lo establecido en la LegislaciÃ³n Cooperativa de Honduras y todas las demÃ¡s leyes aplicables vigentes en el paÃ­s.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "189",
+      "resumen": "Reforma del estatuto",
+      "texto": "ArtÃ­culo 189.- Este Estatuto sÃ³lo podrÃ¡ ser reformados por acuerdo tomado en Asamblea General Extraordinaria, sean totales o parciales las reformas, Ã©stas tambiÃ©n deberÃ¡n ser aprobadas por el CONSUCOOP y se sujetarÃ¡ a los mismos trÃ¡mites establecidos para la obtenciÃ³n de la Personalidad JurÃ­dica.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "190",
+      "resumen": "AdecuaciÃ³n de estatuto",
+      "texto": "ArtÃ­culo 190.- AdecuaciÃ³n de Estatuto. Los presentes Estatutos, fueron adecuados del mandato del decreto 146-2019 emitido por el Congreso Nacional y Acuerdo ejecutivo No. 015-2021 emitido por el Poder Ejecutivo en la LVII Asamblea General Extraordinaria, celebrada el dÃ­a 19 de Diciembre del aÃ±o dos mil veintiuno (2021), en la ciudad de Santa Rosa, Departamento de CopÃ¡n y entrarÃ¡ en vigencia al ser dictaminado y aprobado por el CONSUCOOP e inscritos en el Registro Nacional de Cooperativas.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    },
+    {
+      "num": "191",
+      "resumen": "Alternabilidad (transitorio)",
+      "texto": "ArtÃ­culo 191: Alternabilidad de los miembros de Junta Directiva y Junta de Vigilancia: con el propÃ³sito de dar cumplimiento a la alternabilidad en la elecciÃ³n de los miembros de las respectivas juntas, se estable el siguiente procedimiento por esta Ãºnica vez: 1. Para los miembros de Junta Directiva: SerÃ¡n electos en la Asamblea General Ordinaria del aÃ±o 2024: VocalÃ­a I y VocalÃ­a II por un perÃ­odo de un aÃ±o (2024-2025). 2. Para los miembros de Junta de Vigilancia: SerÃ¡n electos en la Asamblea General Ordinaria del aÃ±o 2024: la VocalÃ­a I y VocalÃ­a II por un periodo de un aÃ±o (2024-2025). Todos los cargos son reelegibles segÃºn la Ley de Cooperativas de Honduras y su Reglamento.",
+      "chapter_id": "cap10",
+      "comparativa": null
+    }
+  ],
+  "scenarios": [
+    {
+      "titulo": "Convocatoria a destiempo",
+      "cuerpo": "La Junta Directiva de la Cooperativa Ejemplo Limitada convoca a Asamblea General Ordinaria con doce (12) dÃ­as calendario de anticipaciÃ³n, enviando la convocatoria por correo electrÃ³nico a todos los afiliados/as habilitados. Un grupo de afiliados/as cuestiona la validez de la convocatoria.",
+      "pregunta": "Â¿Es vÃ¡lida la convocatoria? Analiza el plazo y la forma, decide si la Asamblea puede instalarse y justifica con el artÃ­culo del estatuto.",
+      "analisis": "AnÃ¡lisis. El Art. 15 exige convocar por escrito con por lo menos quince (15) dÃ­as calendario de anticipaciÃ³n. El medio electrÃ³nico validable sÃ­ estÃ¡ permitido (Art. 15-b), de modo que la forma es correcta, pero el plazo no se cumple: doce dÃ­as es inferior al mÃ­nimo legal.DecisiÃ³n. La convocatoria es defectuosa por incumplir el plazo. Una Asamblea instalada sobre esa base queda expuesta a nulidad de sus acuerdos conforme al Art. 35, que anula lo resuelto contraviniendo ley, reglamento y estatuto.Fundamento. Arts. 15 y 35 del estatuto."
+    },
+    {
+      "titulo": "El suplente que votÃ³",
+      "cuerpo": "En una sesiÃ³n de Junta Directiva de la Cooperativa Ejemplo Limitada asisten los cinco titulares y el suplente. Todos los titulares estÃ¡n presentes y hay quÃ³rum. Al momento de votar una resoluciÃ³n, el suplente emite voto junto a los titulares y la decisiÃ³n se aprueba contÃ¡ndolo.",
+      "pregunta": "Identifica la falla. Â¿PodÃ­a votar el suplente en esa sesiÃ³n? Fundamenta con el artÃ­culo exacto.",
+      "analisis": "Falla. El suplente votÃ³ cuando no le correspondÃ­a. El Art. 70 establece que el suplente participa en las reuniones con voz pero sin voto (literal b). Solo adquiere voto cuando se integra para completar el quÃ³rum de instalaciÃ³n o resoluciÃ³n (literales a y c), o cuando asume una vocalÃ­a por ausencia definitiva (literal d).DiagnÃ³stico. Como los cinco titulares estaban presentes y habÃ­a quÃ³rum, el suplente no estaba completando nada: su voto no debiÃ³ contarse. La resoluciÃ³n se apoya en un voto improcedente.Fundamento. Art. 70 del estatuto."
+    },
+    {
+      "titulo": "Tercer perÃ­odo en la Junta",
+      "cuerpo": "Una persona afiliada ha sido miembro de la Junta Directiva de la Cooperativa Ejemplo Limitada durante dos perÃ­odos consecutivos de tres aÃ±os cada uno. La Asamblea quiere reelegirla para un tercer perÃ­odo. En primera convocatoria, la votaciÃ³n a su favor alcanza la mayorÃ­a simple de los presentes.",
+      "pregunta": "Â¿Procede la reelecciÃ³n con esa votaciÃ³n? Elige y justifica con base legal.",
+      "analisis": "Opciones. (a) Procede con mayorÃ­a simple; (b) No procede porque ya cumpliÃ³ el mÃ¡ximo; (c) Procede pero requiere una mayorÃ­a calificada.DecisiÃ³n correcta: (c). El Art. 52 permite hasta tres (3) perÃ­odos consecutivos, de modo que un tercer perÃ­odo sÃ­ es posible. Pero para ese tercer perÃ­odo la votaciÃ³n debe alcanzar las dos terceras partes de la Asamblea, sea en primera o segunda convocatoria. La mayorÃ­a simple es insuficiente.Fundamento. Art. 52 del estatuto."
+    },
+    {
+      "titulo": "AportaciÃ³n que crece demasiado",
+      "cuerpo": "Un afiliado de la Cooperativa Ejemplo Limitada, con gran capacidad de ahorro, desea concentrar aportaciones hasta alcanzar el 38% del total de aportaciones suscritas por toda la membresÃ­a, argumentando que asÃ­ fortalece el patrimonio.",
+      "pregunta": "Â¿Puede la cooperativa aceptarlo? Analiza el lÃ­mite y justifica con el artÃ­culo aplicable.",
+      "analisis": "AnÃ¡lisis. El Art. 109 fija un tope: ningÃºn afiliado/a puede tener una aportaciÃ³n mayor al treinta por ciento (30%) del total de aportaciones suscritas por toda la membresÃ­a. El 38% supera ese lÃ­mite.DecisiÃ³n. No procede. Aunque la intenciÃ³n sea fortalecer el patrimonio, el tope protege el control democrÃ¡tico y evita la concentraciÃ³n: un afiliado, un voto, sin importar el monto aportado (Art. 25). La aportaciÃ³n debe ajustarse al 30% mÃ¡ximo.Fundamento. Arts. 109 y 25 del estatuto."
+    },
+    {
+      "titulo": "ExpulsiÃ³n sin defensa",
+      "cuerpo": "La Asamblea General de la Cooperativa Ejemplo Limitada conoce un caso de presunta falta grave de un afiliado que no pudo asistir a la sesiÃ³n. Sin mÃ¡s trÃ¡mite, se somete a votaciÃ³n su expulsiÃ³n y se aprueba.",
+      "pregunta": "Identifica quÃ© garantÃ­a se omitiÃ³ y fundamenta con el artÃ­culo correspondiente.",
+      "analisis": "Falla. Se omitiÃ³ el derecho a la defensa. El Art. 165 exige que el afiliado/a pueda defenderse por sÃ­ mismo o por un defensor (que debe ser afiliado/a); y si no estÃ¡ presente, la Asamblea debe nombrarle un defensor de oficio. Solo despuÃ©s de recibir la prueba y escuchar los alegatos puede resolverse la suspensiÃ³n o exclusiÃ³n.DiagnÃ³stico. Votar la expulsiÃ³n sin defensa vicia el procedimiento. AdemÃ¡s, contra el acuerdo cabe apelaciÃ³n ante el CONSUCOOP (Art. 166).Fundamento. Arts. 165 y 166 del estatuto."
+    }
+  ],
+  "quizzes": [
+    {
+      "pregunta": "1. SegÃºn el estatuto, Â¿quiÃ©n es la autoridad suprema de la cooperativa?",
+      "opciones": [
+        {
+          "text": "La Junta Directiva",
+          "correct": false
+        },
+        {
+          "text": "La Asamblea General legalmente convocada y reunida",
+          "correct": true
+        },
+        {
+          "text": "La Gerencia General",
+          "correct": false
+        },
+        {
+          "text": "El CONSUCOOP",
+          "correct": false
+        }
+      ],
+      "feedback": "La Asamblea General legalmente convocada y reunida es la autoridad suprema y expresa la voluntad colectiva.Art. 11.- La Asamblea General legalmente convocada y reunida, es la autoridad suprema de la Cooperativa, y expresa la voluntad colectiva de la misma."
+    },
+    {
+      "pregunta": "2. Â¿Con cuÃ¡nta anticipaciÃ³n debe convocarse, por escrito, la Asamblea General?",
+      "opciones": [
+        {
+          "text": "Cinco (5) dÃ­as calendario",
+          "correct": false
+        },
+        {
+          "text": "Diez (10) dÃ­as calendario",
+          "correct": false
+        },
+        {
+          "text": "Por lo menos quince (15) dÃ­as calendario",
+          "correct": true
+        },
+        {
+          "text": "Treinta (30) dÃ­as hÃ¡biles",
+          "correct": false
+        }
+      ],
+      "feedback": "El estatuto exige convocar por escrito con por lo menos quince dÃ­as calendario de anticipaciÃ³n.Art. 15.- La Asamblea General debe ser convocada por escrito mediante acuerdo de la Junta Directiva, con la anticipaciÃ³n de por lo menos quince (15) dÃ­as calendario a la celebraciÃ³n de la misma."
+    },
+    {
+      "pregunta": "3. Sobre el directivo suplente en las sesiones de Junta Directiva, el estatuto establece que:",
+      "opciones": [
+        {
+          "text": "Vota siempre, igual que un titular",
+          "correct": false
+        },
+        {
+          "text": "Participa con voz pero sin voto, salvo cuando completa quÃ³rum o asume una vocalÃ­a",
+          "correct": true
+        },
+        {
+          "text": "No puede asistir a las sesiones",
+          "correct": false
+        },
+        {
+          "text": "Preside la sesiÃ³n en ausencia del presidente",
+          "correct": false
+        }
+      ],
+      "feedback": "El suplente participa con voz pero sin voto; adquiere voto al completar quÃ³rum o al asumir una vocalÃ­a por ausencia definitiva.Art. 70.- El directivo suplente... b) Participar en las reuniones con voz, pero sin voto; c) PodrÃ¡ sustituir la Ãºltima posiciÃ³n... cuando no exista quÃ³rum de instalaciÃ³n y resoluciÃ³n."
+    },
+    {
+      "pregunta": "4. Â¿CuÃ¡l es el porcentaje mÃ­nimo de los excedentes destinado a la reserva legal?",
+      "opciones": [
+        {
+          "text": "Al menos el 3%",
+          "correct": false
+        },
+        {
+          "text": "Al menos el 10%",
+          "correct": true
+        },
+        {
+          "text": "Al menos el 25%",
+          "correct": false
+        },
+        {
+          "text": "Al menos el 50%",
+          "correct": false
+        }
+      ],
+      "feedback": "Por lo menos un 10% de los excedentes forma el fondo de reserva legal, acumulable y no repartible.Art. 123.- Los excedentes se distribuirÃ¡n... a) Por lo menos un 10% para formar un fondo de reserva legal acumulable anualmente, no repartible."
+    },
+    {
+      "pregunta": "5. Antes de que la Asamblea resuelva la suspensiÃ³n o exclusiÃ³n de un afiliado/a, el estatuto exige:",
+      "opciones": [
+        {
+          "text": "Que el afiliado pague una multa",
+          "correct": false
+        },
+        {
+          "text": "Garantizar el derecho a la defensa, con defensor de oficio si no estÃ¡ presente",
+          "correct": true
+        },
+        {
+          "text": "AutorizaciÃ³n previa del CONSUCOOP",
+          "correct": false
+        },
+        {
+          "text": "El voto unÃ¡nime de la Junta de Vigilancia",
+          "correct": false
+        }
+      ],
+      "feedback": "Debe garantizarse el derecho a la defensa; si la persona no estÃ¡ presente, se le nombra defensor de oficio (afiliado/a).Art. 165.- El Afiliado(a) tiene derecho a defenderse por sÃ­ mismo o su defensor... En caso de no estar presente, se le debe nombrar un defensor de oficio, quien debe ser Cooperativista."
+    },
+    {
+      "pregunta": "6. Para reelegir a un directivo a un tercer perÃ­odo consecutivo, la votaciÃ³n requerida es:",
+      "opciones": [
+        {
+          "text": "MayorÃ­a simple en primera convocatoria",
+          "correct": false
+        },
+        {
+          "text": "Las dos terceras partes de la Asamblea, en primera o segunda convocatoria",
+          "correct": true
+        },
+        {
+          "text": "No es posible un tercer perÃ­odo",
+          "correct": false
+        },
+        {
+          "text": "La mitad mÃ¡s uno de los presentes",
+          "correct": false
+        }
+      ],
+      "feedback": "El mÃ¡ximo es de tres perÃ­odos consecutivos; el tercero exige las dos terceras partes de la Asamblea.Art. 52.- NingÃºn cooperativista puede ser miembro de la Junta Directiva por mÃ¡s de tres (3) perÃ­odos consecutivos. En el caso de optar a un tercer periodo la votaciÃ³n debe realizarse por las dos terceras partes de la asamblea general."
+    }
+  ]
+}
+  </script>
+
+  <script>
+    (function() {
+      // Load data from embedded script tag
+      const DATA = JSON.parse(document.getElementById('estatuto-data').textContent);
+      
+      // Keep track of current chapter filter
+      let currentChapterId = 'cap00';
+      let searchActive = false;
+
+      // DOM Elements
+      const tabs = document.querySelectorAll('.tab');
+      const panels = document.querySelectorAll('.panel');
+      const chapterContainer = document.getElementById('chapter-list-container');
+      const articlesContainer = document.getElementById('articles-container');
+      const searchInput = document.getElementById('search-input');
+      const resultMeta = document.getElementById('result-meta-text');
+      const scenariosContainer = document.getElementById('scenarios-container');
+      const quizzesContainer = document.getElementById('quizzes-container');
+      const refSearchInput = document.getElementById('ref-search-input');
+      const refGridContainer = document.getElementById('ref-grid-container');
+
+      // 1. TABS MANAGEMENT
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+
+          tab.classList.add('active');
+          const targetPanel = document.getElementById(`panel-${tab.dataset.panel}`);
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // Helper function to navigate to explorer and open a specific article
+      window.viewArticle = function(artNum) {
+        // Find article
+        const art = DATA.articles.find(a => a.num === artNum);
+        if (!art) return;
+
+        // Reset search
+        searchInput.value = '';
+        searchActive = false;
+
+        // Set chapter active
+        currentChapterId = art.chapter_id;
+        renderChapters();
+
+        // Switch to explorer tab
+        const explorerTab = document.querySelector('.tab[data-panel="explorer"]');
+        if (explorerTab) explorerTab.click();
+
+        // Render articles
+        renderArticles();
+
+        // Expand card and scroll to it
+        setTimeout(() => {
+          const card = document.querySelector(`.art-card[data-num="${artNum}"]`);
+          if (card) {
+            card.classList.add('open');
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 150);
+      };
+
+      // 2. RENDER CHAPTERS (Sidebar)
+      function renderChapters() {
+        chapterContainer.innerHTML = '';
+        DATA.chapters.forEach(ch => {
+          const btn = document.createElement('button');
+          btn.className = `chapter-btn ${ch.id === currentChapterId && !searchActive ? 'active' : ''}`;
+          btn.type = 'button';
+          btn.innerHTML = ch.title;
+          btn.addEventListener('click', () => {
+            searchActive = false;
+            currentChapterId = ch.id;
+            searchInput.value = '';
+            renderChapters();
+            renderArticles();
+          });
+          chapterContainer.appendChild(btn);
+        });
+      }
+
+      // Helper: Highlight text matching a regex query
+      function highlightText(text, query) {
+        if (!query) return text;
+        // escape regex special characters
+        const escaped = query.replace(/[-\/\^$*+?.()|[\]{}]/g, '\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+      }
+
+      // 3. RENDER ARTICLES
+      function renderArticles() {
+        articlesContainer.innerHTML = '';
+        const query = searchInput.value.trim().toLowerCase();
+        
+        let filteredArticles = [];
+        if (query) {
+          searchActive = true;
+          // Deactivate active chapter indicator in sidebar
+          document.querySelectorAll('.chapter-btn').forEach(btn => btn.classList.remove('active'));
+          
+          filteredArticles = DATA.articles.filter(art => {
+            const numMatch = art.num.toLowerCase().includes(query) || `art. ${art.num}`.toLowerCase().includes(query) || `articulo ${art.num}`.toLowerCase().includes(query) || `artículo ${art.num}`.toLowerCase().includes(query);
+            const titleMatch = art.resumen.toLowerCase().includes(query);
+            const textMatch = art.texto.toLowerCase().includes(query);
+            return numMatch || titleMatch || textMatch;
+          });
+          resultMeta.innerHTML = `Resultados de búsqueda: <b>${filteredArticles.length} artículos</b> encontrados`;
+        } else {
+          searchActive = false;
+          const activeCh = DATA.chapters.find(c => c.id === currentChapterId);
+          if (activeCh) {
+            filteredArticles = DATA.articles.filter(art => activeCh.arts.includes(art.num));
+            resultMeta.innerHTML = `Capítulo: <b>${activeCh.title}</b> — ${filteredArticles.length} artículos`;
+          }
+        }
+
+        if (filteredArticles.length === 0) {
+          articlesContainer.innerHTML = '<div style="padding: 30px; text-align: center; color: var(--gris-sec);">No se encontraron artículos que coincidan con la búsqueda.</div>';
+          return;
+        }
+
+        filteredArticles.forEach(art => {
+          const card = document.createElement('div');
+          card.className = 'art-card';
+          card.setAttribute('data-num', art.num);
+
+          const highlightQuery = query;
+          const displayTitle = highlightText(art.resumen, highlightQuery);
+          const displayNum = highlightText(`Art. ${art.num}`, highlightQuery);
+          const displayText = highlightText(art.texto, highlightQuery);
+
+          let calloutHtml = '';
+          if (art.comparativa) {
+            calloutHtml = `
+              <div class="comp-callout">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div>${art.comparativa}</div>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <button class="art-head" type="button" aria-expanded="false">
+              <span class="art-num-badge">${displayNum}</span>
+              <span class="art-title-text">${displayTitle}</span>
+              <svg class="art-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="art-body">
+              <h3 class="art-full-title">${art.resumen}</h3>
+              <p class="art-text-content">${displayText}</p>
+              ${calloutHtml}
+            </div>
+          `;
+
+          // Handle click to expand/collapse
+          const headBtn = card.querySelector('.art-head');
+          headBtn.addEventListener('click', () => {
+            const isOpen = card.classList.toggle('open');
+            headBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          });
+
+          articlesContainer.appendChild(card);
+        });
+      }
+
+      // Search input listener
+      searchInput.addEventListener('input', () => {
+        if (searchInput.value.trim() === '') {
+          searchActive = false;
+          renderChapters();
+        }
+        renderArticles();
+      });
+
+      // 4. RENDER SCENARIOS (Tab 2)
+      function renderScenarios() {
+        scenariosContainer.innerHTML = '';
+        DATA.scenarios.forEach((sc, idx) => {
+          const card = document.createElement('div');
+          card.className = 'scenario-card';
+          card.innerHTML = `
+            <div class="scen-eyebrow">Caso ${idx + 1}</div>
+            <h2 class="scen-title">${sc.titulo}</h2>
+            <div class="scen-cuerpo">${sc.cuerpo}</div>
+            <div class="scen-preg">${sc.pregunta}</div>
+            <button class="scen-btn" type="button">
+              <span>Ver análisis con base legal</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="scen-analisis">
+              ${sc.analisis}
+            </div>
+          `;
+
+          const btn = card.querySelector('.scen-btn');
+          const analysis = card.querySelector('.scen-analisis');
+          btn.addEventListener('click', () => {
+            const isVisible = analysis.classList.toggle('visible');
+            btn.querySelector('span').textContent = isVisible ? 'Ocultar análisis' : 'Ver análisis con base legal';
+            btn.querySelector('svg').style.transform = isVisible ? 'rotate(180deg)' : 'none';
+          });
+
+          scenariosContainer.appendChild(card);
+        });
+      }
+
+      // 5. RENDER QUIZZES (Tab 3)
+      function renderQuizzes() {
+        quizzesContainer.innerHTML = '';
+        DATA.quizzes.forEach((quiz, qIdx) => {
+          const card = document.createElement('div');
+          card.className = 'quiz-card';
+          card.setAttribute('data-quiz-idx', qIdx);
+
+          const optionsListHtml = quiz.opciones.map((op, opIdx) => {
+            return `<button class="quiz-option" data-correct="${op.correct ? '1' : '0'}" type="button">${op.text}</button>`;
+          }).join('');
+
+          card.innerHTML = `
+            <div class="quiz-pregunta">${quiz.pregunta}</div>
+            <div class="quiz-options">
+              ${optionsListHtml}
+            </div>
+            <div class="quiz-fb-box">
+              ${quiz.feedback}
+            </div>
+          `;
+
+          // Handle quiz option selection
+          const options = card.querySelectorAll('.quiz-option');
+          const fbBox = card.querySelector('.quiz-fb-box');
+
+          options.forEach(opt => {
+            opt.addEventListener('click', () => {
+              if (card.classList.contains('done')) return;
+              card.classList.add('done');
+
+              // Highlight correct option and clicked option
+              options.forEach(o => {
+                if (o.dataset.correct === '1') {
+                  o.classList.add('correct');
+                }
+              });
+
+              if (opt.dataset.correct !== '1') {
+                opt.classList.add('incorrect');
+              }
+
+              // Show feedback box
+              fbBox.classList.add('visible');
+            });
+          });
+
+          quizzesContainer.appendChild(card);
+        });
+      }
+
+      // 6. RENDER REFERENCES (Tab 4)
+      function renderReferences() {
+        refGridContainer.innerHTML = '';
+        const query = refSearchInput.value.trim().toLowerCase();
+
+        const filtered = DATA.articles.filter(art => {
+          return art.num.toLowerCase().includes(query) || art.resumen.toLowerCase().includes(query);
+        });
+
+        if (filtered.length === 0) {
+          refGridContainer.innerHTML = '<div style="grid-column: 1/-1; padding: 20px; text-align: center; color: var(--gris-sec);">No se encontraron referencias.</div>';
+          return;
+        }
+
+        filtered.forEach(art => {
+          const item = document.createElement('div');
+          item.className = 'ref-item';
+          item.innerHTML = `
+            <span class="ref-item-num">Art. ${art.num}</span>
+            <span class="ref-item-title">${art.resumen}</span>
+          `;
+          item.addEventListener('click', () => {
+            viewArticle(art.num);
+          });
+          refGridContainer.appendChild(item);
+        });
+      }
+
+      refSearchInput.addEventListener('input', renderReferences);
+
+      // Initialize everything
+      renderChapters();
+      renderArticles();
+      renderScenarios();
+      renderQuizzes();
+      renderReferences();
+    })();
+  </script>
+</body>
+</html>
