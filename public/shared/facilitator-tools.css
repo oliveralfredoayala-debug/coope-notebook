@@ -325,3 +325,180 @@ body.ft-resizing .ft-shell {
   }
 }
 
+/* ==========================================================================
+   MODO PRESENTACIÓN Y EDICIÓN PERSISTENTE (COMPARTIDO)
+   ========================================================================= */
+body.pres-activo {
+  overflow: hidden;
+}
+body.pres-activo .topbar,
+body.pres-activo .sidebar,
+body.pres-activo footer,
+body.pres-activo .nb-overlay {
+  display: none !important;
+}
+body.pres-activo .shell {
+  min-height: 100vh;
+}
+body.pres-activo .main {
+  width: 100vw;
+  height: 100vh;
+  max-width: none !important;
+  padding: 4rem 2rem 8rem 2rem !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  background: var(--gris-bg) !important;
+}
+body.pres-activo .panel {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  animation: fadeUp 0.25s ease both;
+}
+body.pres-activo .cap-titulo,
+body.pres-activo .capsula-titulo {
+  font-size: clamp(32px, 5vw, 46px) !important;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+body.pres-activo .cap-meta,
+body.pres-activo .capsula-meta {
+  font-size: clamp(14px, 2vw, 18px) !important;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+body.pres-activo p,
+body.pres-activo .sim-intro {
+  font-size: clamp(18px, 2.5vw, 24px) !important;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+body.pres-activo .insight-box,
+body.pres-activo .tip-box {
+  font-size: clamp(16px, 2.2vw, 22px) !important;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+}
+body.pres-activo .info-grid {
+  max-width: 900px;
+  margin: 2rem auto;
+  gap: 1.5rem;
+}
+body.pres-activo .info-card h3 {
+  font-size: clamp(16px, 2.2vw, 20px) !important;
+}
+body.pres-activo .info-card p {
+  font-size: clamp(14px, 1.8vw, 17px) !important;
+  text-align: left;
+  margin: 0;
+}
+
+/* Controles Flotantes del Modo Presentación */
+.pres-controls {
+  display: none;
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--gris-borde, #e4e4e0);
+  border-radius: 50px;
+  padding: 0.6rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  align-items: center;
+  gap: 1rem;
+}
+body.pres-activo .pres-controls {
+  display: flex;
+}
+.pres-btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-sec, #3a3a36);
+  background: none;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.pres-btn:hover {
+  background: var(--gris-bg, #f7f7f5);
+  color: var(--verde, #1c6b4a);
+}
+.pres-btn-primario {
+  background: var(--verde, #1c6b4a);
+  color: var(--blanco, #ffffff);
+  border-color: var(--verde, #1c6b4a);
+}
+.pres-btn-primario:hover {
+  background: var(--verde-sec, #2fa36b);
+  color: var(--blanco, #ffffff);
+}
+.pres-btn-alert {
+  color: var(--rojo, #b83232);
+}
+.pres-btn-alert:hover {
+  background: #fdecea;
+  color: var(--rojo, #b83232);
+}
+.pres-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: none;
+  color: var(--texto-ter, #6a6a64);
+}
+.pres-indicator {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-ter, #6a6a64);
+  user-select: none;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Estilo del botón de Presentar en la cabecera */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn-presentar {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--verde, #1c6b4a);
+  background: var(--verde-bg, #e8f4ef);
+  border: 1px solid var(--verde-borde, #b8dccc);
+  border-radius: var(--radio-sm, 6px);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.btn-presentar:hover {
+  background: #ddeee5;
+}
+
+/* Bordes de edición */
+.editando-elemento {
+  outline: 1px dashed var(--verde-sec, #2fa36b) !important;
+  background: rgba(47, 163, 107, 0.03);
+  border-radius: 4px;
+}
+
+

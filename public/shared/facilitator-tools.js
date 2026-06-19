@@ -169,6 +169,312 @@
     load(active);
   }
 
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', create);
-  else create();
+  // --- PRESENTATION MODE INTEGRATION (AUTOMATIC ON ALL LESSON PAGES) ---
+  function initLessonPresentation() {
+    var topbar = document.querySelector('.topbar');
+    var main = document.querySelector('.main');
+    var shell = document.querySelector('.shell');
+    
+    // Only apply if it's a lesson page containing a topbar, shell, and main content panel
+    if (!topbar || !main || !shell || !document.querySelector('.panel')) return;
+
+    // 1. Inject "Presentar" button in topbar if it doesn't exist
+    if (!topbar.querySelector('.btn-presentar')) {
+      var backLink = topbar.querySelector('.back');
+      var topbarActions = topbar.querySelector('.topbar-actions');
+      
+      if (!topbarActions) {
+        topbarActions = document.createElement('div');
+        topbarActions.className = 'topbar-actions';
+        if (backLink) {
+          backLink.parentNode.insertBefore(topbarActions, backLink);
+          topbarActions.appendChild(backLink);
+        } else {
+          topbar.appendChild(topbarActions);
+        }
+      }
+      
+      var btnPresentar = document.createElement('button');
+      btnPresentar.className = 'btn-presentar';
+      btnPresentar.type = 'button';
+      btnPresentar.title = 'Iniciar modo presentación';
+      btnPresentar.innerHTML = 
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' +
+        '<span>Presentar</span>';
+      
+      btnPresentar.addEventListener('click', entrarPresentacion);
+      topbarActions.insertBefore(btnPresentar, topbarActions.firstChild);
+    }
+
+    // 2. Inject "pres-controls" floating bar at the bottom
+    if (!document.getElementById('presControls')) {
+      var controls = document.createElement('div');
+      controls.className = 'pres-controls';
+      controls.id = 'presControls';
+      controls.innerHTML = 
+        '<button class="pres-btn" id="presBtnAnterior" type="button">&larr; Anterior</button>' +
+        '<span class="pres-indicator" id="presIndicador">1 de 3</span>' +
+        '<button class="pres-btn" id="presBtnSiguiente" type="button">Siguiente &rarr;</button>' +
+        '<button class="pres-btn" id="presBtnEditar" type="button">' +
+          '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
+          '<span>Editar</span>' +
+        '</button>' +
+        '<button class="pres-btn pres-btn-primario" id="presBtnGuardar" style="display:none;" type="button">Guardar</button>' +
+        '<button class="pres-btn pres-btn-alert" id="presBtnRestaurar" style="display:none;" type="button">Restaurar original</button>' +
+        '<button class="pres-btn pres-btn-primario" id="presBtnSalir" type="button">Salir (Esc)</button>';
+      
+      document.body.appendChild(controls);
+
+      // Event listeners for controls
+      controls.querySelector('#presBtnAnterior').addEventListener('click', presAnterior);
+      controls.querySelector('#presBtnSiguiente').addEventListener('click', presSiguiente);
+      controls.querySelector('#presBtnEditar').addEventListener('click', toggleEdicionPresentacion);
+      controls.querySelector('#presBtnGuardar').addEventListener('click', guardarEdicionPresentacion);
+      controls.querySelector('#presBtnRestaurar').addEventListener('click', restaurarOriginal);
+      controls.querySelector('#presBtnSalir').addEventListener('click', salirPresentacion);
+    }
+
+    // Wrap existing tab function to sync controls
+    if (typeof window.tab === 'function') {
+      var originalTab = window.tab;
+      window.tab = function(id, btn) {
+        originalTab(id, btn);
+        if (document.body.classList.contains('pres-activo')) {
+          actualizarControlesPresentacion();
+        }
+      };
+    }
+
+    // Load any edits saved in localStorage
+    cargarEdiciones();
+  }
+
+  // --- VARIABLES Y LÓGICA DE PRESENTACIÓN ---
+  var modoEdicion = false;
+  var PAGE_KEY = 'coopenotebook-edit-' + window.location.pathname;
+
+  function entrarPresentacion() {
+    document.body.classList.add('pres-activo');
+    window.addEventListener('keydown', manejarTecladoPresentacion);
+    actualizarControlesPresentacion();
+    verificarBotonRestaurar();
+  }
+
+  function salirPresentacion() {
+    if (modoEdicion) {
+      toggleEdicionPresentacion();
+    }
+    document.body.classList.remove('pres-activo');
+    window.removeEventListener('keydown', manejarTecladoPresentacion);
+  }
+
+  function manejarTecladoPresentacion(e) {
+    if (modoEdicion) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      presSiguiente();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      presAnterior();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      salirPresentacion();
+    }
+  }
+
+  function obtenerPanelesNav() {
+    return Array.prototype.slice.call(document.querySelectorAll('.nb-nav button'));
+  }
+
+  function actualizarControlesPresentacion() {
+    var btns = obtenerPanelesNav();
+    var activo = document.querySelector('.nb-nav button.activo') || btns[0];
+    var idx = btns.indexOf(activo);
+
+    var btnAnt = document.getElementById('presBtnAnterior');
+    var btnSig = document.getElementById('presBtnSiguiente');
+    var ind = document.getElementById('presIndicador');
+
+    if (btnAnt) btnAnt.disabled = (idx <= 0);
+    if (btnSig) btnSig.disabled = (idx >= btns.length - 1);
+    if (ind) ind.textContent = (idx + 1) + ' de ' + btns.length;
+  }
+
+  function presAnterior() {
+    var btns = obtenerPanelesNav();
+    var activo = document.querySelector('.nb-nav button.activo') || btns[0];
+    var idx = btns.indexOf(activo);
+    if (idx > 0) {
+      var target = btns[idx - 1];
+      triggerTab(target);
+    }
+  }
+
+  function presSiguiente() {
+    var btns = obtenerPanelesNav();
+    var activo = document.querySelector('.nb-nav button.activo') || btns[0];
+    var idx = btns.indexOf(activo);
+    if (idx < btns.length - 1) {
+      var target = btns[idx + 1];
+      triggerTab(target);
+    }
+  }
+
+  function triggerTab(btn) {
+    var onclickAttr = btn.getAttribute('onclick');
+    if (onclickAttr) {
+      var matches = onclickAttr.match(/tab\('([^']+)'/);
+      if (matches && typeof window.tab === 'function') {
+        window.tab(matches[1], btn);
+      }
+    }
+  }
+
+  function toggleEdicionPresentacion() {
+    modoEdicion = !modoEdicion;
+    var editableSelector = '.panel h1, .panel h2, .panel h3, .panel p, .panel .info-card h3, .panel .info-card p, .panel .insight-box, .panel .tip-box';
+    
+    document.querySelectorAll(editableSelector).forEach(function(el) {
+      el.contentEditable = modoEdicion;
+      el.classList.toggle('editando-elemento', modoEdicion);
+    });
+
+    var btnEdit = document.getElementById('presBtnEditar');
+    var btnGuardar = document.getElementById('presBtnGuardar');
+
+    if (modoEdicion) {
+      if (btnEdit) btnEdit.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> <span>Cancelar</span>';
+      if (btnGuardar) btnGuardar.style.display = 'inline-flex';
+    } else {
+      if (btnEdit) btnEdit.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span>Editar</span>';
+      if (btnGuardar) btnGuardar.style.display = 'none';
+      recargarPanelActual();
+    }
+  }
+
+  function recargarPanelActual() {
+    var activo = document.querySelector('.panel.activo');
+    if (!activo) return;
+    var savedHTML = localStorage.getItem(PAGE_KEY + '-' + activo.id);
+    if (savedHTML) {
+      activo.innerHTML = savedHTML;
+    }
+  }
+
+  function guardarEdicionPresentacion() {
+    var activo = document.querySelector('.panel.activo');
+    if (!activo) return;
+
+    toggleEdicionPresentacion();
+
+    var panelId = activo.id;
+    var filePath = window.location.pathname.replace(/^\//, '');
+
+    var originalKey = 'original-' + PAGE_KEY + '-' + panelId;
+    if (!localStorage.getItem(originalKey)) {
+      var clone = activo.cloneNode(true);
+      clone.querySelectorAll('.editando-elemento').forEach(function(el) {
+        el.classList.remove('editando-elemento');
+      });
+      localStorage.setItem(originalKey, clone.innerHTML);
+    }
+
+    localStorage.setItem(PAGE_KEY + '-' + panelId, activo.innerHTML);
+
+    fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filePath: filePath,
+        panelId: panelId,
+        content: activo.innerHTML
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.success) {
+        alert('¡Cambios guardados con éxito en tu archivo HTML local!');
+        verificarBotonRestaurar();
+      } else {
+        alert('Error del servidor al guardar: ' + data.error);
+      }
+    })
+    .catch(function() {
+      alert('No se pudo conectar con el servidor local para escribir el archivo. Asegúrate de iniciar CoopNotebook mediante el archivo .bat');
+    });
+  }
+
+  function verificarBotonRestaurar() {
+    var activo = document.querySelector('.panel.activo');
+    if (!activo) return;
+    var originalKey = 'original-' + PAGE_KEY + '-' + activo.id;
+    var btnRestaurar = document.getElementById('presBtnRestaurar');
+    
+    if (btnRestaurar) {
+      if (localStorage.getItem(originalKey)) {
+        btnRestaurar.style.display = 'inline-flex';
+      } else {
+        btnRestaurar.style.display = 'none';
+      }
+    }
+  }
+
+  function restaurarOriginal() {
+    var activo = document.querySelector('.panel.activo');
+    if (!activo) return;
+
+    var originalKey = 'original-' + PAGE_KEY + '-' + activo.id;
+    var originalHTML = localStorage.getItem(originalKey);
+
+    if (!originalHTML) return;
+
+    if (confirm('¿Estás seguro de que quieres restaurar este panel al diseño y textos originales de fábrica? Se sobrescribirá tu archivo HTML.')) {
+      var filePath = window.location.pathname.replace(/^\//, '');
+
+      fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filePath: filePath,
+          panelId: activo.id,
+          content: originalHTML
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.success) {
+          activo.innerHTML = originalHTML;
+          localStorage.removeItem(originalKey);
+          localStorage.removeItem(PAGE_KEY + '-' + activo.id);
+          alert('Panel restaurado al estado original.');
+          verificarBotonRestaurar();
+        } else {
+          alert('Error al restaurar: ' + data.error);
+        }
+      })
+      .catch(function() {
+        alert('Error al conectar con el servidor para restaurar.');
+      });
+    }
+  }
+
+  function cargarEdiciones() {
+    document.querySelectorAll('.panel').forEach(function(panel) {
+      var savedHTML = localStorage.getItem(PAGE_KEY + '-' + panel.id);
+      if (savedHTML) {
+        panel.innerHTML = savedHTML;
+      }
+    });
+  }
+
+  // Cargar eventos de inicialización al cargar el DOM
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      create();
+      initLessonPresentation();
+    });
+  } else {
+    create();
+    initLessonPresentation();
+  }
 })();
