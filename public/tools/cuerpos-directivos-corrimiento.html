@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Corrimiento de Cargos - CoopeNotebook</title>
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-sec: #2fa36b;
+      --verde-bg: #e8f4ef;
+      --amarillo: #f4c20d;
+      --blanco: #ffffff;
+      --gris-bg: #f7f7f5;
+      --gris-borde: #e4e4e0;
+      --texto: #1a1a18;
+      --texto-sec: #3a3a36;
+      --texto-ter: #6a6a64;
+      --radio: 10px;
+      --vacante: #c0392b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      line-height: 1.65;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand, .back {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand {
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .brand strong {
+      color: var(--verde);
+    }
+
+    .back {
+      font-size: 12px;
+      color: var(--texto-ter);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back:hover {
+      color: var(--verde);
+    }
+
+    .canvas {
+      width: min(100%, 920px);
+      margin: 0 auto;
+      padding: 3rem 1.25rem 5rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: .75rem;
+    }
+
+    .title {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 650;
+      line-height: 1.15;
+      margin-bottom: .75rem;
+    }
+
+    .intro {
+      max-width: 680px;
+      font-size: 15px;
+      color: var(--texto-sec);
+    }
+
+    .rule {
+      width: 2.75rem;
+      height: 3px;
+      background: var(--verde);
+      border-radius: 2px;
+      margin: .85rem 0 0;
+    }
+
+    /* ── DISEÑO DE LA HERRAMIENTA ── */
+    .tool-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .tool-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .column-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 1.25rem;
+    }
+
+    .diagrama-wrap {
+      background: var(--gris-bg);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.5rem;
+    }
+
+    .cargos-columna {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cargo-fila {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--gris-borde);
+      transition: all .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .cargo-fila.es-vacante {
+      border-color: var(--vacante);
+      background: rgba(192, 57, 43, 0.05);
+    }
+
+    .cargo-fila.recibe {
+      border-color: var(--verde-sec);
+      background: rgba(47, 163, 107, 0.08);
+    }
+
+    .cargo-fila.elegible {
+      cursor: pointer;
+    }
+
+    .cargo-fila.elegible:hover {
+      border-color: var(--verde);
+      background: rgba(28, 107, 74, 0.05);
+    }
+
+    .cargo-nombre {
+      font-size: 15px;
+      font-weight: 600;
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .cargo-ocupante {
+      font-size: 13px;
+      color: var(--texto-ter);
+      flex: 1;
+      transition: opacity .3s;
+    }
+
+    .cargo-figura {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff;
+      background: var(--verde-sec);
+      transition: all .45s;
+    }
+
+    .cargo-figura.vacia {
+      background: #fff;
+      border: 2px dashed var(--vacante);
+      color: var(--vacante);
+    }
+
+    .cargo-figura.suplencia {
+      background: var(--amarillo);
+      color: var(--texto);
+    }
+
+    .diag-paso-label {
+      font-size: 14px;
+      color: var(--texto-sec);
+      min-height: 44px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .diag-controles {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+      min-height: 38px;
+      transition: all .15s;
+      border: none;
+    }
+
+    .btn-verde {
+      background: var(--verde);
+      color: #fff;
+    }
+
+    .btn-verde:hover {
+      background: #155539;
+    }
+
+    .btn-borde {
+      background: #fff;
+      color: var(--verde);
+      border: 1px solid var(--verde);
+    }
+
+    .btn-borde:hover {
+      background: var(--gris-bg);
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: default;
+    }
+
+    .diag-nota {
+      font-size: 12px;
+      color: var(--texto-ter);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .callout {
+      background: var(--verde-bg);
+      border-left: 4px solid var(--verde);
+      padding: 1rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin-top: 1.5rem;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .callout strong {
+      color: var(--verde);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="/index.html"><strong>Coope</strong>Notebook</a>
+    <a class="back" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Herramientas
+    </a>
+  </header>
+
+  <main class="canvas">
+    <section class="page-header">
+      <p class="eyebrow">Simulador</p>
+      <h1 class="title">Corrimiento de cargos</h1>
+      <p class="intro">Simulador interactivo de prelación y sucesión en la Junta Directiva ante ausencias definitivas de sus miembros titulares.</p>
+      <div class="rule"></div>
+    </section>
+
+    <div class="tool-layout">
+      <!-- Columna Izquierda: Jerarquía Base -->
+      <div>
+        <h2 class="column-title">01 · Jerarquía de la Junta</h2>
+        <div class="diagrama-wrap">
+          <div class="cargos-columna" id="cadena-base"></div>
+          <div class="diag-nota">La Junta Directiva está ordenada como una cadena de prelación de arriba hacia abajo. La suplencia es el único punto de entrada nuevo, ingresando siempre por el extremo inferior.</div>
+        </div>
+        <div class="callout">
+          <strong>Regla General:</strong> En caso de ausencia definitiva (renuncia, fallecimiento o separación), la suplencia no reemplaza directamente la posición vacante. Se realiza un corrimiento jerárquico ascendente y el suplente asume la última vocalía.
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Simulador Interactivo -->
+      <div>
+        <h2 class="column-title">02 · Simulador de Sucesión</h2>
+        <div class="diagrama-wrap">
+          <div class="diag-paso-label" id="paso-label">Elegí la posición que queda vacante: tocá una fila de la columna.</div>
+          <div class="cargos-columna" id="cadena-sim"></div>
+          <div class="diag-controles">
+            <button class="btn btn-verde" id="btn-siguiente" disabled>Siguiente Paso</button>
+            <button class="btn btn-borde" id="btn-reiniciar">Reiniciar</button>
+          </div>
+          <div class="diag-nota">Simula cómo la vacante se propaga y cómo entra la suplencia por abajo para completar el quórum y el número legal de directores.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ── Datos de la cadena ──
+    const CADENA = [
+      {cargo:'Presidencia', n:'P'},
+      {cargo:'Vicepresidencia', n:'V'},
+      {cargo:'Secretaría', n:'S'},
+      {cargo:'Tesorería', n:'T'},
+      {cargo:'Vocalía', n:'1'},
+      {cargo:'Suplencia', n:'Su', suplencia:true}
+    ];
+
+    function pintarCadena(cont, estado, opts){
+      opts=opts||{};
+      cont.innerHTML='';
+      estado.forEach((e,i)=>{
+        const fila=document.createElement('div');
+        fila.className='cargo-fila'+(e.vacante?' es-vacante':'')+(e.recibe?' recibe':'')+(opts.elegible?' elegible':'');
+        const fig=document.createElement('div');
+        fig.className='cargo-figura'+(e.vacio?' vacia':'')+(CADENA[i].suplencia&&!e.vacio?' suplencia':'');
+        fig.textContent=e.vacio?'·':(e.ocupante||CADENA[i].n);
+        const nom=document.createElement('div'); nom.className='cargo-nombre'; nom.textContent=CADENA[i].cargo;
+        const ocu=document.createElement('div'); ocu.className='cargo-ocupante'; ocu.textContent=e.etiqueta||'';
+        fila.appendChild(fig); fila.appendChild(nom); fila.appendChild(ocu);
+        if(opts.onPick){ fila.addEventListener('click',()=>opts.onPick(i)); }
+        cont.appendChild(fila);
+      });
+    }
+
+    // Cadena base (estática)
+    const base=CADENA.map((c)=>({ocupante:c.n, etiqueta:c.suplencia?'entra por abajo':''}));
+    pintarCadena(document.getElementById('cadena-base'), base);
+
+    // ── Simulador manual ──
+    const contSim=document.getElementById('cadena-sim');
+    const pasoLabel=document.getElementById('paso-label');
+    const btnSig=document.getElementById('btn-siguiente');
+    let simEstado, vacanteOrig=null, pasoActual=0;
+
+    function estadoInicial(){
+      return CADENA.map((c)=>({ocupante:c.n, etiqueta:c.suplencia?'comodín':'', vacio:false}));
+    }
+
+    function reiniciarSim(){
+      simEstado=estadoInicial();
+      vacanteOrig=null; pasoActual=0;
+      btnSig.disabled=true;
+      pasoLabel.textContent='Elegí la posición que queda vacante: tocá una fila de la columna.';
+      pintarCadena(contSim, simEstado, {elegible:true, onPick:elegirVacante});
+    }
+
+    function elegirVacante(i){
+      if(CADENA[i].suplencia){
+        pasoLabel.textContent='La suplencia no genera corrimiento: si falta, simplemente queda libre esa posición. Elegí un cargo titular.';
+        return;
+      }
+      vacanteOrig=i; pasoActual=i;
+      simEstado=estadoInicial();
+      simEstado[i]={ocupante:'·', etiqueta:'ausencia definitiva', vacio:true, vacante:true};
+      pasoLabel.textContent='La '+CADENA[i].cargo+' queda vacante de forma definitiva. Pulsá "Siguiente Paso" para correr los cargos.';
+      btnSig.disabled=false;
+      pintarCadena(contSim, simEstado);
+    }
+
+    function siguientePaso(){
+      if(vacanteOrig===null) return;
+      const i=pasoActual;
+      if(i>=CADENA.length-1){ return; }
+      // la posición i recibe a quien estaba en i+1; la vacante baja a i+1
+      simEstado[i]={ocupante:CADENA[i+1].n, etiqueta:'sube desde '+CADENA[i+1].cargo, vacio:false, recibe:true};
+      simEstado[i+1]={ocupante:'·', etiqueta:(i+1===CADENA.length-1?'queda libre':'la ausencia se desplaza'), vacio:true, vacante:true};
+      pintarCadena(contSim, simEstado);
+      pasoActual++;
+      if(pasoActual>=CADENA.length-1){
+        pasoLabel.textContent='La suplencia ocupa la última vocalía. La vacante queda al final de la cadena: el corrimiento está completo.';
+        btnSig.disabled=true;
+      }else{
+        pasoLabel.textContent=CADENA[i].cargo+' es ocupada por quien venía de '+CADENA[i+1].cargo+'. Seguí avanzando.';
+      }
+    }
+
+    btnSig.addEventListener('click', siguientePaso);
+    document.getElementById('btn-reiniciar').addEventListener('click', reiniciarSim);
+    reiniciarSim();
+  </script>
+</body>
+</html>
