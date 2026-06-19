@@ -837,6 +837,217 @@
     .quiz-score-num { font-size: 48px; font-weight: 800; color: var(--verde); margin-bottom: 10px; }
     .quiz-score-title { font-size: 20px; font-weight: 700; color: var(--texto); margin-bottom: 6px; }
 
+    /* Linea de tiempo en portada */
+    .linea-tiempo {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 3rem 0;
+      padding: 0 0.5rem;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 24px;
+      left: 1.5rem;
+      right: 1.5rem;
+      height: 3px;
+      background: var(--gris-borde);
+      z-index: 1;
+    }
+    .timeline-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      width: 70px;
+    }
+    .timeline-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blanco);
+      border: 3px solid var(--gris-borde);
+      color: var(--texto-ter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.25s;
+    }
+    .timeline-step:hover .timeline-num {
+      border-color: var(--verde-sec);
+      color: var(--verde);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(47,163,107,0.15);
+    }
+    .timeline-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--texto-sec);
+      margin-top: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Técnicas de Feedback Coloridas */
+    .feedback-techniques {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .fb-card {
+      border-radius: var(--radio);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--sombra);
+      transition: transform 0.2s;
+    }
+    .fb-card:hover {
+      transform: translateY(-2px);
+    }
+    .fb-card-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blanco);
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .fb-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .fb-card p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .fb-card.encuadre {
+      background: #eef7fc;
+      border-left: 5px solid #3b71ca;
+    }
+    .fb-card.encuadre .fb-card-badge { background: #3b71ca; }
+    .fb-card.encuadre h4 { color: #2c529c; }
+    .fb-card.encuadre p { color: #3a4a66; }
+    
+    .fb-card.concordar {
+      background: #fffcf2;
+      border-left: 5px solid #d49f1a;
+    }
+    .fb-card.concordar .fb-card-badge { background: #d49f1a; }
+    .fb-card.concordar h4 { color: #8c6c04; }
+    .fb-card.concordar p { color: #5a4b1c; }
+    
+    .fb-card.razonamiento {
+      background: #fbf6fe;
+      border-left: 5px solid #a834d9;
+    }
+    .fb-card.razonamiento .fb-card-badge { background: #a834d9; }
+    .fb-card.razonamiento h4 { color: #6f1498; }
+    .fb-card.razonamiento p { color: #4e265f; }
+    
+    .fb-card.asesores {
+      background: #f1f7f4;
+      border-left: 5px solid #2fa36b;
+    }
+    .fb-card.asesores .fb-card-badge { background: #2fa36b; }
+    .fb-card.asesores h4 { color: #175e3c; }
+    .fb-card.asesores p { color: #2a4c3c; }
+
+    /* Personalidad y Dinámica */
+    .pers-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 2rem 0 1rem;
+    }
+    .pers-btn {
+      background: var(--blanco);
+      border: 2px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.15rem 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s ease;
+      box-shadow: var(--sombra);
+      font-family: inherit;
+    }
+    .pers-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .pers-btn.activo {
+      border-color: var(--verde);
+      background: var(--verde-bg);
+      box-shadow: var(--sombra-verde);
+    }
+    .pers-btn.analistas { border-bottom: 6px solid #8e44ad; }
+    .pers-btn.diplomaticos { border-bottom: 6px solid #27ae60; }
+    .pers-btn.centinelas { border-bottom: 6px solid #2980b9; }
+    .pers-btn.exploradores { border-bottom: 6px solid #f39c12; }
+    
+    .pers-btn-t { font-size: 15px; font-weight: 700; color: var(--texto); }
+    .pers-btn-s { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--texto-ter); margin-top: 4px; }
+
+    .pers-display {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio);
+      padding: 1.75rem;
+      box-shadow: var(--sombra);
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .pers-display-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--gris-borde);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .pers-display-title { font-size: 20px; font-weight: 800; color: var(--texto); }
+    .pers-display-cat { font-size: 11px; font-weight: 750; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; }
+    
+    .pers-display-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+    .pers-display-col h5 {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pers-display-col p { font-size: 14.5px; color: var(--texto-sec); line-height: 1.6; margin: 0; }
+    .pers-display-col ul { list-style: none; padding: 0; }
+    .pers-display-col li {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 14px;
+    }
+    .pers-display-col li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--verde);
+      font-weight: 700;
+    }
+
     /* MEDIA QUERIES */
     .nb-overlay { display: none; }
     
@@ -945,7 +1156,7 @@
           <span class="nb-nav-num">02</span>Fase 2: Diferencias
         </button>
         <button onclick="tab('fase3', this)">
-          <span class="nb-nav-num">03</span>Fase 3: Reglas
+          <span class="nb-nav-num">03</span>Fase 3: Reglas de Juego
         </button>
         <button onclick="tab('fase4', this)">
           <span class="nb-nav-num">04</span>Fase 4: Producción
@@ -953,11 +1164,11 @@
         <button onclick="tab('fase5', this)">
           <span class="nb-nav-num">05</span>Fase 5: Alto Rendimiento
         </button>
-        <button onclick="tab('fase6', this)">
-          <span class="nb-nav-num">06</span>Fase 6: Cierre
+        <button onclick="tab('personalidad', this)">
+          <span class="nb-nav-num">06</span>Personalidad en el Equipo
         </button>
-        <button onclick="tab('evaluacion', this)">
-          <span class="nb-nav-num">07</span>Autoevaluación
+        <button onclick="tab('fase6', this)">
+          <span class="nb-nav-num">07</span>Fase 6: Cierre y Renovación
         </button>
       </nav>
 
@@ -994,6 +1205,36 @@
           
           <div class="capsula-intro">
             Los equipos no nacen siendo extraordinarios; recorren un camino. Esta guía utiliza el <strong>Ciclo de Vida del Equipo</strong> como eje transversal. Cada cualidad, rol y metodología no se estudia de forma aislada, sino dentro de la fase donde el equipo realmente los necesita para avanzar.
+          </div>
+
+          <h2 class="seccion-h">El Ciclo de Vida del Equipo (Fases 1 a 6)</h2>
+          <p class="prosa" style="text-align: center; color: var(--texto-ter); font-size: 14px; margin-bottom: 0;">Haz clic en cualquier fase del esquema para saltar directamente a su teoría:</p>
+          <div class="linea-tiempo">
+            <div class="timeline-line"></div>
+            <div class="timeline-step" onclick="navigatePhase('fase1')">
+              <div class="timeline-num">1</div>
+              <div class="timeline-label">Nacimiento</div>
+            </div>
+            <div class="timeline-step" onclick="navigatePhase('fase2')">
+              <div class="timeline-num">2</div>
+              <div class="timeline-label">Diferencias</div>
+            </div>
+            <div class="timeline-step" onclick="navigatePhase('fase3')">
+              <div class="timeline-num">3</div>
+              <div class="timeline-label">Reglas</div>
+            </div>
+            <div class="timeline-step" onclick="navigatePhase('fase4')">
+              <div class="timeline-num">4</div>
+              <div class="timeline-label">Producción</div>
+            </div>
+            <div class="timeline-step" onclick="navigatePhase('fase5')">
+              <div class="timeline-num">5</div>
+              <div class="timeline-label">Sinergia</div>
+            </div>
+            <div class="timeline-step" onclick="navigatePhase('fase6')">
+              <div class="timeline-num">6</div>
+              <div class="timeline-label">Cierre</div>
+            </div>
           </div>
 
           <div class="cita-bloque">
@@ -1289,12 +1530,32 @@
 
           <h2 class="seccion-h">Técnicas de Feedback</h2>
           <p class="prosa">Para que la rendición de cuentas funcione, el feedback debe ser cotidiano e inteligente. De acuerdo con las fuentes de capacitación (Giraldo, 2019), se distinguen estas técnicas:</p>
-          <p class="prosa">
-            • <strong>Encuadre:</strong> Analizar los problemas en función de las inquietudes y metas mutuas antes de valorar la conducta.<br>
-            • <strong>Concordar y discordar:</strong> Resaltar los puntos comunes de acuerdo y confrontar respetuosamente las diferencias para evitar discusiones de ego.<br>
-            • <strong>Razonamiento:</strong> Aclarar los conceptos compartiendo las premisas y datos del equipo en lugar de imponer la decisión del facilitador.<br>
-            • <strong>Asesores técnicos:</strong> Referenciar literatura, guías o manuales con anticipación para argumentar con fundamentos objetivos.
-          </p>
+          
+          <div class="feedback-techniques">
+            <div class="fb-card encuadre">
+              <span class="fb-card-badge">Encuadre</span>
+              <h4>Encuadre de Inquietudes</h4>
+              <p>Analiza los problemas en función de las inquietudes, metas mutuas y aspiraciones de la persona presentes antes de valorar o juzgar la conducta individual.</p>
+            </div>
+            
+            <div class="fb-card concordar">
+              <span class="fb-card-badge">Concordar</span>
+              <h4>Concordar y Discordar</h4>
+              <p>Evidencia con honestidad los puntos de acuerdo y de confusión/desacuerdo, usándolos como ganchos de interés y de respeto mutuo sin luchas de ego.</p>
+            </div>
+            
+            <div class="fb-card razonamiento">
+              <span class="fb-card-badge">Razonamiento</span>
+              <h4>Razonamiento Compartido</h4>
+              <p>Aclara los conceptos clave impulsando el debate en el equipo sobre diferentes puntos de vista para tomar decisiones de forma fundamentada y no por imposición.</p>
+            </div>
+            
+            <div class="fb-card asesores">
+              <span class="fb-card-badge">Asesores</span>
+              <h4>Asesores Técnicos</h4>
+              <p>Referenciar bibliografía, estatutos o reglamentos con anticipación para que los miembros debatan con fundamentos objetivos y refuercen la información.</p>
+            </div>
+          </div>
         </section>
 
         <!-- =================== FASE 5 =================== -->
@@ -1366,6 +1627,58 @@
           </div>
         </section>
 
+        <!-- =================== PERSONALIDAD EN EL EQUIPO =================== -->
+        <section class="panel" id="panel-personalidad">
+          <h1 class="capsula-titulo">Personalidad y Dinámica de Equipo</h1>
+          <div class="capsula-meta">Diversidad Psicológica en el Alto Rendimiento</div>
+
+          <div class="capsula-intro">
+            Un equipo de alto rendimiento no está compuesto por clones. Requiere distintos tipos de personalidad que aporten formas diversas de pensar, decidir y resolver. Comprender estos rasgos de personalidad nos permite encajar las diferencias de forma constructiva, potenciando sus beneficios y mitigando fricciones naturales de la convivencia.
+          </div>
+
+          <p class="prosa">Haz clic en cada perfil psicológico de trabajo para explorar sus rasgos, beneficios, fricciones de convivencia y pautas de liderazgo (basado en los grupos de personalidad del test 16Personalities):</p>
+
+          <div class="pers-selector">
+            <button class="pers-btn analistas" onclick="showPersonality('analistas', this)">
+              <div class="pers-btn-t">Analistas</div>
+              <div class="pers-btn-s">Racionales y Lógicos</div>
+            </button>
+            <button class="pers-btn diplomaticos" onclick="showPersonality('diplomaticos', this)">
+              <div class="pers-btn-t">Diplomáticos</div>
+              <div class="pers-btn-s">Empáticos y Cohesionadores</div>
+            </button>
+            <button class="pers-btn centinelas" onclick="showPersonality('centinelas', this)">
+              <div class="pers-btn-t">Centinelas</div>
+              <div class="pers-btn-s">Ordenados y Procesales</div>
+            </button>
+            <button class="pers-btn exploradores" onclick="showPersonality('exploradores', this)">
+              <div class="pers-btn-t">Exploradores</div>
+              <div class="pers-btn-s">Acción y Soluciones Rápidas</div>
+            </button>
+          </div>
+
+          <div class="pers-display" id="persDisplay">
+            <div class="pers-display-header">
+              <div class="pers-display-title" id="persTitle">Selecciona una Personalidad</div>
+              <div class="pers-display-cat" id="persCat">Perfil de Trabajo</div>
+            </div>
+            <div class="pers-display-grid">
+              <div class="pers-display-col">
+                <h5>Rasgos Clave y Beneficios</h5>
+                <ul id="persTraits">
+                  <li>Selecciona una personalidad arriba para ver su información.</li>
+                </ul>
+              </div>
+              <div class="pers-display-col">
+                <h5>Fricciones y Liderazgo</h5>
+                <ul id="persFriction">
+                  <li>Conoce los posibles problemas de convivencia y cómo orientarlos desde el liderazgo.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- =================== FASE 6 =================== -->
         <section class="panel" id="panel-fase6">
           <h1 class="capsula-titulo">Fase 6: Cierre y Renovación (Adjourning)</h1>
@@ -1387,39 +1700,6 @@
           <div class="cita-bloque">
             <div class="q">"En la gestión cooperativa, cerrar un equipo con orden es tan crítico como abrirlo. Significa dejar memoria de lo aprendido, archivar actas de resultados y reconocer el aporte para que quienes asuman el próximo ciclo no comiencen de cero."</div>
             <div class="a">Criterio de Renovación Institucional</div>
-          </div>
-        </section>
-
-        <!-- =================== AUTOEVALUACIÓN =================== -->
-        <section class="panel" id="panel-evaluacion">
-          <h1 class="capsula-titulo">Verifica tu Lectura</h1>
-          <div class="capsula-meta">Autoevaluación de Conceptos Clave</div>
-
-          <div class="capsula-intro">
-            Responde las siguientes cinco preguntas de opción múltiple para comprobar tus conocimientos sobre el ciclo de vida y los modelos de alto rendimiento.
-          </div>
-
-          <div class="quiz-card">
-            <div class="quiz-progress">
-              <div class="quiz-progress-bar" id="quizProgressBar"></div>
-            </div>
-            
-            <div id="quizQuestionBox">
-              <div class="quiz-q" id="quizQText">Cargando pregunta...</div>
-              <div class="quiz-opts" id="quizOptsBox"></div>
-              <div class="quiz-feedback" id="quizFeedbackBox">Feedback</div>
-            </div>
-
-            <div class="quiz-score-view" id="quizScoreBox">
-              <div class="quiz-score-num" id="quizScoreNum">0 / 5</div>
-              <div class="quiz-score-title">¡Evaluación Completada!</div>
-              <p class="prosa" id="quizScoreMessage">Excelente lectura del módulo de Liderazgo en Equipo.</p>
-              <button class="btn-quiz" onclick="resetQuiz()" style="margin-top: 1.5rem;">Repetir prueba</button>
-            </div>
-
-            <div class="quiz-nav">
-              <button class="btn-quiz" id="quizNavBtn" onclick="nextQuizQuestion()" style="display: none;">Siguiente</button>
-            </div>
           </div>
         </section>
 
@@ -1460,9 +1740,12 @@
       document.querySelector('.main').scrollTop = 0;
       window.scrollTo({top:0});
 
-      // Si entra a la pestaña del quiz, reiniciamos el quiz para asegurar frescura
-      if (id === 'evaluacion') {
-        resetQuiz();
+      // Cargar primera personalidad por defecto si entra al panel de personalidad
+      if (id === 'personalidad') {
+        var firstBtn = document.querySelector('.pers-btn.analistas');
+        if (firstBtn) {
+          showPersonality('analistas', firstBtn);
+        }
       }
     }
 
@@ -1643,161 +1926,115 @@
       document.getElementById('treeDesc').innerHTML = treeData[leafKey];
     }
 
-    // ===== SISTEMA DE EVALUACIÓN (QUIZ INTERACTIVO) =====
-    var quizQuestions = [
-      {
-        q: '1. Según Katzenbach & Smith, ¿cuál es el rasgo que mejor distingue a un equipo de un grupo que solo trabaja de forma coordinada?',
-        opts: [
-          'Que todos los miembros posean exactamente las mismas destrezas',
-          'Que asuman responsabilidad mutua por el resultado colectivo',
-          'Que tengan un líder formal fuerte que centralice el mérito',
-          'Que sea un número grande de integrantes con funciones duplicadas'
-        ],
-        correct: 1,
-        feedback: 'La responsabilidad mutua es el verdadero cimiento diferencial: el equipo en pleno responde por el éxito o fracaso, no solo los individuos.'
-      },
-      {
-        q: '2. En las fases del desarrollo de Tuckman, alcanzar la etapa de "desempeño" (performing) indica que el equipo:',
-        opts: [
-          'Ya es automáticamente un equipo de alto rendimiento',
-          'Ha resuelto la mayoría de sus diferencias operativas y se enfoca en resolver la tarea',
-          'Está en fase de disolución y balance de memoria técnica',
-          'Sufre de temor sistémico al conflicto o de armonía artificial'
-        ],
-        correct: 1,
-        feedback: 'Desempeño implica operatividad y capacidad funcional para resolver las tareas del proyecto. El alto rendimiento es un paso evolutivo superior que agrega autonomía, sinergia extrema y viabilidad sostenida.'
-      },
-      {
-        q: '3. ¿Cuál es el orden lógico del ciclo de vida del equipo respecto a las primeras tres etapas?',
-        opts: [
-          'Diferencias → Reglas del Juego → Nacimiento',
-          'Nacimiento → Diferencias y Fricción → Reglas del Juego',
-          'Reglas del Juego → Nacimiento → Producción',
-          'Nacimiento → Producción → Cierre o Disolución'
-        ],
-        correct: 1,
-        feedback: 'El equipo primero nace (se definen metas y mandato), luego surgen las diferencias (fricción, conflicto de tarea) y finalmente se estructuran las reglas del juego (normas y cohesión).'
-      },
-      {
-        q: '4. ¿Cuál es la base de la pirámide de Patrick Lencioni, sin la cual es imposible resolver las disfunciones del equipo?',
-        opts: [
-          'La Confianza basada en la Vulnerabilidad',
-          'El Compromiso ciego con las decisiones del líder',
-          'El temor sistémico a la confrontación de ideas',
-          'La medición inflexible de plazos de entrega'
-        ],
-        correct: 0,
-        feedback: 'La Confianza en la vulnerabilidad es la base de la pirámide. Permite a los miembros aceptar errores de forma sincera y cimentar un debate de ideas productivo.'
-      },
-      {
-        q: '5. Cuando se afirma que un equipo de alto rendimiento es autodirigido, ¿cómo se redefine el liderazgo?',
-        opts: [
-          'El equipo carece por completo de líder formal o directrices',
-          'El liderazgo se distribuye, impulsando el líder formal la autonomía y motivación para evitar el estancamiento',
-          'El líder formal centraliza todas las decisiones estratégicas de la cooperativa',
-          'El equipo actúa sin mandato ni rendición de cuentas hacia la asamblea'
-        ],
-        correct: 1,
-        feedback: 'Autodirección no es anarquía. El liderazgo se distribuye según los roles de los miembros, mientras el facilitador o líder mantiene viva la dirección y motivación.'
+    // ===== NAVEGACIÓN DESDE TIMELINE DE PORTADA =====
+    function navigatePhase(phaseId) {
+      var navBtn = document.querySelector('.nb-nav button[onclick*="'+phaseId+'"]');
+      if (navBtn) {
+        tab(phaseId, navBtn);
       }
-    ];
-
-    var currentQIdx = 0;
-    var userScore = 0;
-    var answerSelected = false;
-
-    function resetQuiz() {
-      currentQIdx = 0;
-      userScore = 0;
-      answerSelected = false;
-      document.getElementById('quizScoreBox').style.display = 'none';
-      document.getElementById('quizQuestionBox').style.display = 'block';
-      document.getElementById('quizNavBtn').style.display = 'none';
-      loadQuizQuestion();
     }
 
-    function loadQuizQuestion() {
-      answerSelected = false;
-      document.getElementById('quizNavBtn').style.display = 'none';
-      var qBox = document.getElementById('quizFeedbackBox');
-      qBox.classList.remove('visible');
-      
-      var q = quizQuestions[currentQIdx];
-      document.getElementById('quizQText').textContent = q.q;
-      
-      // Barra de progreso
-      var progress = ((currentQIdx) / quizQuestions.length) * 100;
-      document.getElementById('quizProgressBar').style.width = progress + '%';
+    // ===== INTERACTIVIDAD: PERSONALIDAD EN EL EQUIPO =====
+    var personalityData = {
+      analistas: {
+        title: 'Los Analistas (Racionales y Lógicos)',
+        cat: 'Estrategas e Innovadores (NT)',
+        traits: [
+          '<strong>Rasgos clave:</strong> Pensamiento conceptual, analíticos, orientados a la verdad lógica y a resolver problemas de alta complejidad.',
+          '<strong>Beneficio al equipo:</strong> Aportan visión de largo plazo, análisis frío de riesgos financieros o de cartera y soluciones técnicas óptimas.',
+          '<strong>Mentalidad:</strong> Priorizan la objetividad de las ideas sobre los sentimientos de los integrantes.'
+        ],
+        friction: [
+          '<strong>Posible fricción:</strong> Pueden parecer fríos, impacientes con la comunicación emocional o reacios a seguir procesos burocráticos.',
+          '<strong>Riesgo:</strong> Generar desmotivación involuntaria al criticar con dureza ideas ajenas o aislarse si se sienten limitados.',
+          '<strong>Cómo liderarlos:</strong> Darles autonomía intelectual, argumentar las directrices con datos lógicos (evitar el "porque sí") y canalizar sus análisis hacia la solución de problemas complejos.'
+        ]
+      },
+      diplomaticos: {
+        title: 'Los Diplomáticos (Empáticos y Relacionales)',
+        cat: 'Cohesionadores y Voceros (NF)',
+        traits: [
+          '<strong>Rasgos clave:</strong> Altamente empáticos, orientados al bienestar humano, buscan armonía de relaciones y significado en el propósito común.',
+          '<strong>Beneficio al equipo:</strong> Actúan como el pegamento social, fomentan la colaboración, previenen tensiones de carácter y encarnan los valores cooperativos.',
+          '<strong>Mentalidad:</strong> El éxito del equipo no vale de nada si los miembros sufren o se dividen.'
+        ],
+        friction: [
+          '<strong>Posible fricción:</strong> Resistencia a confrontar problemas reales por temor a dañar la armonía o tomarse debates de tareas como ataques personales.',
+          '<strong>Riesgo:</strong> Caer en la armonía artificial de Lencioni, silenciando desacuerdos válidos.',
+          '<strong>Cómo liderarlos:</strong> Crear un espacio psicológicamente seguro para debatir, valorar explícitamente su aporte al clima relacional y animarlos a participar en el desacuerdo constructivo.'
+        ]
+      },
+      centinelas: {
+        title: 'Los Centinelas (Estructurados y Procesales)',
+        cat: 'Organizadores y Administradores (SJ)',
+        traits: [
+          '<strong>Rasgos clave:</strong> Prácticos, ordenados, respetuosos de las directrices y del deber ser, orientados a los detalles y al cumplimiento.',
+          '<strong>Beneficio al equipo:</strong> Garantizan el cumplimiento de plazos, cuidan los aspectos legales del comité, ordenan la logística y controlan presupuestos.',
+          '<strong>Mentalidad:</strong> El respeto a las normas y el orden son las bases del rendimiento cooperativo.'
+        ],
+        friction: [
+          '<strong>Posible fricción:</strong> Resistencia extrema al cambio, rigidez operativa ante situaciones nuevas ("siempre se ha hecho así") y malestar ante la falta de instrucciones claras.',
+          '<strong>Riesgo:</strong> Bloquear la innovación del equipo por apego excesivo al procedimiento.',
+          '<strong>Cómo liderarlos:</strong> Darles directrices estructuradas, organizar expectativas claras, implementar cambios de manera pausada y apoyarse en ellos para sistematizar tareas y dar seguimiento.'
+        ]
+      },
+      exploradores: {
+        title: 'Los Exploradores (Flexibles y Prácticos)',
+        cat: 'Solucionadores de Crisis (SP)',
+        traits: [
+          '<strong>Rasgos clave:</strong> Dinámicos, adaptables, ingeniosos y orientados a la acción inmediata. Resuelven rápido ante imprevistos.',
+          '<strong>Beneficio al equipo:</strong> Destraban la parálisis por análisis, aportan frescura e inventiva bajo presión y responden ágilmente a urgencias de los socios.',
+          '<strong>Mentalidad:</strong> Menos teoría y más acción; el movimiento demuestra la efectividad.'
+        ],
+        friction: [
+          '<strong>Posible fricción:</strong> Dificultad para concentrarse en tareas administrativas monótonas o de largo plazo; pueden dejar proyectos sin finalizar.',
+          '<strong>Riesgo:</strong> Desatender la planificación estratégica o los controles de calidad en favor de la inmediatez.',
+          '<strong>Cómo liderarlos:</strong> Asignarles retos operativos cambiantes, evitar encasillarlos en rutinas monótonas y emparejarlos con perfiles ordenados para asegurar el cierre de tareas.'
+        ]
+      }
+    };
 
-      var optsBox = document.getElementById('quizOptsBox');
-      optsBox.innerHTML = '';
+    function showPersonality(key, btn) {
+      document.querySelectorAll('.pers-btn').forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+
+      var data = personalityData[key];
+      var display = document.getElementById('persDisplay');
+      display.style.display = 'block';
+
+      document.getElementById('persTitle').textContent = data.title;
+      document.getElementById('persCat').textContent = data.cat;
       
-      q.opts.forEach(function(optText, idx) {
-        var btn = document.createElement('button');
-        btn.className = 'quiz-opt';
-        btn.textContent = optText;
-        btn.onclick = function() { selectAnswer(idx, btn); };
-        optsBox.appendChild(btn);
+      var catClass = 'pers-display-cat ' + key;
+      document.getElementById('persCat').className = catClass;
+      
+      // Estilizar la categoría
+      var colorMap = {
+        analistas: { bg: '#f1f0ff', color: '#8e44ad' },
+        diplomaticos: { bg: '#e8f8f0', color: '#27ae60' },
+        centinelas: { bg: '#eef6fc', color: '#2980b9' },
+        exploradores: { bg: '#fff6e5', color: '#d35400' }
+      };
+      document.getElementById('persCat').style.backgroundColor = colorMap[key].bg;
+      document.getElementById('persCat').style.color = colorMap[key].color;
+
+      var traitsList = document.getElementById('persTraits');
+      traitsList.innerHTML = '';
+      data.traits.forEach(function(item) {
+        var li = document.createElement('li');
+        li.innerHTML = item;
+        traitsList.appendChild(li);
       });
-    }
 
-    function selectAnswer(optIdx, btnElement) {
-      if (answerSelected) return;
-      answerSelected = true;
-      
-      var q = quizQuestions[currentQIdx];
-      var optsBtns = document.querySelectorAll('.quiz-opt');
-      
-      // Bloquear todas las opciones
-      optsBtns.forEach(btn => btn.disabled = true);
-      
-      if (optIdx === q.correct) {
-        btnElement.classList.add('correcta');
-        userScore++;
-      } else {
-        btnElement.classList.add('incorrecta');
-        optsBtns[q.correct].classList.add('correcta');
-      }
-      
-      // Mostrar feedback
-      var fbBox = document.getElementById('quizFeedbackBox');
-      fbBox.innerHTML = '<strong>' + (optIdx === q.correct ? '¡Correcto! ' : 'Incorrecto. ') + '</strong>' + q.feedback;
-      fbBox.classList.add('visible');
-      
-      // Mostrar botón de navegación
-      var navBtn = document.getElementById('quizNavBtn');
-      if (currentQIdx === quizQuestions.length - 1) {
-        navBtn.textContent = 'Ver Resultados';
-      } else {
-        navBtn.textContent = 'Siguiente';
-      }
-      navBtn.style.display = 'block';
-    }
+      var frictionList = document.getElementById('persFriction');
+      frictionList.innerHTML = '';
+      data.friction.forEach(function(item) {
+        var li = document.createElement('li');
+        li.innerHTML = item;
+        frictionList.appendChild(li);
+      });
 
-    function nextQuizQuestion() {
-      if (currentQIdx === quizQuestions.length - 1) {
-        // Mostrar score
-        document.getElementById('quizQuestionBox').style.display = 'none';
-        document.getElementById('quizNavBtn').style.display = 'none';
-        
-        var scoreBox = document.getElementById('quizScoreBox');
-        scoreBox.style.display = 'block';
-        
-        document.getElementById('quizProgressBar').style.width = '100%';
-        document.getElementById('quizScoreNum').textContent = userScore + ' / ' + quizQuestions.length;
-        
-        var msg = document.getElementById('quizScoreMessage');
-        if (userScore === quizQuestions.length) {
-          msg.textContent = '¡Perfecto! Has comprendido a la perfección todos los conceptos del Ciclo de Vida del Liderazgo en Equipo.';
-        } else if (userScore >= 3) {
-          msg.textContent = '¡Buen trabajo! Has captado las ideas más importantes. Repasa los roles de Belbin y las disfunciones para afianzar tu lectura.';
-        } else {
-          msg.textContent = 'Te recomendamos repasar las fases de evolución del equipo antes de ponerlas en práctica en tu cooperativa.';
-        }
-      } else {
-        currentQIdx++;
-        loadQuizQuestion();
-      }
+      display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   </script>
   <script src="/shared/facilitator-tools.js"></script>
