@@ -149,7 +149,7 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
   </button>
   <div class="brand"><strong>Coope</strong>Notebook</div>
   <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
-    <button class="btn-presentar" id="btnPresentarTopbar" title="Iniciar modo presentación" style="display: none; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); cursor: pointer; transition: background 0.15s;">
+    <button class="btn-presentar" id="btnPresentarTopbar" title="Iniciar modo presentación" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); cursor: pointer; transition: background 0.15s;">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       <span>Presentar</span>
     </button>
@@ -308,8 +308,6 @@ function mostrarPortada() {
   document.querySelectorAll('.nb-nav a').forEach(x => {
     x.classList.toggle('activo', x.getAttribute('href') === '#vistaPortada');
   });
-  const topbarPresBtn = document.getElementById('btnPresentarTopbar');
-  if (topbarPresBtn) topbarPresBtn.style.display = 'none';
 }
 
 function mostrarTrabajo() {
@@ -322,14 +320,10 @@ function mostrarQR() {
   vistaPortada.style.display = 'none';
   vistaTrabajo.style.display = 'none';
   document.getElementById('vistaQR').style.display = 'block';
-  const topbarPresBtn = document.getElementById('btnPresentarTopbar');
-  if (topbarPresBtn) topbarPresBtn.style.display = casoSel === -1 ? 'none' : 'flex';
 }
 
 function abrirCaso(i) {
   casoSel = i;
-  const topbarPresBtn = document.getElementById('btnPresentarTopbar');
-  if (topbarPresBtn) topbarPresBtn.style.display = 'flex';
   document.getElementById('casoActivoLabel').textContent = 'Caso ' + (i+1) + ' de ' + CASOS.length;
   document.getElementById('casoActivoTitulo').textContent = CASOS[i].t;
   document.getElementById('casoActivoTexto').textContent = CASOS[i].d;
@@ -659,8 +653,39 @@ let presActiveIndex = 0;
 
 function entrarPresentacion() {
   if (casoSel < 0) {
-    alert("Por favor, selecciona un caso asignado en la página de Inicio primero.");
-    return;
+    casoSel = 0; // Default to Case 1
+    document.getElementById('casoActivoLabel').textContent = 'Caso 1 de ' + CASOS.length;
+    document.getElementById('casoActivoTitulo').textContent = CASOS[0].t;
+    document.getElementById('casoActivoTexto').textContent = CASOS[0].d;
+    document.getElementById('casoActivoPregunta').textContent = CASOS[0].p;
+    
+    mostrarTrabajo();
+    
+    document.querySelectorAll('.lineas').forEach(cont => cont.innerHTML = '');
+    
+    const saved = localStorage.getItem('perfil-lider-caso-0');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        ['saber', 'hacer', 'ser', 'concl'].forEach(capa => {
+          const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+          if (data[capa] && Array.isArray(data[capa])) {
+            data[capa].forEach(val => {
+              cont.appendChild(crearLinea(val));
+            });
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      ['saber', 'hacer', 'ser'].forEach(capa => {
+        const cont = document.querySelector('.lineas[data-capa="' + capa + '"]');
+        cont.appendChild(crearLinea(''));
+      });
+    }
+    
+    refrescarTodo();
   }
   
   presSlides = [];
@@ -795,12 +820,23 @@ function manejarTecladoPresentacionLocal(e) {
   }
 }
 
-// Bind events
-document.getElementById('btnPresentar').addEventListener('click', entrarPresentacion);
-document.getElementById('btnPresentarTopbar').addEventListener('click', entrarPresentacion);
-document.getElementById('presCloseBtn').addEventListener('click', cerrarPresentacion);
-document.getElementById('presPrevBtn').addEventListener('click', presPrev);
-document.getElementById('presNextBtn').addEventListener('click', presNext);
+// Bind events safely after page loads
+window.addEventListener('load', function() {
+  const btnPres = document.getElementById('btnPresentar');
+  if (btnPres) btnPres.addEventListener('click', entrarPresentacion);
+  
+  const btnPresTopbar = document.getElementById('btnPresentarTopbar');
+  if (btnPresTopbar) btnPresTopbar.addEventListener('click', entrarPresentacion);
+  
+  const closeBtn = document.getElementById('presCloseBtn');
+  if (closeBtn) closeBtn.addEventListener('click', cerrarPresentacion);
+  
+  const prevBtn = document.getElementById('presPrevBtn');
+  if (prevBtn) prevBtn.addEventListener('click', presPrev);
+  
+  const nextBtn = document.getElementById('presNextBtn');
+  if (nextBtn) nextBtn.addEventListener('click', presNext);
+});
 </script>
 
 <div id="vistaPresentacion" style="display: none; position: fixed; inset: 0; background: var(--blanco); z-index: 1000; overflow-y: auto; padding: 3rem 2rem; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
