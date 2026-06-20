@@ -163,6 +163,7 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
     <li><a href="#referenciaLegal"><span class="nb-nav-num">02</span>Referencia legal</a></li>
     <li><a href="#perfilCapas"><span class="nb-nav-num">03</span>Capas del perfil</a></li>
     <li><a href="#conclusionPerfil"><span class="nb-nav-num">04</span>Conclusión</a></li>
+    <li><a href="#vistaQR"><span class="nb-nav-num">05</span>Compartir QR</a></li>
   </ul>
   <div class="sidebar-foot">Un mismo enlace para Zoom, aula presencial o trabajo híbrido.</div>
 </nav>
@@ -242,6 +243,18 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
     </div>
     <p class="aviso">PDF y Word: documento completo. PowerPoint: una diapositiva por capa, y si una capa tiene más de 3 líneas se reparte en diapositivas adicionales. El PPT requiere conexión a internet.</p>
   </div>
+
+  <div id="vistaQR" style="display: none;">
+    <h1>Código QR para compartir</h1>
+    <p class="intro">Proyecten o escaneen este código QR para que todos los integrantes del equipo puedan unirse y colaborar en el trabajo práctico utilizando el mismo enlace.</p>
+
+    <div class="qr-wrap" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); background: var(--blanco); box-shadow: 0 4px 16px rgba(0,0,0,0.04); margin: 2rem auto 1.5rem; max-width: 460px; text-align: center;">
+      <img src="/assets/qr_aplicado_perfil_lider.png" alt="Código QR Cooperativismo Aplicado" style="width: 100%; max-width: 280px; height: auto; border: 1.5px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem; background: #fff; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+      <h3 style="color: var(--verde); font-size: 19px; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em;">Perfil de Liderazgo (Trabajo en Equipo)</h3>
+      <p style="font-size: 14px; color: var(--texto-sec); line-height: 1.55; margin-bottom: 1.25rem;">Escanéalo con la cámara de tu móvil para acceder al instante.</p>
+      <a href="https://coope-notebook.vercel.app/contents/cooperativismo-aplicado/Liderazgo/perfil-lider.html" target="_blank" style="font-size: 13.5px; color: var(--verde); text-decoration: none; font-weight: 600; word-break: break-all; border-bottom: 1px solid transparent; transition: border-color 0.15s;" onmouseover="this.style.borderColor='var(--verde)'" onmouseout="this.style.borderColor='transparent'">https://coope-notebook.vercel.app/contents/cooperativismo-aplicado/Liderazgo/perfil-lider.html</a>
+    </div>
+  </div>
 </div>
 </main>
 </div>
@@ -284,6 +297,7 @@ CASOS.forEach((c, i) => {
 function mostrarPortada() {
   vistaPortada.style.display = 'block';
   vistaTrabajo.style.display = 'none';
+  document.getElementById('vistaQR').style.display = 'none';
   document.querySelectorAll('.nb-nav a').forEach(x => {
     x.classList.toggle('activo', x.getAttribute('href') === '#vistaPortada');
   });
@@ -292,6 +306,13 @@ function mostrarPortada() {
 function mostrarTrabajo() {
   vistaPortada.style.display = 'none';
   vistaTrabajo.style.display = 'block';
+  document.getElementById('vistaQR').style.display = 'none';
+}
+
+function mostrarQR() {
+  vistaPortada.style.display = 'none';
+  vistaTrabajo.style.display = 'none';
+  document.getElementById('vistaQR').style.display = 'block';
 }
 
 function abrirCaso(i) {
@@ -348,6 +369,11 @@ document.querySelectorAll('.nb-nav a').forEach(a => {
 
     if (href === '#vistaPortada') {
       mostrarPortada();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (href === '#vistaQR') {
+      mostrarQR();
+      document.querySelectorAll('.nb-nav a').forEach(x => x.classList.remove('activo'));
+      a.classList.add('activo');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       if (casoSel === -1) {
