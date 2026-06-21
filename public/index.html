@@ -158,7 +158,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 
 /* Respuestas Mentimeter en cabina */
 .word-cloud-results{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;padding:10px;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;min-height:50px}
-.word-tag{background:var(--fuego-bg);color:var(--fuego);padding:3px 8px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(28, 107, 74, 0.15)}
+.word-tag{background:var(--fuego-bg);color:var(--fuego);padding:3px 8px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(35,74,53,0.15)}
 
 /* Hero Jester */
 .hero{display:grid;grid-template-columns:1fr 0.9fr;gap:0;background:#fff;border:1px solid var(--linea);border-radius:20px;overflow:hidden;margin-top:26px;box-shadow:var(--card-shadow)}
@@ -206,7 +206,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
     <p class="sub">Entrá a una fuente para revisar contenido, armá un curso con Jester, o desplegá un taller en vivo.</p>
 
     <!-- Banner -->
-    <img src="assets/banner.png" alt="CoopeNotebook" style="width:100%;border-radius:20px;margin:24px 0 28px;display:block;box-shadow:0 8px 40px rgba(28,107,74,0.07)">
+    <img src="assets/banner.png" alt="CoopeNotebook" style="width:100%;border-radius:20px;margin:24px 0 28px;display:block;box-shadow:0 8px 40px rgba(26,46,34,0.07)">
 
     <div class="search">
       <i class="ti ti-search"></i>
@@ -237,8 +237,8 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
       <div>
         <div class="card-h">Ficha técnica</div>
         <div class="card" id="mod-ficha" style="min-height:230px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px">
-          <div style="width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); margin-bottom: 12px; background: #ffffff">
-            <img src="assets/coopenotebook-cover.jpg" alt="Guardián" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 28%; transform: scale(2.2)">
+          <div style="width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); margin-bottom: 12px; background: var(--fuego-bg)">
+            <img src="assets/jester-full.png" alt="Jester" style="width: 100%; height: 100%; object-fit: cover; object-position: center 10%">
           </div>
           <p style="color:var(--hueso-3); font-size:13px">Selecciona un recurso de la izquierda para ver su ficha técnica y abrir el archivo real.</p>
         </div>
@@ -307,8 +307,8 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
         <div id="pila"></div>
         <div class="empty" id="empty">
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 10px 0">
-            <div style="width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); background: #ffffff">
-              <img src="assets/coopenotebook-cover.jpg" alt="Mascota CoopeNotebook" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 28%; transform: scale(2.2)">
+            <div style="width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); background: var(--fuego-bg)">
+              <img src="assets/jester-full.png" alt="Jester" style="width: 100%; height: 100%; object-fit: cover; object-position: center 10%">
             </div>
             <p style="font-weight: 600; color: var(--fuego); font-size: 14.5px">¡Tu libreta de taller está vacía!</p>
             <p style="font-size: 12.5px; color: var(--hueso-2); max-width: 260px; margin: 0 auto; line-height: 1.4">Jala piezas de la izquierda (Lecciones, Actividades, Recursos) para armar tu sesión de hoy.</p>
@@ -346,8 +346,8 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
         <!-- Consejo del Guardián Dinámico -->
         <div class="card" style="margin-top: 14px; background: var(--fuego-bg); border-color: var(--linea-2)">
           <div style="display: flex; gap: 12px; align-items: flex-start">
-            <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--fuego); flex-shrink: 0; background: #ffffff">
-              <img src="assets/coopenotebook-cover.jpg" alt="Guardián" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 28%; transform: scale(2.2)">
+            <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--fuego); flex-shrink: 0; background: var(--fuego-bg)">
+              <img src="assets/jester-full.png" alt="Jester" style="width: 100%; height: 100%; object-fit: cover; object-position: center 10%">
             </div>
             <div>
               <div style="font-size: 11px; font-weight: 750; text-transform: uppercase; color: var(--fuego); margin-bottom: 2px">Consejo del Guardián</div>
@@ -391,7 +391,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
       <div class="phone">
         <!-- Banner de Libreta Digital con Ilustración Oficial -->
         <div style="width: 100%; height: 85px; border-radius: 12px; overflow: hidden; margin-bottom: 12px; position: relative; border: 1px solid var(--linea)">
-          <img src="assets/coopenotebook-cover.jpg" alt="Cover" style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%">
+          <img src="assets/banner.png" alt="CoopeNotebook" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%">
           <div style="position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)); display: flex; align-items: flex-end; padding: 8px 12px">
             <span style="color: #ffffff; font-size: 11px; font-weight: 700; font-family: 'Space Grotesk'"><i class="ti ti-book-2"></i> Libreta Digital del Estudiante</span>
           </div>
@@ -536,8 +536,8 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
     
     // Mascot placeholder en módulo
     document.getElementById('mod-ficha').innerHTML=
-      '<div style="width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); margin-bottom: 12px; background: #ffffff">'+
-        '<img src="assets/coopenotebook-cover.jpg" alt="Guardián" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 28%; transform: scale(2.2)">'+
+      '<div style="width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--linea-2); margin-bottom: 12px; background: var(--fuego-bg)">'+
+        '<img src="assets/jester-full.png" alt="Jester" style="width: 100%; height: 100%; object-fit: cover; object-position: center 10%">'+
       '</div>'+
       '<p style="color:var(--hueso-3); font-size:13px">Selecciona un recurso de la izquierda para ver su ficha técnica y abrir el archivo real.</p>';
     
