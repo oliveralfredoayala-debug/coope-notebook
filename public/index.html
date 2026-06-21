@@ -45,10 +45,10 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 
 /* topbar glassmorphism */
 .topbar{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(244, 246, 244, 0.85);backdrop-filter:blur(10px);z-index:20}
-.logo{width:44px;height:44px;border-radius:12px;background:var(--fuego-bg);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:4px}
-.logo img{width:100%;height:100%;object-fit:contain}
+.logo{width:44px;height:44px;border-radius:12px;background:#ffffff;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
+.logo img{width:100%;height:100%;object-fit:cover;object-position:20% 25%;transform:scale(3.4)}
 .brand{font-size:19px;font-weight:700;font-family:'Space Grotesk';color:var(--fuego)}
-.brand small{display:block;font-family:'Inter';font-size:11px;font-weight:500;color:var(--hueso-3);letter-spacing:.04em;text-transform:uppercase}
+.brand small{display:block;font-family:'Inter';font-size:10px;font-weight:650;color:var(--hueso-3);letter-spacing:.04em;text-transform:uppercase;margin-top:1px}
 .crumbs{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--hueso-3)}
 .crumbs b{color:var(--fuego);font-weight:650}
 
@@ -170,9 +170,9 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 <div class="app">
   <div class="topbar">
     <div class="logo">
-      <img src="assets/coopnotebook-logo.png" alt="Logo">
+      <img src="assets/coopenotebook-cover.png" alt="Logo">
     </div>
-    <div class="brand">CoopeNotebook<small>consola de talleres</small></div>
+    <div class="brand">CoopeNotebook<small>Explorar · Comprender · Transformar</small></div>
     <div class="crumbs" id="crumbs"></div>
   </div>
 
@@ -182,16 +182,28 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
     <h1 class="h-big">¿Qué vas a hacer hoy?</h1>
     <p class="sub">Entrá a una fuente para revisar contenido, armá un curso con Jester, o desplegá un taller en vivo.</p>
 
-    <!-- Banner Principal con el Arte Oficial y Mascota -->
-    <div style="margin: 20px 0 24px; border-radius: 16px; overflow: hidden; position: relative; height: 260px; box-shadow: var(--card-shadow); border: 1px solid var(--linea)">
-      <img src="assets/coopenotebook-cover.png" alt="CoopeNotebook Cover" style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%;">
-      <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(17, 34, 23, 0.95) 45%, rgba(17, 34, 23, 0.1)); display: flex; flex-direction: column; justify-content: center; padding: 30px; color: #ffffff">
-        <h2 style="font-size: 28px; color: var(--amarillo); font-family: 'Space Grotesk'; margin-bottom: 6px">Consola Unificada</h2>
-        <p style="font-size: 14.5px; max-width: 340px; opacity: 0.9; line-height: 1.45">Explora lecciones del diplomado, diseña talleres para cooperativas y lanza dinámicas en tiempo real.</p>
-        <div style="display: flex; gap: 8px; margin-top: 16px">
-          <span style="background: rgba(255,255,255,0.15); font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600"><i class="ti ti-school"></i> Diplomado</span>
-          <span style="background: rgba(255,255,255,0.15); font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600"><i class="ti ti-device-gamepad-2"></i> Mentimeter</span>
+    <!-- Banner Principal en dos columnas con el Logotipo y la Mascota Real visible -->
+    <div style="margin: 20px 0 24px; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 1.15fr; height: 280px; box-shadow: var(--card-shadow); border: 1px solid var(--linea); background: #ffffff">
+      <!-- Lado Izquierdo: Nuevo Logotipo y Eslogan -->
+      <div style="padding: 24px 30px; display: flex; flex-direction: column; justify-content: center; background: #f3f6f3; border-right: 1px solid var(--linea)">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px">
+          <div style="width: 50px; height: 50px; border-radius: 10px; overflow: hidden; border: 1px solid var(--linea); display: flex; align-items: center; justify-content: center; background: #ffffff; flex-shrink: 0">
+            <img src="assets/coopenotebook-cover.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; transform: scale(3.5)">
+          </div>
+          <div style="font-family: 'Space Grotesk'; font-size: 24px; font-weight: 700; color: var(--fuego); line-height: 1.1">
+            CoopeNotebook
+          </div>
         </div>
+        <p style="font-size: 11px; font-weight: 750; text-transform: uppercase; color: var(--hueso-3); letter-spacing: 0.06em; margin-bottom: 12px">Explorar - Comprender - Transformar</p>
+        <p style="font-size: 13.5px; color: var(--hueso-2); line-height: 1.45; margin-bottom: 14px">Diseña talleres interactivos para cooperativas y lanza dinámicas en tiempo real.</p>
+        <div style="display: flex; gap: 6px">
+          <span style="background: var(--fuego-bg); color: var(--fuego); font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 750; border: 1px solid rgba(28,107,74,0.15)">DIPLOMADO</span>
+          <span style="background: var(--verde-bg); color: var(--verde); font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 750; border: 1px solid rgba(16,185,129,0.15)">MENTIMETER</span>
+        </div>
+      </div>
+      <!-- Lado Derecho: Mascota (Mascota visible parada con su báculo) -->
+      <div style="position: relative; overflow: hidden; background: #ffffff">
+        <img src="assets/coopenotebook-cover.png" alt="Mascota CoopeNotebook" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 40%; transform: scale(1.15)">
       </div>
     </div>
 
