@@ -37,16 +37,18 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--carbon);color:var
 .mono{font-family:'Space Grotesk',sans-serif}
 h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em}
 
-/* marca de agua: engranaje-reloj sutil */
-.bg-gear{position:fixed;right:-120px;top:-80px;width:420px;height:420px;opacity:.03;pointer-events:none;z-index:0}
-.bg-gear i{font-size:420px;color:var(--fuego)}
+/* hojas ambiente de fondo */
+.leaf-bg{position:fixed;pointer-events:none;opacity:.5;z-index:0}
+.leaf-bg.l1{top:120px;right:-30px;width:160px;transform:rotate(18deg)}
+.leaf-bg.l2{bottom:60px;left:-40px;width:190px;transform:rotate(-22deg);opacity:.35}
+.leaf-bg.l3{top:520px;left:40px;width:90px;transform:rotate(40deg);opacity:.3}
 
 .app{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px}
 
 /* topbar glassmorphism */
 .topbar{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(244, 246, 244, 0.85);backdrop-filter:blur(10px);z-index:20}
-.logo{width:44px;height:44px;border-radius:12px;background:#ffffff;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
-.logo img{width:100%;height:100%;object-fit:cover;object-position:20% 25%;transform:scale(3.4)}
+.logo{width:46px;height:46px;border-radius:50%;background:#ffffff;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
+.logo img{width:84%;height:84%;object-fit:contain}
 .brand{font-size:19px;font-weight:700;font-family:'Space Grotesk';color:var(--fuego)}
 .brand small{display:block;font-family:'Inter';font-size:10px;font-weight:650;color:var(--hueso-3);letter-spacing:.04em;text-transform:uppercase;margin-top:1px}
 .crumbs{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--hueso-3)}
@@ -79,13 +81,14 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 .search input::placeholder{color:var(--hueso-3)}
 
 .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.door{text-align:left;background:var(--carbon-2);border:1px solid var(--linea);border-radius:16px;padding:20px;cursor:pointer;transition:.18s;color:var(--hueso);box-shadow:var(--card-shadow)}
+.door{position:relative;text-align:left;background:var(--carbon-2);border:1px solid var(--linea);border-radius:16px;padding:20px;cursor:pointer;transition:.18s;color:var(--hueso);box-shadow:var(--card-shadow);overflow:hidden}
 .door:hover{border-color:var(--fuego-2);transform:translateY(-2px);box-shadow:var(--card-shadow-hover)}
 .door .di{font-size:26px;color:var(--fuego)}
 .door h3{font-size:16px;margin:12px 0 4px;color:var(--fuego)}
-.door p{font-size:13px;color:var(--hueso-2);margin-bottom:10px;line-height:1.4}
+.door p{font-size:13px;color:var(--hueso-2);margin-bottom:10px;line-height:1.4;position:relative;z-index:1}
 .door .tag{font-size:11px;color:var(--hueso-3);font-weight:600}
-.door.act{border-color:var(--fuego);background:linear-gradient(var(--carbon-2),var(--carbon-3))}
+.door .leaf-deco{position:absolute;right:-12px;bottom:-12px;width:80px;opacity:.18;pointer-events:none}
+.door.act{border:2px solid var(--fuego);background:var(--carbon-2)}
 .door.act .tag{color:var(--fuego)}
 
 /* paneles 2-col */
@@ -157,20 +160,40 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 .word-cloud-results{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;padding:10px;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;min-height:50px}
 .word-tag{background:var(--fuego-bg);color:var(--fuego);padding:3px 8px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(28, 107, 74, 0.15)}
 
+/* Hero Jester */
+.hero{display:grid;grid-template-columns:1fr 0.9fr;gap:0;background:#fff;border:1px solid var(--linea);border-radius:20px;overflow:hidden;margin-top:26px;box-shadow:var(--card-shadow)}
+.hero-left{padding:34px 36px;display:flex;flex-direction:column;justify-content:center}
+.hero-logo{width:62px;height:62px;border-radius:14px;background:var(--fuego-bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-logo img{width:84%;height:84%;object-fit:contain}
+.hero-title{font-size:30px;font-family:'Space Grotesk';font-weight:700;color:var(--fuego);margin-top:16px}
+.hero-tag{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-top:4px}
+.hero-desc{font-size:15px;color:var(--hueso-2);margin-top:14px;max-width:340px;line-height:1.5}
+.hero-pills{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.hero-pill{font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px}
+.hero-pill-line{border:1px solid var(--fuego);color:var(--fuego)}
+.hero-pill-fill{background:var(--fuego);color:#fff}
+.hero-right{position:relative;background:linear-gradient(160deg,#eef4ef,#e2ede5);display:flex;align-items:flex-end;justify-content:center;min-height:340px;overflow:hidden}
+.hero-right .halo{position:absolute;top:14%;width:74%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffffff 30%,rgba(255,255,255,0) 70%)}
+.hero-right .jester{position:relative;z-index:2;height:96%;max-height:400px;object-fit:contain;object-position:bottom;filter:drop-shadow(0 6px 20px rgba(0,0,0,0.08))}
+
 @media (max-width:820px){
   .cols{grid-template-columns:1fr}
   .h-big{font-size:27px}
   .crumbs{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-right{min-height:300px;order:-1}
 }
 </style>
 </head>
 <body>
-<div class="bg-gear"><i class="ti ti-clock-cog"></i></div>
+<img class="leaf-bg l1" src="assets/leaf-sage.png" alt="">
+<img class="leaf-bg l2" src="assets/leaf-sprig.png" alt="">
+<img class="leaf-bg l3" src="assets/leaf-cream.png" alt="">
 
 <div class="app">
   <div class="topbar">
     <div class="logo">
-      <img src="assets/coopenotebook-cover.jpg" alt="Logo">
+      <img src="assets/notebook.png" alt="CoopeNotebook">
     </div>
     <div class="brand">CoopeNotebook<small>Explorar · Comprender · Transformar</small></div>
     <div class="crumbs" id="crumbs"></div>
@@ -182,28 +205,21 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
     <h1 class="h-big">¿Qué vas a hacer hoy?</h1>
     <p class="sub">Entrá a una fuente para revisar contenido, armá un curso con Jester, o desplegá un taller en vivo.</p>
 
-    <!-- Banner Principal en dos columnas con el Logotipo y la Mascota Real visible -->
-    <div style="margin: 20px 0 24px; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 1.15fr; height: 280px; box-shadow: var(--card-shadow); border: 1px solid var(--linea); background: #ffffff">
-      <!-- Lado Izquierdo: Nuevo Logotipo y Eslogan -->
-      <div style="padding: 24px 30px; display: flex; flex-direction: column; justify-content: center; background: #f3f6f3; border-right: 1px solid var(--linea)">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px">
-          <div style="width: 50px; height: 50px; border-radius: 10px; overflow: hidden; border: 1px solid var(--linea); display: flex; align-items: center; justify-content: center; background: #ffffff; flex-shrink: 0">
-            <img src="assets/coopenotebook-cover.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; transform: scale(3.5)">
-          </div>
-          <div style="font-family: 'Space Grotesk'; font-size: 24px; font-weight: 700; color: var(--fuego); line-height: 1.1">
-            CoopeNotebook
-          </div>
-        </div>
-        <p style="font-size: 11px; font-weight: 750; text-transform: uppercase; color: var(--hueso-3); letter-spacing: 0.06em; margin-bottom: 12px">Explorar - Comprender - Transformar</p>
-        <p style="font-size: 13.5px; color: var(--hueso-2); line-height: 1.45; margin-bottom: 14px">Diseña talleres interactivos para cooperativas y lanza dinámicas en tiempo real.</p>
-        <div style="display: flex; gap: 6px">
-          <span style="background: var(--fuego-bg); color: var(--fuego); font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 750; border: 1px solid rgba(28,107,74,0.15)">DIPLOMADO</span>
-          <span style="background: var(--verde-bg); color: var(--verde); font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 750; border: 1px solid rgba(16,185,129,0.15)">MENTIMETER</span>
+    <!-- Hero: Jester + CoopeNotebook -->
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-logo"><img src="assets/logo-full.png" alt="CoopeNotebook"></div>
+        <div class="hero-title">CoopeNotebook</div>
+        <div class="hero-tag">Explorar · Comprender · Transformar</div>
+        <p class="hero-desc">Diseñá talleres interactivos para cooperativas y lanzá dinámicas en tiempo real.</p>
+        <div class="hero-pills">
+          <span class="hero-pill hero-pill-line">Diplomado</span>
+          <span class="hero-pill hero-pill-fill">Mentimeter</span>
         </div>
       </div>
-      <!-- Lado Derecho: Mascota (Mascota visible parada con su báculo) -->
-      <div style="position: relative; overflow: hidden; background: #ffffff">
-        <img src="assets/coopenotebook-cover.jpg" alt="Mascota CoopeNotebook" style="width: 100%; height: 100%; object-fit: cover; object-position: 68% 40%; transform: scale(1.15)">
+      <div class="hero-right">
+        <div class="halo"></div>
+        <img class="jester" src="assets/jester-full.png" alt="Jester, la guía de CoopeNotebook">
       </div>
     </div>
 
@@ -214,12 +230,12 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
     <div id="results"></div>
 
     <div class="doors" id="doors">
-      <button class="door" onclick="App.module('kb')"><i class="ti ti-books di"></i><h3>KB · Lecciones</h3><p>Cápsulas teóricas para proyectar y dictar el taller</p><span class="tag" id="tag-kb">14 contenidos</span></button>
-      <button class="door" onclick="App.module('p2l')"><i class="ti ti-device-gamepad-2 di"></i><h3>P2L · Actividades</h3><p>Talleres interactivos y trabajos prácticos en el aula</p><span class="tag" id="tag-p2l">9 actividades</span></button>
-      <button class="door" onclick="App.module('lnl')"><i class="ti ti-download di"></i><h3>LnL · Recursos</h3><p>Descargables, cuadernos y guías del alumno</p><span class="tag" id="tag-lnl">4 recursos</span></button>
-      <button class="door" onclick="App.module('gow')"><i class="ti ti-tools di"></i><h3>GoW · Caja de Herramientas</h3><p>Simuladores y calculadoras de apoyo permanente</p><span class="tag" id="tag-gow">8 herramientas</span></button>
-      <button class="door act" onclick="App.go('jester')"><i class="ti ti-clock-cog di"></i><h3>Jester · Armar Curso</h3><p>Seleccionar y ordenar las piezas del taller de hoy</p><span class="tag">el armador</span></button>
-      <button class="door act" onclick="App.go('deploy')"><i class="ti ti-rocket di"></i><h3>Deploy · Cabina en Vivo</h3><p>Desplegar taller, habilitar QR y dinámicas Mentimeter</p><span class="tag">la cabina en vivo</span></button>
+      <button class="door" onclick="App.module('kb')"><img class="leaf-deco" src="assets/leaf-dark.png" alt=""><i class="ti ti-books di"></i><h3>KB · Lecciones</h3><p>Cápsulas teóricas para proyectar y dictar el taller</p><span class="tag" id="tag-kb">14 contenidos</span></button>
+      <button class="door" onclick="App.module('p2l')"><img class="leaf-deco" src="assets/leaf-sage.png" alt=""><i class="ti ti-device-gamepad-2 di"></i><h3>P2L · Actividades</h3><p>Talleres interactivos y trabajos prácticos en el aula</p><span class="tag" id="tag-p2l">9 actividades</span></button>
+      <button class="door" onclick="App.module('lnl')"><img class="leaf-deco" src="assets/leaf-sprig.png" alt=""><i class="ti ti-download di"></i><h3>LnL · Recursos</h3><p>Descargables, cuadernos y guías del alumno</p><span class="tag" id="tag-lnl">4 recursos</span></button>
+      <button class="door" onclick="App.module('gow')"><img class="leaf-deco" src="assets/emblem-three-leaf.png" alt=""><i class="ti ti-tools di"></i><h3>GoW · Caja de Herramientas</h3><p>Simuladores y calculadoras de apoyo permanente</p><span class="tag" id="tag-gow">8 herramientas</span></button>
+      <button class="door act" onclick="App.go('jester')"><img class="leaf-deco" src="assets/flourish.png" alt=""><i class="ti ti-wand di"></i><h3>Jester · Armar Curso</h3><p>Seleccionar y ordenar las piezas del taller de hoy</p><span class="tag">el armador</span></button>
+      <button class="door act" onclick="App.go('deploy')"><img class="leaf-deco" src="assets/leaf-cream.png" alt=""><i class="ti ti-rocket di"></i><h3>Deploy · Cabina en Vivo</h3><p>Desplegar taller, habilitar QR y dinámicas Mentimeter</p><span class="tag">la cabina en vivo</span></button>
     </div>
   </section>
 
