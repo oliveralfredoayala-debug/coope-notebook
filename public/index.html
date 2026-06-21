@@ -1,248 +1,897 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script src="/shared/auth.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CoopeNotebook</title>
-  <style>
-    :root {
-      --verde: #1c6b4a;
-      --verde-sec: #2fa36b;
-      --verde-bg: #e8f4ef;
-      --amarillo: #f4c20d;
-      --blanco: #ffffff;
-      --gris-bg: #f7f7f5;
-      --gris-borde: #e4e4e0;
-      --texto: #1a1a18;
-      --texto-sec: #3a3a36;
-      --texto-ter: #6a6a64;
-      --radio: 10px;
-      --radio-sm: 6px;
-    }
+<script src="/shared/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoopeNotebook · Consola de Talleres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --carbon:#f4f6f4;        /* fondo base, gris-sage claro */
+  --carbon-2:#ffffff;      /* superficie, blanco puro */
+  --carbon-3:#e8ede9;      /* superficie elevada */
+  --linea:#d1dcd3;         /* bordes suaves */
+  --linea-2:#a9bba1;       /* bordes activos */
+  --hueso:#112217;         /* texto principal, bosque oscuro */
+  --hueso-2:#44574a;       /* texto secundario */
+  --hueso-3:#738879;       /* texto terciario */
+  --fuego:#1c6b4a;         /* acento principal verde */
+  --fuego-2:#145137;       /* acento principal hover */
+  --fuego-bg:#e8f4ef;      /* fondo claro verde */
+  --brasa:#0f3f2a;         /* acento verde profundo */
+  --verde:#10b981;         /* verde de éxito (abierto/vivo) */
+  --verde-bg:rgba(16,185,129,.12);
+  --rojo:#e06a4a;          /* acción/alerta rojo */
+  --rojo-bg:rgba(224,106,74,.12);
+  --amarillo:#f4c20d;      /* acento oro de CoopeNotebook */
+  --amarillo-bg:rgba(244,194,13,.12);
+  --card-shadow: 0 4px 20px rgba(28, 107, 74, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+  --card-shadow-hover: 0 12px 30px rgba(28, 107, 74, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--carbon);color:var(--hueso);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+.mono{font-family:'Space Grotesk',sans-serif}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+/* marca de agua: engranaje-reloj sutil */
+.bg-gear{position:fixed;right:-120px;top:-80px;width:420px;height:420px;opacity:.03;pointer-events:none;z-index:0}
+.bg-gear i{font-size:420px;color:var(--fuego)}
 
-    html, body { min-height: 100%; }
+.app{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px}
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--blanco);
-      color: var(--texto);
-      font-size: 16px;
-      line-height: 1.65;
-    }
+/* topbar glassmorphism */
+.topbar{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(244, 246, 244, 0.85);backdrop-filter:blur(10px);z-index:20}
+.logo{width:44px;height:44px;border-radius:12px;background:var(--fuego-bg);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:4px}
+.logo img{width:100%;height:100%;object-fit:contain}
+.brand{font-size:19px;font-weight:700;font-family:'Space Grotesk';color:var(--fuego)}
+.brand small{display:block;font-family:'Inter';font-size:11px;font-weight:500;color:var(--hueso-3);letter-spacing:.04em;text-transform:uppercase}
+.crumbs{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--hueso-3)}
+.crumbs b{color:var(--fuego);font-weight:650}
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-    }
+/* botones */
+.btn{font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;border-radius:10px;padding:11px 18px;min-height:44px;border:1px solid var(--linea-2);background:var(--carbon-2);color:var(--hueso);transition:.16s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:hover{border-color:var(--fuego-2);background:var(--carbon-3);color:var(--fuego-2)}
+.btn-fuego{background:var(--fuego);color:var(--carbon-2);border-color:var(--fuego);font-weight:600}
+.btn-fuego:hover{background:var(--fuego-2);border-color:var(--fuego-2);color:var(--carbon-2)}
+.btn-rojo{color:var(--rojo);border-color:rgba(224,106,74,.4)}
+.btn-rojo:hover{background:var(--rojo-bg);border-color:var(--rojo);color:var(--rojo)}
+.btn-sm{font-size:12.5px;padding:8px 12px;min-height:38px;border-radius:9px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 
-    .canvas {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 3rem 1.25rem;
-    }
+/* screens */
+.screen{display:none;padding:30px 0 90px;animation:fade .3s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-    .home {
-      width: 100%;
-      max-width: 860px;
-    }
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--hueso-3);margin-bottom:10px;font-family:'Space Grotesk'}
+.h-big{font-size:34px;line-height:1.1;margin-bottom:8px;color:var(--fuego)}
+.sub{color:var(--hueso-2);font-size:16px;max-width:640px}
 
-    .hero-logo {
-      display: block;
-      width: min(100%, 760px);
-      height: auto;
-      margin: 0 auto 3rem;
-    }
+/* LANDING */
+.search{position:relative;margin:26px 0 30px}
+.search i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--hueso-3);font-size:18px}
+.search input{width:100%;background:var(--carbon-2);border:1px solid var(--linea);border-radius:12px;color:var(--hueso);font-family:inherit;font-size:15px;padding:14px 16px 14px 46px;box-shadow:var(--card-shadow)}
+.search input:focus{outline:none;border-color:var(--fuego-2);box-shadow:var(--card-shadow-hover)}
+.search input::placeholder{color:var(--hueso-3)}
 
-    .sections-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.door{text-align:left;background:var(--carbon-2);border:1px solid var(--linea);border-radius:16px;padding:20px;cursor:pointer;transition:.18s;color:var(--hueso);box-shadow:var(--card-shadow)}
+.door:hover{border-color:var(--fuego-2);transform:translateY(-2px);box-shadow:var(--card-shadow-hover)}
+.door .di{font-size:26px;color:var(--fuego)}
+.door h3{font-size:16px;margin:12px 0 4px;color:var(--fuego)}
+.door p{font-size:13px;color:var(--hueso-2);margin-bottom:10px;line-height:1.4}
+.door .tag{font-size:11px;color:var(--hueso-3);font-weight:600}
+.door.act{border-color:var(--fuego);background:linear-gradient(var(--carbon-2),var(--carbon-3))}
+.door.act .tag{color:var(--fuego)}
 
-    .section-card {
-      display: flex;
-      min-height: 245px;
-      flex-direction: column;
-      color: inherit;
-      text-decoration: none;
-      background: var(--blanco);
-      border: 1px solid var(--gris-borde);
-      border-radius: var(--radio);
-      padding: 1.35rem 1.45rem;
-      transition: border-color .15s, background .15s, transform .15s;
-      position: relative;
-      overflow: hidden;
-    }
+/* paneles 2-col */
+.cols{display:grid;grid-template-columns:1fr 1.12fr;gap:18px}
+.card{background:var(--carbon-2);border:1px solid var(--linea);border-radius:16px;padding:18px 20px;box-shadow:var(--card-shadow)}
+.card-h{font-size:11px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--hueso-3);margin-bottom:12px;font-family:'Space Grotesk'}
 
-    .section-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 3px;
-      background: var(--verde);
-      opacity: 0;
-      transition: opacity .15s;
-    }
+.src{background:var(--carbon-2);border:1px solid var(--linea);border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--card-shadow)}
+.src-h{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14px;color:var(--fuego)}
+.src-h i{color:var(--fuego)}
+.pill{margin-left:auto;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.02em;text-transform:uppercase}
+.pill-doc{background:var(--carbon-3);color:var(--hueso-2)}
+.pill-sleep{background:var(--amarillo-bg);color:#8c6e00}
+.pill-free{background:var(--fuego-bg);color:var(--fuego)}
+.pill-live{background:var(--verde-bg);color:var(--verde)}
 
-    .section-card:hover {
-      border-color: #b8dccc;
-      background: #fbfdfc;
-      transform: translateY(-2px);
-    }
+/* form fields */
+.field label{display:block;font-size:11px;font-weight:700;color:var(--hueso-2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select{width:100%;background:var(--carbon);border:1px solid var(--linea);border-radius:9px;color:var(--hueso);font-family:inherit;font-size:14px;padding:10px 12px;min-height:42px;outline:none}
+.field input:focus,.field select:focus{outline:none;border-color:var(--fuego-2);background:var(--carbon-2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-    .section-card:hover::before { opacity: 1; }
-    .section-card:active { transform: translateY(0); }
+/* piezas en pila */
+.piece{background:var(--carbon);border:1px solid var(--linea);border-radius:11px;padding:11px 13px;margin-bottom:8px}
+.piece-top{display:flex;align-items:center;gap:9px}
+.piece-top .grip{color:var(--hueso-3);cursor:grab}
+.piece-top .pi{color:var(--hueso-2)}
+.piece-top .nm{flex:1;font-size:13.5px;font-weight:600}
+.piece-opt{font-size:11px;color:var(--hueso-2);margin-top:8px;display:flex;align-items:center;gap:7px}
+.x{background:none;border:none;color:var(--hueso-3);cursor:pointer;padding:3px 6px;font-size:14px;border-radius:6px}
+.x:hover{color:var(--rojo);background:var(--rojo-bg)}
 
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.35rem;
-    }
+.empty{font-size:13px;color:var(--hueso-3);text-align:center;padding:28px 0;border:1px dashed var(--linea-2);border-radius:12px;background:var(--carbon-2)}
+.note{font-size:12px;color:var(--hueso-3);margin-top:12px;display:flex;align-items:center;gap:7px}
+.note i{color:var(--fuego)}
 
-    .card-glyph {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--verde-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background .15s;
-    }
+.toast{font-size:13px;color:var(--fuego);background:var(--fuego-bg);border:1px solid var(--linea-2);border-radius:10px;padding:10px 14px;margin-top:12px;display:none}
 
-    .card-glyph svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--verde);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: stroke .15s;
-    }
+/* DEPLOY */
+.qrbox{background:var(--carbon-3);border-radius:14px;padding:20px;text-align:center;border:1px solid var(--linea)}
+.qr{width:130px;height:130px;margin:0 auto;background:#ffffff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--fuego);border:1.5px solid var(--linea)}
+.qr i{font-size:80px}
+.score{background:var(--carbon);border:1px solid var(--linea);border-radius:10px;padding:12px;margin-top:10px}
+.score-row{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0}
+.score-row .pts{font-weight:600;font-family:'Space Grotesk'}
+.win{color:var(--fuego)}
 
-    .section-card:hover .card-glyph { background: var(--verde); }
-    .section-card:hover .card-glyph svg { stroke: var(--blanco); }
+/* SALA mobile */
+.phone-wrap{background:var(--carbon-3);border-radius:18px;padding:28px;display:flex;justify-content:center;border:1px solid var(--linea)}
+.phone{width:330px;background:var(--carbon-2);border:2px solid var(--linea-2);border-radius:26px;padding:20px 16px;box-shadow: 0 10px 30px rgba(0,0,0,0.08)}
+.room-item{background:var(--carbon);border:1px solid var(--linea);border-radius:13px;padding:13px;margin-bottom:9px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:border-color .15s}
+.room-item:hover:not(.locked){border-color:var(--fuego)}
+.room-item .ri{font-size:21px;color:var(--fuego)}
+.room-item .meta{flex:1}
+.room-item .meta .t{font-size:14px;font-weight:600}
+.room-item .meta .s{font-size:11px;color:var(--hueso-2);margin-top:1px}
+.room-item.locked{opacity:.5;cursor:not-allowed}
+.room-item.locked .ri{color:var(--hueso-3)}
 
-    .card-title {
-      font-size: 24px;
-      font-weight: 600;
-      line-height: 1.2;
-      color: var(--texto);
-      margin-bottom: .75rem;
-    }
+.stage-label{font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--hueso-3);margin:14px 0 8px;font-family:'Space Grotesk'}
 
-    .card-description {
-      font-size: 14px;
-      color: var(--texto-sec);
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
+/* Formulario Mentimeter dentro de la Sala */
+.menti-form{background:var(--carbon-2);border:1px solid var(--linea-2);border-radius:12px;padding:14px;margin-top:8px;animation:fade .2s ease}
+.menti-form label{color:var(--fuego);font-weight:700}
+.menti-form input{width:100%;padding:8px 10px;font-size:13.5px;border:1.5px solid var(--linea);border-radius:6px;margin-bottom:8px;outline:none}
+.menti-form input:focus{border-color:var(--fuego)}
 
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: auto;
-      padding-top: .5rem;
-    }
+/* Respuestas Mentimeter en cabina */
+.word-cloud-results{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;padding:10px;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;min-height:50px}
+.word-tag{background:var(--fuego-bg);color:var(--fuego);padding:3px 8px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(28, 107, 74, 0.15)}
 
-    .tag {
-      font-size: 11px;
-      color: var(--verde);
-      background: var(--verde-bg);
-      padding: 3px 8px;
-      border-radius: 20px;
-    }
-
-    .credit {
-      margin-top: 2rem;
-      font-size: 12px;
-      color: #a8a8a0;
-      text-align: center;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-logo, .sections-grid, .credit {
-      animation: fadeUp .35s ease both;
-    }
-
-    .sections-grid { animation-delay: .08s; }
-    .credit { animation-delay: .16s; }
-
-    @media (max-width: 780px) {
-      .canvas {
-        min-height: auto;
-        align-items: flex-start;
-        padding: 2rem 1.25rem 3rem;
-      }
-
-      .sections-grid { grid-template-columns: 1fr; }
-      .section-card { min-height: 0; }
-    }
-  </style>
+@media (max-width:820px){
+  .cols{grid-template-columns:1fr}
+  .h-big{font-size:27px}
+  .crumbs{display:none}
+}
+</style>
 </head>
 <body>
-<div class="page">
-    <main class="canvas">
-      <section class="home" aria-label="CoopeNotebook">
-        <img class="hero-logo" src="assets/coopenotebook-main-logo.png" alt="CoopeNotebook">
+<div class="bg-gear"><i class="ti ti-clock-cog"></i></div>
 
-        <div class="sections-grid">
-          <a href="contents/index.html" class="section-card">
-            <div class="card-top">
-              <div class="card-glyph">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/>
-                  <path d="M3 12l9 4.5L21 12"/>
-                  <path d="M3 16.5 12 21l9-4.5"/>
-                </svg>
-              </div>
-            </div>
-            <h2 class="card-title">Contenidos</h2>
-            <p class="card-description">Módulos educativos, marcos legales y conceptos cooperativistas organizados para lectura guiada.</p>
-            <div class="card-tags">
-              <span class="tag">Diplomado básico</span>
-              <span class="tag">Normativa</span>
-              <span class="tag">Cápsulas</span>
-            </div>
-          </a>
+<div class="app">
+  <div class="topbar">
+    <div class="logo">
+      <img src="assets/coopnotebook-logo.png" alt="Logo">
+    </div>
+    <div class="brand">CoopeNotebook<small>consola de talleres</small></div>
+    <div class="crumbs" id="crumbs"></div>
+  </div>
 
-          <a href="tools/index.html" class="section-card">
-            <div class="card-top">
-              <div class="card-glyph">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.2-3.2a6 6 0 0 1-7.8 7.8l-6.7 6.7a2.1 2.1 0 0 1-3-3l6.7-6.7a6 6 0 0 1 7.8-7.8l-3.2 3.2Z"/>
-                </svg>
-              </div>
-            </div>
-            <h2 class="card-title">Herramientas</h2>
-            <p class="card-description">Artefactos interactivos y recursos de análisis para trabajo aplicado, revisión y planificación.</p>
-            <div class="card-tags">
-              <span class="tag">Análisis</span>
-              <span class="tag">Gestión</span>
-              <span class="tag">Trabajo aplicado</span>
-            </div>
-          </a>
+  <!-- ===================== LANDING ===================== -->
+  <section class="screen on" id="s-landing">
+    <div class="eyebrow">centro de mando</div>
+    <h1 class="h-big">¿Qué vas a hacer hoy?</h1>
+    <p class="sub">Entrá a una fuente para revisar contenido, armá un curso con Jester, o desplegá un taller en vivo.</p>
+
+    <div class="search">
+      <i class="ti ti-search"></i>
+      <input type="text" id="q" placeholder="Buscar lecciones, herramientas o actividades reales..." oninput="App.search(this.value)">
+    </div>
+    <div id="results"></div>
+
+    <div class="doors" id="doors">
+      <button class="door" onclick="App.module('kb')"><i class="ti ti-books di"></i><h3>KB · Lecciones</h3><p>Cápsulas teóricas para proyectar y dictar el taller</p><span class="tag" id="tag-kb">14 contenidos</span></button>
+      <button class="door" onclick="App.module('p2l')"><i class="ti ti-device-gamepad-2 di"></i><h3>P2L · Actividades</h3><p>Talleres interactivos y trabajos prácticos en el aula</p><span class="tag" id="tag-p2l">9 actividades</span></button>
+      <button class="door" onclick="App.module('lnl')"><i class="ti ti-download di"></i><h3>LnL · Recursos</h3><p>Descargables, cuadernos y guías del alumno</p><span class="tag" id="tag-lnl">4 recursos</span></button>
+      <button class="door" onclick="App.module('gow')"><i class="ti ti-tools di"></i><h3>GoW · Caja de Herramientas</h3><p>Simuladores y calculadoras de apoyo permanente</p><span class="tag" id="tag-gow">8 herramientas</span></button>
+      <button class="door act" onclick="App.go('jester')"><i class="ti ti-clock-cog di"></i><h3>Jester · Armar Curso</h3><p>Seleccionar y ordenar las piezas del taller de hoy</p><span class="tag">el armador</span></button>
+      <button class="door act" onclick="App.go('deploy')"><i class="ti ti-rocket di"></i><h3>Deploy · Cabina en Vivo</h3><p>Desplegar taller, habilitar QR y dinámicas Mentimeter</p><span class="tag">la cabina en vivo</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== MÓDULO (índice + ficha) ===================== -->
+  <section class="screen" id="s-module">
+    <button class="btn btn-sm" onclick="App.go('landing')"><i class="ti ti-arrow-left"></i> Volver</button>
+    <h1 class="h-big" id="mod-title" style="margin-top:16px">KB</h1>
+    <p class="sub" id="mod-sub"></p>
+    <div class="cols" style="margin-top:22px">
+      <div>
+        <div class="card-h">Índice de archivos</div>
+        <div id="mod-idx"></div>
+      </div>
+      <div>
+        <div class="card-h">Ficha técnica</div>
+        <div class="card" id="mod-ficha" style="min-height:230px">
+          <p style="color:var(--hueso-3);text-align:center;padding-top:70px;font-size:13px">Tocá un recurso para ver su ficha y abrir el archivo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JESTER ===================== -->
+  <section class="screen" id="s-jester">
+    <button class="btn btn-sm" onclick="App.go('landing')"><i class="ti ti-arrow-left"></i> Volver</button>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap">
+      <div><div class="eyebrow">el armador</div><h1 class="h-big" style="margin:0">Jester</h1></div>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="btn btn-sm" onclick="App.save('plantilla')"><i class="ti ti-template"></i> Guardar plantilla</button>
+        <button class="btn btn-sm btn-fuego" onclick="App.save('sala')"><i class="ti ti-check"></i> Guardar sala</button>
+      </div>
+    </div>
+
+    <div class="cols" style="margin-top:22px">
+      <div>
+        <div class="card-h">Jalar de los recursos del proyecto</div>
+
+        <div class="src">
+          <div class="src-h"><i class="ti ti-books"></i> KB · Lecciones <span class="pill pill-doc">solo docente</span></div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <select id="sel-kb" style="flex:1;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;padding:6px;color:var(--hueso)">
+            </select>
+            <button class="btn btn-sm btn-fuego" onclick="App.addFromSelect('sel-kb', 'ti-books', 'kb')">+ Jalar</button>
+          </div>
         </div>
 
-        <p class="credit">Creado por Oliver Ayala</p>
-      </section>
-    </main>
-  </div>
+        <div class="src">
+          <div class="src-h"><i class="ti ti-device-gamepad-2"></i> P2L · Actividades <span class="pill pill-sleep">dormida</span></div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <select id="sel-p2l" style="flex:1;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;padding:6px;color:var(--hueso)">
+            </select>
+            <button class="btn btn-sm btn-fuego" onclick="App.addFromSelect('sel-p2l', 'ti-device-gamepad-2', 'p2l')">+ Jalar</button>
+          </div>
+        </div>
+
+        <div class="src">
+          <div class="src-h"><i class="ti ti-download"></i> LnL · Recursos <span class="pill pill-free">libre</span></div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <select id="sel-lnl" style="flex:1;background:var(--carbon);border:1px solid var(--linea);border-radius:8px;padding:6px;color:var(--hueso)">
+            </select>
+            <button class="btn btn-sm btn-fuego" onclick="App.addFromSelect('sel-lnl', 'ti-download', 'lnl')">+ Jalar</button>
+          </div>
+        </div>
+
+        <div class="src" style="border-style:dashed;background:var(--carbon)">
+          <div class="src-h" style="color:var(--hueso-2)"><i class="ti ti-tools" style="color:var(--hueso-3)"></i> GoW · Caja de Herramientas</div>
+          <p style="font-size:12px;color:var(--hueso-3);margin-top:6px">Transversal, siempre a mano del alumno y docente en la caja de herramientas. No requiere jalarse por taller.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:12px">
+          <div class="grid2">
+            <div class="field"><label>Cooperativa</label><input type="text" id="coop-name" value="Cooperativa San José"></div>
+            <div class="field"><label>Fecha</label><input type="date" id="coop-date" value="2026-06-20"></div>
+          </div>
+          <div class="field" style="margin-top:10px"><label>Nivel de Taller</label><select id="coop-level"><option>Básico</option><option selected>Intermedio</option><option>Avanzado</option></select></div>
+        </div>
+
+        <div class="card-h">El curso de hoy · Piezas agregadas</div>
+        <div id="pila"></div>
+        <div class="empty" id="empty">Jalá piezas de la izquierda para armar el curso.</div>
+        <div class="note"><i class="ti ti-info-circle"></i> KB es lección (proyección) · P2L son dinámicas en vivo (dormidas hasta start) · LnL son archivos descargables.</div>
+        <div class="toast" id="toast"></div>
+        <button class="btn btn-fuego" id="goDeploy" style="width:100%;margin-top:14px;display:none" onclick="App.go('deploy')"><i class="ti ti-rocket"></i> Ir a desplegar este curso en vivo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DEPLOY ===================== -->
+  <section class="screen" id="s-deploy">
+    <button class="btn btn-sm" onclick="App.go('landing')"><i class="ti ti-arrow-left"></i> Volver</button>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap">
+      <div><div class="eyebrow">la cabina en vivo</div><h1 class="h-big" id="deploy-title" style="margin:0">Deploy · Cooperativa San José</h1></div>
+      <span class="pill pill-live" style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:6px 12px"><span style="width:8px;height:8px;border-radius:50%;background:var(--verde)"></span> Sala Activa</span>
+    </div>
+
+    <div class="cols" style="margin-top:22px;grid-template-columns:.78fr 1.22fr">
+      <div>
+        <div class="qrbox">
+          <div class="card-h" style="margin-bottom:10px">Entrada del alumno</div>
+          <div class="qr"><i class="ti ti-qrcode" style="font-size:90px"></i></div>
+          <p class="mono" style="font-size:12px;color:var(--hueso-2);margin-top:10px" id="deploy-link-text">coope-notebook.vercel.app</p>
+          <button class="btn btn-sm" style="width:100%;margin-top:10px" onclick="App.copyStudentLink()"><i class="ti ti-copy"></i> Copiar enlace</button>
+          <button class="btn btn-sm" style="width:100%;margin-top:6px" onclick="App.go('sala')"><i class="ti ti-eye"></i> Simular Sala del Alumno</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+          <button class="btn btn-sm" onclick="App.projectKB()"><i class="ti ti-presentation"></i> Proyectar lecciones (KB)</button>
+          <button class="btn btn-sm btn-rojo" onclick="App.clearDeploy()"><i class="ti ti-trash"></i> Cerrar y borrar sala</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-h">Actividades cargadas (P2L) · Control de Lanzamiento</div>
+        <div id="deploy-p2l-list"></div>
+        
+        <!-- Marcador global del taller -->
+        <div class="card" style="margin-top:14px">
+          <div class="src-h" style="margin:0"><i class="ti ti-trophy" style="color:var(--fuego)"></i> Marcador de Participación</div>
+          <div class="score">
+            <div style="font-size:11px;color:var(--hueso-3);margin-bottom:4px">Participantes activos en la sesión</div>
+            <div class="score-row win"><span><i class="ti ti-medal"></i> Oliver</span><span class="pts">95 pts</span></div>
+            <div class="score-row"><span>María</span><span class="pts">82 pts</span></div>
+            <div class="score-row"><span>Carlos</span><span class="pts">70 pts</span></div>
+            <div style="display:flex;gap:6px;margin-top:8px">
+              <button class="btn btn-sm" style="flex:1" onclick="App.refreshMenti()"><i class="ti ti-refresh"></i> Sincronizar</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="note"><i class="ti ti-info-circle"></i> Los alumnos ven las actividades en sus celulares únicamente cuando les das "Start".</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SALA DEL ALUMNO ===================== -->
+  <section class="screen" id="s-sala">
+    <button class="btn btn-sm" onclick="App.go('deploy')"><i class="ti ti-arrow-left"></i> Volver a Cabina</button>
+    <div class="eyebrow" style="margin-top:16px">Simulación móvil (lo que ve el alumno en su celular)</div>
+    <h1 class="h-big">Sala del Alumno</h1>
+    <p class="sub" style="margin-bottom:8px">El alumno interactúa con las actividades P2L lanzadas y descarga recursos LnL. La lección (KB) la ve proyectada al frente.</p>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div style="text-align:center;margin-bottom:14px;border-bottom:1px solid var(--linea);padding-bottom:10px">
+          <div style="font-size:10px;color:var(--hueso-3);text-transform:uppercase;letter-spacing:.08em;font-weight:700">Taller de hoy</div>
+          <div style="font-size:16px;font-weight:700;font-family:'Space Grotesk';margin-top:2px;color:var(--fuego)" id="sala-coop-title">Gobernabilidad Cooperativa</div>
+          <div style="font-size:12px;color:var(--hueso-2)" id="sala-coop-name">Cooperativa San José</div>
+        </div>
+
+        <div class="stage-label">Actividades (P2L)</div>
+        <div id="sala-p2l-list"></div>
+
+        <div class="stage-label">Materiales (LnL)</div>
+        <div id="sala-lnl-list"></div>
+
+        <div style="font-size:10px;color:var(--hueso-3);text-align:center;margin-top:18px;border-top:1px solid var(--linea);padding-top:10px">La presentación teórica la ves proyectada al frente.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  // Base de datos de recursos físicos del proyecto CoopeNotebook
+  var DATA={
+    kb:{
+      title:'KB · Lecciones',
+      sub:'Cápsulas de contenido teórico. Se proyectan en sala, no se reparten al alumno.',
+      tree:[
+        {n:'Identidad Cooperativista',sub:[
+          {name:'Historia del cooperativismo', path:'contents/diplomado-basico/identidad-cooperativa/historia-cooperativismo.html', code:'DB-03', desc:'Origen mundial del cooperativismo, pioneros de Rochdale y desarrollo en Honduras.'},
+          {name:'Estructura orgánica', path:'contents/diplomado-basico/identidad-cooperativa/estructura-organica.html', code:'DB-01', desc:'Esquema organizativo de gobernanza, asamblea, juntas y comités.'},
+          {name:'Clasificación de cooperativas', path:'contents/diplomado-basico/identidad-cooperativa/clasificacion-cooperativas.html', code:'DB-02', desc:'Tipos y grados de cooperativas según sus fines y actividades.'},
+          {name:'Principios y balance social', path:'contents/diplomado-basico/identidad-cooperativa/principios-balance-social.html', code:'DB-04', desc:'Los 7 principios cooperativos aplicados y medición del impacto social.'},
+          {name:'Modelo cooperativo y empoderamiento', path:'contents/cooperativismo-aplicado/identidad-standalones/modelocooperativo-empoderamiento.html', code:'CA-02', desc:'El empoderamiento democrático y modelo de negocios solidario.'}
+        ]},
+        {n:'Gobernabilidad y Leyes',sub:[
+          {name:'Cuerpos directivos y funciones', path:'contents/diplomado-basico/cuerpos-directivos/cuerpos-directivos-funciones.html', code:'DB-05', desc:'Roles, facultades y limitaciones de la Junta Directiva y Junta de Vigilancia.'},
+          {name:'Gobernabilidad cooperativa', path:'contents/diplomado-basico/gobernabilidad-cooperativa/gobernabilidad-cooperativa.html', code:'DB-06', desc:'Principios clave para evitar conflictos de interés y asegurar el control democrático.'},
+          {name:'Legislación cooperativista', path:'contents/diplomado-basico/legislacion-cooperativista/legislacion-cooperativista.html', code:'DB-07', desc:'Análisis del marco legal cooperativo aplicable en la región.'},
+          {name:'Administración de asambleas', path:'contents/diplomado-basico/administracion-asambleas/Asambleas.html', code:'DB-08', desc:'Procedimientos de convocatoria, agenda, actas y quórum.'}
+        ]},
+        {n:'Liderazgo y Equipos',sub:[
+          {name:'Liderazgo en el diplomado', path:'contents/diplomado-basico/liderazgo-diplomado/liderazgo-diplomado.html', code:'DB-10', desc:'Estrategias de desarrollo de líderes cooperativos de base.'},
+          {name:'Liderazgo y comunicación', path:'contents/cooperativismo-aplicado/Liderazgo/liderazgo-comunicacion-lidercoop.html', code:'CA-01', desc:'Métodos de comunicación interpersonal asertiva.'},
+          {name:'Liderazgo en equipo', path:'contents/cooperativismo-aplicado/trabajo-equipo/liderazgo-en-equipo.html', code:'CA-03', desc:'Habilidades blandas para coordinación de comités de trabajo.'},
+          {name:'Trabajo en equipo y conflictos', path:'contents/cooperativismo-aplicado/trabajo-equipo/trabajo-equipo-manejo-conflictos.html', code:'CA-04', desc:'Abordaje constructivo y técnicas de resolución de tensiones en comités.'}
+        ]}
+      ]
+    },
+    p2l:{
+      title:'P2L · Actividades',
+      sub:'Talleres prácticos y actividades interactivas para trabajo grupal en vivo.',
+      flat:[
+        {name:'Sala en vivo (Respuestas en tiempo real)', path:'tools/en-vivo/sala.html', code:'LIVE-MENTI', desc:'Preguntas de respuesta corta/nube de palabras tipo Mentimeter en tiempo real.', isMenti: true},
+        {name:'Trabajo práctico: Identidad y principios', path:'contents/diplomado-basico/identidad-cooperativa/trabajo-identidad.html', code:'DB-TP-ID', desc:'Análisis de casos prácticos de identidad y valores cooperativos.'},
+        {name:'Trabajo práctico: Cuerpos directivos', path:'contents/diplomado-basico/cuerpos-directivos/trabajo-cuerpos-directivos.html', code:'DB-TP-CD', desc:'Taller sobre atribuciones y responsabilidades ante vacíos legales.'},
+        {name:'Trabajo práctico: Gobernabilidad', path:'contents/diplomado-basico/gobernabilidad-cooperativa/trabajo-gobernabilidad-cooperativa.html', code:'DB-TP-GB', desc:'Resolución de dilemas éticos y fallos en consejos de administración.'},
+        {name:'Trabajo práctico: Legislación', path:'contents/diplomado-basico/legislacion-cooperativista/trabajo-legislacion.html', code:'DB-TP-LG', desc:'Aplicación práctica de artículos de la ley general de cooperativas.'},
+        {name:'Trabajo práctico: Asambleas', path:'contents/diplomado-basico/administracion-asambleas/trabajo-asambleas.html', code:'DB-TP-AS', desc:'Elaboración de actas y resolución de impugnaciones en asambleas.'},
+        {name:'Trabajo práctico: Plan de incidencia', path:'contents/diplomado-basico/incidencia-politica/trabajo-incidencia.html', code:'DB-TP-IN', desc:'Diseño de estrategia e influencia en políticas locales.'},
+        {name:'Trabajo práctico: Perfil del líder (Básico)', path:'contents/diplomado-basico/liderazgo-diplomado/trabajo-perfil-lider.html', code:'DB-TP-LD', desc:'Autodiagnóstico del perfil de liderazgo directivo.'},
+        {name:'Trabajo práctico: Perfil de líder (Aplicado)', path:'contents/cooperativismo-aplicado/Liderazgo/perfil-lider.html', code:'CA-TP-PL', desc:'Estudio avanzado de competencias de liderazgo en campo.'}
+      ]
+    },
+    lnl:{
+      title:'LnL · Recursos',
+      sub:'Cuadernos de trabajo interactivos y materiales complementarios descargables.',
+      flat:[
+        {name:'Cuaderno de Trabajo (Workbook Módulo 1)', path:'#', code:'LNL-01', desc:'Cuaderno digital completo de auto-estudio y notas.'},
+        {name:'Crucigrama de Conceptos Cooperativos', path:'#', code:'LNL-02', desc:'Crucigrama dinámico de autoevaluación para repaso.'},
+        {name:'Plantilla oficial de toma de notas', path:'#', code:'LNL-03', desc:'Formato estructurado de apuntes del diplomado.'},
+        {name:'Lectura complementaria: Historia Hondureña', path:'#', code:'LNL-04', desc:'Ensayo histórico sobre los orígenes de las primeras cooperativas.'}
+      ]
+    },
+    gow:{
+      title:'GoW · Caja de Herramientas',
+      sub:'Caja de herramientas transversales, simuladores e índices legales de apoyo.',
+      flat:[
+        {name:'Buscador de la Ley Cooperativa', path:'tools/ley.html', code:'GOW-LEY', desc:'Buscador interactivo indexado de los artículos de la ley cooperativa.'},
+        {name:'Estatuto Ejemplo Limitada', path:'tools/estatuto.html', code:'GOW-EST', desc:'Guía comparativa de estatuto frente a la Ley de Cooperativas.'},
+        {name:'Simulador: Corrimiento de cargos', path:'tools/cuerpos-directivos-corrimiento.html', code:'GOW-CORR', desc:'Simulador dinámico de prelación de cargos ante vacantes.'},
+        {name:'Calculadora de delegados', path:'tools/temas-artefacto/calculadora-delegados.html', code:'GOW-DEL', desc:'Cálculo de la cantidad de delegados requeridos por asamblea.'},
+        {name:'Explorador de excedentes', path:'tools/temas-artefacto/explorador-excedentes.html', code:'GOW-EXC', desc:'Calculador de reservas y distribución legal de excedentes.'},
+        {name:'Año social y fiscal cooperativo', path:'tools/temas-artefacto/ano-social-fiscal.html', code:'GOW-CAL', desc:'Calendario legal, obligaciones tributarias y asamblearias.'},
+        {name:'Planificador de Incidencia Política', path:'tools/temas-artefacto/plan-incidencia-politica.html', code:'GOW-INC', desc:'Matriz interactiva para formulación de planes de incidencia.'},
+        {name:'Diagnóstico de conflictos', path:'tools/trabajo-equipo/diagnostico-de-conflicto.html', code:'GOW-CON', desc:'Herramienta analítica de evaluación de tensiones relacionales.'}
+      ]
+    }
+  };
+
+  // Convertimos toda la base a un array plano para el buscador rápido
+  var ALL=[];
+  Object.keys(DATA).forEach(function(k){var d=DATA[k];
+    if(d.tree)d.tree.forEach(function(g){g.sub.forEach(function(s){ALL.push({name:s.name,path:s.path,code:s.code,desc:s.desc,mod:k,modT:d.title});});});
+    if(d.flat)d.flat.forEach(function(s){ALL.push({name:s.name,path:s.path,code:s.code,desc:s.desc,mod:k,modT:d.title,isMenti:s.isMenti});});
+  });
+
+  var CRUMB={landing:'',jester:'Jester',deploy:'Deploy',sala:'Sala del alumno'};
+  var currentSelectedFile = null;
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('on');});
+    document.getElementById('s-'+id).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function renderFicha(item){
+    currentSelectedFile = item.path;
+    var iconClass = item.icon || (item.path !== '#' && item.path.endsWith('.html') ? 'ti-file-text' : 'ti-download');
+    var isLinkable = item.path !== '#';
+
+    document.getElementById('mod-ficha').innerHTML=
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">'+
+      '<div style="width:44px;height:44px;border-radius:12px;background:var(--fuego-bg);display:flex;align-items:center;justify-content:center;color:var(--fuego)"><i class="ti '+iconClass+'" style="font-size:22px"></i></div>'+
+      '<div><div style="font-weight:600;font-size:16px;font-family:\'Space Grotesk\'">'+item.name+'</div><div style="font-size:12px;color:var(--hueso-2)">Código: '+item.code+'</div></div></div>'+
+      '<p style="font-size:13.5px;color:var(--hueso-2);margin-bottom:16px">'+item.desc+'</p>'+
+      '<table style="width:100%;font-size:13px;color:var(--hueso-2);border-collapse:collapse">'+
+      '<tr style="border-bottom:1px solid var(--linea)"><td style="padding:6px 0">Tipo</td><td style="text-align:right;color:var(--hueso);font-weight:600">'+(item.path.startsWith('contents/')?'Lección / Contenido':'Herramienta interactiva')+'</td></tr>'+
+      '<tr style="border-bottom:1px solid var(--linea)"><td style="padding:6px 0">Acceso</td><td style="text-align:right;color:var(--hueso);font-weight:600">'+(item.code.startsWith('DB')?'Diplomado Básico':'Acceso General')+'</td></tr>'+
+      '<tr><td style="padding:6px 0">Estado</td><td style="text-align:right;color:var(--verde);font-weight:700">Disponible</td></tr></table>'+
+      (isLinkable ? '<button class="btn btn-fuego btn-sm" style="width:100%;margin-top:18px" onclick="window.open(\''+item.path+'\', \'_blank\')"><i class="ti ti-external-link"></i> Abrir recurso completo</button>' : '<button class="btn btn-sm" style="width:100%;margin-top:18px" disabled><i class="ti ti-download"></i> Recurso no vinculable (Mock)</button>');
+  }
+
+  function createItemBtn(item){
+    var b=document.createElement('button');
+    b.className='btn btn-sm';
+    b.style.cssText='width:100%;justify-content:flex-start;margin-bottom:6px;font-weight:500;text-align:left';
+    var icon = (item.path !== '#' && item.path.endsWith('.html') ? 'ti-file-text' : 'ti-download');
+    b.innerHTML='<i class="ti '+icon+'" style="color:var(--hueso-3)"></i> '+item.name+' <span style="margin-left:auto;font-size:10px;color:var(--hueso-3)">'+item.code+'</span>';
+    b.onclick=function(){renderFicha(item);};
+    return b;
+  }
+
+  function loadModule(key){
+    var d=DATA[key];
+    document.getElementById('mod-title').textContent=d.title;
+    document.getElementById('mod-sub').textContent=d.sub;
+    var idx=document.getElementById('mod-idx'); idx.innerHTML='';
+    document.getElementById('mod-ficha').innerHTML='<p style="color:var(--hueso-3);text-align:center;padding-top:70px;font-size:13px">Tocá un recurso para ver su ficha y abrir el archivo real.</p>';
+    
+    if(d.tree){
+      d.tree.forEach(function(g){
+        var h=document.createElement('div');
+        h.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--hueso-3);margin:12px 0 6px;font-family:Space Grotesk';
+        h.textContent=g.n; idx.appendChild(h);
+        g.sub.forEach(function(s){idx.appendChild(createItemBtn(s));});
+      });
+    } else if(d.flat){
+      d.flat.forEach(function(s){idx.appendChild(createItemBtn(s));});
+    }
+  }
+
+  /* Jester - Gestión de la pila de curso */
+  var pila=[];
+  var META={
+    kb:{pill:'pill-doc',tag:'solo docente',opt:'<i class="ti ti-check" style="color:var(--verde)"></i> Proyectado al frente · No se reparte al móvil'},
+    p2l:{pill:'pill-sleep',tag:'dormida',opt:'<i class="ti ti-check" style="color:var(--verde)"></i> Visible en la sala móvil · Dormida hasta darle start'},
+    lnl:{pill:'pill-free',tag:'libre',opt:'<i class="ti ti-check" style="color:var(--verde)"></i> Descargable por el alumno desde el inicio del taller'}
+  };
+
+  function renderPila(){
+    var box=document.getElementById('pila');
+    document.getElementById('empty').style.display=pila.length?'none':'block';
+    document.getElementById('goDeploy').style.display=pila.length?'flex':'none';
+    box.innerHTML='';
+    pila.forEach(function(p,i){
+      var m=META[p.src];
+      var el=document.createElement('div');
+      el.className='piece';
+      el.innerHTML=
+        '<div class="piece-top">'+
+          '<i class="ti ti-grip-vertical grip"></i>'+
+          '<i class="ti '+p.icon+' pi"></i>'+
+          '<span class="nm">'+p.t+'</span>'+
+          '<span class="pill '+m.pill+'">'+m.tag+'</span>'+
+          '<button class="x" data-x="'+i+'" aria-label="quitar"><i class="ti ti-x"></i></button>'+
+        '</div>'+
+        '<div class="piece-opt">'+m.opt+'</div>';
+      box.appendChild(el);
+    });
+    box.querySelectorAll('.x').forEach(function(b){b.onclick=function(){pila.splice(+b.dataset.x,1);renderPila();};});
+  }
+
+  function initJesterSelectors() {
+    var selKb = document.getElementById('sel-kb');
+    var selP2l = document.getElementById('sel-p2l');
+    var selLnl = document.getElementById('sel-lnl');
+    
+    if (selKb) {
+      selKb.innerHTML = '';
+      DATA.kb.tree.forEach(function(g) {
+        g.sub.forEach(function(item) {
+          var opt = document.createElement('option');
+          opt.value = JSON.stringify({name: item.name, code: item.code, path: item.path});
+          opt.textContent = item.name + ' (' + item.code + ')';
+          selKb.appendChild(opt);
+        });
+      });
+    }
+    
+    if (selP2l) {
+      selP2l.innerHTML = '';
+      DATA.p2l.flat.forEach(function(item) {
+        var opt = document.createElement('option');
+        opt.value = JSON.stringify({name: item.name, code: item.code, path: item.path, isMenti: item.isMenti});
+        opt.textContent = item.name + ' (' + item.code + ')';
+        selP2l.appendChild(opt);
+      });
+    }
+    
+    if (selLnl) {
+      selLnl.innerHTML = '';
+      DATA.lnl.flat.forEach(function(item) {
+        var opt = document.createElement('option');
+        opt.value = JSON.stringify({name: item.name, code: item.code, path: item.path});
+        opt.textContent = item.name + ' (' + item.code + ')';
+        selLnl.appendChild(opt);
+      });
+    }
+  }
+
+  /* Deploy - Carga y control de la cabina */
+  function loadDeployView(){
+    var savedPila = JSON.parse(localStorage.getItem('coop_pila') || '[]');
+    var savedMeta = JSON.parse(localStorage.getItem('coop_meta') || '{"coop":"Cooperativa San José","fecha":"2026-06-20","nivel":"Intermedio"}');
+    
+    document.getElementById('deploy-title').textContent = 'Deploy · ' + savedMeta.coop;
+    document.getElementById('deploy-link-text').textContent = window.location.host + window.location.pathname + '?s=alumno';
+    
+    var container = document.getElementById('deploy-p2l-list');
+    container.innerHTML = '';
+    
+    var p2lItems = savedPila.filter(function(x){return x.src === 'p2l';});
+    
+    if(!p2lItems.length){
+      container.innerHTML = '<p class="empty">No has jalado actividades P2L en Jester para este taller.</p>';
+      return;
+    }
+    
+    p2lItems.forEach(function(item){
+      var states = JSON.parse(localStorage.getItem('coop_activity_states') || '{}');
+      var isLive = states[item.t] === 'live';
+      
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.style.marginBottom = '9px';
+      
+      var innerHTML = 
+        '<div class="src-h" style="margin:0">'+
+          '<i class="ti '+(item.icon || 'ti-device-gamepad-2')+'" style="color:var(--fuego)"></i> '+item.t+
+          ' <span class="pill '+(isLive?'pill-live':'pill-sleep')+'" id="badge-'+item.t+'">'+(isLive?'corriendo':'dormida')+'</span>'+
+        '</div>';
+        
+      if(item.isMenti){
+        var answers = JSON.parse(localStorage.getItem('coop_wordcloud_answers') || '[]');
+        innerHTML += 
+          '<div style="font-size:11px;color:var(--hueso-3);margin-top:8px">Respuestas en tiempo real (Mentimeter de 1 palabra):</div>'+
+          '<div class="word-cloud-results" id="cloud-'+item.t+'">'+
+            (answers.length ? answers.map(function(ans){return '<span class="word-tag">'+ans+'</span>';}).join('') : '<span style="font-size:12px;color:var(--hueso-3)">Sin respuestas aún. Conéctate como alumno para enviar palabras.</span>')+
+          '</div>';
+      }
+      
+      innerHTML += 
+        '<div style="display:flex;gap:6px;margin-top:10px">'+
+          '<button class="btn btn-sm btn-fuego" style="flex:1" onclick="App.toggleActivity(\''+item.t+'\')">'+
+            '<i class="ti '+(isLive?'ti-player-stop':'ti-player-play')+'"></i> '+(isLive?'Detener':'Dar Start')+
+          '</button>'+
+          (item.isMenti ? 
+            '<button class="btn btn-sm" onclick="App.clearMenti()"><i class="ti ti-trash"></i> Borrar</button>' : 
+            '<button class="btn btn-sm" onclick="window.open(\''+item.path+'\',\'_blank\')"><i class="ti ti-presentation"></i> Abrir TP</button>'
+          )+
+        '</div>';
+        
+      card.innerHTML = innerHTML;
+      container.appendChild(card);
+    });
+  }
+
+  /* Sala del Alumno */
+  function loadAlumnoView(){
+    var savedPila = JSON.parse(localStorage.getItem('coop_pila') || '[]');
+    var savedMeta = JSON.parse(localStorage.getItem('coop_meta') || '{"coop":"Cooperativa San José","fecha":"2026-06-20","nivel":"Intermedio"}');
+    
+    document.getElementById('sala-coop-title').textContent = 'Taller de ' + savedMeta.nivel;
+    document.getElementById('sala-coop-name').textContent = savedMeta.coop;
+    
+    var p2lBox = document.getElementById('sala-p2l-list');
+    var lnlBox = document.getElementById('sala-lnl-list');
+    p2lBox.innerHTML = '';
+    lnlBox.innerHTML = '';
+    
+    var p2lItems = savedPila.filter(function(x){return x.src === 'p2l';});
+    var lnlItems = savedPila.filter(function(x){return x.src === 'lnl';});
+    
+    // Poblamos P2L
+    if(!p2lItems.length){
+      p2lBox.innerHTML = '<p style="font-size:12px;color:var(--hueso-3);text-align:center;padding:12px">No hay actividades activas.</p>';
+    } else {
+      p2lItems.forEach(function(item){
+        var states = JSON.parse(localStorage.getItem('coop_activity_states') || '{}');
+        var isLive = states[item.t] === 'live';
+        
+        var el = document.createElement('div');
+        el.className = 'room-item' + (isLive ? '' : ' locked');
+        el.innerHTML = 
+          '<i class="ti '+(item.icon || 'ti-device-gamepad-2')+' ri"></i>'+
+          '<div class="meta">'+
+            '<div class="t">'+item.t+'</div>'+
+            '<div class="s" style="color:'+(isLive?'var(--verde)':'var(--hueso-3)')+'">'+(isLive?'¡Abierto! Entrá a participar':'Esperando al facilitador')+'</div>'+
+          '</div>'+
+          '<i class="ti '+(isLive?'ti-chevron-right':'ti-lock')+'" style="color:var(--hueso-3)"></i>';
+          
+        if(isLive){
+          el.onclick = function(){
+            if(item.isMenti){
+              // Mentimeter input directly inside the room
+              toggleMentiForm(item.t);
+            } else {
+              window.open(item.path, '_blank');
+            }
+          };
+        }
+        p2lBox.appendChild(el);
+        
+        // Creamos contenedor vacío de formulario Menti si es necesario
+        if(item.isMenti){
+          var formDiv = document.createElement('div');
+          formDiv.id = 'form-container-' + item.t;
+          formDiv.style.display = 'none';
+          p2lBox.appendChild(formDiv);
+        }
+      });
+    }
+    
+    // Poblamos LnL
+    if(!lnlItems.length){
+      lnlBox.innerHTML = '<p style="font-size:12px;color:var(--hueso-3);text-align:center;padding:12px">No hay materiales descargables para este taller.</p>';
+    } else {
+      lnlItems.forEach(function(item){
+        var el = document.createElement('div');
+        el.className = 'room-item';
+        el.innerHTML = 
+          '<i class="ti ti-download ri" style="color:var(--verde)"></i>'+
+          '<div class="meta">'+
+            '<div class="t">'+item.t+'</div>'+
+            '<div class="s">Material libre para descarga</div>'+
+          '</div>'+
+          '<i class="ti ti-download" style="color:var(--fuego)"></i>';
+          
+        el.onclick = function(){
+          if(item.path !== '#'){
+            window.open(item.path, '_blank');
+          } else {
+            alert('Descarga de recurso simulada: ' + item.t);
+          }
+        };
+        lnlBox.appendChild(el);
+      });
+    }
+  }
+
+  function toggleMentiForm(activityName){
+    var container = document.getElementById('form-container-' + activityName);
+    if(!container) return;
+    
+    if(container.style.display === 'block'){
+      container.style.display = 'none';
+      return;
+    }
+    
+    container.innerHTML = 
+      '<div class="menti-form">'+
+        '<label style="font-size:11px;font-weight:700;display:block;margin-bottom:6px">Envía una palabra de respuesta:</label>'+
+        '<input type="text" id="menti-input" maxlength="25" placeholder="Escribe 1 sola palabra..." autocomplete="off">'+
+        '<button class="btn btn-fuego btn-sm" style="width:100%" onclick="App.submitMentiAnswer(\''+activityName+'\')">Enviar respuesta</button>'+
+      '</div>';
+    container.style.display = 'block';
+    
+    // Auto-focus input
+    setTimeout(function(){
+      var inp = document.getElementById('menti-input');
+      if(inp) inp.focus();
+    }, 50);
+  }
+
+  window.App={
+    go:function(id){ 
+      showScreen(id); 
+      document.getElementById('crumbs').innerHTML=CRUMB[id]?('<i class="ti ti-point-filled" style="font-size:8px"></i> <b>'+CRUMB[id]+'</b>'):''; 
+      if(id === 'deploy'){
+        loadDeployView();
+      } else if(id === 'sala'){
+        loadAlumnoView();
+      }
+    },
+    module:function(key){ 
+      loadModule(key); 
+      showScreen('module'); 
+      document.getElementById('crumbs').innerHTML='<i class="ti ti-point-filled" style="font-size:8px"></i> <b>'+DATA[key].title.split(' · ')[0]+'</b>'; 
+    },
+    addFromSelect:function(selectId, icon, src){
+      var sel = document.getElementById(selectId);
+      if(!sel.value) return;
+      var info = JSON.parse(sel.value);
+      pila.push({t:info.name, icon:icon, src:src, path:info.path, code:info.code, isMenti:info.isMenti});
+      document.getElementById('toast').style.display='none'; 
+      renderPila();
+    },
+    add:function(t,icon,src){ 
+      pila.push({t:t,icon:icon,src:src,path:'#',code:'CUSTOM'}); 
+      document.getElementById('toast').style.display='none'; 
+      renderPila(); 
+    },
+    save:function(kind){ 
+      if(!pila.length) return; 
+      
+      if(kind === 'sala'){
+        localStorage.setItem('coop_pila', JSON.stringify(pila));
+        localStorage.setItem('coop_meta', JSON.stringify({
+          coop: document.getElementById('coop-name').value,
+          fecha: document.getElementById('coop-date').value,
+          nivel: document.getElementById('coop-level').value
+        }));
+        // Inicializamos estados vacíos
+        var states = {};
+        pila.forEach(function(item){ states[item.t] = 'sleep'; });
+        localStorage.setItem('coop_activity_states', JSON.stringify(states));
+        localStorage.setItem('coop_wordcloud_answers', '[]'); // Reset Menti
+      }
+
+      var t=document.getElementById('toast'); 
+      t.style.display='block'; 
+      t.innerHTML='<i class="ti ti-check"></i> '+(kind==='sala'?'Sala de taller guardada · Lista para desplegar':'Plantilla guardada · Reutilizable para cualquier cooperativa'); 
+    },
+    search:function(v){
+      var r=document.getElementById('results'),d=document.getElementById('doors');
+      v=v.trim().toLowerCase();
+      if(!v){r.innerHTML='';d.style.display='grid';return;}
+      d.style.display='none';
+      var hits=ALL.filter(function(x){return x.name.toLowerCase().indexOf(v)>=0 || x.desc.toLowerCase().indexOf(v)>=0 || x.code.toLowerCase().indexOf(v)>=0;});
+      var html='<div style="font-size:12px;color:var(--hueso-3);margin-bottom:8px">'+hits.length+' recurso(s) encontrado(s)</div>';
+      hits.forEach(function(x){
+        html+='<button class="btn btn-sm" style="width:100%;justify-content:flex-start;margin-bottom:6px;font-weight:500;text-align:left" onclick="App.openSearchItem(\''+x.mod+'\',\''+x.name+'\')"><i class="ti ti-file" style="color:var(--hueso-3)"></i> '+x.name+' <span style="margin-left:auto;color:var(--hueso-3);font-size:11px">'+x.modT.split(' · ')[0]+' ('+x.code+')</span></button>';
+      });
+      if(!hits.length)html+='<div style="font-size:13px;color:var(--hueso-3);padding:8px">Ningún archivo físico coincide con la búsqueda.</div>';
+      r.innerHTML=html;
+    },
+    openSearchItem:function(mod, name){
+      App.module(mod);
+      // Buscar el item correspondiente y renderizar su ficha
+      var target = null;
+      if(DATA[mod].tree){
+        DATA[mod].tree.forEach(function(g){
+          g.sub.forEach(function(item){
+            if(item.name === name) target = item;
+          });
+        });
+      } else {
+        DATA[mod].flat.forEach(function(item){
+          if(item.name === name) target = item;
+        });
+      }
+      if(target) renderFicha(target);
+    },
+    toggleActivity:function(activityName){
+      var states = JSON.parse(localStorage.getItem('coop_activity_states') || '{}');
+      states[activityName] = states[activityName] === 'live' ? 'sleep' : 'live';
+      localStorage.setItem('coop_activity_states', JSON.stringify(states));
+      loadDeployView();
+      // Notificar a otras pestañas si están en la vista de alumno
+      localStorage.setItem('coop_signal', Date.now()); 
+    },
+    projectKB:function(){
+      var savedPila = JSON.parse(localStorage.getItem('coop_pila') || '[]');
+      var kbItems = savedPila.filter(function(x){return x.src === 'kb';});
+      if(!kbItems.length){
+        alert('No has cargado lecciones de teoría (KB) en Jester.');
+        return;
+      }
+      // Abrir la primera lección real como proyección
+      window.open(kbItems[0].path, '_blank');
+    },
+    copyStudentLink:function(){
+      var linkText = window.location.origin + window.location.pathname + '?s=alumno';
+      navigator.clipboard.writeText(linkText).then(function() {
+        alert('Enlace de la Sala del Alumno copiado: ' + linkText);
+      });
+    },
+    clearDeploy:function(){
+      if(confirm('¿Seguro que deseas cerrar la sesión del taller? Se borrarán todos los datos locales.')){
+        localStorage.removeItem('coop_pila');
+        localStorage.removeItem('coop_meta');
+        localStorage.removeItem('coop_activity_states');
+        localStorage.removeItem('coop_wordcloud_answers');
+        pila = [];
+        renderPila();
+        App.go('landing');
+      }
+    },
+    submitMentiAnswer:function(activityName){
+      var input = document.getElementById('menti-input');
+      if(!input) return;
+      var val = input.value.trim();
+      if(!val) return;
+      
+      var answers = JSON.parse(localStorage.getItem('coop_wordcloud_answers') || '[]');
+      answers.push(val);
+      localStorage.setItem('coop_wordcloud_answers', JSON.stringify(answers));
+      
+      // Ocultar formulario y avisar éxito
+      var container = document.getElementById('form-container-' + activityName);
+      container.innerHTML = '<div style="font-size:12.5px;color:var(--verde);padding:10px;text-align:center;font-weight:600"><i class="ti ti-circle-check"></i> Respuesta enviada. ¡Mira al frente!</div>';
+      
+      // Notificar cambio
+      localStorage.setItem('coop_signal', Date.now());
+      
+      setTimeout(function(){
+        container.style.display = 'none';
+      }, 2000);
+    },
+    refreshMenti:function(){
+      loadDeployView();
+    },
+    clearMenti:function(){
+      localStorage.setItem('coop_wordcloud_answers', '[]');
+      loadDeployView();
+      localStorage.setItem('coop_signal', Date.now());
+    }
+  };
+
+  // Inicialización de selectors de Jester y estados
+  document.addEventListener('DOMContentLoaded', function(){
+    initJesterSelectors();
+    renderPila();
+    
+    // Si la URL contiene el parámetro s=alumno, nos redirigimos a la sala móvil
+    var params = new URLSearchParams(window.location.search);
+    if(params.get('s') === 'alumno'){
+      App.go('sala');
+    }
+    
+    // Escuchar actualizaciones en tiempo real desde otras pestañas (docente/alumno)
+    window.addEventListener('storage', function(e){
+      if(e.key === 'coop_signal' || e.key === 'coop_activity_states' || e.key === 'coop_wordcloud_answers'){
+        if(document.getElementById('s-deploy').classList.contains('on')){
+          loadDeployView();
+        }
+        if(document.getElementById('s-sala').classList.contains('on')){
+          loadAlumnoView();
+        }
+      }
+    });
+  });
+
+})();
+</script>
 </body>
 </html>

@@ -163,312 +163,80 @@ h1::after { content: ''; display: block; width: 2.5rem; height: 3px; background:
   .minibtn { width: 28px; height: 32px; }
 }
 
-/* ===== ESTILOS ADICIONALES PARA MODO PRESENTACIÓN DETALLADO ===== */
-body.pres-activo {
-  overflow: hidden;
-  background: var(--gris-bg) !important;
-}
+/* ===== MODO PRESENTACIÓN: DIAPOSITIVAS DEL FACILITADOR ===== */
+body.pres-activo { overflow: hidden; }
 body.pres-activo .topbar,
 body.pres-activo .sidebar,
-body.pres-activo .volver,
-body.pres-activo .acciones,
-body.pres-activo .nb-cerrar,
-body.pres-activo .nb-toggle,
-body.pres-activo .sidebar-foot {
-  display: none !important;
+body.pres-activo .shell,
+body.pres-activo .nb-overlay { display: none !important; }
+
+#vistaPresentacion {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--gris-bg);
+  overflow-y: auto;
+  font-family: system-ui, -apple-system, sans-serif;
 }
-body.pres-activo .main {
-  width: 100vw !important;
-  height: 100vh !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: auto !important;
-  background: var(--gris-bg) !important;
+.pres-header {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 1rem 2.5rem;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 1050;
 }
-body.pres-activo .wrap {
-  max-width: 1000px !important;
-  width: 90% !important;
-  margin: auto !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  padding: 2.5rem !important;
+.pres-header-title { font-size: 14px; font-weight: 700; color: var(--verde); text-transform: uppercase; letter-spacing: 0.05em; }
+.pres-close-btn { background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem 0.75rem; cursor: pointer; color: var(--texto-sec); font-size: 13px; font-weight: 600; transition: background 0.15s; }
+.pres-close-btn:hover { background: var(--gris-bg); }
+
+.pres-slide-container {
+  max-width: 940px; margin: 0 auto;
+  min-height: calc(100vh - 160px);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 3rem 2rem 6rem;
+}
+.pres-slide-title {
+  font-size: clamp(32px, 5vw, 44px); font-weight: 750; color: var(--verde);
+  line-height: 1.15; margin-bottom: 0.5rem; letter-spacing: -0.02em;
+}
+.pres-slide-subtitle {
+  font-size: 14px; color: var(--texto-ter); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem;
+}
+.pres-slide-accent { width: 3.5rem; height: 4px; background: var(--amarillo); border-radius: 2px; margin: 1rem 0 2rem; }
+.pres-slide-body { animation: fadeUp 0.3s ease both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Mostrar solo la sección activa en modo presentación */
-body.pres-activo .pres-section {
-  display: none !important;
+.pres-controls-bar {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,0.98); border: 1px solid var(--gris-borde);
+  border-radius: var(--radio); box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 10px 16px; display: flex; align-items: center; gap: 12px; z-index: 1100;
 }
-body.pres-activo .pres-section.pres-activa {
-  display: block !important;
-  animation: fadeUp 0.3s ease both;
+.pres-controls-bar button {
+  font-family: inherit; cursor: pointer; transition: background 0.15s, opacity 0.15s;
 }
+#presPrevBtn {
+  background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm);
+  padding: 0.5rem 1rem; font-weight: 600; color: var(--texto-sec); font-size: 14px;
+}
+#presNextBtn {
+  background: var(--verde); border: none; border-radius: var(--radio-sm);
+  padding: 0.5rem 1rem; font-weight: 700; color: #fff; font-size: 14px;
+}
+#presCloseBar {
+  background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm);
+  padding: 0.5rem 0.75rem; color: var(--texto-sec); font-size: 13px; font-weight: 600; margin-left: 8px;
+}
+#presPageIndicator { font-size: 14px; font-weight: 700; color: var(--texto-sec); min-width: 70px; text-align: center; }
 
-/* Ocultar elementos innecesarios en la sección activa */
-body.pres-activo .pres-section .linea-handle,
-body.pres-activo .pres-section .linea-btns,
-body.pres-activo .pres-section .add-linea {
-  display: none !important;
-}
-
-/* Ocultar líneas vacías */
-body.pres-activo .linea.linea-vacia {
-  display: none !important;
-}
-
-/* Estilo para las líneas llenas en modo presentación */
-body.pres-activo .linea {
-  border: none !important;
-  background: rgba(28, 107, 74, 0.06) !important;
-  padding: 0.9rem 1.4rem !important;
-  margin-bottom: 0.9rem !important;
-  border-left: 6px solid var(--verde) !important;
-  border-radius: var(--radio-sm) !important;
-  display: flex !important;
-  align-items: center !important;
-}
-body.pres-activo .linea input {
-  font-size: 24px !important;
-  font-weight: 600 !important;
-  color: var(--texto) !important;
-  pointer-events: none !important;
-  padding: 0.2rem 0 !important;
-  background: transparent !important;
-  border: none !important;
-}
-
-/* Escalar textos generales */
-body.pres-activo h1 {
-  font-size: clamp(34px, 5vw, 44px) !important;
-  text-align: center !important;
-  margin-bottom: 2rem !important;
-  line-height: 1.2 !important;
-}
-body.pres-activo h1::after {
-  margin: 1rem auto 0 !important;
-}
-body.pres-activo .intro {
-  font-size: clamp(18px, 2.5vw, 24px) !important;
-  text-align: center !important;
-  line-height: 1.7 !important;
-  max-width: 820px !important;
-  margin: 0 auto 2.5rem !important;
-}
-body.pres-activo .seccion-h {
-  font-size: clamp(14px, 2vw, 17px) !important;
-  text-align: center !important;
-  letter-spacing: 0.15em !important;
-  margin: 2.5rem 0 1.5rem !important;
-}
-
-/* Banner de caso activo */
-body.pres-activo .banner,
-body.pres-activo .caso-activo-banner {
-  padding: 2.5rem !important;
-  border-radius: var(--radio) !important;
-  margin-bottom: 2.5rem !important;
-  box-shadow: 0 4px 20px rgba(28, 107, 74, 0.05) !important;
-}
-body.pres-activo .banner-label,
-body.pres-activo .caso-activo-label {
-  font-size: 14px !important;
-  margin-bottom: 0.5rem !important;
-}
-body.pres-activo .banner-title,
-body.pres-activo .caso-activo-titulo {
-  font-size: 34px !important;
-  font-weight: 750 !important;
-  margin-bottom: 0.75rem !important;
-  color: var(--verde) !important;
-}
-body.pres-activo .banner-text,
-body.pres-activo .caso-activo-texto {
-  font-size: 22px !important;
-  line-height: 1.6 !important;
-}
-body.pres-activo .banner-question,
-body.pres-activo .caso-activo-pregunta {
-  font-size: 21px !important;
-  margin-top: 1rem !important;
-  padding-top: 1rem !important;
-  font-style: italic !important;
-}
-
-/* Repaso clave */
-body.pres-activo .repaso {
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 1.25rem !important;
-}
-body.pres-activo .repaso-item {
-  font-size: 20px !important;
-  padding: 1.5rem !important;
-  line-height: 1.55 !important;
-  border-radius: var(--radio) !important;
-  border: 1px solid var(--gris-borde) !important;
-}
-
-/* Guía de trabajo */
-body.pres-activo .guia {
-  margin: 2rem 0 !important;
-  border-radius: var(--radio) !important;
-}
-body.pres-activo .guia-head {
-  padding: 1.25rem 1.75rem !important;
-}
-body.pres-activo .guia-title {
-  font-size: 24px !important;
-}
-body.pres-activo .guia-sub {
-  font-size: 18px !important;
-}
-body.pres-activo .guia-list {
-  font-size: 21px !important;
-  padding: 1.5rem 2rem 1.75rem 2.5rem !important;
-  line-height: 1.6 !important;
-}
-body.pres-activo .guia-list li {
-  margin: 0.6rem 0 !important;
-}
-
-/* Criterios avanzados */
-body.pres-activo .nivel-extra {
-  padding: 1.5rem !important;
-}
-body.pres-activo .nivel-extra-title {
-  font-size: 24px !important;
-}
-body.pres-activo .nivel-extra-copy {
-  font-size: 18px !important;
-}
-body.pres-activo .criterios-grid {
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 1.25rem !important;
-}
-body.pres-activo .criterio {
-  padding: 1.25rem !important;
-}
-body.pres-activo .criterio-title {
-  font-size: 20px !important;
-  border-bottom: 2px solid var(--gris-borde);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-body.pres-activo .criterio-sub {
-  display: none !important;
-}
-
-/* Referencia legal */
-body.pres-activo .ref-intro {
-  font-size: 21px !important;
-  text-align: center;
-  margin-bottom: 2rem !important;
-}
-body.pres-activo .ref-grupo-h {
-  font-size: 18px !important;
-  margin: 2.5rem 0 1rem !important;
-}
-body.pres-activo .art-card {
-  border-radius: var(--radio) !important;
-}
-body.pres-activo .art-card-header {
-  padding: 1rem 1.5rem !important;
-}
-body.pres-activo .art-num {
-  font-size: 18px !important;
-}
-body.pres-activo .art-ley {
-  font-size: 14px !important;
-}
-body.pres-activo .art-resumen {
-  font-size: 22px !important;
-  font-weight: 650 !important;
-}
-body.pres-activo .art-texto {
-  font-size: 19px !important;
-  padding: 1.5rem !important;
-  line-height: 1.65 !important;
-}
-body.pres-activo .legal-label {
-  font-size: 14px !important;
-}
-body.pres-activo .legal-text {
-  font-size: 19px !important;
-  padding: 1.25rem !important;
-}
-body.pres-activo .legal-exp {
-  font-size: 19px !important;
-  padding: 1.25rem !important;
-  margin-top: 1.25rem !important;
-}
-
-/* Capas del trabajo */
-body.pres-activo .capa {
-  margin-bottom: 2.5rem !important;
-}
-body.pres-activo .capa-titulo {
-  font-size: 26px !important;
-  margin-bottom: 0.5rem !important;
-}
-body.pres-activo .capa-sub {
-  font-size: 18px !important;
-  margin-bottom: 1.25rem !important;
-}
-
-/* Nota de la fórmula */
-body.pres-activo .formula-nota {
-  font-size: 22px !important;
-  padding: 1.75rem 2rem !important;
-  margin: 2.5rem 0 !important;
-}
-
-/* Discusión final */
-body.pres-activo .discusion {
-  font-size: 24px !important;
-  padding: 2rem 2.5rem !important;
-  line-height: 1.65 !important;
-  margin: 2.5rem 0 !important;
-}
-
-/* QR view */
-body.pres-activo #vistaQR .qr-wrap {
-  transform: scale(1.1);
-  margin: 1.5rem auto !important;
-}
-
-/* Portada / Ocultar elementos innecesarios */
-body.pres-activo #vistaPortada #nivelGrid,
-body.pres-activo #vistaPortada #casosGrid,
-body.pres-activo #vistaPortada .seccion-h,
-body.pres-activo #vistaPortada .pasos,
-body.pres-activo #vistaPortada .callout {
-  display: none !important;
-}
-body.pres-activo #vistaPortada {
-  text-align: center !important;
-  margin: auto !important;
-}
-body.pres-activo #vistaPortada h1 {
-  font-size: 48px !important;
-  margin-bottom: 1.5rem !important;
-}
-body.pres-activo #vistaPortada h1::after {
-  margin: 1.5rem auto 0 !important;
-}
-body.pres-activo #vistaPortada .intro {
-  font-size: 26px !important;
-  max-width: 800px !important;
-  margin: 0 auto !important;
-  line-height: 1.7 !important;
-}
-
+/* Responsive */
 @media (max-width: 820px) {
-  body.pres-activo .repaso,
-  body.pres-activo .criterios-grid {
-    grid-template-columns: 1fr !important;
-  }
+  .pres-slide-container { padding: 2rem 1rem 6rem; }
+  .pres-header { padding: 0.75rem 1rem; }
 }
 </style>
   <link rel="stylesheet" href="/shared/facilitator-tools.css">
@@ -999,60 +767,65 @@ document.getElementById('btnPPT').addEventListener('click', () => {
   const sf = pptx.addSlide(); sf.background = { color: VERDE }; sf.addText('Para la plenaria', { x: .5, y: 1.5, w: 12.3, align: 'center', fontSize: 34, bold: true, color: 'FFFFFF' }); sf.addText(decodeHtml(d.nivel.disc), { x: 1.3, y: 2.7, w: 10.7, h: 2.3, align: 'center', fontSize: 20, color: 'D8EDE2' }); pptx.writeFile({ fileName: 'perfil-lider-' + slugCaso() + '.pptx' });
 });
 
-/* ===== MODO PRESENTACIÓN EMULADO (CON SINCRO DE SECCIÓN ACTIVA) ===== */
-const presSections = [
-  { id: 'vistaPortada', linkHref: '#vistaPortada' },
-  { id: 'seccion-caso', linkHref: '#selectorCaso' },
-  { id: 'seccion-repaso', linkHref: '#repasoClave' },
-  { id: 'seccion-referencia', linkHref: '#referenciaLegal' },
-  { id: 'seccion-trabajo', linkHref: '#perfilCapas' },
-  { id: 'seccion-discusion', linkHref: '#discusionFinal' },
-  { id: 'vistaQR', linkHref: '#vistaQR' }
+/* ===== MODO PRESENTACIÓN: 6 DIAPOSITIVAS DEL FACILITADOR ===== */
+const presSlides = [
+  {
+    title: 'Código QR',
+    subtitle: 'ESCANEEN PARA ACCEDER AL TRABAJO',
+    content: '<div style="text-align:center;padding:2rem 0"><img src="/assets/qr_diplomado_perfil_lider.png" alt="QR" style="width:260px;height:260px;border:2px solid var(--gris-borde);border-radius:12px;padding:12px;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.06)"><div style="margin-top:1.5rem;font-size:20px;color:var(--texto-sec);font-weight:600">Perfil de Liderazgo Cooperativo</div><div style="margin-top:0.5rem;font-size:14px;color:var(--texto-ter)">coope-notebook.vercel.app</div></div>'
+  },
+  {
+    title: 'Construyamos un perfil de liderazgo cooperativo',
+    subtitle: 'TRABAJO PRÁCTICO · TRABAJO EN EQUIPO · 35-60 MIN',
+    content: '<div style="display:flex;flex-direction:column;gap:1rem;margin-top:0.5rem">' +
+      '<div style="display:flex;gap:1rem;align-items:flex-start;background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div><div><div style="font-size:18px;font-weight:600;color:var(--texto);margin-bottom:2px">El facilitador asigna el nivel y el caso</div><div style="font-size:15px;color:var(--texto-sec)">Todos usan este mismo enlace, pero cada equipo trabaja su ruta.</div></div></div>' +
+      '<div style="display:flex;gap:1rem;align-items:flex-start;background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div><div><div style="font-size:18px;font-weight:600;color:var(--texto);margin-bottom:2px">Revisen el repaso breve y la referencia legal</div><div style="font-size:15px;color:var(--texto-sec)">Fundamenten sus respuestas con la ley y las funciones del cargo.</div></div></div>' +
+      '<div style="display:flex;gap:1rem;align-items:flex-start;background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div><div><div style="font-size:18px;font-weight:600;color:var(--texto);margin-bottom:2px">Construyan el perfil en tres capas</div><div style="font-size:15px;color:var(--texto-sec)">Saber, saber hacer y saber ser.</div></div></div>' +
+      '<div style="display:flex;gap:1rem;align-items:flex-start;background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div><div><div style="font-size:18px;font-weight:600;color:var(--texto);margin-bottom:2px">Preparen su intervención y descarguen</div><div style="font-size:15px;color:var(--texto-sec)">PDF, Word o PowerPoint para la plenaria.</div></div></div>' +
+      '</div>'
+  },
+  {
+    title: 'Elijan el nivel asignado',
+    subtitle: 'TRES RUTAS DE TRABAJO',
+    content: '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:0.5rem">' +
+      '<div style="background:#fff;border:2px solid var(--gris-borde);border-radius:var(--radio);padding:1.5rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="display:inline-block;font-size:11px;font-weight:700;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:4px;padding:3px 10px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem">Principiante</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.35rem">Más guiado</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Preguntas concretas, ejemplos y foco en reconocer ideas clave.</div></div>' +
+      '<div style="background:var(--verde-claro);border:2px solid var(--verde);border-radius:var(--radio);padding:1.5rem;text-align:center;box-shadow:0 4px 12px rgba(28,107,74,0.08)"><div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--verde);border-radius:4px;padding:3px 10px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem">Balanceado</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.35rem">Estándar</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Guía suficiente para decidir, priorizar y construir el perfil.</div></div>' +
+      '<div style="background:#fff;border:2px solid var(--gris-borde);border-radius:var(--radio);padding:1.5rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.03)"><div style="display:inline-block;font-size:11px;font-weight:700;color:var(--verde);background:var(--verde-claro);border:1px solid var(--verde-borde);border-radius:4px;padding:3px 10px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem">Avanzado</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.35rem">Más exigente</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Justificación, tensiones, riesgos y decisiones defendibles.</div></div>' +
+      '</div>'
+  },
+  {
+    title: 'Cada equipo trabaja un caso diferente',
+    subtitle: 'ELIJAN SU CASO',
+    content: '<div style="display:flex;flex-direction:column;gap:0.85rem;margin-top:0.5rem">' +
+      CASOS.map((c, i) => '<div style="display:flex;gap:1rem;align-items:flex-start;background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.02)"><div style="width:32px;height:32px;border-radius:50%;background:var(--verde);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">' + (i+1) + '</div><div><div style="font-size:17px;font-weight:650;color:var(--texto);margin-bottom:2px">' + c.t + '</div><div style="font-size:14.5px;color:var(--texto-sec);line-height:1.5">' + c.d + '</div></div></div>').join('') +
+      '</div>'
+  },
+  {
+    title: 'En cada caso encontrarán',
+    subtitle: 'HERRAMIENTAS PARA EL EQUIPO',
+    content: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:0.5rem">' +
+      '<div style="background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.03)"><div style="font-size:28px;margin-bottom:0.75rem">⚖️</div><div style="font-size:20px;font-weight:700;color:var(--verde);margin-bottom:0.5rem">Fundamentos legales</div><div style="font-size:16px;color:var(--texto-sec);line-height:1.6">Artículos de la Ley de Cooperativas que definen las funciones y requisitos del cargo. Sirven para fundamentar el perfil con base legal.</div></div>' +
+      '<div style="background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.03)"><div style="font-size:28px;margin-bottom:0.75rem">💡</div><div style="font-size:20px;font-weight:700;color:var(--verde);margin-bottom:0.5rem">Preguntas guía</div><div style="font-size:16px;color:var(--texto-sec);line-height:1.6">Orientaciones específicas por nivel para que el equipo construya el perfil en tres capas: saber, saber hacer y saber ser.</div></div>' +
+      '</div>'
+  },
+  {
+    title: 'Al terminar, descarguen su trabajo',
+    subtitle: 'FORMATOS DE DESCARGA',
+    content: '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:0.5rem">' +
+      '<div style="background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.03)"><div style="font-size:36px;margin-bottom:0.75rem">📄</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.4rem">PDF</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Documento completo para imprimir o archivar.</div></div>' +
+      '<div style="background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.03)"><div style="font-size:36px;margin-bottom:0.75rem">📝</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.4rem">Word</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Documento editable para seguir trabajando.</div></div>' +
+      '<div style="background:#fff;border:1px solid var(--gris-borde);border-radius:var(--radio);padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.03)"><div style="font-size:36px;margin-bottom:0.75rem">📊</div><div style="font-size:20px;font-weight:700;color:var(--texto);margin-bottom:0.4rem">PowerPoint</div><div style="font-size:15px;color:var(--texto-sec);line-height:1.5">Presentación por capas lista para la plenaria.</div></div>' +
+      '</div>'
+  }
 ];
 
 let presActiveIndex = 0;
 
-function classificarLineasVacias() {
-  document.querySelectorAll('.lineas input').forEach(input => {
-    const linea = input.closest('.linea');
-    if (linea) {
-      linea.classList.toggle('linea-vacia', !input.value.trim());
-    }
-  });
-}
-
 function entrarPresentacion() {
-  if (casoSel < 0) {
-    casoSel = 0; // Default to Case 1
-    const n = NIVELES[nivelSel];
-    document.getElementById('casoActivoLabel').textContent = 'Caso 1 de ' + CASOS.length + ' · Nivel ' + n.nombre;
-    document.getElementById('casoActivoTitulo').textContent = CASOS[0].t;
-    document.getElementById('casoActivoTexto').innerHTML = CASOS[0].d;
-    document.getElementById('casoActivoPregunta').innerHTML = CASOS[0].p;
-    aplicarNivel();
-    cargarLineasGuardadas(casoSel, nivelSel);
-  }
-
-  // Determine starting index from active sidebar link
-  const activeLink = document.querySelector('.nb-nav a.activo');
-  const activeHref = activeLink ? activeLink.getAttribute('href') : '#vistaPortada';
-  
-  let startIndex = 0;
-  if (activeHref === '#repasoClave') startIndex = 2;
-  else if (activeHref === '#referenciaLegal') startIndex = 3;
-  else if (activeHref === '#perfilCapas') startIndex = 4;
-  else if (activeHref === '#discusionFinal') startIndex = 5;
-  else if (activeHref === '#vistaQR') startIndex = 6;
-  else if (activeHref === '#selectorCaso') startIndex = 1;
-  else startIndex = 0;
-
-  presActiveIndex = startIndex;
-  
+  presActiveIndex = 0;
   document.body.classList.add('pres-activo');
   document.getElementById('vistaPresentacion').style.display = 'block';
-  
-  renderActiveSection();
-  
+  renderActiveSlide();
   window.addEventListener('keydown', manejarTecladoPresentacionLocal);
 }
 
@@ -1060,121 +833,62 @@ function cerrarPresentacion() {
   document.body.classList.remove('pres-activo');
   document.getElementById('vistaPresentacion').style.display = 'none';
   window.removeEventListener('keydown', manejarTecladoPresentacionLocal);
-  
-  // Re-sync standard layout visibility
-  const activeSec = presSections[presActiveIndex];
-  if (activeSec.id === 'vistaPortada') {
-    mostrarPortada();
-  } else if (activeSec.id === 'vistaQR') {
-    mostrarQR();
-  } else {
-    mostrarTrabajo();
-    // Scroll to the active target
-    const target = document.querySelector(activeSec.linkHref);
-    if (target) {
-      target.scrollIntoView({ behavior: 'auto', block: 'start' });
-    }
-  }
 }
 
-function renderActiveSection() {
-  const activeSec = presSections[presActiveIndex];
-  
-  // Mark empty input lines
-  classificarLineasVacias();
-  
-  // Toggle visibility of major layout blocks
-  if (activeSec.id === 'vistaPortada') {
-    document.getElementById('vistaPortada').style.display = 'block';
-    document.getElementById('vistaTrabajo').style.display = 'none';
-    document.getElementById('vistaQR').style.display = 'none';
-  } else if (activeSec.id === 'vistaQR') {
-    document.getElementById('vistaPortada').style.display = 'none';
-    document.getElementById('vistaTrabajo').style.display = 'none';
-    document.getElementById('vistaQR').style.display = 'block';
-  } else {
-    document.getElementById('vistaPortada').style.display = 'none';
-    document.getElementById('vistaTrabajo').style.display = 'block';
-    document.getElementById('vistaQR').style.display = 'none';
-  }
-  
-  // Update .pres-activa class on slides
-  document.querySelectorAll('.pres-section').forEach(el => el.classList.remove('pres-activa'));
-  const activeEl = document.getElementById(activeSec.id);
-  if (activeEl) {
-    activeEl.classList.add('pres-activa');
-  }
-  
-  // Keep sidebar in sync
-  document.querySelectorAll('.nb-nav a').forEach(a => {
-    a.classList.toggle('activo', a.getAttribute('href') === activeSec.linkHref);
-  });
-  
-  // Update floating bar controls
-  document.getElementById('presPageIndicator').textContent = (presActiveIndex + 1) + ' de ' + presSections.length;
-  
+function renderActiveSlide() {
+  const slide = presSlides[presActiveIndex];
+  const container = document.querySelector('.pres-slide-container');
+  container.innerHTML =
+    '<div class="pres-slide-subtitle">' + slide.subtitle + '</div>' +
+    '<div class="pres-slide-title">' + slide.title + '</div>' +
+    '<div class="pres-slide-accent"></div>' +
+    '<div class="pres-slide-body">' + slide.content + '</div>';
+
+  document.getElementById('presPageIndicator').textContent = (presActiveIndex + 1) + ' de ' + presSlides.length;
   const prevBtn = document.getElementById('presPrevBtn');
   const nextBtn = document.getElementById('presNextBtn');
-  
   prevBtn.disabled = (presActiveIndex === 0);
-  nextBtn.disabled = (presActiveIndex === presSections.length - 1);
-  
-  prevBtn.style.opacity = (presActiveIndex === 0) ? '0.4' : '1';
-  nextBtn.style.opacity = (presActiveIndex === presSections.length - 1) ? '0.4' : '1';
+  nextBtn.disabled = (presActiveIndex === presSlides.length - 1);
+  prevBtn.style.opacity = presActiveIndex === 0 ? '0.4' : '1';
+  nextBtn.style.opacity = presActiveIndex === presSlides.length - 1 ? '0.4' : '1';
 }
 
-function presNext() {
-  if (presActiveIndex < presSections.length - 1) {
-    presActiveIndex++;
-    renderActiveSection();
-  }
-}
-
-function presPrev() {
-  if (presActiveIndex > 0) {
-    presActiveIndex--;
-    renderActiveSection();
-  }
-}
+function presNext() { if (presActiveIndex < presSlides.length - 1) { presActiveIndex++; renderActiveSlide(); } }
+function presPrev() { if (presActiveIndex > 0) { presActiveIndex--; renderActiveSlide(); } }
 
 function manejarTecladoPresentacionLocal(e) {
-  if (e.key === 'ArrowRight' || e.key === ' ') {
-    e.preventDefault();
-    presNext();
-  } else if (e.key === 'ArrowLeft') {
-    e.preventDefault();
-    presPrev();
-  } else if (e.key === 'Escape') {
-    e.preventDefault();
-    cerrarPresentacion();
-  }
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); presNext(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); presPrev(); }
+  else if (e.key === 'Escape') { e.preventDefault(); cerrarPresentacion(); }
 }
 
-// Bind events safely after page loads
 window.addEventListener('load', function() {
-  const btnPres = document.getElementById('btnPresentar');
+  var btnPres = document.getElementById('btnPresentar');
   if (btnPres) btnPres.addEventListener('click', entrarPresentacion);
-  
-  const btnPresTopbar = document.getElementById('btnPresentarTopbar');
+  var btnPresTopbar = document.getElementById('btnPresentarTopbar');
   if (btnPresTopbar) btnPresTopbar.addEventListener('click', entrarPresentacion);
-  
-  const closeBtn = document.getElementById('presCloseBtn');
+  var closeBtn = document.getElementById('presCloseBtn');
   if (closeBtn) closeBtn.addEventListener('click', cerrarPresentacion);
-  
-  const prevBtn = document.getElementById('presPrevBtn');
+  var closeBar = document.getElementById('presCloseBar');
+  if (closeBar) closeBar.addEventListener('click', cerrarPresentacion);
+  var prevBtn = document.getElementById('presPrevBtn');
   if (prevBtn) prevBtn.addEventListener('click', presPrev);
-  
-  const nextBtn = document.getElementById('presNextBtn');
+  var nextBtn = document.getElementById('presNextBtn');
   if (nextBtn) nextBtn.addEventListener('click', presNext);
 });
 </script>
 
 <div id="vistaPresentacion" style="display: none;">
-  <div class="pres-controls-bar" style="position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.98); border: 1px solid var(--gris-borde); border-radius: var(--radio); box-shadow: 0 8px 32px rgba(0,0,0,0.12); padding: 10px 16px; display: flex; align-items: center; gap: 12px; z-index: 1100;">
-    <button id="presPrevBtn" style="background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem 1rem; cursor: pointer; font-weight: 600; color: var(--texto-sec); font-size: 14px; transition: background 0.15s;">&larr; Anterior</button>
-    <span id="presPageIndicator" style="font-size: 14px; font-weight: 700; color: var(--texto-sec); min-width: 70px; text-align: center;">1 de 7</span>
-    <button id="presNextBtn" style="background: var(--verde); border: none; border-radius: var(--radio-sm); padding: 0.5rem 1rem; cursor: pointer; font-weight: 700; color: #fff; font-size: 14px; transition: background 0.15s;">Siguiente &rarr;</button>
-    <button id="presCloseBtn" style="background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem 0.75rem; cursor: pointer; color: var(--texto-sec); font-size: 13px; font-weight: 600; transition: background 0.15s; margin-left: 8px;">Salir (Esc)</button>
+  <div class="pres-header">
+    <div class="pres-header-title">Presentación del Facilitador</div>
+    <button class="pres-close-btn" id="presCloseBtn">Cerrar (Esc)</button>
+  </div>
+  <div class="pres-slide-container"></div>
+  <div class="pres-controls-bar">
+    <button id="presPrevBtn">&larr; Anterior</button>
+    <span id="presPageIndicator">1 de 6</span>
+    <button id="presNextBtn">Siguiente &rarr;</button>
+    <button id="presCloseBar">Salir (Esc)</button>
   </div>
 </div>
 
