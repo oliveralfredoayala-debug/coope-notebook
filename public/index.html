@@ -11,26 +11,26 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
 <style>
 :root{
-  --carbon:#f4f6f4;        /* fondo base, gris-sage claro */
+  --carbon:#f2efe8;        /* fondo base, crema cálido (match banner bg) */
   --carbon-2:#ffffff;      /* superficie, blanco puro */
-  --carbon-3:#e8ede9;      /* superficie elevada */
-  --linea:#d1dcd3;         /* bordes suaves */
-  --linea-2:#a9bba1;       /* bordes activos */
-  --hueso:#112217;         /* texto principal, bosque oscuro */
-  --hueso-2:#44574a;       /* texto secundario */
-  --hueso-3:#738879;       /* texto terciario */
-  --fuego:#1c6b4a;         /* acento principal verde */
-  --fuego-2:#145137;       /* acento principal hover */
-  --fuego-bg:#e8f4ef;      /* fondo claro verde */
-  --brasa:#0f3f2a;         /* acento verde profundo */
-  --verde:#10b981;         /* verde de éxito (abierto/vivo) */
-  --verde-bg:rgba(16,185,129,.12);
-  --rojo:#e06a4a;          /* acción/alerta rojo */
-  --rojo-bg:rgba(224,106,74,.12);
-  --amarillo:#f4c20d;      /* acento oro de CoopeNotebook */
-  --amarillo-bg:rgba(244,194,13,.12);
-  --card-shadow: 0 4px 20px rgba(28, 107, 74, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
-  --card-shadow-hover: 0 12px 30px rgba(28, 107, 74, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --carbon-3:#eae6dd;      /* superficie elevada, beige suave */
+  --linea:#d9d3c7;         /* bordes cálidos */
+  --linea-2:#b5ac9a;       /* bordes activos */
+  --hueso:#1a2e22;         /* texto principal, bosque muy oscuro */
+  --hueso-2:#4a5d4e;       /* texto secundario, verde-gris */
+  --hueso-3:#7d7763;       /* texto terciario, oliva apagado */
+  --fuego:#234a35;         /* acento principal verde bosque oscuro */
+  --fuego-2:#1a3628;       /* acento principal hover */
+  --fuego-bg:#e6ede6;      /* fondo claro verde sage */
+  --brasa:#122a1e;         /* acento verde profundo */
+  --verde:#3a7a52;         /* verde de éxito, bosque medio */
+  --verde-bg:rgba(58,122,82,.10);
+  --rojo:#c45a3c;          /* acción/alerta rojo cálido */
+  --rojo-bg:rgba(196,90,60,.10);
+  --amarillo:#d4a520;      /* acento oro cálido */
+  --amarillo-bg:rgba(212,165,32,.10);
+  --card-shadow: 0 4px 20px rgba(26,46,34,0.04), 0 2px 8px rgba(0,0,0,0.02);
+  --card-shadow-hover: 0 12px 30px rgba(26,46,34,0.08), 0 4px 12px rgba(0,0,0,0.03);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--carbon);color:var(--hueso);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
@@ -46,7 +46,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-
 .app{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px}
 
 /* topbar glassmorphism */
-.topbar{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(244, 246, 244, 0.85);backdrop-filter:blur(10px);z-index:20}
+.topbar{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);position:sticky;top:0;background:rgba(242,239,232,0.85);backdrop-filter:blur(10px);z-index:20}
 .logo{width:46px;height:46px;border-radius:50%;background:#ffffff;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
 .logo img{width:84%;height:84%;object-fit:contain}
 .brand{font-size:19px;font-weight:700;font-family:'Space Grotesk';color:var(--fuego)}
