@@ -220,7 +220,11 @@ function toggleAcordeon(header) {
 
 function abrirCapsula(id) {
   console.log('Abrir cápsula:', id);
-  alert('Cápsula: ' + id + ' (proximamente)');
+  if (id === 'legislacion-cooperativista' || id === 'trabajo-legislacion') {
+    window.location.href = '/contents/diplomado-basico/legislacion-cooperativa/KB-mapa-normas-cooperativas.html';
+  } else {
+    alert('Cápsula: ' + id + ' (próximamente)');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', cargarKB);
