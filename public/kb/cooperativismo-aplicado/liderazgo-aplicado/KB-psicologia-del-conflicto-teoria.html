@@ -218,9 +218,40 @@ body.present .slide-list li{font-size:28px;margin-top:18px}
 .tab-image {
   width: 100%;
   height: auto;
-  max-height: 360px;
-  object-fit: cover;
+  max-height: 600px;
+  object-fit: contain;
   display: block;
+}
+
+/* Plain Timeline Badge Overrides */
+.tl-badge.plain {
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tl-badge.plain::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: block;
+  transition: transform 0.15s;
+}
+.tl-item:hover .tl-badge.plain::after {
+  transform: scale(1.25);
+}
+.tl-step-green .tl-badge.plain::after {
+  background: var(--verde-sec);
+  box-shadow: 0 0 0 4px rgba(47, 125, 82, 0.15);
+}
+.tl-step-amber .tl-badge.plain::after {
+  background: var(--ambar);
+  box-shadow: 0 0 0 4px rgba(240, 162, 38, 0.15);
+}
+.tl-step-red .tl-badge.plain::after {
+  background: var(--lila);
+  box-shadow: 0 0 0 4px rgba(125, 106, 156, 0.15);
 }
 
 /* Visual Timeline Styles */
@@ -391,6 +422,7 @@ body.present .mini-icon svg{width:44px;height:44px}
 body.present .mini .t{font-size:24px;margin-bottom:14px}
 body.present .mini .s{font-size:18px;line-height:1.6}
 body.present .tl-badge{width:44px;height:44px;font-size:18px}
+body.present .tl-badge.plain::after{width:20px;height:20px}
 body.present .tl-title{font-size:24px}
 body.present .tl-desc{font-size:18px}
 body.present .cell-title{font-size:22px}
@@ -474,6 +506,9 @@ const CAPS = [
       },
       {
         nombre: "Cuerpo y emociones",
+        layout: "timeline-plain",
+        image: "/assets/sistema-simpatico-parasimpatico.png",
+        imageAlt: "Sistema simpático y parasimpático y su relación con la respuesta ante el conflicto",
         texto: "<p>Las emociones como el miedo, la ira y la frustración orientan nuestra atención y preparan físicamente al organismo. Al percibir una amenaza de carácter social (al estatus o la reputación), el sistema nervioso autónomo reacciona con la misma intensidad que ante un peligro físico.</p>",
         acordeon: [
           ["Sistema Simpático", "Moviliza energía e incrementa el ritmo cardíaco y la tensión muscular para actuar con rapidez."],
@@ -586,14 +621,25 @@ function renderTab(c,t){
 
   // 3. Diagram / Timeline custom layouts for specific tabs
   let visualContent = '';
-  if (t.layout === 'timeline' && t.acordeon) {
+  if ((t.layout === 'timeline' || t.layout === 'timeline-plain') && t.acordeon) {
     // Beautiful interactive timeline instead of accordion
     const steps = t.acordeon.map((p, idx) => {
       let levelClass = 'tl-step-green';
-      if (idx >= 2) levelClass = 'tl-step-amber';
-      if (idx >= 4) levelClass = 'tl-step-red';
+      if (t.layout === 'timeline-plain') {
+        if (idx === 0) levelClass = 'tl-step-amber';
+        else if (idx === 1) levelClass = 'tl-step-green';
+        else if (idx === 2) levelClass = 'tl-step-red';
+      } else {
+        if (idx >= 2) levelClass = 'tl-step-amber';
+        if (idx >= 4) levelClass = 'tl-step-red';
+      }
+
+      const badgeHtml = t.layout === 'timeline-plain' 
+        ? '<div class="tl-badge plain"></div>' 
+        : `<div class="tl-badge">${idx + 1}</div>`;
+
       return `<div class="tl-item ${levelClass}">
-        <div class="tl-badge">${idx + 1}</div>
+        ${badgeHtml}
         <div class="tl-content">
           <div class="tl-title">${esc(p[0])}</div>
           <div class="tl-desc">${esc(p[1])}</div>
