@@ -202,7 +202,13 @@ textarea:focus { outline: none; border-color: var(--verde-sec); box-shadow: 0 0 
     <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <div class="brand"><strong>Coope</strong>Notebook</div>
+    <a class="brand" href="/index.html" style="color: var(--tinta); text-decoration: none;"><strong>Coope</strong>Notebook</a>
+    <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+      <a class="back" href="/lnl/" style="font-size: 13px; color: var(--tinta-2); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver
+      </a>
+    </div>
   </header>
 
   <div class="nb-overlay" onclick="cerrarMenu()"></div>
