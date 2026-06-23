@@ -95,10 +95,10 @@ const CAPS = [
         nombre: "Naturaleza del conflicto",
         texto: "<p>El conflicto aparece cuando una persona o un grupo percibe que otra persona o grupo afecta o amenaza algo que considera importante. Esta definición destaca que el conflicto es subjetivo: basta con que la amenaza sea interpretada como real por quienes participan para que exista en términos psicológicos.</p><p>El conflicto no debe confundirse automáticamente con agresión, hostilidad o ruptura. Lo decisivo es la forma en que se interpreta y se gestiona.</p>",
         cards: [
-          ["Inevitable", "Aparecerán diferencias al compartir decisiones, recursos y responsabilidades."],
-          ["No siempre negativo", "Revela problemas ocultos y permite escuchar perspectivas minoritarias."],
-          ["No automáticamente productivo", "Para generar aprendizaje exige respeto, apertura y seguridad psicológica."],
-          ["Gestión modificadora", "La tensión puede escalar si se personaliza, o educar si se canaliza."]
+          ["Inevitable", "Aparecerán diferencias al compartir decisiones, recursos y responsabilidades.", "chat"],
+          ["No siempre negativo", "Revela problemas ocultos y permite escuchar perspectivas minoritarias.", "search"],
+          ["No automáticamente productivo", "Para generar aprendizaje exige respeto, apertura y seguridad psicológica.", "sprout"],
+          ["Gestión modificadora", "La tensión puede escalar si se personaliza, o educar si se canaliza.", "sliders"]
         ],
         highlight: "El problema no es la existencia del conflicto. El problema comienza cuando dejamos de analizar el asunto y empezamos a defendernos de las personas."
       },
@@ -116,10 +116,10 @@ const CAPS = [
         nombre: "Necesidades e identidad",
         texto: "<p>Los conflictos se intensifican cuando las diferencias tocan necesidades profundas y no solo opiniones técnicas. Asimismo, la identidad grupal puede llevarnos a clasificar la realidad entre 'nosotros' y 'ellos', descalificando ideas según el grupo del que provienen.</p>",
         cards: [
-          ["Influencia y Estatus", "Se discute quién coordina o representa la organización."],
-          ["Recursos y Seguridad", "Se discute la distribución de presupuestos o prioridades institucionales."],
-          ["Pertenencia y Estatus", "Se discute quién accede primero a la información o participa de decisiones."],
-          ["Control y Valores", "Se discute cómo interpretar normas o proteger la reputación institucional."]
+          ["Influencia y Estatus", "Se discute quién coordina o representa la organización.", "status"],
+          ["Recursos y Seguridad", "Se discute la distribución de presupuestos o prioridades institucionales.", "shield"],
+          ["Pertenencia y Estatus", "Se discute quién accede primero a la información o participa de decisiones.", "users"],
+          ["Control y Valores", "Se discute cómo interpretar normas o proteger la reputación institucional.", "control"]
         ],
         highlight: "Muchas discusiones técnicas esconden preguntas psicológicas: ¿me escuchan?, ¿cuento?, ¿me respetan?, ¿tengo influencia?, ¿sigo perteneciendo?"
       },
@@ -135,6 +135,7 @@ const CAPS = [
       },
       {
         nombre: "Cómo escala el conflicto",
+        layout: "timeline",
         texto: "<p>El conflicto escala gradualmente mediante cambios en la comunicación, la percepción del otro y nuestros objetivos. La intervención más eficiente ocurre en las etapas tempranas, antes de la polarización y la ruptura relacional.</p>",
         acordeon: [
           ["1. Desacuerdo", "Existen posiciones y argumentos diferentes, pero enfocados en la tarea."],
@@ -149,15 +150,16 @@ const CAPS = [
         nombre: "Tipos de conflicto",
         texto: "<p>La psicología organizacional distingue el contenido del conflicto. Esto permite comprender qué es lo que realmente se está debatiendo y evitar que diferencias intelectuales escalen hacia lo relacional.</p>",
         cards: [
-          ["Conflicto de Tarea", "Diferencias sobre la propuesta, la estrategia o la interpretación de datos."],
-          ["Conflicto de Proceso", "Diferencias sobre responsabilidades, métodos, tiempos o la coordinación."],
-          ["Conflicto Relacional", "Hostilidad, incompatibilidad interpersonal, resentimiento o desconfianza mutua."],
-          ["Conflicto de Estatus", "Disputas por influencia, jerarquía informal o legitimidad para decidir."]
+          ["Conflicto de Tarea", "Diferencias sobre la propuesta, la estrategia o la interpretación de datos.", "task"],
+          ["Conflicto de Proceso", "Diferencias sobre responsabilidades, métodos, tiempos o la coordinación.", "process"],
+          ["Conflicto Relacional", "Hostilidad, incompatibilidad interpersonal, resentimiento o desconfianza mutua.", "relational"],
+          ["Conflicto de Estatus", "Disputas por influencia, jerarquía informal o legitimidad para decidir.", "status"]
         ],
         highlight: "Una organización saludable no elimina el desacuerdo: evita que disentir tenga un costo personal."
       },
       {
         nombre: "Estilos de respuesta",
+        layout: "matrix",
         texto: "<p>El modelo Thomas-Kilmann organiza las conductas ante el conflicto basándose en dos dimensiones: asertividad (atender lo propio) y cooperatividad (atender al otro). Ningún estilo es mejor; la clave es saber cuándo usar cada uno.</p>",
         acordeon: [
           ["Competir", "Alta asertividad y baja cooperatividad. Útil para decisiones urgentes o límites críticos."],
