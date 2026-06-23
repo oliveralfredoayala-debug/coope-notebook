@@ -3,7 +3,7 @@
   var pathPrefix = ".";
   var path = window.location.pathname;
   var contentsIdx = path.indexOf('/contents/');
-  var toolsIdx = path.indexOf('/tools/');
+  var toolsIdx = path.indexOf('/gow/');
   var startIdx = contentsIdx !== -1 ? contentsIdx : (toolsIdx !== -1 ? toolsIdx : -1);
   
   if (startIdx !== -1) {
@@ -17,12 +17,12 @@
   }
 
   var tools = [
-    { id:'ley', label:'Ley de Coop.', url: pathPrefix + '/tools/ley.html?panel=1', iconName: 'ley' },
-    { id:'delegados', label:'Delegados', url: pathPrefix + '/tools/temas-artefacto/calculadora-delegados.html?panel=1', iconName: 'delegados' },
-    { id:'excedentes', label:'Excedentes', url: pathPrefix + '/tools/temas-artefacto/explorador-excedentes.html?panel=1', iconName: 'excedentes' },
-    { id:'anio', label:'Año social', url: pathPrefix + '/tools/temas-artefacto/ano-social-fiscal.html?panel=1', iconName: 'anio' },
-    { id:'incidencia', label:'Incidencia', url: pathPrefix + '/tools/temas-artefacto/plan-incidencia-politica.html?panel=1', iconName: 'incidencia' },
-    { id:'perfil', label:'Perfil líder', url: pathPrefix + '/tools/trabajo-equipo/perfil-lider.html?panel=1', iconName: 'perfil' }
+    { id:'ley', label:'Ley de Coop.', url: pathPrefix + '/gow/ley.html?panel=1', iconName: 'ley' },
+    { id:'delegados', label:'Delegados', url: pathPrefix + '/gow/temas-artefacto/calculadora-delegados.html?panel=1', iconName: 'delegados' },
+    { id:'excedentes', label:'Excedentes', url: pathPrefix + '/gow/temas-artefacto/explorador-excedentes.html?panel=1', iconName: 'excedentes' },
+    { id:'anio', label:'Año social', url: pathPrefix + '/gow/temas-artefacto/ano-social-fiscal.html?panel=1', iconName: 'anio' },
+    { id:'incidencia', label:'Incidencia', url: pathPrefix + '/gow/temas-artefacto/plan-incidencia-politica.html?panel=1', iconName: 'incidencia' },
+    { id:'perfil', label:'Perfil líder', url: pathPrefix + '/gow/trabajo-equipo/perfil-lider.html?panel=1', iconName: 'perfil' }
   ];
 
   function icon(name){

@@ -5,7 +5,7 @@
   var search = window.location.search;
 
   // Normalize path to check if we are on the home page
-  var isHome = path === '/' || path === '/index.html' || path.endsWith('/index.html') && !path.includes('/contents/') && !path.includes('/tools/');
+  var isHome = path === '/' || path === '/index.html' || path.endsWith('/index.html') && !path.includes('/contents/') && !path.includes('/tools/') && !path.includes('/gow/') && !path.includes('/lnl/');
   // Check if already authenticated
   var isAuthenticated = sessionStorage.getItem(authKey) === passwordCorrect;
 

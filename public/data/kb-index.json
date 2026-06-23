@@ -9,59 +9,82 @@
           "id": "cooperativismo-basico",
           "titulo": "Cooperativismo Básico",
           "capsulas": [
-            { "id": "historia-cooperativismo", "titulo": "Historia del Cooperativismo" },
-            { "id": "estructura-organica", "titulo": "Estructura Orgánica" },
-            { "id": "principios-balance-social", "titulo": "Principios y Balance Social" },
-            { "id": "clasificacion-cooperativas", "titulo": "Clasificación de Cooperativas" },
-            { "id": "trabajo-identidad", "titulo": "Identidad Cooperativa" }
+            {
+              "id": "historia-cooperativismo",
+              "titulo": "Historia del Cooperativismo"
+            },
+            {
+              "id": "estructura-organica",
+              "titulo": "Estructura Orgánica"
+            },
+            {
+              "id": "principios-balance-social",
+              "titulo": "Principios y Balance Social"
+            },
+            {
+              "id": "clasificacion-cooperativas",
+              "titulo": "Clasificación de Cooperativas"
+            }
           ]
         },
         {
           "id": "legislacion-cooperativa",
           "titulo": "Legislación Cooperativa",
           "capsulas": [
-            { "id": "legislacion-cooperativista", "titulo": "Ley de Cooperativas" },
-            { "id": "trabajo-legislacion", "titulo": "Aplicación de Legislación" }
+            {
+              "id": "legislacion-cooperativista",
+              "titulo": "Ley de Cooperativas"
+            }
           ]
         },
         {
           "id": "gobernabilidad-cooperativa",
           "titulo": "Gobernabilidad Cooperativa",
           "capsulas": [
-            { "id": "gobernabilidad-cooperativa", "titulo": "Principios de Gobernabilidad" },
-            { "id": "trabajo-gobernabilidad-cooperativa", "titulo": "Gobernabilidad en Práctica" }
+            {
+              "id": "gobernabilidad-cooperativa",
+              "titulo": "Principios de Gobernabilidad"
+            }
           ]
         },
         {
           "id": "funciones-cuerpos-directivos",
           "titulo": "Funciones de los Cuerpos Directivos",
           "capsulas": [
-            { "id": "cuerpos-directivos-funciones", "titulo": "Funciones y Responsabilidades" },
-            { "id": "trabajo-cuerpos-directivos", "titulo": "Trabajo de Directivos" }
+            {
+              "id": "cuerpos-directivos-funciones",
+              "titulo": "Funciones y Responsabilidades"
+            }
           ]
         },
         {
           "id": "administracion-asambleas",
           "titulo": "Administración de Asambleas",
           "capsulas": [
-            { "id": "asambleas", "titulo": "Asambleas" },
-            { "id": "trabajo-asambleas", "titulo": "Gestión de Asambleas" }
+            {
+              "id": "asambleas",
+              "titulo": "Asambleas"
+            }
           ]
         },
         {
           "id": "liderazgo-cooperativo",
           "titulo": "Liderazgo Cooperativo",
           "capsulas": [
-            { "id": "liderazgo-diplomado", "titulo": "Liderazgo Cooperativo" },
-            { "id": "trabajo-perfil-lider", "titulo": "Perfil del Líder" }
+            {
+              "id": "liderazgo-diplomado",
+              "titulo": "Liderazgo Cooperativo"
+            }
           ]
         },
         {
           "id": "incidencia-politica",
           "titulo": "Incidencia Política",
           "capsulas": [
-            { "id": "incidencia-politica", "titulo": "Incidencia Política" },
-            { "id": "trabajo-incidencia", "titulo": "Estrategias de Incidencia" }
+            {
+              "id": "incidencia-politica",
+              "titulo": "Incidencia Política"
+            }
           ]
         }
       ]
@@ -75,23 +98,34 @@
           "id": "liderazgo-aplicado",
           "titulo": "Liderazgo Aplicado",
           "capsulas": [
-            { "id": "liderazgo-comunicacion-lidercoop", "titulo": "Comunicación y Liderazgo" },
-            { "id": "perfil-lider", "titulo": "Perfil del Líder Aplicado" }
+            {
+              "id": "liderazgo-comunicacion-lidercoop",
+              "titulo": "Comunicación y Liderazgo"
+            },
+            {
+              "id": "perfil-lider",
+              "titulo": "Perfil del Líder Aplicado"
+            }
           ]
         },
         {
           "id": "identidad-cooperativa-aplicada",
           "titulo": "Identidad Cooperativa Aplicada",
           "capsulas": [
-            { "id": "modelocooperativo-empoderamiento", "titulo": "Modelo Cooperativo y Empoderamiento" }
+            {
+              "id": "modelocooperativo-empoderamiento",
+              "titulo": "Modelo Cooperativo y Empoderamiento"
+            }
           ]
         },
         {
           "id": "trabajo-en-equipo",
           "titulo": "Trabajo en Equipo",
           "capsulas": [
-            { "id": "liderazgo-en-equipo", "titulo": "Liderazgo en Equipo" },
-            { "id": "trabajo-equipo-manejo-conflictos", "titulo": "Manejo de Conflictos" }
+            {
+              "id": "liderazgo-en-equipo",
+              "titulo": "Liderazgo en Equipo"
+            }
           ]
         }
       ]
