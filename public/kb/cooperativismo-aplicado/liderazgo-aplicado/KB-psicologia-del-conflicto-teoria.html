@@ -427,6 +427,213 @@ body.present .tl-title{font-size:24px}
 body.present .tl-desc{font-size:18px}
 body.present .cell-title{font-size:22px}
 body.present .cell-desc{font-size:16px}
+
+/* Nervous System Diagram Native Rebuild */
+.nervous-diagram {
+  margin: 28px 0;
+  border: 1.5px solid var(--linea);
+  border-radius: 16px;
+  padding: 28px 24px;
+  background: var(--niebla-2);
+}
+.nd-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.nd-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--verde);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.nd-subtitle {
+  font-size: 14.5px;
+  color: var(--tinta-2);
+  font-weight: 500;
+}
+.nd-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.nd-card {
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.nd-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(35, 74, 53, 0.05);
+}
+.nd-card.highlighted {
+  background: rgba(47, 125, 82, 0.02);
+  border-color: rgba(47, 125, 82, 0.25);
+}
+.nd-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--verde-sec);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nd-icon svg {
+  width: 32px;
+  height: 32px;
+}
+.nd-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--verde);
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+.nd-card-text {
+  font-size: 12.5px;
+  color: var(--tinta-2);
+  line-height: 1.5;
+  text-align: left;
+}
+.nd-card-bullets {
+  font-size: 12.5px;
+  color: var(--tinta-2);
+  line-height: 1.5;
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.nd-card-bullets li {
+  position: relative;
+  padding-left: 12px;
+  margin-top: 6px;
+}
+.nd-card-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--verde-sec);
+  font-weight: bold;
+}
+.nd-card.highlighted:nth-child(4) .nd-card-bullets li::before {
+  color: var(--ambar);
+}
+.nd-remember {
+  display: flex;
+  gap: 16px;
+  background: rgba(240, 162, 38, 0.06);
+  border: 1.5px solid rgba(240, 162, 38, 0.25);
+  border-left: 5px solid var(--ambar);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.nd-rem-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(240, 162, 38, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ambar-txt);
+  flex-shrink: 0;
+}
+.nd-rem-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.nd-rem-content {
+  flex: 1;
+}
+.nd-rem-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ambar-txt);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.nd-rem-text {
+  font-size: 13.5px;
+  color: var(--tinta-2);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.nd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--tinta-2);
+  font-weight: 500;
+}
+.nd-foot-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(47, 125, 82, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--verde-sec);
+  flex-shrink: 0;
+}
+.nd-foot-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive Overrides for Diagram Grid */
+@media (max-width: 992px) {
+  .nd-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nd-grid > div:nth-child(5) {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 600px) {
+  .nd-grid {
+    grid-template-columns: 1fr;
+  }
+  .nd-grid > div:nth-child(5) {
+    grid-column: auto;
+  }
+  .nd-remember {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* Presentation Mode overrides for Reconstructed Diagram */
+body.present .nd-title { font-size: 38px; }
+body.present .nd-subtitle { font-size: 20px; }
+body.present .nd-card-title { font-size: 20px; }
+body.present .nd-card-text, body.present .nd-card-bullets { font-size: 16px; }
+body.present .nd-rem-label { font-size: 14px; }
+body.present .nd-rem-text { font-size: 18px; }
+body.present .nd-footer { font-size: 18px; }
+body.present .nd-icon { width: 68px; height: 68px; }
+body.present .nd-icon svg { width: 44px; height: 44px; }
+body.present .nd-rem-icon { width: 54px; height: 54px; }
+body.present .nd-rem-icon svg { width: 26px; height: 26px; }
+body.present .nd-foot-icon { width: 36px; height: 36px; }
+body.present .nd-foot-icon svg { width: 18px; height: 18px; }
 </style>
 
 </head>
@@ -610,9 +817,77 @@ function getIconSvg(name) {
   return icons[name] || icons.info;
 }
 
+function renderNervousSystemDiagram() {
+  const brainSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1 0-3.12 3 3 0 0 1 0-3.88 2.5 2.5 0 0 1 0-3.12A2.5 2.5 0 0 1 9.5 2Z" /><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-3.12 3 3 0 0 0 0-3.88 2.5 2.5 0 0 0 0-3.12A2.5 2.5 0 0 0 14.5 2Z" /><path d="M12 5h1m-2 0h1m-1 4h1m-2 0h1m-1 4h1m-2 0h1m-1 4h1m-2 0h1" /></svg>`;
+  const netSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12m0 0 4-4m-4 4-4-4m4-2v4m4-4 3-3m-7 3-3-3m7 3h4m-8 0H5" /><circle cx="12" cy="2" r="1"/><circle cx="16" cy="4" r="1"/><circle cx="8" cy="4" r="1"/><circle cx="20" cy="8" r="1"/><circle cx="4" cy="8" r="1"/></svg>`;
+  const loopSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 8a10 10 0 0 0-.45-1.92A10 10 0 1 0 12 22h.3M2.5 22v-6h6M2.66 16a10 10 0 0 0 .45 1.92" /></svg>`;
+  const boltSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>`;
+  const leafSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-9 8.2Z" /><path d="M19 2 9 12" /></svg>`;
+  const bookmarkSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg>`;
+  const heartSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>`;
+
+  return `<div class="nervous-diagram">
+    <div class="nd-header">
+      <div class="nd-title">Sistema simpático y parasimpático</div>
+      <div class="nd-subtitle">Sistema nervioso central, periférico y su relación con la respuesta ante el conflicto</div>
+    </div>
+    <div class="nd-grid">
+      <div class="nd-card">
+        <div class="nd-icon">${brainSvg}</div>
+        <div class="nd-card-title">1. Sistema nervioso central (SNC)</div>
+        <div class="nd-card-text">Está formado por el cerebro y la médula espinal. Interpreta la situación, integra emoción, memoria y pensamiento, y valora si hay amenaza o seguridad.</div>
+      </div>
+      <div class="nd-card">
+        <div class="nd-icon">${netSvg}</div>
+        <div class="nd-card-title">2. Sistema nervioso periférico (SNP)</div>
+        <div class="nd-card-text">Está formado por nervios y conexiones fuera del SNC. Lleva información del cuerpo al cerebro y transmite al cuerpo la respuesta que debe ejecutar.</div>
+      </div>
+      <div class="nd-card">
+        <div class="nd-icon">${loopSvg}</div>
+        <div class="nd-card-title">3. Sistema nervioso autónomo (SNA)</div>
+        <div class="nd-card-text">Forma parte del sistema nervioso periférico y regula respuestas involuntarias. Aquí se distinguen dos ramas clave: simpática y parasimpática.</div>
+      </div>
+      <div class="nd-card highlighted">
+        <div class="nd-icon" style="color: var(--ambar);">${boltSvg}</div>
+        <div class="nd-card-title">4. Simpático</div>
+        <ul class="nd-card-bullets">
+          <li>Activa alerta y movilización.</li>
+          <li>Aumenta ritmo cardíaco, respiración y tensión muscular.</li>
+          <li>En conflicto puede impulsar estilos reactivos: atacar, interrumpir, defenderse, imponerse o huir/evitar.</li>
+        </ul>
+      </div>
+      <div class="nd-card highlighted">
+        <div class="nd-icon" style="color: var(--verde-sec);">${leafSvg}</div>
+        <div class="nd-card-title">5. Parasimpático</div>
+        <ul class="nd-card-bullets">
+          <li>Favorece regulación y recuperación.</li>
+          <li>Disminuye la activación fisiológica y facilita la respiración pausada.</li>
+          <li>En conflicto apoya estilos más reflexivos: escuchar, pausar, pensar, dialogar y reparar.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="nd-remember">
+      <div class="nd-rem-icon">${bookmarkSvg}</div>
+      <div class="nd-rem-content">
+        <div class="nd-rem-label">Para recordar</div>
+        <div class="nd-rem-text">La respuesta ante el conflicto no depende solo de la intención. También depende del nivel de activación del sistema nervioso: cuando hay amenaza, predomina la protección; cuando hay mayor regulación, es más posible dialogar y resolver.</div>
+      </div>
+    </div>
+    <div class="nd-footer">
+      <div class="nd-foot-icon">${heartSvg}</div>
+      <span>Comprender la activación fisiológica ayuda a intervenir con más empatía y eficacia.</span>
+    </div>
+  </div>`;
+}
+
 function renderTab(c,t){
-  // 4. Prepared for real images if present in data
-  const imgHtml = t.image ? '<div class="tab-image-container"><img src="' + t.image + '" alt="' + (t.imageAlt || '') + '" class="tab-image" /></div>' : '';
+  // 4. Prepared for real images if present in data OR native reconstructed diagram
+  let imgHtml = '';
+  if (t.layout === 'timeline-plain') {
+     imgHtml = renderNervousSystemDiagram();
+  } else if (t.image) {
+     imgHtml = '<div class="tab-image-container"><img src="' + t.image + '" alt="' + (t.imageAlt || '') + '" class="tab-image" /></div>';
+  }
 
   const cards = (t.cards||[]).map(p=> {
     const iconName = p[2] || 'info';
