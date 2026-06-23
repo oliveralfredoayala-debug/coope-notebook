@@ -61,10 +61,11 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; let
   justify-content: center; 
   flex-shrink: 0; 
 }
-.topbar-logo img { 
+.topbar-logo img, .topbar-logo svg { 
   height: 100%; 
   object-fit: contain; 
   width: auto; 
+  max-height: 40px; 
 }
 .topbar-brand { 
   font-size: 17px; 
@@ -165,11 +166,13 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; let
 </div>
 
 <script>
+let kbData = null;
+
 async function cargarKB() {
   try {
     const resp = await fetch('/data/kb-index.json');
-    const data = await resp.json();
-    renderizar(data);
+    kbData = await resp.json();
+    renderizar(kbData);
   } catch (err) {
     console.error('Error cargando KB:', err);
     document.getElementById('contenido').innerHTML = '<p style="color: red; padding: 20px;">Error cargando índice</p>';
@@ -222,7 +225,33 @@ function abrirCapsula(id) {
   console.log('Abrir cápsula:', id);
   if (id === 'legislacion-cooperativista' || id === 'trabajo-legislacion') {
     window.location.href = '/contents/diplomado-basico/legislacion-cooperativa/KB-mapa-normas-cooperativas.html';
-  } else {
+    return;
+  }
+  if (id === 'asambleas') {
+    window.location.href = '/contents/diplomado-basico/administracion-asambleas/Asambleas.html';
+    return;
+  }
+  if (!kbData) {
+    alert('Datos no cargados. Intenta de nuevo.');
+    return;
+  }
+  let found = false;
+  for (const bloque of kbData.bloques) {
+    for (const acordeon of bloque.acordeones) {
+      for (const capsula of acordeon.capsulas) {
+        if (capsula.id === id) {
+          const folderBloque = bloque.id === 'diplomado' ? 'diplomado-basico' : bloque.id;
+          const folderAcordeon = acordeon.id;
+          window.location.href = `/contents/${folderBloque}/${folderAcordeon}/${capsula.id}.html`;
+          found = true;
+          break;
+        }
+      }
+      if (found) break;
+    }
+    if (found) break;
+  }
+  if (!found) {
     alert('Cápsula: ' + id + ' (próximamente)');
   }
 }
