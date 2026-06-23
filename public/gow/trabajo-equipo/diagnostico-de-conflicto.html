@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leer un conflicto — Trabajo en equipo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <style>
     :root {
-      --verde: #1c6b4a; --verde-sec: #2fa36b; --verde-claro: #e8f4ef; --verde-borde: #b8dccc;
-      --amarillo: #f4c20d; --blanco: #ffffff; --gris-bg: #f7f7f5; --gris-borde: #e4e4e0;
+      --verde: #234a35; --verde-sec: #2f7d52; --verde-claro: #e8f4ef; --verde-borde: #b8dccc;
+      --ambar: #f0a226; --amarillo: #f4c20d; --blanco: #ffffff; --gris-bg: #f7f7f5; --gris-borde: #e4e4e0;
       --texto: #1a1a18; --texto-sec: #3a3a36; --texto-ter: #6a6a64; --radio: 10px; --radio-sm: 6px;
-      --niebla: #f6f8f7; --verde-tenue: rgba(28,107,74,.07);
+      --niebla: #f6f8f7; --verde-tenue: rgba(35, 74, 53, 0.07);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: var(--gris-bg); color: var(--texto); font-size: 16px; line-height: 1.65; min-height: 100vh; }
@@ -20,8 +23,7 @@
       border-bottom: 1px solid var(--gris-borde); background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
       position: sticky; top: 0; z-index: 40;
     }
-    .brand { color: var(--texto); text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; }
-    .brand strong { color: var(--verde); font-weight: 700; }
+    .brand { color: var(--texto); text-decoration: none; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; font-family: 'Space Grotesk', sans-serif; }
     .nb-toggle {
       display: none; align-items: center; justify-content: center; width: 44px; height: 44px;
       background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); cursor: pointer; color: var(--verde);
@@ -204,7 +206,7 @@
     <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <div class="brand"><strong>Coope</strong>Notebook</div>
+    <a href="/" class="brand"><span style="color: var(--verde);">Coope</span><span style="color: var(--ambar);">Notebook</span></a>
   </header>
 
   <div class="nb-overlay" onclick="cerrarMenu()"></div>
@@ -229,6 +231,7 @@
         <button class="concepto" data-c="tarea">tarea</button>
         <button class="concepto" data-c="proceso">proceso</button>
         <button class="concepto" data-c="relacion">relación</button>
+        <button class="concepto" data-c="estatus">estatus</button>
         <button class="concepto" data-c="etapa">etapa</button>
         <button class="concepto" data-c="intereses">intereses</button>
         <button class="concepto" data-c="mediacion">mediación</button>
@@ -276,9 +279,10 @@
             <div class="diag-paso" data-paso="1">
               <div class="pregunta">¿Sobre qué es, en el fondo? Elegí lo que más pesa.</div>
               <div class="opciones" data-grupo="nat">
-                <button class="opcion" data-val="tarea"><span class="marca-op"></span>Tarea — diferencia sobre metas, decisiones o el trabajo en sí. (Suele ser constructivo)</button>
-                <button class="opcion" data-val="proceso"><span class="marca-op"></span>Proceso — diferencia sobre cómo se divide el trabajo o quién hace qué</button>
-                <button class="opcion" data-val="relacion"><span class="marca-op"></span>Relación — roces personales, choques de personalidad o desconfianza. (Suele ser destructivo)</button>
+                <button class="opcion" data-val="tarea"><span class="marca-op"></span>Tarea — diferencia sobre metas, decisiones o el trabajo en sí (suele ser constructivo)</button>
+                <button class="opcion" data-val="proceso"><span class="marca-op"></span>Proceso — diferencia sobre cómo se divide el trabajo o coordinar</button>
+                <button class="opcion" data-val="relacion"><span class="marca-op"></span>Relación — roces personales, choques de personalidad o desconfianza (suele ser destructivo)</button>
+                <button class="opcion" data-val="estatus"><span class="marca-op"></span>Estatus — disputas por influencia, jerarquía informal o legitimidad para decidir</button>
               </div>
             </div>
 
@@ -370,19 +374,20 @@
           </div>
 
           <!-- 2 -->
-          <div class="skill-card" data-concepto="tarea proceso relacion">
+          <div class="skill-card" data-concepto="tarea proceso relacion estatus">
             <div class="skill-num">2</div>
             <h3>Nombrar su naturaleza</h3>
-            <p class="que-es">Los conflictos tienen tres naturalezas básicas: tarea (desacuerdo en qué hacer), proceso (desacuerdo en cómo hacerlo o a quién le toca) y relación (desafección personal).</p>
+            <p class="que-es">Los conflictos tienen cuatro naturalezas básicas: tarea (desacuerdo en qué hacer), proceso (desacuerdo en cómo hacerlo o coordinar), relación (desafección personal o roces) y estatus (disputas por influencia o jerarquía).</p>
             <div class="bloque-skill">
               <div class="bloque-titulo">Cómo reconocerlo</div>
               <div class="señal"><strong>Tarea:</strong> "Este presupuesto no da para el proyecto" o "Las metas no son realistas".</div>
               <div class="señal"><strong>Proceso:</strong> "Nadie me avisó que yo tenía que redactar el acta" o "El flujo de aprobación es muy lento".</div>
               <div class="señal"><strong>Relación:</strong> "No me gusta cómo me habla en las reuniones" o "Le tiene recelo al comité".</div>
+              <div class="señal"><strong>Estatus:</strong> "Él no tiene autoridad para decidir eso por su cuenta" o "Siento que ignoran mis propuestas por mi rol".</div>
             </div>
             <div class="bloque-skill">
               <div class="bloque-titulo">Qué hacer</div>
-              <div class="hacer">El conflicto de tarea es útil (fomenta ideas). El de proceso requiere normalizar (reglas). El de relación desgasta: requiere despatologizar diferencias o mediar. No trates un problema relacional como si fuera de tarea.</div>
+              <div class="hacer">El conflicto de tarea es útil (fomenta ideas). El de proceso requiere normalizar (reglas). El de relación desgasta: requiere despatologizar diferencias o mediar. El de estatus exige definir la legitimidad del rol y el respeto mutuo.</div>
             </div>
           </div>
 
@@ -599,8 +604,9 @@
 
       const NAT = {
         tarea: {n:'Tarea', r:'Conflicto enfocado en las metas, las decisiones o los hechos. Bien manejado es constructivo y promueve la calidad del trabajo. Evitá centrarlo en las personas.'},
-        proceso: {n:'Proceso', r:'Conflicto enfocado en cómo se reparte el trabajo o quién asume qué rol. Requiere acordar reglas de juego claras y roles complementarios (Belbin).'},
-        relacion: {n:'Relación', r:'Conflicto de carácter afectivo, simpatías, recelos o choque de caracteres. Desgasta la confianza y el cimiento de Lencioni. Requiere intervención atenta.'}
+        proceso: {n:'Proceso', r:'Conflicto enfocado en cómo se reparte el trabajo o coordinar. Requiere acordar reglas de juego claras y roles complementarios.'},
+        relacion: {n:'Relación', r:'Conflicto de carácter afectivo, simpatías, recelos o choque de caracteres. Desgasta la confianza y la seguridad psicológica. Requiere intervención atenta.'},
+        estatus: {n:'Estatus', r:'Conflicto enfocado en la jerarquía, influencia o legitimidad para tomar decisiones en el grupo. Requiere clarificar la autoridad y reconocer las contribuciones de todos.'}
       };
       const ETAPA = {
         '1': {n:'Etapa 1 — Tensión inicial', temprana:true},
@@ -762,12 +768,12 @@
         return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
           + '<head><meta charset="utf-8"><title>Lectura de Conflicto</title>' + wordMeta
           + '<style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1a1a18;line-height:1.55}'
-          + 'h1{font-size:20pt;color:#1c6b4a;border-bottom:2pt solid #1c6b4a;padding-bottom:5pt;margin-bottom:6pt}'
-          + '.marca{font-size:10pt;color:#1c6b4a;font-weight:bold;margin-bottom:10pt}'
-          + 'h2{font-size:11pt;color:#1c6b4a;margin-top:16pt;margin-bottom:4pt}'
-          + '.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#1c6b4a;font-size:12pt}'
-          + '.reco{background:#f6f8f7;border-left:3pt solid #2fa36b;padding:10pt 14pt;margin:12pt 0}'
-          + '.res-linea{margin:4pt 0} .et{font-weight:bold;color:#1c6b4a;display:inline-block;width:120px}'
+          + 'h1{font-size:20pt;color:#234a35;border-bottom:2pt solid #234a35;padding-bottom:5pt;margin-bottom:6pt}'
+          + '.marca{font-size:10pt;color:#234a35;font-weight:bold;margin-bottom:10pt}'
+          + 'h2{font-size:11pt;color:#234a35;margin-top:16pt;margin-bottom:4pt}'
+          + '.caso{background:#e8f4ef;border:1pt solid #b8dccc;padding:10pt 14pt;margin:12pt 0}.caso b{color:#234a35;font-size:12pt}'
+          + '.reco{background:#f6f8f7;border-left:3pt solid #2f7d52;padding:10pt 14pt;margin:12pt 0}'
+          + '.res-linea{margin:4pt 0} .et{font-weight:bold;color:#234a35;display:inline-block;width:120px}'
           + '</style></head><body>'
           + '<div class="marca">CoopeNotebook</div><h1>Lectura y Diagnóstico de Conflicto</h1>'
           + '<div class="caso"><b>Diagnóstico: ' + esc(titulo) + '</b><br>' + esc(gravedad) + '</div>'
@@ -813,7 +819,7 @@
         const pptx = new PptxGenJS();
         pptx.defineLayout({ name: 'W', width: 13.333, height: 7.5 });
         pptx.layout = 'W';
-        const VERDE = '1C6B4A', AMAR = 'F4C20D', GRIS = '3A3A36';
+        const VERDE = '234A35', AMAR = 'F0A226', GRIS = '3A3A36';
 
         const nat = document.getElementById('res-nat').textContent;
         const etapa = document.getElementById('res-etapa').textContent;
