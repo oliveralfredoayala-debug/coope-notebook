@@ -805,54 +805,10 @@ function getIconSvg(name) {
   return icons[name] || icons.info;
 }
 
-function renderNervousSystemMindmap() {
-  return `<div class="mindmap-container">
-    <div class="mm-tree">
-      <ul>
-        <li>
-          <div class="mm-node mm-root-node">
-            <div class="mm-title">Sistema Nervioso</div>
-          </div>
-          <ul>
-            <li>
-              <div class="mm-node mm-snc-node">
-                <div class="mm-title">Sistema Nervioso Central (SNC)</div>
-                <div class="mm-desc">Centro de procesamiento e integración.</div>
-              </div>
-            </li>
-            <li>
-              <div class="mm-node mm-snp-node">
-                <div class="mm-title">Sistema Nervioso Periférico (SNP)</div>
-                <div class="mm-desc">Lleva información sensorial.</div>
-              </div>
-              <ul>
-                <li>
-                  <div class="mm-node mm-simpatico-node">
-                    <div class="mm-title">Simpático</div>
-                    <div class="mm-desc">Activa y moviliza para afrontar desafíos.</div>
-                  </div>
-                </li>
-                <li>
-                  <div class="mm-node mm-parasimpatico-node">
-                    <div class="mm-title">Parasimpático</div>
-                    <div class="mm-desc">Relaja, recupera y favorece el descanso.</div>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>`;
-}
-
 function renderTab(c,t){
-  // 4. Prepared for real images if present in data OR native reconstructed mindmap diagram
+  // 4. Prepared for real images if present in data
   let imgHtml = '';
-  if (t.layout === 'timeline-plain') {
-     imgHtml = renderNervousSystemMindmap();
-  } else if (t.image) {
+  if (t.image) {
      imgHtml = '<div class="tab-image-container"><img src="' + t.image + '" alt="' + (t.imageAlt || '') + '" class="tab-image" /></div>';
   }
 
@@ -868,9 +824,9 @@ function renderTab(c,t){
     const steps = t.acordeon.map((p, idx) => {
       let levelClass = 'tl-step-green';
       if (t.layout === 'timeline-plain') {
-        if (idx === 0) levelClass = 'tl-step-amber';
-        else if (idx === 1) levelClass = 'tl-step-green';
-        else if (idx === 2) levelClass = 'tl-step-red';
+        if (idx === 0) levelClass = 'tl-phys-red';
+        else if (idx === 1) levelClass = 'tl-phys-blue';
+        else if (idx === 2) levelClass = 'tl-phys-purple';
       } else {
         if (idx >= 2) levelClass = 'tl-step-amber';
         if (idx >= 4) levelClass = 'tl-step-red';
