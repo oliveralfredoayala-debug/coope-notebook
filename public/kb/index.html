@@ -225,11 +225,11 @@ function toggleAcordeon(header) {
 function abrirCapsula(id) {
   console.log('Abrir cápsula:', id);
   if (id === 'legislacion-cooperativista' || id === 'trabajo-legislacion') {
-    window.location.href = '/contents/diplomado-basico/legislacion-cooperativa/KB-mapa-normas-cooperativas.html';
+    window.location.href = '/kb/diplomado-basico/legislacion-cooperativa/KB-mapa-normas-cooperativas.html';
     return;
   }
   if (id === 'asambleas') {
-    window.location.href = '/contents/diplomado-basico/administracion-asambleas/Asambleas.html';
+    window.location.href = '/kb/diplomado-basico/administracion-asambleas/Asambleas.html';
     return;
   }
   if (!kbData) {
@@ -243,7 +243,7 @@ function abrirCapsula(id) {
         if (capsula.id === id) {
           const folderBloque = bloque.id === 'diplomado' ? 'diplomado-basico' : bloque.id;
           const folderAcordeon = acordeon.id;
-          window.location.href = `/contents/${folderBloque}/${folderAcordeon}/${capsula.id}.html`;
+          window.location.href = `/kb/${folderBloque}/${folderAcordeon}/${capsula.id}.html`;
           found = true;
           break;
         }

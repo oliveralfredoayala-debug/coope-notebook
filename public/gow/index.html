@@ -226,34 +226,7 @@ function abrirCapsula(id) {
   console.log('Abrir herramienta GoW:', id);
   window.location.href = `/gow/${id}.html`;
 }
-  if (id === 'asambleas') {
-    window.location.href = '/contents/diplomado-basico/administracion-asambleas/Asambleas.html';
-    return;
-  }
-  if (!gowData) {
-    alert('Datos no cargados. Intenta de nuevo.');
-    return;
-  }
-  let found = false;
-  for (const bloque of gowData.bloques) {
-    for (const acordeon of bloque.acordeones) {
-      for (const capsula of acordeon.capsulas) {
-        if (capsula.id === id) {
-          const folderBloque = bloque.id === 'diplomado' ? 'diplomado-basico' : bloque.id;
-          const folderAcordeon = acordeon.id;
-          window.location.href = `/contents/${folderBloque}/${folderAcordeon}/${capsula.id}.html`;
-          found = true;
-          break;
-        }
-      }
-      if (found) break;
-    }
-    if (found) break;
-  }
-  if (!found) {
-    alert('Cápsula: ' + id + ' (próximamente)');
-  }
-}
+
 
 document.addEventListener('DOMContentLoaded', cargarGoW);
 </script>

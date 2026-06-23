@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liderazgo cooperativo y oportunidades</title>
+<style>:root {
+  --verde: #1c6b4a;
+  --verde-sec: #2fa36b;
+  --amarillo: #f4c20d;
+  --blanco: #ffffff;
+  --gris-bg: #f7f7f5;
+  --gris-borde: #e4e4e0;
+  --texto: #1a1a18;
+  --texto-sec: #3a3a36;
+  --texto-ter: #6a6a64;
+  --radio: 10px;
+  --radio-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: var(--blanco); color: var(--texto); font-size: 16px; line-height: 1.65; min-height: 100vh; }
+
+    /* 1. TOPBAR (Cabecera Principal - Unificada y más grande) */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+
+    .back {
+      font-size: 13px;
+      color: var(--texto-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back:hover {
+      color: var(--verde);
+    }
+
+    /* Botón hamburguesa (solo móvil) */
+    .nb-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      color: var(--verde);
+    }
+
+    .nb-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* 2. MAQUETACIÓN GENERAL (Shell) */
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nb-marca-titulo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--verde);
+      line-height: 1.35;
+    }
+
+    .nb-nav {
+      list-style: none;
+      padding: 0.75rem 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nb-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 14px;
+      color: var(--texto-sec);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .nb-nav button:hover {
+      background: var(--verde-claro, #e8f4ef);
+      color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+    }
+
+    .nb-nav button.activo {
+      background: var(--verde-claro, #e8f4ef);
+      color: var(--verde);
+      font-weight: 600;
+      border-left-color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+    }
+
+    .nb-nav-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      min-width: 20px;
+      padding-top: 1px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nb-nav button.activo .nb-nav-num {
+      color: var(--verde-sec);
+    }
+
+    .nb-conceptos {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      flex-shrink: 0;
+    }
+
+    .nb-conceptos-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .nb-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nb-tag {
+      font-size: 12px;
+      color: var(--verde);
+      background: var(--verde-claro, #e8f4ef);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #dcebe2;
+    }
+
+    .nb-cerrar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--texto-ter);
+    }
+
+    .nb-cerrar svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .main { flex: 1; max-width: 760px; padding: 3rem 3.5rem; overflow-y: auto; }
+    .panel { display: none; }
+    .panel.activo { display: block; animation: fadeUp 0.35s ease both; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .capsula-titulo { font-size: 26px; font-weight: 600; color: var(--texto); line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+    .capsula-titulo::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .5rem; border-radius: 2px; }
+    .capsula-meta { font-size: 12px; color: var(--texto-ter); margin-bottom: 2rem; }
+    .seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2.5rem 0 1rem; }
+    .capsula-intro { font-size: 16px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gris-borde); }
+    .capsula-intro strong { color: var(--texto); font-weight: 500; }
+
+.ideas { margin: 1.25rem 0; display: flex; flex-direction: column; gap: .65rem; }
+.idea { display: flex; gap: .875rem; align-items: flex-start; }
+.idea-bullet { width: 7px; height: 7px; border-radius: 50%; background: var(--verde-sec); flex-shrink: 0; margin-top: 8px; }
+.idea-texto { font-size: 14px; color: var(--texto-sec); line-height: 1.55; }
+.idea-texto strong { color: var(--texto); font-weight: 500; }
+.tabla-wrap { margin: 1.25rem 0; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
+.tabla-wrap table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tabla-wrap thead tr { background: var(--verde); }
+.tabla-wrap thead th { padding: .65rem 1rem; color: var(--blanco); font-weight: 500; text-align: left; font-size: 13px; }
+.tabla-wrap tbody tr { border-bottom: 1px solid var(--gris-borde); }
+.tabla-wrap tbody tr:last-child { border-bottom: none; }
+.tabla-wrap td { padding: .65rem 1rem; vertical-align: top; line-height: 1.5; color: var(--texto-sec); font-size: 14px; }
+.tabla-wrap td:first-child { font-weight: 600; color: var(--texto); }
+.insight { background: var(--gris-bg); border-left: 3px solid var(--amarillo); padding: 1rem 1.25rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0; margin: 1.75rem 0; font-size: 14px; color: var(--texto-sec); line-height: 1.65; }
+.insight strong { color: var(--texto); font-weight: 500; }
+.art-card { margin-bottom: .875rem; border: 1px solid var(--gris-borde); border-radius: var(--radio); overflow: hidden; }
+.art-card-header { padding: .8rem 1.25rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background .15s; gap: 1rem; }
+.art-card-header:hover { background: var(--gris-bg); }
+.art-card-id { font-size: 12px; font-weight: 600; color: var(--verde); letter-spacing: .05em; flex-shrink: 0; }
+.art-card-titulo { font-size: 14px; color: var(--texto); font-weight: 500; flex: 1; }
+.art-card-chev { width: 16px; height: 16px; flex-shrink: 0; color: var(--texto-ter); transition: transform .2s; }
+.art-card.abierto .art-card-chev { transform: rotate(180deg); }
+.art-card-body { display: none; padding: 1rem 1.25rem; font-size: 13.5px; color: var(--texto-sec); line-height: 1.7; border-top: 1px solid var(--gris-borde); background: var(--gris-bg); }
+.art-card.abierto .art-card-body { display: block; }
+.art-verbatim { color: var(--texto); padding: .75rem 1rem; background: var(--blanco); border-left: 3px solid var(--verde-sec); border-radius: 0 var(--radio-sm) var(--radio-sm) 0; font-size: 13px; }
+.formula { background: var(--verde); color: #fff; border-radius: var(--radio); padding: 1.5rem 1.25rem; margin: 1.5rem 0; text-align: center; }
+.formula-eq { font-size: 28px; font-weight: 700; letter-spacing: .02em; margin-bottom: .5rem; }
+.formula-eq .mult { color: var(--amarillo); }
+.formula-cap { font-size: 13px; color: #d8ede2; line-height: 1.5; }
+.formula-cap strong { color: #fff; font-weight: 600; }
+.concl { margin: 1.25rem 0; display: flex; flex-direction: column; gap: .6rem; counter-reset: cl; }
+.concl-item { display: flex; gap: .875rem; align-items: flex-start; padding: .85rem 1.1rem; background: #e8f4ef; border-radius: var(--radio); }
+.concl-item::before { counter-increment: cl; content: counter(cl); width: 24px; height: 24px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.concl-item p { font-size: 14px; color: var(--texto-sec); line-height: 1.55; }
+.concl-item strong { color: var(--texto); font-weight: 600; }
+
+@media (max-width: 820px) {
+      .nb-toggle { display: flex; }
+      .nb-overlay {
+        display: block; position: fixed; inset: 0; z-index: 55;
+        background: rgba(0,0,0,.4);
+        opacity: 0; pointer-events: none;
+        transition: opacity .26s ease;
+      }
+      .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+      
+      .sidebar {
+        display: flex;
+        position: fixed; top: 0; left: 0; z-index: 60;
+        width: 82%; max-width: 320px; height: 100vh;
+        border-right: 1px solid var(--gris-borde); border-bottom: none;
+        transform: translateX(-100%);
+        transition: transform .26s ease;
+        box-shadow: 2px 0 16px rgba(0,0,0,.12);
+      }
+      .sidebar.abierto { transform: translateX(0); }
+      
+      .nb-cerrar {
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; top: 14px; right: 14px;
+        width: 38px; height: 38px;
+        background: none; border: none; cursor: pointer; padding: 0;
+        color: var(--texto-ter);
+      }
+      .nb-cerrar svg { width: 22px; height: 22px; }
+      .nb-nav button { min-height: 44px; }
+      .nb-conceptos { display: block; }
+      .main { max-width: 100%; padding: 2.25rem 1.5rem 6rem; }
+      .tabla-wrap { overflow-x: auto; }
+      .tabla-wrap td:first-child { white-space: normal; }
+      .formula-eq { font-size: 22px; }
+    }</style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+<!-- Topbar Unificada -->
+  <header class="topbar">
+    <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    
+    <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+    
+    <a class="back" href="/kb/">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Liderazgo
+    </a>
+  </header>
+
+  <!-- Overlay de atenuación para móviles -->
+  <div class="nb-overlay" onclick="cerrarMenu()"></div>
+
+  <div class="shell">
+    
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar" aria-label="Navegación de la lección">
+      <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+      
+      <div class="nb-marca-titulo">Liderazgo y oportunidades</div>
+      
+      <ul class="nb-nav">
+        <li><button class="activo" onclick="mostrarTab('portada', this)"><span class="nb-nav-num">00</span>Apertura</button></li>
+        <li><button onclick="mostrarTab('t01', this)"><span class="nb-nav-num">01</span>El perfil del líder cooperativista</button></li>
+        <li><button onclick="mostrarTab('t02', this)"><span class="nb-nav-num">02</span>Las competencias del líder</button></li>
+        <li><button onclick="mostrarTab('t03', this)"><span class="nb-nav-num">03</span>Escuela para líderes</button></li>
+        <li><button onclick="mostrarTab('t3b', this)"><span class="nb-nav-num">04</span>El crecimiento del líder</button></li>
+        <li><button onclick="mostrarTab('t04', this)"><span class="nb-nav-num">05</span>Las tres equidades</button></li>
+        <li><button onclick="mostrarTab('t05', this)"><span class="nb-nav-num">06</span>¿Mismas condiciones Los retos</button></li>
+        <li><button onclick="mostrarTab('t06', this)"><span class="nb-nav-num">07</span>¿Cumplimos la promesa</button></li>
+      </ul>
+      
+      <div class="nb-conceptos">
+        <span class="nb-conceptos-label">Conceptos relacionados</span>
+        <div class="nb-tags"><span class="nb-tag">perfil de competencias</span><span class="nb-tag">saber / hacer / ser</span><span class="nb-tag">socialización</span><span class="nb-tag">equidad</span><span class="nb-tag">RLCH Art. 109</span><span class="nb-tag">techo de cristal</span><span class="nb-tag">laberinto</span></div>
+      </div>
+    </nav>
+<main class="main">
+
+<!-- ===== 00 APERTURA ===== -->
+<div class="panel activo" id="panel-portada">
+  <h1 class="capsula-titulo">Liderazgo cooperativo y la construcci&oacute;n de oportunidades</h1>
+  <p class="capsula-intro">A las personas las forma la sociedad. Esa formaci&oacute;n nos da <strong>fortalezas, capacidades y tambi&eacute;n l&iacute;mites</strong>. Sobre esa base construimos nuestro liderazgo. El cooperativismo naci&oacute; para <strong>ampliar las oportunidades</strong> de participar y desarrollarse.</p>
+  <div class="insight"><strong>La pregunta de la jornada.</strong> &iquest;Esas oportunidades ya est&aacute;n realmente al alcance de todas las personas</div>
+  <p class="seccion-h">El recorrido</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>El perfil del l&iacute;der cooperativista</strong> &mdash; qu&eacute; cargo estamos describiendo</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Las competencias del l&iacute;der</strong> &mdash; saber, saber hacer y saber ser</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Escuela para l&iacute;deres</strong> &mdash; el l&iacute;der se forma, a cualquier edad</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Las tres equidades</strong> &mdash; formaci&oacute;n, informaci&oacute;n y participaci&oacute;n</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>&iquest;Mismas condiciones Los retos</strong> &mdash; las barreras reales</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>&iquest;Cumplimos la promesa</strong> &mdash; balance y compromiso</div></div>
+  </div>
+  <p class="seccion-h">Tres acuerdos para conversar</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Hablamos desde la <strong>experiencia</strong>, no desde la teor&iacute;a.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Reconocer una realidad <strong>no es culpar a nadie.</strong></div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">La responsabilidad sobre el propio desarrollo es <strong>personal e intransferible.</strong></div></div>
+  </div>
+</div>
+
+<!-- ===== 01 PERFIL ===== -->
+<div class="panel" id="panel-t01">
+  <h1 class="capsula-titulo">El perfil del l&iacute;der cooperativista</h1>
+  <div class="capsula-meta">&iquest;Qu&eacute; cargo estamos describiendo realmente</div>
+  <p class="capsula-intro">Imaginemos por un momento que somos el &aacute;rea de <strong>recursos humanos</strong> de la cooperativa y debemos reclutar a alguien para un cargo con todas las funciones y atribuciones de un cuerpo directivo. &iquest;Qu&eacute; perfil escribir&iacute;amos Antes de buscar a la persona, hay que tener claro <strong>qu&eacute; puesto se est&aacute; llenando.</strong></p>
+
+  <p class="seccion-h">La misi&oacute;n del cargo</p>
+  <div class="insight">La Junta Directiva tiene un <strong>doble mandato</strong>: guiar a la cooperativa en el cumplimiento de su misi&oacute;n social y, al mismo tiempo, proteger sus activos a lo largo del tiempo. Es el enlace entre la Asamblea y la gerencia, y el rostro visible de la cooperativa.</div>
+
+  <p class="seccion-h">Las funciones y atribuciones</p>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">LCH Art. 29-A</span>
+      <span class="art-card-titulo">Atribuciones de la Junta Directiva</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">Cumplir y hacer cumplir los acuerdos de la Asamblea General y CONSUCOOP; tomar las medidas para salvaguardar los intereses de la cooperativa; mantener al d&iacute;a los libros legales; presentar a la Asamblea los estados financieros auditados y la liquidaci&oacute;n presupuestaria; presentar el plan estrat&eacute;gico, el POA y el proyecto de presupuesto; autorizar la adquisici&oacute;n de bienes, contratar empr&eacute;stitos y constituir garant&iacute;as.</p>
+    </div>
+  </div>
+
+  <p class="seccion-h">El perfil por competencias</p>
+  <p class="capsula-intro" style="margin-bottom:1.25rem">Como en cualquier descriptor de puesto profesional, el perfil se ordena en tres capas. Las desarrollamos en el siguiente bloque.</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Capa</th><th>Qu&eacute; pide el cargo</th></tr></thead>
+    <tbody>
+      <tr><td>Saber</td><td>Conocer la ley, la cooperativa, las funciones y los l&iacute;mites del cargo.</td></tr>
+      <tr><td>Saber hacer</td><td>Comunicar, escuchar, negociar, manejar conflictos, trabajar en equipo.</td></tr>
+      <tr><td>Saber ser</td><td>Servicio, integridad, coherencia entre lo que se dice y lo que se hace.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="insight">Lo distintivo del cargo cooperativo: la persona l&iacute;der <strong>no manda, articula.</strong> La autoridad est&aacute; distribuida por ley y la decisi&oacute;n es de la Asamblea. Y es un cargo <strong>transitorio</strong> &mdash; los &oacute;rganos son permanentes, las personas pasan.</div>
+</div>
+
+<!-- ===== 02 COMPETENCIAS ===== -->
+<div class="panel" id="panel-t02">
+  <h1 class="capsula-titulo">Las competencias del l&iacute;der</h1>
+  <div class="capsula-meta">Saber &middot; Saber hacer &middot; Saber ser</div>
+  <p class="capsula-intro">Un buen perfil no se queda en los conocimientos. Las competencias se ordenan en tres capas que se complementan &mdash; y una de ellas pesa m&aacute;s de lo que parece.</p>
+
+  <p class="seccion-h">Saber &mdash; los conocimientos</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">La ley y el reglamento que rigen a la cooperativa.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Las funciones, atribuciones y l&iacute;mites del cargo.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">La realidad y la historia de la propia cooperativa.</div></div>
+  </div>
+
+  <p class="seccion-h">Saber hacer &mdash; las habilidades</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Comunicaci&oacute;n</strong> &mdash; hacerse entender con claridad.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Escucha</strong> &mdash; entender antes de responder.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Influencia y negociaci&oacute;n</strong> &mdash; mover sin imponer, construir acuerdos.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Manejo de conflictos</strong> &mdash; convertir la tensi&oacute;n en decisi&oacute;n.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Trabajo en equipo</strong> &mdash; la decisi&oacute;n cooperativa es colectiva.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Desarrollo de otros liderazgos</strong> &mdash; formar relevos.</div></div>
+  </div>
+
+  <p class="seccion-h">Saber ser &mdash; la actitud</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Servicio</strong> &mdash; el cargo es para la cooperativa, no al rev&eacute;s.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Integridad y coherencia</strong> &mdash; entre lo que se dice, se hace y se representa.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Disposici&oacute;n a aprender</strong> &mdash; el liderazgo se relaciona m&aacute;s con aprender que con saber.</div></div>
+  </div>
+
+  <p class="seccion-h">Una f&oacute;rmula que lo ordena</p>
+  <div class="formula">
+    <div class="formula-eq">V = (C + H) <span class="mult">&times;</span> A</div>
+    <div class="formula-cap">El valor de la persona = (<strong>C</strong>onocimientos + <strong>H</strong>abilidades) <strong>&times;</strong> <strong>A</strong>ctitud</div>
+  </div>
+  <div class="insight">La f&oacute;rmula de V&iacute;ctor K&uuml;ppers lo dice claro: los conocimientos y las habilidades <strong>se suman</strong>, pero la actitud <strong>multiplica</strong>. Por eso una persona con menos conocimiento pero con gran actitud de servicio puede aportar m&aacute;s que un experto sin disposici&oacute;n. En una cooperativa, el saber ser no es un extra: es el factor que multiplica.</div>
+</div>
+
+<!-- ===== 03 ESCUELA PARA LIDERES ===== -->
+<div class="panel" id="panel-t03">
+  <h1 class="capsula-titulo">Escuela para l&iacute;deres</h1>
+  <div class="capsula-meta">El l&iacute;der se forma &mdash; y no hay que ser ni&ntilde;o para seguir aprendiendo</div>
+  <p class="capsula-intro">Si el liderazgo fuera un don de nacimiento, no habr&iacute;a nada que hacer. Pero las competencias del bloque anterior <strong>se aprenden</strong>. La pregunta es c&oacute;mo &mdash; y por qu&eacute; no todos llegamos con el mismo entrenamiento previo.</p>
+
+  <p class="seccion-h">Cinco miradas sobre c&oacute;mo aprendemos</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Mirada</th><th>Aporte clave</th></tr></thead>
+    <tbody>
+      <tr><td>Bandura</td><td>Aprendizaje vicario: aprendemos observando e imitando, sobre todo a quienes admiramos. Vemos qui&eacute;n lidera antes de que nos toque.</td></tr>
+      <tr><td>Bronfenbrenner</td><td>Nos forman c&iacute;rculos que se contienen: familia, escuela, comunidad y cultura. Ninguno act&uacute;a solo.</td></tr>
+      <tr><td>Piaget</td><td>Construimos el conocimiento por etapas. El juego es como el ni&ntilde;o ensaya y entiende el mundo.</td></tr>
+      <tr><td>Vygotsky</td><td>Andamiaje: muchas capacidades las aprendemos con ayuda de alguien m&aacute;s capaz que nos las "presta".</td></tr>
+      <tr><td>Erikson</td><td>En cada etapa de la vida resolvemos una tensi&oacute;n &mdash; confianza, autonom&iacute;a, identidad &mdash; y de ah&iacute; salen los valores con que miramos el mundo.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="insight">Distintos caminos, una conclusi&oacute;n: somos la suma de lo que aprendemos. Algo en el aula, pero <strong>mucho m&aacute;s en la sociedad</strong> &mdash; observando, jugando y resolviendo cada etapa de la vida.</div>
+
+  <p class="seccion-h">Y as&iacute; tambi&eacute;n aprendemos el g&eacute;nero</p>
+  <p class="capsula-intro" style="margin-bottom:1.25rem">Para Erikson la identidad &mdash; tambi&eacute;n la de g&eacute;nero &mdash; se construye etapa por etapa; no nace dada. En el camino, lo que se <strong>premia o se corrige</strong> nos ense&ntilde;a qu&eacute; es "lo correcto" para cada quien.</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Lo que observamos</strong> &mdash; a qui&eacute;n vemos dirigir o decidir, y a qui&eacute;n vemos cuidar o callar.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Lo que se premia y lo que se corrige</strong> &mdash; "los ni&ntilde;os no lloran", "las ni&ntilde;as son ordenadas": peque&ntilde;os refuerzos que moldean.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>El juego que se nos ofrece</strong> &mdash; no a todos se nos dieron los mismos juegos, y con ellos entrenamos capacidades distintas.</div></div>
+  </div>
+
+  <p class="seccion-h">El l&iacute;der se sigue formando de adulto</p>
+  <p class="capsula-intro" style="margin-bottom:1.25rem">Al estudiar vidas muy distintas, aparecen patrones que se siguen cultivando toda la vida &mdash; no solo en la infancia.</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Figura</th><th>Lo que muestra</th></tr></thead>
+    <tbody>
+      <tr><td>Nelson Mandela</td><td>A&ntilde;os de prisi&oacute;n no lo cerraron: sali&oacute; a reconciliar. El fracaso como informaci&oacute;n, no como final.</td></tr>
+      <tr><td>Mahatma Gandhi</td><td>Form&oacute; sus ideas y m&eacute;todos antes de liderar un pa&iacute;s. La identidad lleg&oacute; antes que el poder.</td></tr>
+      <tr><td>Abraham Lincoln</td><td>Defend&iacute;a sus principios cuando a&uacute;n perd&iacute;a elecciones. Los valores, antes que el cargo.</td></tr>
+      <tr><td>Martin Luther King</td><td>Convirti&oacute; ideas complejas en lenguaje que mov&iacute;a a comunidades. Comunicar para movilizar.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Pasaron por dificultades y construyeron una <strong>narrativa</strong>: "esto me prepara para algo".</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Tuvieron <strong>identidad antes que poder</strong> y una causa mayor que ellos mismos.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Toleraron la cr&iacute;tica, tuvieron <strong>mentores y aliados</strong>, y pensaban a largo plazo.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Valores firmes, estrategias flexibles</strong>, y una fuerte capacidad de autorreflexi&oacute;n.</div></div>
+  </div>
+  <div class="insight">Cuando la reflexi&oacute;n es constante, lo vivido deja de ser solo <strong>"lo que aprend&iacute;"</strong> y se graba en la persona. El liderazgo no es un don: es una <strong>historia de aprendizaje</strong> que sigue abierta a cualquier edad.</div>
+</div>
+
+<!-- ===== 04 CRECIMIENTO DEL LIDER ===== -->
+<div class="panel" id="panel-t3b">
+  <h1 class="capsula-titulo">El crecimiento del l&iacute;der cooperativista</h1>
+  <div class="capsula-meta">Hitos de aprendizaje &mdash; no una escalera</div>
+  <p class="capsula-intro">Nadie se vuelve l&iacute;der subiendo pelda&ntilde;os en orden. El crecimiento cooperativo se parece m&aacute;s a un conjunto de <strong>hitos de aprendizaje</strong> que se viven en desorden, se repiten y se solapan. Alguien puede dirigir antes de formarse del todo, o formar relevos mientras a&uacute;n aprende a representar.</p>
+
+  <p class="seccion-h">Los hitos que casi todos atraviesan</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Hito</th><th>Qu&eacute; se vive</th><th>Qu&eacute; se aprende</th></tr></thead>
+    <tbody>
+      <tr><td>Observar y participar</td><td>Asistir a asambleas, informarse, votar, ver c&oacute;mo otros lideran.</td><td>Aprendizaje por observaci&oacute;n</td></tr>
+      <tr><td>Formarse</td><td>Capacitaciones, el diplomado, leer la ley.</td><td>Conocimiento (el saber)</td></tr>
+      <tr><td>Hacer con acompa&ntilde;amiento</td><td>Un comit&eacute;, una comisi&oacute;n, con alguien m&aacute;s experto al lado.</td><td>Andamiaje: hacer con apoyo</td></tr>
+      <tr><td>Representar</td><td>Llevar la voz del sector, ser delegado/a.</td><td>Comunicaci&oacute;n y negociaci&oacute;n</td></tr>
+      <tr><td>Dirigir</td><td>Ejercer un cargo con sus funciones y atribuciones.</td><td>Todas las competencias en juego</td></tr>
+      <tr><td>Tropezar y rehacer</td><td>Equivocarse, recibir cr&iacute;tica, volver a intentar.</td><td>Resiliencia: el error como informaci&oacute;n</td></tr>
+      <tr><td>Formar a otros</td><td>Desarrollar relevos, acompa&ntilde;ar a quien empieza.</td><td>El hito se vuelve punto de partida para alguien m&aacute;s</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="insight">Estos hitos <strong>no van en orden ni se viven una sola vez.</strong> Se entra por distintos puntos, se repiten y se solapan a lo largo de la vida cooperativa. Lo importante no es el peldaño en que se est&aacute;, sino seguir en movimiento.</div>
+
+  <div class="insight">Y hay un hito que cierra y reabre todo: <strong>formar a otros.</strong> Cuando un l&iacute;der desarrolla a quien viene detr&aacute;s, el recorrido vuelve a empezar para otra persona. As&iacute; el liderazgo se vuelve sostenible &mdash; las personas son transitorias, pero la cooperativa permanece.</div>
+</div>
+
+<!-- ===== 05 TRES EQUIDADES ===== -->
+<div class="panel" id="panel-t04">
+  <h1 class="capsula-titulo">Las tres equidades</h1>
+  <div class="capsula-meta">Formaci&oacute;n &middot; Informaci&oacute;n &middot; Participaci&oacute;n</div>
+  <p class="capsula-intro">Para que cualquier afiliado/a pueda llegar a liderar, necesita acceso real a tres cosas. El cooperativismo las ofrece <strong>por dise&ntilde;o</strong>, y la ley las respalda.</p>
+
+  <p class="seccion-h">Las tres llaves de acceso al liderazgo</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Equidad en...</th><th>Por qu&eacute; importa</th></tr></thead>
+    <tbody>
+      <tr><td>Formaci&oacute;n</td><td>Sin capacitaci&oacute;n no se desarrollan las competencias del cargo. Es un principio cooperativo y un fondo obligatorio.</td></tr>
+      <tr><td>Informaci&oacute;n</td><td>Quien no conoce los estados financieros, el POA o sus derechos no puede decidir con criterio.</td></tr>
+      <tr><td>Participaci&oacute;n</td><td>Un afiliado/a = un voto, sin importar el capital. Sin presencia real en la asamblea, no hay liderazgo posible.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="insight">El cooperativismo abri&oacute; participaci&oacute;n y liderazgo a las mujeres <strong>antes que muchas otras instituciones</strong> &mdash; no por moda, sino porque "un voto por persona" hac&iacute;a contradictorio excluir a la mitad de la membres&iacute;a. Es coherencia con el propio principio.</div>
+
+  <p class="seccion-h">La oportunidad convertida en ley</p>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">RLCH Art. 109</span>
+      <span class="art-card-titulo">Meta del 50% en cuerpos directivos</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">La Asamblea General debe procurar elegir para los cargos de Junta Directiva y vigilancia no menos del cincuenta por ciento (50%) de afiliados(as) del sexo femenino. Igual representaci&oacute;n se debe garantizar en cada comit&eacute; que forme la cooperativa a excepci&oacute;n del Comit&eacute; de G&eacute;nero que debe estar conformado por una mayor&iacute;a de mujeres. No podr&aacute; ser causal de impugnaci&oacute;n a la elecci&oacute;n aquellos casos en que los niveles de participaci&oacute;n no permitan cumplir lo anterior.</p>
+    </div>
+  </div>
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">RLCH Art. 102</span>
+      <span class="art-card-titulo">El mismo porcentaje en la elecci&oacute;n de delegados/as</span>
+      <svg class="art-card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">En la elecci&oacute;n de los delegados se debe observar de preferencia, el porcentaje de g&eacute;nero establecido en el Art&iacute;culo 109 de este reglamento.</p>
+    </div>
+  </div>
+
+  <div class="insight"><strong>La pregunta que abre el resto del taller.</strong> La ley supone que todos los afiliados/as llegan con el mismo acceso a formaci&oacute;n, informaci&oacute;n y participaci&oacute;n. &iquest;Es realmente as&iacute; &iquest;Estamos en las mismas condiciones</div>
+</div>
+
+<!-- ===== 06 MISMAS CONDICIONES / RETOS ===== -->
+<div class="panel" id="panel-t05">
+  <h1 class="capsula-titulo">&iquest;Mismas condiciones Los retos reales</h1>
+  <div class="capsula-meta">Percepci&oacute;n social &middot; Roles &middot; Las barreras invisibles</div>
+  <p class="capsula-intro">No todas las personas llegan al liderazgo con el <strong>mismo entrenamiento ni el mismo acceso.</strong> Conviene mirar con honestidad por qu&eacute; &mdash; sin victimizar ni culpar.</p>
+
+  <p class="seccion-h">Tres aclaraciones de entrada</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Existen <strong>diferencias biol&oacute;gicas promedio</strong>: reales, modestas, y casi nunca explican qui&eacute;n lidera mejor.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">La mayor parte de las diferencias en <strong>qui&eacute;n llega a liderar son sociales</strong>: dependen de qu&eacute; se nos permiti&oacute; practicar.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto">Hablamos de <strong>tendencias de grupo, nunca de individuos.</strong></div></div>
+  </div>
+
+  <p class="seccion-h">C&oacute;mo la percepci&oacute;n social moldea el acceso</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>La misma conducta se lee distinto</strong> seg&uacute;n qui&eacute;n la ejerce: el "car&aacute;cter fuerte" se elogia en unos y se penaliza en otras.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Roles y expectativas:</strong> a qui&eacute;n se asume "natural" para representar, hablar en p&uacute;blico o manejar dinero.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>La doble carga:</strong> el tiempo para formarse y asumir cargos no es igual cuando el cuidado recae sobre todo en mujeres.</div></div>
+  </div>
+
+  <p class="seccion-h">Tres met&aacute;foras para nombrar las barreras</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Met&aacute;fora</th><th>Qu&eacute; describe</th></tr></thead>
+    <tbody>
+      <tr><td>Techo de cristal</td><td>Una barrera invisible que frena el ascenso a los cargos de decisi&oacute;n, aunque ninguna regla escrita lo prohíba.</td></tr>
+      <tr><td>Laberinto</td><td>No es un solo techo: es un camino con desv&iacute;os y vueltas. S&iacute; se llega, pero el recorrido es m&aacute;s largo y complejo para algunas.</td></tr>
+      <tr><td>Piso pegajoso</td><td>Lo que retiene a muchas en la base &mdash; tareas de apoyo, cuidado &mdash; sin dejarlas avanzar hacia la direcci&oacute;n.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="insight">El <strong>laberinto</strong> es la imagen m&aacute;s honesta: no dice que el liderazgo femenino sea imposible &mdash; dice que el camino es desigual. Reconocerlo no es buscar culpables; es el primer paso para acortar el recorrido.</div>
+
+  <div class="insight"><strong>Reflexi&oacute;n personal.</strong> &iquest;Qu&eacute; capacidad de liderazgo me toca a m&iacute; desarrollar &iquest;Y qu&eacute; puedo hacer para que otra persona tenga el acceso que a m&iacute; me falt&oacute;</div>
+</div>
+
+<!-- ===== 07 PROMESA ===== -->
+<div class="panel" id="panel-t06">
+  <h1 class="capsula-titulo">&iquest;Estamos cumpliendo la promesa</h1>
+  <div class="capsula-meta">Avances &middot; Retos &middot; Responsabilidad individual y organizacional</div>
+  <p class="capsula-intro">Un balance honesto: <strong>sin triunfalismo ni derrotismo.</strong></p>
+  <p class="seccion-h">D&oacute;nde estamos</p>
+  <div class="tabla-wrap"><table>
+    <thead><tr><th>Avances</th><th>Retos que persisten</th></tr></thead>
+    <tbody>
+      <tr><td>M&aacute;s mujeres en la membres&iacute;a</td><td>Pocas mujeres en las presidencias</td></tr>
+      <tr><td>Mayor presencia en algunos cargos</td><td>Brecha entre la membres&iacute;a y qui&eacute;n decide</td></tr>
+      <tr><td>Comit&eacute;s de G&eacute;nero activ&aacute;ndose</td><td>El tiempo de cuidado como barrera silenciosa</td></tr>
+      <tr><td>M&aacute;s formaci&oacute;n disponible</td><td>El relevo generacional pendiente</td></tr>
+    </tbody>
+  </table></div>
+  <p class="seccion-h">Dos compromisos</p>
+  <div class="ideas">
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Personal:</strong> una capacidad que voy a desarrollar o un h&aacute;bito que voy a cambiar en c&oacute;mo lidero.</div></div>
+    <div class="idea"><div class="idea-bullet"></div><div class="idea-texto"><strong>Organizacional:</strong> una acci&oacute;n concreta para que en mi cooperativa las tres equidades sean m&aacute;s accesibles.</div></div>
+  </div>
+  <p class="seccion-h">Para llevar</p>
+  <div class="concl">
+    <div class="concl-item"><p>Nadie llega al liderazgo en blanco: <strong>traemos lo que la sociedad nos dej&oacute; practicar.</strong></p></div>
+    <div class="concl-item"><p>Las competencias del l&iacute;der <strong>se entrenan</strong> &mdash; y la actitud multiplica.</p></div>
+    <div class="concl-item"><p>Reconocer que el acceso no fue igual <strong>no es culpar</strong>; es el primer paso para corregirlo.</p></div>
+    <div class="concl-item"><p>El cooperativismo ya tiene las herramientas. Lo que falta no es norma, <strong>es voluntad de cumplirla.</strong></p></div>
+    <div class="concl-item"><p>La promesa se cumple <strong>en cada asamblea y en cada elecci&oacute;n</strong>, o no se cumple en ninguna parte.</p></div>
+  </div>
+</div>
+
+</main>
+</div>
+<script>
+function abrirMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function mostrarTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('activo'); });
+  document.querySelectorAll('.nb-nav button').forEach(function(b) { b.classList.remove('activo'); });
+  document.getElementById('panel-' + id).classList.add('activo');
+  btn.classList.add('activo');
+  const m = document.querySelector('.main');
+  if (m) m.scrollTop = 0;
+  window.scrollTo(0, 0);
+  if (window.innerWidth <= 820) {
+    cerrarMenu();
+  }
+}
+function toggleArt(card) { card.classList.toggle('abierto'); }
+</script>
+<script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>
