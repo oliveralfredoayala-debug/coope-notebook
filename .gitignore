@@ -69,3 +69,4 @@ public/firebase-config.local.js
 # dataconnect generated files
 .dataconnect
 .aider*
+.vercel
