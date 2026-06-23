@@ -453,237 +453,176 @@ body.present .highlight {
   gap: 28px;
 }
 
-/* Whiteboard Nervous System Diagram */
-.whiteboard-diagram {
+/* Mindmap Nervous System Diagram */
+.mindmap-container {
   margin: 28px 0;
   border: 2px solid var(--linea);
   border-radius: 20px;
-  padding: 32px 28px;
+  padding: 32px 20px;
   background: var(--niebla-2);
   box-shadow: var(--card-shadow);
-  position: relative;
+  overflow-x: auto;
 }
-.wb-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1.2fr;
-  gap: 24px;
-  align-items: center;
-  margin-bottom: 24px;
-}
-.wb-col {
+.mm-tree {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.wb-col-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
-.wb-card {
+.mm-tree ul {
+  padding-top: 24px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  margin: 0;
+}
+.mm-tree li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 24px 12px 0 12px;
+  flex: 1;
+  list-style-type: none;
+}
+.mm-tree li::before, .mm-tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid var(--verde-sec);
+  width: 50%;
+  height: 24px;
+}
+.mm-tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--verde-sec);
+}
+.mm-tree li:only-child::after, .mm-tree li:only-child::before {
+  display: none;
+}
+.mm-tree li:only-child {
+  padding-top: 0;
+}
+.mm-tree li:first-child::before, .mm-tree li:last-child::after {
+  border: 0 none;
+}
+.mm-tree li:last-child::before {
+  border-right: 2px solid var(--verde-sec);
+  border-radius: 0 8px 0 0;
+}
+.mm-tree li:first-child::after {
+  border-radius: 8px 0 0 0;
+}
+.mm-tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid var(--verde-sec);
+  width: 0;
+  height: 24px;
+}
+.mm-node {
   background: var(--blanco);
   border: 2px solid var(--linea);
-  border-radius: 16px;
-  padding: 22px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  text-align: center;
+  min-width: 165px;
+  max-width: 220px;
+  z-index: 10;
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.wb-card:hover {
+.mm-node:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(35, 74, 53, 0.04);
+  box-shadow: 0 6px 15px rgba(35, 74, 53, 0.05);
 }
-.wb-card.snc {
-  border-color: #2b5f8f;
-}
-.wb-card.snc .wb-card-title {
-  color: #2b5f8f;
-}
-.wb-card.snp {
-  border-color: #2f7d52;
-}
-.wb-card.snp .wb-card-title {
-  color: #2f7d52;
-}
-.wb-card.simpatico {
-  border-color: #d14759;
-  background: rgba(209, 71, 89, 0.01);
-}
-.wb-card.simpatico .wb-card-title {
-  color: #d14759;
-}
-.wb-card.parasimpatico {
-  border-color: #2b7094;
-  background: rgba(43, 112, 148, 0.01);
-}
-.wb-card.parasimpatico .wb-card-title {
-  color: #2b7094;
-}
-.wb-card-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  margin-bottom: 12px;
-  border-bottom: 1.5px solid var(--linea);
-  padding-bottom: 6px;
-  text-align: center;
-}
-.wb-card-bullets {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 12px 0;
-}
-.wb-card-bullets li {
-  position: relative;
-  padding-left: 16px;
-  font-size: 13px;
-  color: var(--tinta);
-  line-height: 1.5;
-  margin-bottom: 6px;
-}
-.wb-card-bullets li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--tinta-3);
-  font-weight: bold;
-}
-.snc .wb-card-bullets li::before { color: #2b5f8f; }
-.snp .wb-card-bullets li::before { color: #2f7d52; }
-.wb-card-desc {
-  font-size: 12.5px;
-  color: var(--tinta-2);
-  line-height: 1.5;
-}
-.wb-card-footer {
-  margin-top: 12px;
-  border-top: 1px dashed var(--linea);
-  padding-top: 8px;
-  font-size: 12.5px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.simpatico .wb-card-footer { color: #d14759; }
-.parasimpatico .wb-card-footer { color: #2b7094; }
-.nd-silhouette {
-  width: 150px;
-  height: 180px;
-}
-.wb-icon-container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.wb-side-icon {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-}
-.wb-autonomic-header {
+.mm-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 13.5px;
   font-weight: 700;
-  color: #7d6a9c;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 12px;
-  border: 1.5px solid rgba(125, 106, 156, 0.3);
-  padding: 6px 12px;
-  border-radius: 20px;
+  color: var(--verde);
 }
-.wb-autonomic-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-}
-.wb-autonomic-text {
-  font-size: 12.5px;
+.mm-desc {
+  font-size: 12px;
   color: var(--tinta-2);
-  line-height: 1.45;
-  max-width: 220px;
+  margin-top: 6px;
+  line-height: 1.4;
 }
-.wb-connectors {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 12px;
-  margin-top: 8px;
+.mm-root-node {
+  border-color: var(--verde);
+  background: var(--niebla);
 }
-.wb-arrow {
-  font-size: 18px;
-  font-weight: bold;
-  color: #7d6a9c;
+.mm-root-node .mm-title {
+  font-size: 15.5px;
+  color: var(--verde);
 }
-.wb-line-dotted {
-  flex: 1;
-  border-bottom: 2px dotted rgba(125, 106, 156, 0.4);
+.mm-snc-node {
+  border-color: #2b5f8f;
 }
-.wb-footer-note {
-  background: var(--blanco);
-  border: 1.5px solid var(--linea);
-  border-radius: 12px;
-  padding: 14px 18px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--tinta-2);
-  font-weight: 500;
-  line-height: 1.45;
-  border-bottom: 3px solid var(--ambar);
+.mm-snc-node .mm-title {
+  color: #2b5f8f;
+}
+.mm-snp-node {
+  border-color: #2f7d52;
+}
+.mm-snp-node .mm-title {
+  color: #2f7d52;
+}
+.mm-simpatico-node {
+  border-color: #d14759;
+}
+.mm-simpatico-node .mm-title {
+  color: #d14759;
+}
+.mm-parasimpatico-node {
+  border-color: #2b7094;
+}
+.mm-parasimpatico-node .mm-title {
+  color: #2b7094;
 }
 
-@media (max-width: 900px) {
-  .wb-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+@media (max-width: 768px) {
+  .mm-tree ul {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
   }
-  .wb-col-center {
-    order: -1;
+  .mm-tree li {
+    padding: 16px 0 0 0;
+    width: 100%;
   }
-  .wb-autonomic-box {
-    margin: 10px 0;
+  .mm-tree li::before, .mm-tree li::after, .mm-tree ul ul::before {
+    display: none;
+  }
+  .mm-node {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
   }
 }
 
-/* Presentation Mode Overrides */
-body.present .whiteboard-diagram {
+/* Presentation Mode Font scale */
+body.present .mindmap-container {
   padding: 40px;
-  border-radius: 24px;
 }
-body.present .wb-card-title {
-  font-size: 22px;
-}
-body.present .wb-card-bullets li {
-  font-size: 18px;
-}
-body.present .wb-card-desc {
-  font-size: 17px;
-}
-body.present .wb-card-footer {
-  font-size: 17px;
-}
-body.present .wb-autonomic-header {
-  font-size: 20px;
-  padding: 10px 18px;
-}
-body.present .wb-autonomic-text {
-  font-size: 17px;
+body.present .mm-node {
+  padding: 20px 24px;
+  min-width: 220px;
   max-width: 320px;
+  border-radius: 16px;
 }
-body.present .wb-footer-note {
-  font-size: 18px;
-  padding: 20px;
+body.present .mm-title {
+  font-size: 20px;
 }
-body.present .nd-silhouette {
-  width: 200px;
-  height: 240px;
+body.present .mm-desc {
+  font-size: 16px;
+  margin-top: 10px;
+}
+body.present .mm-root-node .mm-title {
+  font-size: 22px;
 }
 </style>
 
@@ -866,96 +805,53 @@ function getIconSvg(name) {
   return icons[name] || icons.info;
 }
 
-function renderNervousSystemWhiteboard() {
-  const brainSvg = `<svg viewBox="0 0 200 240" fill="none" class="nd-silhouette">
-    <path d="M70,80 C70,40 130,40 130,80 C130,100 120,110 120,120 L120,130 C120,135 150,150 160,170 C170,190 170,240 170,240 L30,240 C30,240 30,190 40,170 C50,150 80,135 80,130 L80,120 C80,110 70,100 70,80 Z" stroke="var(--verde)" stroke-width="2.5" fill="#fbfcfb" stroke-linejoin="round" />
-    <path d="M88,72 C80,72 80,50 94,50 C94,45 106,45 106,50 C120,50 120,72 112,72 C116,78 116,88 106,88 L94,88 C84,88 84,78 88,72 Z" fill="#f5afbc" stroke="#e07a8b" stroke-width="1.5" />
-    <path d="M100,50 C100,60 100,80 100,88" stroke="#e07a8b" stroke-width="1" />
-    <path d="M90,65 C95,65 95,75 100,75 C105,75 105,65 110,65" stroke="#e07a8b" stroke-width="1" />
-    <path d="M100,88 L100,240" stroke="var(--ambar)" stroke-width="6" stroke-linecap="round" />
-    <path d="M100,88 L100,240" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 3" />
-    <path d="M100,110 C85,120 70,135 60,155" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,110 C115,120 130,135 140,155" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,130 C80,140 60,165 50,195" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,130 C120,140 140,165 150,195" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,150 C80,165 65,195 55,225" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,150 C120,165 135,195 145,225" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,175 C85,195 75,220 70,240" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M100,175 C115,195 125,220 130,240" stroke="var(--verde-sec)" stroke-width="2" stroke-linecap="round" />
-    <path d="M60,45 L80,45" stroke="#2b5f8f" stroke-width="1.5" stroke-linecap="round" />
-    <path d="M75,40 L80,45 L75,50" stroke="#2b5f8f" stroke-width="1.5" stroke-linejoin="round" />
-    <path d="M140,120 L125,120" stroke="var(--verde-sec)" stroke-width="1.5" stroke-linecap="round" />
-    <path d="M130,115 L125,120 L130,125" stroke="var(--verde-sec)" stroke-width="1.5" stroke-linejoin="round" />
-  </svg>`;
-
-  const fireSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="#d14759" stroke-width="2" class="wb-side-icon"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
-  const cloudSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="#2b7094" stroke-width="2" class="wb-side-icon"><path d="M17.5 19A3.5 3.5 0 0 0 21 15.5c0-2.79-2.54-4.5-5-4.5-.42 0-.83.04-1.24.12A6.5 6.5 0 0 0 12 6.5c-3.15 0-5.8 2.2-6.4 5.12A4.5 4.5 0 0 0 2.5 15.5c0 2.21 1.79 4 4 4z"/></svg>`;
-  const heartIcon = `<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" width="14" height="14" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-  const leafIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="display:inline-block; vertical-align:middle; margin-right:4px; transform: rotate(45deg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-9 8.2Z"/><path d="M19 2 9 12"/></svg>`;
-
-  return `<div class="whiteboard-diagram">
-    <div class="wb-grid">
-      <div class="wb-col">
-        <div class="wb-card snc">
-          <div class="wb-card-title">Sistema Nervioso Central (SNC)</div>
-          <ul class="wb-card-bullets">
-            <li>Encéfalo (cerebro, cerebelo y tronco encefálico)</li>
-            <li>Médula espinal</li>
+function renderNervousSystemMindmap() {
+  return `<div class="mindmap-container">
+    <div class="mm-tree">
+      <ul>
+        <li>
+          <div class="mm-node mm-root-node">
+            <div class="mm-title">Sistema Nervioso</div>
+          </div>
+          <ul>
+            <li>
+              <div class="mm-node mm-snc-node">
+                <div class="mm-title">Sistema Nervioso Central (SNC)</div>
+                <div class="mm-desc">Centro de procesamiento e integración.</div>
+              </div>
+            </li>
+            <li>
+              <div class="mm-node mm-snp-node">
+                <div class="mm-title">Sistema Nervioso Periférico (SNP)</div>
+                <div class="mm-desc">Lleva información sensorial.</div>
+              </div>
+              <ul>
+                <li>
+                  <div class="mm-node mm-simpatico-node">
+                    <div class="mm-title">Simpático</div>
+                    <div class="mm-desc">Activa y moviliza para afrontar desafíos.</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-node mm-parasimpatico-node">
+                    <div class="mm-title">Parasimpático</div>
+                    <div class="mm-desc">Relaja, recupera y favorece el descanso.</div>
+                  </div>
+                </li>
+              </ul>
+            </li>
           </ul>
-          <div class="wb-card-desc">Centro de procesamiento e integración. Toma decisiones y coordina las respuestas.</div>
-        </div>
-        <div class="wb-icon-container">
-          ${fireSvg}
-          <div class="wb-card simpatico" style="flex:1;">
-            <div class="wb-card-title">Simpático</div>
-            <div class="wb-card-desc">Activa y moviliza. Prepara al cuerpo para afrontar desafíos.</div>
-            <div class="wb-card-footer">${heartIcon} Lucha o huida</div>
-          </div>
-        </div>
-      </div>
-      <div class="wb-col-center">
-        ${brainSvg}
-        <div class="wb-autonomic-box">
-          <div class="wb-autonomic-header">Sistema Nervioso Autónomo (SNA)</div>
-          <div class="wb-autonomic-text">Regulan funciones automáticas (corazón, respiración, digestión, etc.) para mantener el equilibrio del cuerpo.</div>
-          <div class="wb-connectors">
-            <span class="wb-arrow">&larr;</span>
-            <div class="wb-line-dotted"></div>
-            <span class="wb-arrow">&rarr;</span>
-          </div>
-        </div>
-      </div>
-      <div class="wb-col">
-        <div class="wb-card snp">
-          <div class="wb-card-title">Sistema Nervioso Periférico (SNP)</div>
-          <ul class="wb-card-bullets">
-            <li>Nervios craneales</li>
-            <li>Nervios espinales</li>
-            <li>Ganglios</li>
-          </ul>
-          <div class="wb-card-desc">Conecta el SNC con el cuerpo. Lleva información sensorial al SNC y órdenes motoras desde el SNC a los órganos, músculos y piel.</div>
-        </div>
-        <div class="wb-icon-container">
-          <div class="wb-card parasimpatico" style="flex:1;">
-            <div class="wb-card-title">Parasimpático</div>
-            <div class="wb-card-desc">Relaja y recupera. Favorece el descanso, la digestión y la reparación.</div>
-            <div class="wb-card-footer">${leafIcon} Descanso y digestión</div>
-          </div>
-          ${cloudSvg}
-        </div>
-      </div>
-    </div>
-    <div class="wb-footer-note">
-      Ambos trabajan juntos para mantener el equilibrio (homeostasis) y se activan según el contexto y el tipo de desafío.
+        </li>
+      </ul>
     </div>
   </div>`;
 }
 
 function renderTab(c,t){
-  // 4. Prepared for real images if present in data OR native reconstructed whiteboard diagram
+  // 4. Prepared for real images if present in data OR native reconstructed mindmap diagram
   let imgHtml = '';
   if (t.layout === 'timeline-plain') {
-     imgHtml = renderNervousSystemWhiteboard();
+     imgHtml = renderNervousSystemMindmap();
   } else if (t.image) {
      imgHtml = '<div class="tab-image-container"><img src="' + t.image + '" alt="' + (t.imageAlt || '') + '" class="tab-image" /></div>';
   }
