@@ -22,12 +22,15 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
 
 /* TOPBAR */
 .topbar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--blanco);border-bottom:1px solid var(--linea);display:flex;align-items:center;padding:0 20px;z-index:100;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.02)}
-.topbar-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--verde)}
-.topbar-sep{color:var(--linea);font-size:14px}
-.topbar-titulo{font-size:14px;font-weight:500;color:var(--tinta-2)}
-.topbar-marca{margin-left:auto;display:flex;align-items:center;text-decoration:none;color:var(--tinta);}
-.topbar-marca img {height:24px;width:auto;display:block;}
-.btn-menu{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto;color:var(--tinta);min-width:44px;min-height:44px;align-items:center;justify-content:center}
+.home{display:flex;align-items:center;gap:9px;cursor:pointer;border:none;background:transparent;padding:6px 8px;border-radius:10px;transition:.15s;text-decoration:none;color:var(--tinta)}
+.home:hover{background:rgba(35,74,53,.06)}
+.home img{height:28px;width:auto;display:block}
+.page-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
+.pbtn{font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--linea);background:#fff;color:var(--tinta-2);border-radius:9px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.pbtn:hover{border-color:var(--verde-sec);color:var(--verde)}
+.btn{font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--verde);background:var(--verde);color:#fff;border-radius:9px;padding:7px 14px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+.btn:hover{background:#1a2e22}
+.btn-menu{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--tinta);min-width:44px;min-height:44px;align-items:center;justify-content:center}
 
 /* SHELL */
 .shell{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:100vh;padding-top:54px}
@@ -141,8 +144,8 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
   .sidebar.abierto{transform:translateX(0)}
   .main{grid-column:1;padding:32px 24px 80px}
   .btn-menu{display:flex}
-  .topbar-titulo{display:none}
-  .topbar-marca{display:none}
+  .page-nav{display:none}
+  .btn{display:none}
   .cards-grid{grid-template-columns:1fr}
   .piso{flex-wrap:wrap}
   .tabla-normas{font-size:13px}
@@ -155,13 +158,14 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
 <body>
 
 <header class="topbar">
-  <span class="topbar-eyebrow">Legislación Cooperativa</span>
-  <span class="topbar-sep">·</span>
-  <span class="topbar-titulo">El mapa de las normas</span>
-  <a href="/" class="topbar-marca">
+  <button class="home" onclick="window.location.href='/index.html'">
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAYAAAD6S912AAAFLklEQVR42o2VzW+cVxnFf8+973yPx3Ftj/NZhdYhISURar5E2soiaqVClKpdWOqCPQgJJDZsELKyZIPU/wAJVngB4msRdUGaLhKyIFVSJ5AP1a2b4HHtsWc8877zvvc+DwsnIaoAcZZXV0fn3HOf8wgggPFf8N57P6zc3lgZT/PBc8PNfKbXG8wMLOxzPrn6wa+uX11YWJCLFy/qk/sJYG9979WjMXGHvcpMRdyeLMQ9TmxPjHH6z3+7NhVVd8WgY+kolOuiHJqscqeTvQ+8ARflWQEye3L2QnVCfveNo4fcdDPhxqM1RqrEqBQhko0KohohKEUeCHmM+xslxurldDWrzd76w7XVZ126QRqPybBw/c1hvvRwI3y61gub/Sz0B6M4GOZa8Yk6w1CzxDt84vyDbsYoarPdzL8FMDc3558odBOVsatSKN1ut9TpDZPE+8SMRNW8995lRXTDURQRETMwA+fENga5adALAO12+2kGbv/U7hvdQeysb/aEGM3U0Gg459nOcl7cN83504fYHOYgghMBJ34wChLyeO74d99oLC4uxse2cZcuXdpIAzeLIkKMGtVQNUQEjY5jL05z4TXPmdlpttMC54XEOxnmqoXG3eOj9TMA8/PzDsDtCPXXR3lEQzTU0KAMswxTo1XLWe9v88rX61S8oz8Y4QRCNB3mEQvFdwA6nY48JXSS/DUEwwoVZ1AUgXZrFxVX5da9VfKsTBEju8dr/Pidl9k7Wccw188CMcY3WVhwly9fjk8Jq83GR6GwEIvCl0RskI04/sLz/PwHrxBHFVZXIU9LnD97mONHKiQiiBM3HAULRfjaN2//6ShgLOAcwJmf/Gw5RvmkKAIS1aqlhA9u3KE36PLqiTqfPszo9Ursaim376+z1k1JHISosVB15TD6NsDcX+acB/zS4mKsTbVeK5d4qVxNYmHOpaMR95f7tFtV0rTPxpaBRT680eHBoy3KJU/IoyWCq5d9+bO/f/HL5eVlHHM7cXtJrhaFQoiYGWXvuPtwnd+8v8xwKJSkIM0iZqDRQME7cdtpQSjC6bPvnt0LqKO9MzJeytfzXAl5cN6UvIjUEk8vzbm9skVgSGezy80HX1AuOTRGMJNRodGwWqnonQMkYREF8OOTH+tmf8uZjTszMzOJZmDK0vIWnW6JqIqqUfKCRkPMMMPSUaDsiwvAr580hYDYwZf2XquMyemkWolrWeGTxKNRd6bDjEbF0UsLVA0DNCgY9vL+MclNOyv18a/6Z2pMSxOtE+bt5FSzpCbO9dMCcYICqkpQxYkjEaHsIRFhqpFIq2yamTVrZnd3COdwLKOTu9uTrRrviDM98fyES4udgGoJ1EtC1RkVDw0v1qqUbKZZ15lmM7TqLatQeZCG4hcJAJd33nHCN25upOvarHh/52HPkkJlwnkmxuphstlgqjUm7YldbnJsTBq1qiRe6PW3/XCYcuXjuwc/W+l0k8eWDWCjfvhOsXFldVdWnvl8dShrg4wj+yY5e+xgUmtUyVXZ2h7yyWpnsNEf/rPb215e29q+19kc3CuVk/uHZw8Mnq1vj0g8MNv+7XQ1efuRaaw8V5Eii/1SGv+Yx/zuxmD7H1knu0/KCtABwpd3kP/ywfiR/VfW8/T3UUrDrxyonTEj3Lu2cqq/NrgctsItCXwu0BdBFxZwgD94ELd8GmHpcSn+Jxw+N/t9Z/qjkvfdWqP+0+rmRx+utY+6JZbik7/7v7blvzGPZx5/8vzJF069fWpSRHh9/vVx/k/8C/014uG79+mPAAAAAElFTkSuQmCC" alt="Libro Verde">
-    <span style="font-weight:700; font-size:15px; margin-left:8px; letter-spacing:-0.02em;">CoopeNotebook</span>
-  </a>
+    <span style="font-weight:700; font-size:16px; letter-spacing:-0.02em;">CoopeNotebook</span>
+  </button>
+  <div class="page-nav">
+    <button class="pbtn" onclick="window.location.href='/kb/index.html'">← volver</button>
+    <button class="btn" id="toggle">Modo presentación</button>
+  </div>
   <button class="btn-menu" id="btn-menu" aria-label="Menú">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
       <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
@@ -171,7 +175,7 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
 
 <div class="shell">
   <nav class="sidebar" id="sidebar">
-    <div class="nb-marca-titulo">CÁPSULAS DEL TALLER</div>
+    <div class="nb-marca-titulo">CONTENIDO DE LA CÁPSULA</div>
     <ul class="nb-nav">
       <li><button data-tab="t00" class="activo">Apertura</button></li>
       <li><button data-tab="t01">01 ¿Qué es la jerarquía normativa?</button></li>
@@ -227,7 +231,7 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
         </div>
         <div class="piso piso-4">
           <span class="piso-num">4</span>
-          <span class="piso-nombre">Estatuto de la Cooperativa</span>
+          <span class="piso-nombre">Estatuto</span>
           <span class="piso-desc">Norma propia de cada organización, dentro del marco que la ley permite</span>
         </div>
         <div class="piso piso-5">
@@ -279,19 +283,19 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
         </div>
         <div class="ac-item">
           <button class="ac-trigger" data-ac="c3">
-            <span>El Estatuto de la Cooperativa — norma propia</span>
+            <span>El Estatuto — norma propia</span>
             <span class="ac-icon">+</span>
           </button>
           <div class="ac-body" id="ac-c3">
             <span class="ac-badge">Tercer nivel · Autonomía dentro del marco legal</span>
-            <p>El Estatuto de la Cooperativa adapta el marco legal general a las características de cada cooperativa: su nombre, domicilio, estructura, procesos electorales y reglas internas. Puede escoger y organizar lo que la legislación deja abierto, pero no puede contradecir normas superiores ni reducir derechos que ellas reconocen.</p>
+            <p>El Estatuto adapta el marco legal general a las características de cada cooperativa: su nombre, domicilio, estructura, procesos electorales y reglas internas. Puede escoger y organizar lo que la legislación deja abierto, pero no puede contradecir normas superiores ni reducir derechos que ellas reconocen.</p>
             <div class="ejemplo-bloque">
               <div class="ejemplo-label">Restricciones propias (Ejemplo)</div>
-              Si la Ley de Cooperativas establece que la Junta Directiva puede autorizar gastos o inversiones hasta por cierto monto, el Estatuto de la Cooperativa puede establecer un límite más estricto, reduciendo ese margen. La cooperativa se impone una restricción mayor dentro del rango que la ley permite, lo cual es totalmente válido.
+              Si la Ley de Cooperativas establece que la Junta Directiva puede autorizar gastos o inversiones hasta por cierto monto, el Estatuto puede establecer un límite más estricto, reduciendo ese margen. La cooperativa se impone una restricción mayor dentro del rango que la ley permite, lo cual es totalmente válido.
             </div>
             <div class="warning-bloque">
               <span class="warning-icon">⚠</span>
-              <span>Que una disposición aparezca en el Estatuto de la Cooperativa no la hace automáticamente válida. Si contradice una norma superior, debe ser corregida mediante el procedimiento correspondiente.</span>
+              <span>Que una disposición aparezca en el Estatuto no la hace automáticamente válida. Si contradice una norma superior, debe ser corregida mediante el procedimiento correspondiente.</span>
             </div>
           </div>
         </div>
@@ -302,7 +306,7 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
           </button>
           <div class="ac-body" id="ac-c4">
             <span class="ac-badge">Cuarto nivel · Organización operativa</span>
-            <p>Reglamentos, manuales, políticas y códigos internos. Organizan aspectos operativos y administrativos dentro del espacio que el Estatuto de la Cooperativa y la legislación dejan abierto.</p>
+            <p>Reglamentos, manuales, políticas y códigos internos. Organizan aspectos operativos y administrativos dentro del espacio que el Estatuto y la legislación dejan abierto.</p>
             <div class="ejemplo-bloque">
               <div class="ejemplo-label">Ejemplos</div>
               Reglamento de crédito · Código de ética · Reglamento de dietas y viáticos · Manual de procedimientos administrativos · Políticas de recursos humanos
@@ -332,7 +336,7 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
     <div class="panel" id="panel-t03">
       <div class="tab-eyebrow">Legislación Cooperativa · Nivel operativo</div>
       <div class="tab-titulo">La normativa interna de la cooperativa</div>
-      <p class="prosa">En la base de la pirámide están los instrumentos que la propia cooperativa crea para organizarse internamente. No necesitan aprobación de CONSUCOOP, pero deben mantenerse dentro del espacio que el Estatuto de la Cooperativa y la legislación les permiten.</p>
+      <p class="prosa">En la base de la pirámide están los instrumentos que la propia cooperativa crea para organizarse internamente. No necesitan aprobación de CONSUCOOP, pero deben mantenerse dentro del espacio que el Estatuto y la legislación les permiten.</p>
       <p class="prosa">Estos instrumentos tienen dos destinatarios distintos con necesidades diferentes: los cuerpos directivos que gobiernan la organización, y las personas empleadas que la operan. Confundir los dos planos es una fuente frecuente de problemas.</p>
 
       <div class="cards-grid">
@@ -365,12 +369,12 @@ h1,h2, .portada-titulo, .tab-titulo {font-family:'Space Grotesk',sans-serif;font
             <span class="ac-icon">+</span>
           </button>
           <div class="ac-body" id="ac-aprueba">
-            <p>La <strong>Asamblea General</strong> aprueba y modifica el Estatuto de la Cooperativa — la norma de mayor rango dentro de la organización. Es el único órgano con esa facultad.</p>
+            <p>La <strong>Asamblea General</strong> aprueba y modifica el Estatuto — la norma de mayor rango dentro de la organización. Es el único órgano con esa facultad.</p>
             <p>La <strong>Junta Directiva</strong>, como órgano administrador, aprueba los reglamentos, manuales y políticas internas. Son instrumentos administrativos, no normas de gobierno superior.</p>
             <p>La <strong>Gerencia General</strong> puede emitir instructivos operativos y procedimientos de trabajo dentro del marco que la Junta Directiva establece, pero no puede crear normativa que vincule a los órganos de gobierno.</p>
             <div class="warning-bloque">
               <span class="warning-icon">⚠</span>
-              <span>Un reglamento interno aprobado por la Junta Directiva no puede contradecir el Estatuto de la Cooperativa ni reducir derechos que la legislación reconoce a los afiliados.</span>
+              <span>Un reglamento interno aprobado por la Junta Directiva no puede contradecir el Estatuto ni reducir derechos que la legislación reconoce a los afiliados.</span>
             </div>
           </div>
         </div>
@@ -515,6 +519,15 @@ document.querySelectorAll('.ac-trigger').forEach(trigger => {
       trigger.querySelector('.ac-icon').textContent = '×';
     }
   });
+});
+
+let present = false;
+document.getElementById('toggle').addEventListener('click', () => {
+  present = !present;
+  const t = document.getElementById('toggle');
+  t.innerHTML = present ? 'Salir' : 'Modo presentación';
+  if(present && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+  if(!present && document.fullscreenElement) document.exitFullscreen().catch(()=>{});
 });
 </script>
 </body>
