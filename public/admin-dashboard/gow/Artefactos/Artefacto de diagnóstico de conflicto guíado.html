@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leer un conflicto · Cooperativa Notebook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#1c6b4a;
+    --verde-sec:#2fa36b;
+    --amarillo:#f4c20d;
+    --blanco:#ffffff;
+    --tinta:#1a2421;
+    --tinta-suave:#52615b;
+    --linea:#e7ece9;
+    --niebla:#f6f8f7;
+    --verde-tenue:rgba(28,107,74,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--blanco);
+    color:var(--tinta);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{display:flex;min-height:100vh;max-width:1320px;margin:0 auto}
+
+  /* ---------- SIDEBAR ---------- */
+  aside{
+    width:300px;flex-shrink:0;
+    padding:46px 30px;
+    border-right:1px solid var(--linea);
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .marca{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--verde);text-transform:uppercase}
+  .sub-marca{font-size:13px;color:var(--tinta-suave);margin-top:3px}
+  .nav-grupo{margin-top:40px}
+  .nav-label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:14px}
+  .nav-item{
+    display:block;width:100%;text-align:left;
+    background:none;border:none;cursor:pointer;
+    font-family:inherit;font-size:15px;color:var(--tinta-suave);
+    padding:9px 12px;border-radius:9px;margin-bottom:2px;
+    min-height:44px;transition:.18s;
+  }
+  .nav-item:hover{background:var(--niebla);color:var(--tinta)}
+  .nav-item.activo{background:var(--verde-tenue);color:var(--verde);font-weight:600}
+  .conceptos{margin-top:44px;padding-top:30px;border-top:1px solid var(--linea)}
+  .concepto{
+    display:inline-block;font-size:13.5px;color:var(--tinta-suave);
+    background:none;border:none;cursor:pointer;font-family:inherit;
+    padding:5px 0;margin-right:2px;transition:.18s;min-height:30px;
+  }
+  .concepto:before{content:"· ";color:var(--verde-sec)}
+  .concepto:hover{color:var(--verde)}
+  .concepto.resaltado{color:var(--verde);font-weight:600}
+
+  /* ---------- MAIN ---------- */
+  main{flex:1;min-width:0;padding:54px 60px 120px}
+  .vista{display:none}
+  .vista.activa{display:block;animation:entra .4s ease}
+  @keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  h1{font-size:42px;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+  .intro-sub{font-size:19px;color:var(--tinta-suave);margin-top:14px;max-width:600px;font-weight:400}
+  h2{font-size:28px;font-weight:700;letter-spacing:-.01em;margin-top:8px}
+  .lead{font-size:17px;color:var(--tinta-suave);margin-top:10px;max-width:640px}
+
+  .skill-card{
+    border:1px solid var(--linea);border-radius:18px;
+    padding:34px 36px;margin-top:28px;
+    transition:.2s;
+  }
+  .skill-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:38px;height:38px;border-radius:50%;
+    background:var(--verde-tenue);color:var(--verde);
+    font-weight:700;font-size:16px;margin-bottom:18px;
+  }
+  .skill-card h3{font-size:23px;font-weight:700;letter-spacing:-.01em}
+  .skill-card .que-es{color:var(--tinta-suave);margin-top:8px;font-size:16px}
+
+  .bloque-skill{margin-top:24px}
+  .bloque-titulo{
+    font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--verde);margin-bottom:12px;
+  }
+  .señal{
+    display:flex;gap:11px;align-items:flex-start;
+    padding:9px 0;font-size:15.5px;
+  }
+  .señal:before{content:"";flex-shrink:0;width:7px;height:7px;border-radius:50%;background:var(--verde-sec);margin-top:9px}
+  .hacer{
+    background:var(--niebla);border-radius:13px;padding:20px 22px;margin-top:6px;
+    font-size:15.5px;
+  }
+  .hacer strong{color:var(--verde)}
+
+  /* tipos grid */
+  .tipos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+  .tipo{
+    border:1px solid var(--linea);border-radius:14px;padding:20px 22px;
+    cursor:pointer;transition:.18s;background:var(--blanco);
+  }
+  .tipo:hover{border-color:var(--verde-sec);background:var(--verde-tenue)}
+  .tipo h4{font-size:17px;font-weight:700;color:var(--verde)}
+  .tipo p{font-size:14.5px;color:var(--tinta-suave);margin-top:6px}
+  .tipo .pista{font-size:13px;color:var(--tinta);margin-top:11px;font-weight:500;display:none}
+  .tipo.abierto .pista{display:block}
+
+  /* ---------- DIAGNÓSTICO ---------- */
+  .diag-paso{display:none}
+  .diag-paso.activo{display:block;animation:entra .35s ease}
+  .pregunta{font-size:21px;font-weight:700;margin-top:20px;letter-spacing:-.01em}
+  .opciones{margin-top:22px;display:grid;gap:11px}
+  .opcion{
+    display:flex;align-items:center;gap:14px;
+    border:1px solid var(--linea);border-radius:13px;
+    padding:16px 20px;cursor:pointer;font-family:inherit;
+    font-size:16px;text-align:left;background:var(--blanco);
+    color:var(--tinta);transition:.16s;min-height:44px;width:100%;
+  }
+  .opcion:hover{border-color:var(--verde-sec)}
+  .opcion.elegida{border-color:var(--verde);background:var(--verde-tenue);font-weight:600}
+  .opcion .marca-op{
+    flex-shrink:0;width:22px;height:22px;border-radius:50%;
+    border:2px solid var(--linea);transition:.16s;
+  }
+  .opcion.elegida .marca-op{border-color:var(--verde);background:var(--verde);box-shadow:inset 0 0 0 3px var(--blanco)}
+
+  .diag-nav{margin-top:34px;display:flex;gap:12px;align-items:center}
+  .progreso{flex:1;height:4px;background:var(--linea);border-radius:99px;overflow:hidden}
+  .progreso-fill{height:100%;background:var(--verde);width:0;transition:.4s}
+  .paso-label{font-size:13px;color:var(--tinta-suave);white-space:nowrap}
+
+  /* botones */
+  .btn{
+    font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+    border-radius:11px;padding:13px 26px;border:none;min-height:44px;transition:.18s;
+  }
+  .btn-primario{background:var(--verde);color:#fff}
+  .btn-primario:hover{background:#155a3d}
+  .btn-primario:disabled{opacity:.4;cursor:not-allowed}
+  .btn-sec{background:none;border:1px solid var(--linea);color:var(--tinta)}
+  .btn-sec:hover{border-color:var(--verde-sec)}
+  .btn-oro{background:var(--amarillo);color:var(--tinta)}
+  .btn-oro:hover{filter:brightness(.95)}
+
+  /* resultado */
+  #resultado{display:none}
+  .res-card{border:1px solid var(--linea);border-radius:18px;padding:34px 36px;margin-top:24px}
+  .res-tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-sec)}
+  .res-card h3{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.01em}
+  .res-linea{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--linea);font-size:15.5px}
+  .res-linea:last-child{border-bottom:none}
+  .res-linea .et{font-weight:600;color:var(--verde);min-width:130px;flex-shrink:0}
+  .res-reco{background:var(--verde-tenue);border-radius:13px;padding:20px 22px;margin-top:20px;font-size:15.5px}
+
+  /* etapas timeline */
+  .etapas{margin-top:28px}
+  .etapa{
+    display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--linea);
+  }
+  .etapa-n{
+    flex-shrink:0;width:30px;height:30px;border-radius:50%;
+    border:2px solid var(--verde-sec);color:var(--verde);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+  }
+  .etapa.critica .etapa-n{background:var(--amarillo);border-color:var(--amarillo);color:var(--tinta)}
+  .etapa h4{font-size:16px;font-weight:700}
+  .etapa p{font-size:14.5px;color:var(--tinta-suave);margin-top:3px}
+
+  /* mecanismos */
+  .mec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+  .mec{border:1px solid var(--linea);border-radius:14px;padding:20px 22px}
+  .mec h4{font-size:16px;font-weight:700;color:var(--verde)}
+  .mec .escala{font-size:12px;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .mec p{font-size:14.5px;color:var(--tinta-suave);margin-top:9px}
+
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--linea);font-size:13px;color:var(--tinta-suave)}
+
+  /* topbar móvil */
+  .topbar{display:none}
+
+  @media (max-width:900px){
+    .shell{flex-direction:column}
+    aside{display:none}
+    main{padding:30px 22px 90px}
+    .topbar{
+      display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+      position:sticky;top:0;background:var(--blanco);z-index:10;
+      padding:16px 22px;border-bottom:1px solid var(--linea);
+    }
+    .topbar .marca-m{font-size:12px;font-weight:700;color:var(--verde);white-space:nowrap;padding:10px 0;margin-right:6px;text-transform:uppercase}
+    .topbar .nav-item{white-space:nowrap;width:auto;padding:10px 14px}
+    h1{font-size:32px}
+    h2{font-size:24px}
+  }
+  @media (max-width:480px){
+    .tipos-grid,.mec-grid{grid-template-columns:1fr}
+    .skill-card,.res-card{padding:26px 22px}
+    .res-linea{flex-direction:column;gap:2px}
+    .res-linea .et{min-width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR MÓVIL -->
+  <div class="topbar">
+    <span class="marca-m">Leer un conflicto</span>
+    <button class="nav-item" data-vista="inicio">Inicio</button>
+    <button class="nav-item" data-vista="diagnostico">Diagnóstico</button>
+    <button class="nav-item" data-vista="skills">Las 7 lecturas</button>
+    <button class="nav-item" data-vista="etapas">Etapas</button>
+    <button class="nav-item" data-vista="mecanismos">Mecanismos</button>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="marca">Cooperativa Notebook</div>
+    <div class="sub-marca">Liderazgo · Leer un conflicto</div>
+
+    <div class="nav-grupo">
+      <div class="nav-label">Exploración</div>
+      <button class="nav-item activo" data-vista="inicio">Inicio</button>
+      <button class="nav-item" data-vista="diagnostico">Diagnóstico guiado</button>
+      <button class="nav-item" data-vista="skills">Las 7 lecturas</button>
+      <button class="nav-item" data-vista="etapas">Etapas del conflicto</button>
+      <button class="nav-item" data-vista="mecanismos">Mecanismos de manejo</button>
+    </div>
+
+    <div class="conceptos">
+      <div class="nav-label">Conceptos relacionados</div>
+      <button class="concepto" data-c="naturaleza">naturaleza</button>
+      <button class="concepto" data-c="tarea">tarea</button>
+      <button class="concepto" data-c="proceso">proceso</button>
+      <button class="concepto" data-c="relacion">relación</button>
+      <button class="concepto" data-c="etapa">etapa</button>
+      <button class="concepto" data-c="intereses">intereses</button>
+      <button class="concepto" data-c="mediacion">mediación</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ============ INICIO ============ -->
+    <section class="vista activa" id="vista-inicio">
+      <h1>Leer un conflicto<br>antes de actuar</h1>
+      <p class="intro-sub">Casi todo el manejo de un conflicto se decide en cómo lo leés. Esta herramienta entrena siete habilidades de lectura: distinguir, nombrar su naturaleza, ubicar su etapa y elegir cómo intervenir.</p>
+
+      <div class="skill-card" style="margin-top:38px">
+        <p class="que-es" style="font-size:17px;color:var(--tinta)">En una cooperativa, un conflicto mal leído vulnera los valores y principios cooperativistas. Bien leído y resuelto, hace que las personas involucradas <strong style="color:var(--verde)">crezcan, maduren y se conozcan mejor</strong>. La diferencia empieza en la lectura.</p>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-primario" data-vista="diagnostico">Empezar diagnóstico guiado</button>
+          <button class="btn btn-sec" data-vista="skills">Ver las 7 lecturas</button>
+        </div>
+      </div>
+
+      <p class="lead" style="margin-top:34px">La habilidad central que pediste —<strong>saber si un conflicto es de tarea, de proceso o personal</strong>— vive en la lectura n.º 2. Pero rara vez se lee bien aislada: conviene también ubicar en qué etapa va y qué lo está alimentando.</p>
+    </section>
+
+    <!-- ============ DIAGNÓSTICO ============ -->
+    <section class="vista" id="vista-diagnostico">
+      <h2>Diagnóstico guiado</h2>
+      <p class="lead">Pensá en un conflicto concreto de tu cooperativa. Respondé y la herramienta te devuelve una lectura: naturaleza, etapa y mecanismo sugerido. No es un veredicto: es un punto de partida para pensar.</p>
+
+      <div id="diag-flujo">
+        <!-- Paso 1: conflicto o problema -->
+        <div class="diag-paso activo" data-paso="0">
+          <div class="pregunta">¿La tensión es todavía sobre un asunto concreto, o ya se volvió personal?</div>
+          <div class="opciones" data-grupo="cp">
+            <button class="opcion" data-val="problema"><span class="marca-op"></span>Hay un desacuerdo sobre algo concreto; aún no hay malestar con la persona</button>
+            <button class="opcion" data-val="conflicto"><span class="marca-op"></span>Ya hay malestar, reproche o enfrentamiento entre personas</button>
+          </div>
+        </div>
+
+        <!-- Paso 2: naturaleza -->
+        <div class="diag-paso" data-paso="1">
+          <div class="pregunta">¿Sobre qué es, en el fondo? Elegí lo que más pesa.</div>
+          <div class="opciones" data-grupo="nat">
+            <button class="opcion" data-val="tarea"><span class="marca-op"></span><b>Qué hay que hacer</b> — la meta, el contenido o la decisión de fondo</button>
+            <button class="opcion" data-val="proceso"><span class="marca-op"></span><b>Cómo se hace</b> — quién hace qué, los roles, el procedimiento</button>
+            <button class="opcion" data-val="relacion"><span class="marca-op"></span><b>Las personas</b> — choque de estilos, estatus, antipatía o desconfianza</button>
+            <button class="opcion" data-val="poder"><span class="marca-op"></span><b>El poder</b> — quién controla recursos, influencia o información</button>
+            <button class="opcion" data-val="informacion"><span class="marca-op"></span><b>La información</b> — no se socializa, se niega o no fluye</button>
+            <button class="opcion" data-val="valores"><span class="marca-op"></span><b>Los valores</b> — distintas percepciones, cultura o creencias de fondo</button>
+          </div>
+        </div>
+
+        <!-- Paso 3: etapa -->
+        <div class="diag-paso" data-paso="2">
+          <div class="pregunta">¿Hasta dónde escaló? Elegí la descripción más cercana.</div>
+          <div class="opciones" data-grupo="etapa">
+            <button class="opcion" data-val="1"><span class="marca-op"></span>Apenas hay un desacuerdo; aún se conversa con normalidad</button>
+            <button class="opcion" data-val="2"><span class="marca-op"></span>Ya se empieza a culpar o reprochar a la otra persona</button>
+            <button class="opcion" data-val="4"><span class="marca-op"></span>Se cortó el diálogo directo; se habla de la persona, no con ella</button>
+            <button class="opcion" data-val="6"><span class="marca-op"></span>Hay hostilidad abierta; ganar importa más que resolver</button>
+          </div>
+        </div>
+
+        <!-- Paso 4: actitud -->
+        <div class="diag-paso" data-paso="3">
+          <div class="pregunta">¿Qué tan importante es para vos preservar la relación y los intereses de la otra parte?</div>
+          <div class="opciones" data-grupo="actitud">
+            <button class="opcion" data-val="colaborar"><span class="marca-op"></span>Mucho — me importan tanto mis objetivos como los de la otra parte</button>
+            <button class="opcion" data-val="comprometer"><span class="marca-op"></span>Buscamos un punto medio donde ambos cedemos algo</button>
+            <button class="opcion" data-val="acomodar"><span class="marca-op"></span>Estoy dispuesto/a a ceder para no romper la relación</button>
+            <button class="opcion" data-val="tercero"><span class="marca-op"></span>Ya no nos entendemos solos; haría falta alguien que facilite</button>
+          </div>
+        </div>
+
+        <div class="diag-nav">
+          <button class="btn btn-sec" id="btn-atras" style="visibility:hidden">Atrás</button>
+          <div class="progreso"><div class="progreso-fill" id="prog"></div></div>
+          <span class="paso-label" id="paso-label">1 / 4</span>
+          <button class="btn btn-primario" id="btn-siguiente" disabled>Siguiente</button>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div id="resultado">
+        <div class="res-card">
+          <div class="res-tag">Tu lectura</div>
+          <h3 id="res-titulo"></h3>
+          <div style="margin-top:18px">
+            <div class="res-linea"><span class="et">Naturaleza</span><span id="res-nat"></span></div>
+            <div class="res-linea"><span class="et">Etapa</span><span id="res-etapa"></span></div>
+            <div class="res-linea"><span class="et">Actitud útil</span><span id="res-actitud"></span></div>
+          </div>
+          <div class="res-reco" id="res-reco"></div>
+          <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-sec" id="btn-reiniciar">Diagnosticar otro</button>
+            <button class="btn btn-oro" data-vista="skills">Profundizar en las lecturas</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LAS 7 LECTURAS ============ -->
+    <section class="vista" id="vista-skills">
+      <h2>Las siete lecturas</h2>
+      <p class="lead">Cada una es una habilidad: <strong>cómo reconocerla</strong> y <strong>qué hacer</strong> una vez que la reconocés.</p>
+
+      <!-- 1 -->
+      <div class="skill-card" data-concepto="naturaleza">
+        <div class="skill-num">1</div>
+        <h3>Distinguir conflicto de problema</h3>
+        <p class="que-es">Un problema es un asunto a resolver. Un conflicto es la posición a favor o en contra que genera malestar y enfrentamiento. El problema mira la situación; el conflicto ya mira a la persona.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Cómo reconocerla</div>
+          <div class="señal">Si el desacuerdo sigue centrado en el asunto, todavía es problema.</div>
+          <div class="señal">Si aparece "el problema es ella/él", ya cruzó a conflicto.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Mientras siga siendo problema, <strong>resolvelo sobre los hechos</strong>: datos, opciones, acuerdos. Si ya hay personificación, primero hay que bajar la carga relacional antes de tocar el asunto de fondo.</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="skill-card" data-concepto="tarea proceso relacion">
+        <div class="skill-num">2</div>
+        <h3>Nombrar la naturaleza del conflicto</h3>
+        <p class="que-es">El núcleo. No se maneja igual un desacuerdo sobre qué hacer que un choque de personas. Nombrarlo bien es la mitad de la solución.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Las naturalezas — tocá cada una para ver la pista</div>
+          <div class="tipos-grid">
+            <div class="tipo"><h4>De tarea</h4><p>Sobre qué hay que hacer: la meta, el contenido, la decisión.</p><div class="pista">Pista: si todos cambiaran de opinión sobre el qué, el conflicto desaparecería.</div></div>
+            <div class="tipo"><h4>De proceso</h4><p>Sobre cómo se hace: roles, responsabilidades, procedimiento.</p><div class="pista">Pista: hay acuerdo en la meta, pero no en quién hace qué ni cómo.</div></div>
+            <div class="tipo"><h4>De relación / personal</h4><p>Choque de estilos, estatus, antipatía o desconfianza.</p><div class="pista">Pista: el asunto cambia pero las mismas personas siguen chocando.</div></div>
+            <div class="tipo"><h4>De poder</h4><p>Lucha por influencia, recursos o ventajas.</p><div class="pista">Pista: lo que se disputa es quién decide o quién controla.</div></div>
+            <div class="tipo"><h4>De información</h4><p>No se socializa, se niega o no hay retroalimentación.</p><div class="pista">Pista: al poner los datos sobre la mesa, gran parte se desinfla.</div></div>
+            <div class="tipo"><h4>De valores / cultura</h4><p>Distintas percepciones, creencias o interpretaciones de fondo.</p><div class="pista">Pista: no es negociable con datos; toca convicciones.</div></div>
+          </div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Tarea e información se resuelven con <strong>hechos y discusión sobre el asunto</strong> — incluso son sanos para el equipo. Proceso y poder piden <strong>clarificar roles y reglas</strong>. Relación y valores no se resuelven discutiendo el tema: piden trabajar la confianza y, a veces, un tercero que facilite.</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="skill-card" data-concepto="etapa">
+        <div class="skill-num">3</div>
+        <h3>Ubicar la etapa</h3>
+        <p class="que-es">Un conflicto grave no aparece de un día para otro: escala. Ubicar la etapa permite manejarlo antes de que sea tarde.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Cómo reconocerla</div>
+          <div class="señal">Cuanto más se habla <em>de</em> la persona y menos <em>con</em> ella, más avanzada está.</div>
+          <div class="señal">Si "tener la razón y ganar" desplazó al problema original, ya escaló mucho.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">En etapas tempranas (1–3), <strong>el diálogo directo todavía funciona</strong>. Desde que se abandona el diálogo (4 en adelante), casi siempre hace falta un tercero que facilite. <button class="concepto" data-vista="etapas" style="color:var(--verde);font-weight:600">Ver las 7 etapas →</button></div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="skill-card">
+        <div class="skill-num">4</div>
+        <h3>Separar personas, proceso y problema</h3>
+        <p class="que-es">Todo conflicto tiene tres elementos. Confundirlos es la causa más común de soluciones que no funcionan.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Los tres elementos</div>
+          <div class="señal"><b>Personas</b> — quiénes están implicados, cómo perciben el problema y qué proponen.</div>
+          <div class="señal"><b>Proceso</b> — los pasos para resolverlo y cómo se comunican los involucrados.</div>
+          <div class="señal"><b>Problema</b> — el núcleo: intereses, necesidades y valores que separan.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Tratá el problema con dureza y a las personas con respeto. <strong>Separá a la persona del problema</strong>: se puede discutir con firmeza un asunto sin atacar a quien lo defiende.</div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="skill-card">
+        <div class="skill-num">5</div>
+        <h3>Detectar lo que lo alimenta</h3>
+        <p class="que-es">Los conflictos se construyen; rara vez explotan solos. Si ves la causa que lo alimenta, podés frenarlo a tiempo.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Causas frecuentes en cooperativas</div>
+          <div class="señal">Necesidades o intereses insatisfechos; temor a perder algo.</div>
+          <div class="señal">Defender una posición sin escuchar la contraria; interpretaciones erróneas.</div>
+          <div class="señal">Falta o centralización de información; lucha de poder.</div>
+          <div class="señal">Desconocimiento del marco legal o de los valores y principios cooperativos.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Identificá <strong>cuál de estas causas está activa</strong> y atendela en la raíz. Muchas se desactivan con información que fluye y roles claros, antes de que el conflicto escale.</div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="skill-card" data-concepto="mediacion">
+        <div class="skill-num">6</div>
+        <h3>Elegir cómo intervenir</h3>
+        <p class="que-es">Tu actitud personal y el mecanismo no son lo mismo. Primero elegís actitud; luego, si hace falta, mecanismo.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Cinco actitudes ante el conflicto</div>
+          <div class="señal"><b>Colaborar</b> — atender mis objetivos y los de la otra parte. Suele ser el mejor estilo.</div>
+          <div class="señal"><b>Comprometerse</b> — ceder de forma equitativa hacia un punto medio.</div>
+          <div class="señal"><b>Acomodar / Competir / Evadir</b> — útiles solo en contextos puntuales; rara vez resuelven de fondo.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Priorizá las formas que causen <strong>el menor daño posible</strong> a las personas. Si ya no se resuelve entre las partes, escalá al mecanismo adecuado. <button class="concepto" data-vista="mecanismos" style="color:var(--verde);font-weight:600">Ver los mecanismos →</button></div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="skill-card" data-concepto="intereses">
+        <div class="skill-num">7</div>
+        <h3>Negociar sobre intereses, no posiciones</h3>
+        <p class="que-es">La habilidad que sostiene todas las demás. Sin comunicación no hay negociación.</p>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Cómo reconocer que vas bien</div>
+          <div class="señal">Las partes hablan de lo que necesitan, no solo de lo que exigen.</div>
+          <div class="señal">Hay preparación, escucha activa y un clima de confianza.</div>
+        </div>
+        <div class="bloque-skill">
+          <div class="bloque-titulo">Qué hacer</div>
+          <div class="hacer">Centrate en los <strong>intereses</strong> detrás de cada posición. La otra parte no es el enemigo: es un colaborador en buscar una solución que sirva a ambos. La intransigencia favorece el estancamiento; la firmeza con respeto, el acuerdo.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ETAPAS ============ -->
+    <section class="vista" id="vista-etapas">
+      <h2>Las siete etapas del conflicto</h2>
+      <p class="lead">Un mapa para ubicar dónde está y decidir si todavía se resuelve hablando. La etapa marcada es el punto de no retorno del diálogo directo.</p>
+      <div class="etapas">
+        <div class="etapa"><div class="etapa-n">1</div><div><h4>El problema</h4><p>Aparece el desacuerdo. El conflicto aún no se manifiesta.</p></div></div>
+        <div class="etapa"><div class="etapa-n">2</div><div><h4>Personificación</h4><p>Se empieza a culpar y reprochar. El problema ya no es el asunto, sino la persona.</p></div></div>
+        <div class="etapa"><div class="etapa-n">3</div><div><h4>El problema crece</h4><p>Se recuerdan conflictos viejos y se encuentran nuevos. Todo se agranda.</p></div></div>
+        <div class="etapa critica"><div class="etapa-n">4</div><div><h4>Diálogo abandonado</h4><p>Se corta la comunicación. Se habla de la persona con terceros, no con ella. Aquí casi siempre hace falta un tercero que facilite.</p></div></div>
+        <div class="etapa"><div class="etapa-n">5</div><div><h4>Se agranda la otra parte</h4><p>La otra persona es "lo reprobable". Ya solo importa tener la razón y ganar.</p></div></div>
+        <div class="etapa"><div class="etapa-n">6</div><div><h4>Hostilidad abierta</h4><p>Domina el enojo. Ya no se concibe a la otra parte como un ser humano; se busca dañar.</p></div></div>
+        <div class="etapa"><div class="etapa-n">7</div><div><h4>Polarización</h4><p>No hay lugar para ambas partes. La separación parece la única salida.</p></div></div>
+      </div>
+      <div class="hacer" style="margin-top:28px">El valor de este mapa: <strong>manejar el conflicto antes de que sea demasiado tarde.</strong> Cuanto antes lo ubiques, más herramientas siguen disponibles.</div>
+    </section>
+
+    <!-- ============ MECANISMOS ============ -->
+    <section class="vista" id="vista-mecanismos">
+      <h2>Mecanismos para manejar el conflicto</h2>
+      <p class="lead">De menos a más participación de las partes en la solución. En cultura cooperativa, los de abajo preservan mejor la relación.</p>
+      <div class="mec-grid">
+        <div class="mec"><h4>La fuerza</h4><div class="escala">Se suprime · no resuelve</div><p>Se impone una voluntad atacando a la persona. Se cree que el problema es la persona. El más común y el que más daño deja.</p></div>
+        <div class="mec"><h4>El litigio</h4><div class="escala">Un juez decide</div><p>Un tercero resuelve quién gana o pierde conforme a la ley. Las partes quedan comprometidas a aceptar la decisión.</p></div>
+        <div class="mec"><h4>Arbitraje</h4><div class="escala">Árbitro de confianza</div><p>Las partes eligen de común acuerdo a una persona en quien ambas confían para que decida.</p></div>
+        <div class="mec"><h4>Negociación</h4><div class="escala">Sin terceros</div><p>Las partes toman la decisión por sí mismas, sin acudir a una tercera persona.</p></div>
+        <div class="mec"><h4>Mediación</h4><div class="escala">Tercero que facilita</div><p>Una negociación con un tercero que facilita y ayuda a que las partes lleguen a un acuerdo, sin decidir por ellas.</p></div>
+        <div class="mec"><h4>Reconciliación</h4><div class="escala">Cambio de actitud</div><p>Va más allá: con un tercero, promueve cambios de actitud y el reconocimiento de la otra persona.</p></div>
+      </div>
+      <div class="hacer" style="margin-top:28px">Regla cooperativa: priorizá los mecanismos que dejen <strong>el menor daño posible</strong> a las personas. La negociación y la mediación mantienen a las partes como protagonistas de su propia solución.</div>
+    </section>
+
+    <footer>
+      Cooperativa Notebook · Síntesis basada en el material de Estrategias de negociación y manejo de conflictos. Una lectura es un punto de partida para pensar, no un veredicto. — Oliver Ayala
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  // ---------- navegación de vistas ----------
+  const navItems = document.querySelectorAll('.nav-item');
+  const vistas = document.querySelectorAll('.vista');
+  function irA(vista){
+    vistas.forEach(v=>v.classList.toggle('activa', v.id==='vista-'+vista));
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('activo', n.dataset.vista===vista));
+    document.querySelector('main').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  document.body.addEventListener('click', e=>{
+    const t = e.target.closest('[data-vista]');
+    if(t){ irA(t.dataset.vista); }
+  });
+
+  // ---------- conceptos (backlink highlight) ----------
+  document.querySelectorAll('.concepto[data-c]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const c = btn.dataset.c;
+      irA('skills');
+      setTimeout(()=>{
+        document.querySelectorAll('[data-concepto]').forEach(card=>{
+          const hit = card.dataset.concepto.split(' ').includes(c);
+          card.style.boxShadow = hit ? '0 0 0 2px var(--verde-sec)' : 'none';
+          if(hit) card.scrollIntoView({behavior:'smooth',block:'center'});
+        });
+        document.querySelectorAll('.concepto[data-c]').forEach(x=>x.classList.toggle('resaltado', x.dataset.c===c));
+        setTimeout(()=>document.querySelectorAll('[data-concepto]').forEach(card=>card.style.boxShadow='none'), 2400);
+      }, 300);
+    });
+  });
+
+  // ---------- tipos expandibles ----------
+  document.querySelectorAll('.tipo').forEach(t=>{
+    t.addEventListener('click', ()=>t.classList.toggle('abierto'));
+  });
+
+  // ---------- diagnóstico ----------
+  const pasos = document.querySelectorAll('.diag-paso');
+  const total = pasos.length;
+  let idx = 0;
+  const resp = {};
+  const btnSig = document.getElementById('btn-siguiente');
+  const btnAtras = document.getElementById('btn-atras');
+  const prog = document.getElementById('prog');
+  const label = document.getElementById('paso-label');
+
+  function pintaPaso(){
+    pasos.forEach((p,i)=>p.classList.toggle('activo', i===idx));
+    prog.style.width = ((idx)/(total))*100 + '%';
+    label.textContent = (idx+1)+' / '+total;
+    btnAtras.style.visibility = idx===0 ? 'hidden':'visible';
+    btnSig.textContent = idx===total-1 ? 'Ver lectura':'Siguiente';
+    const grupo = pasos[idx].querySelector('.opciones').dataset.grupo;
+    btnSig.disabled = !resp[grupo];
+  }
+
+  document.querySelectorAll('.opciones .opcion').forEach(op=>{
+    op.addEventListener('click', ()=>{
+      const cont = op.closest('.opciones');
+      const grupo = cont.dataset.grupo;
+      cont.querySelectorAll('.opcion').forEach(o=>o.classList.remove('elegida'));
+      op.classList.add('elegida');
+      resp[grupo] = op.dataset.val;
+      btnSig.disabled = false;
+    });
+  });
+
+  btnSig.addEventListener('click', ()=>{
+    if(idx < total-1){ idx++; pintaPaso(); }
+    else mostrarResultado();
+  });
+  btnAtras.addEventListener('click', ()=>{ if(idx>0){ idx--; pintaPaso(); } });
+
+  // ---------- mapas de resultado ----------
+  const NAT = {
+    tarea:{n:'De tarea',r:'Es de tarea: se discute el qué. Suele ser un conflicto sano. Resolvelo sobre los hechos —datos, opciones, criterios— sin que se vuelva personal.'},
+    proceso:{n:'De proceso',r:'Es de proceso: hay acuerdo en la meta, no en el cómo. Clarificá roles, responsabilidades y el procedimiento. Definir quién hace qué desactiva gran parte.'},
+    relacion:{n:'De relación / personal',r:'Es de relación: el asunto cambia pero las personas siguen chocando. No se resuelve discutiendo el tema; hay que trabajar la confianza y, con frecuencia, sumar a un tercero que facilite.'},
+    poder:{n:'De poder',r:'Es de poder: se disputa quién decide o controla. Hacé visibles las reglas y los límites de cada rol. Sin reglas claras, vuelve una y otra vez.'},
+    informacion:{n:'De información',r:'Es de información: algo no se socializa o no fluye. Poné los datos sobre la mesa; buena parte se desinfla cuando la información circula y hay retroalimentación.'},
+    valores:{n:'De valores / cultura',r:'Es de valores: toca convicciones, no datos. No busques "ganar el punto"; buscá reconocimiento mutuo y, donde se pueda, reglas que convivan con las diferencias.'}
+  };
+  const ETAPA = {
+    '1':{n:'Etapa 1 — El problema',temprana:true},
+    '2':{n:'Etapa 2 — Personificación',temprana:true},
+    '4':{n:'Etapa 4 — Diálogo abandonado',temprana:false},
+    '6':{n:'Etapa 6 — Hostilidad abierta',temprana:false}
+  };
+  const ACT = {
+    colaborar:'Colaborar — atender tus objetivos y los de la otra parte. El estilo que más preserva la relación cooperativa.',
+    comprometer:'Comprometerse — ceder de forma equitativa hacia un punto medio.',
+    acomodar:'Acomodar — ceder para preservar la relación. Útil puntualmente, no de fondo.',
+    tercero:'Sumar un tercero — ya no se resuelve solo entre las partes.'
+  };
+
+  function mostrarResultado(){
+    const nat = NAT[resp.nat] || NAT.tarea;
+    const et = ETAPA[resp.etapa] || ETAPA['1'];
+    const esConflicto = resp.cp === 'conflicto';
+
+    document.getElementById('res-nat').textContent = nat.n;
+    document.getElementById('res-etapa').textContent = et.n;
+    document.getElementById('res-actitud').textContent = (ACT[resp.actitud]||'').split(' — ')[0];
+
+    let titulo, reco;
+    // mecanismo según etapa + actitud
+    let mecanismo;
+    if(!et.temprana || resp.actitud==='tercero'){
+      mecanismo = 'Ya conviene un tercero que facilite: <strong>mediación</strong> (alguien que ayuda a acordar sin decidir por ustedes) o, si el daño relacional es hondo, <strong>reconciliación</strong>.';
+    } else if(resp.actitud==='colaborar' || resp.actitud==='comprometer'){
+      mecanismo = 'Todavía se puede resolver entre las partes con <strong>negociación directa</strong>, centrada en intereses, no en posiciones.';
+    } else {
+      mecanismo = 'Se puede intentar <strong>negociación directa</strong>, pero cuidando que acomodar no deje el problema de fondo sin resolver.';
+    }
+
+    if(!esConflicto){
+      titulo = 'Todavía es un problema, no un conflicto';
+      reco = 'Buena noticia: aún se centra en el asunto, no en las personas. <strong>Resolvelo ahora sobre los hechos</strong>, antes de que se personifique. '+nat.r;
+    } else {
+      titulo = 'Es un conflicto en curso';
+      reco = nat.r + '<br><br>' + mecanismo;
+      if(!et.temprana){
+        reco += '<br><br>Está avanzado: el diálogo directo ya se debilitó. Cuanto antes intervengas, más opciones siguen disponibles.';
+      }
+    }
+
+    document.getElementById('res-titulo').textContent = titulo;
+    document.getElementById('res-reco').innerHTML = reco;
+
+    document.getElementById('diag-flujo').style.display='none';
+    const r = document.getElementById('resultado');
+    r.style.display='block';
+    prog.style.width='100%';
+    r.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('btn-reiniciar').addEventListener('click', ()=>{
+    idx=0;
+    Object.keys(resp).forEach(k=>delete resp[k]);
+    document.querySelectorAll('.opcion').forEach(o=>o.classList.remove('elegida'));
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('diag-flujo').style.display='block';
+    pintaPaso();
+  });
+
+  pintaPaso();
+})();
+</script>
+</body>
+</html>
