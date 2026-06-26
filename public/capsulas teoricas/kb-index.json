@@ -95,46 +95,37 @@
       "descripcion": "Aplicación práctica en contextos reales",
       "acordeones": [
         {
-          "id": "liderazgo-aplicado",
-          "titulo": "Liderazgo Aplicado",
+          "id": "conflicto-y-negociacion",
+          "titulo": "Conflicto y Negociación",
           "capsulas": [
             {
-              "id": "liderazgo-comunicacion-lidercoop",
-              "titulo": "Comunicación y Liderazgo"
-            },
-            {
-              "id": "perfil-lider",
-              "titulo": "Perfil del Líder Aplicado"
-            },
-            {
-              "id": "KB-psicologia-del-conflicto-teoria",
-              "titulo": "Psicología del conflicto (Teoría)"
-            },
-            {
-              "id": "KB-habilidades-mediacion",
-              "titulo": "Habilidades y estrategias para mediación"
+              "id": "kb-conflicto-negociacion-vivencial-balance-final",
+              "titulo": "Preparación ante el conflicto"
             }
           ]
         },
         {
-          "id": "identidad-cooperativa-aplicada",
-          "titulo": "Identidad Cooperativa Aplicada",
+          "id": "habilidades-de-mediacion",
+          "titulo": "Habilidades de Mediación",
           "capsulas": [
             {
-              "id": "modelocooperativo-empoderamiento",
-              "titulo": "Modelo Cooperativo y Empoderamiento"
+              "id": "kb-conflicto-negociacion-vivencial-balance-final",
+              "titulo": "Empatía y escucha activa"
+            },
+            {
+              "id": "kb-conflicto-negociacion-vivencial-balance-final",
+              "titulo": "Modelo CNV"
+            },
+            {
+              "id": "kb-conflicto-negociacion-vivencial-balance-final",
+              "titulo": "Asertividad"
             }
           ]
         },
         {
-          "id": "trabajo-en-equipo",
-          "titulo": "Trabajo en Equipo",
-          "capsulas": [
-            {
-              "id": "liderazgo-en-equipo",
-              "titulo": "Liderazgo en Equipo"
-            }
-          ]
+          "id": "gestion-financiera-basica",
+          "titulo": "Gestión Financiera Básica",
+          "capsulas": []
         }
       ]
     }
