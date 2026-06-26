@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Principios y balance social - CoopeNotebook</title>
+<style>
+:root {
+  --verde: #1c6b4a;
+  --verde-claro: #e8f4ef;
+  --verde-borde: #b8dccc;
+  --gris-texto: #1a1a1a;
+  --gris-sec: #4a4a4a;
+  --gris-borde: #d8d8d8;
+  --gris-fondo: #f7f7f5;
+  --blanco: #ffffff;
+  --amarillo: #e8b84b;
+  --amarillo-claro: #fff8e6;
+  --rojo-claro: #fff0f0;
+  --rojo-borde: #f5c6c6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--blanco);
+  color: var(--gris-texto);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* 1. TOPBAR (Cabecera Principal - Unificada y más grande) */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 2rem;
+  height: 72px;
+  border-bottom: 1px solid var(--gris-borde);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.brand {
+  color: var(--gris-texto);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.brand strong {
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.back {
+  font-size: 13px;
+  color: var(--gris-sec);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.back:hover {
+  color: var(--verde);
+}
+
+/* Botón hamburguesa (solo móvil) */
+.nb-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+  color: var(--verde);
+}
+
+.nb-toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ── HEADER ── */
+.modulo-header {
+  background: var(--blanco);
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 22px 24px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.header-acento {
+  width: 4px;
+  min-height: 52px;
+  background: var(--verde);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.header-titulo .marca {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--verde);
+  margin-bottom: 4px;
+}
+.header-titulo h1 {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 650;
+  color: var(--gris-texto);
+  line-height: 1.12;
+}
+.header-titulo p {
+  font-size: 13px;
+  color: var(--gris-sec);
+  margin-top: 3px;
+}
+
+/* ── LAYOUT ── */
+/* 2. MAQUETACIÓN GENERAL (Shell) */
+.shell {
+  display: flex;
+  min-height: calc(100vh - 72px);
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--gris-borde);
+  background: var(--blanco);
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.nb-marca-titulo {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gris-borde);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--verde);
+  line-height: 1.35;
+}
+
+.nb-nav {
+  list-style: none;
+  padding: 0.75rem 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nb-nav button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 14px;
+  color: var(--gris-sec);
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.nb-nav button:hover {
+  background: var(--verde-claro);
+  color: var(--verde);
+  box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+}
+
+.nb-nav button.activo {
+  background: var(--verde-claro);
+  color: var(--verde);
+  font-weight: 600;
+  border-left-color: var(--verde);
+  box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+}
+
+.nb-nav-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-sec);
+  min-width: 20px;
+  padding-top: 1px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.nb-nav button.activo .nb-nav-num {
+  color: var(--verde-sec);
+}
+
+.nb-conceptos {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--gris-borde);
+  flex-shrink: 0;
+}
+
+.nb-conceptos-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris-sec);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.nb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nb-tag {
+  font-size: 12px;
+  color: var(--verde);
+  background: var(--verde-claro);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #dcebe2;
+}
+
+.nb-cerrar {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gris-sec);
+}
+
+.nb-cerrar svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sidebar-conceptos {
+  margin-top: 20px;
+  padding: 14px 16px 0;
+  border-top: 1px solid var(--gris-borde);
+}
+.sidebar-conceptos h4 {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gris-sec);
+  margin-bottom: 10px;
+}
+.concepto-tag {
+  display: inline-block;
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  color: var(--gris-sec);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin: 0 3px 5px 0;
+}
+
+.main { flex: 1; max-width: 760px; padding: 3rem 3.5rem; overflow-y: auto; }
+.panel { display: none; }
+.panel.activo { display: block; animation: fadeUp 0.35s ease both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.capsula-titulo { font-size: 26px; font-weight: 600; color: var(--gris-texto); line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+.capsula-titulo::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .5rem; border-radius: 2px; }
+.capsula-meta { font-size: 12px; color: var(--gris-sec); margin-bottom: 2rem; }
+.seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gris-sec); margin: 2.5rem 0 1rem; }
+.subseccion {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gris-sec);
+  margin: 22px 0 10px;
+}
+.sep { border: none; border-top: 1px solid var(--gris-borde); margin: 24px 0; }
+p { margin-bottom: 10px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── CALLOUTS ── */
+.callout {
+  background: var(--verde-claro);
+  border-left: 4px solid var(--verde);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin: 14px 0;
+  line-height: 1.65;
+}
+.callout strong { color: var(--verde); }
+
+.interp {
+  background: var(--amarillo-claro);
+  border-left: 4px solid var(--amarillo);
+  padding: 12px 16px;
+  font-size: 13px;
+  margin: 12px 0;
+  line-height: 1.65;
+}
+.interp strong { color: #7a5a00; }
+
+.zona-gris {
+  background: var(--rojo-claro);
+  border-left: 4px solid #d9534f;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin: 12px 0;
+  line-height: 1.65;
+}
+.zona-gris .zona-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #d9534f;
+  margin-bottom: 6px;
+}
+
+/* ── ACORDEÓN ── */
+.acord {
+  border: 1px solid var(--gris-borde);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.acord-btn {
+  width: 100%;
+  background: var(--gris-fondo);
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--gris-texto);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  gap: 12px;
+  transition: background 0.12s;
+}
+.acord-btn:hover, .acord-btn.open {
+  background: var(--verde-claro);
+  color: var(--verde);
+}
+.acord-num {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--verde);
+  color: var(--blanco);
+  padding: 2px 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+.acord-btn.open .acord-num { background: var(--verde); }
+.acord-flecha { font-size: 10px; color: var(--verde); transition: transform 0.18s; flex-shrink: 0; margin-left: auto; }
+.acord-btn.open .acord-flecha { transform: rotate(90deg); }
+.acord-body {
+  display: none;
+  padding: 16px;
+  font-size: 14px;
+  border-top: 1px solid var(--verde-borde);
+  background: var(--blanco);
+  line-height: 1.7;
+}
+.acord-body.open { display: block; }
+
+/* ── TAG LEGAL ── */
+.tag-legal {
+  display: inline-block;
+  background: var(--verde-claro);
+  color: var(--verde);
+  border: 1px solid var(--verde-borde);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-right: 4px;
+}
+
+/* ── TABLA ── */
+.tabla-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabla-mod {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+  min-width: 420px;
+}
+.tabla-mod th {
+  background: var(--verde);
+  color: var(--blanco);
+  padding: 9px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+.tabla-mod td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--gris-borde);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.tabla-mod tr:nth-child(even) td { background: var(--gris-fondo); }
+
+/* ── BALANCE SOCIAL ── */
+.bs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+.bs-card {
+  border: 1px solid var(--gris-borde);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bs-card-head {
+  background: var(--verde);
+  color: var(--blanco);
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.bs-card-body {
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--blanco);
+}
+.bs-card-body ul { list-style: none; }
+.bs-card-body ul li {
+  padding: 3px 0;
+  border-bottom: 1px dashed var(--gris-borde);
+  display: flex;
+  gap: 7px;
+}
+.bs-card-body ul li::before { content: '▸'; color: var(--verde); flex-shrink: 0; }
+
+/* ── LIBROS ── */
+.libro-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  background: var(--blanco);
+  align-items: flex-start;
+}
+.libro-letra {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--verde);
+  background: var(--verde-claro);
+  border: 1px solid var(--verde-borde);
+  padding: 2px 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.libro-contenido { font-size: 13px; line-height: 1.55; }
+.libro-contenido strong { font-weight: 600; display: block; margin-bottom: 2px; }
+.libro-contenido span { color: var(--gris-sec); font-size: 12px; }
+
+/* ── MAPA LEGAL ── */
+.articulo-card {
+  border: 1px solid var(--gris-borde);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.articulo-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--gris-fondo);
+  flex-wrap: wrap;
+}
+.art-num { font-weight: 700; font-size: 13px; color: var(--verde); flex-shrink: 0; }
+.art-ley {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--verde);
+  color: var(--blanco);
+  padding: 2px 7px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.art-resumen { font-size: 13px; color: var(--gris-sec); flex: 1; }
+.btn-ver-art {
+  background: none;
+  border: 1px solid var(--verde);
+  color: var(--verde);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  min-height: 32px;
+  transition: background 0.12s;
+}
+.btn-ver-art:hover { background: var(--verde-claro); }
+.articulo-texto {
+  display: none;
+  padding: 14px 16px;
+  font-size: 13px;
+  border-top: 1px solid var(--verde-borde);
+  background: var(--blanco);
+  line-height: 1.75;
+  color: var(--gris-texto);
+}
+.articulo-texto.visible { display: block; }
+.articulo-texto p { margin-bottom: 8px; }
+.articulo-texto p:last-child { margin-bottom: 0; }
+
+/* ── FRASE DESTACADA ── */
+.frase-destacada {
+  border: 2px solid var(--verde);
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--verde);
+  line-height: 1.5;
+  background: var(--verde-claro);
+}
+
+@media (max-width: 820px) {
+  .nb-toggle { display: flex; }
+  .nb-overlay {
+    display: block; position: fixed; inset: 0; z-index: 55;
+    background: rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity .26s ease;
+  }
+  .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+  
+  .sidebar {
+    display: flex;
+    position: fixed; top: 0; left: 0; z-index: 60;
+    width: 82%; max-width: 320px; height: 100vh;
+    border-right: 1px solid var(--gris-borde); border-bottom: none;
+    transform: translateX(-100%);
+    transition: transform .26s ease;
+    box-shadow: 2px 0 16px rgba(0,0,0,.12);
+  }
+  .sidebar.abierto { transform: translateX(0); }
+  
+  .nb-cerrar {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 14px; right: 14px;
+    width: 38px; height: 38px;
+    background: none; border: none; cursor: pointer; padding: 0;
+    color: var(--gris-sec);
+  }
+  .nb-cerrar svg { width: 22px; height: 22px; }
+  .nb-nav button { min-height: 44px; }
+  .nb-conceptos { display: block; }
+  .main { max-width: 100%; padding: 2.25rem 1.5rem 6rem; }
+  .bs-grid { grid-template-columns: 1fr; }
+  .modulo-header { padding: 18px 16px; }
+  .header-titulo h1 { font-size: 24px; }
+}
+
+/* ── DISEÑO DE INFOGRAFÍA INTERACTIVA (Principios e Indicadores) ── */
+.infografia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.info-card {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  padding: 1.15rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* Variantes de colores suaves de fondo y bordes al activarse o pasar el mouse */
+.info-card[data-color="blue"] { --accent-color: #2f7da3; --bg-soft: #e8f0f8; --border-soft: #b8d4ec; }
+.info-card[data-color="green"] { --accent-color: #1c6b4a; --bg-soft: #e8f4ef; --border-soft: #b8dccc; }
+.info-card[data-color="gold"] { --accent-color: #a87600; --bg-soft: #fff8e6; --border-soft: #fce3a1; }
+.info-card[data-color="purple"] { --accent-color: #7242a3; --bg-soft: #f4effa; --border-soft: #dacbe6; }
+.info-card[data-color="teal"] { --accent-color: #166461; --bg-soft: #e6f6f5; --border-soft: #c1ecea; }
+.info-card[data-color="orange"] { --accent-color: #a64f26; --bg-soft: #fff3eb; --border-soft: #ffd2b8; }
+.info-card[data-color="emerald"] { --accent-color: #156627; --bg-soft: #e8f8eb; --border-soft: #bcecc5; }
+
+.info-card:hover, .info-card.open {
+  background: var(--bg-soft);
+  border-color: var(--border-soft);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.info-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s;
+}
+
+.info-card:hover .info-card-icon, .info-card.open .info-card-icon {
+  background: var(--blanco);
+  transform: scale(1.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.info-card-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.info-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.info-card-num {
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--blanco);
+  background: var(--accent-color);
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.info-card-title {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--gris-texto);
+  line-height: 1.2;
+}
+
+.info-card-excerpt {
+  font-size: 13px;
+  color: var(--gris-sec);
+  line-height: 1.45;
+}
+
+.info-card-details {
+  display: none;
+  font-size: 13px;
+  color: var(--gris-texto);
+  line-height: 1.55;
+  border-top: 1px dashed var(--border-soft);
+  padding-top: 0.6rem;
+  margin-top: 0.15rem;
+  animation: slideDown 0.22s ease both;
+}
+
+.info-card.open .info-card-details {
+  display: block;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.info-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-color);
+  padding-top: 0.15rem;
+}
+
+.info-card-footer span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-card-arrow {
+  transition: transform 0.2s;
+}
+
+.info-card.open .info-card-arrow {
+  transform: rotate(180deg);
+}
+</style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+  <!-- Topbar Unificada -->
+  <header class="topbar">
+    <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    
+    <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+    
+    <a class="back" href="/kb/">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Identidad Cooperativa
+    </a>
+  </header>
+
+  <!-- Overlay de atenuación para móviles -->
+  <div class="nb-overlay" onclick="cerrarMenu()"></div>
+
+  <div class="shell">
+    
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar" aria-label="Navegación de la lección">
+      <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+      
+      <div class="nb-marca-titulo">Principios y Balance</div>
+      
+      <ul class="nb-nav">
+        <li><button onclick="tab('definicion', this)" class="activo"><span class="nb-nav-num">01</span>Los principios</button></li>
+        <li><button onclick="tab('aplicacion', this)"><span class="nb-nav-num">02</span>Cómo se aplican</button></li>
+        <li><button onclick="tab('balance', this)"><span class="nb-nav-num">03</span>Rendición de cuentas</button></li>
+        <li><button onclick="tab('mapa', this)"><span class="nb-nav-num">04</span>Referencias legales</button></li>
+      </ul>
+      
+      <div class="nb-conceptos">
+        <span class="nb-conceptos-label">Conceptos relacionados</span>
+        <div class="nb-tags">
+          <span class="nb-tag">membresía</span>
+          <span class="nb-tag">democracia</span>
+          <span class="nb-tag">autonomía</span>
+          <span class="nb-tag">excedentes</span>
+          <span class="nb-tag">balance social</span>
+          <span class="nb-tag">delegados</span>
+          <span class="nb-tag">libros obligatorios</span>
+          <span class="nb-tag">Junta de Vigilancia</span>
+        </div>
+      </div>
+    </nav>
+    <main class="main">
+
+    <!-- ══════════════════════════════════
+         TAB 1 — LOS PRINCIPIOS
+    ══════════════════════════════════ -->
+    <div class="panel activo" id="panel-definicion">
+
+      <h2 class="seccion-h">Los siete principios cooperativistas</h2>
+
+      <p>Los principios son los lineamientos por medio de los cuales las cooperativas ponen en práctica sus valores. El Art. 8 del Reglamento de la LCH define cada uno con su alcance exacto.</p>
+
+      <div class="callout">
+        <strong>Art. 7 inciso b) LCH:</strong> Las cooperativas deben funcionar bajo los principios de adhesión voluntaria y abierta, gestión democrática, participación económica, autonomía e independencia, educación, formación e información, interés por la comunidad, protección del ambiente, equidad e igualdad en derechos y obligaciones.
+      </div>
+
+      <div class="infografia-grid">
+        <!-- 1° -->
+        <div class="info-card" data-color="blue">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">1° Principio</span>
+              <h3 class="info-card-title">Membresía abierta y voluntaria</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Organizaciones voluntarias sin discriminación de género, raza o religión.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones voluntarias, abiertas para todas aquellas personas dispuestas a utilizar sus servicios y dispuestas a aceptar las responsabilidades que conlleva la membresía, sin discriminación de género, raza, clase social, posición política o religiosa.</p>
+            <span class="tag-legal">Art. 8 primer principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 2° -->
+        <div class="info-card" data-color="green">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 12l2 2 4-4"/>
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">2° Principio</span>
+              <h3 class="info-card-title">Control democrático</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Control democrático por sus miembros con igual derecho a voto (un miembro, un voto).</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de las políticas y en la toma de decisiones. Los hombres y mujeres elegidos para representar a su cooperativa, responden ante los miembros. En las cooperativas de base los miembros tienen igual derecho de voto (un miembro, un voto), mientras en las cooperativas de otros niveles también se organizan con procedimientos democráticos.</p>
+            <span class="tag-legal">Art. 8 segundo principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 3° -->
+        <div class="info-card" data-color="gold">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">3° Principio</span>
+              <h3 class="info-card-title">Participación económica</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Contribución equitativa y control democrático del capital común.</p>
+          <div class="info-card-details">
+            <p>Los miembros contribuyen de manera equitativa y controlan de manera democrática el capital de la cooperativa. Por lo menos una parte de ese capital es propiedad común de la cooperativa.</p>
+            <p>Usualmente reciben una compensación limitada, si es que la hay, sobre el capital suscrito como condición de membresía. Los miembros asignan excedentes para el desarrollo de la cooperativa, creación de reservas indivisibles, retornos proporcionales a sus transacciones o actividades comunitarias aprobadas.</p>
+            <span class="tag-legal">Art. 8 tercer principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 4° -->
+        <div class="info-card" data-color="purple">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">4° Principio</span>
+              <h3 class="info-card-title">Autonomía e independencia</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Garantía de autonomía y control democrático en todo acuerdo con gobiernos u otros entes.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobiernos) o tienen capital de fuentes externas, lo realizan en términos que aseguren el control democrático por parte de sus miembros y mantengan la autonomía de la cooperativa.</p>
+            <span class="tag-legal">Art. 8 cuarto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 5° -->
+        <div class="info-card" data-color="teal">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">5° Principio</span>
+              <h3 class="info-card-title">Educación e información</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Formación constante a directores, gerentes, empleados y educación al público.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas brindan educación y entrenamiento a sus miembros, a sus dirigentes electos, gerentes y empleados, de tal forma que contribuyan eficazmente al desarrollo de sus cooperativas. Las cooperativas informan al público en general, particularmente a jóvenes y creadores de opinión, acerca de la naturaleza y beneficios del cooperativismo.</p>
+            <span class="tag-legal">Art. 8 quinto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 6° -->
+        <div class="info-card" data-color="orange">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="18" r="3"/>
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="6" r="3"/>
+                <line x1="6" y1="9" x2="6" y2="15"/>
+                <line x1="9" y1="6" x2="15" y2="6"/>
+                <line x1="18" y1="9" x2="18" y2="15"/>
+                <line x1="9" y1="18" x2="15" y2="18"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">6° Principio</span>
+              <h3 class="info-card-title">Cooperación entre cooperativas</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Fortalecimiento del movimiento cooperativo a través de estructuras conjuntas.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales.</p>
+            <span class="tag-legal">Art. 8 sexto principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- 7° -->
+        <div class="info-card" data-color="emerald">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 8v8M8 12h8"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">7° Principio</span>
+              <h3 class="info-card-title">Compromiso con la comunidad</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Desarrollo sostenible de la comunidad y preservación ecológica del entorno.</p>
+          <div class="info-card-details">
+            <p>Las cooperativas trabajan para el desarrollo sostenible de su comunidad y la protección del medio ambiente, a través de políticas aceptadas por sus miembros, promoviendo la gestión responsable de los recursos naturales para garantizar el equilibrio ecológico y el bienestar humano.</p>
+            <span class="tag-legal">Art. 8 séptimo principio RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /definicion -->
+
+    <!-- ══════════════════════════════════
+         TAB 2 — CÓMO SE APLICAN
+    ══════════════════════════════════ -->
+    <div class="panel" id="panel-aplicacion">
+
+      <h2 class="seccion-h">Cómo aplica cada cooperativa los principios</h2>
+
+      <p>Los principios no son declaraciones abstractas. Cada uno tiene instrucciones legales concretas de cumplimiento — y cada uno tiene también zonas donde la norma deja margen de ambigüedad real.</p>
+
+      <!-- 1° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">1°</span>
+          <span>Membresía abierta y voluntaria</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> Ningún cooperativista puede imponer condiciones discriminatorias para el ingreso o retiro. El estatuto puede incluir exigencias específicas necesarias para los fines de la cooperativa, en modo general y no en casos individuales.
+            <br><span class="tag-legal">Art. 78 LCH</span>
+            <span class="tag-legal">Art. 56 RLCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>Cooperativas cerradas o de empresa: el Art. 78 LCH habilita que el estatuto fije "exigencias específicas" para la membresía. Esto permite cooperativas que restringen el ingreso a empleados de una empresa o sector en particular — como fue el origen de ELGA. La tensión es directa con el principio: ¿cuándo una exigencia estatutaria deja de ser funcional y se convierte en exclusión encubierta?</p>
+            <p style="margin-top:8px;">El Art. 80-A RLCH agrava la tensión: si un afiliado pierde un "requisito indispensable conforme a las condiciones estatutarias" puede ser excluido. En cooperativas de empresa, perder el empleo puede significar perder la membresía.</p>
+            <span class="tag-legal">Art. 78 LCH</span>
+            <span class="tag-legal">Art. 80-A RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">2°</span>
+          <span>Control democrático de los miembros</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> Un afiliado, un voto en cooperativas de base. Los cuerpos directivos se eligen por períodos determinados en Asamblea General. Las cooperativas con más de 3,000 afiliados realizan la Asamblea General mediante la designación de delegados.
+            <br><span class="tag-legal">Art. 23 LCH</span>
+            <span class="tag-legal">Art. 24 LCH</span>
+            <span class="tag-legal">Art. 119-E LCH</span>
+            <span class="tag-legal">Art. 100 RLCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris — voto en asamblea por delegados</div>
+            <p>En cooperativas de más de 3,000 afiliados, la enorme mayoría no vota directamente en la Asamblea General: vota en la asamblea sectorial para elegir delegados. Los delegados se eligen de los afiliados <em>presentes</em> en la sectorial (Art. 100 RLCH). Cuando la participación en sectoriales es baja, una minoría presente elige a quien vota por todos.</p>
+            <p style="margin-top:8px;">El Art. 99 RLCH permite además que un afiliado represente a otro en la asamblea sectorial por escrito — acumulando poder de facto antes de que haya delegados. La ley no establece quórum mínimo para la asamblea sectorial.</p>
+            <p style="margin-top:8px;">El Art. 100 RLCH prevé delegados suplentes (uno por cada 10 propietarios), pero no define qué ocurre si ni propietario ni suplente asisten: ese sector queda sin representación sin consecuencia normativa explícita.</p>
+            <span class="tag-legal">Art. 99 RLCH</span>
+            <span class="tag-legal">Art. 100 RLCH</span>
+            <span class="tag-legal">Art. 102 RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">3°</span>
+          <span>Participación económica de los miembros</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> Los excedentes se distribuyen en proporción al patrocinio, después de constituir las reservas técnicas y legales. El fondo de reserva legal no puede ser menor al 10% de los excedentes.
+            <br><span class="tag-legal">Art. 44 LCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>El Art. 44 LCH dice "en proporción al patrocinio", pero no define cómo se mide el patrocinio. En cooperativas de ahorro y crédito el criterio puede ser claro (monto transaccionado). En cooperativas de producción el criterio queda en el estatuto, abriendo la posibilidad de definiciones que en la práctica favorezcan a afiliados con mayor antigüedad o aportación de capital.</p>
+            <span class="tag-legal">Art. 44 LCH</span>
+            <span class="tag-legal">Art. 8 tercer principio RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">4°</span>
+          <span>Autonomía e independencia</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> Los acuerdos con otras organizaciones, incluyendo gobiernos, deben realizarse en términos que aseguren el control democrático de los miembros y mantengan la autonomía de la cooperativa.
+            <br><span class="tag-legal">Art. 8 cuarto principio RLCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>La ley no define umbral. ¿Cuándo un acuerdo con una empresa privada o entidad gubernamental compromete la autonomía? Las cooperativas de producción vinculadas a empresas exportadoras pueden quedar en dependencia funcional que no viola la ley formalmente pero vacía el principio de contenido real.</p>
+            <span class="tag-legal">Art. 8 cuarto principio RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">5°</span>
+          <span>Educación, formación e información</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> El Fondo de Educación Cooperativa no puede ser inferior al 3% del ingreso neto anual del presupuesto: 2% para educación y capacitación a cooperativistas, 1% para juventud y género. El Comité de Educación es obligatorio. La Asamblea General Ordinaria evalúa el grado de desarrollo de la educación cooperativa; la Junta de Vigilancia debe dictaminar.
+            <br><span class="tag-legal">Art. 8-A LCH</span>
+            <span class="tag-legal">Art. 71 RLCH</span>
+            <span class="tag-legal">Art. 125 RLCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>El Art. 125 RLCH establece que los excedentes del fondo no ejecutados se mantienen para el ejercicio siguiente; si no se usan en ese segundo ejercicio, se trasladan al CONSUCOOP y a la CHC. En la práctica, cooperativas sin plan de educación activo acumulan el fondo sin ejecutarlo — los recursos terminan saliendo de la cooperativa sin haber beneficiado a sus afiliados.</p>
+            <span class="tag-legal">Art. 125 RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">6°</span>
+          <span>Cooperación entre cooperativas</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> Las cooperativas deben integrarse en los organismos de diferentes grados y naturaleza necesarios para el mejor cumplimiento de sus objetivos.
+            <br><span class="tag-legal">Art. 7 inciso h) LCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>La ley establece la obligación de integrarse pero no sanciona su incumplimiento directamente. Una cooperativa que opere de forma aislada sin vinculación a federaciones o a la CHC no enfrenta consecuencia normativa explícita. Es el principio con menos dientes en la norma y el más difícil de exigir por vía legal.</p>
+            <span class="tag-legal">Art. 7 h) LCH</span>
+            <span class="tag-legal">Art. 8 sexto principio RLCH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7° -->
+      <div class="acord">
+        <button class="acord-btn">
+          <span class="acord-num">7°</span>
+          <span>Compromiso con la comunidad</span>
+          <span class="acord-flecha">▸</span>
+        </button>
+        <div class="acord-body">
+          <div class="interp">
+            <strong>Instrucción legal:</strong> La Junta Directiva incorpora en el balance social indicadores que acreditan el cumplimiento de los principios y objetivos sociales: preservación de la identidad, incidencia en el desarrollo social y comunitario, impacto ambiental, educativo y cultural. La Junta de Vigilancia lo dictamina en forma previa a la Asamblea General.
+            <br><span class="tag-legal">Art. 92 RLCH</span>
+            <span class="tag-legal">Art. 93 RLCH</span>
+          </div>
+          <div class="zona-gris">
+            <div class="zona-label">Zona gris</div>
+            <p>El Art. 92 RLCH exige el balance social pero no establece formato, metodología ni indicadores mínimos estandarizados. Cada cooperativa construye los suyos conforme al Art. 93. Una cooperativa puede presentar un balance social formalmente válido con indicadores tan vagos que no demuestran nada concreto. No existe auditoría externa obligatoria del balance social equivalente a la auditoría financiera.</p>
+            <span class="tag-legal">Art. 92 RLCH</span>
+            <span class="tag-legal">Art. 93 RLCH</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /aplicacion -->
+
+    <!-- ══════════════════════════════════
+         TAB 3 — RENDICIÓN DE CUENTAS
+    ══════════════════════════════════ -->
+    <div class="panel" id="panel-balance">
+
+      <h2 class="seccion-h">Rendición de cuentas: el balance social</h2>
+
+      <div class="frase-destacada">
+        "Es el documento que dice cómo hicimos lo que decimos que hacemos."
+      </div>
+
+      <p>Los principios son lo que la cooperativa <em>dice que hace</em>. El balance social es la demostración de <em>cómo lo hizo</em> — con indicadores, datos y registros verificables, dictaminados por la Junta de Vigilancia antes de que la asamblea los conozca.</p>
+
+      <hr class="sep">
+      <h2 class="seccion-h">¿Qué es el balance social? — Art. 92 RLCH</h2>
+
+      <div class="callout">
+        <strong>Art. 92 RLCH:</strong> La Junta Directiva de la Cooperativa incorporará en el balance social a ser conocido y dictaminado por la Junta de Vigilancia en forma previa a la Asamblea General, indicadores que acreditarán el nivel de cumplimiento de los principios y sus objetivos sociales, en cuanto a la preservación de su identidad, su incidencia en el desarrollo social y comunitario, impacto ambiental, educativo y cultural.
+      </div>
+
+      <div class="bs-grid">
+        <div class="bs-card">
+          <div class="bs-card-head">¿Quién lo elabora?</div>
+          <div class="bs-card-body">Junta Directiva</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">¿Quién lo dictamina?</div>
+          <div class="bs-card-body">Junta de Vigilancia, en forma previa a la Asamblea General</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">¿Quién lo conoce?</div>
+          <div class="bs-card-body">La Asamblea General Ordinaria, una vez dictaminado</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">¿Qué acredita?</div>
+          <div class="bs-card-body">El nivel de cumplimiento de los principios y los objetivos sociales de la cooperativa</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h2 class="seccion-h">Qué mide — cinco dimensiones</h2>
+
+      <p>El Art. 92 RLCH establece exactamente cinco ámbitos que el balance social debe acreditar:</p>
+
+      <div class="bs-grid">
+        <div class="bs-card">
+          <div class="bs-card-head">Preservación de la identidad</div>
+          <div class="bs-card-body">¿La cooperativa sigue siendo fiel a su naturaleza y sus principios? ¿Mantiene su vocación cooperativista frente a presiones comerciales o institucionales?</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">Desarrollo social y comunitario</div>
+          <div class="bs-card-body">¿Qué impacto concreto tuvo la cooperativa en la comunidad donde opera? Programas, servicios, proyectos.</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">Impacto ambiental</div>
+          <div class="bs-card-body">¿La cooperativa gestiona responsablemente los recursos naturales? ¿Tiene políticas de protección del entorno?</div>
+        </div>
+        <div class="bs-card">
+          <div class="bs-card-head">Impacto educativo</div>
+          <div class="bs-card-body">¿Cuántas actividades de formación realizó? ¿Cuántos afiliados capacitados? ¿Se ejecutó el Fondo de Educación?</div>
+        </div>
+      </div>
+      <div class="bs-card" style="margin-top:10px;">
+        <div class="bs-card-head">Impacto cultural</div>
+        <div class="bs-card-body">¿La cooperativa promovió valores, identidad y cultura cooperativista entre su membresía y la comunidad?</div>
+      </div>
+
+      <hr class="sep">
+      <h2 class="seccion-h">Indicadores del balance social — Art. 93 RLCH</h2>
+
+      <p>Para construir los indicadores, el Art. 93 RLCH establece los principios que deben observarse. Cada indicador debe responder a uno de estos ejes:</p>
+
+      <div class="infografia-grid">
+        <!-- Eje a -->
+        <div class="info-card" data-color="blue">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje a</span>
+              <h3 class="info-card-title">Prelación del trabajo</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Prioridad del trabajo sobre el capital e intereses colectivos sobre individuales.</p>
+          <div class="info-card-details">
+            <p>Prelación del trabajo sobre el capital y de los intereses colectivos sobre los individuales.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> proporción de excedentes destinados a reservas colectivas vs. distribución individual; relación entre beneficios a afiliados y capitalización de la cooperativa.</p>
+            <span class="tag-legal">Art. 93 inciso a) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje b -->
+        <div class="info-card" data-color="green">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <polyline points="17 11 19 13 23 9"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje b</span>
+              <h3 class="info-card-title">Asociación voluntaria y equitativa</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Asociación voluntaria, equitativa y respeto a la identidad en general.</p>
+          <div class="info-card-details">
+            <p>Asociación voluntaria, equitativa y respeto a la identidad en general.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> número de solicitudes de ingreso aceptadas y rechazadas; rotación de membresía; composición de la membresía por género, edad y sector.</p>
+            <span class="tag-legal">Art. 93 inciso b) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje c -->
+        <div class="info-card" data-color="purple">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje c</span>
+              <h3 class="info-card-title">Autogestión y autonomía</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Control democrático e independencia frente a capitales o convenios externos.</p>
+          <div class="info-card-details">
+            <p>Autogestión y autonomía.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> participación en asambleas sectoriales y ordinarias; número de afiliados que ejercieron voto; porcentaje del capital bajo control propio vs. financiamiento externo; convenios vigentes con terceros y su naturaleza.</p>
+            <span class="tag-legal">Art. 93 inciso c) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje d -->
+        <div class="info-card" data-color="gold">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje d</span>
+              <h3 class="info-card-title">Participación económica</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Participación económica solidaria y distribución equitativa de excedentes.</p>
+          <div class="info-card-details">
+            <p>Participación económica solidaria, y distribución equitativa de excedentes.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> monto total de excedentes distribuidos; criterio de distribución aplicado; porcentaje destinado al Fondo de Reserva Legal; afiliados que recibieron retorno de excedentes.</p>
+            <span class="tag-legal">Art. 93 inciso d) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje e -->
+        <div class="info-card" data-color="teal">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje e</span>
+              <h3 class="info-card-title">Educación y capacitación</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Formación constante, comunicación y ejecución del Fondo de Educación.</p>
+          <div class="info-card-details">
+            <p>Educación, capacitación y comunicación.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> número de actividades de formación realizadas; afiliados capacitados por categoría (directivos, gerencia, afiliados generales); ejecución del Fondo de Educación (Art. 125 RLCH); actividades de información al público.</p>
+            <span class="tag-legal">Art. 93 inciso e) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje f -->
+        <div class="info-card" data-color="orange">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje f</span>
+              <h3 class="info-card-title">Compromiso social y ambiental</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Proyectos comunitarios, inversión social y acciones ecológicas en el entorno.</p>
+          <div class="info-card-details">
+            <p>Compromiso social, solidario, comunitario y ambiental.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> proyectos comunitarios ejecutados; inversión en iniciativas de impacto social; acciones de protección ambiental; vinculación con organismos de integración del movimiento cooperativista.</p>
+            <span class="tag-legal">Art. 93 inciso f) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+
+        <!-- Eje g -->
+        <div class="info-card" data-color="emerald">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </div>
+            <div class="info-card-meta">
+              <span class="info-card-num">Eje g</span>
+              <h3 class="info-card-title">Juventud y mujeres</h3>
+            </div>
+          </div>
+          <p class="info-card-excerpt">Apertura de espacios de participación e igualdad de oportunidades.</p>
+          <div class="info-card-details">
+            <p>Indicadores que evidencien haber propiciado la apertura de espacios de participación para la juventud y las mujeres en igualdad de oportunidades.</p>
+            <p style="margin-top: 8px;"><strong>Indicadores posibles:</strong> composición por género de los cuerpos directivos; porcentaje de mujeres y jóvenes en actividades educativas; existencia y actividad del Comité de Género y Comité de Juventud (Art. 71 RLCH).</p>
+            <span class="tag-legal">Art. 93 inciso g) RLCH</span>
+          </div>
+          <div class="info-card-footer">
+            <span>Saber m&aacute;s</span>
+            <span class="info-card-arrow">▸</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h2 class="seccion-h">De dónde salen los datos — Art. 36 y 37 LCH</h2>
+
+      <p>El Art. 36 LCH obliga a registrar tanto las operaciones contables como las actuaciones de los órganos directivos. El Art. 37 LCH establece los 8 libros obligatorios. Cada uno alimenta dimensiones distintas del balance social:</p>
+
+      <div class="libro-item">
+        <span class="libro-letra">a)</span>
+        <div class="libro-contenido">
+          <strong>Libro de Actas de Asamblea General</strong>
+          <span>Datos de participación democrática: asambleas celebradas, quórum, delegados electos, acuerdos tomados → 2° principio</span>
+        </div>
+      </div>
+      <div class="libro-item">
+        <span class="libro-letra">b)</span>
+        <div class="libro-contenido">
+          <strong>Libro de Actas de la Junta Directiva</strong>
+          <span>Decisiones de gobierno, convenios autorizados, ingresos y exclusiones de afiliados → 1°, 4° principio</span>
+        </div>
+      </div>
+      <div class="libro-item">
+        <span class="libro-letra">c)</span>
+        <div class="libro-contenido">
+          <strong>Libro de Actas de la Junta de Vigilancia</strong>
+          <span>Dictámenes, irregularidades detectadas, cumplimiento de recomendaciones → base del propio dictamen del Art. 92</span>
+        </div>
+      </div>
+      <div class="libro-item">
+        <span class="libro-letra">ch)</span>
+        <div class="libro-contenido">
+          <strong>Libro de Registro de Cooperativistas</strong>
+          <span>Número de afiliados al inicio y cierre del ejercicio, ingresos, retiros, composición por género y edad → 1° principio, Art. 93 inciso g)</span>
+        </div>
+      </div>
+      <div class="libro-item">
+        <span class="libro-letra">d)</span>
+        <div class="libro-contenido">
+          <strong>Libro de Aportaciones</strong>
+          <span>Capital social por afiliado, base para distribución de excedentes en proporción al patrocinio → 3° principio</span>
+        </div>
+      </div>
+      <div class="libro-item">
+        <span class="libro-letra">e–g)</span>
+        <div class="libro-contenido">
+          <strong>Libro Diario General, Mayor General e Inventario Balances</strong>
+          <span>Estado patrimonial y financiero general; base para reportar ejecución del Fondo de Educación y reservas → 3°, 5° principio</span>
+        </div>
+      </div>
+
+      <div class="interp" style="margin-top:16px;">
+        <strong>Los comités también llevan sus registros:</strong> El Comité de Educación, el Comité de Género y el Comité de Juventud (Art. 71–73 RLCH) generan sus propios libros de actas, informes y listas de asistencia con firmas. Esos registros son la fuente de los indicadores de impacto social, educativo y de participación que los libros del Art. 37 no cubren por sí solos. La Junta de Vigilancia puede examinar todos ellos para dictaminar el balance social (Art. 33 inciso d) LCH).
+      </div>
+
+      <div class="zona-gris" style="margin-top:12px;">
+        <div class="zona-label">Zona gris del sistema</div>
+        <p>Los libros del Art. 37 garantizan registro de lo que la cooperativa hizo internamente. Pero los indicadores de impacto externo del Art. 93 —ambiental, comunitario, cultural— no tienen un libro legal obligatorio equivalente. Una cooperativa puede tener actividades reales sin haberlas registrado correctamente, y entonces el balance social no puede acreditarlas aunque hayan ocurrido.</p>
+      </div>
+
+    </div><!-- /balance -->
+
+    <!-- ══════════════════════════════════
+         TAB 4 — REFERENCIAS LEGALES
+    ══════════════════════════════════ -->
+    <div class="panel" id="panel-mapa">
+
+      <h2 class="seccion-h">Referencias legales</h2>
+
+      <p class="subseccion">Principios</p>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 7 inciso b)</span>
+          <span class="art-ley">LCH</span>
+          <span class="art-resumen">Obligación de funcionar bajo los principios</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 7.-</strong> Las Cooperativas para que sean reconocidas como tales, deben cumplir para su organización y funcionamiento, las condiciones siguientes:</p>
+          <p>b) Funcionar bajo los principios de: adhesión voluntaria y abierta, gestión democrática por parte de los afiliados(as), participación económica de los afiliados(as), autonomía e independencia, educación, formación e información, interés por la comunidad, protección del ambiente, equidad e igualdad en derechos y obligaciones de los cooperativistas;</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 8</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Definición de los 7 principios cooperativos</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 8.- Definición de los Principios Cooperativos.</strong> Los principios enunciados en literal b) del Artículo 7 de la Ley, deben ser entendidos de la manera siguiente:</p>
+          <p><strong>Primer Principio: Membresía abierta y voluntaria.</strong> Las cooperativas son organizaciones voluntarias, abiertas para todas aquellas personas dispuestas a utilizar sus servicios y dispuestas a aceptar las responsabilidades que conlleva la membresía, sin discriminación de género, raza, clase social, posición política o religiosa;</p>
+          <p><strong>Segundo Principio: Control democrático de los miembros.</strong> Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de las políticas y en la toma de decisiones. Los hombres y mujeres elegidos para representar a su cooperativa, responden ante los miembros. En las cooperativas de base los miembros tienen igual derecho de voto (un miembro, un voto), mientras en las cooperativas de otros niveles también se organizan con procedimientos democráticos;</p>
+          <p><strong>Tercer Principio: Participación económica de los miembros.</strong> Los miembros contribuyen de manera equitativa y controlan de manera democrática el capital de la cooperativa. Por lo menos una parte de ese capital es propiedad común de la cooperativa. Usualmente reciben una compensación limitada, si es que la hay, sobre el capital suscrito como condición de membresía. Los miembros asignan excedentes para cualquiera de los siguientes propósitos: El desarrollo de la cooperativa mediante la posible creación de reservas, de la cual al menos una parte debe ser indivisible; los beneficios para los miembros en proporción con sus transacciones con la cooperativa; y el apoyo a otras actividades según lo apruebe la membresía;</p>
+          <p><strong>Cuarto Principio: Autonomía e independencia.</strong> Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si entran en acuerdos con otras organizaciones (incluyendo gobiernos) o tienen capital de fuentes externas, lo realizan en términos que aseguren el control democrático por parte de sus miembros y mantengan la autonomía de la cooperativa;</p>
+          <p><strong>Quinto Principio: Educación, formación e información.</strong> Las cooperativas brindan educación y entrenamiento a sus miembros, a sus dirigentes electos, gerentes y empleados, de tal forma que contribuyan eficazmente al desarrollo de sus cooperativas. Las cooperativas informan al público en general, particularmente a jóvenes y creadores de opinión, acerca de la naturaleza y beneficios del cooperativismo;</p>
+          <p><strong>Sexto Principio: Cooperación entre cooperativas.</strong> Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales; y,</p>
+          <p><strong>Séptimo Principio: Compromiso con la comunidad.</strong> Las cooperativas trabajan para el desarrollo sostenible de su comunidad y la protección del medio ambiente, a través de políticas aceptadas por sus miembros, promoviendo la gestión responsable de los recursos naturales para garantizar el equilibrio ecológico y el bienestar humano.</p>
+        </div>
+      </div>
+
+      <p class="subseccion">Membresía y democracia</p>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 78</span>
+          <span class="art-ley">LCH</span>
+          <span class="art-resumen">Prohibición de condiciones discriminatorias de ingreso</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 78.-</strong> Ningún cooperativista podrá imponer condiciones discriminatorias de naturaleza alguna para el ingreso o retiro de sus cooperativistas. Sin embargo en interés de la estabilidad de la cooperativa, en los Estatutos se podrá incluir de modo general y no en casos individuales, exigencias específicas que sean necesarias para la mejor realización de los fines que aquélla persiga.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 119-E</span>
+          <span class="art-ley">LCH</span>
+          <span class="art-resumen">Asamblea por delegados — más de 3,000 afiliados</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 119-E.-</strong> Las cooperativas que tengan más de tres mil (3,000) afiliados, realizarán la Asamblea General mediante la designación de delegados, cada delegado electo representará un número no menor de Diez (10) ni mayor de Cincuenta (50) afiliados presentes en la Asamblea, debiendo observar que tanto la oficina principal, como sus oficinas regionales, filiales y ventanillas, estén representadas en función del número de afiliados con el que cuenten cada una de ellas.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 99</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Asamblea sectorial y representación de afiliado</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 99.- Asamblea Sectorial y la Representación de Afiliado(a).</strong> En los casos que las cooperativas tengan varias filiales en la misma ciudad o departamento, deben de convocar y realizar asamblea sectorial para elección de delegados, con un número no mayor de 5 filiales.</p>
+          <p>Cada Afiliado(a) puede representar y ser representado en las Asambleas Sectoriales o local, por un Afiliado(a) inscrito en una misma localidad o sector, dicha representación debe constar por escrito.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 100</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Proporción de delegados por número de afiliados</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 100.- Asamblea por Delegado.</strong> Para el cumplimiento del Artículo 23 y 119E, de la Ley, la Asamblea General, ya sea ésta ordinaria o extraordinaria, por delegados de las Cooperativas, deben ser electos de los Afiliados presentes en la Asamblea, bajo el siguiente procedimiento:</p>
+          <p>a) Por los primeros 100 afiliados, se elegirá 1 delegado por cada 10 cooperativistas;</p>
+          <p>b) Por los siguientes 101, hasta 500 afiliados, se elegirá 1 delegado por cada 20 cooperativistas;</p>
+          <p>c) Por los siguientes 501, hasta 1000 afiliados, se elegirá 1 delegado por cada 30 cooperativistas;</p>
+          <p>d) Por los siguientes 1001, hasta 2000 afiliados, se elegirá 1 delegado por cada 40 cooperativistas; y,</p>
+          <p>e) De 2001 afiliados en adelante, 1 por cada 50 cooperativistas.</p>
+          <p>Se deben elegir delegados suplentes en una proporción de uno por cada diez (10) propietarios, en el orden en que hayan sido electos, para el caso de ausencia de un delegado propietario por fuerza mayor.</p>
+        </div>
+      </div>
+
+      <p class="subseccion">Balance social y libros</p>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 37</span>
+          <span class="art-ley">LCH</span>
+          <span class="art-resumen">Libros obligatorios de toda cooperativa</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 37.-</strong> Será obligatorio para las cooperativas llevar los libros siguientes:</p>
+          <p>a) Libro de Actas Asambleas General;</p>
+          <p>b) Libro de Actas de la Junta Directiva;</p>
+          <p>c) Libro de Actas de la Junta Vigilancia o del órgano de la fiscalización que se hubiere adoptado;</p>
+          <p>ch) Libro de Registro de Cooperativas;</p>
+          <p>d) Libro de Aportaciones;</p>
+          <p>e) Libro Diario General;</p>
+          <p>f) Libro Mayor General; y</p>
+          <p>g) Libro inventario Balances.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 92</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Balance social — obligación y contenido</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 92.- Balance Social.</strong> La Junta Directiva de la Cooperativa incorporarán en el balance social a ser conocido y dictaminado por la Junta de Vigilancia en forma previa a la Asamblea General, indicadores que acreditarán el nivel de cumplimiento de los principios y sus objetivos sociales, en cuanto a la preservación de su identidad, su incidencia en el desarrollo social y comunitario, impacto ambiental, educativo y cultural.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 93</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Indicadores del balance social — siete ejes</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 93.- Indicadores del Balance Social.</strong> Para la construcción de indicadores del balance social deberá observar los siguientes principios:</p>
+          <p>a) Prelación del trabajo sobre el capital y de los intereses colectivos sobre los individuales;</p>
+          <p>b) Asociación voluntaria, equitativa y respeto a la identidad en general;</p>
+          <p>c) Autogestión y Autonomía;</p>
+          <p>d) Participación económica solidaria, y distribución equitativa de excedentes;</p>
+          <p>e) Educación, capacitación y comunicación;</p>
+          <p>f) Compromiso social, solidario, comunitario y ambiental; y,</p>
+          <p>g) Indicadores que evidencien haber propiciado la apertura de espacios de participación para la juventud y las mujeres en igualdad de oportunidades.</p>
+        </div>
+      </div>
+
+      <div class="articulo-card">
+        <div class="articulo-head">
+          <span class="art-num">Art. 125</span>
+          <span class="art-ley">RLCH</span>
+          <span class="art-resumen">Fondo de Educación Cooperativa — mínimo 3%</span>
+          <button class="btn-ver-art">Ver artículo</button>
+        </div>
+        <div class="articulo-texto">
+          <p><strong>Artículo 125.- Constitución del Fondo de Educación Cooperativa.</strong> El Fondo de Educación Cooperativo no puede ser inferior al tres por ciento (3%) del ingreso neto anual del presupuesto, calculado del periodo fiscal anterior. Este debe distribuirse de la forma siguiente:</p>
+          <p>a) Dos por ciento (2%) a Educación y Capacitación a Cooperativistas; y,</p>
+          <p>b) Uno por ciento (1%) a Educación y Capacitación de la Juventud y Género;</p>
+          <p>Los excedentes del fondo no ejecutados en un ejercicio económico, se deben mantener en la dotación del ejercicio siguiente. En caso de no ser utilizados en dicho término, debe ser trasladado proporcionalmente al CONSUCOOP y a la CHC.</p>
+        </div>
+      </div>
+
+    </div><!-- /mapa -->
+
+    </main>
+  </div>
+
+<script>
+function abrirMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function tab(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('activo'); });
+  document.querySelectorAll('.nb-nav button').forEach(function(b) { b.classList.remove('activo'); });
+  document.getElementById('panel-' + id).classList.add('activo');
+  btn.classList.add('activo');
+  const m = document.querySelector('.main');
+  if (m) m.scrollTop = 0;
+  window.scrollTo(0, 0);
+  if (window.innerWidth <= 820) {
+    cerrarMenu();
+  }
+}
+
+// ── ACORDEONES ──
+document.querySelectorAll('.acord-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var body = this.nextElementSibling;
+    var abierto = this.classList.contains('open');
+    var panel = this.closest('.panel');
+    panel.querySelectorAll('.acord-btn.open').forEach(function(b) {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!abierto) {
+      this.classList.add('open');
+      body.classList.add('open');
+    }
+  });
+});
+
+// ── INFOGRAFÍAS (TARJETAS) ──
+document.querySelectorAll('.info-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    var panel = this.closest('.panel');
+    var abierto = this.classList.contains('open');
+    panel.querySelectorAll('.info-card.open').forEach(function(c) {
+      c.classList.remove('open');
+    });
+    if (!abierto) {
+      this.classList.add('open');
+    }
+  });
+});
+
+// ── MAPA LEGAL ──
+document.querySelectorAll('.btn-ver-art').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var texto = this.closest('.articulo-card').querySelector('.articulo-texto');
+    var visible = texto.classList.toggle('visible');
+    this.textContent = visible ? 'Ocultar' : 'Ver artículo';
+  });
+});
+</script>
+<script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>

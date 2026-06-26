@@ -1,0 +1,21 @@
+﻿{
+    "bloques":  [
+                    {
+                        "descripcion":  "Salas de juego y actividades en vivo",
+                        "titulo":  "Play to Learn",
+                        "acordeones":  [
+                                           {
+                                               "titulo":  "Salas en Vivo",
+                                               "id":  "en-vivo",
+                                               "capsulas":  [
+                                                                {
+                                                                    "id":  "sala",
+                                                                    "titulo":  "Sala en Vivo"
+                                                                }
+                                                            ]
+                                           }
+                                       ],
+                        "id":  "p2l"
+                    }
+                ]
+}

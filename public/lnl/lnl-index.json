@@ -1,0 +1,98 @@
+{
+  "bloques": [
+    {
+      "id": "diplomado",
+      "titulo": "Diplomado",
+      "descripcion": "Formación fundamental en cooperativismo",
+      "acordeones": [
+        {
+          "id": "cooperativismo-basico",
+          "titulo": "Cooperativismo Básico",
+          "capsulas": [
+            {
+              "id": "trabajo-identidad",
+              "titulo": "Identidad Cooperativa"
+            }
+          ]
+        },
+        {
+          "id": "legislacion-cooperativa",
+          "titulo": "Legislación Cooperativa",
+          "capsulas": [
+            {
+              "id": "trabajo-legislacion",
+              "titulo": "Aplicación de Legislación"
+            }
+          ]
+        },
+        {
+          "id": "gobernabilidad-cooperativa",
+          "titulo": "Gobernabilidad Cooperativa",
+          "capsulas": [
+            {
+              "id": "trabajo-gobernabilidad-cooperativa",
+              "titulo": "Gobernabilidad en Práctica"
+            }
+          ]
+        },
+        {
+          "id": "funciones-cuerpos-directivos",
+          "titulo": "Funciones de los Cuerpos Directivos",
+          "capsulas": [
+            {
+              "id": "trabajo-cuerpos-directivos",
+              "titulo": "Trabajo de Directivos"
+            }
+          ]
+        },
+        {
+          "id": "administracion-asambleas",
+          "titulo": "Administración de Asambleas",
+          "capsulas": [
+            {
+              "id": "trabajo-asambleas",
+              "titulo": "Gestión de Asambleas"
+            }
+          ]
+        },
+        {
+          "id": "liderazgo-cooperativo",
+          "titulo": "Liderazgo Cooperativo",
+          "capsulas": [
+            {
+              "id": "trabajo-perfil-lider",
+              "titulo": "Perfil del Líder"
+            }
+          ]
+        },
+        {
+          "id": "incidencia-politica",
+          "titulo": "Incidencia Política",
+          "capsulas": [
+            {
+              "id": "trabajo-incidencia",
+              "titulo": "Estrategias de Incidencia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cooperativismo-aplicado",
+      "titulo": "Cooperativismo Aplicado",
+      "descripcion": "Aplicación práctica en contextos reales",
+      "acordeones": [
+        {
+          "id": "trabajo-en-equipo",
+          "titulo": "Trabajo en Equipo",
+          "capsulas": [
+            {
+              "id": "trabajo-equipo-manejo-conflictos",
+              "titulo": "Manejo de Conflictos"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

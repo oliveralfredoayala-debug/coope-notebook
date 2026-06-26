@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoopeNotebook · Play to Learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --carbon: #f2efe8;
+      --carbon-2: #ffffff;
+      --linea: #d9d3c7;
+      --hueso: #1a2e22;
+      --hueso-2: #4a5d4e;
+      --hueso-3: #7d7763;
+      --verde: #1c6b4a;
+      --verde-bg: #e8f4ef;
+      --fuego: #1c6b4a;
+      --fuego-2: #144d34;
+      --card-shadow: 0 4px 20px rgba(28,107,74,0.04), 0 2px 8px rgba(0,0,0,0.02);
+      --card-shadow-hover: 0 12px 30px rgba(28,107,74,0.08), 0 4px 12px rgba(0,0,0,0.03);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--carbon); color: var(--hueso); font-size: 16px; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+
+    .leaf-bg { position: fixed; pointer-events: none; opacity: .5; z-index: 0; }
+    .leaf-bg.l1 { top: 120px; right: -30px; width: 160px; transform: rotate(18deg); }
+    .leaf-bg.l2 { bottom: 60px; left: -40px; width: 190px; transform: rotate(-22deg); opacity: .35; }
+    .leaf-bg.l3 { top: 520px; left: 40px; width: 90px; transform: rotate(40deg); opacity: .3; }
+
+    .app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 22px; flex: 1; width: 100%; }
+
+    .topbar { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      gap: 14px; 
+      padding: 16px 0; 
+      border-bottom: 1px solid var(--linea); 
+      position: sticky; 
+      top: 0; 
+      background: rgba(242,239,232,0.85); 
+      backdrop-filter: blur(10px); 
+      z-index: 20; 
+    }
+    .topbar-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 14px; 
+      cursor: pointer; 
+      text-decoration: none; 
+      color: inherit; 
+    }
+    .topbar-link:hover { opacity: 0.9; }
+    .topbar-brand { 
+      font-size: 18px; 
+      font-weight: 700; 
+      font-family: 'Space Grotesk'; 
+      color: var(--fuego); 
+    }
+    .back-btn {
+      font-size: 14px;
+      color: var(--hueso-2);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--fuego); }
+
+    .header { padding: 40px 0 30px; }
+    .h-big { font-size: 34px; line-height: 1.1; margin-bottom: 12px; color: var(--fuego); }
+    .subtitle { color: var(--hueso-2); font-size: 16px; max-width: 640px; }
+
+    .bloque { margin-bottom: 50px; }
+    .bloque-titulo { font-size: 24px; font-weight: 700; color: var(--fuego); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--linea); }
+    .bloque-descripcion { color: var(--hueso-2); font-size: 14px; margin-bottom: 20px; }
+
+    .acordeones { display: flex; flex-direction: column; gap: 12px; }
+    .acordeon { background: var(--carbon-2); border: 1px solid var(--linea); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: border-color 0.2s; }
+    .acordeon:hover { border-color: var(--verde); }
+
+    .acordeon-header { 
+      padding: 16px 20px; 
+      cursor: pointer; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      transition: background 0.2s; 
+      user-select: none;
+    }
+    .acordeon-header:hover { background: rgba(28,107,74,0.03); }
+    .acordeon-titulo { font-size: 16px; font-weight: 600; color: var(--hueso); margin: 0; }
+    .acordeon-toggle { font-size: 14px; color: var(--hueso-3); transition: transform 0.2s; }
+    .acordeon.open .acordeon-toggle { transform: rotate(180deg); }
+
+    .acordeon-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .acordeon.open .acordeon-body { max-height: 1200px; }
+
+    .capsulas { padding: 0 20px 20px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(217,211,199,0.5); padding-top: 16px; }
+    .capsula { 
+      padding: 12px 16px; 
+      background: var(--carbon); 
+      border-left: 4px solid var(--fuego); 
+      border-radius: 6px; 
+      cursor: pointer; 
+      transition: transform 0.15s, background 0.15s;
+    }
+    .capsula:hover { background: var(--verde-bg); transform: translateX(4px); }
+    .capsula-titulo { font-size: 14px; font-weight: 600; color: var(--hueso); }
+
+    .watermark { 
+      padding: 40px 22px 20px; 
+      color: var(--hueso-3); 
+      font-size: 12px; 
+      border-top: 1px solid var(--linea); 
+      margin-top: 60px; 
+      position: relative; 
+      z-index: 1; 
+      text-align: center; 
+    }
+    .watermark p { margin: 0; line-height: 1.6; }
+
+    @media (max-width: 640px) {
+      .h-big { font-size: 28px; }
+      .bloque-titulo { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<img class="leaf-bg l1" src="/assets/Leaf%20Decorations/leaf-sage-v2.png" alt="">
+<img class="leaf-bg l2" src="/assets/Leaf%20Decorations/leaf-sprig-v2.png" alt="">
+<img class="leaf-bg l3" src="/assets/Leaf%20Decorations/leaf-cream-v2.png" alt="">
+
+<div class="app">
+  <div class="topbar">
+    <a href="/index.html" class="topbar-link">
+      <div class="topbar-brand"><span style="color: var(--verde);">Coope</span><span style="color: var(--hueso-3);">Notebook</span></div>
+    </a>
+    <a href="/index.html" class="back-btn">← Volver al Inicio</a>
+  </div>
+
+  <section class="header">
+    <h1 class="h-big">Play to Learn</h1>
+    <p class="subtitle">Actividades gamificadas, dinámicas de aula y salas interactivas en vivo.</p>
+  </section>
+
+  <div id="contenido"></div>
+</div>
+
+<div class="watermark">
+  <p><strong>CoopeNotebook</strong></p>
+  <p>Creado por Oliver Ayala</p>
+  <p>© All rights reserved</p>
+</div>
+
+<script>
+async function cargarIndice() {
+  try {
+    const resp = await fetch('p2l-index.json');
+    const data = await resp.json();
+    renderizar(data);
+  } catch (err) {
+    console.error('Error cargando índice:', err);
+    document.getElementById('contenido').innerHTML = '<p style="color: red; padding: 20px;">Error cargando actividades Play to Learn.</p>';
+  }
+}
+
+function renderizar(data) {
+  const container = document.getElementById('contenido');
+  let html = '';
+
+  data.bloques.forEach(bloque => {
+    html += `<div class="bloque">
+      <h2 class="bloque-titulo">${bloque.titulo}</h2>
+      <p class="bloque-descripcion">${bloque.descripcion || ''}</p>
+      <div class="acordeones">`;
+
+    bloque.acordeones.forEach(acordeon => {
+      html += `<div class="acordeon">
+        <div class="acordeon-header" onclick="toggleAcordeon(this)">
+          <h3 class="acordeon-titulo">${acordeon.titulo}</h3>
+          <span class="acordeon-toggle">▼</span>
+        </div>
+        <div class="acordeon-body">
+          <div class="capsulas">`;
+
+      acordeon.capsulas.forEach(capsula => {
+        html += `<div class="capsula" onclick="abrirCapsula('${capsula.id}')">
+          <div class="capsula-titulo">${capsula.titulo}</div>
+        </div>`;
+      });
+
+      html += `</div>
+        </div>
+      </div>`;
+    });
+
+    html += `</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleAcordeon(header) {
+  const acordeon = header.parentElement;
+  acordeon.classList.toggle('open');
+  const body = acordeon.querySelector('.acordeon-body');
+  if (acordeon.classList.contains('open')) {
+    body.style.maxHeight = body.scrollHeight + "px";
+  } else {
+    body.style.maxHeight = 0;
+  }
+}
+
+function abrirCapsula(capsulaId) {
+  const url = `${capsulaId}.html`;
+  console.log('Navegando a P2L:', url);
+  window.location.href = url;
+}
+
+cargarIndice();
+</script>
+</body>
+</html>

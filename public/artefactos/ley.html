@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <script src="ley_data.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+if(new URLSearchParams(location.search).get('panel') === '1'){
+  document.documentElement.classList.add('panel-mode');
+}
+</script>
+<title>CoopeNotebook — Ley y Reglamento de Cooperativas de Honduras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1c6b4a; --verde-claro:#e8f4ef; --verde-borde:#b8dccc;
+  --gris-texto:#1a1a1a; --gris-sec:#4a4a4a; --gris-borde:#d8d8d8; --blanco:#ffffff;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--blanco)}
+body{font-family:var(--font);color:var(--gris-texto);-webkit-font-smoothing:antialiased;line-height:1.5}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--verde-claro)}
+mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 2rem;
+  height: 72px;
+  border-bottom: 1px solid var(--gris-borde);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.brand {
+  color: var(--gris-texto);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.brand strong {
+  color: var(--verde);
+  font-weight: 700;
+}
+.back {
+  font-size: 13px;
+  color: var(--gris-sec);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.back:hover {
+  color: var(--verde);
+}
+.topbar-breadcrumb {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gris-sec);
+}
+.topbar-breadcrumb b {
+  font-weight: 500;
+  color: var(--gris-texto);
+}
+@media(max-width:600px){
+  .topbar {
+    padding: 1.25rem 1.25rem;
+  }
+  .topbar-breadcrumb {
+    display: none;
+  }
+}
+
+/* Tabs */
+.tabbar{display:flex;padding:0 40px;border-bottom:1px solid var(--gris-borde);background:var(--blanco);position:sticky;top:72px;z-index:20;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{position:relative;display:flex;align-items:center;gap:7px;padding:14px 0;margin-right:26px;font-size:14px;font-weight:400;color:var(--gris-sec);white-space:nowrap;min-height:44px;transition:color .18s}
+.tab svg{width:15px;height:15px;opacity:.8}
+.tab:hover{color:var(--gris-texto)}
+.tab.active{color:var(--verde);font-weight:500}
+.tab::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--verde);transform:scaleX(0);transition:transform .2s}
+.tab.active::after{transform:scaleX(1)}
+@media(max-width:600px){.tabbar{padding:0 16px;top:72px}.tab{margin-right:18px;font-size:13px}.tab span{display:none}}
+
+/* Layout */
+.stage{max-width:840px;margin:0 auto;padding:42px 40px 120px}
+.stage-wide{max-width:1240px}
+@media(max-width:600px){.stage{padding:26px 18px 90px}}
+.panel{display:none}
+.panel.active{display:block;animation:fadeUp .4s ease both}
+.lede{font-size:clamp(24px,4vw,33px);font-weight:300;letter-spacing:-.02em;margin-bottom:6px}
+.lede strong{font-weight:500}
+.sub{font-size:14px;font-weight:300;color:var(--gris-sec);margin-bottom:30px;max-width:62ch;line-height:1.6}
+
+/* Segmented */
+.seg{display:inline-flex;border:1px solid var(--gris-borde);border-radius:8px;overflow:hidden}
+.seg button{padding:9px 18px;font-size:13px;color:var(--gris-sec);min-height:42px;transition:.15s}
+.seg button+button{border-left:1px solid var(--gris-borde)}
+.seg button.on{background:var(--verde);color:#fff;font-weight:500}
+
+/* Structure tree */
+.tree{margin-top:26px;display:flex;flex-direction:column;gap:2px}
+.node-row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:8px;cursor:pointer;transition:background .15s;min-height:46px}
+.node-row:hover{background:var(--verde-claro)}
+.node-cap>.node-row{padding-left:34px}
+.node-sec>.node-row{padding-left:56px}
+.chev{width:13px;height:13px;flex:0 0 13px;color:var(--verde);opacity:.7;transition:transform .2s}
+.node.collapsed>.node-row .chev{transform:rotate(-90deg)}
+.chev.hidden{visibility:hidden}
+.node-kind{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);flex:0 0 auto}
+.node-title{font-size:15px;font-weight:400;letter-spacing:-.01em;flex:1 1 auto}
+.node-cap .node-title,.node-sec .node-title{font-weight:300;font-size:14px}
+.node-count{font-size:12px;font-weight:300;color:var(--gris-sec);flex:0 0 auto}
+.node.collapsed>.node-children{display:none}
+
+/* Search bar */
+.searchbar{display:flex;align-items:center;gap:10px;border:1px solid var(--gris-borde);border-radius:10px;padding:0 14px;transition:border-color .18s}
+.searchbar:focus-within{border-color:var(--verde-borde)}
+.searchbar svg{color:var(--gris-sec);flex:0 0 auto}
+.searchbar input{flex:1;border:none;outline:none;padding:13px 0;font-size:15px;color:var(--gris-texto);background:transparent;min-height:46px}
+.searchbar input::placeholder{color:#b0b0b0;font-weight:300}
+.result-meta{font-size:12px;font-weight:300;color:var(--gris-sec);margin:16px 2px}
+.search-group{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin:28px 2px 8px;display:flex;align-items:center;gap:8px}
+.search-group .pill{background:var(--verde-claro);padding:3px 9px;border-radius:20px}
+
+/* Article rows (expandable) */
+.rows{display:flex;flex-direction:column}
+.row{border-bottom:1px solid #ededed}
+.row-head{display:flex;align-items:center;gap:13px;width:100%;text-align:left;padding:14px 6px;min-height:48px;transition:background .14s}
+.row-head:hover{background:#fafbfa}
+.art-badge{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--verde);background:var(--verde-claro);padding:5px 9px;border-radius:6px;white-space:nowrap;flex:0 0 auto}
+.row-title{font-size:14.5px;font-weight:400;color:var(--gris-texto);flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.005em}
+.row-title .rt-desc{color:var(--gris-sec);font-weight:300}
+.row-chev{width:15px;height:15px;flex:0 0 auto;color:#bcbcbc;transition:transform .2s,color .15s}
+.row.open .row-chev{transform:rotate(180deg);color:var(--verde)}
+.row.open .row-head{background:#fafbfa}
+.row-body{display:none;padding:4px 6px 26px 6px}
+.row.open .row-body{display:block;animation:fadeUp .28s ease both}
+
+/* Article content */
+.art-title-full{font-size:17px;font-weight:500;letter-spacing:-.01em;margin:2px 0 14px;color:var(--gris-texto)}
+.para{font-size:14.5px;font-weight:300;line-height:1.74;color:var(--gris-texto);margin-bottom:13px}
+.para:last-child{margin-bottom:0}
+.para.deroga{display:inline-block;color:var(--gris-sec);background:#fafafa;border:1px solid var(--gris-borde);border-radius:8px;padding:8px 11px;font-style:italic}
+.inciso{display:grid;grid-template-columns:minmax(2.35rem,max-content) minmax(0,1fr);column-gap:10px;font-size:14.5px;font-weight:300;line-height:1.7;color:var(--gris-texto);margin-bottom:9px;padding-left:6px;align-items:start}
+.inciso-mark{color:var(--verde);font-weight:600;min-width:2.35rem;text-align:right;white-space:nowrap}
+.inciso-text{min-width:0}
+.inciso-text b{font-weight:500}
+.inciso.sub{padding-left:30px}
+.inciso.num{margin-top:4px}
+.inciso.num .inciso-mark{color:var(--gris-texto)}
+@media(max-width:600px){.inciso{grid-template-columns:minmax(1.9rem,max-content) minmax(0,1fr);padding-left:0}.inciso.sub{padding-left:18px}.inciso-mark{min-width:1.9rem}}
+
+/* Related */
+.related{margin-top:20px;padding-top:18px;border-top:1px dashed var(--gris-borde)}
+.related-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-sec);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.related-label svg{color:var(--verde-borde)}
+.rel-list{display:flex;flex-direction:column;gap:7px}
+.rel{display:flex;align-items:center;gap:11px;padding:9px 12px;border:1px solid var(--gris-borde);border-radius:8px}
+.rel-num{font-size:11px;font-weight:600;color:var(--verde);white-space:nowrap;flex:0 0 auto}
+.rel-title{font-size:13px;font-weight:300;color:var(--gris-texto);flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rel-tag{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap;flex:0 0 auto}
+.rel-tag.direct{background:var(--verde);color:#fff}
+.rel-tag.topic{background:var(--verde-claro);color:var(--verde)}
+.no-rel{font-size:12.5px;font-weight:300;color:#bcbcbc;margin-top:18px;padding-top:14px;border-top:1px dashed var(--gris-borde)}
+
+/* Group divider */
+.group-divider{display:flex;align-items:center;gap:14px;margin:36px 0 4px}
+.group-divider span{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-sec)}
+.group-divider::after{content:'';flex:1;height:1px;background:var(--gris-borde)}
+
+/* Parallel reading */
+.par-cols{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;margin-top:8px}
+.par-col{border:1px solid var(--gris-borde);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.par-head{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--gris-borde);background:#fafafa}
+.par-tag{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--verde);background:var(--verde-claro);padding:4px 8px;border-radius:6px}
+.par-name{font-size:12.5px;font-weight:400;color:var(--gris-texto);flex:1 1 auto}
+.par-count{font-size:12px;font-weight:300;color:var(--gris-sec)}
+.par-filter{padding:12px 14px;border-bottom:1px solid #ededed}
+.par-filter .searchbar{border-radius:8px;padding:0 12px}
+.par-filter input{font-size:14px;padding:10px 0;min-height:42px}
+.par-scroll{max-height:none;overflow-y:visible;padding:0 14px}
+.par-scroll .row-head{padding:13px 2px}
+.par-scroll .art-title-full{font-size:15.5px}
+.par-scroll .para,.par-scroll .inciso{font-size:13.5px}
+
+@media(min-width:600px){
+  body.no-scroll-layout{overflow:hidden;height:100vh}
+  body.no-scroll-layout .footnote{display:none}
+  
+  #panel4{height:calc(100vh - 129px);overflow:hidden}
+  #panel4 .stage{max-width:1240px;height:100%;padding:24px 40px 24px;margin:0 auto;display:flex;flex-direction:column;box-sizing:border-box}
+  #panel4 .lede{flex-shrink:0}
+  #panel4 .sub{flex-shrink:0;margin-bottom:16px}
+  #panel4 .par-cols{grid-template-columns:1fr 1fr;flex:1;min-height:0;margin-top:0}
+  #panel4 .par-col{height:100%}
+  #panel4 .par-scroll{flex:1;min-height:0;max-height:none;overflow-y:auto}
+
+  .panel-mode #panel4{height:calc(100vh - 40px)}
+  .panel-mode #panel4 .stage{max-width:none;padding:14px 14px 14px}
+}
+
+/* Footnote */
+.footnote{padding:0 40px 40px;max-width:840px;margin:0 auto;animation:fadeUp .4s ease .2s both}
+.footnote-text{font-size:11px;font-weight:300;color:#c8c8c0}
+@media(max-width:600px){.footnote{padding:0 18px 32px}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.empty{padding:46px 10px;text-align:center;color:#bdbdbd;font-size:13px;font-weight:300}
+
+.panel-mode body{font-size:14px}
+.panel-mode .topbar{display:none}
+.panel-mode .tabbar{
+  display:none !important;
+}
+.panel-mode .stage{
+  max-width:none;
+  padding:18px 14px 60px;
+}
+.panel-mode .lede{
+  font-size:22px;
+  line-height:1.18;
+  margin-bottom:8px;
+}
+.panel-mode .sub{font-size:13px;margin-bottom:18px}
+.panel-mode .seg{display:flex;width:100%}
+.panel-mode .seg button{flex:1;padding:8px 10px;font-size:12px}
+.panel-mode .searchbar{
+  border-radius:8px;
+  padding:0 11px;
+  position:sticky;
+  top:40px;
+  z-index:15;
+  background:#fff;
+}
+.panel-mode .searchbar input{font-size:14px;min-height:42px}
+.panel-mode .node-row{padding:11px 8px;gap:9px}
+.panel-mode .node-cap>.node-row{padding-left:20px}
+.panel-mode .node-sec>.node-row{padding-left:30px}
+.panel-mode .node-title{font-size:13px}
+.panel-mode .row-head{gap:9px;padding:12px 2px}
+.panel-mode .row-title{
+  white-space:normal;
+  font-size:13.5px;
+  line-height:1.35;
+}
+.panel-mode .art-badge{padding:4px 7px;font-size:9px}
+.panel-mode .row-body{padding:4px 2px 22px}
+.panel-mode .art-title-full{font-size:15px}
+.panel-mode .para,.panel-mode .inciso{font-size:13.5px;line-height:1.62}
+
+/* Tool Menu Styles */
+.tool-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+.menu-item:hover {
+  border-color: var(--verde-borde);
+  background: var(--verde-claro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(28, 107, 74, 0.05);
+}
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--verde-claro);
+  color: var(--verde);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.menu-item:hover .menu-icon {
+  background: var(--verde);
+  color: var(--blanco);
+}
+.menu-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.menu-content {
+  flex-grow: 1;
+}
+.menu-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gris-texto);
+  margin-bottom: 2px;
+}
+.menu-desc {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--gris-sec);
+}
+.menu-arrow {
+  width: 18px;
+  height: 18px;
+  color: #bcbcbc;
+  transition: transform 0.2s, color 0.2s;
+}
+.menu-item:hover .menu-arrow {
+  transform: translateX(4px);
+  color: var(--verde);
+}
+.back-to-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--verde);
+  margin-bottom: 18px;
+  padding: 6px 12px;
+  background: var(--verde-claro);
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.back-to-menu:hover {
+  background: var(--verde);
+  color: var(--blanco);
+  transform: translateX(-2px);
+}
+.back-to-menu svg {
+  width: 14px;
+  height: 14px;
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><strong>Coope</strong>Notebook</a>
+  <span class="topbar-breadcrumb" id="crumb"></span>
+  <a class="back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Herramientas
+  </a>
+</header>
+
+<nav class="tabbar">
+  <button class="tab active" onclick="go(0)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Buscar</span></button>
+  <button class="tab" onclick="go(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="10" x2="9" y2="20"/></svg><span>Estructura</span></button>
+  <button class="tab" onclick="go(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="14" y2="15"/></svg><span>Indice LCH</span></button>
+  <button class="tab" onclick="go(3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="14" y2="15"/></svg><span>Indice RLCH</span></button>
+  <button class="tab" onclick="go(4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><line x1="21" y1="5" x2="9" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="3" y1="19" x2="15" y2="19"/></svg><span>Lectura paralela</span></button>
+</nav>
+
+<!-- MENÚ PRINCIPAL -->
+<section class="panel" id="panelMenu">
+  <div class="stage">
+    <h1 class="lede">Ley de <strong>Cooperativas</strong></h1>
+    <p class="sub">Elige una herramienta para consultar el Decreto 65-87 y su Reglamento...</p>
+    <div class="tool-menu">
+      <button class="menu-item" onclick="go(0)">
+        <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div>
+        <div class="menu-content">
+          <div class="menu-title">Buscar en Ley y Reglamento</div>
+          <div class="menu-desc">Búsqueda rápida por palabras clave con resaltado de texto.</div>
+        </div>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="menu-item" onclick="go(1)">
+        <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="10" x2="9" y2="20"/></svg></div>
+        <div class="menu-content">
+          <div class="menu-title">Estructura de la norma</div>
+          <div class="menu-desc">Explora la arquitectura por Títulos, Capítulos y Secciones.</div>
+        </div>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="menu-item" onclick="go(2)">
+        <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="14" y2="15"/></svg></div>
+        <div class="menu-content">
+          <div class="menu-title">Índice Ley (LCH)</div>
+          <div class="menu-desc">Consulta directa de los artículos del Decreto 65-87.</div>
+        </div>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="menu-item" onclick="go(3)">
+        <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="14" y2="15"/></svg></div>
+        <div class="menu-content">
+          <div class="menu-title">Índice Reglamento (RLCH)</div>
+          <div class="menu-desc">Consulta directa del Acuerdo 041-2014.</div>
+        </div>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="menu-item" onclick="go(4)">
+        <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><line x1="21" y1="5" x2="9" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="3" y1="19" x2="15" y2="19"/></svg></div>
+        <div class="menu-content">
+          <div class="menu-title">Lectura paralela</div>
+          <div class="menu-desc">Visualización a doble columna con desplazamiento independiente.</div>
+        </div>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 0: BUSCAR -->
+<section class="panel" id="panel0">
+  <div class="stage">
+    <button class="back-to-menu" onclick="goMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><span>Volver al menú</span></button>
+    <h1 class="lede">Buscar en <strong>Ley y Reglamento</strong></h1>
+    <p class="sub">Escribe una palabra o frase y aparecerán los artículos que la contienen, en la Ley (LCH) y en el Reglamento (RLCH), con el término resaltado.</p>
+    <div class="searchbar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="qGlobal" placeholder="Ej.: asamblea, excedentes, vigilancia, capital…" oninput="doSearch()">
+    </div>
+    <p class="result-meta" id="searchMeta">Empieza a escribir para buscar.</p>
+    <div id="searchResults"></div>
+  </div>
+</section>
+
+<!-- 1: ESTRUCTURA -->
+<section class="panel" id="panel1">
+  <div class="stage">
+    <button class="back-to-menu" onclick="goMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><span>Volver al menú</span></button>
+    <h1 class="lede">La <strong>arquitectura</strong> de la norma</h1>
+    <p class="sub">Títulos, capítulos y secciones, con el número de artículos de cada parte. Toca una fila para plegar o desplegar.</p>
+    <div class="seg" id="structSeg">
+      <button class="on" onclick="setStruct('law')">Ley (LCH)</button>
+      <button onclick="setStruct('reg')">Reglamento (RLCH)</button>
+    </div>
+    <div class="tree" id="tree"></div>
+  </div>
+</section>
+
+<!-- 2: INDICE LCH -->
+<section class="panel" id="panel2">
+  <div class="stage">
+    <button class="back-to-menu" onclick="goMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><span>Volver al menú</span></button>
+    <h1 class="lede">Indice de la <strong>Ley</strong> · LCH</h1>
+    <p class="sub">Decreto No. 65-87 y sus reformas. Toca un artículo para leerlo completo.</p>
+    <div class="searchbar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="filterLaw" placeholder="Filtrar LCH por número o palabra…" oninput="renderIndex('law')">
+    </div>
+    <p class="result-meta" id="metaLaw"></p>
+    <div class="rows" id="indexLaw"></div>
+  </div>
+</section>
+
+<!-- 3: INDICE RLCH -->
+<section class="panel" id="panel3">
+  <div class="stage">
+    <button class="back-to-menu" onclick="goMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><span>Volver al menú</span></button>
+    <h1 class="lede">Indice del <strong>Reglamento</strong> · RLCH</h1>
+    <p class="sub">Acuerdo No. 041-2014 y reformas. Toca un artículo para leerlo completo.</p>
+    <div class="searchbar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="filterReg" placeholder="Filtrar RLCH por número o palabra…" oninput="renderIndex('reg')">
+    </div>
+    <p class="result-meta" id="metaReg"></p>
+    <div class="rows" id="indexReg"></div>
+  </div>
+</section>
+
+<!-- 4: LECTURA PARALELA -->
+<section class="panel" id="panel4">
+  <div class="stage stage-wide">
+    <button class="back-to-menu" onclick="goMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><span>Volver al menú</span></button>
+    <h1 class="lede">Lectura <strong>paralela</strong></h1>
+    <p class="sub">Ley y Reglamento, lado a lado. Cada columna se filtra y se desplaza por separado; toca cualquier artículo para expandirlo.</p>
+    <div class="par-cols">
+      <div class="par-col">
+        <div class="par-head"><span class="par-tag">LCH</span><span class="par-name">Ley · Decreto 65-87</span><span class="par-count" id="parCountLaw"></span></div>
+        <div class="par-filter"><div class="searchbar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><input id="parFilterLaw" placeholder="Filtrar LCH…" oninput="renderPar('law')"></div></div>
+        <div class="par-scroll rows" id="parLaw"></div>
+      </div>
+      <div class="par-col">
+        <div class="par-head"><span class="par-tag">RLCH</span><span class="par-name">Reglamento · Acuerdo 041-2014</span><span class="par-count" id="parCountReg"></span></div>
+        <div class="par-filter"><div class="searchbar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><input id="parFilterReg" placeholder="Filtrar RLCH…" oninput="renderPar('reg')"></div></div>
+        <div class="par-scroll rows" id="parReg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footnote"><p class="footnote-text">CoopeNotebook</p></div>
+
+<script>
+/* The database has been moved to ley_data.js to optimize performance and token usage */
+</script>
+<script>
+const lawById={}, regById={};
+DATA.law.forEach(a=>lawById[a.id]=a);
+DATA.reg.forEach(a=>regById[a.id]=a);
+function getArt(c,id){return c==='law'?lawById[id]:regById[id];}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function cssId(id){return id.replace(/[^a-zA-Z0-9_-]/g,'_');}
+const lawCore=DATA.law.filter(a=>a.group==='Ley').length;
+
+const TAB=['Buscar','Estructura','Indice LCH','Indice RLCH','Lectura paralela'];
+function go(i){
+  document.getElementById('panelMenu').classList.remove('active');
+  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
+  document.querySelectorAll('.panel:not(#panelMenu)').forEach((p,k)=>p.classList.toggle('active',k===i));
+  document.getElementById('crumb').innerHTML='Ley de Cooperativas de Honduras › <b>'+TAB[i]+'</b>';
+  document.body.classList.toggle('no-scroll-layout', i === 4);
+  window.scrollTo({top:0});
+}
+function goMenu(){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panelMenu').classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('crumb').innerHTML='Ley de Cooperativas de Honduras';
+  document.body.classList.remove('no-scroll-layout');
+  window.scrollTo({top:0});
+}
+
+/* ---------- title-case ---------- */
+function titleCase(s){
+  if(!s)return '';s=s.toLowerCase();
+  const sm=['de','la','las','los','el','y','e','o','del','con','en','por','para','a','su'];
+  return s.split(' ').map((w,i)=>(i>0&&sm.includes(w))?w:(w.charAt(0).toUpperCase()+w.slice(1))).join(' ');
+}
+function snippet(a,n){
+  const t=a.title?titleCase(a.title)+'. ':'';
+  let body=(a.segments.find(s=>s.type==='p')||a.segments[0]||{}).text||'';
+  return t+body;
+}
+function hl(text,q){
+  if(!q)return esc(text);
+  const e=esc(text);const qq=esc(q);
+  try{return e.replace(new RegExp('('+qq.replace(/[.*+^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');}
+  catch(_){return e;}
+}
+
+/* ---------- render one article body ---------- */
+function segHTML(seg,q,hasNum){
+  if(seg.type==='li'){
+    let txt=hl(seg.text,q);
+    txt=txt.replace(/^([^:<]{2,45}):(\s)/,'<b>$1:</b>$2');
+    const isNum=/^\d+[.)]$/.test(seg.marker);
+    const cls='inciso'+(isNum?' num':(hasNum?' sub':''));
+    return '<div class="'+cls+'"><span class="inciso-mark">'+esc(seg.marker)+'</span><span class="inciso-text">'+txt+'</span></div>';
+  }
+  const dero=/^\(art|^derogad|^transitorio-\s*derogad/i.test(seg.text)&&seg.text.length<90;
+  return '<p class="para'+(dero?' deroga':'')+'">'+hl(seg.text,q)+'</p>';
+}
+function bodyHTML(corpus,a,opts){
+  opts=opts||{};
+  const hasNum=a.segments.some(s=>s.type==='li'&&/^\d+[.)]$/.test(s.marker));
+  let h='';
+  if(a.title)h+='<div class="art-title-full">'+esc(titleCase(a.title))+'</div>';
+  h+=a.segments.map(s=>segHTML(s,opts.q,hasNum)).join('');
+  return h;
+}
+
+/* ---------- expandable row ---------- */
+function rowHTML(corpus,a,opts){
+  opts=opts||{};
+  const titleHTML='<span class="row-title">'+(a.title?'<b>'+hl(titleCase(a.title),opts.q)+'</b>':'')+
+    (a.title?'<span class="rt-desc"> — '+hl(snippetBody(a),opts.q)+'</span>':hl(snippet(a),opts.q))+'</span>';
+  return '<div class="row" id="r-'+corpus+'-'+cssId(a.id)+'" data-c="'+corpus+'" data-id="'+esc(a.id)+'" data-rel="'+(opts.withRelated?1:'')+'" data-q="'+esc(opts.q||'')+'">'+
+    '<button class="row-head" onclick="toggleRow(this)">'+
+      '<span class="art-badge">'+esc(badge(a))+'</span>'+titleHTML+
+      '<svg class="row-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>'+
+    '</button><div class="row-body"></div></div>';
+}
+function badge(a){return a.num_display.replace('Art\u00edculo','Art.').replace('Transitorio','Trans.');}
+function snippetBody(a){return ((a.segments.find(s=>s.type==='p')||a.segments[0]||{}).text||'');}
+function toggleRow(btn){
+  const row=btn.parentElement;
+  const open=row.classList.toggle('open');
+  if(open){
+    const body=row.querySelector('.row-body');
+    if(!body.dataset.done){
+      const c=row.dataset.c,id=row.dataset.id;
+      body.innerHTML=bodyHTML(c,getArt(c,id),{withRelated:row.dataset.rel==='1',q:row.dataset.q});
+      body.dataset.done='1';
+    }
+  }
+}
+
+/* ---------- index lists ---------- */
+function matchArt(a,q){
+  if(!q)return true;q=q.toLowerCase();
+  return a.num.toLowerCase()===q||a.num.toLowerCase().includes(q)||(a.title&&a.title.toLowerCase().includes(q))||a.plain.includes(q);
+}
+function renderIndex(corpus){
+  const arts=corpus==='law'?DATA.law:DATA.reg;
+  const q=document.getElementById(corpus==='law'?'filterLaw':'filterReg').value.trim();
+  const list=arts.filter(a=>matchArt(a,q));
+  const meta=document.getElementById(corpus==='law'?'metaLaw':'metaReg');
+  if(corpus==='law'&&!q)meta.textContent=lawCore+' artículos · '+(arts.length-lawCore)+' transitorios de reforma';
+  else meta.textContent=q?(list.length+' resultado'+(list.length===1?'':'s')):(arts.length+' artículos');
+  let html='';let lastG=null;
+  list.forEach(a=>{
+    if(corpus==='law'&&a.group&&a.group!=='Ley'&&a.group!==lastG)html+='<div class="group-divider"><span>'+esc(a.group)+'</span></div>';
+    lastG=a.group;
+    html+=rowHTML(corpus,a,{withRelated:true});
+  });
+  document.getElementById(corpus==='law'?'indexLaw':'indexReg').innerHTML=html||'<div class="empty">Sin coincidencias.</div>';
+}
+
+/* ---------- parallel ---------- */
+function renderPar(corpus){
+  const arts=corpus==='law'?DATA.law:DATA.reg;
+  const q=document.getElementById(corpus==='law'?'parFilterLaw':'parFilterReg').value.trim();
+  const list=arts.filter(a=>matchArt(a,q));
+  let html='';let lastG=null;
+  list.forEach(a=>{
+    if(corpus==='law'&&a.group&&a.group!=='Ley'&&a.group!==lastG)html+='<div class="group-divider"><span>'+esc(a.group)+'</span></div>';
+    lastG=a.group;
+    html+=rowHTML(corpus,a,{withRelated:false});
+  });
+  document.getElementById(corpus==='law'?'parLaw':'parReg').innerHTML=html||'<div class="empty">Sin coincidencias.</div>';
+}
+
+/* ---------- global search ---------- */
+function doSearch(){
+  const q=document.getElementById('qGlobal').value.trim();
+  const meta=document.getElementById('searchMeta');
+  const box=document.getElementById('searchResults');
+  if(q.length<2){meta.textContent='Empieza a escribir para buscar.';box.innerHTML='';return;}
+  const lawHits=DATA.law.filter(a=>a.plain.includes(q.toLowerCase())||a.num.toLowerCase()===q.toLowerCase());
+  const regHits=DATA.reg.filter(a=>a.plain.includes(q.toLowerCase())||a.num.toLowerCase()===q.toLowerCase());
+  meta.textContent=(lawHits.length+regHits.length)+' artículos contienen «'+q+'»';
+  let html='';
+  if(lawHits.length){html+='<div class="search-group"><span class="pill">LCH</span> En la Ley · '+lawHits.length+'</div><div class="rows">'+lawHits.map(a=>rowHTML('law',a,{withRelated:true,q})).join('')+'</div>';}
+  if(regHits.length){html+='<div class="search-group"><span class="pill">RLCH</span> En el Reglamento · '+regHits.length+'</div><div class="rows">'+regHits.map(a=>rowHTML('reg',a,{withRelated:true,q})).join('')+'</div>';}
+  box.innerHTML=html||'<div class="empty">Sin coincidencias.</div>';
+}
+
+/* ---------- structure ---------- */
+function countNode(n){let c=(n.arts||[]).length;(n.children||[]).forEach(ch=>c+=countNode(ch));return c;}
+let structMode='law';
+function setStruct(m){structMode=m;document.querySelectorAll('#structSeg button').forEach((b,k)=>b.classList.toggle('on',(k===0)===(m==='law')));renderTree();}
+function renderTree(){
+  const d=structMode==='law'?DATA.lawStructure:DATA.regStructure;
+  document.getElementById('tree').innerHTML=d.map(nodeHTML).join('');
+}
+function nodeHTML(n){
+  const kc=n.kind==='TITULO'?'node-titulo':n.kind==='CAPITULO'?'node-cap':'node-sec';
+  const kl=n.kind==='TITULO'?'Titulo':n.kind==='CAPITULO'?'Capitulo':'Seccion';
+  const has=n.children&&n.children.length>0;const cnt=countNode(n);
+  const detail=has?(cnt+' artículos'):((n.arts||[]).length+' '+((n.arts||[]).length===1?'artículo':'artículos'));
+  const kids=has?'<div class="node-children">'+n.children.map(nodeHTML).join('')+'</div>':'';
+  return '<div class="node '+kc+'"><div class="node-row" onclick="this.parentElement.classList.toggle(\'collapsed\')">'+
+    '<svg class="chev'+(has?'':' hidden')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>'+ 
+    '<span class="node-kind">'+kl+' '+esc(n.label)+'</span><span class="node-title">'+esc(titleCase(n.title))+'</span>'+
+    '<span class="node-count">'+detail+'</span></div>'+kids+'</div>';
+}
+
+/* init */
+if(document.documentElement.classList.contains('panel-mode')){
+  goMenu();
+} else {
+  go(0);
+}
+setStruct('law');
+renderIndex('law');renderIndex('reg');
+document.getElementById('parCountLaw').textContent=lawCore+' arts. + '+(DATA.law.length-lawCore)+' transit.';
+document.getElementById('parCountReg').textContent=DATA.reg.length+' arts.';
+renderPar('law');renderPar('reg');
+</script>
+</body>
+</html>

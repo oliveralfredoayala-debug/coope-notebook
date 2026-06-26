@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El mapa de las normas cooperativas · Contenido para revisión · CoopeNotebook</title>
+<style>
+:root{
+  --verde:#234a35; --verde-sec:#2f7d52; --ambar:#f0a226; --ambar-txt:#9a6a12;
+  --lila:#7d6a9c; --lila-txt:#5a4a78; --lila-bg:rgba(125,106,156,.08); --lila-line:rgba(125,106,156,.3);
+  --tinta:#1a2421; --tinta-2:#52615b; --tinta-3:#7d7763;
+  --blanco:#fff; --niebla:#f6f8f7; --niebla-2:#fbfcfb; --linea:#e7ece9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--niebla);color:var(--tinta);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding:32px 24px 80px}
+
+/* documento de revisión — NO es presentación: legible, lineal, editable */
+.doc-head{border-bottom:2px solid var(--verde);padding-bottom:18px;margin-bottom:8px}
+.doc-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde-sec)}
+.doc-title{font-size:26px;font-weight:700;color:var(--verde);margin-top:6px;line-height:1.2}
+.doc-note{font-size:13px;color:var(--tinta-3);margin-top:10px}
+
+.cap{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:24px 26px;margin-top:24px}
+.cap-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ambar-txt)}
+.cap-titulo{font-size:21px;font-weight:700;color:var(--tinta);margin-top:3px}
+.cap-meta{font-size:13px;color:var(--tinta-2);margin-top:10px;padding:12px 14px;background:var(--niebla-2);border-radius:10px;border-left:3px solid var(--ambar)}
+.cap-meta b{color:var(--ambar-txt);font-weight:700}
+
+.tab{border-top:1px solid var(--linea);margin-top:20px;padding-top:18px}
+.tab-num{font-size:11px;font-weight:600;color:var(--tinta-3);letter-spacing:.05em}
+.tab-nombre{font-size:17px;font-weight:600;color:var(--verde);margin-top:2px}
+.tab-texto{font-size:15px;color:var(--tinta);margin-top:10px}
+.tab-texto p+p{margin-top:8px}
+
+.bloque-lab{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin:14px 0 6px;display:flex;align-items:center;gap:6px}
+.lab-cards{color:var(--verde-sec)}
+.lab-acc{color:var(--verde-sec)}
+.lab-hl{color:var(--ambar-txt)}
+.lab-legal{color:var(--lila-txt)}
+
+.rev-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rev-mini{background:var(--niebla);border-radius:9px;padding:10px 12px;border-top:2px solid var(--verde-sec)}
+.rev-mini b{font-size:13px;color:var(--verde);display:block}
+.rev-mini span{font-size:13px;color:var(--tinta-2)}
+
+.rev-acc{display:flex;flex-direction:column;gap:6px}
+.rev-acc-item{background:var(--niebla);border-radius:9px;padding:10px 12px}
+.rev-acc-item b{font-size:14px;color:var(--verde);display:block}
+.rev-acc-item span{font-size:14px;color:var(--tinta-2)}
+
+.rev-hl{background:linear-gradient(180deg,rgba(240,162,38,.1),rgba(240,162,38,.04));border:1px solid rgba(240,162,38,.3);border-left:4px solid var(--ambar);border-radius:10px;padding:12px 15px;font-size:15px;color:var(--tinta);font-weight:500}
+
+.rev-legal{background:var(--lila-bg);border:1px solid var(--lila-line);border-radius:10px;padding:12px 15px}
+.rev-legal .art{font-size:13px;font-weight:700;color:var(--lila-txt)}
+.rev-legal .sub{font-size:11.5px;color:var(--tinta-3);margin-bottom:7px}
+.rev-legal .txt{font-size:14px;color:var(--tinta);line-height:1.7;white-space:pre-line}
+.rev-legal .verif{font-size:11px;color:var(--tinta-3);margin-top:8px;padding-top:7px;border-top:1px solid var(--lila-line)}
+
+.foot{font-size:12px;color:var(--tinta-3);text-align:center;margin-top:40px}
+@media print{body{background:#fff}.cap{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-kicker">CoopeNotebook · Documento de revisión</div>
+    <div class="doc-title" id="docTitle">[Tema]</div>
+    <div class="doc-note">Vista solo-contenido para revisión y edición. No es la presentación del taller: aquí se audita el texto, los sub-bloques y la fuente legal de cada cápsula. La misma estructura de datos (<code>CAPS</code>) alimenta la presentación.</div>
+  </div>
+  <div id="docu"></div>
+  <div class="foot">CoopeNotebook</div>
+</div>
+
+<script>
+/* ============================================================
+   MISMA FUENTE DE DATOS que la presentación: copiar el bloque
+   CAPS y ARTICULOS idéntico al del HTML de presentación.
+   Este archivo NO añade ni quita contenido: lo expone para revisar.
+   ============================================================ */
+const TEMA = "El mapa de las normas cooperativas";
+
+const LEY = {
+  "LCH": {
+    "nombre": "Ley de Cooperativas de Honduras (Decreto 65-87 y reformas)"
+  },
+  "RLCH": {
+    "nombre": "Reglamento de la Ley de Cooperativas (Acuerdo 041-2014)"
+  },
+  "CRH": {
+    "nombre": "Constitución de la República de Honduras"
+  }
+};
+const ARTICULOS = {
+  "CRH-338": {
+    "num": "Artículo 338",
+    "ley": "CRH",
+    "texto": "El Estado garantizará la existencia y el fomento de las cooperativas, las que serán objeto de ley especial que regulará su organización, funcionamiento y control, de conformidad con los principios de la doctrina cooperativista. La ley establecerá el régimen de fomento y protección para estas organizaciones, facilitando la constitución de las mismas, simplificando sus trámites, facilitándoles el acceso al crédito y al financiamiento, y otorgándoles las exenciones tributarias que se determinen."
+  },
+  "LCH-119-D": {
+    "num": "Artículo 119-D",
+    "ley": "LCH",
+    "texto": "Las cooperativas de ahorro y crédito están obligadas a publicar dentro de los cuatro (4) meses siguientes al cierre de cada ejercicio anual, en la página web de la cooperativa, los balances y estados de excedentes o pérdidas al cierre de cada ejercicio con sus respectivas notas complementarias y dictamen del auditor externo. Las cooperativas que no cuenten con página web propia lo deberán hacer en la página web del Consejo Nacional Supervisor de Cooperativas (CONSUCOOP).\n\nAdicionalmente deben elaborar su memoria anual la cual debe incluir la información establecida en el párrafo precedente y asegurar su disponibilidad para los afiliados(as)."
+  },
+  "RLCH-48": {
+    "num": "Artículo 48",
+    "ley": "RLCH",
+    "texto": "El CONSUCOOP dirigirá la supervisión del sistema cooperativo de ahorro y crédito, bajo normativas prudenciales conforme a lo dispuesto en el Artículo 103 literal d) de la Ley, siendo entre otras, las siguientes:\n\na) Normas para la Evaluación y Clasificación de Inversiones;\nb) Normas para la Evaluación y Clasificación de Cartera de Créditos;\nc) Normas para la Administración de Activos Eventuales;\nd) Normas para el otorgamiento de créditos a partes relacionadas;\ne) Normas relacionadas con el cumplimiento de indicadores financieros y de gestión;\nf) Normas de Gobierno Cooperativo;\ng) Normas para Auditoría Interna;\nh) Normas relacionadas con el Balance Social."
+  }
+};
+
+const CAPS = [
+  {
+    "eyebrow": "LEGISLACIÓN COOPERATIVA",
+    "titulo": "Jerarquía Normativa",
+    "preguntaCentral": "¿Qué norma debemos consultar y cuál prevalece cuando varias de ellas regulan una misma situación?",
+    "jester": "La legislación establece las condiciones bajo las cuales una cooperativa puede nacer, organizarse, gobernarse, operar y sostenerse.",
+    "tabs": [
+      {
+        "nombre": "Concepto de Jerarquía",
+        "texto": "<p>En cualquier sistema jurídico coexisten muchas normas: constituciones, leyes, reglamentos, estatutos, políticas internas. No todas tienen el mismo peso. La jerarquía normativa es el principio que ordena esas normas de mayor a menor rango y establece cuál prevalece cuando existe tensión entre ellas.</p><p>Hans Kelsen, jurista austriaco del siglo XX, formalizó esta idea en lo que se conoce como la <strong>pirámide normativa</strong>: las normas se organizan en niveles, y cada norma inferior deriva su validez de la norma superior que la autoriza. Ninguna norma puede contradecir a la que está por encima de ella.</p>",
+        "acordeon": [
+          [
+            "Nivel 1: Constitución",
+            "La norma suprema y el fundamento de todo el sistema jurídico nacional."
+          ],
+          [
+            "Nivel 2: Leyes y Reglamentos",
+            "Normas con rango de ley emitidas por el poder legislativo o ejecutivo."
+          ],
+          [
+            "Nivel 3: Normas Regulatorias",
+            "Acuerdos y resoluciones de organismos supervisores (como CONSUCOOP) con mandato legal."
+          ],
+          [
+            "Nivel 4: Estatuto",
+            "La norma propia aprobada por la Asamblea de cada cooperativa."
+          ],
+          [
+            "Nivel 5: Normativa Interna",
+            "Reglamentos, políticas y procedimientos operativos dictados por la Junta Directiva."
+          ]
+        ]
+      },
+      {
+        "nombre": "La Regla de Oro",
+        "texto": "<p>Una norma inferior puede desarrollar, adaptar o precisar lo que establece una norma superior. Lo que no puede hacer es contradecirla, eliminar una obligación que ella impone, ni crear una facultad que ella prohíbe.</p>",
+        "highlight": "No se trata de saberse de memoria todas las normas, sino de entender de dónde provienen y cuál manda sobre cuál en caso de conflicto."
+      }
+    ]
+  },
+  {
+    "eyebrow": "LEGISLACIÓN APLICADA",
+    "titulo": "La Jerarquía en Honduras",
+    "preguntaCentral": "¿Cómo se organiza el marco legal desde la Constitución hasta los estatutos de cada cooperativa en Honduras?",
+    "jester": "La pirámide aplicada al cooperativismo hondureño nos da un mapa claro para resolver dudas operativas sin cometer infracciones legales.",
+    "tabs": [
+      {
+        "nombre": "Fundamento Constitucional",
+        "texto": "<p>El Artículo 338 de la Constitución de la República de Honduras es la base suprema. Reconoce el cooperativismo como de necesidad nacional y obliga al Estado a regularlo y fomentarlo.</p>",
+        "legalRefs": [
+          "CRH-338"
+        ]
+      },
+      {
+        "nombre": "Leyes y Reglamentos",
+        "texto": "<p>La Ley de Cooperativas de Honduras (LCH, Decreto 65-87) y su Reglamento (RLCH, Acuerdo 041-2014) no deben leerse como documentos aislados. Con frecuencia, una respuesta completa exige consultar ambos: la Ley presenta la regla y el Reglamento la desarrolla detalladamente.</p>",
+        "highlight": "La LCH (Art. 10) establece un mínimo de 12 afiliados para fundar una cooperativa general, pero el Reglamento (Art. 9) eleva ese mínimo a 30 en el caso de las Cooperativas de Ahorro y Crédito (CAC) por su complejidad financiera. Esto es una complementación válida, no una contradicción."
+      },
+      {
+        "nombre": "El Estatuto Social",
+        "texto": "<p>El Estatuto adapta el marco legal general a las características de cada cooperativa: su nombre, domicilio, estructura, procesos electorales y reglas internas. Puede escoger y organizar lo que la legislación deja abierto, pero no puede contradecir normas superiores ni reducir derechos que ellas reconocen.</p>",
+        "highlight": "Si la legislación permite a la Junta Directiva manejar modificaciones contractuales hasta el 10% de los activos, el Estatuto puede reducir ese margen al 8% (la cooperativa se impone una restricción más estricta dentro del rango que la ley permite)."
+      }
+    ]
+  },
+  {
+    "eyebrow": "NIVEL OPERATIVO",
+    "titulo": "La Normativa Interna",
+    "preguntaCentral": "¿Qué instrumentos regulan las operaciones diarias y quién tiene la potestad de aprobarlos?",
+    "jester": "Los reglamentos y políticas internas organizan el día a día sin necesidad de aprobación del regulador, pero deben respetar el Estatuto y la Ley.",
+    "tabs": [
+      {
+        "nombre": "Instrumentos de Organización",
+        "texto": "<p>En la base de la pirámide están los instrumentos que la propia cooperativa crea para organizarse internamente. Estos instrumentos tienen dos destinatarios distintos con necesidades diferentes: los cuerpos directivos que gobiernan la organización, y las personas empleadas que la operan.</p>",
+        "cards": [
+          [
+            "Instrumentos de gobernanza",
+            "Regulan a los órganos de gobierno (Junta Directiva, Vigilancia, comités). Aprobados por la Junta Directiva o la Asamblea."
+          ],
+          [
+            "Instrumentos operativos",
+            "Regulan los servicios (crédito, ahorro, compras). Definen criterios técnicos que aplica el personal. Aprobados por la Junta Directiva."
+          ],
+          [
+            "Instrumentos de personal",
+            "Regulan la relación laboral del personal contratado (Código de Trabajo). Aprobados por la Gerencia con respaldo de la Directiva."
+          ]
+        ]
+      },
+      {
+        "nombre": "Límites de Aprobación",
+        "texto": "<p>La Asamblea General aprueba y modifica el Estatuto (norma de mayor rango dentro de la cooperativa). La Junta Directiva aprueba los reglamentos y políticas internas de crédito, captación y viáticos. La Gerencia General emite instructivos técnicos del trabajo diario.</p>",
+        "highlight": "Un reglamento aprobado por la Junta Directiva no puede contradecir el Estatuto ni reducir derechos que la legislación reconoce a los afiliados."
+      }
+    ]
+  },
+  {
+    "eyebrow": "SUBSECTOR FINANCIERO",
+    "titulo": "El Marco de las CAC",
+    "preguntaCentral": "¿Qué obligaciones adicionales y normativas prudenciales rigen a las cooperativas que realizan intermediación financiera?",
+    "jester": "Las Cooperativas de Ahorro y Crédito (CAC) tienen un marco regulatorio más denso y estricto por administrar recursos del público.",
+    "tabs": [
+      {
+        "nombre": "Obligaciones del Título VI",
+        "texto": "<p>Las cooperativas de ahorro y crédito responden a disposiciones prudenciales y de supervisión propias de su actividad financiera. El Título VI de la LCH impone obligaciones de auditoría, reserva y publicación especial.</p>",
+        "cards": [
+          [
+            "Transparencia financiera",
+            "Obligación de publicar balances anuales y dictamen del auditor en la web. (Art. 119-D)"
+          ],
+          [
+            "Idoneidad de directivos",
+            "Requisitos adicionales de conocimiento y experiencia para la Junta Directiva. (Art. 119-F)"
+          ],
+          [
+            "Auditoría interna",
+            "La Junta de Vigilancia responde por la auditoría interna del subsector. (Art. 119-G)"
+          ],
+          [
+            "Estabilización",
+            "Fondo obligatorio de encaje cooperativo para responder por retiros. (Art. 119-I)"
+          ]
+        ],
+        "legalRefs": [
+          "LCH-119-D"
+        ]
+      },
+      {
+        "nombre": "Normas Prudenciales",
+        "texto": "<p>El Artículo 48 del Reglamento faculta a CONSUCOOP para emitir normas prudenciales específicas para el subsector de ahorro y crédito, que son de carácter obligatorio para las CAC's.</p>",
+        "acordeon": [
+          [
+            "Normas Prudenciales acordadas",
+            "Manual de Límites de Riesgo (Acuerdo 001/2015), Normas de Gobierno Cooperativo (Acuerdo 003/2015), Reglamento Especial de Sanciones (Acuerdo 001/2016), y el Manual Contable (Acuerdo 002/2016)."
+          ],
+          [
+            "Evaluación de Cartera",
+            "Normas obligatorias para la Evaluación y Clasificación de la Cartera de Créditos (Acuerdo 002/2016) y Administración de Activos Eventuales."
+          ]
+        ],
+        "legalRefs": [
+          "RLCH-48"
+        ]
+      },
+      {
+        "nombre": "Leyes Complementarias",
+        "texto": "<p>La cooperativa está sujeta al Código del Trabajo para relaciones con sus empleados, al Código Civil para contratos mercantiles, y a leyes nacionales de prevención de lavado de activos y financiamiento del terrorismo. Su naturaleza cooperativa no la exime del cumplimiento de estas leyes de orden público.</p>"
+      }
+    ]
+  }
+];
+
+/* ============================================================ */
+const esc=t=>(t||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const stripTags=t=>(t||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
+
+function revLegal(refs){
+  if(!refs||!refs.length) return "";
+  return '<div class="bloque-lab lab-legal">Fuente legal</div>'+refs.map(id=>{
+    const a=ARTICULOS[id]; if(!a) return '<div class="rev-legal"><div class="art">⚠ Referencia '+esc(id)+' no encontrada en ARTICULOS</div></div>';
+    return '<div class="rev-legal"><div class="art">'+esc(a.num)+'</div>'+
+      '<div class="sub">'+esc(LEY[a.ley]?LEY[a.ley].nombre:a.ley)+'</div>'+
+      '<div class="txt">'+esc(a.texto)+'</div>'+
+      '<div class="verif">☐ Verificar texto literal verbatim contra la fuente del proyecto.</div></div>';
+  }).join("");
+}
+
+function revTab(t,ci,ti){
+  let h='<div class="tab"><div class="tab-num">Tab '+(ti+1)+'</div>'+
+    '<div class="tab-nombre">'+esc(t.nombre)+'</div>'+
+    '<div class="tab-texto">'+t.texto+'</div>';
+  if(t.cards&&t.cards.length){
+    h+='<div class="bloque-lab lab-cards">Sub-bloques (cards)</div><div class="rev-cards">'+
+      t.cards.map(p=>'<div class="rev-mini"><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></div>').join('')+'</div>';
+  }
+  if(t.acordeon&&t.acordeon.length){
+    h+='<div class="bloque-lab lab-acc">Sub-bloques (acordeón)</div><div class="rev-acc">'+
+      t.acordeon.map(p=>'<div class="rev-acc-item"><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></div>').join('')+'</div>';
+  }
+  if(t.highlight){
+    h+='<div class="bloque-lab lab-hl">Para recordar</div><div class="rev-hl">'+esc(t.highlight)+'</div>';
+  }
+  h+=revLegal(t.legalRefs);
+  return h+'</div>';
+}
+
+(function(){
+  document.getElementById('docTitle').textContent=TEMA;
+  document.title=TEMA+' · Contenido para revisión · CoopeNotebook';
+  let html='';
+  CAPS.forEach((c,ci)=>{
+    html+='<div class="cap"><div class="cap-num">Cápsula '+(ci+1)+'</div>'+
+      '<div class="cap-titulo">'+esc(c.titulo)+'</div>'+
+      '<div class="cap-meta"><b>Apertura · Pregunta central:</b> '+esc(c.preguntaCentral)+
+      '<br><b>Jester:</b> '+esc(c.jester)+'</div>';
+    c.tabs.forEach((t,ti)=>{ html+=revTab(t,ci,ti); });
+    html+='</div>';
+  });
+  document.getElementById('docu').innerHTML=html;
+})();
+</script>
+</body>
+</html>

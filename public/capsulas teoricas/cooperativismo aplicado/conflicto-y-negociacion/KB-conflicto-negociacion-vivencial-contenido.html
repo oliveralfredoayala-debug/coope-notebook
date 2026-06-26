@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conflicto y Negociación Vivencial · Contenido para revisión · CoopeNotebook</title>
+<style>
+:root{
+  --verde:#234a35; --verde-sec:#2f7d52; --ambar:#f0a226; --ambar-txt:#9a6a12;
+  --lila:#7d6a9c; --lila-txt:#5a4a78; --lila-bg:rgba(125,106,156,.08); --lila-line:rgba(125,106,156,.3);
+  --tinta:#1a2421; --tinta-2:#52615b; --tinta-3:#7d7763;
+  --blanco:#fff; --niebla:#f6f8f7; --niebla-2:#fbfcfb; --linea:#e7ece9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--niebla);color:var(--tinta);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding:32px 24px 80px}
+
+.doc-head{border-bottom:2px solid var(--verde);padding-bottom:18px;margin-bottom:8px}
+.doc-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde-sec)}
+.doc-title{font-size:26px;font-weight:700;color:var(--verde);margin-top:6px;line-height:1.2}
+.doc-note{font-size:13px;color:var(--tinta-3);margin-top:10px}
+
+.cap{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:24px 26px;margin-top:24px}
+.cap-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ambar-txt)}
+.cap-titulo{font-size:21px;font-weight:700;color:var(--tinta);margin-top:3px}
+.cap-meta{font-size:13px;color:var(--tinta-2);margin-top:10px;padding:12px 14px;background:var(--niebla-2);border-radius:10px;border-left:3px solid var(--ambar)}
+.cap-meta b{color:var(--ambar-txt);font-weight:700}
+
+.tab{border-top:1px solid var(--linea);margin-top:20px;padding-top:18px}
+.tab-num{font-size:11px;font-weight:600;color:var(--tinta-3);letter-spacing:.05em}
+.tab-nombre{font-size:17px;font-weight:600;color:var(--verde);margin-top:2px}
+.tab-texto{font-size:15px;color:var(--tinta);margin-top:10px}
+.tab-texto p+p{margin-top:8px}
+
+.bloque-lab{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin:14px 0 6px;display:flex;align-items:center;gap:6px}
+.lab-cards{color:var(--verde-sec)}
+.lab-acc{color:var(--verde-sec)}
+.lab-hl{color:var(--ambar-txt)}
+.lab-legal{color:var(--lila-txt)}
+
+.rev-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rev-mini{background:var(--niebla);border-radius:9px;padding:10px 12px;border-top:2px solid var(--verde-sec)}
+.rev-mini b{font-size:13px;color:var(--verde);display:block}
+.rev-mini span{font-size:13px;color:var(--tinta-2)}
+
+.rev-acc{display:flex;flex-direction:column;gap:6px}
+.rev-acc-item{background:var(--niebla);border-radius:9px;padding:10px 12px}
+.rev-acc-item b{font-size:14px;color:var(--verde);display:block}
+.rev-acc-item span{font-size:14px;color:var(--tinta-2)}
+
+.rev-hl{background:linear-gradient(180deg,rgba(240,162,38,.1),rgba(240,162,38,.04));border:1px solid rgba(240,162,38,.3);border-left:4px solid var(--ambar);border-radius:10px;padding:12px 15px;font-size:15px;color:var(--tinta);font-weight:500}
+
+.rev-legal{background:var(--lila-bg);border:1px solid var(--lila-line);border-radius:10px;padding:12px 15px}
+.rev-legal .art{font-size:13px;font-weight:700;color:var(--lila-txt)}
+.rev-legal .sub{font-size:11.5px;color:var(--tinta-3);margin-bottom:7px}
+.rev-legal .txt{font-size:14px;color:var(--tinta);line-height:1.7;white-space:pre-line}
+.rev-legal .verif{font-size:11px;color:var(--tinta-3);margin-top:8px;padding-top:7px;border-top:1px solid var(--lila-line)}
+
+.foot{font-size:12px;color:var(--tinta-3);text-align:center;margin-top:40px}
+@media print{body{background:#fff}.cap{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-kicker">CoopeNotebook · Documento de revisión</div>
+    <div class="doc-title" id="docTitle">[Tema]</div>
+    <div class="doc-note">Vista solo-contenido para revisión y edición. No es la presentación del taller: aquí se audita el texto, los sub-bloques y la fuente legal de cada cápsula. La misma estructura de datos (<code>CAPS</code>) alimenta la presentación.</div>
+  </div>
+  <div id="docu"></div>
+  <div class="foot">CoopeNotebook</div>
+</div>
+
+<script>
+/* ============================================================
+   MISMA FUENTE DE DATOS que la presentación: copiar el bloque
+   CAPS y ARTICULOS idéntico al del HTML de presentación.
+   Este archivo NO añade ni quita contenido: lo expone para revisar.
+   ============================================================ */
+const TEMA = "Conflicto y Negociación Vivencial";
+
+const LEY = {};
+const ARTICULOS = {};
+
+const CAPS = [
+  {
+    icon: "ti-arrows-exchange",
+    eyebrow: "COOPERATIVISMO APLICADO",
+    titulo: "Conflicto y Negociación Vivencial",
+    preguntaCentral: "¿Cómo leer un conflicto para transformarlo en aprendizaje y elegir el mejor mecanismo de resolución?",
+    jester: "En una cooperativa, un conflicto mal leído vulnera la identidad. Bien leído y resuelto, fortalece a los afiliados/as y hace crecer al grupo. La diferencia empieza en cómo lo leemos.",
+    tabs: [
+      {
+        nombre: "Apertura",
+        texto: "<p>El conflicto y la negociación son dinámicas vivas en el día a día de las cooperativas. Esta herramienta nos guía para analizar de manera objetiva lo que ocurre antes de reaccionar, ayudando a diagnosticar su naturaleza y seleccionar el mejor camino para su resolución.</p>"
+      },
+      {
+        nombre: "Naturaleza del conflicto",
+        texto: "<p>El conflicto aparece cuando una persona o grupo percibe que otra parte afecta o amenaza algo que considera importante: una responsabilidad, una decisión, una relación, una posición, un principio, un recurso o su lugar dentro de la organización.</p><p>La amenaza no tiene que haber sido intencional. Puede existir una interpretación equivocada de los hechos. Sin embargo, si las personas experimentan esa amenaza como real, sus emociones y conductas también serán reales.</p><p>El conflicto no debe confundirse automáticamente con agresión, hostilidad o ruptura. Una diferencia puede contribuir al aprendizaje colectivo cuando permite señalar un problema, poner sobre la mesa una preocupación, cuestionar una decisión o revisar cómo se distribuyen responsabilidades.</p><p>Pero el conflicto tampoco se vuelve productivo por sí solo. Puede deteriorarse cuando la discusión deja de concentrarse en el asunto y empieza a concentrarse en las personas.</p><p><strong>Pregunta de reflexión:</strong> ¿Seguimos hablando del asunto o ya comenzamos a defendernos de las personas?</p>",
+        cards: [
+          ["Inevitable", "Cuando compartimos decisiones, recursos y responsabilidades, surgirán diferencias.", "chat"],
+          ["Revela algo importante", "Una tensión puede señalar problemas, exclusiones, responsabilidades ambiguas o información que no está circulando.", "search"],
+          ["No es automáticamente constructivo", "Para producir aprendizaje necesita respeto, escucha y condiciones mínimas de seguridad.", "sprout"],
+          ["Puede transformarse", "Un desacuerdo puede aclararse, escalar, personalizarse o convertirse en una disputa diferente.", "sliders"]
+        ],
+        highlight: "El problema no es que exista una diferencia. El problema comienza cuando una lectura del conflicto se convierte en la única verdad posible."
+      },
+      {
+        nombre: "Percepción e interpretación",
+        texto: "<p>Las personas no reaccionamos únicamente a los hechos observables. Reaccionamos al significado que les atribuimos.</p><p>Cuando falta información, la mente completa los vacíos: <em>\"No respondió porque no le importa\"</em>, <em>\"No entregó el informe porque quiere ocultar algo\"</em> o <em>\"Cuestionó la propuesta porque quiere desacreditarme\"</em>. Estas explicaciones pueden ser correctas, parcialmente correctas o equivocadas. El problema aparece cuando tratamos una hipótesis como una certeza y actuamos contra la otra persona antes de verificarla.</p><div class=\"tab-subtema\" style=\"border-left: 3px solid var(--verde-sec); padding-left: 15px; margin: 15px 0;\"><h4>Preguntas para una segunda lectura</h4><ul><li>¿Qué ocurrió que podría describir una cámara de video?</li><li>¿Qué interpretación estoy haciendo de lo que vi/oí?</li><li>¿Qué evidencia real sostiene mi interpretación?</li><li>¿Qué información clave me hace falta?</li><li>¿Qué otra explicación también sería razonable y posible?</li></ul></div>",
+        acordeon: [
+          ["Atribución", "Es la explicación que construimos sobre las causas de la conducta de otra persona. Tendemos a explicar nuestra propia conducta por las circunstancias y la de otros por su carácter o intenciones."],
+          ["Evaluación de amenaza", "Valoramos si una situación afecta algo importante y si contamos con recursos para enfrentarla. Una misma diferencia puede percibirse como un problema a discutir o como una amenaza directa a nuestra seguridad o reputación."],
+          ["Secuencia ABC", "<strong>A (Acontecimiento):</strong> lo que ocurrió objetivamente.<br><strong>B (Creencia o interpretación):</strong> lo que concluimos en la mente.<br><strong>C (Consecuencia):</strong> cómo nos sentimos y cómo actuamos.<br><br>No significa que el acontecimiento no importe, sino que nuestra interpretación influye en la intensidad de nuestra reacción."]
+        ],
+        highlight: "Separar hechos e interpretaciones no significa negar el conflicto. Significa comprenderlo antes de agravarlo."
+      },
+      {
+        nombre: "Necesidades e identidad",
+        texto: "<p>Muchas discusiones parecen técnicas o de procedimiento, pero adquieren intensidad porque afectan algo más profundo. Detrás de un desacuerdo formal pueden existir temores sobre la legitimidad, el respeto o la exclusión.</p><p>Cuando el conflicto se vincula con la identidad, las personas pueden comenzar a organizar la situación entre <strong>nosotros</strong> y <strong>ellos</strong>. En ese momento se aceptan con mayor facilidad los argumentos del propio grupo, se sospecha del otro, se generalizan conductas y disentir se percibe como falta de lealtad.</p>",
+        cards: [
+          ["Responsabilidad y autoridad", "Quién debe decidir, supervisar, ejecutar, informar o responder por una acción dentro del grupo.", "control"],
+          ["Influencia y reconocimiento", "Quién es escuchado, quién puede orientar una decisión y cuyo aporte se considera legítimo.", "status"],
+          ["Pertenencia y participación", "Quién forma parte de la conversación, recibe información a tiempo y puede incidir.", "users"],
+          ["Valores e identidad", "Qué principios, tradiciones o concepciones sobre el cooperativismo se consideran amenazados.", "shield"],
+          ["Recursos y seguridad", "Cómo se distribuyen el tiempo, el presupuesto, las oportunidades, la información o las condiciones de trabajo.", "cash"],
+          ["Relación y confianza", "Qué experiencias previas y tensiones históricas condicionan la manera de interpretar el desacuerdo actual.", "chat"]
+        ],
+        highlight: "Comprender lo que está en juego no significa justificar cualquier conducta. Permite identificar por qué el conflicto tiene tanta fuerza."
+      },
+      {
+        nombre: "Cuerpo y emociones",
+        texto: "<p>Cuando percibimos una amenaza, el organismo se prepara físicamente para responder. Esta amenaza puede ser física o social (perder autoridad, ser avergonzado públicamente, quedar excluido o ser acusado).</p><p>La activación fisiológica provoca tensión muscular, aceleración cardíaca, atención selectiva, reducción de la empatía e interpretación defensiva. Una reunión puede continuar formalmente mientras las personas ya no están en condiciones de deliberar porque están ocupadas preparando su defensa o ataque.</p><div class=\"tab-subtema\" style=\"border-left: 3px solid var(--verde-sec); padding-left: 15px; margin: 15px 0;\"><h4>El semáforo de la conversación</h4><ul><li><strong style=\"color: #28a745;\">Verde:</strong> Capacidad de escuchar, preguntar y considerar información nueva con calma.</li><li><strong style=\"color: #f0a226;\">Amarillo:</strong> Tensión física, interrupciones constantes, preparación de respuestas o atribución de intenciones.</li><li><strong style=\"color: #dc3545;\">Rojo:</strong> Pérdida de control, ataques interpersonales, intimidación, bloqueo absoluto o retiro de la conversación.</li></ul></div>",
+        acordeon: [
+          ["Sistema de alerta", "El organismo moviliza energía de forma involuntaria para responder ante una amenaza percibida, incluso cuando esta es meramente social o simbólica."],
+          ["Respuesta defensiva", "Las conductas de ataque, evasión, congelación o control son respuestas automáticas del sistema nervioso ante la falta de seguridad."],
+          ["Estrés sostenido", "Cuando la tensión se mantiene en el tiempo, disminuye la paciencia, la flexibilidad cognitiva y la capacidad de cooperar."],
+          ["Recuperación", "Para volver a pensar con claridad es indispensable reducir la activación fisiológica y recuperar la seguridad básica. Es una necesidad biológica, no una debilidad."]
+        ],
+        highlight: "A veces, la mejor primera intervención no es resolver el asunto, sino evitar que la conversación lo empeore."
+      },
+      {
+        nombre: "Clases de conflicto",
+        texto: "<p>Un conflicto puede incluir varias dimensiones al mismo tiempo. Reconocer cuál parece pesar más ayuda a identificar la causa que está alimentando a las demás y a enfocar los esfuerzos adecuadamente.</p><p><strong>Ejemplo de escalamiento dimensional:</strong> Información incompleta → acusación de ocultamiento → disputa de autoridad y límites de poder → deterioro severo de la relación.</p>",
+        acordeon: [
+          ["Información", "Datos incompletos, tardíos, contradictorios o interpretados de manera diferente. ¿Todas las partes tienen acceso a los mismos datos?"],
+          ["Tarea o contenido", "Diferencias sobre qué decisión conviene, qué prioridad seguir o qué resultado buscar. ¿Cuáles son los hechos y los criterios objetivos?"],
+          ["Proceso", "Diferencias sobre cómo se decide, quién participa, qué método corresponde o cómo se distribuyen tareas. ¿Están claros los roles?"],
+          ["Relación", "La desconfianza, el resentimiento o experiencias previas condicionan la discusión actual. ¿Existe algún daño anterior que deba sanarse?"],
+          ["Poder, autoridad o estatus", "Disputa por quién puede decidir, supervisar, representar o ejercer influencia. ¿Se están invadiendo límites de rol?"],
+          ["Valores e identidad", "Diferencias sobre lo que se considera correcto, legítimo o coherente con los principios cooperativos y personales."]
+        ],
+        highlight: "Un conflicto puede comenzar por información y terminar siendo una disputa de confianza, autoridad o pertenencia."
+      },
+      {
+        nombre: "Escalamiento del conflicto",
+        layout: "timeline-plain",
+        texto: "<p>El conflicto escala de forma predecible. A medida que avanza, cambia la manera de comunicarse, se personaliza el desacuerdo, disminuye el diálogo directo y las conductas agresivas se vuelven aceptables para las partes.</p><div class=\"tab-subtema\" style=\"border-left: 3px solid var(--verde-sec); padding-left: 15px; margin: 15px 0;\"><h4>Señales observables por nivel</h4><ul><li><strong>Nivel 1–2:</strong> \"Esa propuesta no funciona.\" (Enfocado en el desacuerdo de la tarea)</li><li><strong>Nivel 3:</strong> \"Vos nunca entendés nada.\" (Personalización del conflicto)</li><li><strong>Nivel 4:</strong> \"Ellos siempre hacen lo mismo.\" / \"Ya sabemos de qué lado están.\" (Formación de bandos)</li><li><strong>Nivel 5:</strong> \"No tiene sentido seguir hablando con esa gente.\" (Ruptura del diálogo)</li><li><strong>Nivel 6:</strong> \"Vamos a hacer lo que sea necesario para impedir que actúen.\" (Hostilidad abierta)</li></ul></div>",
+        acordeon: [
+          ["1. Diferencia", "Existen posiciones distintas, pero todavía se discute el asunto con argumentos y respeto."],
+          ["2. Debate endurecido", "Las posturas se vuelven rígidas. El objetivo empieza a pasar de comprender a convencer o derrotar al otro."],
+          ["3. Personalización", "La discusión deja de concentrarse en las ideas y comienza a juzgar el carácter y las intenciones de las personas."],
+          ["4. Formación de bandos", "Se buscan aliados en la organización, se generaliza y se consolida la narrativa excluyente de 'nosotros contra ellos'."],
+          ["5. Ruptura del diálogo", "Las partes dejan de hablar directamente, se retiran de los espacios comunes o recurren únicamente a la presión."],
+          ["6. Hostilidad abierta", "Aparecen amenazas directas, descalificaciones públicas y acciones destinadas a dañar, excluir o neutralizar al otro."]
+        ],
+        highlight: "La intervención más sencilla suele ser posible antes de que el conflicto se convierta en una lucha contra las personas."
+      },
+      {
+        nombre: "Estilos de respuesta",
+        texto: "<p>Las personas desarrollamos formas habituales de responder ante el conflicto. Ninguna es adecuada para todas las situaciones. La capacidad clave de un líder cooperativo es reconocer qué estilo está adoptando y decidir si corresponde al contexto.</p>",
+        cards: [
+          ["Competir", "Útil cuando hay urgencia extrema, deben protegerse principios éticos o la responsabilidad de decidir es clara e indelegable.<br><strong>Riesgo:</strong> Convertir cualquier diferencia en una lucha de poder.", "status"],
+          ["Colaborar", "Útil cuando la relación es a largo plazo, los intereses son interdependientes y hay tiempo y confianza.<br><strong>Riesgo:</strong> Forzar la colaboración cuando falta seguridad.", "handshake"],
+          ["Negociar", "Útil ante presión de tiempo, cuando las partes tienen poder equivalente y un acuerdo intermedio evita el bloqueo social.<br><strong>Riesgo:</strong> Pactar soluciones superficiales sin resolver la causa.", "sliders"],
+          ["Evitar o posponer", "Útil cuando la activación emocional es demasiado alta, falta información crítica o se requiere preparación.<br><strong>Riesgo:</strong> Usar la evasión para eludir la responsabilidad.", "clock"],
+          ["Ceder", "Útil cuando el asunto es mucho más importante para el otro, reconocemos que nos equivocamos o deseamos cuidar la relación.<br><strong>Riesgo:</strong> Acumular resentimiento silencioso.", "heart"]
+        ],
+        highlight: "El estilo adecuado depende de lo que está en juego, del nivel de escalamiento y de las condiciones reales para conversar."
+      },
+      {
+        nombre: "Mecanismos y movimientos",
+        texto: "<p>Antes de intervenir en un desacuerdo, conviene construir una lectura provisional diagnosticando qué ocurrió, qué se interpreta, qué está en juego y el nivel de escalamiento. Esta lectura sirve para elegir el movimiento táctico más eficaz.</p>",
+        acordeon: [
+          ["Aclarar información", "Facilitar el intercambio de datos, aclarar rumores y asegurar que todos manejen la misma versión de los hechos."],
+          ["Aclarar responsabilidades", "Definir quién decide, quién ejecuta, quién supervisa y los límites de las funciones en el equipo."],
+          ["Conversar directamente", "Promover el diálogo cara a cara en un ambiente controlado, siempre que exista confianza mínima."],
+          ["Negociar", "Buscar soluciones basadas en intereses donde ambas partes tengan que ceder parcialmente para destrabar la situación."],
+          ["Facilitar", "Incorporar un tercero neutral que ayude a estructurar la conversación y restablecer el puente relacional."],
+          ["Activar mecanismo formal", "Recurrir al estatuto, comités de resolución de conflictos o arbitraje del Consucoop ante faltas graves."],
+          ["Pausar y preparar", "Suspender temporalmente la reunión para permitir la autorregulación física y preparar mejores argumentos."]
+        ],
+        highlight: "Comprender el conflicto no consiste en decidir rápidamente quién tiene la culpa. Consiste en identificar el ciclo que está convirtiendo una diferencia en una amenaza y elegir dónde intervenir."
+      },
+      {
+        nombre: "Marco conceptual",
+        texto: "<p>Esta cápsula integra marcos de psicología social, teoría de la organización y comunicación no violenta adaptados al contexto de la gobernabilidad y liderazgo en cooperativas hondureñas.</p>",
+        acordeon: [
+          ["Evaluación cognitiva de la amenaza", "Basado en los trabajos de Richard Lazarus. Analiza cómo valoramos las situaciones interpersonales según nuestros recursos percibidos."],
+          ["Secuencia ABC (Ellis / Beck)", "Procede de la psicología cognitiva. Demuestra que las creencias intermedias son las que detonan nuestras respuestas emocionales."],
+          ["Sesgo de atribución", "Concepto clave de psicología social que describe la asimetría al explicar conductas propias y ajenas."],
+          ["Dimensiones del conflicto", "Modelos de Christopher Moore y Kenneth Thomas sobre la tipificación de disputas interpersonales y organizacionales."],
+          ["Modelo de escalamiento", "Derivado del análisis de dinámicas de conflicto de Friedrich Glasl, adaptado a 6 niveles simplificados y observables."],
+          ["Estilos de respuesta (Thomas-Kilmann)", "El instrumento clásico TKI que organiza el comportamiento ante el conflicto en asertividad y cooperación."],
+          ["Activación del sistema de alerta", "Bases neurobiológicas del estrés y la reactividad (sistema simpático/parasimpático) que reducen la empatía y activan defensas."]
+        ]
+      }
+    ]
+  }
+];
+
+/* ============================================================ */
+const esc=t=>(t||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const stripTags=t=>(t||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
+
+function revLegal(refs){
+  if(!refs||!refs.length) return "";
+  return '<div class="bloque-lab lab-legal">Fuente legal</div>'+refs.map(id=>{
+    const a=ARTICULOS[id]; if(!a) return '<div class="rev-legal"><div class="art">⚠ Referencia '+esc(id)+' no encontrada en ARTICULOS</div></div>';
+    return '<div class="rev-legal"><div class="art">'+esc(a.num)+'</div>'+
+      '<div class="sub">'+esc(LEY[a.ley]?LEY[a.ley].nombre:a.ley)+'</div>'+
+      '<div class="txt">'+esc(a.texto)+'</div>'+
+      '<div class="verif">☐ Verificar texto literal verbatim contra la fuente del proyecto.</div></div>';
+  }).join("");
+}
+
+function revTab(t,ci,ti){
+  let h='<div class="tab"><div class="tab-num">Tab '+(ti+1)+'</div>'+
+    '<div class="tab-nombre">'+esc(t.nombre)+'</div>'+
+    '<div class="tab-texto">'+t.texto+'</div>';
+  if(t.cards&&t.cards.length){
+    h+='<div class="bloque-lab lab-cards">Sub-bloques (cards)</div><div class="rev-cards">'+
+      t.cards.map(p=>'<div class="rev-mini"><b>'+esc(p[0])+'</b><span>'+p[1]+'</span></div>').join('')+'</div>';
+  }
+  if(t.acordeon&&t.acordeon.length){
+    h+='<div class="bloque-lab lab-acc">Sub-bloques (acordeón)</div><div class="rev-acc">'+
+      t.acordeon.map(p=>'<div class="rev-acc-item"><b>'+esc(p[0])+'</b><span>'+p[1]+'</span></div>').join('')+'</div>';
+  }
+  if(t.highlight){
+    h+='<div class="bloque-lab lab-hl">Para recordar</div><div class="rev-hl">'+esc(t.highlight)+'</div>';
+  }
+  h+=revLegal(t.legalRefs);
+  return h+'</div>';
+}
+
+(function(){
+  document.getElementById('docTitle').textContent=TEMA;
+  document.title=TEMA+' · Contenido para revisión · CoopeNotebook';
+  let html='';
+  CAPS.forEach((c,ci)=>{
+    html+='<div class="cap"><div class="cap-num">Cápsula '+(ci+1)+'</div>'+
+      '<div class="cap-titulo">'+esc(c.titulo)+'</div>'+
+      '<div class="cap-meta"><b>Apertura · Pregunta central:</b> '+esc(c.preguntaCentral)+
+      '<br><b>Jester:</b> '+esc(c.jester)+'</div>';
+    c.tabs.forEach((t,ti)=>{ html+=revTab(t,ci,ti); });
+    html+='</div>';
+  });
+  document.getElementById('docu').innerHTML=html;
+})();
+</script>
+</body>
+</html>

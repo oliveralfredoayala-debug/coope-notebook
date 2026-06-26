@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Año social y año fiscal</title>
+<style>:root {
+  --verde: #1c6b4a;
+  --verde-sec: #2fa36b;
+  --amarillo: #f4c20d;
+  --blanco: #ffffff;
+  --gris-bg: #f7f7f5;
+  --gris-borde: #e4e4e0;
+  --texto: #1a1a18;
+  --texto-sec: #3a3a36;
+  --texto-ter: #6a6a64;
+  --radio: 8px;
+  --radio-sm: 5px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--blanco);color:var(--texto);font-size:15px;line-height:1.65;min-height:100vh}
+
+    /* 1. TOPBAR (Cabecera Principal - Unificada y más grande) */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+
+    .back {
+      font-size: 13px;
+      color: var(--texto-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back:hover {
+      color: var(--verde);
+    }
+
+    /* Botón hamburguesa (solo móvil) */
+    .nb-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      color: var(--verde);
+    }
+
+    .nb-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* 2. MAQUETACIÓN GENERAL (Shell) */
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nb-marca-titulo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--verde);
+      line-height: 1.35;
+    }
+
+    .nb-nav {
+      list-style: none;
+      padding: 0.75rem 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nb-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 14px;
+      color: var(--texto-sec);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .nb-nav button:hover {
+      background: var(--verde-claro, #e8f4ef);
+      color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+    }
+
+    .nb-nav button.activo {
+      background: var(--verde-claro, #e8f4ef);
+      color: var(--verde);
+      font-weight: 600;
+      border-left-color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+    }
+
+    .nb-nav-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      min-width: 20px;
+      padding-top: 1px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nb-nav button.activo .nb-nav-num {
+      color: var(--verde-sec);
+    }
+
+    .nb-conceptos {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--gris-borde);
+      flex-shrink: 0;
+    }
+
+    .nb-conceptos-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .nb-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nb-tag {
+      font-size: 12px;
+      color: var(--verde);
+      background: var(--verde-claro, #e8f4ef);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #dcebe2;
+    }
+
+    .nb-cerrar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--texto-ter);
+    }
+
+    .nb-cerrar svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .main { flex: 1; max-width: 760px; padding: 3rem 3.5rem; overflow-y: auto; }
+    .panel { display: none; }
+    .panel.activo { display: block; animation: fadeUp 0.35s ease both; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .capsula-titulo { font-size: 26px; font-weight: 600; color: var(--texto); line-height: 1.25; margin-bottom: .4rem; padding-bottom: .5rem; position: relative; }
+    .capsula-titulo::after { content: ''; display: block; width: 2.5rem; height: 3px; background: var(--verde); margin-top: .5rem; border-radius: 2px; }
+    .capsula-meta { font-size: 12px; color: var(--texto-ter); margin-bottom: 2rem; }
+    .seccion-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-ter); margin: 2.5rem 0 1rem; }
+    .capsula-intro { font-size: 16px; color: var(--texto-sec); line-height: 1.7; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gris-borde); }
+    .capsula-intro strong { color: var(--texto); font-weight: 500; }
+
+.cap-titulo{font-size:24px;font-weight:600;color:var(--texto);line-height:1.25;margin-bottom:.35rem}
+.cap-titulo::after{content:'';display:block;width:2.25rem;height:3px;background:var(--verde);margin-top:.45rem;border-radius:2px}
+.cap-meta{font-size:12px;color:var(--texto-ter);margin:.7rem 0 1.75rem;display:flex;align-items:center;gap:.5rem}
+.cap-meta span{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:20px;padding:2px 9px;font-size:11px;font-weight:500;color:var(--texto-sec)}
+.sec-h{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-ter);margin:2.25rem 0 .9rem}
+.cap-intro{font-size:14.5px;color:var(--texto-sec);line-height:1.7;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gris-borde)}
+.cap-intro strong{color:var(--texto);font-weight:500}
+
+/* ── INSIGHT (cita destacada) ── */
+.insight{background:var(--gris-bg);border-left:3px solid var(--amarillo);padding:.9rem 1.1rem;border-radius:0 var(--radio-sm) var(--radio-sm) 0;margin:1.5rem 0;font-size:14px;color:var(--texto-sec);line-height:1.65}
+.insight strong{color:var(--texto);font-weight:500}
+
+/* ── VERBATIM LEGAL ── */
+.verbatim-wrap{margin:1.25rem 0;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.verbatim-head{padding:.65rem 1.1rem;background:var(--gris-bg);display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--gris-borde)}
+.verbatim-id{font-size:11px;font-weight:600;color:var(--verde);letter-spacing:.04em}
+.verbatim-titulo{font-size:13px;color:var(--texto);font-weight:500}
+.verbatim-body{padding:.9rem 1.1rem;font-size:13.5px;color:var(--texto-sec);line-height:1.7;font-style:italic;border-left:3px solid var(--verde-sec)}
+.verbatim-nota{padding:.5rem 1.1rem .8rem;font-size:12px;color:var(--texto-ter);font-style:normal}
+
+/* ── TABLA ── */
+.tabla-wrap{margin:1.1rem 0;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.tabla-wrap table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tabla-wrap thead tr{background:var(--verde)}
+.tabla-wrap thead th{padding:.6rem 1rem;color:var(--blanco);font-weight:500;text-align:left;font-size:12.5px}
+.tabla-wrap tbody tr{border-bottom:1px solid var(--gris-borde)}
+.tabla-wrap tbody tr:last-child{border-bottom:none}
+.tabla-wrap tbody tr:hover{background:var(--gris-bg)}
+.tabla-wrap td{padding:.6rem 1rem;vertical-align:top;line-height:1.5;color:var(--texto-sec);font-size:13.5px}
+.tabla-wrap td:first-child{font-weight:500;color:var(--texto);white-space:nowrap}
+.td-art{font-size:11px;color:var(--verde);font-style:italic;display:block;margin-top:2px}
+
+/* ── PUNTOS ── */
+.puntos{display:flex;flex-direction:column;gap:.6rem;margin:1.1rem 0}
+.punto{display:flex;gap:.8rem;align-items:flex-start;padding:.7rem .9rem;border:1px solid var(--gris-borde);border-radius:var(--radio);background:var(--blanco)}
+.punto-icono{width:22px;height:22px;border-radius:50%;background:#e8f4ef;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:var(--verde);margin-top:2px}
+.punto-texto{font-size:14px;color:var(--texto-sec);line-height:1.55}
+.punto-texto strong{color:var(--texto);font-weight:500}
+.punto-art{font-size:11px;color:var(--verde);font-style:italic;margin-top:3px;display:block}
+
+/* ── ALERTA ── */
+.alerta{background:#fffbeb;border:1px solid #e6c94a;border-left:3px solid #e6a817;border-radius:var(--radio-sm);padding:.8rem 1.1rem;font-size:13.5px;color:#5c4000;margin:1.25rem 0;line-height:1.6}
+.alerta strong{font-weight:600;display:block;margin-bottom:3px;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── DIVISOR ── */
+.divider{height:1px;background:var(--gris-borde);margin:2rem 0}
+
+/* CALCULADORA */
+.calc-shell{margin:1.25rem 0}
+.calc-intro{font-size:13.5px;color:var(--texto-sec);margin-bottom:1.1rem;line-height:1.6}
+
+.calc-slider-box{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.1rem 1.25rem;margin-bottom:1rem}
+.calc-slider-label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--texto-ter);margin-bottom:.65rem;display:block}
+.mes-grande{font-size:28px;font-weight:600;color:var(--verde);letter-spacing:-.01em;text-align:center;padding:.5rem 0 .75rem}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;background:var(--gris-borde);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--verde);border:3px solid var(--blanco);box-shadow:0 1px 5px rgba(0,0,0,.18);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--verde);border:3px solid var(--blanco);cursor:pointer}
+.mes-ticks{display:flex;justify-content:space-between;margin-top:6px;padding:0 2px}
+.mes-ticks span{font-size:9px;color:var(--texto-ter);font-variant-numeric:tabular-nums;flex:1;text-align:center}
+
+/* RESULTADO */
+.calc-resultado{border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden;margin-top:.5rem}
+.calc-resultado-header{background:var(--verde);color:var(--blanco);padding:.65rem 1.1rem;font-size:12px;font-weight:500;letter-spacing:.03em}
+.fechas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.fecha-item{padding:.85rem 1.1rem;border-bottom:1px solid var(--gris-borde);border-right:1px solid var(--gris-borde)}
+.fecha-item:nth-child(even){border-right:none}
+.fecha-item:nth-last-child(-n+2){border-bottom:none}
+.fecha-item-label{font-size:11px;color:var(--texto-ter);margin-bottom:4px;line-height:1.4}
+.fecha-item-val{font-size:16px;font-weight:600;color:var(--texto);font-variant-numeric:tabular-nums}
+.fecha-item-art{font-size:10px;color:var(--verde);font-style:italic;margin-top:3px;display:block}
+.fecha-item-sub{font-size:11px;color:var(--texto-ter);margin-top:2px;display:block}
+.fecha-item.destacado{background:#f0faf5}
+.fecha-item.alerta-item{background:#fffbeb}
+
+/* TIMELINE HORIZONTAL */
+.tl-wrap{margin:1.5rem 0;overflow-x:auto;padding-bottom:4px}
+.tl{display:flex;align-items:flex-start;position:relative;min-width:520px;padding:0 8px}
+.tl::before{content:'';position:absolute;top:22px;left:8px;right:8px;height:2px;background:var(--gris-borde);z-index:0}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.tl-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--blanco);box-shadow:0 0 0 2px var(--verde);background:var(--verde);flex-shrink:0;margin-bottom:8px}
+.tl-dot.alt{background:var(--amarillo);box-shadow:0 0 0 2px #c8a000}
+.tl-dot.gris{background:var(--gris-borde);box-shadow:0 0 0 2px #aaa}
+.tl-label{font-size:11px;text-align:center;color:var(--texto-sec);line-height:1.4;max-width:80px}
+.tl-label strong{display:block;font-size:12px;color:var(--texto);font-weight:600;margin-bottom:2px}
+.tl-label em{font-style:normal;font-size:10px;color:var(--verde)}
+
+/* CONSUOOP BADGE */
+.consucoop-box{background:#fff8e6;border:1px solid #e6c94a;border-radius:var(--radio);padding:.85rem 1.1rem;margin:1.1rem 0;display:flex;gap:.8rem;align-items:flex-start}
+.consucoop-icono{font-size:18px;flex-shrink:0;margin-top:1px}
+.consucoop-texto{font-size:13.5px;color:#5c4000;line-height:1.6}
+.consucoop-texto strong{font-weight:600;color:#3a2800}
+.consucoop-art{font-size:11px;color:#7a5c00;font-style:italic;margin-top:3px;display:block}
+
+/* ART CARD colapsable */
+.art-card{margin-bottom:.75rem;border:1px solid var(--gris-borde);border-radius:var(--radio);overflow:hidden}
+.art-card-header{padding:.75rem 1.1rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s;gap:.75rem}
+.art-card-header:hover{background:var(--gris-bg)}
+.art-card-id{font-size:12px;font-weight:600;color:var(--verde);letter-spacing:.04em;flex-shrink:0}
+.art-card-titulo{font-size:13.5px;color:var(--texto);font-weight:500;flex:1}
+.art-chev{width:14px;height:14px;color:var(--texto-ter);transition:transform .2s;flex-shrink:0}
+.art-card.abierto .art-chev{transform:rotate(180deg)}
+.art-card-body{display:none;padding:.85rem 1.1rem;font-size:13.5px;color:var(--texto-sec);line-height:1.7;border-top:1px solid var(--gris-borde);background:var(--gris-bg)}
+.art-card.abierto .art-card-body{display:block}
+.art-verbatim{font-style:italic;color:var(--texto);padding:.7rem .9rem;background:var(--blanco);border-left:3px solid var(--verde-sec);border-radius:0 var(--radio-sm) var(--radio-sm) 0;font-size:13px;line-height:1.65;margin-bottom:.5rem}
+.art-nota{font-size:12px;color:var(--texto-ter);font-style:normal}
+
+@media(max-width:820px){
+  .nb-toggle { display: flex; }
+  .nb-overlay {
+    display: block; position: fixed; inset: 0; z-index: 55;
+    background: rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity .26s ease;
+  }
+  .nb-overlay.visible { opacity: 1; pointer-events: auto; }
+  
+  .sidebar {
+    display: flex;
+    position: fixed; top: 0; left: 0; z-index: 60;
+    width: 82%; max-width: 320px; height: 100vh;
+    border-right: 1px solid var(--gris-borde); border-bottom: none;
+    transform: translateX(-100%);
+    transition: transform .26s ease;
+    box-shadow: 2px 0 16px rgba(0,0,0,.12);
+  }
+  .sidebar.abierto { transform: translateX(0); }
+  
+  .nb-cerrar {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 14px; right: 14px;
+    width: 38px; height: 38px;
+    background: none; border: none; cursor: pointer; padding: 0;
+    color: var(--texto-ter);
+  }
+  .nb-cerrar svg { width: 22px; height: 22px; }
+  .nb-nav button { min-height: 44px; }
+  .nb-conceptos { display: block; }
+  .main { max-width: 100%; padding: 2.25rem 1.5rem 6rem; }
+  .fechas-grid{grid-template-columns:1fr}
+  .fecha-item{border-right:none}
+  .fecha-item:nth-last-child(-n+2){border-bottom:1px solid var(--gris-borde)}
+  .fecha-item:last-child{border-bottom:none}
+  .tabla-wrap{overflow-x:auto}
+}</style>
+<link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+<!-- Topbar Unificada -->
+  <header class="topbar">
+    <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    
+    <a class="brand" href="../../index.html"><strong>Coope</strong>Notebook</a>
+    
+    <a class="back" href="../index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Herramientas
+    </a>
+  </header>
+
+  <!-- Overlay de atenuación para mobiles -->
+  <div class="nb-overlay" onclick="cerrarMenu()"></div>
+
+  <div class="shell">
+    
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar" aria-label="Navegación de la lección">
+      <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+      
+      <div class="nb-marca-titulo">Año social y año fiscal</div>
+      
+      <ul class="nb-nav">
+        <li><button onclick="tab('portada', this)" class="activo"><span class="nb-nav-num">00</span>Portada</button></li>
+        <li><button onclick="tab('inicio', this)"><span class="nb-nav-num">01</span>La diferencia</button></li>
+        <li><button onclick="tab('tipos', this)"><span class="nb-nav-num">02</span>Ejemplos por tipo</button></li>
+        <li><button onclick="tab('calc', this)"><span class="nb-nav-num">03</span>Calculadora de plazos</button></li>
+        <li><button onclick="tab('arts', this)"><span class="nb-nav-num">04</span>Artículos</button></li>
+      </ul>
+      
+      <div class="nb-conceptos">
+        <span class="nb-conceptos-label">Conceptos relacionados</span>
+        <div class="nb-tags"><span class="nb-tag">ejercicio social</span><span class="nb-tag">año fiscal</span><span class="nb-tag">Art. 24 LCH</span><span class="nb-tag">Art. 91 RLCH</span><span class="nb-tag">AGO</span><span class="nb-tag">CONSUCOOP</span><span class="nb-tag">prórroga</span></div>
+      </div>
+    </nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<div class="panel activo" id="panel-portada">
+  <h1 class="capsula-titulo">Año social y año fiscal</h1>
+  <div class="capsula-meta">LCH Art. 24 · RLCH Art. 91</div>
+  <p class="capsula-intro">Esta herramienta permite entender y calcular los plazos del año social y año fiscal para organizar adecuadamente las Asambleas Generales Ordinarias (AGO) según la ley.</p>
+  <ul class="portada-bullets" style="margin: 0 0 2rem 1.5rem; color: var(--texto-sec); font-size: 14.5px; line-height: 1.8;">
+    <li style="margin-bottom: 0.5rem;"><strong>La diferencia:</strong> El ciclo social (de asamblea a asamblea) frente al año fiscal (el ejercicio económico de la cooperativa).</li>
+    <li style="margin-bottom: 0.5rem;"><strong>Ejemplos por tipo:</strong> Cómo se distribuye el ejercicio de la cooperativa según su actividad.</li>
+    <li style="margin-bottom: 0.5rem;"><strong>Calculadora de plazos:</strong> Simulación interactiva para calcular las fechas de cierre de ejercicio y la fecha límite para celebrar la Asamblea.</li>
+  </ul>
+  <p class="seccion-h">Artículos clave</p>
+  <div class="tabla-wrap"><table><thead><tr><th>Artículo</th><th>Tema</th></tr></thead><tbody>
+    <tr><td>Art. 24 LCH</td><td>Periodicidad de la Asamblea General Ordinaria</td></tr>
+    <tr><td>Art. 91 RLCH</td><td>Plazos de presentación y ejercicio económico</td></tr>
+  </tbody></table></div>
+</div>
+
+<!-- �?�? PANEL 01: LA DIFERENCIA �?�? -->
+<div class="panel" id="panel-inicio">
+  <h1 class="cap-titulo">Año social y año fiscal</h1>
+  <div class="cap-meta">
+    <span>Art. 24 LCH</span>
+    <span>Art. 91 RLCH</span>
+  </div>
+
+  <p class="cap-intro">
+    La Asamblea General Ordinaria no se celebra cada enero. Se celebra después de que <strong>cierre el ejercicio social</strong> de cada cooperativa, y ese cierre no es el mismo para todas. Entender esta distinción evita incumplimientos legales y confusiones en la planificación.
+  </p>
+
+  <p class="sec-h">El punto de partida: el Art. 24 LCH</p>
+
+  <div class="verbatim-wrap">
+    <div class="verbatim-head">
+      <span class="verbatim-id">Art. 24 LCH</span>
+      <span class="verbatim-titulo">Obligación de celebrar la AGO</span>
+    </div>
+    <div class="verbatim-body">
+      "Cada Cooperativa debe realizar por lo menos una Asamblea General Ordinaria al año, <strong>dentro de los tres (3) meses siguientes al cierre de cada ejercicio social</strong>..."
+    </div>
+    <div class="verbatim-nota">
+      El plazo no corre desde el 1 de enero. Corre desde el cierre del ejercicio social de cada cooperativa.
+    </div>
+  </div>
+
+  <p class="sec-h">Qué es cada uno</p>
+
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">A</div>
+      <div class="punto-texto">
+        <strong>Ejercicio social</strong> — El período anual de operaciones de la cooperativa. Cierra según la naturaleza de su actividad. Lo define el estatuto. Es el que activa el plazo de la AGO.
+        <span class="punto-art">Art. 91 RLCH: "El ejercicio social de toda Cooperativa es de un año y debe cerrar según su actividad."</span>
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">B</div>
+      <div class="punto-texto">
+        <strong>Año fiscal</strong> — El período tributario definido por la legislación del SAR. En Honduras coincide con el año calendario: 1 de enero al 31 de diciembre. No lo define la cooperativa.
+        <span class="punto-art">Régimen tributario general — Código Tributario de Honduras</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>La diferencia clave:</strong> el año fiscal siempre empieza el 1 de enero y termina el 31 de diciembre. El ejercicio social puede terminar en cualquier mes del año, según lo que la cooperativa haga. No son lo mismo y no tienen por qué coincidir.
+  </div>
+
+  <p class="sec-h">Por qué importa la diferencia</p>
+
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr><th>Pregunta</th><th>Año fiscal</th><th>Ejercicio social</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>¿Quién lo define</td>
+          <td>El Estado (SAR)</td>
+          <td>El estatuto de la cooperativa</td>
+        </tr>
+        <tr>
+          <td>¿Cuándo cierra</td>
+          <td>31 de diciembre, siempre</td>
+          <td>Según la actividad — cualquier mes</td>
+        </tr>
+        <tr>
+          <td>¿Qué activa</td>
+          <td>Obligaciones tributarias (declaraciones, impuestos)</td>
+          <td>El plazo de 3 meses para celebrar la AGO</td>
+        </tr>
+        <tr>
+          <td>¿Pueden coincidir</td>
+          <td colspan="2">Sí — cuando el estatuto fija el cierre en diciembre. Pero no es obligatorio.</td>
+        </tr>
+        <tr>
+          <td>¿Qué pasa si no coinciden</td>
+          <td colspan="2">La cooperativa tiene dos fechas de cierre distintas: una para rendir cuentas ante la Asamblea y otra para sus obligaciones tributarias.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="sec-h">El plazo legal y la prórroga</p>
+
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">1</div>
+      <div class="punto-texto">
+        <strong>Plazo ordinario:</strong> 3 meses después del cierre del ejercicio social. Si el ejercicio cierra el 30 de septiembre, la AGO debe celebrarse antes del 31 de diciembre.
+        <span class="punto-art">Art. 24 LCH · Art. 91 RLCH</span>
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">2</div>
+      <div class="punto-texto">
+        <strong>Prórroga:</strong> En casos especiales debidamente justificados, la cooperativa puede pedir al CONSUCOOP una extensión de hasta 30 días calendario adicionales. No es automática.
+        <span class="punto-art">Art. 91 RLCH</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="consucoop-box">
+    <div class="consucoop-icono">📋</div>
+    <div class="consucoop-texto">
+      <strong>Notificación al CONSUCOOP sobre excedentes</strong>
+      Treinta (30) días hábiles antes de la AGO, la Junta Directiva debe notificar al CONSUCOOP el proyecto de distribución de excedentes. El CONSUCOOP puede objetar si detecta situación financiera inestable.
+      <span class="consucoop-art">Art. 44 inciso d), LCH</span>
+    </div>
+  </div>
+
+  <div class="alerta">
+    <strong>⚠�? Error frecuente</strong>
+    Asumir que toda cooperativa celebra su AGO en enero o febrero porque el año fiscal cierra en diciembre. Eso solo aplica si el ejercicio social también cierra en diciembre. Una cooperativa cafetalera, por ejemplo, puede cerrar en septiembre y debe celebrar su AGO antes del 31 de diciembre.
+  </div>
+</div>
+
+<!-- �?�? PANEL 02: TIPOS �?�? -->
+<div class="panel" id="panel-tipos">
+  <h1 class="cap-titulo">Ejemplos por tipo de cooperativa</h1>
+  <div class="cap-meta">
+    <span>Art. 47–51 LCH</span>
+    <span>Art. 91 RLCH</span>
+  </div>
+
+  <p class="cap-intro">
+    El cierre del ejercicio social depende de cuándo termina el ciclo operativo de cada cooperativa. Una cafetalera no cierra igual que una de ahorro y crédito. Ver la diferencia en concreto ayuda a entender por qué no hay una fecha única para todas las AGO.
+  </p>
+
+  <p class="sec-h">Ejercicio social según la actividad</p>
+
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr><th>Tipo de cooperativa</th><th>Cierre típico del ejercicio</th><th>Plazo para la AGO</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ahorro y Crédito<br><span class="td-art">Art. 119-B LCH</span></td>
+          <td>31 de diciembre (año calendario completo)</td>
+          <td>Hasta el 31 de marzo del año siguiente</td>
+        </tr>
+        <tr>
+          <td>Cafetalera (producción)<br><span class="td-art">Art. 48 LCH</span></td>
+          <td>30 de septiembre (fin de cosecha)</td>
+          <td>Hasta el 31 de diciembre</td>
+        </tr>
+        <tr>
+          <td>Agrícola — ciclo corto (producción)<br><span class="td-art">Art. 48 LCH</span></td>
+          <td>30 de junio (fin del ciclo)</td>
+          <td>Hasta el 30 de septiembre</td>
+        </tr>
+        <tr>
+          <td>Consumo<br><span class="td-art">Art. 50 LCH</span></td>
+          <td>Variable según el estatuto; frecuentemente diciembre</td>
+          <td>Según el cierre estatutario + 3 meses</td>
+        </tr>
+        <tr>
+          <td>Transporte (servicios)<br><span class="td-art">Art. 49 LCH</span></td>
+          <td>Variable según el estatuto</td>
+          <td>Según el cierre estatutario + 3 meses</td>
+        </tr>
+        <tr>
+          <td>Mixta<br><span class="td-art">Art. 51 LCH</span></td>
+          <td>Según la actividad principal</td>
+          <td>Según el cierre estatutario + 3 meses</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <strong>El estatuto es la fuente.</strong> Para saber cuándo cierra el ejercicio social de una cooperativa específica, hay que consultar su estatuto. El reglamento dice que debe cerrar "según su actividad", pero es el estatuto el que lo define con fecha concreta. Sin esa fecha, no se puede calcular el plazo de la AGO.
+  </div>
+
+  <p class="sec-h">Un caso concreto: dos cooperativas en el mismo municipio</p>
+
+  <div class="puntos">
+    <div class="punto">
+      <div class="punto-icono">A</div>
+      <div class="punto-texto">
+        <strong>COOPAGRO R.L.</strong> — cooperativa de producción cafetalera. Ejercicio social: 1 oct. – 30 sep. Cierra el 30 de septiembre. Plazo para su AGO: hasta el 31 de diciembre. Notificación a CONSUCOOP sobre excedentes: a más tardar a inicio de noviembre (30 días hábiles antes del 31 de diciembre).
+      </div>
+    </div>
+    <div class="punto">
+      <div class="punto-icono">B</div>
+      <div class="punto-texto">
+        <strong>COOPCRÉDITO R.L.</strong> — cooperativa de ahorro y crédito. Ejercicio social: 1 ene. – 31 dic. Cierra el 31 de diciembre. Plazo para su AGO: hasta el 31 de marzo del año siguiente. Notificación a CONSUCOOP: a más tardar en la primera semana de febrero.
+      </div>
+    </div>
+  </div>
+
+  <div class="alerta">
+    <strong>⚠�? Lo que no dice la Ley</strong>
+    La Ley no fija una fecha universal de AGO para todo el sistema cooperativo hondureño. Fija un plazo relativo al cierre de cada ejercicio. Por eso el CONSUCOOP recibe notificaciones y convocatorias en distintos meses del año.
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="sec-h">¿El año social y el año fiscal deben alinearse</p>
+
+  <p style="font-size:14px;color:var(--texto-sec);line-height:1.7;margin-bottom:1rem;">
+    No es obligatorio. Pero tiene consecuencias prácticas: una cooperativa con ejercicio social en septiembre produce sus estados financieros en octubre, los presenta en su AGO en diciembre, y luego tiene que hacer su declaración fiscal en marzo con cierre al 31 de diciembre. Son dos ciclos de rendición de cuentas que se superponen parcialmente.
+  </p>
+  <p style="font-size:14px;color:var(--texto-sec);line-height:1.7;">
+    Algunas cooperativas optan por alinearlos (ejercicio social al 31 de diciembre) para simplificar. Otras mantienen el cierre según su ciclo productivo. Ambas opciones son legalmente válidas.
+  </p>
+</div>
+
+<!-- �?�? PANEL 03: CALCULADORA �?�? -->
+<div class="panel" id="panel-calc">
+  <h1 class="cap-titulo">Calculadora de plazos</h1>
+  <div class="cap-meta">
+    <span>Art. 24 LCH</span>
+    <span>Art. 44 LCH</span>
+    <span>Art. 91 RLCH</span>
+  </div>
+
+  <p class="cap-intro">
+    Selecciona el mes en que cierra el ejercicio social de tu cooperativa. La calculadora determina el plazo para la AGO, la prórroga máxima posible y la fecha límite para notificar al CONSUCOOP el proyecto de distribución de excedentes.
+  </p>
+
+  <div class="calc-shell">
+    <div class="calc-slider-box">
+      <span class="calc-slider-label">Mes de cierre del ejercicio social</span>
+      <div class="mes-grande" id="mesNombre">Diciembre</div>
+      <input type="range" id="mesSlider" min="1" max="12" value="12">
+      <div class="mes-ticks">
+        <span>E</span><span>F</span><span>M</span><span>A</span>
+        <span>M</span><span>J</span><span>J</span><span>A</span>
+        <span>S</span><span>O</span><span>N</span><span>D</span>
+      </div>
+    </div>
+
+    <div class="calc-resultado">
+      <div class="calc-resultado-header">Plazos legales para el ejercicio que cierra en <span id="resHeaderMes">diciembre</span></div>
+      <div class="fechas-grid">
+        <div class="fecha-item destacado">
+          <div class="fecha-item-label">Cierre del ejercicio social</div>
+          <div class="fecha-item-val" id="resCierre">31 de diciembre</div>
+          <span class="fecha-item-art">Art. 91 RLCH</span>
+        </div>
+        <div class="fecha-item destacado">
+          <div class="fecha-item-label">Fecha límite para la AGO <em>(3 meses)</em></div>
+          <div class="fecha-item-val" id="resAGO">31 de marzo</div>
+          <span class="fecha-item-art">Art. 24 LCH · Art. 91 RLCH</span>
+        </div>
+        <div class="fecha-item alerta-item">
+          <div class="fecha-item-label">Fecha límite con prórroga <em>(+30 días calendario)</em></div>
+          <div class="fecha-item-val" id="resProrroga">30 de abril</div>
+          <span class="fecha-item-art">Art. 91 RLCH — requiere solicitud justificada</span>
+          <span class="fecha-item-sub">No es automática. Solo a petición.</span>
+        </div>
+        <div class="fecha-item alerta-item">
+          <div class="fecha-item-label">Notificar excedentes a CONSUCOOP <em>(30 días hábiles antes de la AGO)</em></div>
+          <div class="fecha-item-val" id="resConsucoop">Inicio de febrero</div>
+          <span class="fecha-item-art">Art. 44 inciso d), LCH</span>
+          <span class="fecha-item-sub" id="resConsucoopSub">Aprox. antes del límite de la AGO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alerta" style="margin-top:1rem" id="alertaCoincide" style="display:none">
+      <strong>📌 Coincidencia año social / año fiscal</strong>
+      Este es el caso donde el ejercicio social coincide con el año fiscal (ambos cierran en diciembre). La AGO debe celebrarse antes del 31 de marzo del año siguiente.
+    </div>
+
+    <p class="sec-h" style="margin-top:1.75rem">Línea de tiempo del ejercicio</p>
+
+    <div class="tl-wrap">
+      <div class="tl" id="tlContainer">
+        <!-- Relleno por JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- �?�? PANEL 04: ART�?CULOS �?�? -->
+<div class="panel" id="panel-arts">
+  <h1 class="cap-titulo">Artículos</h1>
+  <div class="cap-meta">
+    <span>LCH Decreto 65-87</span>
+    <span>RLCH Acuerdo 041-2014</span>
+  </div>
+  <p class="cap-intro">Texto literal de los artículos que fundamentan este tema. Nunca parafraseados.</p>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 24 LCH</span>
+      <span class="art-card-titulo">Asamblea General Ordinaria: plazo y temario</span>
+      <svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Cada Cooperativa debe realizar por lo menos una Asamblea General Ordinaria al año, dentro de los tres (3) meses siguientes al cierre de cada ejercicio social para tratar los asuntos siguientes: a) Conocer los Estados Financieros auditados y presentados por la Junta Directiva, después de oído el informe de la Junta de Vigilancia; b) En su caso, elegir o destituir a miembros de la Junta Directiva o Junta de Vigilancia, de acuerdo a las causales establecidas en el Reglamento de la presente Ley; c) Capitalizar los intereses devengados sobre las aportaciones pagadas por los cooperativistas; ch) Aprobar sustentándolo en esta Ley, la forma de distribución de los excedentes de cada ejercicio social, si no mediare objeción del Organismo Supervisor del Sector Cooperativo; d) Aprobar sobre la afiliación o desafiliación a los organismos de integración; e) Discutir y aprobar el Plan Operativo Anual presentado por la Junta Directiva; f) Discutir y aprobar el Presupuesto General Anual presentado por la Junta Directiva; g) Aprobar o improbar la expulsión de afiliado(as), luego de conocido el informe presentado por la Junta Directiva y ejercido el derecho de defensa, certificado por la Junta de Vigilancia; h) Ratificar o no, la suspensión de afiliados(as) efectuada por la Junta Directiva, de conformidad al procedimiento legal; i) Conocer y aprobar el balance social de la cooperativa presentado por la Junta Directiva."</p>
+      <p class="art-nota">El punto de partida es el cierre del ejercicio social, no el año calendario. El plazo de 3 meses corre desde ese cierre.</p>
+    </div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 91 RLCH</span>
+      <span class="art-card-titulo">Asamblea General Ordinaria: plazo y ejercicio social</span>
+      <svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"Toda Cooperativa debe celebrar por lo menos una (1) Asamblea General Ordinaria al año, dentro de los tres (3) meses siguientes a la finalización de cada ejercicio social. En casos especiales debidamente justificados, el CONSUCOOP y a petición de la Cooperativa puede ampliar este plazo hasta un máximo de treinta (30) días calendarios. El ejercicio social de toda Cooperativa es de un año y debe cerrar según su actividad."</p>
+      <p class="art-nota">Tres reglas en un solo artículo: el plazo (3 meses), la prórroga posible (30 días, no automática, a petición) y la definición del ejercicio social (anual, cierra según la actividad).</p>
+    </div>
+  </div>
+
+  <div class="art-card" onclick="toggleArt(this)">
+    <div class="art-card-header">
+      <span class="art-card-id">Art. 44 inciso d), LCH</span>
+      <span class="art-card-titulo">Notificación previa a CONSUCOOP sobre excedentes</span>
+      <svg class="art-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="art-card-body">
+      <p class="art-verbatim">"d) Treinta (30) días hábiles antes de la celebración de la Asamblea General Ordinaria, la Junta Directiva debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribución de excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situación financiera inestable."</p>
+      <p class="art-nota">Este plazo también depende de cuándo sea la AGO, que a su vez depende del ejercicio social. Toda la cadena parte del cierre del ejercicio.</p>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── TABS ──
+function abrirMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.add('abierto');
+  if (overlay) overlay.classList.add('visible');
+}
+function cerrarMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.nb-overlay');
+  if (sidebar) sidebar.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function tab(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('activo'); });
+  document.querySelectorAll('.nb-nav button').forEach(function(b) { b.classList.remove('activo'); });
+  document.getElementById('panel-' + id).classList.add('activo');
+  btn.classList.add('activo');
+  const m = document.querySelector('.main');
+  if (m) m.scrollTop = 0;
+  window.scrollTo(0, 0);
+  if (window.innerWidth <= 820) {
+    cerrarMenu();
+  }
+}
+
+// ── ART�?CULOS ──
+function toggleArt(card) { card.classList.toggle('abierto'); }
+
+// ── CALCULADORA ──
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MESES_CAP = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DIAS_FIN = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+function ultimoDia(mes1idx) {
+  return DIAS_FIN[mes1idx];
+}
+
+function mesPlus(mes1idx, n) {
+  return (mes1idx + n) % 12;
+}
+
+function calcular(val) {
+  const idx = val - 1; // 0-based
+  const nombreMes = MESES_CAP[idx];
+  const dia = ultimoDia(idx);
+
+  document.getElementById('mesNombre').textContent = nombreMes;
+  document.getElementById('resHeaderMes').textContent = MESES[idx];
+  document.getElementById('resCierre').textContent = dia + ' de ' + MESES[idx];
+
+  // AGO: 3 meses después
+  const idxAGO = mesPlus(idx, 3);
+  const diaAGO = ultimoDia(idxAGO);
+  document.getElementById('resAGO').textContent = diaAGO + ' de ' + MESES[idxAGO];
+
+  // Prórroga: +30 días calendario ≈ +1 mes
+  const idxProrr = mesPlus(idx, 4);
+  const diaProrr = ultimoDia(idxProrr);
+  document.getElementById('resProrroga').textContent = diaProrr + ' de ' + MESES[idxProrr];
+
+  // CONSUCOOP: 30 días hábiles ≈ 6 semanas antes del límite AGO
+  // Estimamos: inicio del mes AGO (primera quincena)
+  const idxNotif = mesPlus(idx, 2);
+  document.getElementById('resConsucoop').textContent = 'Primera quincena de ' + MESES[mesPlus(idx, 2) === idxAGO ? idx + 2 : mesPlus(idx, 2)];
+  document.getElementById('resConsucoop').textContent = 'Primera quincena de ' + MESES[idxAGO];
+  document.getElementById('resConsucoopSub').textContent = '30 días hábiles antes del ' + diaAGO + ' de ' + MESES[idxAGO];
+
+  // Alerta coincidencia diciembre
+  const alertaEl = document.getElementById('alertaCoincide');
+  alertaEl.style.display = idx === 11 ? 'flex' : 'none';
+
+  // TIMELINE
+  const tl = document.getElementById('tlContainer');
+  // 4 puntos: cierre, inicio plazo, notif CONSUCOOP, límite AGO
+  const steps = [
+    { label: 'Cierre del ejercicio', sub: dia + ' ' + MESES_CAP[idx], tipo: 'verde' },
+    { label: 'Inicia plazo AGO', sub: '3 meses para celebrarla', tipo: 'gris' },
+    { label: 'Notificar CONSUCOOP', sub: '30 días hábiles antes', tipo: 'alt' },
+    { label: 'Límite AGO', sub: diaAGO + ' ' + MESES_CAP[idxAGO], tipo: 'verde' },
+    { label: 'Límite con prórroga', sub: diaProrr + ' ' + MESES_CAP[idxProrr], tipo: 'gris' },
+  ];
+  tl.innerHTML = steps.map(s => `
+    <div class="tl-step">
+      <div class="tl-dot ${s.tipo === 'alt' ? 'alt' : s.tipo === 'gris' ? 'gris' : ''}"></div>
+      <div class="tl-label"><strong>${s.label}</strong>${s.sub}<br><em>${s.tipo === 'alt' ? 'Art. 44 LCH' : 'Art. 91 RLCH'}</em></div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('mesSlider').addEventListener('input', function() {
+  calcular(parseInt(this.value));
+});
+
+calcular(12);
+</script>
+</body>
+</html>

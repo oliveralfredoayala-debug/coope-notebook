@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="/shared/auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funciones de los cuerpos directivos - CoopeNotebook</title>
+  <style>
+    :root {
+      --verde: #1c6b4a;
+      --verde-sec: #2fa36b;
+      --verde-bg: #e8f4ef;
+      --amarillo: #f4c20d;
+      --blanco: #ffffff;
+      --gris-bg: #f7f7f5;
+      --gris-borde: #e4e4e0;
+      --texto: #1a1a18;
+      --texto-sec: #3a3a36;
+      --texto-ter: #6a6a64;
+      --radio: 10px;
+      --radio-sm: 6px;
+      
+      --ink: #111111;
+      --paper: #fafaf8;
+      --amarillo-borde: #e0d5b0;
+      --amarillo-ink: #5a4a20;
+      --rojo: #b4544a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      height: 72px;
+      border-bottom: 1px solid var(--gris-borde);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+
+    .back {
+      font-size: 13px;
+      color: var(--texto-sec);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back:hover {
+      color: var(--verde);
+    }
+
+    .nb-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: 1px solid var(--gris-borde);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      color: var(--verde);
+    }
+
+    .nb-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--gris-borde);
+      background: var(--blanco);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nb-marca-titulo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gris-borde);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--verde);
+      line-height: 1.35;
+    }
+
+    .nb-nav {
+      list-style: none;
+      padding: 0.75rem 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nb-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 14px;
+      color: var(--texto-sec);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .nb-nav button:hover {
+      background: var(--verde-bg);
+      color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.08);
+    }
+
+    .nb-nav button.activo {
+      background: var(--verde-bg);
+      color: var(--verde);
+      font-weight: 600;
+      border-left-color: var(--verde);
+      box-shadow: 0 4px 12px rgba(28, 107, 74, 0.12);
+    }
+
+    .nb-nav-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--texto-ter);
+      min-width: 20px;
+      padding-top: 1px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nb-nav button.activo .nb-nav-num {
+      color: var(--verde-sec);
+    }
+
+    .nb-cerrar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--texto-ter);
+    }
+
+    .nb-cerrar svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .main {
+      flex: 1;
+      max-width: 860px;
+      padding: 3.5rem 4rem;
+      overflow-y: auto;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.activo {
+      display: block;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cap-titulo {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--verde);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .cap-meta {
+      font-size: 13px;
+      color: var(--texto-ter);
+      margin-bottom: 2.5rem;
+    }
+
+    .cap-intro {
+      font-size: 17px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .cap-intro strong {
+      color: var(--texto);
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--verde);
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 15.5px;
+      color: var(--texto-sec);
+      line-height: 1.65;
+    }
+
+    p strong {
+      color: var(--texto);
+    }
+
+    /* Recuadros de andamiaje / notas */
+    .insight-box {
+      background: var(--gris-bg);
+      border-left: 3px solid var(--amarillo);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    .insight-box strong {
+      color: var(--texto);
+    }
+
+    .tip-box {
+      background: var(--verde-bg);
+      border-left: 3px solid var(--verde-sec);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    .tip-box strong {
+      color: var(--verde);
+    }
+
+    .expert-note {
+      background: var(--hueso);
+      border-left: 3px solid var(--verde-sec);
+      border-radius: 0 var(--radio) var(--radio) 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+    }
+
+    .expert-note b {
+      color: var(--verde-sec);
+    }
+
+    .def-bloque {
+      background: var(--verde-bg);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .def-termino {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 6px;
+    }
+
+    .def-texto {
+      font-size: 15.5px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+    }
+
+    .nota {
+      background: var(--gris-bg);
+      border-radius: 10px;
+      padding: 18px 24px;
+      margin: 26px 0;
+      font-size: 15px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+      border-left: 3px solid var(--amarillo);
+    }
+
+    .nota strong {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .nota .nt {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+      color: var(--verde);
+    }
+
+    .acord-grupo {
+      margin: 12px 0;
+      border: 1px solid var(--gris-borde);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--blanco);
+    }
+
+    .acord-head {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: background .15s;
+      min-height: 44px;
+    }
+
+    .acord-head:hover {
+      background: var(--verde-bg);
+    }
+
+    .acord-id {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--verde);
+      letter-spacing: .04em;
+      flex-shrink: 0;
+    }
+
+    .acord-titulo {
+      font-size: 14.5px;
+      color: var(--texto);
+      font-weight: 500;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .acord-icono {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .acord-icono::before, .acord-icono::after {
+      content: '';
+      position: absolute;
+      background: var(--texto-ter);
+      border-radius: 1px;
+      transition: transform .22s;
+    }
+
+    .acord-icono::before {
+      top: 8px;
+      left: 2px;
+      width: 14px;
+      height: 2px;
+    }
+
+    .acord-icono::after {
+      top: 2px;
+      left: 8px;
+      width: 2px;
+      height: 14px;
+    }
+
+    .acord-grupo.abierto .acord-icono::after {
+      transform: rotate(90deg);
+    }
+
+    .acord-grupo.abierto .acord-icono::before {
+      transform: rotate(180deg);
+    }
+
+    .acord-grupo.abierto .acord-icono::before, .acord-grupo.abierto .acord-icono::after {
+      background: var(--verde);
+    }
+
+    .acord-body {
+      display: none;
+      padding: 0 20px 18px;
+    }
+
+    .acord-grupo.abierto .acord-body {
+      display: block;
+    }
+
+    .acord-verbatim {
+      font-size: 14px;
+      color: var(--texto-sec);
+      line-height: 1.7;
+      background: var(--gris-bg);
+      border-left: 3px solid var(--verde-sec);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      white-space: pre-line;
+    }
+
+    .rol {
+      border-top: 1px solid var(--gris-borde);
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .rol:last-of-type {
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .rol-quien {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--verde);
+      line-height: 1.35;
+    }
+
+    .rol-quien small {
+      display: block;
+      font-weight: 400;
+      color: var(--texto-ter);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .rol-verbo {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--texto-ter);
+      margin-bottom: 5px;
+    }
+
+    .rol-detalle {
+      font-size: 15px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+    }
+
+    .comite {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .comite-card {
+      border: 1px solid var(--gris-borde);
+      border-radius: 10px;
+      padding: 16px 20px;
+      background: var(--blanco);
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+    }
+
+    .comite-nombre {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--texto);
+      min-width: 130px;
+      flex-shrink: 0;
+    }
+
+    .comite-dir {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.5;
+    }
+
+    .comite-dir b {
+      color: var(--verde);
+      font-weight: 500;
+    }
+
+    .req-out {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .req-stat {
+      background: var(--gris-bg);
+      border: 1px solid var(--gris-borde);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-align: center;
+    }
+
+    .req-stat .n {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--texto);
+      line-height: 1;
+    }
+
+    .req-stat .l {
+      font-size: 12px;
+      color: var(--texto-ter);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    .req-stat.destacado {
+      border-color: var(--verde-borde);
+      background: var(--verde-bg);
+    }
+
+    .req-stat.destacado .n {
+      color: var(--verde);
+    }
+
+    .flujo {
+      margin: 26px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+    }
+
+    .flujo-track {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      min-width: min-content;
+    }
+
+    .flujo-paso {
+      position: relative;
+      min-width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 6px;
+    }
+
+    .flujo-circ {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      background: var(--blanco);
+      border: 2px solid var(--verde-borde);
+      color: var(--texto-ter);
+      margin-bottom: 10px;
+    }
+
+    .flujo-paso.hit .flujo-circ {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: #fff;
+      box-shadow: 0 0 0 5px var(--verde-bg);
+    }
+
+    .flujo-lbl {
+      font-size: 12.5px;
+      color: var(--texto-sec);
+      line-height: 1.35;
+    }
+
+    .flujo-paso.hit .flujo-lbl {
+      color: var(--verde);
+      font-weight: 600;
+    }
+
+    .flujo-flecha {
+      align-self: flex-start;
+      margin-top: 13px;
+      color: var(--verde-borde);
+      flex-shrink: 0;
+      font-size: 18px;
+      padding: 0 2px;
+    }
+
+    .slider-box {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: 12px;
+      padding: 24px 26px;
+      margin: 26px 0;
+    }
+
+    .slider-box label {
+      font-size: 13px;
+      color: var(--texto-ter);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    input[type=range] {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--gris-borde);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--verde);
+      cursor: pointer;
+      border: 3px solid var(--blanco);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--verde);
+      cursor: pointer;
+      border: 3px solid var(--blanco);
+    }
+
+    .slider-val {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--verde);
+      min-width: 54px;
+      text-align: center;
+    }
+
+    .slider-out {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .slider-stat {
+      background: var(--gris-bg);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-align: center;
+    }
+
+    .slider-stat .n {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--texto);
+      line-height: 1;
+    }
+
+    .slider-stat .l {
+      font-size: 12px;
+      color: var(--texto-ter);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    .slider-stat.destacado {
+      background: var(--verde-bg);
+      border: 1px solid var(--verde-borde);
+    }
+
+    .slider-stat.destacado .n {
+      color: var(--verde);
+    }
+
+    .int-box {
+      background: var(--blanco);
+      border: 1px solid var(--gris-borde);
+      border-radius: 12px;
+      padding: 24px 26px;
+      margin: 24px 0;
+    }
+
+    .int-box label {
+      font-size: 13px;
+      color: var(--texto-ter);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .int-bar {
+      display: flex;
+      height: 38px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 18px 0;
+      border: 1px solid var(--gris-borde);
+    }
+
+    .int-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      line-height: 1.2;
+      text-align: center;
+      transition: flex-basis 0.25s;
+      padding: 0 6px;
+    }
+
+    .int-orig {
+      background: var(--verde);
+    }
+
+    .int-int {
+      background: var(--amarillo-borde);
+      color: var(--amarillo-ink);
+    }
+
+    .int-out {
+      font-size: 14.5px;
+      color: var(--texto-sec);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .int-out strong {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .cita-bloque {
+      border-left: 3px solid var(--verde-borde);
+      padding: 6px 0 6px 22px;
+      margin: 30px 0;
+      font-style: italic;
+      font-size: 21px;
+      line-height: 1.45;
+      color: var(--texto-sec);
+    }
+
+    .cita-autor {
+      display: block;
+      font-style: normal;
+      font-size: 13px;
+      color: var(--texto-ter);
+      margin-top: 10px;
+    }
+
+    .lista {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .lista-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .lista-item::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--verde-sec);
+      flex-shrink: 0;
+      margin-top: 8px;
+      box-shadow: 0 0 0 4px var(--verde-bg);
+    }
+
+    .lista-item div {
+      font-size: 15.5px;
+      color: var(--texto-sec);
+      line-height: 1.55;
+    }
+
+    .lista-item b {
+      color: var(--verde);
+      font-weight: 600;
+    }
+
+    .sino {
+      margin: 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .sino-item {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      font-size: 15px;
+      color: var(--texto-sec);
+      line-height: 1.5;
+    }
+
+    .sino-item .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      width: 26px;
+    }
+
+    .sino-item.si .tag {
+      color: var(--verde);
+    }
+
+    .sino-item.no .tag {
+      color: var(--rojo);
+    }
+
+    .sino-item strong {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .indice {
+      list-style: none;
+      margin: 24px 0;
+    }
+
+    .indice li {
+      padding: 14px 0;
+      border-top: 1px solid var(--gris-borde);
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .indice li:last-child {
+      border-bottom: 1px solid var(--gris-borde);
+    }
+
+    .indice li:hover {
+      color: var(--verde);
+    }
+
+    .indice-num {
+      font-size: 18px;
+      color: var(--verde-borde);
+      min-width: 34px;
+      font-weight: 700;
+    }
+
+    .indice-txt {
+      font-size: 16px;
+      color: var(--texto-sec);
+      line-height: 1.4;
+    }
+
+    .indice li:hover .indice-txt {
+      color: var(--verde);
+    }
+
+    .indice-txt b {
+      color: var(--texto);
+      font-weight: 500;
+    }
+
+    .nb-overlay {
+      display: none;
+    }
+
+    @media (max-width: 820px) {
+      .nb-toggle {
+        display: flex;
+      }
+
+      .nb-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 55;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.26s ease;
+      }
+
+      .nb-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .shell {
+        display: block;
+      }
+
+      .sidebar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+        width: 84%;
+        max-width: 300px;
+        height: 100vh;
+        border-right: 1px solid var(--gris-borde);
+        transform: translateX(-100%);
+        transition: transform 0.26s ease;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
+      }
+
+      .sidebar.abierto {
+        transform: translateX(0);
+      }
+
+      .nb-cerrar {
+        display: block;
+        margin: 0.75rem 1.25rem 0;
+        background: none;
+        border: 1px solid var(--gris-borde);
+        border-radius: var(--radio-sm);
+        padding: 0.55rem 0.75rem;
+        color: var(--verde);
+        font-family: inherit;
+        font-weight: 700;
+      }
+
+      .main {
+        padding: 2.25rem 1.5rem 6rem;
+      }
+
+      .rol {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .slider-out, .req-out {
+        grid-template-columns: 1fr;
+      }
+
+      .comite-card {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/shared/facilitator-tools.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button class="nb-toggle" onclick="abrirMenu()" aria-label="Abrir navegación">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="brand" href="../../../index.html"><strong>Coope</strong>Notebook</a>
+  <a class="back" href="/kb/">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Diplomado Básico
+  </a>
+</header>
+
+<div class="nb-overlay" onclick="cerrarMenu()"></div>
+
+<div class="shell">
+  <nav class="sidebar" aria-label="Navegación de la lección">
+    <button class="nb-cerrar" onclick="cerrarMenu()">Cerrar</button>
+    <div class="nb-marca-titulo">Cuerpos directivos</div>
+    <ul class="nb-nav">
+      <li><button onclick="tab('t00', this)" class="activo"><span class="nb-nav-num">00</span>Portada</button></li>
+      <li><button onclick="tab('t01', this)"><span class="nb-nav-num">01</span>Quién ejecuta, fiscaliza, opera</button></li>
+      <li><button onclick="tab('t02', this)"><span class="nb-nav-num">02</span>Profundizando en la ley</button></li>
+      <li><button onclick="tab('t03', this)"><span class="nb-nav-num">03</span>Cómo se eligen</button></li>
+      <li><button onclick="tab('t04', this)"><span class="nb-nav-num">04</span>Duración y alternancia</button></li>
+      <li><button onclick="tab('t05', this)"><span class="nb-nav-num">05</span>Anotaciones importantes</button></li>
+      <li><button onclick="tab('t06', this)"><span class="nb-nav-num">06</span>Reuniones de la Junta Directiva</button></li>
+      <li><button onclick="tab('t07', this)"><span class="nb-nav-num">07</span>Dimitencia</button></li>
+    </ul>
+    <div class="sidebar-foot">Un mismo enlace para Zoom, aula presencial o trabajo híbrido.</div>
+  </nav>
+
+  <main class="main">
+
+    <!-- Panel 00: Portada -->
+    <div class="panel activo" id="panel-t00">
+      <div class="cap-meta">Diplomado Básico · Cuerpos Directivos</div>
+      <h1 class="cap-titulo">Funciones de los cuerpos directivos</h1>
+      <p class="cap-intro">
+        En una cooperativa nadie dirige solo. La dirección se reparte entre órganos con funciones propias y límites que ninguno puede cruzar. Este recorrido aclara, ante cada decisión concreta, una sola pregunta práctica: ¿Quién ejecuta, quién fiscaliza y quién opera?
+      </p>
+
+      <h2>El recorrido</h2>
+      <ul class="indice">
+        <li onclick="irHacia('t01')"><span class="indice-num">01</span><span class="indice-txt"><b>Quién ejecuta, fiscaliza, opera</b> — el papel de cada órgano</span></li>
+        <li onclick="irHacia('t02')"><span class="indice-num">02</span><span class="indice-txt"><b>Profundizando en la ley</b> — atribuciones, requisitos y comités</span></li>
+        <li onclick="irHacia('t03')"><span class="indice-num">03</span><span class="indice-txt"><b>Cómo se eligen</b> — integración, el momento de la elección y los votos</span></li>
+        <li onclick="irHacia('t04')"><span class="indice-num">04</span><span class="indice-txt"><b>Duración y alternancia</b> — los períodos, las dos terceras partes y el interino</span></li>
+        <li onclick="irHacia('t05')"><span class="indice-num">05</span><span class="indice-txt"><b>Anotaciones importantes</b> — responsabilidad solidaria y participación de la mujer</span></li>
+        <li onclick="irHacia('t06')"><span class="indice-num">06</span><span class="indice-txt"><b>Reuniones de la Junta Directiva</b> — quórum, votación y suplencia</span></li>
+        <li onclick="irHacia('t07')"><span class="indice-num">07</span><span class="indice-txt"><b>Dimitencia</b> — perder el cargo por ausencia</span></li>
+      </ul>
+
+      <div class="nota">
+        <span class="nt">Fuera de este recorrido</span>
+        La Gerencia General y el ciclo de vida del cooperativista tienen sus propios espacios. Aquí la Gerencia solo aparece como órgano operativo mencionado en las atribuciones de la Junta Directiva.
+      </div>
+    </div>
+
+    <!-- Panel 01: Quién ejecuta, fiscaliza, opera -->
+    <div class="panel" id="panel-t01">
+      <h1 class="cap-titulo">Quién ejecuta, quién fiscaliza, quién opera</h1>
+      <div class="cap-meta">El papel de cada órgano en la dirección</div>
+      <p class="cap-intro">
+        Cada órgano tiene un papel propio. El diseño funciona cuando cada uno se mantiene en el suyo: la Asamblea es la autoridad máxima, la Junta Directiva dirige, la Vigilancia fiscaliza y la Gerencia opera.
+      </p>
+
+      <div class="rol">
+        <div class="rol-quien">Asamblea General<small>autoridad máxima</small></div>
+        <div><div class="rol-verbo">La autoridad máxima</div><div class="rol-detalle">Es la autoridad máxima de la cooperativa y expresa su voluntad colectiva. No interviene en las atribuciones que la ley otorga específicamente a otro órgano, pero todo lo demás le corresponde.</div></div>
+      </div>
+      <div class="rol">
+        <div class="rol-quien">Junta Directiva<small>dirige y administra</small></div>
+        <div><div class="rol-verbo">Ejecuta los acuerdos de la Asamblea</div><div class="rol-detalle">Cumple y hace cumplir los acuerdos de la Asamblea General, dicta medidas de administración, nombra o destituye al Gerente y conduce la cooperativa entre asambleas.</div></div>
+      </div>
+      <div class="rol">
+        <div class="rol-quien">Junta de Vigilancia<small>fiscaliza</small></div>
+        <div><div class="rol-verbo">Fiscaliza de forma ilimitada</div><div class="rol-detalle">Fiscaliza la dirección y administración en forma ilimitada y permanente. Sus miembros pueden asistir a las sesiones de la Junta Directiva con voz pero sin voto. No está en todas las decisiones, pero su fiscalización no tiene límite.</div></div>
+      </div>
+      <div class="rol">
+        <div class="rol-quien">Gerencia General<small>parte operativa</small></div>
+        <div><div class="rol-verbo">Opera el día a día</div><div class="rol-detalle">Organiza y dirige la administración cumpliendo las normas de la Junta Directiva. Tiene su propio espacio de exploración.</div></div>
+      </div>
+    </div>
+
+    <!-- Panel 02: Profundizando en la ley -->
+    <div class="panel" id="panel-t02">
+      <h1 class="cap-titulo">Profundizando en la ley</h1>
+      <div class="cap-meta">Atribuciones, requisitos y comités</div>
+      
+      <h2>Atribuciones de la Junta Directiva</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 29-A LCH</span><span class="acord-titulo">Atribuciones de la Junta Directiva</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 29-A. Corresponde a la Junta Directiva:
+a) Cumplir y hacer cumplir los acuerdos, resoluciones y disposiciones de la Asamblea General;
+b) Cumplir y hacer cumplir las resoluciones y disposiciones que emita el Organismo Supervisor del Sector Cooperativo;
+c) Tomar las medidas pertinentes para salvaguardar los intereses de la cooperativa;
+ch) Mantener al día y correctamente los libros obligatorios y demás documentos de la cooperativa;
+d) Presentar a la Asamblea General Ordinaria los Estados Financieros del ejercicio anterior debidamente auditados, la liquidación presupuestaria o cualquier otra información que deba conocer la Asamblea General;
+e) Presentar a la Asamblea General, para su conocimiento el plan estratégico y para su aprobación el Plan Operativo Anual y proyecto de presupuesto, así como otros documentos que requieran aprobación de ésta;
+f) Autorizar la adquisición de bienes, contratar empréstitos y constituir garantías;
+g) Fijar las bases y firmar contratos y convenios en que sea parte la cooperativa, cuando el monto sea menor al Diez (10%) de los activos totales de ésta;
+h) Fijar la tasa de interés que devengarán anualmente las aportaciones totalmente pagadas;
+i) Decidir por sí misma o en forma delegada sobre las solicitudes de ingreso o retiro de la cooperativa;
+j) Conocer sobre las acciones judiciales;
+k) Conferir poderes y revocarlos;
+l) Llevar los libros ordenados por la Ley y el Reglamento;
+m) Nombrar o destituir al Gerente General;
+n) Remitir a la Junta de Vigilancia para dictamen, los Estados Financieros del ejercicio social, con treinta (30) días de anticipación a la celebración de la Asamblea General;
+o) Nombrar comités y comisiones especiales necesarios para apoyar la gestión del Gobierno Cooperativo;
+p) Remitir anualmente al Organismo Supervisor del Sector Cooperativo, el número de afiliados(as) desagregados por edad y sexo, la conformación de cuerpos directivos, Gerente General, Estados Financieros y otra información requerida;
+q) Acordar la suspensión o exclusión de un cooperativista y en los casos de expulsión presentar el informe respectivo a la Asamblea General, para que ésta tome la decisión correspondiente; y,
+r) Las demás que disponga esta Ley, su Reglamento, Estatuto y el Organismo Supervisor del Sector Cooperativo.</div></div>
+      </div>
+      <p>La Junta Directiva ejecuta y administra: cumple los acuerdos de la Asamblea, conduce la cooperativa entre asambleas, nombra o destituye al Gerente y responde por los libros y la información que la Asamblea debe conocer.</p>
+
+      <h2>Atribuciones de la Junta de Vigilancia</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 33 LCH</span><span class="acord-titulo">Atribuciones de la Junta de Vigilancia</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 33.- Sin perjuicio de las demás señaladas en esta Ley, su Reglamento y en el Estatuto, la Junta de Vigilancia tendrá las atribuciones siguientes:
+a) Fiscalizar la dirección y administración de la cooperativa, a cuyo efecto sus miembros pueden asistir con voz pero sin voto, a las sesiones de la Junta Directiva. Esta fiscalización se cumplirá en forma ilimitada y permanente sobre las operaciones sociales, legales, administrativas y financieras, pero sin intervenir en la gestión administrativa;
+b) Ordenar una Auditoría Externa según los procedimientos autorizados por el Organismo Supervisor del Sector Cooperativo, por lo menos una (1) vez al año;
+c) Seleccionar al Auditor Interno y sus organismos complementarios, auxiliares o, los sustitutos de éstos;
+ch) Conocer y dictaminar los Estados Financieros y emitir sus observaciones o recomendaciones a la Junta Directiva;
+d) Examinar los libros y documentos cuando lo juzgue conveniente;
+e) Verificar las transacciones financieras, las disponibilidades y títulos valores, así como las obligaciones y modo en que estas son cumplidas;
+f) Presentar a la Asamblea General Ordinaria un informe escrito y fundamentado sobre la situación económica, financiera y social de la cooperativa;
+g) Suministrar a los cooperativistas que lo requieran, información sobre las materias que son de su competencia, sin perjuicio de las restricciones establecidas en la Ley;
+h) Hacer incluir en el orden del día de la Asamblea General los puntos que considere procedentes dentro del plazo previsto en el Estatuto;
+i) Dictaminar en los casos de suspensión o exclusión de cooperativistas;
+j) Vigilar que los órganos de administración acaten debidamente las leyes, Estatuto, Reglamentos y decisiones de la Asamblea General; y,
+k) Investigar, por sí o en forma delegada, cualquier irregularidad de orden legal, financiero o económico-administrativo que se le denuncie o detectare.
+
+Las recomendaciones que hiciere la Junta de Vigilancia por incumplimiento de esta Ley, su Reglamento, Normativas especiales emitidas por el Organismo Supervisor del Sector Cooperativo, el Estatuto, políticas internas y los acuerdos de la Asamblea General, serán de obligatorio cumplimiento por la Junta Directiva, salvo lo dispuesto en el Artículo 35 de la presente Ley, relacionado al acto o gestión administrativa.
+
+En caso de conflicto sobre el cumplimiento de las recomendaciones decidirá el Organismo Supervisor del Sector Cooperativo.</div></div>
+      </div>
+      <p>La Vigilancia fiscaliza en forma ilimitada y permanente, ordena la auditoría externa, dictamina los Estados Financieros y vigila que se cumplan la ley y los acuerdos de la Asamblea. Sus recomendaciones son de obligatorio cumplimiento para la JD, salvo lo relativo a la gestión administrativa.</p>
+
+      <h2>La Vigilancia y los actos administrativos</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 35 LCH</span><span class="acord-titulo">La Vigilancia y los actos administrativos</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 35.- La Junta de Vigilancia no puede intervenir en los actos administrativos de exclusiva competencia de la Junta Directiva y de la Gerencia.</div></div>
+      </div>
+      <p>La fiscalización de la Vigilancia es amplia, pero observa y recomienda; no entra a gestionar lo que es competencia de la Junta Directiva y de la Gerencia.</p>
+
+      <h2>Requisitos para ser directivo</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 28 LCH</span><span class="acord-titulo">Requisitos para ser directivo</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 28.- Para ser directivo(a) se requiere:
+1. Ser hondureño(a);
+2. Mayor de edad y miembro de la cooperativa respectiva. En las cooperativas de centros educativos no es necesario el requisito de edad;
+3. Saber leer y escribir;
+4. Encontrarse solvente en sus obligaciones económicas y estatutarias con la cooperativa al momento de su elección y durante desempeñe el cargo;
+5. Haber aprobado el proceso de formación cooperativista establecido en el Estatuto de la cooperativa;
+6. No ser cónyuges o parientes entre sí o con miembros del Órgano de Vigilancia, dentro del cuarto grado de consanguinidad o segunda de afinidad a excepción de lo que establezca el reglamento de esta ley;
+7. No haber sido condenado por delitos que impliquen falta de probidad;
+9. No ser empleado de la cooperativa; y,
+10. Los demás requisitos que se establezcan en el Estatuto de cada cooperativa, reglamentos referidos por esta Ley y lo que indique el Organismo Supervisor del Sector Cooperativo, de acuerdo a la actividad y especialización de cada sub- sector.</div></div>
+      </div>
+      <p>El Art. 28 fija los requisitos generales para cualquier directivo, entre ellos haberse certificado en la formación cooperativista del Estatuto.</p>
+
+      <h2>Requisitos adicionales en ahorro y crédito</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 119-F LCH</span><span class="acord-titulo">Requisitos adicionales para la JD según activos</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 119-F.- En adición a lo dispuesto en el Artículo 28 de la presente Ley, para ser miembros de la Junta Directiva de cooperativas de ahorro y crédito, es aplicable lo siguiente:
+a) Para aquellas con activos mayores a Quinientos Millones de Lempiras (L500,000,000.00) por lo menos tres (3) de sus miembros deben acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo;
+b) Para aquellas con activos entre Cien Millones de Lempiras (L100,000,000.00) y Quinientos Millones de Lempiras (L500,000,000.00) por lo menos dos (2) de sus miembros deben acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo; y,
+c) Para aquellas con activos menores a Cien Millones de Lempiras (L.100,000,000.00) por lo menos uno (1) de sus miembros debe acreditar ante el Consejo Nacional Supervisor de Cooperativas (CONSUCOOP), conocimiento y experiencia en el negocio financiero y/o cooperativo.</div></div>
+      </div>
+      <p>En las cooperativas de ahorro y crédito la exigencia es proporcional al riesgo: mientras más ahorros administra la cooperativa, más miembros deben acreditar conocimiento y experiencia.</p>
+      <div class="req-out">
+        <div class="req-stat"><div class="n">1</div><div class="l">miembro acredita<br>activos &lt; HNL 100M</div></div>
+        <div class="req-stat"><div class="n">2</div><div class="l">miembros acreditan<br>HNL 100M – 500M</div></div>
+        <div class="req-stat destacado"><div class="n">3</div><div class="l">miembros acreditan<br>activos &gt; HNL 500M</div></div>
+      </div>
+
+      <h2>Quién dirige los comités obligatorios</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 72 RLCH</span><span class="acord-titulo">Dirección de comités obligatorios</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 72.- Dirección de Comités Obligatorios. El Comité de Educación, será presidido por el Vicepresidente de la Junta Directiva; El Comité de Género, será presidido de preferencia por un miembro de Junta Directiva del sexo femenino y el Comité de Juventud por quien designe la Junta Directiva.</div></div>
+      </div>
+      <p>La Junta Directiva delega funciones en los comités. Tres son obligatorios, y la ley define quién preside cada uno.</p>
+      <div class="comite">
+        <div class="comite-card"><span class="comite-nombre">Comité de Educación</span><span class="comite-dir">Presidido por la <b>vicepresidencia</b> de la Junta Directiva.</span></div>
+        <div class="comite-card"><span class="comite-nombre">Comité de Género</span><span class="comite-dir">Presidido <b>de preferencia por un miembro de JD del sexo femenino</b>.</span></div>
+        <div class="comite-card"><span class="comite-nombre">Comité de Juventud</span><span class="comite-dir">Presidido por <b>quien designe la Junta Directiva</b>.</span></div>
+      </div>
+
+      <div class="nota"><span class="nt">El Diplomado vive en el Comité de Educación</span>La formación de los afiliados y afiliadas —incluido el <strong>Diplomado Básico</strong>— es responsabilidad del Comité de Educación, que preside la vicepresidencia. Es el espacio donde la cooperativa prepara a quienes mañana dirigirán.</div>
+    </div>
+
+    <!-- Panel 03: Cómo se eligen -->
+    <div class="panel" id="panel-t03">
+      <h1 class="cap-titulo">Cómo se eligen</h1>
+      <div class="cap-meta">Integración, el momento de la elección y los votos</div>
+      <p class="cap-intro">
+        Antes de elegir hay que saber qué se está integrando: cuántas personas, qué cargos y qué pasa cuando hay gerente. La ley y el reglamento lo tienen claro.
+      </p>
+
+      <h2>Cómo se integra la Junta Directiva</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 26 LCH</span><span class="acord-titulo">Integración de la Junta Directiva</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 26.- La Junta Directiva está integrada por el número de miembros que establezca el Estatuto y un miembro más que tiene el carácter de suplente; dicho número debe ser impar y nunca menor de cinco (5).
+
+Los miembros de la Junta Directiva durarán en sus funciones tres (3) años. Ningún cooperativista puede ser miembro de la Junta Directiva por más de tres (3) períodos consecutivos; en el caso de optar a un tercer periodo la votación debe realizarse por las dos terceras partes de la Asamblea General sea esta en primera o segunda convocatoria, en el Reglamento de esta Ley se deben adoptar mecanismos de elección alterna y otros procedimientos afines.
+
+Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta después de un (1) año de haber cesado de su cargo por cualquier motivo.</div></div>
+      </div>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 68 RLCH</span><span class="acord-titulo">Cargos de la JD y cuándo no hace falta tesorero</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 68.- Elección de Junta Directiva. Corresponde a la Asamblea General Ordinaria elegir una Junta Directiva en orden jerárquico, designando un(a) presidente(a), un(a) vicepresidente, un(a) secretario(a), un(a) tesorero(a), más el número de vocales que establezca el Estatuto; y un suplente por Ley; el número de integrantes titulares será impar y nunca menor a cinco (5). Cuando haya un Gerente General o el que haga sus veces, el tesorero no será obligatorio. Para darle continuidad al proceso de dirección y administración, la elección de los miembros de la Junta Directiva se hará de forma alterna y de acuerdo a lo establecido en la Ley y Estatuto.</div></div>
+      </div>
+      <p>La Junta Directiva tiene un número impar de titulares, <strong>nunca menor de cinco</strong>, más un suplente por ley. Sus cargos van en orden jerárquico:</p>
+      <div class="lista">
+        <div class="lista-item"><div><b>Presidencia, vicepresidencia, secretaría, tesorería</b> y las vocalías que fije el Estatuto.</div></div>
+        <div class="lista-item"><div>La <b>tesorería no es obligatoria</b> cuando hay Gerente General o quien haga sus veces.</div></div>
+        <div class="lista-item"><div>Se elige también <b>un suplente</b>, cuya función se explica en el capítulo de reuniones.</div></div>
+      </div>
+
+      <h2>Cómo se integra la Junta de Vigilancia</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 32 LCH</span><span class="acord-titulo">Integración de la Junta de Vigilancia</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 32.- La Asamblea General elegirá de su seno una Junta de Vigilancia, compuesta por el número de integrantes que establezca el Estatuto y un miembro más que tendrá el carácter de suplente, en número impar no menor de tres (3) ni mayor de siete (7). Durarán tres (3) años en sus funciones y podrán ser reelectos consecutivamente por dos períodos más.
+
+Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta después de un (1) año de haber cesado de su cargo por cualquier motivo.
+
+Para ser miembro de la Junta de Vigilancia se requerirá los mismos requisitos que para ser miembro de Junta Directiva.
+
+Tanto en el caso de la Junta de Vigilancia como en el de la Junta Directiva, quien sea electo para sustituir a otro que no ha terminado su período, éste se elegirá por el tiempo que faltare para concluir el mismo.
+
+La Junta de Vigilancia será solidariamente responsable con la Junta Directiva en los términos establecidos en el Artículo 29, cuando hubiere omisión o negligencia en el cumplimiento de sus funciones.</div></div>
+      </div>
+      <p>La Junta de Vigilancia es impar, <strong>no menor de tres ni mayor de siete</strong>, más un suplente, y exige los mismos requisitos que la Junta Directiva.</p>
+
+      <h2>El momento de la elección</h2>
+      <p>Dentro de la vida de un afiliado o afiliada, la elección llega en un punto concreto del recorrido — el momento más idóneo es cuando ya está certificado y cumple los requisitos.</p>
+      <div class="flujo">
+        <div class="flujo-track">
+          <div class="flujo-paso"><div class="flujo-circ">1</div><div class="flujo-lbl">Se vuelve afiliado</div></div>
+          <div class="flujo-flecha">→</div>
+          <div class="flujo-paso"><div class="flujo-circ">2</div><div class="flujo-lbl">Se vuelve delegado</div></div>
+          <div class="flujo-flecha">→</div>
+          <div class="flujo-paso"><div class="flujo-circ">3</div><div class="flujo-lbl">Se certifica</div></div>
+          <div class="flujo-flecha">→</div>
+          <div class="flujo-paso hit"><div class="flujo-circ">4</div><div class="flujo-lbl">Puede ser electo</div></div>
+          <div class="flujo-flecha">→</div>
+          <div class="flujo-paso"><div class="flujo-circ">5</div><div class="flujo-lbl">Ejerce</div></div>
+        </div>
+      </div>
+      <div class="nota">El requisito de haberse certificado en la formación (Art. 28, numeral 5) es uno de los que más se pasa por alto al momento de elegir, muchas veces por desconocimiento. Vale tenerlo presente antes de la Asamblea para que la elección no quede expuesta a observaciones.</div>
+
+      <h2>El sistema de elección de directivos</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 108 RLCH</span><span class="acord-titulo">Sistema de elección de directivos</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 108.- Sistema de Elección de Directivos. La elección de directivos para integrar los órganos previstos en el Estatuto Social, debe efectuarse en Asamblea General Ordinaria. Esta puede verificarse por votación directa, nominal o secreta según lo decida la Asamblea. Serán electos los candidatos que obtengan la mayor cantidad de votos.
+
+En el Estatuto de la Cooperativa se debe adoptar mecanismos para que el cambio de la Junta Directiva o vigilancia se haga parcial en cada elección.</div></div>
+      </div>
+      <p>La elección se hace en Asamblea General Ordinaria; resultan electos quienes obtengan la mayor cantidad de votos. Además, el Estatuto debe lograr que la renovación de la JD o la Vigilancia sea <strong>parcial en cada elección</strong>, para no cambiar todo de golpe.</p>
+
+      <h2>Los tres tipos de votación</h2>
+      <p>La propia Asamblea decide cómo votar, entre tres formas:</p>
+      <div class="lista">
+        <div class="lista-item"><div><b>Directa</b> — a mano alzada o de viva voz, a la vista de todos.</div></div>
+        <div class="lista-item"><div><b>Nominal</b> — cada quien expresa su voto identificándose.</div></div>
+        <div class="lista-item"><div><b>Secreta</b> — por boleta, sin que se conozca el voto de cada persona.</div></div>
+      </div>
+    </div>
+
+    <!-- Panel 04: Duración del cargo y alternancia -->
+    <div class="panel" id="panel-t04">
+      <h1 class="cap-titulo">Duración del cargo y alternancia</h1>
+      <div class="cap-meta">Los períodos, las dos terceras partes y el interino</div>
+      
+      <h2>Cuántos períodos y con qué mayoría</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 26 LCH</span><span class="acord-titulo">Duración, períodos y tercer período</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 26.- La Junta Directiva está integrada por el número de miembros que establezca el Estatuto y un miembro más que tiene el carácter de suplente; dicho número debe ser impar y nunca menor de cinco (5).
+
+Los miembros de la Junta Directiva durarán en sus funciones tres (3) años. Ningún cooperativista puede ser miembro de la Junta Directiva por más de tres (3) períodos consecutivos; en el caso de optar a un tercer periodo la votación debe realizarse por las dos terceras partes de la Asamblea General sea esta en primera o segunda convocatoria, en el Reglamento de esta Ley se deben adoptar mecanismos de elección alterna y otros procedimientos afines.
+
+Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta después de un (1) año de haber cesado de su cargo por cualquier motivo.</div></div>
+      </div>
+      <p>Cada directivo se elige por <strong>tres años</strong>. Puede ser reelecto para un <strong>segundo período consecutivo por mayoría simple</strong>. El <strong>tercer período</strong> ya no se gana así: exige las <strong>dos terceras partes</strong> de la Asamblea, sea en primera o segunda convocatoria.</p>
+      <div class="lista">
+        <div class="lista-item"><div><b>Primer período</b> — elección normal, por mayoría de votos.</div></div>
+        <div class="lista-item"><div><b>Segundo período consecutivo</b> — reelección por mayoría simple.</div></div>
+        <div class="lista-item"><div><b>Tercer período consecutivo</b> — solo con las dos terceras partes de la Asamblea.</div></div>
+      </div>
+
+      <h2>Las dos terceras partes aparecen dos veces</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 96 RLCH</span><span class="acord-titulo">Quórum de resolución y segunda convocatoria</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 96.- Quórum de Resolución. Cuando la Asamblea General se instale en primera convocatoria, las resoluciones se deben tomar por la simple mayoría de votos. En segunda convocatoria, las resoluciones se deben tomar por las dos terceras partes de los Cooperativistas presentes.</div></div>
+      </div>
+      <p>El umbral de 2/3 no es solo para el tercer período. Por el Art. 96, cuando la Asamblea se instala en <strong>segunda convocatoria</strong>, todas las resoluciones se toman por las dos terceras partes de los presentes — no solo la del tercer período.</p>
+
+      <h2>Dimensionando las dos terceras partes</h2>
+      <p>Movés la cantidad de presentes y mirás cuántos votos hacen falta. La diferencia con la mayoría simple es el costo real de ese umbral.</p>
+      <div class="slider-box">
+        <label>Afiliados o delegados presentes en la Asamblea</label>
+        <div class="slider-row">
+          <input type="range" id="slider" min="9" max="300" value="60" step="3">
+          <span class="slider-val" id="sval">60</span>
+        </div>
+        <div class="slider-out">
+          <div class="slider-stat destacado"><div class="n" id="dosters">40</div><div class="l">votos para las dos terceras partes</div></div>
+          <div class="slider-stat"><div class="n" id="simple">31</div><div class="l">bastarían con mayoría simple</div></div>
+        </div>
+      </div>
+
+      <h2>El año de receso: el final del artículo</h2>
+      <p>El Art. 26 no termina en los períodos. Su último párrafo añade que, una vez que el directivo cesa —por cualquier motivo—, <strong>no puede volver a la JD ni a la Vigilancia hasta después de un año</strong>. Cumplido ese año, el conteo de períodos vuelve a empezar de cero.</p>
+
+      <h2>Quien asume por ausencia definitiva: el interino</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 32 LCH</span><span class="acord-titulo">Quien asume el período en la Junta de Vigilancia</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 32.- La Asamblea General elegirá de su seno una Junta de Vigilancia, compuesta por el número de integrantes que establezca el Estatuto y un miembro más que tendrá el carácter de suplente, en número impar no menor de tres (3) ni mayor de siete (7). Durarán tres (3) años en sus funciones y podrán ser reelectos consecutivamente por dos períodos más.
+
+Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta después de un (1) año de haber cesado de su cargo por cualquier motivo.
+
+Para ser miembro de la Junta de Vigilancia se requerirá los mismos requisitos que para ser miembro de Junta Directiva.
+
+Tanto en el caso de la Junta de Vigilancia como en el de la Junta Directiva, quien sea electo para sustituir a otro que no ha terminado su período, éste se elegirá por el tiempo que faltare para concluir el mismo.
+
+La Junta de Vigilancia será solidariamente responsable con la Junta Directiva en los términos establecidos en el Artículo 29, cuando hubiere omisión o negligencia en el cumplimiento de sus funciones.</div></div>
+      </div>
+      <p>Cuando alguien deja el cargo de forma definitiva a mitad de período, no se estrena un período nuevo: quien asume la vocalía vacante lo hace de forma interina, <strong>solo por el tiempo que faltaba</strong> para cerrar ese período. Movés el momento de la salida y mirás cuánto ejerce el interino.</p>
+      <div class="int-box">
+        <label>¿En qué año del período se da la salida definitiva?</label>
+        <div class="slider-row">
+          <input type="range" id="int-slider" min="1" max="3" value="2" step="1">
+          <span class="slider-val" id="int-val">2</span>
+        </div>
+        <div class="int-bar" id="int-bar"></div>
+        <div class="int-out" id="int-out"></div>
+      </div>
+    </div>
+
+    <!-- Panel 05: Anotaciones importantes -->
+    <div class="panel" id="panel-t05">
+      <h1 class="cap-titulo">Anotaciones importantes</h1>
+      <div class="cap-meta">Responsabilidad solidaria y participación de la mujer</div>
+
+      <h2>Responsabilidad solidaria: de qué responden</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 29 LCH</span><span class="acord-titulo">Responsabilidad solidaria de los directivos</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 29.- La responsabilidad de los Directivos será solidaria y cubre:
+a) La efectividad de los pagos efectuados por los cooperativistas a la cooperativa y viceversa;
+b) La autenticidad de los excedentes obtenidos o de las pérdidas sufridas por las cooperativas;
+c) La existencia de los libros sociales y la veracidad de las anotaciones hechas en los mismo; y,
+ch) En general velar por el cumplimiento de las obligaciones que imponen la ley, los Reglamentos y los Estatutos.</div></div>
+      </div>
+      <p>La responsabilidad de los directivos es <strong>solidaria</strong>: una decisión del órgano compromete a todos sus miembros por igual. Según el Art. 29, cubre cosas concretas:</p>
+      <div class="lista">
+        <div class="lista-item"><div>La <b>efectividad de los pagos</b> entre los cooperativistas y la cooperativa.</div></div>
+        <div class="lista-item"><div>La <b>autenticidad de los excedentes</b> obtenidos o de las pérdidas sufridas.</div></div>
+        <div class="lista-item"><div>La <b>existencia de los libros sociales</b> y la veracidad de sus anotaciones.</div></div>
+        <div class="lista-item"><div>Velar por el <b>cumplimiento</b> de la ley, los Reglamentos y los Estatutos.</div></div>
+      </div>
+
+      <h2>Votar "no" no es lo mismo que salvar el voto</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 30 LCH</span><span class="acord-titulo">Salvedad de voto</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">ARTÍCULO 30.- El directivo que hiciera salvedad de su voto estará exento de responsabilidad por un acto que la mayoría de los Directivos acordare. La salvedad se consignará obligatoriamente en el acta correspondiente.</div></div>
+      </div>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 83 RLCH</span><span class="acord-titulo">Disposición común y responsabilidad solidaria</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 83.- Disposición Común a los Órganos de Administración y Vigilancia. Los miembros de los órganos directivos son solidariamente responsables ya sea administrativa, civil o penal, por las decisiones que tomen en contravención a las normas legales que rigen a las Cooperativas. Quedan exentos los directivos que salvan su responsabilidad, haciendo constar en el acta respectiva. Igualmente se salva de responsabilidad los ausentes.
+
+La responsabilidad solidaria alcanza a los miembros de la Junta de Vigilancia por los actos que ésta no hubiere objetado oportunamente, los cuales deben ser calificados por el CONSUCOOP.</div></div>
+      </div>
+      <p>Para librarse de la responsabilidad por un acuerdo, no basta con estar en desacuerdo: hay que <strong>dejar constancia de la salvedad en el acta</strong>.</p>
+      <div class="sino">
+        <div class="sino-item no"><span class="tag">No</span><div><strong>Votar "no"</strong> sin pedir que conste tu salvedad — seguís siendo responsable solidario.</div></div>
+        <div class="sino-item si"><span class="tag">Sí</span><div><strong>Salvar el voto</strong> haciéndolo constar en el acta — quedás exento de responsabilidad.</div></div>
+      </div>
+      <p>El ausente también queda a salvo. Y la Vigilancia responde solidariamente con la JD por los actos que no objetó a tiempo: callar cuando se debía advertir también compromete.</p>
+
+      <h2>Participación de la mujer</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 109 RLCH</span><span class="acord-titulo">Participación de la mujer</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 109.- Participación de la Mujer. La Asamblea General debe procurar elegir para los cargos de Junta Directiva y vigilancia no menos del cincuenta por ciento (50%) de afiliados(as) del sexo femenino. Igual representación se debe garantizar en cada comité que forme la cooperativa a excepción del Comité de Genero que debe estar conformado por una mayoría de mujeres.
+No podrá ser causal de impugnación a la elección de los miembros de Junta Directiva y Vigilancia aquellos casos en que los niveles de participación en las asambleas y cargos de elección en una Cooperativa no permitan cumplir lo establecido en el párrafo anterior.</div></div>
+      </div>
+      <p>La Asamblea debe procurar elegir <strong>no menos del 50%</strong> de mujeres en los cargos de JD y Vigilancia, e igual representación en cada comité —salvo el Comité de Género, que debe tener mayoría de mujeres. No alcanzar esa meta por bajos niveles de participación no es causal de impugnación.</p>
+    </div>
+
+    <!-- Panel 06: Reuniones de la Junta Directiva -->
+    <div class="panel" id="panel-t06">
+      <h1 class="cap-titulo">Reuniones de la Junta Directiva</h1>
+      <div class="cap-meta">Frecuencia, quórum, votación y suplencia</div>
+
+      <h2>Cada cuánto se reúne y cómo se decide</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 70 RLCH</span><span class="acord-titulo">Sesiones de la JD y voto de calidad</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 70.- Sesiones de Junta Directiva. La Junta Directiva debe sesionar ordinariamente por lo menos una vez al mes y extraordinariamente cuantas veces fuere necesario. Sus decisiones se deben tomar por mayoría de votos y en caso de empate, se debe realizar una segunda ronda de votación, de persistir el empate, el Presidente debe hacer uso de su voto de calidad o desempate.</div></div>
+      </div>
+      <p>La Junta Directiva debe sesionar <strong>ordinariamente al menos una vez al mes</strong>, y extraordinariamente cuantas veces sea necesario. Las decisiones se toman por <strong>mayoría de votos</strong>; si hay empate, se hace una <strong>segunda ronda</strong>, y si persiste, la presidencia usa su <strong>voto de calidad</strong>.</p>
+      <div class="def-bloque"><div class="def-termino">El voto de calidad</div><div class="def-texto">Es un mecanismo de desbloqueo: solo se activa cuando el órgano no logra resolver por sí mismo, y solo después de una segunda votación.</div></div>
+
+      <h2>Los dos quórum</h2>
+      <p>Una sesión necesita gente suficiente para dos cosas distintas: para instalarse y para resolver.</p>
+      <div class="lista">
+        <div class="lista-item"><div><b>Quórum de instalación</b> — los miembros que deben estar presentes para que la sesión pueda abrirse.</div></div>
+        <div class="lista-item"><div><b>Quórum de resolución</b> — los votos necesarios para que un acuerdo sea válido.</div></div>
+      </div>
+
+      <h2>Rol de la suplencia</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 69 RLCH</span><span class="acord-titulo">Funciones del suplente</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 69.- Funciones del suplente: El directivo suplente, tendrá las siguientes funciones.
+a) Integrarse en las sesiones de Junta Directiva o Vigilancia, para formar el quórum de instalación y/o resolución;
+b) Las demás que establezca el CONSUCOOP; y,
+c) Otras que se definan en el Estatuto.</div></div>
+      </div>
+      <p>Aquí es donde el suplente cobra sentido. Asiste a la reunión con voz pero sin voto; pero si falta un titular y peligra el quórum, <strong>se integra para completarlo y, mientras suple, adquiere voto</strong>. Es el comodín que permite que la sesión se instale y resuelva válidamente.</p>
+      <div class="sino">
+        <div class="sino-item si"><span class="tag">Sí</span><div>Asiste a las reuniones con voz, aunque no falte nadie.</div></div>
+        <div class="sino-item no"><span class="tag">No</span><div>Vota cuando todos los titulares están presentes.</div></div>
+        <div class="sino-item si"><span class="tag">Sí</span><div>Vota cuando se integra para completar el quórum por un titular ausente.</div></div>
+      </div>
+    </div>
+
+    <!-- Panel 07: Dimitencia -->
+    <div class="panel" id="panel-t07">
+      <h1 class="cap-titulo">Dimitencia</h1>
+      <div class="cap-meta">Perder el cargo por ausencia o por negarse a ejercerlo</div>
+
+      <h2>Dimitencia por ausencia reiterada</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 84 RLCH</span><span class="acord-titulo">Declaración de dimitencia de directivos</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 84.- Declaración de Dimitencia de Directivos. Los miembros de la Junta Directiva y de la Junta de Vigilancia, que habiendo sido convocados faltaren a tres (3) o más sesiones consecutivas sin causa justificada o cuatro (4) alternas en el año de su ejercicio directivo, se consideran como dimitentes.</div></div>
+      </div>
+      <p>Se consideran dimitentes los miembros de la JD o de la Vigilancia que, habiendo sido convocados, falten:</p>
+      <div class="lista">
+        <div class="lista-item"><div>a <b>tres o más sesiones consecutivas</b> sin causa justificada; o</div></div>
+        <div class="lista-item"><div>a <b>cuatro sesiones alternas</b> en el año de su ejercicio directivo.</div></div>
+      </div>
+      <div class="def-bloque"><div class="def-termino">Consecuencia automática</div><div class="def-texto">La dimitencia no es una sanción que alguien decide imponer: es el resultado de la ausencia reiterada. El cargo se pierde por no ejercerlo.</div></div>
+
+      <h2>Anotación sobre negarse a desempeñar el cargo</h2>
+      <div class="acord-grupo">
+        <div class="acord-head"><span class="acord-id">Art. 59 RLCH</span><span class="acord-titulo">Suspensión por negarse al cargo</span><span class="acord-icono"></span></div>
+        <div class="acord-body"><div class="acord-verbatim">Artículo 59.- Suspensión de Cooperativistas. Son causales de suspensión de Cooperativistas:
+a) Negarse sin motivo justificado a desempeñar el cargo para el cual fue electo;
+b) Negarse sin motivo justificado a desempeñar comisiones que le encomiende la Junta Directiva;
+c) Haber sido electo directivo y estar afiliado a dos o más cooperativas del mismo subsector;
+d) Promover asuntos políticos-partidistas, religiosos o raciales en el seno de la Cooperativa; y,
+e) Las demás que establezca el Estatuto.
+En el caso establecido en el literal a) y b), la suspensión debe durar el equivalente al tiempo que debiere desempeñarse el cargo rehusado y en el caso del inciso c), el equivalente al tiempo que no acredite la renuncia a las otra(s) cooperativa afiliada. En el Estatuto Social podrá establecerse suspensión como sanción previa a la expulsión, determinándose las causas y procedimientos para la aplicación de las mismas.
+La solicitud de suspensión o expulsión de un Cooperativista puede formularla la Junta Directiva o la Junta de Vigilancia, presentando a la Asamblea General los cargos que se atribuyan y las pruebas que lo justifiquen.</div></div>
+      </div>
+      <p>No solo se pierde el cargo por faltar: <strong>negarse sin motivo justificado a desempeñar el cargo</strong> para el que se fue electo es causal de suspensión como cooperativista. Y el mismo artículo fija cuánto dura esa suspensión.</p>
+      <div class="def-bloque"><div class="def-termino">Cuánto dura la suspensión</div><div class="def-texto">El equivalente al tiempo que debía desempeñarse el cargo rehusado. Si rechaza un cargo de tres años, la suspensión equivale a esos tres años.</div></div>
+    </div>
+
+    <!-- Footer General de la Lección -->
+    <footer>
+      CoopeNotebook. Textos legales transcritos de la Ley de Cooperativas de Honduras (Decreto 65-87 y reformas) y su Reglamento (Acuerdo 041-2014).
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Navegación entre Pestañas (Paneles)
+  function tab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+    document.querySelectorAll('.nb-nav button').forEach(b => b.classList.remove('activo'));
+    
+    document.getElementById('panel-' + id).classList.add('activo');
+    btn.classList.add('activo');
+    
+    if (window.innerWidth <= 820) {
+      cerrarMenu();
+    }
+    document.querySelector('.main').scrollTop = 0;
+  }
+
+  // Funciones de Menú Drawer (Móvil)
+  function abrirMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.add('abierto');
+    if (overlay) overlay.classList.add('visible');
+  }
+
+  function cerrarMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.nb-overlay');
+    if (sidebar) sidebar.classList.remove('abierto');
+    if (overlay) overlay.classList.remove('visible');
+  }
+
+  // Ir hacia una pestaña específica desde la portada
+  function irHacia(id) {
+    var btn = document.querySelector('.nb-nav button[onclick*="'+id+'"]');
+    if (btn) {
+      tab(id, btn);
+    }
+  }
+
+  // Acordeones
+  document.querySelectorAll('.acord-grupo').forEach(function(g){
+    g.querySelector('.acord-head').addEventListener('click',function(){
+      g.classList.toggle('abierto');
+    });
+  });
+
+  // Slider 2/3 (Quórum)
+  var slider = document.getElementById('slider');
+  if (slider) {
+    var sval = document.getElementById('sval');
+    var dosters = document.getElementById('dosters');
+    var simple = document.getElementById('simple');
+    slider.addEventListener('input', function(){
+      var n = parseInt(slider.value, 10);
+      sval.textContent = n;
+      dosters.textContent = Math.ceil(n * 2 / 3);
+      simple.textContent = Math.floor(n / 2) + 1;
+    });
+  }
+
+  // Slider interino
+  var iSlider = document.getElementById('int-slider');
+  if (iSlider) {
+    var iVal = document.getElementById('int-val');
+    var iBar = document.getElementById('int-bar');
+    var iOut = document.getElementById('int-out');
+    function renderInt() {
+      var salida = parseInt(iSlider.value, 10);
+      iVal.textContent = salida;
+      var origAnios = salida;
+      var intAnios = 3 - salida;
+      iBar.innerHTML = '';
+      if (origAnios > 0) {
+        var s1 = document.createElement('div');
+        s1.className = 'int-seg int-orig';
+        s1.style.flexBasis = (origAnios / 3 * 100) + '%';
+        s1.textContent = 'Original · ' + origAnios + (origAnios === 1 ? ' año' : ' años');
+        iBar.appendChild(s1);
+      }
+      if (intAnios > 0) {
+        var s2 = document.createElement('div');
+        s2.className = 'int-seg int-int';
+        s2.style.flexBasis = (intAnios / 3 * 100) + '%';
+        s2.textContent = 'Interino · ' + intAnios + (intAnios === 1 ? ' año' : ' años');
+        iBar.appendChild(s2);
+      }
+      if (intAnios > 0) {
+        iOut.innerHTML = 'El original ejerció <strong>' + origAnios + (origAnios === 1 ? ' año' : ' años') + '</strong> y sale. El interino cubre solo <strong>' + intAnios + (intAnios === 1 ? ' año' : ' años') + '</strong>, lo que faltaba del período — no estrena un período nuevo.';
+      } else {
+        iOut.innerHTML = 'Si la salida ocurre al cerrar el tercer año, el período ya terminó: no hace falta interino, toca elección normal.';
+      }
+    }
+    iSlider.addEventListener('input', renderInt);
+    renderInt();
+  }
+</script>
+
+<script src="/shared/facilitator-tools.js"></script>
+</body>
+</html>
