@@ -1,52 +1,66 @@
-# README Antigravity Handoff - {fecha}
+# README Antigravity
 
-## Resumen de la Operación
-[Breve descripción de qué archivos se agregaron, actualizaron o reubicaron, y bajo qué requerimiento de GPT].
+## Operación
 
----
+Nombre:
+Fecha:
+Solicitante:
+Agente responsable: Content Librarian
 
-## Tabla de Trazabilidad Física
+## Resumen
 
-| Archivo | Origen (Local) | Destino (Repo) | Acción | Estado | Razón / Módulo |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `nombre-archivo.html` | `Downloads/...` | `/02-capsulas/...` | [Mover / Renombrar] | [Completado / Pendiente] | [Explicación del destino] |
+Describe aquí qué archivos deben ubicarse, moverse, renombrarse o revisarse.
 
----
+## Tabla de ubicación
 
-## Detalles de Estructura y Rutas
+| Archivo | Origen | Destino exacto | Acción | Estado | Razón |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
 
-- **Carpetas a crear**: 
-  - `[Ruta de carpeta nueva o N/A]`
-- **Archivos a mover**:
-  - `[Origen] -> [Destino]`
-- **Archivos a renombrar**:
-  - `[Original] -> [Normalizado kebab-case]`
-- **Índices a actualizar**:
-  - `[Ejemplo: public/data/kb-index.json o N/A]`
-
----
-
-## Análisis de Riesgos y Conflictos
-
-- **Colisiones de nombres**: [¿Existe ya un archivo con el mismo nombre? Sí/No]
-- **Enlaces rotos**: [¿Se rompen referencias al cambiar este archivo de carpeta?]
-- **Otros**: [Ninguno detectado]
-
----
-
-## Checklist de Validación
-
-- [ ] Nombre normalizado a minúsculas y kebab-case (sin acentos, eñes ni caracteres raros).
-- [ ] Archivo copiado/movido físicamente a la ruta destino exacta.
-- [ ] Enlace/botón de navegación y retorno verificado (`index.html`, botones de retorno).
-- [ ] Registrado en el índice JSON correspondiente (si aplica).
-- [ ] No se ha alterado el contenido educativo (rigor verbatim intacto).
-- [ ] Los recursos del archivo apuntan a rutas absolutas del repositorio (`/shared/...`, `/assets/...`).
-
----
-
-## Commit Sugerido
+## Carpetas a crear
 
 ```txt
-[tipo-operacion]: [breve descripcion de la accion]
+
+```
+
+## Archivos a mover
+
+```txt
+
+```
+
+## Archivos a renombrar
+
+```txt
+
+```
+
+## Índices a actualizar
+
+- `/00-mapa-maestro/README.md`
+- `/00-mapa-maestro/index-global.md`
+- `/10-antigravity-handoffs/README.md`
+
+## Riesgos o conflictos
+
+- Duplicados:
+- Nombres ambiguos:
+- Falta de metadatos:
+- Dependencias pendientes:
+
+## Validación posterior
+
+Antigravity debe verificar:
+
+- [ ] Cada archivo quedó en la ruta destino.
+- [ ] No se rompieron enlaces relativos.
+- [ ] Los índices fueron actualizados.
+- [ ] Los nombres cumplen convención.
+- [ ] Los archivos duplicados fueron marcados.
+- [ ] El commit resume correctamente la operación.
+
+## Commit sugerido
+
+```txt
+organize-content: ubicar archivos segun Content Librarian
 ```
