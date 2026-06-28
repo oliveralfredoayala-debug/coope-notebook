@@ -1,0 +1,26 @@
+{
+  "version": "0.5.0-prototype",
+  "modules": [
+    {
+      "name": "Jester Maker",
+      "file": "jester-maker.html",
+      "purpose": "Armar talleres, pedir título, guardar como template y lanzar sala"
+    },
+    {
+      "name": "Template Lab",
+      "file": "template-lab.html",
+      "purpose": "Crear, editar, duplicar, eliminar y aplicar templates"
+    },
+    {
+      "name": "Jester Live Room",
+      "file": "jester-live-room.html",
+      "purpose": "Ejecutar la secuencia del taller en vivo"
+    }
+  ],
+  "sharedStorage": {
+    "templates": "jester-templates",
+    "makerDraft": "jester-maker-draft",
+    "liveRoom": "jester-live-room"
+  },
+  "visualScope": "minimal"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "P2L · Play to Learn",
+  "version": "0.1.0",
+  "status": "architecture-and-reference-renderers",
+  "modes": [
+    "pve",
+    "1v1",
+    "pvp",
+    "coop"
+  ],
+  "liveSession": true,
+  "persistence": "memory-only",
+  "referenceRenderers": [
+    "crossword",
+    "quick-duel",
+    "tic-tac-toe"
+  ]
+}

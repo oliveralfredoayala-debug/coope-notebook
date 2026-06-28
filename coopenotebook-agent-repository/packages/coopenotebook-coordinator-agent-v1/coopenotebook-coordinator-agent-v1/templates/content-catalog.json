@@ -1,0 +1,109 @@
+{
+  "catalogUuid": "67262165-a96f-4914-8c87-c1d3a44566f6",
+  "version": "1.0.0",
+  "updatedAt": "2026-06-26",
+  "policy": {
+    "publishOnlyExisting": true,
+    "allowComingSoon": false,
+    "statsReserved": true
+  },
+  "mainNavigation": [
+    {
+      "uuid": "2053ab8d-c9fc-4713-a958-b7d03169360c",
+      "label": "KB",
+      "key": "kb",
+      "path": "/kb/",
+      "status": "published"
+    },
+    {
+      "uuid": "6c45ed90-9b0f-46cb-8879-3cf926efb367",
+      "label": "LnL",
+      "key": "lnl",
+      "path": "/lnl/",
+      "status": "published"
+    },
+    {
+      "uuid": "e9749d19-52f8-49a7-8074-6007e9c39e8b",
+      "label": "P2L",
+      "key": "p2l",
+      "path": "/p2l/",
+      "status": "published"
+    },
+    {
+      "uuid": "7aeea707-c0fa-4856-acec-9ec9b08dbce6",
+      "label": "Jester Maker",
+      "key": "jester-maker",
+      "path": "/jester-maker/",
+      "status": "published"
+    },
+    {
+      "uuid": "92933d35-89ff-40f4-b1b1-98d66f8de123",
+      "label": "Artifacts",
+      "key": "artifacts",
+      "path": "/artifacts/",
+      "status": "published"
+    },
+    {
+      "uuid": "ca9dbd21-8ee7-4398-b08c-7adf6368c7b6",
+      "label": "Sala en vivo",
+      "key": "live-room",
+      "path": "/live-room/",
+      "status": "published"
+    }
+  ],
+  "kb": {
+    "diplomadoBasico": {
+      "uuid": "0b01f154-0603-4d03-94a9-20c69c85f6ab",
+      "exclusive": true,
+      "topics": [
+        {
+          "uuid": "e83b06df-1106-4444-bf9d-a0829fff125f",
+          "title": "Identidad cooperativa",
+          "slug": "identidad-cooperativa",
+          "capsules": []
+        },
+        {
+          "uuid": "f9a1d108-7601-4668-83b4-9e1b0c2b0465",
+          "title": "Legislación cooperativa",
+          "slug": "legislacion-cooperativa",
+          "capsules": []
+        },
+        {
+          "uuid": "5d6c7c62-1225-406e-a82d-c4677f51a8f6",
+          "title": "Gobernabilidad cooperativa",
+          "slug": "gobernabilidad-cooperativa",
+          "capsules": []
+        },
+        {
+          "uuid": "7c70f45e-af07-40f6-a665-aabd2df7639f",
+          "title": "Funciones de los cuerpos directivos",
+          "slug": "funciones-de-los-cuerpos-directivos",
+          "capsules": []
+        },
+        {
+          "uuid": "f9da8306-09ea-4a47-bcdb-d92cf5775cb5",
+          "title": "Administración de asambleas",
+          "slug": "administracion-de-asambleas",
+          "capsules": []
+        },
+        {
+          "uuid": "5cc362e6-fb29-47a8-b481-b7a4b4966dc5",
+          "title": "Liderazgo cooperativista",
+          "slug": "liderazgo-cooperativista",
+          "capsules": []
+        },
+        {
+          "uuid": "496b95d2-324a-42c4-be3b-2d644e31900e",
+          "title": "Incidencia política",
+          "slug": "incidencia-politica",
+          "capsules": []
+        }
+      ]
+    },
+    "cooperativismoAplicado": {
+      "uuid": "8ed543d5-449d-440a-8761-e3317b6f03c2",
+      "topics": []
+    }
+  },
+  "items": []
+}

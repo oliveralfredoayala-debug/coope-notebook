@@ -1,0 +1,19 @@
+id: CR-YYYY-NNN
+title: Descripción breve
+status: approved
+requested_by: owner
+coordinator: openai
+reviewer: claude
+operator: antigravity
+base_branch: main
+branch: change/CR-YYYY-NNN
+scope:
+  packages: []
+  files: []
+instructions: |
+  Describir el cambio exacto.
+validation:
+  - python scripts/validate_repository.py
+commit_message: "chore(repo): describe change"
+push: true
+merge: false

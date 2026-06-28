@@ -1,0 +1,8 @@
+{
+  "sessionId": "demo-001",
+  "workshopName": "Taller de trabajo en equipo",
+  "mode": "1v1",
+  "gameType": "tic-tac-toe",
+  "persistence": "memory-only",
+  "allowAnswers": false
+}

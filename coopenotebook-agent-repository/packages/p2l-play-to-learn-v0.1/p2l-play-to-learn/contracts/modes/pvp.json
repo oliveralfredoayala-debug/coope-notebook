@@ -1,0 +1,11 @@
+{
+  "players": {
+    "min": 3
+  },
+  "ranking": [
+    "score",
+    "accuracy",
+    "progress",
+    "elapsedMs"
+  ]
+}

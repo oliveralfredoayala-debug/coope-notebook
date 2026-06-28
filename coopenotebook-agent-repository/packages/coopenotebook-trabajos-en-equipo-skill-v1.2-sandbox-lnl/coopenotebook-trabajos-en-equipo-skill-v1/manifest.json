@@ -1,0 +1,40 @@
+{
+  "name": "coopenotebook-trabajos-en-equipo-skill",
+  "version": "1.2.0",
+  "language": "es",
+  "entrypoint": "SKILL.md",
+  "template": "templates/trabajo-equipo-golden.html",
+  "agents": [
+    "00-team-work-orchestrator.md",
+    "01-collaborative-pedagogy-architect.md",
+    "02-case-content-evidence-auditor.md",
+    "03-group-dynamics-facilitation-agent.md",
+    "04-interaction-experience-builder.md",
+    "05-cooperative-law-core-authority.md",
+    "06-accessibility-mobile-inclusive-participation-reviewer.md",
+    "07-functional-export-integration-qa.md",
+    "08-live-room-sandbox-config-inspector.md"
+  ],
+  "profiles": {
+    "legal": [
+      "balanced",
+      "advanced",
+      "core-heavy"
+    ]
+  },
+  "references": [
+    "reference/legal-core-heavy-protocol.md",
+    "reference/legal-purple-reading-contract.md",
+    "reference/sandbox-live-room-contract.md"
+  ],
+  "runtime": {
+    "liveRoom": true,
+    "contentRoot": "lnl",
+    "contentStrategy": "invoke",
+    "duplicateContent": false,
+    "sandbox": true
+  },
+  "visualSystems": {
+    "legal": "kb-purple"
+  }
+}

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoopeNotebook · Selector visual curado v3</title>
+<style>
+:root{
+  --verde:#234a35;--verde2:#2f7d52;--ambar:#f0a226;--lila:#7d6a9c;
+  --tinta:#1a2421;--tinta2:#52615b;--tinta3:#7d7763;
+  --bg:#f5f7f6;--paper:#fff;--line:#e5ebe7;--soft:#fafcfb;
+  --keep:#e9f5ee;--keep-b:#9cc8aa;--discard:#f8ecec;--discard-b:#d7aaaa;
+  --special:#fff3df;--special-b:#e7bf79;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tinta);font-family:"Segoe UI",Inter,system-ui,sans-serif}
+body{line-height:1.5}
+button,textarea{font:inherit}
+.wrap{max-width:1540px;margin:0 auto;padding:18px}
+.topbar{position:sticky;top:10px;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 35px rgba(23,45,33,.06)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--verde);font-size:20px}
+.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--verde),var(--verde2));position:relative}
+.logo:before,.logo:after{content:"";position:absolute;border-radius:50%;background:#fff}.logo:before{width:14px;height:14px;left:8px;top:9px}.logo:after{width:9px;height:9px;right:7px;bottom:7px}
+.progress{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.pill{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--soft);color:var(--tinta2)}
+.hero{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.hero h1{font-size:38px;line-height:1.05;margin:0;letter-spacing:-.03em}.hero p{margin:12px 0 0;color:var(--tinta2);max-width:78ch}
+.legend{display:flex;gap:8px;flex-wrap:wrap}.legend span{padding:8px 11px;border-radius:999px;font-size:12px;font-weight:700}
+.legend .k{background:var(--keep);border:1px solid var(--keep-b);color:#245c37}.legend .d{background:var(--discard);border:1px solid var(--discard-b);color:#7a3030}.legend .s{background:var(--special);border:1px solid var(--special-b);color:#7b5517}
+.section{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}.section-head h2{margin:0;font-size:25px}.section-head p{margin:4px 0 0;color:var(--tinta2);font-size:14px}
+.variants{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.variant{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;transition:.18s ease;position:relative}
+.variant:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(24,46,34,.07)}
+.variant[data-choice="keep"]{outline:3px solid var(--keep-b)}.variant[data-choice="discard"]{outline:3px solid var(--discard-b);opacity:.82}.variant[data-choice="special"]{outline:3px solid var(--special-b)}
+.vhead{padding:13px 14px;border-bottom:1px solid var(--line);background:var(--soft)}.vhead strong{display:block;font-size:16px}.vhead span{font-size:12px;color:var(--tinta2)}
+.preview{padding:16px;min-height:270px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;border-top:1px solid var(--line);background:var(--soft)}
+.choice{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 8px;cursor:pointer;font-size:12px;font-weight:700}
+.choice.keep.active{background:var(--keep);border-color:var(--keep-b);color:#245c37}.choice.discard.active{background:var(--discard);border-color:var(--discard-b);color:#7a3030}.choice.special.active{background:var(--special);border-color:var(--special-b);color:#7b5517}
+.note{display:none;padding:0 12px 12px;background:var(--soft)}.variant[data-choice="special"] .note{display:block}.note textarea{width:100%;min-height:72px;border:1px solid var(--special-b);border-radius:10px;padding:10px;resize:vertical;background:#fffdf8}
+.summary{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}.sumcol{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--soft);min-height:160px}.sumcol h3{margin:0 0 10px;font-size:16px}.sumlist{display:flex;flex-direction:column;gap:8px}.sumitem{font-size:13px;padding:8px 10px;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.export{border:0;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer}.primary{background:var(--verde);color:#fff}.secondary{background:#fff;border:1px solid var(--line);color:var(--tinta)}
+/* previews */
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.card.soft{background:var(--soft)}.card.icon .ic{width:40px;height:40px;border-radius:12px;background:rgba(35,74,53,.09);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:800;margin-bottom:10px}.card h4{margin:0 0 6px;font-size:15px}.card p{margin:0;font-size:12px;color:var(--tinta2)}
+.editorial{border-left:4px solid var(--verde2);padding:4px 0 4px 14px;margin-bottom:12px}.editorial h4{margin:0 0 5px}.editorial p{margin:0;font-size:13px;color:var(--tinta2)}
+.cardline{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.cardline:last-child{border-bottom:0}.num{width:34px;height:34px;border-radius:10px;background:rgba(35,74,53,.08);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;flex:0 0 auto}.cardline h4{margin:0 0 4px}.cardline p{margin:0;font-size:12px;color:var(--tinta2)}
+.acc{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}.acc .q{padding:12px 13px;background:var(--soft);font-weight:700;color:var(--verde);display:flex;justify-content:space-between}.acc .a{padding:11px 13px;font-size:12px;color:var(--tinta2);background:#fff}.acc.min .a{display:none}
+.timeline{display:flex;flex-direction:column;gap:10px;position:relative}.timeline:before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line)}.trow{display:flex;gap:12px;position:relative}.dot{width:30px;height:30px;border-radius:50%;background:var(--verde2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1}.tbody{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--soft)}.tbody strong{font-size:14px}.tbody p{font-size:12px;color:var(--tinta2);margin:4px 0 0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.step{border-top:3px solid var(--verde2);padding:10px;background:var(--soft);border-radius:0 0 10px 10px}.step b{font-size:12px;color:var(--verde)}.step p{font-size:11px;color:var(--tinta2);margin:4px 0 0}
+.ribbon{display:flex;align-items:center;gap:0;overflow:hidden;border-radius:14px}.rstep{flex:1;background:var(--soft);padding:14px 10px;border-right:1px solid var(--line);position:relative}.rstep:last-child{border-right:0}.rstep b{display:block;color:var(--verde);font-size:12px}.rstep span{font-size:11px;color:var(--tinta2)}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cell{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;min-height:78px}.cell b{font-size:13px;color:var(--verde)}.cell p{font-size:11px;color:var(--tinta2);margin:4px 0 0}.matrix.axis .cell:nth-child(1){border-left:4px solid var(--verde2)}.matrix.axis .cell:nth-child(2){border-left:4px solid var(--ambar)}.matrix.axis .cell:nth-child(3){border-left:4px solid var(--lila)}.matrix.axis .cell:nth-child(4){border-left:4px solid var(--tinta3)}
+.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{border-bottom:1px solid var(--line);padding:9px;text-align:left}.table th{background:var(--soft);color:var(--tinta3);text-transform:uppercase;font-size:10px}
+.bars{height:180px;display:flex;align-items:flex-end;gap:10px;padding:12px}.barw{flex:1;text-align:center;font-size:11px;color:var(--tinta2)}.bar{background:linear-gradient(var(--verde2),var(--verde));border-radius:8px 8px 3px 3px;margin-bottom:6px}.bar.alt{background:linear-gradient(#e0b45f,var(--ambar))}
+.spark{display:flex;align-items:flex-end;gap:3px;height:52px}.spark i{display:block;width:8px;background:var(--verde2);border-radius:3px 3px 0 0}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.stat b{font-size:28px;color:var(--verde);display:block;line-height:1}.stat span{font-size:11px;color:var(--tinta2)}
+.callout{border-left:4px solid var(--ambar);background:#fffaf0;padding:14px;border-radius:0 12px 12px 0}.callout b{font-size:11px;color:#8b641b;text-transform:uppercase}.callout p{font-size:13px;margin:6px 0 0}
+.quote{font-size:20px;line-height:1.35;padding:16px 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:Georgia,serif}.quote small{display:block;font:12px "Segoe UI";color:var(--tinta3);margin-top:10px}
+.evidence{border:1px solid rgba(125,106,156,.28);background:rgba(125,106,156,.06);border-radius:14px;overflow:hidden}.eh{padding:11px 13px;background:rgba(125,106,156,.12);font-weight:700;color:#5a4a78}.eb{padding:12px;font-size:12px;color:var(--tinta2)}
+.hierarchy{display:flex;flex-direction:column;gap:10px}.hroot{border:2px solid var(--verde);border-radius:12px;padding:11px;text-align:center}.hchildren{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.hchild{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:10px}.hchild b{font-size:13px;color:var(--verde)}.hchild p{font-size:11px;color:var(--tinta2);margin:4px 0 0}
+.relation{padding:10px 0;border-bottom:1px solid var(--line)}.relation:last-child{border-bottom:0}.relation b{font-size:13px;color:var(--verde)}.relation p{margin:3px 0 0;font-size:12px;color:var(--tinta2)}
+.flow{display:flex;flex-direction:column;gap:10px}.flowrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.flowbox{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--soft);font-size:12px}.arrow{color:var(--verde2);font-weight:800}
+.spectrum{display:flex;height:52px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}.seg{flex:1;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}.seg:nth-child(1){background:#edf6f0}.seg:nth-child(2){background:#fff3df}.seg:nth-child(3){background:#f1edf6}
+@media(max-width:1250px){.variants{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.variants{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr}.topbar{position:static}.steps{grid-template-columns:1fr 1fr}.hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><div class="logo"></div><span>Selector visual curado v3</span></div>
+    <div class="progress">
+      <span class="pill" id="countKeep">0 aprobados</span>
+      <span class="pill" id="countDiscard">0 descartados</span>
+      <span class="pill" id="countSpecial">0 con regla</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>Más opciones, pero solo dentro de las direcciones que aprobaste</h1>
+      <p>Eliminé acordeones editoriales de línea, acordeones con encabezado, comparación editorial y mapa radial. Esta versión amplía cards, acordeones contenidos, procesos, matrices, tablas, datos, destacados, evidencia y relaciones editoriales.</p>
+    </div>
+    <div class="legend"><span class="k">Me quedo</span><span class="d">Descartar</span><span class="s">Regla especial</span></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Cards y bloques breves</h2><p>Variaciones sobre las tres familias que conservaste.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="card-a1" data-name="Card compacta con ícono circular">
+        <div class="vhead"><strong>Card A1</strong><span>Ícono circular y texto breve</span></div>
+        <div class="preview"><div class="card-grid">
+          <div class="card icon"><div class="ic" style="border-radius:50%">A</div><h4>Concepto</h4><p>Descripción breve.</p></div>
+          <div class="card icon"><div class="ic" style="border-radius:50%">B</div><h4>Concepto</h4><p>Descripción breve.</p></div>
+          <div class="card icon"><div class="ic" style="border-radius:50%">C</div><h4>Concepto</h4><p>Descripción breve.</p></div>
+          <div class="card icon"><div class="ic" style="border-radius:50%">D</div><h4>Concepto</h4><p>Descripción breve.</p></div>
+        </div></div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="card-a2" data-name="Card compacta con banda superior">
+        <div class="vhead"><strong>Card A2</strong><span>Banda superior de color</span></div>
+        <div class="preview"><div class="card-grid">
+          <div class="card" style="border-top:4px solid var(--verde2)"><h4>Concepto A</h4><p>Descripción breve.</p></div>
+          <div class="card" style="border-top:4px solid var(--ambar)"><h4>Concepto B</h4><p>Descripción breve.</p></div>
+          <div class="card" style="border-top:4px solid var(--lila)"><h4>Concepto C</h4><p>Descripción breve.</p></div>
+          <div class="card" style="border-top:4px solid var(--tinta3)"><h4>Concepto D</h4><p>Descripción breve.</p></div>
+        </div></div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="card-a3" data-name="Card editorial numerada">
+        <div class="vhead"><strong>Card A3</strong><span>Editorial numerada</span></div>
+        <div class="preview">
+          <div class="cardline"><div class="num">01</div><div><h4>Concepto A</h4><p>Una idea con muy poca interfaz.</p></div></div>
+          <div class="cardline"><div class="num">02</div><div><h4>Concepto B</h4><p>Una idea con muy poca interfaz.</p></div></div>
+          <div class="cardline"><div class="num">03</div><div><h4>Concepto C</h4><p>Una idea con muy poca interfaz.</p></div></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="card-a4" data-name="Card suave de una fila con dato">
+        <div class="vhead"><strong>Card A4</strong><span>Fila suave + microdato</span></div>
+        <div class="preview">
+          <div class="card soft" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:12px"><div><h4>Concepto A</h4><p>Descripción breve.</p></div><b style="font-size:26px;color:var(--verde)">72%</b></div>
+          <div class="card soft" style="margin-bottom:10px;display:flex;justify-content:space-between;gap:12px"><div><h4>Concepto B</h4><p>Descripción breve.</p></div><b style="font-size:26px;color:var(--verde)">48%</b></div>
+          <div class="card soft" style="display:flex;justify-content:space-between;gap:12px"><div><h4>Concepto C</h4><p>Descripción breve.</p></div><b style="font-size:26px;color:var(--verde)">31%</b></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Acordeón contenido</h2><p>Variaciones dentro de la única familia de acordeón que conservaste.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="acc-b1" data-name="Acordeón contenido clásico">
+        <div class="vhead"><strong>Acordeón B1</strong><span>Clásico y sobrio</span></div>
+        <div class="preview">
+          <div class="acc"><div class="q">Pregunta o subtema <span>›</span></div><div class="a">Contenido expandido.</div></div>
+          <div class="acc min"><div class="q">Pregunta o subtema <span>›</span></div><div class="a"></div></div>
+          <div class="acc min"><div class="q">Pregunta o subtema <span>›</span></div><div class="a"></div></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="acc-b2" data-name="Acordeón contenido con índice">
+        <div class="vhead"><strong>Acordeón B2</strong><span>Con numeración lateral</span></div>
+        <div class="preview">
+          <div class="acc"><div class="q"><span>01 · Pregunta o subtema</span><span>›</span></div><div class="a">Contenido expandido.</div></div>
+          <div class="acc min"><div class="q"><span>02 · Pregunta o subtema</span><span>›</span></div><div class="a"></div></div>
+          <div class="acc min"><div class="q"><span>03 · Pregunta o subtema</span><span>›</span></div><div class="a"></div></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="acc-b3" data-name="Acordeón contenido con resumen visible">
+        <div class="vhead"><strong>Acordeón B3</strong><span>Resumen visible antes de abrir</span></div>
+        <div class="preview">
+          <div class="acc"><div class="q"><div><div>Subtema</div><small style="font-weight:400;color:var(--tinta2)">Resumen visible de una línea</small></div><span>›</span></div><div class="a">Contenido expandido.</div></div>
+          <div class="acc min"><div class="q"><div><div>Subtema</div><small style="font-weight:400;color:var(--tinta2)">Resumen visible de una línea</small></div><span>›</span></div><div class="a"></div></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="acc-b4" data-name="Acordeón contenido con evidencia">
+        <div class="vhead"><strong>Acordeón B4</strong><span>Para evidencia y fuente</span></div>
+        <div class="preview">
+          <div class="acc"><div class="q"><span>Fuente o evidencia</span><span>›</span></div><div class="a">Resumen de apoyo, referencia o literal breve.</div></div>
+          <div class="evidence"><div class="eh">Estado de verificación</div><div class="eb">Fuente identificada y pendiente de revisión final.</div></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Procesos y secuencias</h2><p>Más opciones dentro de timeline, pasos y proceso editorial.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="proc-c1" data-name="Timeline vertical compacto">
+        <div class="vhead"><strong>Proceso C1</strong><span>Timeline compacto</span></div>
+        <div class="preview"><div class="timeline">
+          <div class="trow"><div class="dot">1</div><div class="tbody"><strong>Inicio</strong><p>Punto de partida.</p></div></div>
+          <div class="trow"><div class="dot">2</div><div class="tbody"><strong>Desarrollo</strong><p>Momento central.</p></div></div>
+          <div class="trow"><div class="dot">3</div><div class="tbody"><strong>Cierre</strong><p>Resultado o aprendizaje.</p></div></div>
+        </div></div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="proc-c2" data-name="Timeline vertical por estados">
+        <div class="vhead"><strong>Proceso C2</strong><span>Por estados y color</span></div>
+        <div class="preview"><div class="timeline">
+          <div class="trow"><div class="dot" style="background:var(--verde2)">A</div><div class="tbody"><strong>Estado inicial</strong><p>Situación de entrada.</p></div></div>
+          <div class="trow"><div class="dot" style="background:var(--ambar)">B</div><div class="tbody"><strong>Transición</strong><p>Cambio o tensión.</p></div></div>
+          <div class="trow"><div class="dot" style="background:var(--lila)">C</div><div class="tbody"><strong>Estado final</strong><p>Resultado o síntesis.</p></div></div>
+        </div></div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="proc-c3" data-name="Pasos horizontales en cinta">
+        <div class="vhead"><strong>Proceso C3</strong><span>Cinta horizontal</span></div>
+        <div class="preview"><div class="ribbon">
+          <div class="rstep"><b>01</b><span>Observar</span></div><div class="rstep"><b>02</b><span>Analizar</span></div><div class="rstep"><b>03</b><span>Decidir</span></div><div class="rstep"><b>04</b><span>Revisar</span></div>
+        </div></div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="proc-c4" data-name="Proceso editorial numerado con subtítulo">
+        <div class="vhead"><strong>Proceso C4</strong><span>Editorial numerado</span></div>
+        <div class="preview">
+          <div class="editorial"><h4>01 · Observar</h4><p>Identificar hechos, señales o datos de entrada.</p></div>
+          <div class="editorial"><h4>02 · Analizar</h4><p>Relacionar elementos y criterios.</p></div>
+          <div class="editorial"><h4>03 · Decidir</h4><p>Elegir una ruta o estrategia.</p></div>
+        </div><div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Comparación y decisión</h2><p>Variantes de tabla y matriz, más dos opciones nuevas compatibles.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="cmp-d1" data-name="Tabla comparativa breve">
+        <div class="vhead"><strong>Comparación D1</strong><span>Tabla breve</span></div>
+        <div class="preview"><table class="table"><thead><tr><th>Opción</th><th>Ventaja</th><th>Cuidado</th></tr></thead><tbody><tr><td>A</td><td>Rápida</td><td>Simple</td></tr><tr><td>B</td><td>Profunda</td><td>Densa</td></tr><tr><td>C</td><td>Balanceada</td><td>Exige criterio</td></tr></tbody></table></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="cmp-d2" data-name="Matriz 2x2 con acentos">
+        <div class="vhead"><strong>Comparación D2</strong><span>Matriz 2×2 con acentos</span></div>
+        <div class="preview"><div class="matrix axis"><div class="cell"><b>Opción A</b><p>Descripción.</p></div><div class="cell"><b>Opción B</b><p>Descripción.</p></div><div class="cell"><b>Opción C</b><p>Descripción.</p></div><div class="cell"><b>Opción D</b><p>Descripción.</p></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="cmp-d3" data-name="Espectro de posiciones">
+        <div class="vhead"><strong>Comparación D3</strong><span>Espectro continuo</span></div>
+        <div class="preview"><div class="spectrum"><div class="seg">Bajo</div><div class="seg">Medio</div><div class="seg">Alto</div></div><p style="font-size:12px;color:var(--tinta2);margin-top:12px">Sirve cuando las opciones no son cajas separadas sino posiciones dentro de un continuo.</p></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="cmp-d4" data-name="Flujo de decisión simple">
+        <div class="vhead"><strong>Comparación D4</strong><span>Flujo de decisión simple</span></div>
+        <div class="preview"><div class="flow"><div class="flowrow"><div class="flowbox">Condición inicial</div><div class="arrow">→</div><div class="flowbox">Opción A</div></div><div class="flowrow"><div class="flowbox">Condición alternativa</div><div class="arrow">→</div><div class="flowbox">Opción B</div></div><div class="flowrow"><div class="flowbox">Condición crítica</div><div class="arrow">→</div><div class="flowbox">Opción C</div></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Datos y lectura visual</h2><p>Variantes de barras, micrográficos y dato editorial.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="data-e1" data-name="Barras completas sobrias">
+        <div class="vhead"><strong>Datos E1</strong><span>Barras sobrias</span></div>
+        <div class="preview"><div class="bars"><div class="barw"><div class="bar" style="height:80px"></div>A</div><div class="barw"><div class="bar alt" style="height:130px"></div>B</div><div class="barw"><div class="bar" style="height:105px"></div>C</div><div class="barw"><div class="bar alt" style="height:155px"></div>D</div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="data-e2" data-name="Micrográficos por indicador">
+        <div class="vhead"><strong>Datos E2</strong><span>Micrográficos por indicador</span></div>
+        <div class="preview"><div class="card soft" style="margin-bottom:10px"><h4>Indicador A</h4><div class="spark"><i style="height:14px"></i><i style="height:24px"></i><i style="height:18px"></i><i style="height:38px"></i><i style="height:45px"></i></div></div><div class="card soft"><h4>Indicador B</h4><div class="spark"><i style="height:40px"></i><i style="height:34px"></i><i style="height:28px"></i><i style="height:22px"></i><i style="height:16px"></i></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="data-e3" data-name="Dato editorial único">
+        <div class="vhead"><strong>Datos E3</strong><span>Dato grande + lectura</span></div>
+        <div class="preview"><div style="font-size:72px;font-weight:700;color:var(--verde);line-height:1">72%</div><div style="font-size:18px;margin-top:8px">Dato principal</div><p style="font-size:13px;color:var(--tinta2);max-width:30ch;margin-top:8px">Lectura breve y directa del dato.</p></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="data-e4" data-name="Fila de indicadores">
+        <div class="vhead"><strong>Datos E4</strong><span>Tres indicadores</span></div>
+        <div class="preview"><div class="statrow"><div class="stat"><b>72%</b><span>Indicador A</span></div><div class="stat"><b>48</b><span>Indicador B</span></div><div class="stat"><b>3.2</b><span>Indicador C</span></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Destacados, citas y evidencia</h2><p>Más variantes dentro de las tres familias aprobadas.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="hi-f1" data-name="Callout con acento lateral">
+        <div class="vhead"><strong>Destacado F1</strong><span>Acento lateral</span></div>
+        <div class="preview"><div class="callout"><b>Idea clave</b><p>Una idea importante, una advertencia o una síntesis breve.</p></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="hi-f2" data-name="Callout con etiqueta superior">
+        <div class="vhead"><strong>Destacado F2</strong><span>Etiqueta superior</span></div>
+        <div class="preview"><div style="border:1px solid rgba(240,162,38,.35);border-radius:14px;padding:16px;background:#fffaf0"><div style="display:inline-block;background:var(--ambar);color:#fff;font-size:11px;font-weight:700;padding:5px 9px;border-radius:999px;margin-bottom:10px">CLAVE</div><p style="margin:0;font-size:13px">Una idea importante o una síntesis breve.</p></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="hi-f3" data-name="Cita editorial amplia">
+        <div class="vhead"><strong>Destacado F3</strong><span>Cita amplia</span></div>
+        <div class="preview"><div class="quote">“Una frase fuerte puede respirar sin convertirse en una caja.”<small>Etiqueta o fuente</small></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="hi-f4" data-name="Bloque de evidencia con estado">
+        <div class="vhead"><strong>Destacado F4</strong><span>Evidencia + estado</span></div>
+        <div class="preview"><div class="evidence"><div class="eh">Bloque de evidencia</div><div class="eb">Resumen, literal o interpretación claramente distinguidos.<div style="margin-top:10px;font-size:11px;color:var(--tinta3)">Estado: pendiente de verificación</div></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Jerarquías y relaciones</h2><p>Sin mapa radial: solo direcciones que aprobaste y algunas nuevas compatibles.</p></div></div>
+    <div class="variants">
+      <article class="variant" data-id="rel-g1" data-name="Jerarquía editorial simple">
+        <div class="vhead"><strong>Relación G1</strong><span>Jerarquía vertical</span></div>
+        <div class="preview"><div class="hierarchy"><div class="hroot">Concepto central</div><div class="hchildren"><div class="hchild"><b>Rama A</b><p>Subtema o dimensión.</p></div><div class="hchild"><b>Rama B</b><p>Subtema o dimensión.</p></div><div class="hchild"><b>Rama C</b><p>Subtema o dimensión.</p></div><div class="hchild"><b>Rama D</b><p>Subtema o dimensión.</p></div></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="rel-g2" data-name="Jerarquía editorial escalonada">
+        <div class="vhead"><strong>Relación G2</strong><span>Jerarquía escalonada</span></div>
+        <div class="preview"><div class="editorial"><h4>Nivel 1 · Concepto central</h4><p>Definición principal.</p></div><div class="editorial" style="margin-left:20px"><h4>Nivel 2 · Rama</h4><p>Subtema o dimensión.</p></div><div class="editorial" style="margin-left:40px"><h4>Nivel 3 · Detalle</h4><p>Implicación o relación específica.</p></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="rel-g3" data-name="Relaciones en lista">
+        <div class="vhead"><strong>Relación G3</strong><span>Lista de relaciones</span></div>
+        <div class="preview"><div class="relation"><b>Concepto central → Rama A</b><p>Relación explicada en lenguaje natural.</p></div><div class="relation"><b>Concepto central → Rama B</b><p>Relación explicada en lenguaje natural.</p></div><div class="relation"><b>Rama B → Detalle C</b><p>Relación secundaria explicada.</p></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+      <article class="variant" data-id="rel-g4" data-name="Relaciones causa y efecto">
+        <div class="vhead"><strong>Relación G4</strong><span>Causa → efecto</span></div>
+        <div class="preview"><div class="flow"><div class="flowrow"><div class="flowbox">Causa A</div><div class="arrow">→</div><div class="flowbox">Efecto A</div></div><div class="flowrow"><div class="flowbox">Causa B</div><div class="arrow">→</div><div class="flowbox">Efecto B</div></div><div class="flowrow"><div class="flowbox">Causa C</div><div class="arrow">→</div><div class="flowbox">Efecto C</div></div></div></div>
+        <div class="actions"></div><div class="note"><textarea placeholder="Regla especial..."></textarea></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="summary">
+    <h2 style="margin:0">Resumen de decisiones</h2>
+    <p style="color:var(--tinta2);margin:6px 0 0">Se guarda automáticamente en este navegador.</p>
+    <div class="summary-grid"><div class="sumcol"><h3>Me quedo</h3><div class="sumlist" id="sumKeep"></div></div><div class="sumcol"><h3>Descartar</h3><div class="sumlist" id="sumDiscard"></div></div><div class="sumcol"><h3>Regla especial</h3><div class="sumlist" id="sumSpecial"></div></div></div>
+    <div class="export-row"><button class="export primary" id="copyBtn">Copiar decisiones</button><button class="export secondary" id="downloadBtn">Descargar JSON</button><button class="export secondary" id="resetBtn">Reiniciar selección</button></div>
+  </section>
+</div>
+<script>
+const KEY='coopenotebook-visual-selector-v3';
+const state=JSON.parse(localStorage.getItem(KEY)||'{}');
+const buttonHTML=`<button class="choice keep" data-choice="keep">Me quedo</button><button class="choice discard" data-choice="discard">Descartar</button><button class="choice special" data-choice="special">Regla especial</button>`;
+document.querySelectorAll('.actions').forEach(a=>a.innerHTML=buttonHTML);
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderSummary()}
+document.querySelectorAll('.variant').forEach(v=>{
+ const id=v.dataset.id,existing=state[id];
+ if(existing){v.dataset.choice=existing.choice;v.querySelector(`.choice[data-choice="${existing.choice}"]`)?.classList.add('active');v.querySelector('textarea').value=existing.note||''}
+ v.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{const choice=btn.dataset.choice;v.dataset.choice=choice;v.querySelectorAll('.choice').forEach(x=>x.classList.toggle('active',x===btn));state[id]={choice,note:v.querySelector('textarea').value||'',name:v.dataset.name};save()}));
+ v.querySelector('textarea').addEventListener('input',e=>{v.dataset.choice='special';v.querySelectorAll('.choice').forEach(x=>x.classList.toggle('active',x.dataset.choice==='special'));state[id]={choice:'special',note:e.target.value,name:v.dataset.name};save()})
+});
+function renderSummary(){
+ const groups={keep:[],discard:[],special:[]};Object.entries(state).forEach(([id,item])=>groups[item.choice]?.push({id,...item}));
+ for(const [k,el] of Object.entries({keep:'sumKeep',discard:'sumDiscard',special:'sumSpecial'})){const node=document.getElementById(el);node.innerHTML='';if(!groups[k].length){node.innerHTML='<div class="sumitem" style="color:var(--tinta3)">Sin decisiones</div>';continue}groups[k].forEach(item=>{const d=document.createElement('div');d.className='sumitem';d.textContent=item.name+(k==='special'&&item.note?` — ${item.note}`:'');node.appendChild(d)})}
+ document.getElementById('countKeep').textContent=`${groups.keep.length} aprobados`;document.getElementById('countDiscard').textContent=`${groups.discard.length} descartados`;document.getElementById('countSpecial').textContent=`${groups.special.length} con regla`
+}
+renderSummary();
+function decisionText(){const entries=Object.entries(state).map(([id,v])=>({id,...v}));const lines=['DECISIONES VISUALES KB V3',''];for(const [key,label] of [['keep','ME QUEDO'],['discard','DESCARTAR'],['special','REGLA ESPECIAL']]){lines.push(label);const list=entries.filter(x=>x.choice===key);if(!list.length)lines.push('- Ninguno');list.forEach(x=>lines.push(`- ${x.name}${x.note?`: ${x.note}`:''}`));lines.push('')}return lines.join('\n')}
+document.getElementById('copyBtn').addEventListener('click',async()=>{await navigator.clipboard.writeText(decisionText());const b=document.getElementById('copyBtn'),old=b.textContent;b.textContent='Copiado';setTimeout(()=>b.textContent=old,1200)});
+document.getElementById('downloadBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='decisiones-visuales-kb-v3.json';a.click();URL.revokeObjectURL(a.href)});
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('¿Reiniciar todas las decisiones?')){localStorage.removeItem(KEY);location.reload()}});
+</script>
+</body>
+</html>

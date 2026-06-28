@@ -1,0 +1,69 @@
+{
+  "name": "coopenotebook-kb-capsule-production-system",
+  "version": "1.0.0",
+  "authority": "Complemento especializado de las instrucciones maestras CoopeNotebook",
+  "goldenTemplate": "templates/kb-visual-shell-golden-v5.html",
+  "goldenTemplateSha256": "2f66542746587320a198662cae04cc4d43de6aa116adf7a623f7d9f08e339760",
+  "frozenVersion": "v5",
+  "purpose": "Producción, auditoría y preparación de cápsulas KB CoopeNotebook",
+  "reservedTabs": [
+    "Banco de preguntas"
+  ],
+  "contentPolicy": "No crear contenido temático ni preguntas sin insumos",
+  "nextPhase": "Biblioteca visual estandarizada",
+  "visualLibraryStatus": "approved",
+  "approvedComponents": [
+    "Card editorial numerada",
+    "Card suave de una fila con dato",
+    "Acordeón contenido con índice",
+    "Acordeón contenido con evidencia",
+    "Timeline vertical compacto",
+    "Pasos horizontales en cinta",
+    "Proceso editorial numerado con subtítulo",
+    "Tabla comparativa breve",
+    "Espectro de posiciones",
+    "Flujo de decisión simple",
+    "Barras completas sobrias",
+    "Micrográficos por indicador",
+    "Fila de indicadores",
+    "Dato editorial único",
+    "Callout con acento lateral",
+    "Bloque de evidencia con estado",
+    "Cita editorial amplia",
+    "Jerarquía editorial escalonada",
+    "Jerarquía editorial simple",
+    "Relaciones en lista",
+    "Relaciones causa y efecto"
+  ],
+  "discardedComponents": [
+    "Card compacta con banda superior",
+    "Card compacta con ícono circular",
+    "Acordeón contenido clásico",
+    "Acordeón contenido con resumen visible",
+    "Timeline vertical por estados",
+    "Matriz 2x2 con acentos",
+    "Callout con etiqueta superior"
+  ],
+  "specialRules": [],
+  "semanticColorRules": {
+    "purple": "legal verbatim only, always accordion",
+    "yellow": "memory highlight only",
+    "green": "structural accent, low saturation",
+    "numberedCircles": "forbidden"
+  },
+  "visualTokens": "reference/visual-tokens.md",
+  "package": "coopenotebook-kb-visual-system-final",
+  "agents": [
+    "00-kb-content-evidence-pedagogy-auditor.md",
+    "01-kb-language-character-integrity-auditor.md",
+    "02-kb-visual-presentation-auditor.md",
+    "03-kb-shell-navigation-accessibility-technical-integrity-auditor.md",
+    "04-kb-legal-verbatim-source-auditor.md",
+    "05-kb-reusable-question-bank-readiness-agent.md"
+  ],
+  "visualExamples": [
+    "examples/capsula-completa-v5.html",
+    "examples/selector-visual-curado-v3.html"
+  ],
+  "workflow": "reference/agent-workflow.md"
+}

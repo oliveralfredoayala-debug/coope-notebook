@@ -1,0 +1,762 @@
+[
+  {
+    "path": ".gitignore",
+    "size": 82
+  },
+  {
+    "path": "AGENTS.md",
+    "size": 372
+  },
+  {
+    "path": "README.md",
+    "size": 449
+  },
+  {
+    "path": "START-HERE.md",
+    "size": 1048
+  },
+  {
+    "path": "agents/cross-platform-adapter-agent/AGENT.md",
+    "size": 414
+  },
+  {
+    "path": "agents/local-repository-operator/AGENT.md",
+    "size": 235
+  },
+  {
+    "path": "agents/repository-governance-agent/AGENT.md",
+    "size": 360
+  },
+  {
+    "path": "agents/repository-reviewer/AGENT.md",
+    "size": 297
+  },
+  {
+    "path": "assets/Iconos de página/deploy-cabina-transparent.png",
+    "size": 813815
+  },
+  {
+    "path": "assets/Iconos de página/gow-tools-transparent.png",
+    "size": 653244
+  },
+  {
+    "path": "assets/Iconos de página/jester-armador-transparent.png",
+    "size": 1735081
+  },
+  {
+    "path": "assets/Iconos de página/kb-lecciones-transparent.png",
+    "size": 628899
+  },
+  {
+    "path": "assets/Iconos de página/lnl-recursos-transparent.png",
+    "size": 818134
+  },
+  {
+    "path": "assets/Iconos de página/p2l-actividades-transparent.png",
+    "size": 752303
+  },
+  {
+    "path": "assets/Leaf Decorations/emblem-three-leaf.png",
+    "size": 1201537
+  },
+  {
+    "path": "assets/Leaf Decorations/flourish.png",
+    "size": 857337
+  },
+  {
+    "path": "assets/Leaf Decorations/leaf-cream-v2.png",
+    "size": 593940
+  },
+  {
+    "path": "assets/Leaf Decorations/leaf-dark-v2.png",
+    "size": 581049
+  },
+  {
+    "path": "assets/Leaf Decorations/leaf-sage-v2.png",
+    "size": 630879
+  },
+  {
+    "path": "assets/Leaf Decorations/leaf-sprig-v2.png",
+    "size": 850286
+  },
+  {
+    "path": "assets/Mascota/coopenotebook-banner-full.png",
+    "size": 2176034
+  },
+  {
+    "path": "assets/Mascota/jester-creativo.png",
+    "size": 1312861
+  },
+  {
+    "path": "assets/Mascota/jester-full.png",
+    "size": 1563646
+  },
+  {
+    "path": "assets/Mascota/jester-pensativo.png",
+    "size": 1145495
+  },
+  {
+    "path": "assets/Mascota/jester-teacher-mode.png",
+    "size": 1206982
+  },
+  {
+    "path": "assets/actions/download.svg",
+    "size": 303
+  },
+  {
+    "path": "assets/actions/minus.svg",
+    "size": 204
+  },
+  {
+    "path": "assets/actions/pause.svg",
+    "size": 304
+  },
+  {
+    "path": "assets/actions/play.svg",
+    "size": 246
+  },
+  {
+    "path": "assets/actions/plus.svg",
+    "size": 230
+  },
+  {
+    "path": "assets/actions/upload.svg",
+    "size": 302
+  },
+  {
+    "path": "assets/chat.png",
+    "size": 525528
+  },
+  {
+    "path": "assets/coming-soon.png",
+    "size": 582855
+  },
+  {
+    "path": "assets/communication/bell.svg",
+    "size": 346
+  },
+  {
+    "path": "assets/communication/chat.svg",
+    "size": 348
+  },
+  {
+    "path": "assets/communication/email.svg",
+    "size": 281
+  },
+  {
+    "path": "assets/communication/users.svg",
+    "size": 376
+  },
+  {
+    "path": "assets/content/book-open.svg",
+    "size": 369
+  },
+  {
+    "path": "assets/content/bullet-list.svg",
+    "size": 531
+  },
+  {
+    "path": "assets/content/calendar.svg",
+    "size": 422
+  },
+  {
+    "path": "assets/content/link.svg",
+    "size": 357
+  },
+  {
+    "path": "assets/content/settings-tools.svg",
+    "size": 370
+  },
+  {
+    "path": "assets/email.png",
+    "size": 518304
+  },
+  {
+    "path": "assets/info.png",
+    "size": 265248
+  },
+  {
+    "path": "assets/navigation/arrow-left.svg",
+    "size": 235
+  },
+  {
+    "path": "assets/navigation/arrow-right.svg",
+    "size": 235
+  },
+  {
+    "path": "assets/navigation/back-book.svg",
+    "size": 360
+  },
+  {
+    "path": "assets/navigation/chevron-down.svg",
+    "size": 208
+  },
+  {
+    "path": "assets/navigation/chevron-left.svg",
+    "size": 209
+  },
+  {
+    "path": "assets/navigation/chevron-right.svg",
+    "size": 208
+  },
+  {
+    "path": "assets/navigation/chevron-up.svg",
+    "size": 209
+  },
+  {
+    "path": "assets/navigation/close.svg",
+    "size": 234
+  },
+  {
+    "path": "assets/navigation/external-link.svg",
+    "size": 350
+  },
+  {
+    "path": "assets/navigation/filter.svg",
+    "size": 265
+  },
+  {
+    "path": "assets/navigation/home.svg",
+    "size": 281
+  },
+  {
+    "path": "assets/navigation/menu.svg",
+    "size": 255
+  },
+  {
+    "path": "assets/navigation/search.svg",
+    "size": 316
+  },
+  {
+    "path": "assets/notebook.png",
+    "size": 1526888
+  },
+  {
+    "path": "assets/notifications.png",
+    "size": 509040
+  },
+  {
+    "path": "assets/schedule.png",
+    "size": 505610
+  },
+  {
+    "path": "assets/status/bullet-leaf.svg",
+    "size": 358
+  },
+  {
+    "path": "assets/status/check.svg",
+    "size": 253
+  },
+  {
+    "path": "assets/status/clock.svg",
+    "size": 288
+  },
+  {
+    "path": "assets/status/coming-soon.svg",
+    "size": 325
+  },
+  {
+    "path": "assets/status/info.svg",
+    "size": 313
+  },
+  {
+    "path": "assets/status/warning.svg",
+    "size": 312
+  },
+  {
+    "path": "assets/teamwork.png",
+    "size": 720511
+  },
+  {
+    "path": "changes/README.md",
+    "size": 156
+  },
+  {
+    "path": "changes/example.change.yaml",
+    "size": 388
+  },
+  {
+    "path": "governance/AI-ROLES.md",
+    "size": 1829
+  },
+  {
+    "path": "governance/PERMISSIONS.md",
+    "size": 627
+  },
+  {
+    "path": "governance/WORKFLOW.md",
+    "size": 1156
+  },
+  {
+    "path": "knowledge/legal/honduras/cooperatives/ley-cooperativas-honduras.pdf",
+    "size": 1728272
+  },
+  {
+    "path": "packages/content-librarian-antigravity-skill-v1/content-librarian-antigravity-skill-v1/README.md",
+    "size": 1292
+  },
+  {
+    "path": "packages/content-librarian-antigravity-skill-v1/content-librarian-antigravity-skill-v1/agents/content-librarian.md",
+    "size": 3756
+  },
+  {
+    "path": "packages/content-librarian-antigravity-skill-v1/content-librarian-antigravity-skill-v1/antigravity/PROMPT-PARA-ANTIGRAVITY.md",
+    "size": 2532
+  },
+  {
+    "path": "packages/content-librarian-antigravity-skill-v1/content-librarian-antigravity-skill-v1/manifest.json",
+    "size": 625
+  },
+  {
+    "path": "packages/content-librarian-antigravity-skill-v1/content-librarian-antigravity-skill-v1/templates/README-ANTIGRAVITY.template.md",
+    "size": 1092
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/README-ANTIGRAVITY.md",
+    "size": 1017
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/README.md",
+    "size": 1313
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/SKILL.md",
+    "size": 1800
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/agents/00-content-architecture-coordinator.md",
+    "size": 883
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/examples/README-new-topic.md",
+    "size": 543
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/manifest.json",
+    "size": 666
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/reference/antigravity-integration.md",
+    "size": 1003
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/reference/content-architecture.md",
+    "size": 2534
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/reference/naming-and-versioning-contract.md",
+    "size": 1315
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/reference/sandbox-contract.md",
+    "size": 786
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/reference/uuid-governance.md",
+    "size": 1195
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/schemas/content-catalog.schema.json",
+    "size": 1963
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/scripts/validate_catalog.py",
+    "size": 1916
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/templates/content-catalog.json",
+    "size": 2940
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/templates/topic-package.example.json",
+    "size": 320
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/templates/tp-record.example.json",
+    "size": 517
+  },
+  {
+    "path": "packages/coopenotebook-coordinator-agent-v1/coopenotebook-coordinator-agent-v1/templates/uuid-registry.json",
+    "size": 7848
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/README.md",
+    "size": 761
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/SKILL.md",
+    "size": 5866
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/00-kb-content-evidence-pedagogy-auditor.md",
+    "size": 1737
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/01-kb-language-character-integrity-auditor.md",
+    "size": 849
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/02-kb-visual-presentation-auditor.md",
+    "size": 1431
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/03-kb-shell-navigation-accessibility-technical-integrity-auditor.md",
+    "size": 2118
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/04-kb-legal-verbatim-source-auditor.md",
+    "size": 1516
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/agents/05-kb-reusable-question-bank-readiness-agent.md",
+    "size": 1973
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/examples/capsula-completa-v5.html",
+    "size": 2962960
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/examples/selector-visual-curado-v3.html",
+    "size": 37637
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/manifest.json",
+    "size": 2532
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/reference/agent-workflow.md",
+    "size": 915
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/reference/approved-visual-library.md",
+    "size": 9902
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/reference/qa-checklist.md",
+    "size": 880
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/reference/shell-contract.md",
+    "size": 842
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/reference/visual-tokens.md",
+    "size": 802
+  },
+  {
+    "path": "packages/coopenotebook-kb-capsule-production-system-v1/coopenotebook-kb-capsule-production-system-v1/templates/kb-visual-shell-golden-v5.html",
+    "size": 2962960
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/README.md",
+    "size": 870
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/SKILL.md",
+    "size": 4896
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/00-kb-capsule-shell-builder.md",
+    "size": 500
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/01-kb-visual-resource-architect.md",
+    "size": 671
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/02-kb-legal-verbatim-accordion-guardian.md",
+    "size": 537
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/03-kb-memory-highlight-guardian.md",
+    "size": 392
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/04-kb-visual-functional-qa.md",
+    "size": 414
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/agents/05-kb-content-slot-integrator.md",
+    "size": 495
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/examples/capsula-completa-v5.html",
+    "size": 2962960
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/examples/selector-visual-curado-v3.html",
+    "size": 37637
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/manifest.json",
+    "size": 2411
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/reference/approved-visual-library.md",
+    "size": 9902
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/reference/qa-checklist.md",
+    "size": 880
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/reference/shell-contract.md",
+    "size": 842
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/reference/visual-tokens.md",
+    "size": 802
+  },
+  {
+    "path": "packages/coopenotebook-kb-visual-system-final/coopenotebook-kb-visual-system-final/templates/kb-visual-shell-golden-v5.html",
+    "size": 2962960
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/README.md",
+    "size": 1100
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/SKILL.md",
+    "size": 5913
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/00-team-work-orchestrator.md",
+    "size": 700
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/01-collaborative-pedagogy-architect.md",
+    "size": 887
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/02-case-content-evidence-auditor.md",
+    "size": 878
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/03-group-dynamics-facilitation-agent.md",
+    "size": 897
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/04-interaction-experience-builder.md",
+    "size": 872
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/05-cooperative-law-core-authority.md",
+    "size": 7146
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/06-accessibility-mobile-inclusive-participation-reviewer.md",
+    "size": 825
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/07-functional-export-integration-qa.md",
+    "size": 854
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/agents/08-live-room-sandbox-config-inspector.md",
+    "size": 1121
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/manifest.json",
+    "size": 1082
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/agent-workflow.md",
+    "size": 1863
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/definition-of-done.md",
+    "size": 1691
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/invocation-matrix.md",
+    "size": 1562
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/legal-core-heavy-protocol.md",
+    "size": 2547
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/legal-purple-reading-contract.md",
+    "size": 2056
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/sandbox-live-room-contract.md",
+    "size": 2388
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/reference/team-work-contract.md",
+    "size": 2335
+  },
+  {
+    "path": "packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl/coopenotebook-trabajos-en-equipo-skill-v1/templates/trabajo-equipo-golden.html",
+    "size": 256212
+  },
+  {
+    "path": "packages/jester-agents-v0.5/README-jester-agents.txt",
+    "size": 330
+  },
+  {
+    "path": "packages/jester-agents-v0.5/jester-maker.html",
+    "size": 7829
+  },
+  {
+    "path": "packages/jester-agents-v0.5/jester-modules-v0.5-manifest.json",
+    "size": 680
+  },
+  {
+    "path": "packages/jester-agents-v0.5/template-lab.html",
+    "size": 6472
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/README.md",
+    "size": 1942
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/agents/lexcoop_hn_agent.md",
+    "size": 3085
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/docs/fuentes_legales.md",
+    "size": 656
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/maps/mapa_legal_cooperativo.md",
+    "size": 1314
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/skill.json",
+    "size": 753
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/templates/capsula_legal_template.md",
+    "size": 1009
+  },
+  {
+    "path": "packages/lexcoop-hn-skill-v1/lexcoop-hn-skill-v1/templates/informe_html_legal_template.html",
+    "size": 2308
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/README.md",
+    "size": 882
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/bank-schema.json",
+    "size": 1690
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/games/crossword.json",
+    "size": 165
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/games/quick-duel.json",
+    "size": 168
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/games/tic-tac-toe.json",
+    "size": 168
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/modes/1v1.json",
+    "size": 134
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/modes/coop.json",
+    "size": 128
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/modes/pve.json",
+    "size": 131
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/modes/pvp.json",
+    "size": 116
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/contracts/results/result-contract.json",
+    "size": 875
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/core/event-contract.json",
+    "size": 217
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/core/ranking-rules.md",
+    "size": 353
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/examples/banks/banco-trabajo-en-equipo.json",
+    "size": 5772
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/examples/sessions/session-example.json",
+    "size": 181
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/manifest.json",
+    "size": 311
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/qa/QA.md",
+    "size": 439
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/renderers/crossword/modelo-crucigrama-v4.html",
+    "size": 20313
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/renderers/quick-duel/duelo-pvp-respuestas-rapidas.html",
+    "size": 18073
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/renderers/tic-tac-toe/x-o-academico-pvp.html",
+    "size": 14187
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-1v1/SKILL.md",
+    "size": 242
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-coop/SKILL.md",
+    "size": 272
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-kb-bridge/SKILL.md",
+    "size": 291
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-live-session/SKILL.md",
+    "size": 264
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-orchestrator/SKILL.md",
+    "size": 298
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-pve/SKILL.md",
+    "size": 217
+  },
+  {
+    "path": "packages/p2l-play-to-learn-v0.1/p2l-play-to-learn/skills/p2l-pvp/SKILL.md",
+    "size": 221
+  },
+  {
+    "path": "platforms/antigravity/READ-ME-FIRST.md",
+    "size": 886
+  },
+  {
+    "path": "platforms/claude/READ-ME-FIRST.md",
+    "size": 507
+  },
+  {
+    "path": "platforms/openai/READ-ME-FIRST.md",
+    "size": 536
+  },
+  {
+    "path": "registry/agents.yaml",
+    "size": 2192
+  },
+  {
+    "path": "scripts/validate_repository.py",
+    "size": 1141
+  }
+]

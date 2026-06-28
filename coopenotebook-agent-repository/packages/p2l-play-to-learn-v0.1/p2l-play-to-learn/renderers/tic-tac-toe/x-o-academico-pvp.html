@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X–0 académico · CoopeNotebook</title>
+<style>
+:root{--verde:#234a35;--verde2:#2f7d52;--ambar:#f0a226;--tinta:#17221e;--muted:#5b6861;--bg:#f3f6f4;--paper:#fff;--line:#dfe7e2;--x:#285b9a;--o:#8a4f7d;--ok:#237044;--bad:#a33a32;--focus:#145c9e}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tinta)}button,input{font:inherit}button{min-height:44px}
+.top{height:6px;background:linear-gradient(90deg,var(--verde),var(--verde2) 58%,var(--ambar))}
+header{padding:1rem clamp(1rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}.brand{font-weight:900}.brand strong{color:var(--verde)}
+main{max-width:1400px;margin:auto;padding:clamp(1rem,2.5vw,2rem);display:grid;grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr);gap:1.3rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 16px 45px rgba(35,74,53,.10)}
+.panel{padding:1rem}.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde2);font-weight:900;margin:0}h1{font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-.04em;line-height:1.05;margin:.35rem 0}.lead{margin:0;color:var(--muted)}
+.names{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}.namebox{border:1px solid var(--line);border-radius:14px;padding:.8rem}.namebox.x{border-top:5px solid var(--x)}.namebox.o{border-top:5px solid var(--o)}.namebox input{width:100%;border:1px solid var(--line);border-radius:9px;padding:.65rem}.mark{font-size:1.8rem;font-weight:950;margin-top:.35rem}
+.turn{border-left:4px solid var(--ambar);background:#fff8e8;border-radius:8px;padding:.8rem;margin-top:.8rem;font-weight:850}
+.board{display:grid;grid-template-columns:repeat(3,minmax(86px,1fr));gap:.65rem;margin-top:1rem}.cell{aspect-ratio:1;border:2px solid var(--line);background:#fbfcfb;border-radius:16px;cursor:pointer;font-size:clamp(2rem,7vw,4.7rem);font-weight:950}.cell:hover{border-color:var(--ambar)}.cell.x{color:var(--x);background:#eef5ff}.cell.o{color:var(--o);background:#fff0fb}.cell.blocked{background:#eee;color:#888}.cell:disabled{cursor:not-allowed;opacity:.75}
+.question-wrap{padding:1rem}.question{background:#f7faf8;border:1px solid var(--line);border-radius:14px;padding:1rem;min-height:100px;display:flex;align-items:center;font-weight:850}.options{display:grid;gap:.65rem;margin-top:.8rem}.option{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.8rem;cursor:pointer;font-weight:750}.option:hover{border-color:var(--ambar);background:#fffaf0}.option.correct{border-color:var(--ok);background:#e8f6ed}.option.wrong{border-color:var(--bad);background:#fff0ee}.option:disabled{cursor:not-allowed;opacity:.72}
+.controls{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1rem}.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.7rem 1rem;font-weight:900;cursor:pointer}.btn.primary{background:var(--verde);color:#fff;border-color:var(--verde)}.btn:focus-visible,.cell:focus-visible,.option:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.result{margin-top:1rem;border-left:4px solid var(--ambar);background:#fff8e8;border-radius:8px;padding:.8rem;min-height:3rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1rem}.stat{border:1px solid var(--line);border-radius:12px;padding:.8rem}.stat strong{display:block;font-size:1.35rem}
+.note{font-size:.86rem;color:var(--muted);margin-top:.9rem}.sr{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"></div>
+<header><div class="brand"><strong>Coope</strong>Notebook · Taller de trabajo en equipo</div></header>
+
+<main>
+<section class="card panel">
+  <p class="eyebrow">PvP por turnos</p>
+  <h1>X–0 académico</h1>
+  <p class="lead">Elegí una casilla y respondé correctamente para marcarla. Si fallás, la casilla queda bloqueada durante un turno.</p>
+
+  <div class="names">
+    <div class="namebox x">
+      <label for="nameX">Jugador X</label>
+      <input id="nameX" value="Equipo X">
+      <div class="mark">X</div>
+    </div>
+    <div class="namebox o">
+      <label for="nameO">Jugador O</label>
+      <input id="nameO" value="Equipo O">
+      <div class="mark">O</div>
+    </div>
+  </div>
+
+  <div class="turn" id="turn">Turno de Equipo X</div>
+  <div class="board" id="board" aria-label="Tablero de tres en línea"></div>
+
+  <div class="stats">
+    <div class="stat"><span>Aciertos X</span><strong id="hitsX">0</strong></div>
+    <div class="stat"><span>Aciertos O</span><strong id="hitsO">0</strong></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn primary" id="newGame">Nueva partida</button>
+    <button class="btn" id="clearSession">Cerrar sesión y borrar datos</button>
+  </div>
+  <p class="note">Los datos existen solo mientras esta página permanece abierta.</p>
+</section>
+
+<section class="card question-wrap">
+  <div class="question" id="question">Seleccioná una casilla para recibir una pregunta.</div>
+  <div class="options" id="options"></div>
+  <p class="result" id="result" role="status">La partida está lista.</p>
+</section>
+</main>
+
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+"use strict";
+const QUESTIONS = [{"id": "te-001", "tipo": "concepto", "pregunta": "Intercambio de ideas para comprenderse y construir juntos.", "respuesta": "DIALOGO", "distractores": ["MANDATO", "CONTROL", "SILENCIO"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "El diálogo permite intercambiar perspectivas y construir comprensión compartida.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Comunicación"}}, {"id": "te-002", "tipo": "concepto", "pregunta": "Decisión compartida a la que llega un grupo.", "respuesta": "ACUERDO", "distractores": ["ORDEN", "VOTO", "REGLA"], "categoria": "coordinacion", "dificultad": "basica", "explicacion": "Un acuerdo expresa una decisión construida o aceptada colectivamente.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Acuerdos"}}, {"id": "te-003", "tipo": "concepto", "pregunta": "Atención genuina a lo que otra persona expresa.", "respuesta": "ESCUCHA", "distractores": ["PAUSA", "OPINION", "MIRADA"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "Escuchar implica atender, interpretar y considerar lo que otra persona comunica.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Escucha activa"}}, {"id": "te-004", "tipo": "concepto", "pregunta": "Trato que reconoce el valor y la voz de cada integrante.", "respuesta": "RESPETO", "distractores": ["ORDEN", "APOYO", "CONTROL"], "categoria": "convivencia", "dificultad": "basica", "explicacion": "El respeto reconoce la dignidad, los límites y la participación de cada persona.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Convivencia"}}, {"id": "te-005", "tipo": "concepto", "pregunta": "Grupo que coordina esfuerzos hacia un propósito común.", "respuesta": "EQUIPO", "distractores": ["PUBLICO", "TURNO", "PAREJA"], "categoria": "organizacion", "dificultad": "basica", "explicacion": "Un equipo articula capacidades y responsabilidades alrededor de una meta compartida.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Concepto central"}}, {"id": "te-006", "tipo": "concepto", "pregunta": "Apoyo que una persona ofrece a otra.", "respuesta": "AYUDA", "distractores": ["ORDEN", "VENTA", "PRUEBA"], "categoria": "cooperacion", "dificultad": "basica", "explicacion": "La ayuda permite compartir recursos, capacidades o tiempo ante una necesidad.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Cooperación"}}, {"id": "te-007", "tipo": "concepto", "pregunta": "Resultado que el grupo busca alcanzar.", "respuesta": "META", "distractores": ["RUTA", "NORMA", "IDEA"], "categoria": "planificacion", "dificultad": "basica", "explicacion": "La meta orienta los esfuerzos y permite valorar el avance del equipo.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Propósito"}}, {"id": "te-008", "tipo": "concepto", "pregunta": "Distribución clara de tareas entre integrantes.", "respuesta": "ROLES", "distractores": ["TURNOS", "GRUPOS", "NORMAS"], "categoria": "organizacion", "dificultad": "media", "explicacion": "Los roles aclaran responsabilidades y facilitan la coordinación.", "aptoPara": ["crucigrama", "quiz", "memotest", "clasificador"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Organización"}}, {"id": "te-009", "tipo": "concepto", "pregunta": "Acción de trabajar con otras personas para alcanzar algo común.", "respuesta": "COOPERAR", "distractores": ["COMPETIR", "MANDAR", "OBSERVAR"], "categoria": "cooperacion", "dificultad": "media", "explicacion": "Cooperar supone aportar y coordinar acciones en beneficio de un propósito compartido.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Cooperación"}}];
+const WIN_LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const state = {
+  board:Array(9).fill(null),
+  blocked:Array(9).fill(0),
+  current:"X",
+  selected:null,
+  ended:false,
+  hits:{X:0,O:0}
+};
+const els = {
+  board:document.getElementById("board"),
+  question:document.getElementById("question"),
+  options:document.getElementById("options"),
+  result:document.getElementById("result"),
+  turn:document.getElementById("turn"),
+  hitsX:document.getElementById("hitsX"),
+  hitsO:document.getElementById("hitsO"),
+  nameX:document.getElementById("nameX"),
+  nameO:document.getElementById("nameO"),
+  live:document.getElementById("live")
+};
+function nameOf(mark){return (mark==="X"?els.nameX.value:els.nameO.value).trim()||`Jugador ${mark}`}
+function shuffle(a){const c=[...a];for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]]}return c}
+function renderBoard(){
+  els.board.textContent="";
+  state.board.forEach((value,i)=>{
+    const b=document.createElement("button");b.className="cell";b.type="button";b.dataset.index=i;
+    if(value){b.textContent=value;b.classList.add(value.toLowerCase())}
+    else if(state.blocked[i]>0){b.textContent="•";b.classList.add("blocked")}
+    b.disabled=state.ended||Boolean(value)||state.blocked[i]>0||state.selected!==null;
+    b.setAttribute("aria-label",`Casilla ${i+1}${value?`, marcada con ${value}`:""}`);
+    b.addEventListener("click",()=>chooseCell(i));
+    els.board.appendChild(b);
+  });
+}
+function chooseCell(i){
+  if(state.ended||state.board[i]||state.blocked[i]>0||state.selected!==null)return;
+  state.selected=i;
+  renderBoard();
+  const q=QUESTIONS[i%QUESTIONS.length];
+  els.question.textContent=q.pregunta;
+  els.options.textContent="";
+  shuffle([q.respuesta,...(q.distractores||[])]).slice(0,4).forEach(opt=>{
+    const b=document.createElement("button");b.type="button";b.className="option";b.textContent=opt;
+    b.addEventListener("click",()=>answer(opt,b,q));
+    els.options.appendChild(b);
+  });
+  els.result.textContent=`${nameOf(state.current)} está respondiendo por la casilla ${i+1}.`;
+}
+function answer(value,button,q){
+  [...els.options.children].forEach(b=>b.disabled=true);
+  const correct=value===q.respuesta;
+  [...els.options.children].forEach(b=>{
+    if(b.textContent===q.respuesta)b.classList.add("correct");
+    else if(b===button)b.classList.add("wrong");
+  });
+  if(correct){
+    state.board[state.selected]=state.current;
+    state.hits[state.current]++;
+    els.result.textContent=`Correcto. ${q.explicacion}`;
+  }else{
+    state.blocked[state.selected]=1;
+    els.result.textContent=`Incorrecto. La casilla queda bloqueada durante un turno. ${q.explicacion}`;
+  }
+  const winner=getWinner();
+  if(winner){
+    state.ended=true;
+    els.result.textContent=`${nameOf(winner)} gana la partida.`;
+    els.live.textContent=els.result.textContent;
+  }else if(state.board.every(Boolean)){
+    state.ended=true;
+    els.result.textContent="Empate.";
+    els.live.textContent="La partida terminó en empate.";
+  }else{
+    endTurn();
+  }
+  update();
+}
+function endTurn(){
+  state.blocked=state.blocked.map(v=>Math.max(0,v-1));
+  state.current=state.current==="X"?"O":"X";
+  state.selected=null;
+}
+function getWinner(){
+  for(const line of WIN_LINES){
+    const [a,b,c]=line;
+    if(state.board[a]&&state.board[a]===state.board[b]&&state.board[a]===state.board[c])return state.board[a];
+  }
+  return null;
+}
+function update(){
+  els.hitsX.textContent=state.hits.X;
+  els.hitsO.textContent=state.hits.O;
+  els.turn.textContent=state.ended?"Partida finalizada":`Turno de ${nameOf(state.current)}`;
+  if(state.selected===null&&!state.ended){
+    els.question.textContent="Seleccioná una casilla para recibir una pregunta.";
+    els.options.textContent="";
+  }
+  renderBoard();
+}
+function reset(){
+  state.board=Array(9).fill(null);
+  state.blocked=Array(9).fill(0);
+  state.current="X";
+  state.selected=null;
+  state.ended=false;
+  state.hits={X:0,O:0};
+  els.result.textContent="La partida está lista.";
+  update();
+}
+document.getElementById("newGame").addEventListener("click",reset);
+document.getElementById("clearSession").addEventListener("click",()=>{reset();els.nameX.value="Equipo X";els.nameO.value="Equipo O";els.result.textContent="Sesión cerrada. Los datos temporales fueron eliminados.";update()});
+els.nameX.addEventListener("input",update);els.nameO.addEventListener("input",update);
+reset();
+</script>
+</body>
+</html>

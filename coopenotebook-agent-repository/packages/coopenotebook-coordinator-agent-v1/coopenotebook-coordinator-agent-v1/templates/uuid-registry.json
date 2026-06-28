@@ -1,0 +1,255 @@
+{
+  "registryUuid": "20d5aa4c-fd15-4f9f-99e0-b7d4adfd5ebc",
+  "version": "1.0.0",
+  "updatedAt": "2026-06-26",
+  "appendOnly": true,
+  "entries": [
+    {
+      "uuid": "d11c1df1-6121-47a7-bb6b-1d9bed308531",
+      "kind": "file",
+      "path": "README-ANTIGRAVITY.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "fbc7929f67405e58f22841b8e4c6b258ed3bd428416ef712a0943b218f7e1bc8"
+    },
+    {
+      "uuid": "1290c937-a642-4d4f-bd47-1cf61ac5c80b",
+      "kind": "file",
+      "path": "README.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "1636e03d4140655c2c331dcaa283328882da92253f429d8d6ff5d16a24df9a07"
+    },
+    {
+      "uuid": "50202621-491e-434a-b7c4-e1ab7b2846de",
+      "kind": "file",
+      "path": "SKILL.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "79359ae2e313aa9a4688c471234e721c712d8ba2fd4472f82f29794b104197e0"
+    },
+    {
+      "uuid": "111e29eb-d237-40e6-973b-a6ddfa772c82",
+      "kind": "file",
+      "path": "agents/00-content-architecture-coordinator.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "1ba1b1edb5506c39e10017e7968b349bed5e6da223ddff53ec29f99f1aa55388"
+    },
+    {
+      "uuid": "fa7904e7-9334-4939-a3d5-c2d69fc29186",
+      "kind": "file",
+      "path": "examples/README-new-topic.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "2e78186210f5b02cebcfd13837789bc42923f31d7507de5d602bbc04c4658f05"
+    },
+    {
+      "uuid": "c24de7ff-8ee2-4631-9e7a-f07a8fd49529",
+      "kind": "file",
+      "path": "manifest.json",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "3b2cf466508ad9418c07f1d0f751f612810a37ef379c886c0b1550dbab0cffa8"
+    },
+    {
+      "uuid": "3b8c8042-77bd-49fd-99c7-c756eac215da",
+      "kind": "file",
+      "path": "reference/antigravity-integration.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "ec8ebca0db0aafe93c73b27d8cda659f87792722a8480c687b6023fe9731b661"
+    },
+    {
+      "uuid": "d2ffeb4c-b0aa-44a6-b840-d51cc8b611b3",
+      "kind": "file",
+      "path": "reference/content-architecture.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "49c2ae20d53316058a8efffe5626a8f7017e3343a1302708a4bcb50b9a08036f"
+    },
+    {
+      "uuid": "917d9227-b792-4593-96a2-83ad6f450c26",
+      "kind": "file",
+      "path": "reference/naming-and-versioning-contract.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "0e123d00ff01c362d579b4e70cee18ab5ee8c899bcaf1d2b7cbad39f04a747e6"
+    },
+    {
+      "uuid": "59e68e8e-2c18-4c07-a52d-3366755e1fa0",
+      "kind": "file",
+      "path": "reference/sandbox-contract.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "77fa61fda1ec46e2adfc78cb2a1b947c468acc43ad0275b176022bf937705d25"
+    },
+    {
+      "uuid": "97caec04-64b2-4698-9ae0-3a1bdb54bc40",
+      "kind": "file",
+      "path": "reference/uuid-governance.md",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "fcbee9e9aed95320260c9a479395e2f70df7ecf5e382a8171a44a6423dada38d"
+    },
+    {
+      "uuid": "9870515a-b17b-4c6e-a1f2-5d78fb85e3cc",
+      "kind": "file",
+      "path": "schemas/content-catalog.schema.json",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "0019ea3bcc812398770b5cbee8a27112e13ce2736984b3b9f65883b3627c8c25"
+    },
+    {
+      "uuid": "0b69fb87-c8c6-467b-9d6b-5828028253db",
+      "kind": "file",
+      "path": "scripts/validate_catalog.py",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "71468f2898331b810f7cfc8c0ae9d6a517e9576e022d247a73a497b30799de03"
+    },
+    {
+      "uuid": "fcc027b1-0f7f-4d4a-9b54-9b7a413c28e3",
+      "kind": "file",
+      "path": "templates/content-catalog.json",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "ff3cca451ff48102e5caebded797617bfb2b6185edacbe980c2e2c0d68fceb1a"
+    },
+    {
+      "uuid": "4ba4fded-d657-48a5-a987-0ec75ca30701",
+      "kind": "file",
+      "path": "templates/topic-package.example.json",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "dee632e82d7a3b31fafd570b9b34b7271a7864711899effea8924627ea235d8c"
+    },
+    {
+      "uuid": "9816b79d-ea10-46e3-9397-8d0d4cc3139d",
+      "kind": "file",
+      "path": "templates/tp-record.example.json",
+      "status": "active",
+      "createdAt": "2026-06-26",
+      "sha256": "f0f6eb94ab5a68567b6fcd7789f2c14992b2988232a210e7ca5883559f99a432"
+    },
+    {
+      "uuid": "2053ab8d-c9fc-4713-a958-b7d03169360c",
+      "kind": "main-navigation",
+      "label": "KB",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "6c45ed90-9b0f-46cb-8879-3cf926efb367",
+      "kind": "main-navigation",
+      "label": "LnL",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "e9749d19-52f8-49a7-8074-6007e9c39e8b",
+      "kind": "main-navigation",
+      "label": "P2L",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "7aeea707-c0fa-4856-acec-9ec9b08dbce6",
+      "kind": "main-navigation",
+      "label": "Jester Maker",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "92933d35-89ff-40f4-b1b1-98d66f8de123",
+      "kind": "main-navigation",
+      "label": "Artifacts",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "ca9dbd21-8ee7-4398-b08c-7adf6368c7b6",
+      "kind": "main-navigation",
+      "label": "Sala en vivo",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "0b01f154-0603-4d03-94a9-20c69c85f6ab",
+      "kind": "kb-collection",
+      "label": "diplomadoBasico",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "8ed543d5-449d-440a-8761-e3317b6f03c2",
+      "kind": "kb-collection",
+      "label": "cooperativismoAplicado",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "e83b06df-1106-4444-bf9d-a0829fff125f",
+      "kind": "kb-topic",
+      "label": "Identidad cooperativa",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "f9a1d108-7601-4668-83b4-9e1b0c2b0465",
+      "kind": "kb-topic",
+      "label": "Legislación cooperativa",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "5d6c7c62-1225-406e-a82d-c4677f51a8f6",
+      "kind": "kb-topic",
+      "label": "Gobernabilidad cooperativa",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "7c70f45e-af07-40f6-a665-aabd2df7639f",
+      "kind": "kb-topic",
+      "label": "Funciones de los cuerpos directivos",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "f9da8306-09ea-4a47-bcdb-d92cf5775cb5",
+      "kind": "kb-topic",
+      "label": "Administración de asambleas",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "5cc362e6-fb29-47a8-b481-b7a4b4966dc5",
+      "kind": "kb-topic",
+      "label": "Liderazgo cooperativista",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "496b95d2-324a-42c4-be3b-2d644e31900e",
+      "kind": "kb-topic",
+      "label": "Incidencia política",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "67262165-a96f-4914-8c87-c1d3a44566f6",
+      "kind": "catalog",
+      "path": "templates/content-catalog.json",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    },
+    {
+      "uuid": "790c6dd4-c8e4-41d8-9c25-b412829b35a2",
+      "kind": "package",
+      "label": "coopenotebook-coordinator-agent-v1",
+      "status": "active",
+      "createdAt": "2026-06-26"
+    }
+  ]
+}

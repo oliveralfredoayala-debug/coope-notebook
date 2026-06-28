@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "required": [
+    "gameId",
+    "gameType",
+    "mode",
+    "participantId",
+    "startedAt",
+    "completed",
+    "score",
+    "maxScore",
+    "accuracy"
+  ],
+  "properties": {
+    "gameId": {
+      "type": "string"
+    },
+    "gameType": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "pve",
+        "1v1",
+        "pvp",
+        "coop"
+      ]
+    },
+    "participantId": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "integer"
+    },
+    "completedAt": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "elapsedMs": {
+      "type": "integer"
+    },
+    "score": {
+      "type": "number"
+    },
+    "maxScore": {
+      "type": "number"
+    },
+    "accuracy": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "completed": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modelo de crucigrama · CoopeNotebook</title>
+<style>
+:root{--verde:#234a35;--verde2:#2f7d52;--ambar:#f0a226;--tinta:#17221e;--muted:#58665f;--bg:#f3f6f4;--paper:#fff;--line:#dfe7e2;--ok:#237044;--bad:#a33a32;--focus:#145c9e}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tinta)}
+button,input,select{font:inherit} button{min-height:44px}
+.top{height:6px;background:linear-gradient(90deg,var(--verde),var(--verde2) 58%,var(--ambar))}
+header{display:flex;align-items:center;gap:1rem;padding:1rem clamp(1rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}
+.brand{font-weight:900} .brand strong{color:var(--verde)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.65rem .9rem;font-weight:800;cursor:pointer}
+.btn.primary{background:var(--verde);border-color:var(--verde);color:#fff}
+.btn:focus-visible,.clue:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:1.4rem;padding:clamp(1rem,2.5vw,2rem);max-width:1500px;margin:auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 50px rgba(35,74,53,.10)}
+.board-card{padding:clamp(1rem,2vw,1.8rem)} .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde2);font-weight:900;margin:0}
+h1{font-size:clamp(1.8rem,3vw,3.1rem);letter-spacing:-.04em;line-height:1.05;margin:.35rem 0 .45rem}
+.lead{color:var(--muted);margin:0;max-width:70ch} .status{display:flex;gap:1rem;align-items:center;margin:1rem 0;flex-wrap:wrap}
+.progress{height:12px;flex:1;min-width:180px;background:#e8eeea;border-radius:99px;overflow:hidden} .bar{height:100%;width:0;background:linear-gradient(90deg,var(--verde2),var(--ambar))}
+.ptext{font-weight:900;color:var(--verde)} .board-wrap{overflow:auto;background:#edf2ef;border-radius:14px;padding:.55rem}
+.grid{--cell:clamp(32px,4vw,56px);display:grid;gap:3px;width:max-content;margin:auto}
+.cell{position:relative;width:var(--cell);height:var(--cell)} .cell.block{background:transparent}
+.cell input{width:100%;height:100%;border:1.5px solid #b9c8c0;border-radius:7px;text-align:center;text-transform:uppercase;font-size:clamp(1rem,2vw,1.45rem);font-weight:900;padding:.2rem;background:#fff}
+.cell.active input{background:#fff6df;border-color:var(--ambar)} .cell.good input{background:#e5f5eb;border-color:var(--ok)} .cell.bad input{background:#fff0ee;border-color:var(--bad)}
+.num{position:absolute;left:4px;top:1px;font-size:.65rem;font-weight:900;z-index:2} .helper{font-size:.86rem;color:var(--muted)}
+.clue-groups{padding:1rem}.side-title{margin:.1rem 0 1rem;font-size:1.25rem}.clue-group+ .clue-group{margin-top:1.2rem}.clue-group h3{margin:0 0 .6rem;color:var(--verde);font-size:1rem;border-bottom:2px solid #edf2ef;padding-bottom:.45rem} .clues{display:grid;gap:.65rem;max-height:58vh;overflow:auto}
+.clue{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.8rem;cursor:pointer;display:grid;grid-template-columns:2rem 1fr;gap:.35rem}
+.clue:hover,.clue[aria-pressed="true"]{border-color:var(--ambar);background:#fffaf0} .cnum{font-weight:900;color:var(--verde)} .meta{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+.answer-list{display:grid;gap:.65rem} .answer-item{border:1px solid var(--line);border-radius:12px;padding:.8rem;background:#fbfcfb}
+.answer-item strong{color:var(--verde)} .explanation{color:var(--muted);font-size:.9rem;margin:.3rem 0 0}
+.tools{display:flex;gap:.5rem;flex-wrap:wrap;padding:0 1rem 1rem} .feedback{margin:0 1rem 1rem;border-left:4px solid var(--ambar);background:#fff8e8;border-radius:8px;padding:.75rem}
+.sr{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+@media(max-width:900px){main{grid-template-columns:1fr} .grid{--cell:clamp(28px,7vw,46px)} .clues{max-height:none}}
+@media(max-width:520px){.grid{--cell:clamp(24px,6.7vw,34px)} .cell input{border-radius:4px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="top"></div>
+<header>
+  <div class="brand"><strong>Coope</strong>Notebook · Modelo de juego</div>
+</header>
+
+<main>
+<section class="card board-card">
+  <p class="eyebrow" id="workshopName">Juego de repaso · Taller de trabajo en equipo</p>
+  <h1>La trama del equipo</h1>
+  <p class="lead">Completá los conceptos. Las pistas están organizadas como en un crucigrama tradicional: horizontales y verticales.</p>
+  <div class="status">
+    <div class="progress" role="progressbar" aria-label="Progreso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" id="bar"></div></div>
+    <span class="ptext" id="ptext">0 letras</span>
+  </div>
+  <div class="board-wrap"><div class="grid" id="grid" aria-label="Cuadrícula del crucigrama"></div></div>
+  <p class="helper">Flechas: moverse · Espacio: cambiar de dirección en una intersección.</p>
+</section>
+
+<aside class="card">
+  <section class="clue-groups" aria-labelledby="clues-title">
+    <h2 id="clues-title" class="side-title">Pistas</h2>
+
+    <section class="clue-group" aria-labelledby="across-title">
+      <h3 id="across-title">Horizontales</h3>
+      <div class="clues" id="clues-across"></div>
+    </section>
+
+    <section class="clue-group" aria-labelledby="down-title">
+      <h3 id="down-title">Verticales</h3>
+      <div class="clues" id="clues-down"></div>
+    </section>
+  </section>
+
+  <section id="facilitatorAnswers" hidden aria-label="Respuestas para facilitación">
+    <div class="answer-list" id="answers"></div>
+  </section>
+
+  <div class="tools">
+    <button class="btn primary" id="checkBtn">Comprobar</button>
+    <button class="btn" id="hintBtn">Revelar letra</button>
+    <button class="btn" id="resetBtn">Reiniciar</button>
+  </div>
+  <p class="feedback" id="feedback" role="status">Todavía no comprobaste respuestas.</p>
+</aside>
+</main>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const SESSION_CONFIG = Object.freeze({
+  allowAnswers: false,
+  workshopName: "Taller de trabajo en equipo"
+});
+
+window.CoopeGameSession = Object.freeze({
+  setWorkshopName(name) {
+    const safeName = String(name ?? "").trim();
+    document.getElementById("workshopName").textContent =
+      safeName ? `Juego de repaso · ${safeName}` : "Juego de repaso";
+  },
+  setAnswersEnabled(enabled) {
+    const allowed = Boolean(enabled);
+    document.getElementById("facilitatorAnswers").hidden = !allowed;
+    if (!allowed && state.showingSolution) hideSolution();
+    live.textContent = allowed
+      ? "Respuestas habilitadas para facilitación."
+      : "Respuestas deshabilitadas.";
+  },
+  showSolution() {
+    if (!SESSION_CONFIG.allowAnswers && document.getElementById("facilitatorAnswers").hidden) {
+      throw new Error("Las respuestas no están habilitadas en esta sesión.");
+    }
+    showSolution();
+  },
+  hideSolution
+});
+
+const BANK = {"schemaVersion": "1.0.0", "capsulaId": "trabajo-en-equipo", "titulo": "Trabajo en equipo", "descripcion": "Banco de demostración para probar el motor universal de juegos.", "items": [{"id": "te-001", "tipo": "concepto", "pregunta": "Intercambio de ideas para comprenderse y construir juntos.", "respuesta": "DIALOGO", "distractores": ["MANDATO", "CONTROL", "SILENCIO"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "El diálogo permite intercambiar perspectivas y construir comprensión compartida.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Comunicación"}}, {"id": "te-002", "tipo": "concepto", "pregunta": "Decisión compartida a la que llega un grupo.", "respuesta": "ACUERDO", "distractores": ["ORDEN", "VOTO", "REGLA"], "categoria": "coordinacion", "dificultad": "basica", "explicacion": "Un acuerdo expresa una decisión construida o aceptada colectivamente.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Acuerdos"}}, {"id": "te-003", "tipo": "concepto", "pregunta": "Atención genuina a lo que otra persona expresa.", "respuesta": "ESCUCHA", "distractores": ["PAUSA", "OPINION", "MIRADA"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "Escuchar implica atender, interpretar y considerar lo que otra persona comunica.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Escucha activa"}}, {"id": "te-004", "tipo": "concepto", "pregunta": "Trato que reconoce el valor y la voz de cada integrante.", "respuesta": "RESPETO", "distractores": ["ORDEN", "APOYO", "CONTROL"], "categoria": "convivencia", "dificultad": "basica", "explicacion": "El respeto reconoce la dignidad, los límites y la participación de cada persona.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Convivencia"}}, {"id": "te-005", "tipo": "concepto", "pregunta": "Grupo que coordina esfuerzos hacia un propósito común.", "respuesta": "EQUIPO", "distractores": ["PUBLICO", "TURNO", "PAREJA"], "categoria": "organizacion", "dificultad": "basica", "explicacion": "Un equipo articula capacidades y responsabilidades alrededor de una meta compartida.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Concepto central"}}, {"id": "te-006", "tipo": "concepto", "pregunta": "Apoyo que una persona ofrece a otra.", "respuesta": "AYUDA", "distractores": ["ORDEN", "VENTA", "PRUEBA"], "categoria": "cooperacion", "dificultad": "basica", "explicacion": "La ayuda permite compartir recursos, capacidades o tiempo ante una necesidad.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Cooperación"}}, {"id": "te-007", "tipo": "concepto", "pregunta": "Resultado que el grupo busca alcanzar.", "respuesta": "META", "distractores": ["RUTA", "NORMA", "IDEA"], "categoria": "planificacion", "dificultad": "basica", "explicacion": "La meta orienta los esfuerzos y permite valorar el avance del equipo.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Propósito"}}, {"id": "te-008", "tipo": "concepto", "pregunta": "Distribución clara de tareas entre integrantes.", "respuesta": "ROLES", "distractores": ["TURNOS", "GRUPOS", "NORMAS"], "categoria": "organizacion", "dificultad": "media", "explicacion": "Los roles aclaran responsabilidades y facilitan la coordinación.", "aptoPara": ["crucigrama", "quiz", "memotest", "clasificador"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Organización"}}, {"id": "te-009", "tipo": "concepto", "pregunta": "Acción de trabajar con otras personas para alcanzar algo común.", "respuesta": "COOPERAR", "distractores": ["COMPETIR", "MANDAR", "OBSERVAR"], "categoria": "cooperacion", "dificultad": "media", "explicacion": "Cooperar supone aportar y coordinar acciones en beneficio de un propósito compartido.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Cooperación"}}]};
+
+const layouts = [
+  [
+    {id:"te-001",number:1,row:0,col:4,dir:"across"},
+    {id:"te-002",number:2,row:0,col:6,dir:"down"},
+    {id:"te-003",number:4,row:3,col:6,dir:"across"},
+    {id:"te-004",number:5,row:6,col:0,dir:"across"},
+    {id:"te-005",number:3,row:2,col:3,dir:"down"},
+    {id:"te-006",number:6,row:3,col:12,dir:"down"},
+    {id:"te-007",number:7,row:7,col:9,dir:"across"}
+  ]
+];
+
+const itemById = new Map(BANK.items.map(item=>[item.id,item]));
+const state={activeWord:null, direction:"across", showingSolution:false};
+const gridEl=document.getElementById("grid"), cluesAcrossEl=document.getElementById("clues-across"), cluesDownEl=document.getElementById("clues-down"), answersEl=document.getElementById("answers");
+const feedback=document.getElementById("feedback"), live=document.getElementById("live"), bar=document.getElementById("bar"), ptext=document.getElementById("ptext");
+const cells=new Map(), memberships=new Map();
+let words=[];
+
+function norm(v){return String(v??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Za-zÑñ0-9]/g,"").toUpperCase()}
+function key(r,c){return `${r}-${c}`}
+function getWord(id){return words.find(w=>w.id===id)}
+function wordCells(w){return [...w.answer].map((_,i)=>cells.get(key(w.row+(w.dir==="down"?i:0),w.col+(w.dir==="across"?i:0))))}
+
+function build(){
+  words=layouts[0].map(spec=>({...itemById.get(spec.id),...spec,answer:norm(itemById.get(spec.id).respuesta)}));
+  memberships.clear(); cells.clear(); gridEl.textContent=""; cluesAcrossEl.textContent=""; cluesDownEl.textContent=""; answersEl.textContent="";
+  let rows=0,cols=0;
+  words.forEach(w=>{
+    rows=Math.max(rows,w.row+(w.dir==="down"?w.answer.length:1));
+    cols=Math.max(cols,w.col+(w.dir==="across"?w.answer.length:1));
+    [...w.answer].forEach((_,i)=>{
+      const k=key(w.row+(w.dir==="down"?i:0),w.col+(w.dir==="across"?i:0));
+      if(!memberships.has(k)) memberships.set(k,[]);
+      memberships.get(k).push({wordId:w.id,index:i});
+    });
+  });
+  gridEl.style.gridTemplateColumns=`repeat(${cols},var(--cell))`;
+  gridEl.style.gridTemplateRows=`repeat(${rows},var(--cell))`;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) gridEl.appendChild(makeCell(r,c));
+  words.sort((a,b)=>a.number-b.number).forEach(renderWordInfo);
+  updateProgress();
+}
+
+function makeCell(r,c){
+  const wrap=document.createElement("div"); wrap.className="cell";
+  const k=key(r,c), members=memberships.get(k);
+  if(!members){wrap.classList.add("block");wrap.setAttribute("aria-hidden","true");return wrap}
+  const starts=words.filter(w=>w.row===r&&w.col===c);
+  if(starts.length){const n=document.createElement("span");n.className="num";n.textContent=Math.min(...starts.map(w=>w.number));wrap.appendChild(n)}
+  const input=document.createElement("input"); input.maxLength=1; input.autocomplete="off"; input.spellcheck=false; input.dataset.row=r; input.dataset.col=c;
+  input.setAttribute("aria-label",`Fila ${r+1}, columna ${c+1}`);
+  input.addEventListener("focus",()=>activateCell(k));
+  input.addEventListener("click",()=>cycle(k));
+  input.addEventListener("input",e=>{e.target.value=norm(e.target.value).slice(-1);wrap.classList.remove("good","bad");updateProgress();if(e.target.value)move(e.target,1)});
+  input.addEventListener("keydown",handleKey);
+  wrap.appendChild(input); cells.set(k,{wrap,input,members}); return wrap;
+}
+
+function renderWordInfo(w){
+  const clue=document.createElement("button"); clue.className="clue";clue.dataset.id=w.id;clue.setAttribute("aria-pressed","false");
+  const n=document.createElement("span");n.className="cnum";n.textContent=w.number;
+  const body=document.createElement("span"),meta=document.createElement("span");meta.className="meta";meta.textContent=`${w.dir==="across"?"horizontal":"vertical"} · ${w.answer.length} letras`;
+  const text=document.createElement("span");text.textContent=w.pregunta;body.append(meta,text);clue.append(n,body);clue.addEventListener("click",()=>selectWord(w.id,true));(w.dir==="across"?cluesAcrossEl:cluesDownEl).appendChild(clue);
+
+  const ans=document.createElement("article");ans.className="answer-item";
+  const title=document.createElement("strong");title.textContent=`${w.number}. ${w.respuesta}`;
+  const exp=document.createElement("p");exp.className="explanation";exp.textContent=w.explicacion;ans.append(title,exp);answersEl.appendChild(ans);
+}
+
+function selectWord(id,focusFirst=false){
+  state.activeWord=id;const w=getWord(id);state.direction=w.dir;
+  cells.forEach(c=>c.wrap.classList.remove("active"));wordCells(w).forEach(c=>c.wrap.classList.add("active"));
+  document.querySelectorAll(".clue").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.id===id)));
+  live.textContent=`Pista ${w.number}, ${w.dir==="across"?"horizontal":"vertical"}: ${w.pregunta}`;
+  if(focusFirst)(wordCells(w).find(c=>!c.input.value)||wordCells(w)[0]).input.focus();
+}
+function activateCell(k){const opts=memberships.get(k)||[];const preferred=opts.find(o=>getWord(o.wordId).dir===state.direction);const chosen=preferred||opts[0];if(chosen)selectWord(chosen.wordId)}
+function cycle(k){const opts=memberships.get(k)||[];if(opts.length<2)return;const i=opts.findIndex(o=>o.wordId===state.activeWord);selectWord(opts[(i+1)%opts.length].wordId)}
+function move(input,delta){const w=getWord(state.activeWord);if(!w)return;const list=wordCells(w),i=list.findIndex(c=>c.input===input),next=list[i+delta];if(next)next.input.focus()}
+function handleKey(e){
+  const r=+e.target.dataset.row,c=+e.target.dataset.col;
+  if(e.key==="Backspace"&&!e.target.value){e.preventDefault();move(e.target,-1);return}
+  if(e.key===" "){e.preventDefault();cycle(key(r,c));return}
+  const m={ArrowLeft:[0,-1],ArrowRight:[0,1],ArrowUp:[-1,0],ArrowDown:[1,0]}[e.key];if(!m)return;e.preventDefault();
+  let rr=r+m[0],cc=c+m[1];while(rr>=0&&cc>=0){const t=cells.get(key(rr,cc));if(t){t.input.focus();return}rr+=m[0];cc+=m[1]}
+}
+function updateProgress(){const all=[...cells.values()],filled=all.filter(c=>c.input.value).length,pct=Math.round(filled/all.length*100);bar.style.width=pct+"%";ptext.textContent=`${filled} de ${all.length} letras`;document.querySelector(".progress").setAttribute("aria-valuenow",pct)}
+function check(){let good=0,bad=0,empty=0;cells.forEach((c,k)=>{const m=memberships.get(k)[0],expected=getWord(m.wordId).answer[m.index];c.wrap.classList.remove("good","bad");if(!c.input.value)empty++;else if(c.input.value===expected){c.wrap.classList.add("good");good++}else{c.wrap.classList.add("bad");bad++}});feedback.textContent=good===cells.size?"¡Todo correcto!":bad?`Hay ${bad} letra(s) para revisar.`:`Vas bien: ${good} correctas y ${empty} vacías.`;live.textContent=feedback.textContent}
+function hint(){const w=getWord(state.activeWord);if(!w){feedback.textContent="Elegí una pista primero.";return}const list=wordCells(w),target=list.find((c,i)=>c.input.value!==w.answer[i]);if(!target){feedback.textContent="La palabra seleccionada ya está completa.";return}const i=list.indexOf(target);target.input.value=w.answer[i];target.input.focus();updateProgress();feedback.textContent=`Se reveló una letra de la pista ${w.number}.`}
+function reset(){cells.forEach(c=>{c.input.value="";c.wrap.classList.remove("good","bad","active")});state.activeWord=null;state.showingSolution=false;document.querySelectorAll(".clue").forEach(b=>b.setAttribute("aria-pressed","false"));feedback.textContent="Crucigrama reiniciado.";updateProgress()}
+function showSolution(){cells.forEach((c,k)=>{const m=memberships.get(k)[0];c.input.value=getWord(m.wordId).answer[m.index];c.wrap.classList.remove("bad");c.wrap.classList.add("good")});state.showingSolution=true;updateProgress();feedback.textContent="Solución mostrada en el tablero.";live.textContent=feedback.textContent}
+function hideSolution(){if(!state.showingSolution){feedback.textContent="La solución no está visible.";return}reset();feedback.textContent="Solución ocultada y tablero limpio."}
+
+document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected","false"));tab.setAttribute("aria-selected","true");
+  document.querySelectorAll(".panel").forEach(p=>p.hidden=true);document.getElementById(tab.getAttribute("aria-controls")).hidden=false;
+}));
+document.getElementById("checkBtn").addEventListener("click",check);
+document.getElementById("hintBtn").addEventListener("click",hint);
+document.getElementById("resetBtn").addEventListener("click",reset);
+build();
+window.CoopeGameSession.setWorkshopName(SESSION_CONFIG.workshopName);
+window.CoopeGameSession.setAnswersEnabled(SESSION_CONFIG.allowAnswers);
+</script>
+</body>
+</html>

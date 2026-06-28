@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:uuid:9870515a-b17b-4c6e-a1f2-5d78fb85e3cc",
+  "title": "CoopeNotebook Content Catalog",
+  "type": "object",
+  "required": [
+    "catalogUuid",
+    "version",
+    "mainNavigation",
+    "kb",
+    "items"
+  ],
+  "properties": {
+    "catalogUuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "version": {
+      "type": "string"
+    },
+    "mainNavigation": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nav"
+      }
+    },
+    "kb": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    }
+  },
+  "$defs": {
+    "nav": {
+      "type": "object",
+      "required": [
+        "uuid",
+        "label",
+        "key",
+        "path"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "label": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "const": "published"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "uuid",
+        "type",
+        "title",
+        "path",
+        "status"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "const": "published"
+        },
+        "version": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "parentUuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "topicUuid": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    }
+  }
+}

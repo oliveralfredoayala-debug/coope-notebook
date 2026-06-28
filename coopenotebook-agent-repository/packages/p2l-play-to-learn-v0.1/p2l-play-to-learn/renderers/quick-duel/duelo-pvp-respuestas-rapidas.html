@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duelo relámpago · CoopeNotebook</title>
+<style>
+:root{
+  --verde:#234a35;--verde2:#2f7d52;--ambar:#f0a226;--tinta:#17221e;
+  --muted:#5a6861;--bg:#f3f6f4;--paper:#fff;--line:#dfe7e2;
+  --a:#285b9a;--b:#8a4f7d;--ok:#237044;--bad:#a33a32;--focus:#145c9e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tinta)}
+button,input{font:inherit} button{min-height:44px}
+.top{height:6px;background:linear-gradient(90deg,var(--verde),var(--verde2) 58%,var(--ambar))}
+header{padding:1rem clamp(1rem,3vw,2rem);background:#fff;border-bottom:1px solid var(--line)}
+.brand{font-weight:900} .brand strong{color:var(--verde)}
+main{max-width:1500px;margin:auto;padding:clamp(1rem,2.5vw,2rem);display:grid;gap:1.2rem}
+.hero{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(1rem,2vw,1.7rem);box-shadow:0 18px 50px rgba(35,74,53,.10)}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde2);font-weight:900;margin:0}
+h1{font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-.04em;line-height:1.05;margin:.35rem 0}
+.lead{margin:0;color:var(--muted)}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-top:1.2rem}
+.team-score{border:1px solid var(--line);border-radius:16px;padding:1rem;background:#fbfcfb}
+.team-score.a{border-top:5px solid var(--a)} .team-score.b{border-top:5px solid var(--b)}
+.team-name{font-weight:900;font-size:1.1rem} .score{font-size:2.2rem;font-weight:950;line-height:1;margin-top:.3rem}
+.vs{font-weight:950;color:var(--muted)}
+.roundbar{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+.rounds{font-weight:900;color:var(--verde)} .timer{font-variant-numeric:tabular-nums;font-size:1.2rem;font-weight:950}
+.arena{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.player{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1rem;box-shadow:0 14px 40px rgba(35,74,53,.08)}
+.player.a{border-top:6px solid var(--a)} .player.b{border-top:6px solid var(--b)}
+.player h2{margin:.1rem 0 .8rem;font-size:1.25rem}
+.name-input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:.7rem .8rem;margin-bottom:.8rem}
+.question{background:#f7faf8;border:1px solid var(--line);border-radius:14px;padding:1rem;min-height:110px;display:flex;align-items:center;font-weight:850}
+.options{display:grid;gap:.65rem;margin-top:.8rem}
+.option{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.8rem;cursor:pointer;font-weight:750}
+.option:hover{border-color:var(--ambar);background:#fffaf0}
+.option:disabled{cursor:not-allowed;opacity:.72}
+.option.selected{border-color:var(--focus);background:#eef6ff}
+.option.correct{border-color:var(--ok);background:#e8f6ed}
+.option.wrong{border-color:var(--bad);background:#fff0ee}
+.option:focus-visible,.control:focus-visible,.name-input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.status{margin-top:.8rem;border-left:4px solid var(--ambar);background:#fff8e8;border-radius:8px;padding:.75rem;min-height:3rem}
+.controls{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.control{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.7rem 1rem;font-weight:900;cursor:pointer}
+.control.primary{background:var(--verde);color:#fff;border-color:var(--verde)}
+.control:disabled{opacity:.5;cursor:not-allowed}
+.results{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1rem}
+.results h2{margin:.1rem 0 .8rem}
+.table-wrap{overflow:auto} table{width:100%;border-collapse:collapse;min-width:620px}
+th,td{padding:.75rem;border-bottom:1px solid var(--line);text-align:left} th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.badge{display:inline-block;border-radius:999px;padding:.25rem .55rem;font-size:.78rem;font-weight:900;background:#edf3ef}
+.winner{background:#fff4d8}
+.note{font-size:.86rem;color:var(--muted);margin:.8rem 0 0}
+.sr{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+@media(max-width:850px){
+  .arena{grid-template-columns:1fr}
+  .scoreboard{grid-template-columns:1fr}
+  .vs{text-align:center}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top"></div>
+<header><div class="brand"><strong>Coope</strong>Notebook · Taller de trabajo en equipo</div></header>
+
+<main>
+<section class="hero">
+  <p class="eyebrow">Duelo PvP · Respuestas rápidas</p>
+  <h1>Duelo relámpago</h1>
+  <p class="lead">Ambos jugadores reciben la misma pregunta. Primero cuenta la exactitud; la velocidad desempata.</p>
+
+  <div class="scoreboard" aria-label="Marcador">
+    <div class="team-score a">
+      <div class="team-name" id="scoreNameA">Equipo A</div>
+      <div class="score" id="scoreA">0</div>
+    </div>
+    <div class="vs">VS</div>
+    <div class="team-score b">
+      <div class="team-name" id="scoreNameB">Equipo B</div>
+      <div class="score" id="scoreB">0</div>
+    </div>
+  </div>
+
+  <div class="roundbar">
+    <span class="rounds" id="roundLabel">Ronda 1 de 5</span>
+    <span class="timer" id="timer">00:00.0</span>
+  </div>
+</section>
+
+<section class="arena">
+  <article class="player a" aria-labelledby="playerATitle">
+    <h2 id="playerATitle">Jugador A</h2>
+    <input class="name-input" id="nameA" value="Equipo A" aria-label="Nombre del jugador o equipo A">
+    <div class="question" id="questionA"></div>
+    <div class="options" id="optionsA"></div>
+    <p class="status" id="statusA">Esperando el inicio de la ronda.</p>
+  </article>
+
+  <article class="player b" aria-labelledby="playerBTitle">
+    <h2 id="playerBTitle">Jugador B</h2>
+    <input class="name-input" id="nameB" value="Equipo B" aria-label="Nombre del jugador o equipo B">
+    <div class="question" id="questionB"></div>
+    <div class="options" id="optionsB"></div>
+    <p class="status" id="statusB">Esperando el inicio de la ronda.</p>
+  </article>
+</section>
+
+<div class="controls">
+  <button class="control primary" id="startBtn">Iniciar ronda</button>
+  <button class="control" id="resolveBtn" disabled>Resolver ronda</button>
+  <button class="control" id="nextBtn" disabled>Siguiente ronda</button>
+  <button class="control" id="resetBtn">Reiniciar partida</button>
+</div>
+
+<section class="results" aria-labelledby="resultsTitle">
+  <h2 id="resultsTitle">Resultados temporales de la partida</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Posición</th><th>Participante</th><th>Aciertos</th><th>Tiempo acumulado</th><th>Estado</th></tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+  </div>
+  <p class="note">Estos datos existen solo mientras esta página permanece abierta. Al cerrar o recargar, desaparecen.</p>
+</section>
+</main>
+
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const QUESTIONS = [{"id": "te-001", "tipo": "concepto", "pregunta": "Intercambio de ideas para comprenderse y construir juntos.", "respuesta": "DIALOGO", "distractores": ["MANDATO", "CONTROL", "SILENCIO"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "El diálogo permite intercambiar perspectivas y construir comprensión compartida.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Comunicación"}}, {"id": "te-002", "tipo": "concepto", "pregunta": "Decisión compartida a la que llega un grupo.", "respuesta": "ACUERDO", "distractores": ["ORDEN", "VOTO", "REGLA"], "categoria": "coordinacion", "dificultad": "basica", "explicacion": "Un acuerdo expresa una decisión construida o aceptada colectivamente.", "aptoPara": ["crucigrama", "quiz", "memotest", "completar"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Acuerdos"}}, {"id": "te-003", "tipo": "concepto", "pregunta": "Atención genuina a lo que otra persona expresa.", "respuesta": "ESCUCHA", "distractores": ["PAUSA", "OPINION", "MIRADA"], "categoria": "comunicacion", "dificultad": "basica", "explicacion": "Escuchar implica atender, interpretar y considerar lo que otra persona comunica.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Escucha activa"}}, {"id": "te-004", "tipo": "concepto", "pregunta": "Trato que reconoce el valor y la voz de cada integrante.", "respuesta": "RESPETO", "distractores": ["ORDEN", "APOYO", "CONTROL"], "categoria": "convivencia", "dificultad": "basica", "explicacion": "El respeto reconoce la dignidad, los límites y la participación de cada persona.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Convivencia"}}, {"id": "te-005", "tipo": "concepto", "pregunta": "Grupo que coordina esfuerzos hacia un propósito común.", "respuesta": "EQUIPO", "distractores": ["PUBLICO", "TURNO", "PAREJA"], "categoria": "organizacion", "dificultad": "basica", "explicacion": "Un equipo articula capacidades y responsabilidades alrededor de una meta compartida.", "aptoPara": ["crucigrama", "quiz", "memotest"], "fuente": {"tipo": "capsula", "referencia": "Trabajo en equipo · Concepto central"}}];
+
+const state = {
+  round: 0,
+  active: false,
+  startedAt: 0,
+  timerId: null,
+  players: {
+    A: {score:0, correct:0, totalMs:0, answer:null, answeredAt:null},
+    B: {score:0, correct:0, totalMs:0, answer:null, answeredAt:null}
+  }
+};
+
+const els = {
+  qA: document.getElementById("questionA"),
+  qB: document.getElementById("questionB"),
+  oA: document.getElementById("optionsA"),
+  oB: document.getElementById("optionsB"),
+  sA: document.getElementById("statusA"),
+  sB: document.getElementById("statusB"),
+  timer: document.getElementById("timer"),
+  round: document.getElementById("roundLabel"),
+  scoreA: document.getElementById("scoreA"),
+  scoreB: document.getElementById("scoreB"),
+  scoreNameA: document.getElementById("scoreNameA"),
+  scoreNameB: document.getElementById("scoreNameB"),
+  nameA: document.getElementById("nameA"),
+  nameB: document.getElementById("nameB"),
+  start: document.getElementById("startBtn"),
+  resolve: document.getElementById("resolveBtn"),
+  next: document.getElementById("nextBtn"),
+  reset: document.getElementById("resetBtn"),
+  body: document.getElementById("resultsBody"),
+  live: document.getElementById("live")
+};
+
+function shuffle(values) {
+  const copy = [...values];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function currentQuestion() { return QUESTIONS[state.round]; }
+function displayName(side) {
+  return (side === "A" ? els.nameA.value : els.nameB.value).trim() || `Jugador ${side}`;
+}
+
+function formatTime(ms) {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  const tenths = Math.floor((ms % 1000) / 100);
+  return `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}.${tenths}`;
+}
+
+function updateTimer() {
+  if (!state.active) return;
+  els.timer.textContent = formatTime(performance.now() - state.startedAt);
+}
+
+function renderQuestion() {
+  const q = currentQuestion();
+  els.qA.textContent = q.pregunta;
+  els.qB.textContent = q.pregunta;
+  const options = shuffle([q.respuesta, ...(q.distractores || [])]).slice(0,4);
+  renderOptions("A", options);
+  renderOptions("B", options);
+  els.sA.textContent = "Elegí una respuesta.";
+  els.sB.textContent = "Elegí una respuesta.";
+}
+
+function renderOptions(side, options) {
+  const host = side === "A" ? els.oA : els.oB;
+  host.textContent = "";
+  options.forEach(option => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.type = "button";
+    button.textContent = option;
+    button.addEventListener("click", () => submitAnswer(side, option, button));
+    host.appendChild(button);
+  });
+}
+
+function submitAnswer(side, answer, button) {
+  if (!state.active || state.players[side].answer !== null) return;
+  const player = state.players[side];
+  player.answer = answer;
+  player.answeredAt = performance.now() - state.startedAt;
+
+  const host = side === "A" ? els.oA : els.oB;
+  [...host.children].forEach(btn => {
+    btn.disabled = true;
+    if (btn === button) btn.classList.add("selected");
+  });
+  const status = side === "A" ? els.sA : els.sB;
+  status.textContent = `Respuesta registrada en ${formatTime(player.answeredAt)}.`;
+  els.live.textContent = `${displayName(side)} respondió.`;
+
+  if (state.players.A.answer !== null && state.players.B.answer !== null) {
+    els.resolve.disabled = false;
+  }
+}
+
+function startRound() {
+  if (state.active) return;
+  state.active = true;
+  state.players.A.answer = null;
+  state.players.B.answer = null;
+  state.players.A.answeredAt = null;
+  state.players.B.answeredAt = null;
+  renderQuestion();
+  state.startedAt = performance.now();
+  clearInterval(state.timerId);
+  state.timerId = setInterval(updateTimer, 100);
+  els.start.disabled = true;
+  els.resolve.disabled = true;
+  els.next.disabled = true;
+  els.nameA.disabled = true;
+  els.nameB.disabled = true;
+  els.live.textContent = `Ronda ${state.round + 1} iniciada.`;
+}
+
+function resolveRound() {
+  if (!state.active) return;
+  state.active = false;
+  clearInterval(state.timerId);
+
+  const q = currentQuestion();
+  for (const side of ["A","B"]) {
+    const player = state.players[side];
+    const host = side === "A" ? els.oA : els.oB;
+    const status = side === "A" ? els.sA : els.sB;
+    const isCorrect = player.answer === q.respuesta;
+
+    [...host.children].forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent === q.respuesta) btn.classList.add("correct");
+      else if (btn.textContent === player.answer) btn.classList.add("wrong");
+    });
+
+    if (player.answer === null) {
+      status.textContent = `Sin respuesta. Correcta: ${q.respuesta}.`;
+    } else if (isCorrect) {
+      player.correct += 1;
+      player.score += 100;
+      player.totalMs += player.answeredAt;
+      status.textContent = `Correcto. ${q.explicacion}`;
+    } else {
+      player.totalMs += player.answeredAt;
+      status.textContent = `Incorrecto. ${q.explicacion}`;
+    }
+  }
+
+  const a = state.players.A, b = state.players.B;
+  if (a.answer === q.respuesta && b.answer === q.respuesta) {
+    if (a.answeredAt < b.answeredAt) a.score += 20;
+    else if (b.answeredAt < a.answeredAt) b.score += 20;
+  }
+
+  updateScores();
+  renderResults();
+  els.resolve.disabled = true;
+  els.next.disabled = state.round >= QUESTIONS.length - 1;
+  els.start.disabled = true;
+
+  if (state.round >= QUESTIONS.length - 1) finishMatch();
+}
+
+function nextRound() {
+  if (state.round >= QUESTIONS.length - 1) return;
+  state.round += 1;
+  els.round.textContent = `Ronda ${state.round + 1} de ${QUESTIONS.length}`;
+  els.timer.textContent = "00:00.0";
+  els.start.disabled = false;
+  els.next.disabled = true;
+  els.resolve.disabled = true;
+  els.qA.textContent = "Ronda lista.";
+  els.qB.textContent = "Ronda lista.";
+  els.oA.textContent = "";
+  els.oB.textContent = "";
+  els.sA.textContent = "Esperando el inicio de la ronda.";
+  els.sB.textContent = "Esperando el inicio de la ronda.";
+}
+
+function updateScores() {
+  els.scoreA.textContent = state.players.A.score;
+  els.scoreB.textContent = state.players.B.score;
+  els.scoreNameA.textContent = displayName("A");
+  els.scoreNameB.textContent = displayName("B");
+}
+
+function standings() {
+  return ["A","B"].map(side => ({
+    side,
+    name: displayName(side),
+    ...state.players[side]
+  })).sort((x,y) =>
+    y.correct - x.correct ||
+    x.totalMs - y.totalMs ||
+    y.score - x.score
+  );
+}
+
+function renderResults() {
+  els.body.textContent = "";
+  standings().forEach((player,index) => {
+    const tr = document.createElement("tr");
+    if (index === 0) tr.classList.add("winner");
+    const values = [
+      String(index + 1),
+      player.name,
+      `${player.correct} / ${state.round + 1}`,
+      formatTime(player.totalMs),
+      state.round >= QUESTIONS.length - 1 ? "Finalizado" : "En partida"
+    ];
+    values.forEach((value,i) => {
+      const td = document.createElement("td");
+      if (i === 4) {
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = value;
+        td.appendChild(badge);
+      } else td.textContent = value;
+      tr.appendChild(td);
+    });
+    els.body.appendChild(tr);
+  });
+}
+
+function finishMatch() {
+  const ranking = standings();
+  els.live.textContent = `Partida finalizada. Gana ${ranking[0].name}.`;
+}
+
+function resetMatch() {
+  clearInterval(state.timerId);
+  state.round = 0;
+  state.active = false;
+  for (const side of ["A","B"]) {
+    state.players[side] = {score:0, correct:0, totalMs:0, answer:null, answeredAt:null};
+  }
+  els.round.textContent = `Ronda 1 de ${QUESTIONS.length}`;
+  els.timer.textContent = "00:00.0";
+  els.qA.textContent = "Ronda lista.";
+  els.qB.textContent = "Ronda lista.";
+  els.oA.textContent = "";
+  els.oB.textContent = "";
+  els.sA.textContent = "Esperando el inicio de la ronda.";
+  els.sB.textContent = "Esperando el inicio de la ronda.";
+  els.start.disabled = false;
+  els.resolve.disabled = true;
+  els.next.disabled = true;
+  els.nameA.disabled = false;
+  els.nameB.disabled = false;
+  els.body.textContent = "";
+  updateScores();
+}
+
+els.start.addEventListener("click", startRound);
+els.resolve.addEventListener("click", resolveRound);
+els.next.addEventListener("click", nextRound);
+els.reset.addEventListener("click", resetMatch);
+els.nameA.addEventListener("input", updateScores);
+els.nameB.addEventListener("input", updateScores);
+
+resetMatch();
+</script>
+</body>
+</html>

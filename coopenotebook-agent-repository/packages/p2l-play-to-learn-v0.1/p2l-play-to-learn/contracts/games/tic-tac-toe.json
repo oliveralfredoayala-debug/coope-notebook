@@ -1,0 +1,13 @@
+{
+  "mode": [
+    "1v1"
+  ],
+  "minimumItems": 9,
+  "recommendedItems": 12,
+  "requires": [
+    "pregunta",
+    "respuesta",
+    "distractores",
+    "explicacion"
+  ]
+}

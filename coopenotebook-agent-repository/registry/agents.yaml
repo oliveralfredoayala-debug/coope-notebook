@@ -1,0 +1,71 @@
+version: 1
+source_of_truth: registry/agents.yaml
+agents:
+- id: system-coordinator
+  owner: openai
+  status: active
+  path: packages/coopenotebook-coordinator-agent-v1
+  purpose: Coordinar arquitectura, paquetes y flujo completo.
+- id: repository-governance-agent
+  owner: openai
+  status: new
+  path: agents/repository-governance-agent
+  purpose: Gobierno del repositorio, versiones y dependencias.
+- id: cross-platform-adapter-agent
+  owner: openai
+  reviewer: claude
+  status: new
+  path: agents/cross-platform-adapter-agent
+  purpose: Adaptar capacidades entre OpenAI, Claude y Antigravity.
+- id: repository-reviewer
+  owner: claude
+  status: new
+  path: agents/repository-reviewer
+  purpose: Auditoría profunda de cambios y consistencia.
+- id: local-repository-operator
+  owner: antigravity
+  status: new-from-existing
+  path: agents/local-repository-operator
+  purpose: Operación local, validación, commit y push a rama.
+- id: content-librarian
+  owner: claude
+  operator: antigravity
+  status: active
+  path: packages/content-librarian-antigravity-skill-v1
+  purpose: Clasificar, inventariar y localizar contenido.
+- id: lexcoop-hn
+  owner: claude
+  coordinator: openai
+  status: active
+  path: packages/lexcoop-hn-skill-v1
+  purpose: Fuentes y análisis jurídico cooperativo hondureño.
+- id: capsule-production
+  owner: openai
+  reviewer: claude
+  status: active
+  path: packages/coopenotebook-kb-capsule-production-system-v1
+  purpose: Orquestar producción y auditoría de cápsulas.
+- id: visual-system
+  owner: openai
+  reviewer: claude
+  status: active
+  path: packages/coopenotebook-kb-visual-system-final
+  purpose: Construcción visual, shell y QA funcional.
+- id: teamwork
+  owner: openai
+  reviewer: claude
+  status: active
+  path: packages/coopenotebook-trabajos-en-equipo-skill-v1.2-sandbox-lnl
+  purpose: Experiencias colaborativas y trabajo en equipo.
+- id: p2l
+  owner: openai
+  reviewer: claude
+  status: active
+  path: packages/p2l-play-to-learn-v0.1
+  purpose: Modos y experiencias Play to Learn.
+- id: jester
+  owner: openai
+  operator: antigravity
+  status: experimental
+  path: packages/jester-agents-v0.5
+  purpose: Laboratorio de generación y prueba HTML.

@@ -1,0 +1,22 @@
+{
+  "name": "lexcoop-hn",
+  "version": "1.0.0",
+  "display_name": "LexCoop HN",
+  "description": "Agente especializado en Ley de Cooperativas de Honduras, Reglamento, respaldo legal, cápsulas jurídico-pedagógicas y revisión de informes HTML.",
+  "primary_language": "es",
+  "domain": "cooperativismo hondureño, derecho cooperativo, pedagogía cooperativa",
+  "entrypoints": [
+    "agents/lexcoop_hn_agent.md",
+    "templates/capsula_legal_template.md",
+    "templates/informe_html_legal_template.html",
+    "maps/mapa_legal_cooperativo.md"
+  ],
+  "legal_sources": [
+    "Ley de Cooperativas de Honduras y su Reglamento",
+    "Decreto 65-87",
+    "Decreto 174-2013",
+    "Decreto 168-2016",
+    "Decreto 146-2019"
+  ],
+  "created_at": "2026-06-28"
+}

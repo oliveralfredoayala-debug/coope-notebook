@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Template Lab</title><style>
+:root{--verde:#234a35;--verde2:#2f7d52;--ambar:#f0a226;--fondo:#f5f7f5;--linea:#dfe7e2;--texto:#1a2421;--muted:#5e6a65}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--fondo);color:var(--texto)}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:white;border-bottom:1px solid var(--linea);position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:1.15rem}header p{margin:2px 0 0;color:var(--muted);font-size:.82rem}
+.wrap{max-width:1250px;margin:0 auto;padding:18px}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:16px}
+.card{background:white;border:1px solid var(--linea);border-radius:14px;padding:16px}
+h2{margin:.1rem 0 .35rem;font-size:1.15rem}p{line-height:1.5}
+input,select,textarea,button{font:inherit}
+input,select,textarea{width:100%;padding:10px 11px;border:1px solid var(--linea);border-radius:9px;background:white}
+textarea{min-height:100px;resize:vertical}
+label{display:block;font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:5px}
+.field{margin-bottom:12px}
+.btn{border:1px solid var(--linea);background:white;border-radius:9px;padding:9px 12px;cursor:pointer;min-height:42px}
+.btn.primary{background:var(--verde);color:white;border-color:var(--verde)}
+.btn.amber{background:var(--ambar);color:#4a3305;border-color:var(--ambar);font-weight:700}
+.btn.danger{color:#9f3434}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.list{display:grid;gap:8px}
+.item{border:1px solid var(--linea);border-radius:11px;padding:11px;background:white;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.item h3{margin:0;font-size:.95rem}.item p{margin:4px 0 0;color:var(--muted);font-size:.78rem}
+.step{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;border:1px solid var(--linea);border-radius:11px;padding:10px;background:white}
+.num{width:36px;height:36px;border-radius:9px;background:var(--ambar);display:grid;place-items:center;font-weight:800;color:#4a3305}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 7px;border-radius:99px;background:#fff3db;color:#7a5208;margin-top:5px}
+.empty{padding:28px;text-align:center;border:2px dashed var(--linea);border-radius:12px;color:var(--muted)}
+.note{padding:10px 12px;border-left:4px solid var(--ambar);background:#fff8e8;border-radius:8px}
+.toplink{margin-left:auto}
+.status{font-size:.78rem;color:var(--muted)}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.step{grid-template-columns:36px 1fr}.step .actions{grid-column:1/-1;justify-content:flex-end}}
+</style></head>
+<body>
+<header>
+  <div><h1>Template Lab</h1><p>Guardar, editar y administrar templates</p></div>
+  <a class="btn toplink" href="jester-maker.html">Ir a Jester Maker</a>
+</header>
+<div class="wrap">
+  <div class="grid">
+    <aside class="card">
+      <h2>Templates</h2>
+      <div class="actions" style="margin-bottom:12px"><button class="btn amber" id="newTpl">Nuevo template</button></div>
+      <div class="list" id="tplList"></div>
+    </aside>
+
+    <main class="card">
+      <h2>Editor</h2>
+      <div class="field"><label for="name">Nombre del template</label><input id="name"></div>
+      <div class="field"><label for="title">Título del taller</label><input id="title"></div>
+      <div class="field"><label for="description">Descripción</label><textarea id="description"></textarea></div>
+      <div class="field"><label for="sequence">Secuencia (un ID por línea)</label><textarea id="sequence"></textarea></div>
+      <div class="actions">
+        <button class="btn primary" id="save">Guardar cambios</button>
+        <button class="btn" id="duplicate">Duplicar</button>
+        <button class="btn danger" id="remove">Eliminar</button>
+        <button class="btn amber" id="apply">Aplicar en Maker</button>
+      </div>
+      <p class="status" id="status">Selecciona un template para editarlo.</p>
+    </main>
+  </div>
+</div>
+<script>
+let current=null;
+const $=s=>document.querySelector(s);
+function load(){try{return JSON.parse(localStorage.getItem("jester-templates")||"[]")}catch(e){return[]}}
+function store(x){localStorage.setItem("jester-templates",JSON.stringify(x))}
+function clearForm(){current=null;$("#name").value="";$("#title").value="";$("#description").value="";$("#sequence").value="";$("#status").textContent="Nuevo template"}
+function openTpl(id){const t=load().find(x=>x.id===id);if(!t)return;current=id;$("#name").value=t.name||"";$("#title").value=t.title||"";$("#description").value=t.description||"";$("#sequence").value=(t.sequence||[]).join("\n");$("#status").textContent="Editando "+t.name}
+function render(){const root=$("#tplList");root.innerHTML="";const all=load();if(!all.length){root.innerHTML='<div class="empty">No hay templates guardados.</div>';return}all.forEach(t=>{const el=document.createElement("div");el.className="item";el.innerHTML=`<div><h3>${t.name}</h3><p>${(t.sequence||[]).length} recursos</p></div>`;const b=document.createElement("button");b.className="btn";b.textContent="Editar";b.onclick=()=>openTpl(t.id);el.appendChild(b);root.appendChild(el)})}
+$("#newTpl").onclick=clearForm;
+$("#save").onclick=()=>{const all=load();const data={id:current||"tpl-"+Date.now(),name:$("#name").value.trim()||"Template sin nombre",title:$("#title").value.trim(),description:$("#description").value.trim(),sequence:$("#sequence").value.split("\n").map(x=>x.trim()).filter(Boolean),updatedAt:new Date().toISOString()};const i=all.findIndex(x=>x.id===data.id);if(i>=0)all[i]=data;else all.push(data);store(all);current=data.id;render();$("#status").textContent="Cambios guardados"};
+$("#duplicate").onclick=()=>{if(!current)return;const all=load();const t=all.find(x=>x.id===current);all.push({...t,id:"tpl-"+Date.now(),name:t.name+" copia",updatedAt:new Date().toISOString()});store(all);render();$("#status").textContent="Template duplicado"};
+$("#remove").onclick=()=>{if(!current)return;store(load().filter(x=>x.id!==current));clearForm();render()};
+$("#apply").onclick=()=>{if(!current)return;const t=load().find(x=>x.id===current);localStorage.setItem("jester-maker-draft",JSON.stringify({title:t.title||t.name,sequence:t.sequence||[]}));$("#status").textContent="Template aplicado. Abre Jester Maker."};
+render();
+</script></body></html>

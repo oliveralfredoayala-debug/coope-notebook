@@ -1,0 +1,13 @@
+{
+  "events": [
+    "game:started",
+    "game:progress",
+    "answer:submitted",
+    "round:started",
+    "round:completed",
+    "score:updated",
+    "game:completed",
+    "match:completed",
+    "session:closed"
+  ]
+}

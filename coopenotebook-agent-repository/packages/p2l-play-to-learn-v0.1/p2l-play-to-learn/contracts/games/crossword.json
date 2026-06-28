@@ -1,0 +1,13 @@
+{
+  "mode": [
+    "pve",
+    "coop"
+  ],
+  "minimumItems": 6,
+  "recommendedItems": 8,
+  "requires": [
+    "pregunta",
+    "respuesta breve",
+    "explicacion"
+  ]
+}

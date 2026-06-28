@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "1.0.0",
+  "capsulaId": "trabajo-en-equipo",
+  "titulo": "Trabajo en equipo",
+  "descripcion": "Banco de demostración para probar el motor universal de juegos.",
+  "items": [
+    {
+      "id": "te-001",
+      "tipo": "concepto",
+      "pregunta": "Intercambio de ideas para comprenderse y construir juntos.",
+      "respuesta": "DIALOGO",
+      "distractores": [
+        "MANDATO",
+        "CONTROL",
+        "SILENCIO"
+      ],
+      "categoria": "comunicacion",
+      "dificultad": "basica",
+      "explicacion": "El diálogo permite intercambiar perspectivas y construir comprensión compartida.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest",
+        "completar"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Comunicación"
+      }
+    },
+    {
+      "id": "te-002",
+      "tipo": "concepto",
+      "pregunta": "Decisión compartida a la que llega un grupo.",
+      "respuesta": "ACUERDO",
+      "distractores": [
+        "ORDEN",
+        "VOTO",
+        "REGLA"
+      ],
+      "categoria": "coordinacion",
+      "dificultad": "basica",
+      "explicacion": "Un acuerdo expresa una decisión construida o aceptada colectivamente.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest",
+        "completar"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Acuerdos"
+      }
+    },
+    {
+      "id": "te-003",
+      "tipo": "concepto",
+      "pregunta": "Atención genuina a lo que otra persona expresa.",
+      "respuesta": "ESCUCHA",
+      "distractores": [
+        "PAUSA",
+        "OPINION",
+        "MIRADA"
+      ],
+      "categoria": "comunicacion",
+      "dificultad": "basica",
+      "explicacion": "Escuchar implica atender, interpretar y considerar lo que otra persona comunica.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Escucha activa"
+      }
+    },
+    {
+      "id": "te-004",
+      "tipo": "concepto",
+      "pregunta": "Trato que reconoce el valor y la voz de cada integrante.",
+      "respuesta": "RESPETO",
+      "distractores": [
+        "ORDEN",
+        "APOYO",
+        "CONTROL"
+      ],
+      "categoria": "convivencia",
+      "dificultad": "basica",
+      "explicacion": "El respeto reconoce la dignidad, los límites y la participación de cada persona.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Convivencia"
+      }
+    },
+    {
+      "id": "te-005",
+      "tipo": "concepto",
+      "pregunta": "Grupo que coordina esfuerzos hacia un propósito común.",
+      "respuesta": "EQUIPO",
+      "distractores": [
+        "PUBLICO",
+        "TURNO",
+        "PAREJA"
+      ],
+      "categoria": "organizacion",
+      "dificultad": "basica",
+      "explicacion": "Un equipo articula capacidades y responsabilidades alrededor de una meta compartida.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Concepto central"
+      }
+    },
+    {
+      "id": "te-006",
+      "tipo": "concepto",
+      "pregunta": "Apoyo que una persona ofrece a otra.",
+      "respuesta": "AYUDA",
+      "distractores": [
+        "ORDEN",
+        "VENTA",
+        "PRUEBA"
+      ],
+      "categoria": "cooperacion",
+      "dificultad": "basica",
+      "explicacion": "La ayuda permite compartir recursos, capacidades o tiempo ante una necesidad.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Cooperación"
+      }
+    },
+    {
+      "id": "te-007",
+      "tipo": "concepto",
+      "pregunta": "Resultado que el grupo busca alcanzar.",
+      "respuesta": "META",
+      "distractores": [
+        "RUTA",
+        "NORMA",
+        "IDEA"
+      ],
+      "categoria": "planificacion",
+      "dificultad": "basica",
+      "explicacion": "La meta orienta los esfuerzos y permite valorar el avance del equipo.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Propósito"
+      }
+    },
+    {
+      "id": "te-008",
+      "tipo": "concepto",
+      "pregunta": "Distribución clara de tareas entre integrantes.",
+      "respuesta": "ROLES",
+      "distractores": [
+        "TURNOS",
+        "GRUPOS",
+        "NORMAS"
+      ],
+      "categoria": "organizacion",
+      "dificultad": "media",
+      "explicacion": "Los roles aclaran responsabilidades y facilitan la coordinación.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest",
+        "clasificador"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Organización"
+      }
+    },
+    {
+      "id": "te-009",
+      "tipo": "concepto",
+      "pregunta": "Acción de trabajar con otras personas para alcanzar algo común.",
+      "respuesta": "COOPERAR",
+      "distractores": [
+        "COMPETIR",
+        "MANDAR",
+        "OBSERVAR"
+      ],
+      "categoria": "cooperacion",
+      "dificultad": "media",
+      "explicacion": "Cooperar supone aportar y coordinar acciones en beneficio de un propósito compartido.",
+      "aptoPara": [
+        "crucigrama",
+        "quiz",
+        "memotest"
+      ],
+      "fuente": {
+        "tipo": "capsula",
+        "referencia": "Trabajo en equipo · Cooperación"
+      }
+    }
+  ]
+}

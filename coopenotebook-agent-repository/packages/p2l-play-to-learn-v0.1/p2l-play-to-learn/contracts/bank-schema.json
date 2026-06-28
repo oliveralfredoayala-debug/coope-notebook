@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "P2L Bank",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "capsulaId",
+    "titulo",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "capsulaId": {
+      "type": "string"
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "pregunta",
+          "respuesta",
+          "explicacion",
+          "categoria",
+          "dificultad",
+          "aptoPara",
+          "reviewStatus"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pregunta": {
+            "type": "string"
+          },
+          "respuesta": {
+            "type": "string"
+          },
+          "distractores": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "explicacion": {
+            "type": "string"
+          },
+          "categoria": {
+            "type": "string"
+          },
+          "dificultad": {
+            "enum": [
+              "basica",
+              "media",
+              "avanzada"
+            ]
+          },
+          "aptoPara": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reviewStatus": {
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "fuente": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
