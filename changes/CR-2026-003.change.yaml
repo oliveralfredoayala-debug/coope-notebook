@@ -1,0 +1,319 @@
+id: CR-2026-003
+title: Unificar repositorio, bases de conocimiento y estructura de producción
+status: approved
+requested_by: owner
+coordinator: openai
+reviewer: none
+operator: antigravity
+base_branch: main
+branch: change/CR-2026-003
+scope:
+  packages:
+    - repository-architecture
+    - knowledge-bases
+    - agents
+    - production
+    - live-content
+  files:
+    - README.md
+    - docs/**
+    - governance/**
+    - agents/**
+    - knowledge/**
+    - production/**
+    - en-vivo/**
+    - changes/**
+instructions: |
+  OBJECTIVE
+  Consolidate the repository into one clear top-level structure. Eliminate confusing duplicate agent folders,
+  separate reusable theoretical source material from legal authority, rename the deployable frontend area to
+  production, and reserve en-vivo for the active content families already defined.
+
+  SINGLE REPOSITORY PRINCIPLE
+  - Keep one repository only for the full agent and content operating system.
+  - Do not maintain a separate parallel agent-repository concept inside the same project.
+  - This repository is the canonical source for agents, skills, knowledge databases, governance, production,
+    and live content definitions.
+  - Any old folder whose only purpose was to duplicate agent or skill storage must be merged into the canonical
+    structure and then deleted.
+
+  CANONICAL TOP-LEVEL STRUCTURE
+  Normalize toward:
+
+    agents/
+      README.md
+      registry.yaml
+      coordinator/
+      content/
+      reviewers/
+      production/
+
+    knowledge/
+      theory-pool/
+      legal-library/
+
+    production/
+      ...actual frontend files intended to exist in Vercel...
+
+    en-vivo/
+      theoretical-capsules/
+      team-activities/
+      artifacts/
+      live-room-games/
+      raw-theory/
+
+    governance/
+      precedence-policy.md
+      agent-lifecycle.md
+      replacements-log.yaml
+      content-inventory.yaml
+
+    docs/
+      operating-model.md
+      content-taxonomy.md
+      repository-map.md
+
+    changes/
+      template.change.yaml
+      active requests only
+
+  AGENTS FOLDER
+  - All active AI agent contracts and all AI skills must live under one canonical top-level folder: agents/.
+  - Do not keep separate ambiguous top-level folders such as agent, agents, skills, agent-repository,
+    workforce, assistants, prompts, or similar overlapping names.
+  - Skills must be stored inside each agent contract or in a clearly named shared location under agents/.
+  - Recommended internal model:
+
+      agents/
+        README.md
+        registry.yaml
+        shared-skills/
+        coordinator/
+        content/
+        reviewers/
+        production/
+
+  - Each agent must be able to inspect its own contract and applicable shared skills before accepting,
+    delegating, or executing a task.
+  - Every agent contract must declare:
+      mission
+      owns
+      does_not_own
+      required_skills
+      preflight_review
+      inputs
+      outputs
+      handoffs
+      quality_gates
+      escalation
+      retirement_conditions
+  - preflight_review must explicitly require the agent to read its own current contract and referenced skills
+    before acting.
+  - Rename unclear subfolders to functional names. Delete empty, duplicate, obsolete, or overlapping agent folders.
+
+  KNOWLEDGE DATABASE 1: THEORY POOL
+  Purpose:
+  - Map all prior theoretical material used by Oliver, regardless of whether it is currently polished.
+  - Primary source formats may include Word, PDF, PowerPoint, HTML, and other text-bearing resources.
+  - The goal is reuse, comparison, extraction, and eventual normalization to HTML.
+
+  Rules:
+  - Preserve one preferred source version per materially identical document.
+  - If Word, PDF, and PowerPoint contain the same substantive content, prefer Word as the canonical editable source.
+  - PDF may be retained only when it contains unique layout, annotations, signatures, scans, or material absent from Word.
+  - PowerPoint may be retained only when it contains unique diagrams, sequence logic, speaker notes, visuals, or content
+    not present in the Word source.
+  - Do not keep redundant export copies merely because they use a different file format.
+  - Eventually convert reusable source content to HTML for easier mixing, extraction, and downstream generation.
+  - Conversion to HTML must not destroy the original canonical source until the HTML has been verified.
+
+  Theory pool metadata must include:
+    id
+    title
+    topic
+    source_format
+    canonical_source
+    duplicate_of
+    unique_material
+    reuse_potential
+    extracted_topics
+    program_scope
+    evidence_type
+    date_created
+    date_last_verified
+    html_conversion_status
+    source_path
+    notes
+
+  Create:
+    knowledge/theory-pool/index.yaml
+    knowledge/theory-pool/README.md
+
+  The Content Librarian owns classification and deduplication.
+  Scientific Rigor Reviewer assesses evidence quality when required.
+  The Librarian must not discard a duplicate until confirming that no unique content exists in the other format.
+
+  KNOWLEDGE DATABASE 2: LEGAL LIBRARY
+  Purpose:
+  - Maintain the authoritative legal and normative source base used by all agents.
+  - Separate legal authority from general theory.
+
+  Minimum categories:
+    law/
+    regulation/
+    resolutions/
+    circulars-or-guidance/
+    statutes-and-internal-rules/
+    superseded/
+
+  Mandatory authority rules:
+  - The current Law and current Regulation are mandatory baseline authorities and must always be consulted when relevant.
+  - Additional documents must be evaluated by:
+      legal_hierarchy
+      issuing_authority
+      competence
+      publication_date
+      effective_date
+      repeal_or_amendment_status
+      scope
+      current_validity
+  - A newer lower-ranking document does NOT automatically override a higher-ranking law or regulation.
+  - A newer document controls only within its valid legal competence and scope, and only when it lawfully modifies,
+    supplements, interprets, or replaces the prior rule.
+  - Where a valid newer resolution or other instrument changes the operational rule within its authority, the current
+    operative interpretation must reflect that newer instrument while preserving the superior hierarchy of Law and Regulation.
+  - Conflicts must be escalated to the Legal Rigor Reviewer; do not resolve by date alone.
+
+  Legal metadata must include:
+    id
+    title
+    document_type
+    issuing_authority
+    hierarchy_level
+    publication_date
+    effective_date
+    expiration_date
+    status
+    amends
+    amended_by
+    repeals
+    repealed_by
+    scope
+    official_source
+    verified_copy
+    current_rule_summary
+    conflict_notes
+    source_path
+
+  Create:
+    knowledge/legal-library/index.yaml
+    knowledge/legal-library/README.md
+
+  The Legal Rigor Reviewer owns legal precedence analysis.
+  The Content Librarian owns filing, metadata completeness, deduplication, and path recommendations.
+
+  PRODUCTION
+  - Rename the current public/deployable frontend area to production/.
+  - production/ is the canonical source of what is intended to exist in Vercel.
+  - It is the frontend foundation, not a dumping ground for drafts, raw theory, experiments, or obsolete prototypes.
+  - Only Release Agent-approved material may enter production/.
+  - Do not deploy under this change request.
+  - Do not alter working frontend behavior unless necessary to update paths caused by the folder rename.
+  - Any path migration must be validated locally and documented.
+
+  EN-VIVO
+  - en-vivo/ contains the defined operational content types:
+      theoretical-capsules
+      team-activities
+      artifacts
+      live-room-games
+      raw-theory
+  - These are content families, not agent folders.
+  - Templates may live under the appropriate family or a clearly named shared templates subfolder.
+  - Legacy and external material must not remain mixed with active content; move metadata references to inventory and
+    place files only in a clearly marked quarantine or legacy location if they must temporarily remain.
+
+  CONTENT LIBRARIAN UPDATE
+  Expand the Librarian contract to own:
+  - theory-pool inventory
+  - legal-library filing and metadata
+  - format deduplication
+  - canonical source selection
+  - reuse mapping
+  - HTML conversion tracking
+  - content family classification
+  - production eligibility routing
+  - Antigravity placement instructions
+
+  The Librarian must produce a reuse map for each theory source:
+    reusable_as_capsule
+    reusable_as_team_activity
+    reusable_as_artifact
+    reusable_as_game_questions
+    reusable_as_raw_theory
+    legal_dependencies
+    scientific_dependencies
+
+  The Librarian does not decide substantive legal precedence; it flags and routes to Legal Rigor Reviewer.
+
+  CLEANUP
+  - Find all top-level and nested folders that represent agents, skills, prompts, or agent repositories.
+  - Merge active unique material into agents/.
+  - Rename unclear folders.
+  - Delete duplicates, outdated versions, empty folders, and obsolete parallel structures.
+  - Update all internal references.
+  - Preserve only one registry and one README entry point for agents.
+  - Record deletions and replacements in governance/replacements-log.yaml.
+
+  REQUIRED DOCUMENTATION
+  Create or update:
+    README.md
+    docs/repository-map.md
+    docs/operating-model.md
+    governance/content-inventory.yaml
+    agents/README.md
+    agents/registry.yaml
+    knowledge/theory-pool/README.md
+    knowledge/theory-pool/index.yaml
+    knowledge/legal-library/README.md
+    knowledge/legal-library/index.yaml
+
+  RESTRICTIONS
+  - Do not deploy to Vercel.
+  - Do not publish content.
+  - Do not delete source documents solely because another format exists without checking for unique content.
+  - Do not treat document date as the only legal precedence rule.
+  - Do not leave multiple active agent registries.
+  - Do not leave multiple top-level folders for agents or skills.
+  - Do not move material into production unless Release Agent-approved.
+
+  VALIDATION
+  - one canonical agents folder only
+  - one active agent registry only
+  - no duplicate active skill stores
+  - no unresolved references to deleted agent folders
+  - production contains only frontend/deployable material
+  - en-vivo contains only approved content-family directories
+  - theory-pool and legal-library both have metadata indexes
+  - Word preferred over duplicate PDF/PPT unless unique material is documented
+  - legal precedence uses hierarchy + authority + validity + date
+  - no deployment performed
+
+  OUTPUT
+  Produce:
+  - before/after repository tree
+  - folders renamed
+  - folders merged
+  - folders deleted
+  - duplicate source documents identified
+  - canonical source decisions
+  - legal-library conflicts requiring review
+  - unresolved migration risks
+validation:
+  - python scripts/validate_repository.py
+  - git diff --check
+  - verify no Vercel deployment occurred
+  - verify production path references remain valid
+commit_message: "chore(repo): unify agents knowledge production and live content"
+push: true
+merge: false

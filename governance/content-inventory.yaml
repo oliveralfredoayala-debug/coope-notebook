@@ -1,0 +1,38 @@
+version: 1
+inventory:
+  - filename: kb-legislacion-proto.html
+    content_family: theoretical_capsule
+    topic: legislación
+    program_scope: basic_diploma
+    evidence_type: legal
+    legal_review_required: true
+    scientific_review_required: false
+    status: lab
+    canonical_or_duplicate: canonical
+    successor_or_source: none
+    recommended_destination: /02-capsulas/legislacion/
+    blocking_issues: requiere normalización visual morada y revisión literal de artículos.
+  - filename: KB-conflicto-formato-prototipo.html
+    content_family: theoretical_capsule
+    topic: conflictos
+    program_scope: applied_cooperativism
+    evidence_type: scientific
+    legal_review_required: false
+    scientific_review_required: true
+    status: lab
+    canonical_or_duplicate: canonical
+    successor_or_source: none
+    recommended_destination: /02-capsulas/conflictos/
+    blocking_issues: requiere validación de visualización.
+  - filename: psicologia-del-conflicto-teoria.html
+    content_family: raw_theory
+    topic: conflictos
+    program_scope: applied_cooperativism
+    evidence_type: scientific
+    legal_review_required: false
+    scientific_review_required: true
+    status: approved
+    canonical_or_duplicate: canonical
+    successor_or_source: none
+    recommended_destination: /01-contenido-base/conflictos/
+    blocking_issues: none

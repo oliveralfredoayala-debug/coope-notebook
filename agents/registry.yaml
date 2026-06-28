@@ -1,0 +1,78 @@
+version: 1
+agents:
+  - id: system-coordinator
+    owner: openai
+    status: active
+    path: agents/coordinator/coordinator.md
+    purpose: Coordinar arquitectura general y flujo entre paquetes.
+  - id: local-repository-operator
+    owner: antigravity
+    status: active
+    path: agents/coordinator/local-operator.md
+    purpose: Operación local de archivos, Git y validaciones.
+  - id: hr-agent
+    owner: openai
+    status: active
+    path: agents/coordinator/hr-agent.md
+    purpose: Administrar el ciclo de vida y roles de agentes del monorepo.
+  - id: kb-coordinator
+    owner: openai
+    status: active
+    path: agents/coordinator/kb-coordinator.md
+    purpose: Coordinación de experiencia visual y de marca en cápsulas.
+  - id: kb-basic-diploma
+    owner: openai
+    status: active
+    path: agents/content/kb-basic-diploma.md
+    purpose: Rigor conceptual y legal verbatim para el Diplomado Básico.
+  - id: kb-applied
+    owner: openai
+    status: active
+    path: agents/content/kb-applied.md
+    purpose: Estándares flexibles y basados en evidencia para cooperativismo aplicado.
+  - id: content-librarian
+    owner: claude
+    operator: antigravity
+    status: active
+    path: agents/content/content-librarian.md
+    purpose: Clasificación, indexación y deduplicación física de archivos.
+  - id: teamwork-coordinator
+    owner: openai
+    status: active
+    path: agents/content/teamwork-coordinator.md
+    purpose: Dinámicas colaborativas e interacción grupal (LNL).
+  - id: artifact-coordinator
+    owner: openai
+    status: active
+    path: agents/content/artifact-coordinator.md
+    purpose: Herramientas manipulables, calculadoras y simuladores.
+  - id: legal-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/legal-reviewer.md
+    purpose: Auditoría de artículos de ley y literalidad en color morado.
+  - id: scientific-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/scientific-reviewer.md
+    purpose: Validar fundamento científico y empírico de contenidos aplicados.
+  - id: accessibility-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/accessibility-reviewer.md
+    purpose: Control de accesibilidad y adaptación móvil.
+  - id: jester-coordinator
+    owner: openai
+    status: active
+    path: agents/production/jester-coordinator.md
+    purpose: Edición de plantillas y componentes visuales.
+  - id: p2l-coordinator
+    owner: openai
+    status: active
+    path: agents/production/p2l-coordinator.md
+    purpose: Salas de juego y bancos síncronos en vivo (Play to Learn).
+  - id: release-agent
+    owner: openai
+    status: active
+    path: agents/production/release-agent.md
+    purpose: Validaciones de calidad y checklist antes de releases.
