@@ -1,0 +1,116 @@
+rules_version = '2';
+ 
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+ 
+    function room(roomId) {
+      return get(/databases/$(database)/documents/rooms/$(roomId));
+    }
+ 
+    function isOwner(roomId) {
+      return signedIn() && room(roomId).data.ownerUid == request.auth.uid;
+    }
+ 
+    function roomIsPublic(roomId) {
+      return room(roomId).data.publicJoin == true;
+    }
+ 
+    function validParticipantWrite() {
+      return request.resource.data.uid == request.auth.uid
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 1
+        && request.resource.data.displayName.size() <= 40;
+    }
+
+    function activity(roomId, activityId) {
+      return get(/databases/$(database)/documents/rooms/$(roomId)/activities/$(activityId));
+    }
+
+    function activityIsOpen(roomId, activityId) {
+      return activity(roomId, activityId).data.status == 'open';
+    }
+
+    function participant(roomId, participantId) {
+      return get(/databases/$(database)/documents/rooms/$(roomId)/participants/$(participantId));
+    }
+
+    function isMatchingParticipantName(roomId, participantId) {
+      return participant(roomId, participantId).data.displayName == request.resource.data.displayName;
+    }
+
+    function validResponseValue(roomId, activityId) {
+      return (activity(roomId, activityId).data.type == 'single' && request.resource.data.value is string)
+        || (activity(roomId, activityId).data.type == 'multiple' && request.resource.data.value is list)
+        || (activity(roomId, activityId).data.type == 'scale' && request.resource.data.value is int && request.resource.data.value >= 1 && request.resource.data.value <= 5)
+        || (activity(roomId, activityId).data.type == 'word' && request.resource.data.value is string && request.resource.data.value.size() <= 60)
+        || (activity(roomId, activityId).data.type == 'open' && request.resource.data.value is string && request.resource.data.value.size() <= 500);
+    }
+
+    function validResponseApproval(roomId, activityId) {
+      return (activity(roomId, activityId).data.type == 'open' || activity(roomId, activityId).data.type == 'word')
+        ? request.resource.data.isApproved == false
+        : request.resource.data.isApproved == true;
+    }
+ 
+    match /rooms/{roomId} {
+      allow create: if signedIn()
+        && request.resource.data.ownerUid == request.auth.uid;
+ 
+      allow get, list: if signedIn()
+        && (resource.data.ownerUid == request.auth.uid
+          || resource.data.publicJoin == true);
+ 
+      allow update, delete: if isOwner(roomId);
+ 
+      match /participants/{participantId} {
+        allow read: if isOwner(roomId);
+        allow create, update: if signedIn()
+          && participantId == request.auth.uid
+          && roomIsPublic(roomId)
+          && validParticipantWrite();
+        allow delete: if signedIn()
+          && (participantId == request.auth.uid || isOwner(roomId));
+      }
+ 
+      match /activities/{activityId} {
+        allow read: if signedIn()
+          && (isOwner(roomId) || roomIsPublic(roomId));
+        allow create, update, delete: if isOwner(roomId);
+ 
+        match /responses/{responseId} {
+          allow create: if signedIn()
+            && roomIsPublic(roomId)
+            && responseId == request.auth.uid
+            && request.resource.data.uid == request.auth.uid
+            && request.resource.data.activityId == activityId
+            && activityIsOpen(roomId, activityId)
+            && isMatchingParticipantName(roomId, request.auth.uid)
+            && validResponseValue(roomId, activityId)
+            && validResponseApproval(roomId, activityId);
+ 
+          allow update: if isOwner(roomId)
+            || (signedIn()
+              && responseId == request.auth.uid
+              && resource.data.uid == request.auth.uid
+              && roomIsPublic(roomId)
+              && activityIsOpen(roomId, activityId)
+              && isMatchingParticipantName(roomId, request.auth.uid)
+              && validResponseValue(roomId, activityId)
+              && validResponseApproval(roomId, activityId));
+ 
+          allow read: if isOwner(roomId)
+            || (signedIn()
+              && roomIsPublic(roomId)
+              && (responseId == request.auth.uid
+                || (room(roomId).data.showResults == true && resource.data.isApproved == true)));
+ 
+          allow delete: if isOwner(roomId)
+            || (signedIn() && responseId == request.auth.uid);
+        }
+      }
+    }
+  }
+}
