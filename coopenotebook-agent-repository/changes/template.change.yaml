@@ -1,0 +1,22 @@
+id: CR-YYYY-XXX
+title: Breve descripción de la solicitud
+status: draft
+requested_by: owner
+coordinator: openai
+reviewer: claude
+operator: antigravity
+base_branch: main
+branch: change/CR-YYYY-XXX
+scope:
+  packages:
+    - agents
+  files:
+    - agents/**
+instructions: |
+  OBJETIVO:
+  Describe aquí lo que se debe hacer de forma detallada.
+validation:
+  - python scripts/validate_repository.py
+commit_message: "feat: descripción breve para el commit"
+push: false
+merge: false

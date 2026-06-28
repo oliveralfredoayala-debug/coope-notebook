@@ -1,0 +1,170 @@
+id: CR-2026-002
+title: Enforce current standards and delete obsolete agent material
+status: approved
+requested_by: owner
+coordinator: openai
+reviewer: none
+operator: antigravity
+base_branch: main
+branch: change/CR-2026-002
+scope:
+  packages:
+    - agents
+    - skills
+    - governance
+    - documentation
+  files:
+    - agents/**
+    - skills/**
+    - governance/**
+    - docs/**
+    - README.md
+    - changes/**
+instructions: |
+  OBJECTIVE
+  Apply the current agent architecture and content taxonomy as the only active standard.
+  Delete all superseded, contradictory, duplicate, unused, placeholder, experimental, or obsolete
+  agent/skill/governance documentation that is no longer needed.
+
+  DO NOT TOUCH CONTENT HTML
+  - Do not modify, move, rename, publish, or delete any HTML content, raw theory, artifact, game,
+    team activity, image, asset, or production application file.
+  - This cleanup is limited to the agent repository's governance, skills, agent contracts,
+    duplicated documentation, obsolete examples, and completed change-request clutter.
+
+  SOURCE OF TRUTH
+  - CR-2026-001 and the documents generated from it are the current standard.
+  - The newest owner-approved instruction always prevails.
+  - Purple is the only current legal/normative visual standard.
+  - Green is identity/navigation; amber is Jester/interaction/attention; neutral gray is scientific evidence.
+  - KB must be split between Basic Diploma rigor and Applied Cooperativism flexibility.
+  - Official content families are exactly:
+      theoretical_capsule
+      team_activity
+      artifact
+      live_room_game
+      raw_theory
+      template
+      legacy
+      external_or_unclassified
+
+  ENFORCEMENT ACTIONS
+  1. Execute CR-2026-001 first if its generated documents are not yet present.
+  2. Build a complete file inventory of agents, skills, governance, docs, README files, and changes.
+  3. Identify files that are:
+     - contradicted by newer rules;
+     - duplicates or near-duplicates;
+     - abandoned prototypes or placeholders;
+     - old naming variants;
+     - obsolete legal-color standards;
+     - old KB contracts that force legal blocks into Applied Cooperativism;
+     - obsolete Guided/Balanced/Expert rules incorrectly attached to canonical KB;
+     - redundant agent definitions with the same mission;
+     - empty folders, empty templates, generated junk, or no-op files;
+     - superseded change requests whose instructions are fully incorporated.
+  4. Delete those files from the working branch. Do not merely mark them deprecated unless a live
+     migration dependency still references them.
+  5. Replace duplicate agents by one canonical contract and update all references to the canonical ID.
+  6. Remove stale references from README, registries, indexes, cross-links, examples, and validation scripts.
+  7. Remove obsolete example.change.yaml only after replacing it with a current canonical template that
+     reflects content_family, program_scope, evidence_type, legal_review_required,
+     scientific_review_required, owner approval, validation, push=false by default, and merge=false.
+  8. Clean the changes directory:
+     - retain active/unexecuted requests;
+     - retain CR-2026-001 and CR-2026-002 until both are executed and validated;
+     - delete completed requests that add no enduring documentation value;
+     - do not keep multiple obsolete examples.
+  9. Ensure the active agent registry contains only agents with a real recurring mission.
+  10. Delete agents that have no owner, no unique responsibility, no consumers, and no recent or planned use.
+  11. Merge overlapping agents when one canonical agent can safely own the combined responsibility.
+  12. Split only where Basic Diploma legal rigor and Applied Cooperativism require distinct behavior.
+
+  REQUIRED ACTIVE CORE
+  At minimum, preserve or create canonical definitions for:
+  - General Coordinator / Orchestrator
+  - Content Librarian
+  - KB Coordinator
+  - KB Basic Diploma Legal-Rigor profile
+  - KB Applied Cooperativism profile
+  - Team Activity Coordinator
+  - Artifact Coordinator
+  - Jester / Workshop Assembly Coordinator
+  - P2L / Live Room Game Coordinator
+  - Scientific Rigor Reviewer
+  - Legal Rigor Reviewer
+  - Accessibility Reviewer
+  - Release Agent
+  - HR Agent / Agent Workforce Architect
+
+  Do not preserve extra agents merely because they already exist. Preserve them only when they own a
+  unique recurring responsibility not covered by the active core.
+
+  DELETION POLICY
+  - Delete superseded full files.
+  - Keep only one compact governance/replacements-log.yaml containing:
+      deleted_path
+      replacement_path
+      reason
+      deletion_date
+      approved_by
+  - Do not retain archived copies inside the active repository unless required for migration or compliance.
+  - Git history is the archive.
+  - Never delete owner-created source content or HTML under this request.
+
+  FINAL STRUCTURE
+  Normalize to a compact structure similar to:
+    agents/
+      core/
+      kb/
+      reviewers/
+      production/
+    skills/
+      content/
+      interaction/
+      production/
+    governance/
+      agent-registry.yaml
+      agent-lifecycle.md
+      precedence-policy.md
+      replacements-log.yaml
+      content-inventory.yaml
+    docs/
+      content-taxonomy.md
+      operating-model.md
+    changes/
+      template.change.yaml
+      CR-2026-001.change.yaml
+      CR-2026-002.change.yaml
+    README.md
+
+  VALIDATION
+  - No active file may state that amber is the legal color.
+  - No active Applied Cooperativism contract may require a legal block by default.
+  - No active canonical KB contract may use Guided/Balanced/Expert as its required architecture.
+  - No duplicate active agent IDs or missions.
+  - No broken internal links.
+  - No orphaned registry entries.
+  - No empty folders or placeholder files.
+  - No content HTML changed.
+  - Repository validation must pass.
+
+  OUTPUT
+  Produce a cleanup report listing:
+  - files deleted;
+  - files merged;
+  - files renamed;
+  - canonical agents retained;
+  - agents retired;
+  - unresolved conflicts, if any.
+
+  AUTHORITY
+  The owner has explicitly authorized deletion of outdated and unnecessary agent-system material.
+  Do not pause for confirmation when the deletion criteria above are satisfied.
+validation:
+  - python scripts/validate_repository.py
+  - git diff --check
+  - verify no HTML content files changed
+  - verify all active standards match CR-2026-001 and CR-2026-002
+commit_message: "chore(governance): remove obsolete agents and enforce current standards"
+push: true
+merge: false

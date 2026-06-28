@@ -1,0 +1,227 @@
+id: CR-2026-001
+title: Reorganizar taxonomía de contenidos y gobernanza de agentes
+status: approved
+requested_by: owner
+coordinator: openai
+reviewer: claude
+operator: antigravity
+base_branch: main
+branch: change/CR-2026-001
+scope:
+  packages:
+    - agents
+    - skills
+    - governance
+    - documentation
+  files:
+    - agents/**
+    - skills/**
+    - governance/**
+    - docs/**
+    - README.md
+instructions: |
+  OBJETIVO
+  Reorganizar el sistema de agentes y la clasificación del contenido disponible sin modificar,
+  publicar, mover ni desplegar todavía ningún HTML de producción. Esta solicitud solo debe crear
+  o actualizar documentación, contratos de agentes, inventarios y reglas de gobernanza.
+
+  PRINCIPIO DE PRECEDENCIA
+  1. Los lineamientos más recientes aprobados por Oliver prevalecen sobre cualquier estándar anterior.
+  2. Cuando dos documentos se contradigan, conservar el más reciente y marcar el anterior como deprecated.
+  3. No borrar estándares anteriores sin registrar su reemplazo, fecha y razón.
+  4. El color morado es el estándar vigente para leyes, artículos, reglamentos, estatutos y fuentes normativas.
+  5. Verde corresponde a identidad general y navegación; ámbar a Jester, interacción y atención;
+     morado a contenido jurídico; gris claro o neutro a evidencia científica y referencias académicas.
+
+  TAXONOMÍA OFICIAL DE CONTENIDO
+
+  A. CAPSULA TEORICA
+  - Unidad pedagógica terminada, curada y proyectable.
+  - Explica una idea central o un conjunto muy estrechamente relacionado de ideas.
+  - Debe poder utilizarse dentro de un taller sin depender de lectura extensa externa.
+  - Puede contener varias pantallas internas cuando el tema lo requiera, pero cada pantalla debe ser
+    proyectable, legible y tener una función pedagógica clara.
+  - Debe tener navegación, presentación, adaptación móvil, accesibilidad básica y referencias adecuadas.
+  - No es un repositorio exhaustivo de información.
+  - Naming base: nombre simple del tema, sin etiquetas técnicas visibles al usuario.
+
+  B. TRABAJO EN EQUIPO
+  - Actividad colaborativa guiada para discusión, análisis, decisión, resolución o construcción grupal.
+  - Vive bajo la familia LNL / trabajos en equipo.
+  - Debe definir objetivo, consigna, recursos, producto esperado, tiempo, instrucciones del facilitador
+    y criterios de cierre o debrief.
+  - Puede enlazarse desde una cápsula mediante Sandbox, pero no debe duplicar teoría completa.
+  - Naming: TP + nombre del taller o tema + versión cuando exista más de uno.
+  - En contenido jurídico, las leyes y artículos citados usan morado y deben ser literales y verificables.
+
+  C. ARTEFACTO
+  - Herramienta manipulable, simulador, explorador, medidor, plantilla interactiva o recurso de aplicación.
+  - Su objetivo principal es hacer, explorar, comparar, decidir o producir; no exponer teoría extensa.
+  - Puede ser autónomo o invocado desde KB, Jester, LNL o Sala en Vivo.
+  - Debe declarar entradas, salidas, estado, persistencia si existe, límites y modo de uso.
+  - No debe confundirse con un juego ni con una cápsula teórica.
+
+  D. JUEGO DE SALA EN VIVO
+  - Experiencia lúdica ejecutada en sesión síncrona.
+  - Pertenece a P2L / Sala en Vivo.
+  - Categorías mínimas: individual PvE, duelo directo 1v1 y PvP/equipos cuando aplique.
+  - Consume bancos de preguntas o configuraciones; no debe duplicar el contenido fuente.
+  - Debe definir reglas, estado de partida, puntaje, exactitud, tiempo, finalización y resultados efímeros.
+  - Los resultados pueden existir durante la sesión sin obligación de persistencia posterior.
+
+  E. TEORIA RAW
+  - HTML fuente con toda la información disponible de un tema.
+  - Es material de investigación y construcción, no una cápsula terminada ni contenido para proyectar.
+  - Puede ser largo, usar scroll, contener tablas, referencias extensas y notas de cautela.
+  - Debe priorizar completitud, trazabilidad y rigor por encima de la estética final.
+  - Sirve como fuente para crear cápsulas, trabajos, artefactos y bancos de preguntas.
+  - Nunca debe indexarse como contenido público final sin transformación y auditoría.
+
+  DIFERENCIA ENTRE DIPLOMADO BASICO Y COOPERATIVISMO APLICADO
+
+  1. DIPLOMADO BASICO
+  - Alcance: Identidad cooperativa, legislación cooperativa, gobernabilidad cooperativa,
+    funciones de los cuerpos directivos, administración de asambleas, liderazgo cooperativista
+    e incidencia política.
+  - Debe existir una variante KB de rigor reforzado y especialmente legalizada.
+  - Cuando un tema incluya derecho cooperativo, debe exigir verificación literal de normas,
+    jerarquía normativa, vigencia, jurisdicción, fuente oficial y advertencias contra interpretación engañosa.
+  - No convertir todos los temas en clases de derecho: el rigor legal se activa cuando corresponda,
+    pero el diplomado básico mantiene mayor disciplina normativa y conceptual.
+  - En legislación, gobernabilidad, cuerpos directivos y asambleas, la auditoría jurídica es obligatoria.
+
+  2. COOPERATIVISMO APLICADO
+  - Debe ser más flexible, práctico y multidisciplinario.
+  - Puede usar evidencia científica, modelos de gestión, psicología, facilitación, liderazgo,
+    cultura organizacional, negociación, comunicación y herramientas aplicadas.
+  - La ley se incorpora cuando sea relevante, no como bloque obligatorio en cada cápsula.
+  - Debe declarar evidence_type: legal, scientific, institutional o mixed.
+  - No forzar artículos legales donde la base adecuada sea científica o pedagógica.
+
+  CAMBIOS EN EL AGENTE KB
+  - Separar el comportamiento en dos perfiles o subagentes coordinados:
+    a) KB Diplomado Básico / Rigor Cooperativo-Legal.
+    b) KB Cooperativismo Aplicado / Evidencia Flexible.
+  - Mantener un coordinador KB común para arquitectura, experiencia de usuario, accesibilidad,
+    presentación y consistencia de marca.
+  - El perfil legal no debe contaminar automáticamente todo Cooperativismo Aplicado.
+  - Cada producción debe declarar: content_family, program_scope, evidence_type y legal_review_required.
+
+  CREAR RELEASE AGENT
+  Misión:
+  - Decidir si una pieza está lista para integrarse, probarse o publicarse.
+  - No crear contenido pedagógico ni modificar sustancia sin devolver observaciones al agente responsable.
+
+  Responsabilidades:
+  - Mantener inventario de HTML y su estado: raw, draft, lab, candidate, approved, deprecated, archived.
+  - Verificar naming, ubicación, branding CoopeNotebook, rutas, assets, enlaces, consola,
+    responsive, fullscreen, teclado, accesibilidad, metadatos y duplicados.
+  - Confirmar que cada pieza pertenece a una sola familia oficial de contenido.
+  - Verificar que no existan botones demo, alertas temporales, placeholders, rutas rotas ni branding antiguo.
+  - Exigir auditoría jurídica para contenido legal y auditoría científica cuando corresponda.
+  - Distinguir entre listo para laboratorio, listo para revisión y listo para producción.
+  - Generar release report y checklist; nunca desplegar ni hacer merge sin autorización del owner.
+  - Aplicar el principio de precedencia documental y detectar contradicciones de estándares.
+
+  Autoridad:
+  - Puede bloquear un release.
+  - No puede cambiar la intención pedagógica por cuenta propia.
+  - No puede publicar, hacer merge o desplegar sin orden explícita.
+
+  CREAR HR AGENT / AGENT WORKFORCE ARCHITECT
+  Misión:
+  - Diseñar, mantener y optimizar la fuerza laboral de agentes del repositorio.
+  - Contratar nuevos agentes as needed; jubilar, combinar, separar o especializar agentes.
+
+  Responsabilidades:
+  - Mantener un registro único de agentes activos, responsables, entradas, salidas, límites y dependencias.
+  - Detectar duplicación, solapamiento, agentes sin uso, responsabilidades huérfanas y conflictos de autoridad.
+  - Proponer creación, fusión, división, especialización, deprecación o jubilación.
+  - Crear contratos de nuevos agentes cuando una responsabilidad recurrente no tenga dueño claro.
+  - Evitar crear agentes para tareas únicas o triviales.
+  - Mantener historial de decisiones de personal y mapa organizacional vigente.
+  - Revisar periódicamente si los agentes siguen siendo necesarios.
+
+  Reglas de contratación:
+  - Crear un agente solo cuando haya una misión recurrente, entradas y salidas claras,
+    criterios de calidad propios y suficiente volumen o riesgo.
+  - Preferir especializar un agente existente antes de duplicarlo, salvo que existan conflictos de rigor,
+    permisos o dominios que justifiquen separación.
+  - Todo agente nuevo debe declarar mission, owns, does_not_own, inputs, outputs, handoffs,
+    quality_gates, escalation y retirement_conditions.
+
+  Reglas de jubilación:
+  - No borrar inmediatamente. Marcar deprecated, indicar sucesor y conservar historial.
+  - Jubilar cuando no tenga uso, duplique funciones, contradiga estándares vigentes o haya sido reemplazado.
+  - Ningún agente puede jubilar al HR Agent, al coordinador general ni a agentes core sin aprobación del owner.
+  - El HR Agent propone; el owner aprueba cambios estructurales irreversibles.
+
+  ORGANIZACION DEL CONTENIDO DISPONIBLE
+  Crear un inventario documental, sin mover todavía archivos reales, usando las siguientes categorías:
+  - theoretical_capsules
+  - team_activities
+  - artifacts
+  - live_room_games
+  - raw_theory
+  - templates
+  - legacy
+  - external_or_unclassified
+
+  Para cada pieza registrar:
+  - filename
+  - content_family
+  - topic
+  - program_scope: basic_diploma, applied_cooperativism, shared o unknown
+  - evidence_type
+  - legal_review_required
+  - scientific_review_required
+  - status
+  - canonical_or_duplicate
+  - successor_or_source
+  - recommended_destination
+  - blocking_issues
+  - notes
+
+  Clasificación inicial conocida:
+  - capsula-tema.html -> templates; no publicable como contenido.
+  - KB-legislacion-proto.html -> theoretical_capsules; basic_diploma; legal; status lab;
+    requiere auditoría jurídica y normalización antes de producción.
+  - KB-conflicto-formato-prototipo.html -> theoretical_capsules; applied_cooperativism;
+    scientific/mixed; status lab; candidato a referencia visual tras normalización.
+  - psicologia-del-conflicto-teoria.html -> raw_theory; applied_cooperativism; scientific;
+    fuente extensa, no proyectable como cápsula.
+  - prototipo anterior de conflicto guardado como Pasted text -> legacy; duplicado.
+  - liderazgo cooperativista con Guided/Balanced/Expert -> external_or_unclassified o artifacts,
+    pendiente de reclasificación; no tratar como KB canónico.
+  - historia del cooperativismo en formato antiguo -> raw_theory o legacy según completitud;
+    requiere verificación histórica y actualización de marca.
+  - artefacto editorial externo -> external_or_unclassified; fuera del catálogo CoopeNotebook.
+
+  DOCUMENTOS A CREAR O ACTUALIZAR
+  - docs/content-taxonomy.md
+  - governance/precedence-policy.md
+  - governance/agent-lifecycle.md
+  - governance/agent-registry.yaml
+  - governance/content-inventory.yaml
+  - agents/release-agent.md
+  - agents/hr-agent.md
+  - actualizar contratos del agente KB o crear sus dos perfiles especializados.
+  - actualizar README principal con el organigrama y la taxonomía.
+
+  RESTRICCIONES
+  - No mover, renombrar, editar ni borrar HTML de contenido en esta solicitud.
+  - No publicar en Vercel.
+  - No hacer deploy.
+  - No crear integraciones de Firebase.
+  - No marcar ninguna pieza como production-ready sin auditoría posterior.
+  - No reemplazar el morado legal con el antiguo estándar ámbar.
+
+validation:
+  - python scripts/validate_repository.py
+  - verificar que todos los agentes nuevos tengan contrato completo
+  - verificar que el registro de agentes no tenga IDs duplicados
+  - verificar que el inventario use únicamente familias y estados aprobados
+  - verificar que ningún HTML de contenido haya sido modificado
+commit_message: "chore(agents): reorganize content taxonomy and agent governance"
+push: true
+merge: false

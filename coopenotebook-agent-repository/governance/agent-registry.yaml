@@ -1,0 +1,78 @@
+version: 1
+agents:
+  - id: system-coordinator
+    owner: openai
+    status: active
+    path: agents/core/coordinator.md
+    purpose: Coordinar arquitectura general y flujo entre paquetes.
+  - id: local-repository-operator
+    owner: antigravity
+    status: active
+    path: agents/core/local-operator.md
+    purpose: Operación local de archivos, Git y validaciones.
+  - id: hr-agent
+    owner: openai
+    status: active
+    path: agents/core/hr-agent.md
+    purpose: Administrar el ciclo de vida y roles de agentes del monorepo.
+  - id: kb-coordinator
+    owner: openai
+    status: active
+    path: agents/kb/kb-coordinator.md
+    purpose: Coordinación de experiencia visual y pedagógica de cápsulas.
+  - id: kb-basic-diploma
+    owner: openai
+    status: active
+    path: agents/kb/kb-basic-diploma.md
+    purpose: Rigor cooperativo y legal verbatim para diplomado básico.
+  - id: kb-applied
+    owner: openai
+    status: active
+    path: agents/kb/kb-applied.md
+    purpose: Estándares flexibles y basados en evidencia para cooperativismo aplicado.
+  - id: teamwork-coordinator
+    owner: openai
+    status: active
+    path: agents/production/teamwork-coordinator.md
+    purpose: Controlar guías y actividades colaborativas en LNL.
+  - id: artifact-coordinator
+    owner: openai
+    status: active
+    path: agents/production/artifact-coordinator.md
+    purpose: Controlar herramientas manipulables e interactivas.
+  - id: jester-coordinator
+    owner: openai
+    status: active
+    path: agents/production/jester-coordinator.md
+    purpose: Editor de actividades y plantillas visuales.
+  - id: p2l-coordinator
+    owner: openai
+    status: active
+    path: agents/production/p2l-coordinator.md
+    purpose: Coordinar salas de juego y bancos de preguntas síncronos.
+  - id: scientific-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/scientific-reviewer.md
+    purpose: Validar que el material aplicado se base en evidencia científica.
+  - id: legal-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/legal-reviewer.md
+    purpose: Auditoría de artículos de ley y literalidad en color morado.
+  - id: accessibility-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/accessibility-reviewer.md
+    purpose: Control de accesibilidad y adaptación móvil.
+  - id: content-librarian
+    owner: claude
+    operator: antigravity
+    status: active
+    path: agents/production/content-librarian.md
+    purpose: Clasificación e inventario físico de archivos.
+  - id: release-agent
+    owner: openai
+    status: active
+    path: agents/production/release-agent.md
+    purpose: Checklist y control de calidad antes de merges a producción.

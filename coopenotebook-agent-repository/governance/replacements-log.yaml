@@ -1,0 +1,17 @@
+version: 1
+replacements:
+  - deleted_path: agents/01-arquitecto-teoria.md
+    replacement_path: agents/kb/kb-coordinator.md
+    reason: Obsoleto, reemplazado por perfiles especializados.
+    deletion_date: 2026-06-27
+    approved_by: owner
+  - deleted_path: agents/02-constructor-contenido.md
+    replacement_path: agents/production/content-librarian.md
+    reason: Reemplazado por Content Librarian.
+    deletion_date: 2026-06-27
+    approved_by: owner
+  - deleted_path: agents/03-agente-ordenador.md
+    replacement_path: agents/production/content-librarian.md
+    reason: Reemplazado por Content Librarian.
+    deletion_date: 2026-06-27
+    approved_by: owner
