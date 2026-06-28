@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivario de Conocimiento CHC - CoopeNotebook</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon">CHC</div>
+            <div class="logo-text">
+                <h1>Archivario CHC</h1>
+                <p>Base de Conocimiento</p>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-section-title">Estructura Curricular</div>
+            
+            <a class="menu-item active" onclick="switchSection('modulo-1')">
+                <span>1. Cooperativismo Básico</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-2')">
+                <span>2. Marco Legal Cooperativo</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-3')">
+                <span>3. Gobernabilidad y Estructura</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-4')">
+                <span>4. Administración de Asambleas</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-5')">
+                <span>5. Liderazgo y LIDERCOOP</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-6')">
+                <span>6. Trabajo en Equipo y Conflictos</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-7')">
+                <span>7. Habilidades y Salud Mental</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('modulo-8')">
+                <span>8. Estrategia, Ética e Incidencia</span>
+            </a>
+
+            <div class="menu-section-title">Recursos Originales</div>
+            <a class="menu-item" onclick="switchSection('archivos-word')">
+                <span>📄 Manuales Completos (Word)</span>
+            </a>
+            <a class="menu-item" onclick="switchSection('archivos-pdf')">
+                <span>⚖️ Leyes y Decretos (PDF)</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Layout -->
+    <div class="main-layout">
+        <header class="header">
+            <div class="header-title">
+                <h2 id="current-section-title">1. Cooperativismo Básico e Identidad</h2>
+            </div>
+            <div class="header-actions">
+                <a href="../index.html" class="btn btn-secondary">🏠 Volver a Inicio</a>
+            </div>
+        </header>
+
+        <main class="content-container">
+            
+            <!-- SECTION 1: COOPERATIVISMO BASICO -->
+            <section id="modulo-1" class="doc-section active">
+                <span class="eyebrow">Módulo 1</span>
+                <h2 class="doc-title">Cooperativismo Básico e Identidad</h2>
+                <p class="lead">Compendio pedagógico sobre la naturaleza única del modelo cooperativo, valores, principios y su contraste con las empresas mercantiles.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm1-identidad')">Identidad y Principios</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm1-contraste')">Contraste Mercantil</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm1-responsabilidad')">Responsabilidad y Balance</button>
+                    </div>
+                    
+                    <!-- Tab 1: Identidad y Principios -->
+                    <div id="m1-identidad" class="tab-content active">
+                        <h3>Naturaleza de la Cooperativa</h3>
+                        <p>Según la <strong>Alianza Cooperativa Internacional (ACI, Manchester, 1995)</strong>, una cooperativa es una <em>asociación autónoma de personas unidas voluntariamente para satisfacer necesidades y aspiraciones económicas, sociales y culturales comunes, mediante una empresa de propiedad conjunta y gestión democrática</em>.</p>
+                        
+                        <div class="highlight-box">
+                            <h4>Valores Éticos y Cooperativos</h4>
+                            <p>El modelo se fundamenta en los valores de: autoayuda, responsabilidad propia, democracia, igualdad, equidad y solidaridad. A nivel ético se exigen: honestidad, apertura, responsabilidad social y cuidado de los demás.</p>
+                        </div>
+
+                        <h3>Los 7 Principios Cooperativos</h3>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>1º. Membresía Abierta y Voluntaria</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas son organizaciones voluntarias, abiertas a todas las personas capaces de utilizar sus servicios y dispuestas a aceptar las responsabilidades de ser afiliadas, sin discriminación de género, social, racial, política o religiosa.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>2º. Control Democrático de los Miembros</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de sus políticas y la toma de decisiones. En las cooperativas de primer grado los miembros tienen iguales derechos de voto (un miembro, un voto).</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>3º. Participación Económica de los Miembros</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Los afiliados contribuyen de manera equitativa y controlan democráticamente el capital de su cooperativa. Al menos parte de ese capital es propiedad común de la cooperativa. Suelen recibir una compensación limitada, si la hay, sobre el capital suscrito como condición de membresía.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>4º. Autonomía e Independencia</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas son organizaciones autónomas de ayuda mutua, controladas por sus miembros. Si firman acuerdos con otras organizaciones, incluidos los gobiernos, o si consiguen capital de fuentes externas, lo hacen en términos que aseguren el control democrático y mantengan su autonomía.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>5º. Educación, Formación e Información</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas brindan educación y formación a sus miembros, a sus dirigentes electos, gerentes y empleados para que puedan contribuir eficazmente al desarrollo de sus cooperativas. Informan al público en general sobre la naturaleza y los beneficios del cooperativismo.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>6º. Cooperación entre Cooperativas</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando juntas mediante estructuras locales, nacionales, regionales e internacionales.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>7º. Compromiso con la Comunidad</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Las cooperativas trabajan para el desarrollo sostenible de sus comunidades a través de políticas aprobadas por sus miembros.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 2: Contraste Mercantil -->
+                    <div id="m1-contraste" class="tab-content">
+                        <h3>Diferencias Estructurales y Legales</h3>
+                        <p>En el marco legal de Honduras, la cooperativa opera con una lógica orientada a las personas, en claro contraste con la empresa de capital tradicional (S. de R.L. o S.A.).</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Dimensión</th>
+                                    <th>Empresa Privada (Mercantil)</th>
+                                    <th>Cooperativa</th>
+                                    <th>Base Legal LCH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Propiedad</strong></td>
+                                    <td>Accionistas / Inversionistas</td>
+                                    <td>De todos los afiliados/as por igual</td>
+                                    <td>Ley del Sector Social</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Objetivo Principal</strong></td>
+                                    <td>Maximizar el lucro o ganancia</td>
+                                    <td>Satisfacer necesidades y calidad de vida</td>
+                                    <td>Art. 119-A LCH</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Control Político</strong></td>
+                                    <td>Voto proporcional al capital (acciones)</td>
+                                    <td>Democrático (1 persona = 1 voto)</td>
+                                    <td>Art. 28 LCH; 119-E</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Retorno de Beneficios</strong></td>
+                                    <td>Dividendos según capital invertido</td>
+                                    <td>Retorno de excedentes según uso de servicios</td>
+                                    <td>Art. 44 LCH</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Transparencia</strong></td>
+                                    <td>Privada o declaración de impuestos</td>
+                                    <td>Pública (Balance Social y Auditoría)</td>
+                                    <td>Art. 119-D LCH</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Tab 3: Responsabilidad Social -->
+                    <div id="m1-responsabilidad" class="tab-content">
+                        <h3>Responsabilidad Social y Ambiental</h3>
+                        <p>Para la cooperativa, la responsabilidad social y ambiental es una prioridad obligatoria, no una estrategia comercial opcional. Esto se materializa a través de dos mecanismos obligatorios:</p>
+                        <ul>
+                            <li><strong>Balance Social Cooperativo:</strong> Herramienta para medir y evaluar la influencia y los resultados sociales de la cooperativa en la comunidad de afiliados, regulada prudencialmente por el CONSUCOOP.</li>
+                            <li><strong>Fondo de Educación Cooperativa:</strong> Fondo destinado a capacitar a la membresía para asegurar la toma de decisiones consciente.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: MARCO LEGAL -->
+            <section id="modulo-2" class="doc-section">
+                <span class="eyebrow">Módulo 2</span>
+                <h2 class="doc-title">Marco Legal Cooperativo de Honduras</h2>
+                <p class="lead">Las reglas formales del juego: Ley de Cooperativas de Honduras (LCH), su Reglamento y reformas clave.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm2-estructura')">Estructura Jerárquica</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm2-reformas')">Reformas e Intermediación</button>
+                    </div>
+                    
+                    <div id="m2-estructura" class="tab-content active">
+                        <h3>Jerarquía Normativa</h3>
+                        <p>El marco regulatorio de las cooperativas en Honduras se organiza de forma piramidal:</p>
+                        <ol>
+                            <li><strong>Constitución de la República (Art. 338):</strong> Declara que el Estado promoverá y apoyará el desarrollo de las cooperativas.</li>
+                            <li><strong>Ley de Cooperativas de Honduras (Decreto 65-87):</strong> Regula la constitución, funcionamiento, disolución e intermediación financiera.</li>
+                            <li><strong>Reglamento de la LCH (Acuerdo 041-2014):</strong> Detalla el procedimiento operativo de la ley (cuórum, comités, escrutinio).</li>
+                            <li><strong>Normas y Resoluciones del CONSUCOOP:</strong> Emite normas prudenciales de gobernanza, riesgos y balance social.</li>
+                            <li><strong>Estatutos de la Cooperativa:</strong> La ley particular de cada organización.</li>
+                        </ol>
+                    </div>
+                    
+                    <div id="m2-reformas" class="tab-content">
+                        <h3>Reformas a la Ley (Decreto 146-2019)</h3>
+                        <p>Esta reforma introdujo cambios sustanciales para las Cooperativas de Ahorro y Crédito (CAC) que realizan intermediación financiera:</p>
+                        <ul>
+                            <li><strong>Art. 119-A:</strong> Define formalmente a las CACs como empresas financieras de carácter solidario con responsabilidad social.</li>
+                            <li><strong>Art. 119-B:</strong> Prohíbe y sanciona penalmente la captación de dinero de terceros no afiliados (delito de captación irregular).</li>
+                            <li><strong>Art. 119-E:</strong> Faculta y regula la Asamblea por Delegados para cooperativas con más de 3,000 afiliados.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: GOBERNANZA Y ESTRUCTURA -->
+            <section id="modulo-3" class="doc-section">
+                <span class="eyebrow">Módulo 3</span>
+                <h2 class="doc-title">Gobernabilidad y Estructura Institucional</h2>
+                <p class="lead">Distinción de funciones institucionales, Douglass North y el financiamiento de los comités de gobierno.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm3-north')">Marco de Douglass North</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm3-organos')">Órganos de Gobierno</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm3-comites')">Comités y Fondo Educativo</button>
+                    </div>
+                    
+                    <div id="m3-north" class="tab-content active">
+                        <h3>Instituciones vs. Organizaciones</h3>
+                        <p>El marco analítico de <strong>Douglass C. North</strong> (Premio Nobel 1993) sirve para aclarar el empoderamiento institucional en las cooperativas:</p>
+                        <blockquote>
+                            <em>"Las instituciones son las reglas del juego en una sociedad; las organizaciones son los jugadores."</em>
+                        </blockquote>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Instituciones (Las Reglas)</th>
+                                    <th>Organizaciones (Los Jugadores)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Leyes (LCH), Reglamentos, Estatutos, políticas internas y costumbres.</td>
+                                    <td>La cooperativa como persona jurídica, comités y afiliados en asamblea.</td>
+                                </tr>
+                                <tr>
+                                    <td>Determinan qué está permitido y qué no.</td>
+                                    <td>Actúan dentro de las reglas para lograr fines económicos y sociales.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="m3-organos" class="tab-content">
+                        <h3>Diferencia entre Gobierno y Operación</h3>
+                        <div class="highlight-box">
+                            <h4>Junta Directiva (JD) - Dirección Estratégica</h4>
+                            <p>La JD fija la dirección estratégica, aprueba políticas y supervisa a la gerencia. <strong>No administra el día a día</strong>, no supervisa empleados directamente ni interviene en procesos operativos.</p>
+                        </div>
+                        <div class="highlight-box" style="border-left-color: #3fb67a;">
+                            <h4>Gerencia - Gestión Operativa</h4>
+                            <p>La Gerencia ejecuta las estrategias y políticas aprobadas por la JD. Es responsable de la operación comercial y del personal. No forma parte de la Junta Directiva.</p>
+                        </div>
+                        <div class="highlight-box" style="border-left-color: #e4ece7; background-color: #f0f4f2;">
+                            <h4>Junta de Vigilancia (JV) - Fiscalización</h4>
+                            <p>La JV es un órgano independiente de la JD. Fiscaliza las operaciones y el cumplimiento estatutario y legal. No reemplaza a la JD en la dirección ni a la gerencia en la operación.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="m3-comites" class="tab-content">
+                        <h3>Comités Obligatorios de Gobierno (RLCH Art. 71)</h3>
+                        <p>La Junta Directiva debe delegar funciones en comités específicos:</p>
+                        <ul>
+                            <li><strong>Comité de Educación:</strong> Presidido por la Vicepresidencia de la Junta Directiva.</li>
+                            <li><strong>Comité de Género:</strong> Presidido de preferencia por un miembro femenino de la Junta Directiva.</li>
+                            <li><strong>Comité de Juventud:</strong> Dirigido por la persona designada por la Junta Directiva.</li>
+                        </ul>
+
+                        <h3>Fondo de Educación Cooperativa (RLCH Art. 125)</h3>
+                        <p>El Fondo de Educación no puede ser inferior al <strong>3% del ingreso neto anual</strong> del ejercicio anterior, distribuido así:</p>
+                        <ul>
+                            <li><strong>2%:</strong> Educación y capacitación de cooperativistas en general.</li>
+                            <li><strong>1%:</strong> Educación y capacitación orientada a juventud y género.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: ASAMBLEAS -->
+            <section id="modulo-4" class="doc-section">
+                <span class="eyebrow">Módulo 4</span>
+                <h2 class="doc-title">Administración de Asambleas y Representación</h2>
+                <p class="lead">Lineamientos legales para el desarrollo de asambleas, quórums de deliberación y la figura de delegados.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm4-delegados')">La Figura del Delegado</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm4-asuntos')">Atribuciones de la Asamblea</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm4-reglas')">Reglas de Cuórum y Votación</button>
+                    </div>
+                    
+                    <div id="m4-delegados" class="tab-content active">
+                        <h3>Delegados Propietarios y Suplentes</h3>
+                        <p>En cooperativas de gran membresía (+3,000 afiliados), la Asamblea General se realiza con delegados electos en Asambleas Sectoriales (filiales, ventanillas, regiones):</p>
+                        <ul>
+                            <li><strong>Delegado Propietario (Titular):</strong> Elegido formalmente para representar a su sector con voz y voto. Debe llevar la voz colectiva de sus representados, no su opinión personal.</li>
+                            <li><strong>Delegado Suplente:</strong> Elegido en proporción de uno por cada diez propietarios para sustituirlo en caso de fuerza mayor. Si asume la representación, adquiere idénticas obligaciones y responsabilidades que el propietario.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="m4-asuntos" class="tab-content">
+                        <h3>Asuntos de la Asamblea General Ordinaria (Art. 24 LCH)</h3>
+                        <p>La Asamblea Ordinaria debe celebrarse una vez al año dentro de los 3 meses posteriores al cierre fiscal para tratar:</p>
+                        <ol>
+                            <li>Conocer y resolver sobre los Estados Financieros auditados previos informes de JD y JV.</li>
+                            <li>Elegir o destituir miembros de JD o JV.</li>
+                            <li>Aprobar la distribución de excedentes propuestos por JD.</li>
+                            <li>Aprobar el Plan Operativo Anual (POA) y Presupuesto General de la cooperativa.</li>
+                            <li>Conocer y resolver sobre el Balance Social y las expulsiones de afiliados.</li>
+                        </ol>
+                    </div>
+                    
+                    <div id="m4-reglas" class="tab-content">
+                        <h3>Reglas de Cuórum e Instalación (RLCH Art. 95, 96, 98)</h3>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>Cuórum de Instalación (Art. 95)</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Si a la hora fijada no se alcanza el cuórum requerido de propietarios/afiliados, la asamblea se instalará en segunda convocatoria una hora más tarde con los presentes, siempre que no sean menos de la mitad más uno de la asistencia que se exigió para la constitución legal de la cooperativa.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>Mayorías y Resoluciones (Art. 96)</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>En primera convocatoria, los acuerdos y resoluciones se toman por simple mayoría. En segunda convocatoria, al haber menos cuórum, las resoluciones se deben aprobar por las dos terceras partes (2/3) de los cooperativistas acreditados y presentes.</p>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(event)">
+                                <span>Escrutinio (Art. 98)</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Dirigido por el Secretario/a de la Junta Directiva asistido por dos delegados de apoyo designados por la Presidencia. Los acuerdos son legalmente firmes solo cuando constan en el acta final aprobada y firmada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: LIDERAZGO -->
+            <section id="modulo-5" class="doc-section">
+                <span class="eyebrow">Módulo 5</span>
+                <h2 class="doc-title">Liderazgo y LIDERCOOP</h2>
+                <p class="lead">Desarrollo de competencias de liderazgo proactivo, hábitos de dirección y la perspectiva de género.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm5-habitos')">Hábitos del Líder</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm5-genero')">Perspectiva de Género</button>
+                    </div>
+                    
+                    <div id="m5-habitos" class="tab-content active">
+                        <h3>Perfil y Rol del Líder Cooperativo</h3>
+                        <p>El liderazgo cooperativo no se reduce a la experiencia de negocios o autoridad jerárquica. Se caracteriza por:</p>
+                        <ul>
+                            <li><strong>Co-creación e Identidad:</strong> Vincula su actuar con los valores de ayuda mutua y los principios solidarios de la cooperativa.</li>
+                            <li><strong>Responsabilidad Compartida:</strong> Promueve la participación de la membresía y delega competencias de decisión.</li>
+                            <li><strong>Comunicación Asertiva:</strong> Facilita el intercambio de información entre las bases y la alta dirección.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="m5-genero" class="tab-content">
+                        <h3>Liderazgo con Perspectiva de Género</h3>
+                        <p>El marco de equidad de género es mandatorio en la Ley de Cooperativas. Se enfoca en:</p>
+                        <ul>
+                            <li>Garantizar que las afiliadas tengan acceso efectivo a cargos directivos en la Junta Directiva y Junta de Vigilancia.</li>
+                            <li>El Comité de Género como promotor activo de formación e igualdad de oportunidades de desarrollo dentro de la comunidad.</li>
+                            <li>Uso prioritario del presupuesto del 1% del Fondo de Educación asignado específicamente para capacitación de juventud y género.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: TRABAJO EN EQUIPO -->
+            <section id="modulo-6" class="doc-section">
+                <span class="eyebrow">Módulo 6</span>
+                <h2 class="doc-title">Trabajo en Equipo y Conflictos</h2>
+                <p class="lead">Conformación de equipos de alto rendimiento, estrategias de negociación y la resolución de conflictos.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm6-equipos')">Equipos de Alto Rendimiento</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm6-conflictos')">Manejo de Conflictos</button>
+                    </div>
+                    
+                    <div id="m6-equipos" class="tab-content active">
+                        <h3>Equipos de Alto Rendimiento</h3>
+                        <p>Para construir equipos eficaces en el entorno de gobernanza cooperativo, se requiere:</p>
+                        <ul>
+                            <li><strong>Sinergia y Confianza:</strong> Compartir objetivos de desarrollo sin dependencias absolutas en un único líder.</li>
+                            <li><strong>Planificación de Sucesión:</strong> Asegurar relevos institucionales continuos y transferencia de conocimiento.</li>
+                            <li><strong>Complementariedad:</strong> Equilibrio entre habilidades técnicas (finanzas, leyes) y habilidades interpersonales.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="m6-conflictos" class="tab-content">
+                        <h3>Resolución de Conflictos y Negociación</h3>
+                        <p>La negociación en cooperativas prioriza soluciones ganar-ganar que preserven la cohesión social:</p>
+                        <ul>
+                            <li><strong>Mediación Cooperativa:</strong> Separar a las personas de los problemas, enfocarse en intereses comunes de los afiliados y evitar rivalidades destructivas.</li>
+                            <li><strong>Tensiones de Gobernanza:</strong> Analizar dilemas como <em>Urgencia vs. Proceso de Gobierno</em>, o <em>Resultados vs. Identidad Cooperativa</em> buscando un equilibrio institucional saludable.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: SALUD MENTAL -->
+            <section id="modulo-7" class="doc-section">
+                <span class="eyebrow">Módulo 7</span>
+                <h2 class="doc-title">Salud Mental y Habilidades Blandas</h2>
+                <p class="lead">Bienestar emocional, mejoramiento de vida, inteligencia emocional y mitigación del desgaste laboral.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm7-emv')">Mejoramiento de Vida (EMV)</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm7-inteligencia')">Inteligencia Emocional</button>
+                    </div>
+                    
+                    <div id="m7-emv" class="tab-content active">
+                        <h3>Enfoque de Mejoramiento de Vida (EMV)</h3>
+                        <p>El EMV es un enfoque práctico para el desarrollo integral del cooperativista y su familia:</p>
+                        <ul>
+                            <li>Promueve cambios graduales y auto-gestionados en la vida cotidiana para mejorar la salud física y mental.</li>
+                            <li>Busca mitigar problemas como el endeudamiento excesivo, el estrés familiar y las compras compulsivas mediante educación financiera y autocuidado.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="m7-inteligencia" class="tab-content">
+                        <h3>Inteligencia Emocional en Directivos</h3>
+                        <p>Los líderes de cuerpos de dirección y comités deben cultivar habilidades de autorregulación emocional:</p>
+                        <ul>
+                            <li><strong>Autoconocimiento y Empatía:</strong> Comprender el estado emocional de los afiliados para facilitar debates calmados en asambleas.</li>
+                            <li><strong>Prevención de Burnout:</strong> Establecer límites saludables para evitar el agotamiento físico y mental derivado del servicio cooperativo voluntario.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 8: ESTRATEGIA, ETICA E INCIDENCIA -->
+            <section id="modulo-8" class="doc-section">
+                <span class="eyebrow">Módulo 8</span>
+                <h2 class="doc-title">Estrategia, Ética e Incidencia Política</h2>
+                <p class="lead">Planificación estratégica, transparencia en el balance social y diseño de planes de incidencia ante políticas públicas.</p>
+                
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-nav-btn active" onclick="switchTab(event, 'm8-etica')">Ética y Transparencia</button>
+                        <button class="tab-nav-btn" onclick="switchTab(event, 'm8-incidencia')">Incidencia Política</button>
+                    </div>
+                    
+                    <div id="m8-etica" class="tab-content active">
+                        <h3>Ética, Transparencia y Solidaridad</h3>
+                        <p>El gobierno cooperativo exige altos estándares éticos respaldados por la responsabilidad civil y penal:</p>
+                        <ul>
+                            <li><strong>Responsabilidad Solidaria (Art. 29 LCH):</strong> Los directivos responden solidariamente por la autenticidad de los excedentes y la veracidad de los libros sociales.</li>
+                            <li><strong>Corresponsabilidad de la JV (Art. 32 LCH):</strong> La Junta de Vigilancia es solidariamente responsable con la JD ante omisiones o negligencias graves.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="m8-incidencia" class="tab-content">
+                        <h3>Incidencia Política Cooperativa</h3>
+                        <p>Las cooperativas influyen en las políticas públicas y normativas nacionales a través de la representación unificada:</p>
+                        
+                        <div class="highlight-box">
+                            <h4>Herramientas de Planificación de Incidencia</h4>
+                            <p><strong>El Árbol de Problemas y de Objetivos:</strong> Ejercicio interactivo para identificar causas, efectos y proponer acciones de cambio regulatorio (ej. régimen fiscal cooperativo o políticas de intermediación).</p>
+                        </div>
+                        
+                        <h3>Pasos para un Plan de Incidencia</h3>
+                        <ol>
+                            <li>Identificar y priorizar el problema regulatorio/social.</li>
+                            <li>Definir la propuesta o solución cooperativa.</li>
+                            <li>Analizar el mapa de actores clave e influenciadores.</li>
+                            <li>Diseñar la estrategia de cabildeo, alianzas y comunicación.</li>
+                            <li>Implementar, monitorear y evaluar los resultados.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: WORD ARCHIVE -->
+            <section id="archivos-word" class="doc-section">
+                <span class="eyebrow">Repositorio</span>
+                <h2 class="doc-title">Manuales e Informes Completos (Word)</h2>
+                <p class="lead">Acceso directo a las versiones de informes y manuales detallados de Word almacenados en el repositorio de GitHub.</p>
+                
+                <div class="file-list-card">
+                    <h4>Módulo 1: Cooperativismo Básico</h4>
+                    <a href="../../01-contenido-base/informes-word/Manual Cooperativismo Básico.docx" class="file-item-link">📄 Manual Cooperativismo Básico.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Responsabilidad Social y Ambiente.docx" class="file-item-link">📄 Manual de Responsabilidad Social y Ambiente.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Situacion Actual del Cooperativismo.docx" class="file-item-link">📄 Manual de Situacion Actual del Cooperativismo.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Material Valores Cooperativistas.docx" class="file-item-link">📄 Material Valores Cooperativistas.docx</a>
+                </div>
+                
+                <div class="file-list-card">
+                    <h4>Módulos 2, 3 y 4: Gobernanza y Asambleas</h4>
+                    <a href="../../01-contenido-base/informes-word/Manual Liderazgo y Gobernabilidad Cooperativa.docx" class="file-item-link">📄 Manual Liderazgo y Gobernabilidad Cooperativa.docx</a>
+                </div>
+                
+                <div class="file-list-card">
+                    <h4>Módulo 5: Liderazgo y Género</h4>
+                    <a href="../../01-contenido-base/informes-word/Manual de Liderazgo y Comunicacion.docx" class="file-item-link">📄 Manual de Liderazgo y Comunicacion.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual del Rol del Lider en la Organizacion.docx" class="file-item-link">📄 Manual del Rol del Lider en la Organizacion.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual Identidad y Cultura Cooperativa.docx" class="file-item-link">📄 Manual Identidad y Cultura Cooperativa.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Liderazgo Cooperativista Usuario.docx" class="file-item-link">📄 Manual de Liderazgo Cooperativista Usuario.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Liderazgo con Perspectiva de Genero.docx" class="file-item-link">📄 Manual de Liderazgo con Perspectiva de Genero.docx</a>
+                </div>
+                
+                <div class="file-list-card">
+                    <h4>Módulos 6, 7 y 8: Conflictos, Salud Mental y Estrategia</h4>
+                    <a href="../../01-contenido-base/informes-word/Manual de Conflicto y Negociacion.docx" class="file-item-link">📄 Manual de Conflicto y Negociacion.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Conformacion de Equipos de Alto Rendimiento.docx" class="file-item-link">📄 Manual de Conformacion de Equipos de Alto Rendimiento.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Autoestima.docx" class="file-item-link">📄 Manual de Autoestima.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Pensamiento Estrategico.docx" class="file-item-link">📄 Manual de Pensamiento Estrategico.docx</a>
+                    <a href="../../01-contenido-base/informes-word/Manual de Etica y Transparencia.docx" class="file-item-link">📄 Manual de Etica y Transparencia.docx</a>
+                </div>
+            </section>
+
+            <!-- SECTION: PDF ARCHIVE -->
+            <section id="archivos-pdf" class="doc-section">
+                <span class="eyebrow">Leyes y Reglamentos</span>
+                <h2 class="doc-title">Leyes y Decretos Oficiales (PDF)</h2>
+                <p class="lead">Acceso y consulta de los decretos y reglamentos vigentes del sector cooperativo hondureño.</p>
+                
+                <div class="file-list-card">
+                    <h4>Constitución y Ley General</h4>
+                    <a href="../../09-legal/LEY_DE_COOPERATIVAS_con_reformas_2020.pdf" class="file-item-link">⚖️ Ley de Cooperativas de Honduras con reformas 2020.pdf</a>
+                    <a href="../../09-legal/Reglamento_Ley_de_Cooperativas_2015.pdf" class="file-item-link">⚖️ Reglamento de la Ley de Cooperativas 2015.pdf</a>
+                    <a href="../../09-legal/Decreto_146-2019_Reformas_Ley.pdf" class="file-item-link">⚖️ Decreto 146-2019 (Reformas Generales LCH).pdf</a>
+                </div>
+                
+                <div class="file-list-card">
+                    <h4>Resoluciones de CONSUCOOP y Normas</h4>
+                    <a href="../../09-legal/Resolucion_Ejecutiva_02-02-2015_Funciones_Suplente.pdf" class="file-item-link">⚖️ Resolucion Ejecutiva 02-02-2015 (Funciones del Suplente).pdf</a>
+                    <a href="../../09-legal/Resolucion_09-12-2014_Requisitos_Directivos.pdf" class="file-item-link">⚖️ Resolucion 09-12-2014 (Requisitos para ser Directivos).pdf</a>
+                    <a href="../../09-legal/Acuerdo_JD-04-12-21-2017_Norma_Balance_Social.pdf" class="file-item-link">⚖️ Acuerdo JD-04-12-21-2017 (Norma Balance Social).pdf</a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script to handle dynamic tab switching and accordion behavior -->
+    <script>
+        function switchSection(sectionId) {
+            // Remove active class from all sections
+            document.querySelectorAll('.doc-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Add active class to target section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-menu .menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find click source and mark active
+            const clickedItem = event.currentTarget;
+            if (clickedItem) {
+                clickedItem.classList.add('active');
+                
+                // Update header title
+                const titleText = clickedItem.querySelector('span').textContent;
+                document.getElementById('current-section-title').textContent = titleText;
+            }
+            
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchTab(event, tabId) {
+            const section = event.currentTarget.closest('.doc-section');
+            
+            // Deactivate all nav buttons in this section
+            section.querySelectorAll('.tab-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Deactivate all tab content blocks in this section
+            section.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Activate selected tab nav and content
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleAccordion(event) {
+            const accordion = event.currentTarget.closest('.accordion');
+            accordion.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
