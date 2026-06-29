@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Equipos de alto rendimiento</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   --verde:#1c6b4a;
@@ -323,6 +321,8 @@ td.equipo{color:var(--verde);font-weight:500}
   .crono{text-align:center}
 }
 </style>
+<link rel="stylesheet" href="/shared/site-chrome.css">
+<script src="/shared/site-chrome.js"></script>
 </head>
 <body data-depth="balanced">
 <div class="ambiente"></div>
@@ -401,7 +401,7 @@ td.equipo{color:var(--verde);font-weight:500}
 
         <p>Katzenbach y Smith resumen seis componentes: número manejable de integrantes, competencias complementarias, propósito común, metas concretas de desempeño, método compartido de trabajo y responsabilidad mutua. Hackman aporta otra mirada: el alto rendimiento no se define solo por lo que el equipo es por dentro, sino por las condiciones que lo hacen posible.</p>
 
-        <div class="glosa">Hackman señala cinco condiciones: ser un equipo real y delimitado, una dirección convincente, una estructura que facilite el trabajo, apoyo de la organización y acompañamiento competente. Y propone medir la efectividad en tres niveles: produce resultados de calidad, fortalece su capacidad de trabajar a futuro y contribuye al aprendizaje y bienestar de sus miembros.</p>
+        <div class="glosa">Hackman señala cinco condiciones: ser un equipo real y delimitado, una dirección convincente, una estructura que facilite el trabajo, apoyo de la organización y acompañamiento competente. Y propone medir la efectividad en tres niveles: produce resultados de calidad, fortalece su capacidad de trabajar a futuro y contribuye al aprendizaje y bienestar de sus miembros.<p></p>
         </div>
 
         <div class="interp">
@@ -892,14 +892,12 @@ td.equipo{color:var(--verde);font-weight:500}
   pinta();
 })();
 </script>
-<div class="watermark" style="padding: 40px 22px 20px; color: #5e6f64; font-size: 12px; border-top: 1px solid #d9d3c7; margin-top: 60px; text-align: center; width: 100%; clear: both;">
-  <p style="margin: 0; line-height: 1.6; font-family: 'Inter', sans-serif;"><strong>CoopeNotebook</strong> · All Rights Reserved</p>
-  <p style="margin: 0; line-height: 1.6; font-family: 'Inter', sans-serif;">Última actualización: <span id="last-updated-dyn"></span></p>
-</div>
+
 <script>
   if (document.getElementById("last-updated-dyn")) {
     document.getElementById("last-updated-dyn").textContent = new Date(document.lastModified).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
   }
 </script>
-</body>
-</html>
+
+
+</body></html>

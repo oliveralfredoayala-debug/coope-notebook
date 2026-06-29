@@ -1,0 +1,95 @@
+/* Site Chrome CSS v1 (Antigravity) */
+.antigravity-chrome-topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 28px;
+  background: #fff;
+  border-bottom: 1px solid #e7ece9;
+  position: relative;
+  z-index: 9999;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.antigravity-chrome-home {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 4px 6px;
+  border-radius: 10px;
+  transition: .15s;
+  text-decoration: none;
+}
+.antigravity-chrome-home:hover {
+  background: rgba(35,74,53,.06);
+}
+.antigravity-chrome-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+.antigravity-chrome-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a2421;
+  line-height: 1;
+  white-space: nowrap;
+}
+.antigravity-chrome-brand strong {
+  color: #234a35;
+  font-weight: 700;
+}
+.antigravity-chrome-brand span {
+  color: #f0a226;
+}
+.antigravity-chrome-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.antigravity-chrome-back {
+  font-size: 14px;
+  color: #52615b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.antigravity-chrome-back:hover {
+  color: #2f7d52;
+  background: rgba(35,74,53,.06);
+}
+.antigravity-chrome-franja {
+  height: 4px;
+  background: linear-gradient(90deg, #234a35, #2f7d52 55%, #f0a226);
+  position: relative;
+  z-index: 9999;
+}
+.antigravity-chrome-footer {
+  padding: 40px 22px 20px;
+  color: #9aaa9e;
+  font-size: 12px;
+  border-top: 1px solid #e7ece9;
+  margin-top: 60px;
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+}
+.antigravity-chrome-footer p {
+  margin: 0;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  .antigravity-chrome-topbar {
+    padding: 10px 16px;
+  }
+}
