@@ -367,21 +367,16 @@ tr:hover td{background:var(--vs)}
   color: var(--mx);
 }
 </style>
+<link rel="stylesheet" href="/shared/facilitator-tools.css">
 </head>
 <body>
 <!-- Header / Topbar Global -->
 <header class="topbar">
-  <a href="/index.html" class="brand"><strong>Coope</strong>Notebook <span class="jester-badge">Jester</span></a>
-  <div class="topbar-center">
-    <button class="btn-explorar" id="btnExplorar" aria-haspopup="true">🔍 Explorar</button>
-    <div class="search-container">
-      <input type="search" placeholder="Buscar artículo, ley..." class="search-input" id="searchVal" aria-label="Búsqueda de artículos">
-    </div>
-  </div>
-  <div class="topbar-right">
-    <a href="/index.html" class="back">← Volver al Centro de Mando</a>
-    <button class="btn-drawer" id="btnDrawer" aria-haspopup="true" aria-controls="rightDrawer">📋 Artefactos</button>
-  </div>
+  <a class="brand" href="/index.html">
+    <img src="/assets/Iconos de página/gow-tools-transparent.png" alt="Logo CoopeNotebook" style="height:34px;margin-right:8px;vertical-align:middle">
+    <span style="color:var(--vd);font-family:'Space Grotesk',sans-serif;font-weight:700">Coope</span><span style="color:var(--am);font-family:'Space Grotesk',sans-serif;font-weight:700">Notebook</span>
+  </a>
+  <a href="/index.html" class="back">← volver</a>
 </header>
 
 <div class="shell">
@@ -803,8 +798,8 @@ function closeDrawer() {
   overlay.classList.remove('open');
   drawer.setAttribute('aria-hidden', 'true');
 }
-document.getElementById('btnDrawer').addEventListener('click', openDrawer);
-document.getElementById('btnExplorar').addEventListener('click', openDrawer);
+document.getElementById('btnDrawer')?.addEventListener('click', openDrawer);
+document.getElementById('btnExplorar')?.addEventListener('click', openDrawer);
 document.getElementById('btnCloseDrawer').addEventListener('click', closeDrawer);
 document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
 
@@ -911,5 +906,6 @@ renderAll();
 <footer class="footer-min">
   <p>© 2026 CoopeNotebook · Ecosistema Jester. Regulado por CONSUCOOP y la Ley de Cooperativas de Honduras.</p>
 </footer>
+<script src="/shared/facilitator-tools.js"></script>
 </body>
 </html>
