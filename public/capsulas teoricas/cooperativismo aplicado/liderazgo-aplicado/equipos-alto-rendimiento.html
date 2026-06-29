@@ -892,5 +892,14 @@ td.equipo{color:var(--verde);font-weight:500}
   pinta();
 })();
 </script>
+<div class="watermark" style="padding: 40px 22px 20px; color: #5e6f64; font-size: 12px; border-top: 1px solid #d9d3c7; margin-top: 60px; text-align: center; width: 100%; clear: both;">
+  <p style="margin: 0; line-height: 1.6; font-family: 'Inter', sans-serif;"><strong>CoopeNotebook</strong> · All Rights Reserved</p>
+  <p style="margin: 0; line-height: 1.6; font-family: 'Inter', sans-serif;">Última actualización: <span id="last-updated-dyn"></span></p>
+</div>
+<script>
+  if (document.getElementById("last-updated-dyn")) {
+    document.getElementById("last-updated-dyn").textContent = new Date(document.lastModified).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
+  }
+</script>
 </body>
 </html>
