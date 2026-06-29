@@ -1,0 +1,58 @@
+{
+  "operation_id": "OP-20260628-001",
+  "content_type": "artifact",
+  "protected_scope": [
+    "text",
+    "tab order and numbering",
+    "formulas",
+    "bars and charts",
+    "interaction behavior"
+  ],
+  "pipeline": [
+    {
+      "order": 1,
+      "agent": "artifact-architect",
+      "gate": "approved artifact plan"
+    },
+    {
+      "order": 2,
+      "agent": "artifact-legal-pedagogical-writer",
+      "gate": "structured content"
+    },
+    {
+      "order": 3,
+      "agent": "artifact-html-constructor",
+      "gate": "functional standalone artifact"
+    },
+    {
+      "order": 4,
+      "agent": "language-integrity-auditor",
+      "gate": "form corrections only"
+    },
+    {
+      "order": 5,
+      "agent": "legal-verbatim-auditor",
+      "gate": "verbatim evidence"
+    },
+    {
+      "order": 6,
+      "agent": "color-palette-architect",
+      "gate": "semantic color compliance"
+    },
+    {
+      "order": 7,
+      "agent": "global-navigation",
+      "gate": "site shell integration without changing artifact internals"
+    },
+    {
+      "order": 8,
+      "agent": "accessibility-technical-qa",
+      "gate": "functional and accessible"
+    },
+    {
+      "order": 9,
+      "agent": "delivery-manager",
+      "gate": "release decision"
+    }
+  ]
+}

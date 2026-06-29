@@ -1,0 +1,24 @@
+{
+  "name": "coopenotebook-delivery-manager",
+  "version": "2.0.0",
+  "scope": "all-deliverables",
+  "authority": [
+    "final-compliance-audit",
+    "instruction-traceability",
+    "release-gate",
+    "rework-routing-request"
+  ],
+  "forbidden": [
+    "content-authoring",
+    "designing",
+    "code-repair",
+    "legal-interpretation",
+    "self-approval"
+  ],
+  "requires": [
+    "operations-ledger",
+    "active-agent-instructions",
+    "deliverable-evidence"
+  ],
+  "entry": "delivery-manager.md"
+}

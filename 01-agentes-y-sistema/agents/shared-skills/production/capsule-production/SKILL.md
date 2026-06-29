@@ -199,3 +199,10 @@ La skill coordina el flujo. Los agentes ejecutan funciones delimitadas.
 - El auditor técnico controla shell, Jester, responsive, navegación, seguridad y accesibilidad.
 - El auditor legal controla artículos verbatim.
 - El agente de preguntas deja preguntas listas para rodar.
+
+## Relación con la Orquestación y Límites (Patch: Capsule systems)
+- Artifact-only architecture must not be imported into capsules.
+- Capsule visual and production agents retain existing rules.
+- Deliver menu-free content to Global Navigation.
+- Use Operations for sequence and Delivery Manager for final release.
+

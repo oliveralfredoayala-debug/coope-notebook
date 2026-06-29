@@ -1,0 +1,36 @@
+{
+  "operation_id": "OP-20260628-001",
+  "decision": "FAIL",
+  "requirements": [
+    {
+      "id": "ART-PROTECTED-001",
+      "status": "pass",
+      "evidence": [
+        "artifact hash before/after cross-cutting styling"
+      ]
+    },
+    {
+      "id": "NAV-001",
+      "status": "fail",
+      "evidence": [],
+      "owner": "global-navigation",
+      "rework": "remove duplicate artifact top bar"
+    },
+    {
+      "id": "COLOR-LEGAL-001",
+      "status": "pass",
+      "evidence": [
+        "palette audit report"
+      ]
+    }
+  ],
+  "protected_scope_verified": [
+    "text",
+    "tab order and numbering",
+    "calculations",
+    "bars and charts",
+    "behavior"
+  ],
+  "release_files": [],
+  "exceptions": []
+}

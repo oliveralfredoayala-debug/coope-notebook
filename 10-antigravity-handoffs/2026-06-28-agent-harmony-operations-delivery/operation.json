@@ -1,0 +1,36 @@
+{
+  "operation_id": "AG-2026-06-28-agent-harmony-operations-delivery",
+  "type": "repository-overlay",
+  "scope": [
+    "all-agents",
+    "artifact-boundary",
+    "operations",
+    "delivery-manager"
+  ],
+  "source_reviewed": [
+    "Artefactos CoopeNotebook Claude.zip",
+    "coopenotebook coordinator",
+    "capsule visual system",
+    "capsule production system",
+    "global navigation",
+    "color palette architect",
+    "team-work/LnL",
+    "P2L",
+    "LexCoop",
+    "content librarian"
+  ],
+  "protected_artifact_scope": [
+    "text",
+    "tab labels/count/order/numbering",
+    "bars/charts",
+    "numbers/formulas/thresholds",
+    "interaction behavior"
+  ],
+  "install": [
+    "08-agentes/operations",
+    "08-agentes/delivery-manager",
+    "08-agentes/artifact-factory-boundary"
+  ],
+  "validation_script": "10-antigravity-handoffs/2026-06-28-agent-harmony-operations-delivery/scripts/check_agent_harmony.py",
+  "status": "ready-for-antigravity"
+}

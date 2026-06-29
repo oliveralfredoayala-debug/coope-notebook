@@ -164,3 +164,10 @@ Un trabajo está listo cuando:
 - Sandbox refleja la configuración efectiva y confirma que el contenido se evoca desde `lnl` sin duplicación;
 - el nombre final y el enlace del Index coinciden;
 - los agentes no reportan bloqueos.
+
+## Relación con la Orquestación y Límites (Patch: Team-work / LnL)
+- The team-work orchestrator remains internal domain owner.
+- Operations invokes it as one stage and does not replace its invocation matrix.
+- Global Navigation and Palette agents may not alter activity mechanics.
+- Delivery Manager verifies all activated team-work agents and global rules.
+

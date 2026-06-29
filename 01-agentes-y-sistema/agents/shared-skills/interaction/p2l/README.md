@@ -47,3 +47,10 @@ No deben asumir viewport completo ni incluir navegación global propia. Deben ex
 
 `Escape` global y foco deben coordinarse con Global Navigation.
 
+## Relación con la Orquestación y Límites (Patch: P2L)
+- P2L orchestrator remains owner of game modes, scoring, events and results.
+- Operations controls placement in the broader pipeline only.
+- Navigation, palette and visual agents may style/embed but not alter rules or behavior.
+- Delivery Manager verifies game contracts and global requirements.
+
+

@@ -61,6 +61,12 @@ agents:
     status: active
     path: agents/reviewers/accessibility-reviewer.md
     purpose: Control de accesibilidad y adaptación móvil.
+  - id: language-reviewer
+    owner: claude
+    status: active
+    path: agents/reviewers/language-reviewer.md
+    purpose: Auditoría de ortografía, gramática y codificación de caracteres.
+
   - id: jester-coordinator
     owner: openai
     status: active
@@ -81,4 +87,21 @@ agents:
     status: active
     path: ../08-agentes/global-navigation/global-navigation.md
     purpose: Shell global, navegación transversal y workspace de artefactos.
+  - id: operations-orchestrator
+    owner: antigravity
+    status: active
+    path: ../08-agentes/operations/operations.md
+    purpose: Coordinación y orquestación de flujos de trabajo de los agentes.
+  - id: delivery-manager
+    owner: antigravity
+    status: active
+    path: ../08-agentes/delivery-manager/delivery-manager.md
+    purpose: Autoridad final de aprobación y auditoría independiente de entregables.
+  - id: color-palette-architect
+    owner: antigravity
+    status: active
+    path: ../08-agentes/color-palette-architect/color-palette-architect.md
+    purpose: Autoridad canónica sobre el uso de color semántico en todo tipo de contenido.
+
+
 

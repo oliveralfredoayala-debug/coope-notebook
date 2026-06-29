@@ -1,0 +1,23 @@
+{
+  "name": "coopenotebook-operations-orchestrator",
+  "version": "1.0.0",
+  "scope": "all-content-types",
+  "authority": [
+    "pipeline-order",
+    "handoff-gates",
+    "conflict-resolution",
+    "rework-routing"
+  ],
+  "forbidden": [
+    "content-authoring",
+    "legal-interpretation",
+    "artifact-behavior-design",
+    "global-shell-design",
+    "final-approval"
+  ],
+  "requires": [
+    "coordinator",
+    "delivery-manager"
+  ],
+  "entry": "operations.md"
+}

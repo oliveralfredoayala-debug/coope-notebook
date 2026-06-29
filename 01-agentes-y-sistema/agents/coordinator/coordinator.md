@@ -22,3 +22,11 @@ Si un productor entrega top bar, footer, drawer o menú visual global, el Coordi
 2. extraer tabs como datos;
 3. eliminar la navegación duplicada;
 4. transferir el ensamblaje a Global Navigation.
+
+## Relación con la Orquestación y Entrega (Patch: Coordinator)
+- Register Operations as the only cross-factory pipeline authority.
+- Coordinator continues to classify, name, catalog and assign IDs.
+- Coordinator must not decide internal artifact mechanics or final release.
+- Every new job emits `content_type`, `applicable_agents`, `protected_scope` and `operations_required: true`.
+- Delivery Manager is mandatory before publication.
+
