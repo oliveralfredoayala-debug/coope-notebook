@@ -1,0 +1,224 @@
+{
+  "source_sha256": "20fe5696419e7273d3032981b5cb79500d9ccdb943be89a5439a23124fbae9ed",
+  "summary": {
+    "forward_passed": 8,
+    "forward_total": 22,
+    "inverse_passed": 4,
+    "inverse_total": 13,
+    "release_decision": "FAIL"
+  },
+  "forward_vectors": [
+    {
+      "presentes": 0,
+      "implementado": 0,
+      "esperado": 0,
+      "pass": true
+    },
+    {
+      "presentes": 1,
+      "implementado": 10,
+      "esperado": 0,
+      "pass": false
+    },
+    {
+      "presentes": 9,
+      "implementado": 10,
+      "esperado": 0,
+      "pass": false
+    },
+    {
+      "presentes": 10,
+      "implementado": 10,
+      "esperado": 1,
+      "pass": false
+    },
+    {
+      "presentes": 50,
+      "implementado": 10,
+      "esperado": 5,
+      "pass": false
+    },
+    {
+      "presentes": 99,
+      "implementado": 10,
+      "esperado": 9,
+      "pass": false
+    },
+    {
+      "presentes": 100,
+      "implementado": 10,
+      "esperado": 10,
+      "pass": true
+    },
+    {
+      "presentes": 101,
+      "implementado": 30,
+      "esperado": 10,
+      "pass": false
+    },
+    {
+      "presentes": 120,
+      "implementado": 30,
+      "esperado": 11,
+      "pass": false
+    },
+    {
+      "presentes": 350,
+      "implementado": 30,
+      "esperado": 22,
+      "pass": false
+    },
+    {
+      "presentes": 420,
+      "implementado": 30,
+      "esperado": 26,
+      "pass": false
+    },
+    {
+      "presentes": 500,
+      "implementado": 30,
+      "esperado": 30,
+      "pass": true
+    },
+    {
+      "presentes": 501,
+      "implementado": 46,
+      "esperado": 30,
+      "pass": false
+    },
+    {
+      "presentes": 800,
+      "implementado": 46,
+      "esperado": 40,
+      "pass": false
+    },
+    {
+      "presentes": 1000,
+      "implementado": 46,
+      "esperado": 46,
+      "pass": true
+    },
+    {
+      "presentes": 1001,
+      "implementado": 71,
+      "esperado": 46,
+      "pass": false
+    },
+    {
+      "presentes": 1450,
+      "implementado": 71,
+      "esperado": 57,
+      "pass": false
+    },
+    {
+      "presentes": 1500,
+      "implementado": 71,
+      "esperado": 58,
+      "pass": false
+    },
+    {
+      "presentes": 2000,
+      "implementado": 71,
+      "esperado": 71,
+      "pass": true
+    },
+    {
+      "presentes": 2001,
+      "implementado": 71,
+      "esperado": 71,
+      "pass": true
+    },
+    {
+      "presentes": 2400,
+      "implementado": 79,
+      "esperado": 79,
+      "pass": true
+    },
+    {
+      "presentes": 3000,
+      "implementado": 91,
+      "esperado": 91,
+      "pass": true
+    }
+  ],
+  "inverse_roundtrip_vectors": [
+    {
+      "delegados_solicitados": 1,
+      "afiliados_calculados": 10,
+      "delegados_recalculados": 10,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 5,
+      "afiliados_calculados": 50,
+      "delegados_recalculados": 10,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 10,
+      "afiliados_calculados": 100,
+      "delegados_recalculados": 10,
+      "pass": true
+    },
+    {
+      "delegados_solicitados": 11,
+      "afiliados_calculados": 120,
+      "delegados_recalculados": 30,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 20,
+      "afiliados_calculados": 300,
+      "delegados_recalculados": 30,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 22,
+      "afiliados_calculados": 340,
+      "delegados_recalculados": 30,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 30,
+      "afiliados_calculados": 500,
+      "delegados_recalculados": 30,
+      "pass": true
+    },
+    {
+      "delegados_solicitados": 31,
+      "afiliados_calculados": 530,
+      "delegados_recalculados": 46,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 46,
+      "afiliados_calculados": 980,
+      "delegados_recalculados": 46,
+      "pass": true
+    },
+    {
+      "delegados_solicitados": 47,
+      "afiliados_calculados": 1020,
+      "delegados_recalculados": 71,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 57,
+      "afiliados_calculados": 1420,
+      "delegados_recalculados": 71,
+      "pass": false
+    },
+    {
+      "delegados_solicitados": 71,
+      "afiliados_calculados": 1980,
+      "delegados_recalculados": 71,
+      "pass": true
+    },
+    {
+      "delegados_solicitados": 79,
+      "afiliados_calculados": 2380,
+      "delegados_recalculados": 78,
+      "pass": false
+    }
+  ]
+}

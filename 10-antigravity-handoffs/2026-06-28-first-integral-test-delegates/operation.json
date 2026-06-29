@@ -1,0 +1,70 @@
+{
+  "operation_id": "2026-06-28-first-integral-test-delegates",
+  "content_type": "artifact",
+  "status": "blocked",
+  "release_decision": "FAIL",
+  "source": {
+    "file": "source/delegados-source-untouched.html",
+    "sha256": "20fe5696419e7273d3032981b5cb79500d9ccdb943be89a5439a23124fbae9ed"
+  },
+  "protected_zones": [
+    "text",
+    "tab labels/order/numbering",
+    "numbers",
+    "bars",
+    "formulas",
+    "behavior"
+  ],
+  "pipeline": [
+    {
+      "step": 1,
+      "agent": "Artifact Architect",
+      "result": "completed with findings"
+    },
+    {
+      "step": 2,
+      "agent": "Legal-Pedagogical Writer",
+      "result": "returned for rework"
+    },
+    {
+      "step": 3,
+      "agent": "Artifact HTML Constructor",
+      "result": "returned for critical functional rework"
+    },
+    {
+      "step": 4,
+      "agent": "Artifact Functional QA",
+      "result": "failed"
+    },
+    {
+      "step": 5,
+      "agent": "Legal Verbatim / LexCoop",
+      "result": "failed"
+    },
+    {
+      "step": 6,
+      "agent": "Language Integrity",
+      "result": "failed"
+    },
+    {
+      "step": 7,
+      "agent": "Color Palette Architect",
+      "result": "failed"
+    },
+    {
+      "step": 8,
+      "agent": "Global Navigation",
+      "result": "not integrated because upstream gates failed"
+    },
+    {
+      "step": 9,
+      "agent": "Accessibility QA",
+      "result": "failed audit"
+    },
+    {
+      "step": 10,
+      "agent": "Delivery Manager",
+      "result": "FAIL"
+    }
+  ]
+}

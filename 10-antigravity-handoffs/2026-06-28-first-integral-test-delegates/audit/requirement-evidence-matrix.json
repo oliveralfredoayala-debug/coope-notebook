@@ -1,0 +1,83 @@
+{
+  "content_type": "artifact",
+  "artifact": "Delegados",
+  "source_sha256": "20fe5696419e7273d3032981b5cb79500d9ccdb943be89a5439a23124fbae9ed",
+  "decision": "FAIL",
+  "protected_scope_unchanged": true,
+  "gates": [
+    {
+      "gate": "artifact-architecture",
+      "status": "PASS_WITH_FINDINGS",
+      "owner": "Artifact Architect"
+    },
+    {
+      "gate": "legal-pedagogical-content",
+      "status": "FAIL",
+      "owner": "Legal-Pedagogical Writer",
+      "defects": [
+        "B03",
+        "B05",
+        "C02",
+        "C03"
+      ]
+    },
+    {
+      "gate": "functional-core",
+      "status": "FAIL",
+      "owner": "Artifact HTML Constructor",
+      "defects": [
+        "B01",
+        "B02",
+        "C04"
+      ]
+    },
+    {
+      "gate": "language-integrity",
+      "status": "FAIL",
+      "owner": "Language Integrity",
+      "defects": [
+        "C01"
+      ]
+    },
+    {
+      "gate": "legal-verbatim",
+      "status": "FAIL",
+      "owner": "LexCoop / Legal Verbatim",
+      "defects": [
+        "B03",
+        "C02",
+        "C03"
+      ]
+    },
+    {
+      "gate": "palette-semantics",
+      "status": "FAIL",
+      "owner": "Color Palette Architect",
+      "defects": [
+        "B03",
+        "B04"
+      ]
+    },
+    {
+      "gate": "global-navigation",
+      "status": "FAIL",
+      "owner": "Global Navigation",
+      "defects": [
+        "B06"
+      ]
+    },
+    {
+      "gate": "accessibility-technical",
+      "status": "FAIL",
+      "owner": "Accessibility QA",
+      "defects": [
+        "A11Y"
+      ]
+    },
+    {
+      "gate": "delivery",
+      "status": "FAIL",
+      "owner": "Delivery Manager"
+    }
+  ]
+}
