@@ -49,6 +49,11 @@ Debe conservar:
 - responsive y foco visible;
 - funcionamiento autónomo.
 
+**Contrato Menu-Free**:
+Las actividades mantienen su lógica interna, estados, roles y controles.
+Deben omitir top bar, footer, drawer global y menú lateral visual. Deben declarar sus secciones como tabs de datos para que Global Navigation las represente a la izquierda.
+
+
 ### C. Contenido variable
 
 Puede cambiar:

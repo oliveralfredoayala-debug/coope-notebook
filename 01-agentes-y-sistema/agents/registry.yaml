@@ -76,3 +76,9 @@ agents:
     status: active
     path: agents/production/release-agent.md
     purpose: Validaciones de calidad y checklist antes de releases.
+  - id: global-navigation-agent
+    owner: antigravity
+    status: active
+    path: ../08-agentes/global-navigation/global-navigation.md
+    purpose: Shell global, navegación transversal y workspace de artefactos.
+

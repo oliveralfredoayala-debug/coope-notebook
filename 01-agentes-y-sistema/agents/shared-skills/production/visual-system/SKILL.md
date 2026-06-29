@@ -153,3 +153,16 @@ Aplica `reference/visual-tokens.md`.
 - Verde: estructura y jerarquía, con saturación baja.
 - Prohibidos los números dentro de círculos.
 - Preferir bullets, numeración simple y acentos muy suaves.
+
+## Relación con el Shell y Autoridad Global
+
+El sistema visual puede definir tokens y componentes compartidos, pero no puede construir ni gobernar el shell global.
+
+Debe:
+- exponer estilos internos compatibles con contenedores;
+- evitar reglas globales rígidas sobre `body`;
+- evitar offsets de top bar y sidebars propios;
+- entregar tabs como estructura semántica.
+
+Global Navigation aplica el shell final.
+

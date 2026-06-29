@@ -37,10 +37,9 @@ Debe conservarse:
 
 La skill distingue tres capas:
 
-### A. Shell congelado
+### A. Shell congelado y Contrato Menu-Free
 
 No modificar sin pedido explícito:
-
 - layout general;
 - navegación;
 - topbar;
@@ -51,6 +50,24 @@ No modificar sin pedido explícito:
 - footer de presentación;
 - breakpoints principales;
 - contratos de accesibilidad y seguridad.
+
+**Regla obligatoria (Contrato Menu-Free)**:
+Las cápsulas deben entregar:
+- contenido principal semántico;
+- lista estructurada de tabs;
+- título;
+- nombre corto del área;
+- acciones contextuales.
+
+No deben entregar:
+- top bar global;
+- footer global;
+- drawer de artefactos;
+- Home, Explorar o Búsqueda;
+- implementación visual final del menú lateral.
+
+Los artículos legales, acordeones, esquemas, componentes pedagógicos y estilos internos siguen siendo responsabilidad de la cápsula.
+
 
 ### B. Biblioteca visual extensible
 
