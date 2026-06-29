@@ -3,7 +3,7 @@ source_of_truth: registry/agents.yaml
 agents:
 - id: system-coordinator
   owner: openai
-  status: active
+  status: archived
   path: packages/coopenotebook-coordinator-agent-v1
   purpose: Coordinar arquitectura, paquetes y flujo completo.
 - id: repository-governance-agent
@@ -30,7 +30,7 @@ agents:
 - id: content-librarian
   owner: claude
   operator: antigravity
-  status: active
+  status: archived
   path: packages/content-librarian-antigravity-skill-v1
   purpose: Clasificar, inventariar y localizar contenido.
 - id: lexcoop-hn
