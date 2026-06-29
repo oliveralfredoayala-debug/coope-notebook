@@ -171,6 +171,7 @@
 
   // --- PRESENTATION MODE INTEGRATION (AUTOMATIC ON ALL LESSON PAGES) ---
   function initLessonPresentation() {
+    return; // Disabled presentation view per user request
     var topbar = document.querySelector('.topbar');
     var main = document.querySelector('.main');
     var shell = document.querySelector('.shell');

@@ -459,10 +459,7 @@ body.pres-activo #vistaPortada .intro {
       <div class="topbar-brand" style="font-size: 18px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; display: flex; align-items: center;"><span style="color: #234a35;">Coope</span><span style="color: #f0a226;">Notebook</span></div>
     </a>
   <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
-    <button class="btn-presentar" id="btnPresentarTopbar" title="Iniciar modo presentación" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--verde); background: var(--verde-claro); border: 1px solid var(--verde-borde); border-radius: var(--radio-sm); cursor: pointer; transition: background 0.15s;">
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      <span>Presentar</span>
-    </button>
+    
     <a class="back" href="/kb/" style="font-size: 13px; color: var(--texto-sec); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       Volver
@@ -568,7 +565,7 @@ body.pres-activo #vistaPortada .intro {
       <button class="btn btn-primario" id="btnPDF">Descargar PDF</button>
       <button class="btn btn-sec" id="btnWord">Descargar Word</button>
       <button class="btn btn-sec" id="btnPPT">Descargar PowerPoint</button>
-      <button class="btn btn-oro" id="btnPresentar">Presentar en pantalla</button>
+      
       <button class="btn btn-sec" id="btnLimpiar">Limpiar</button>
     </div>
     <p class="aviso">PDF y Word: documento completo. PowerPoint: una diapositiva por capa, y si una capa tiene más de 3 líneas se reparte en diapositivas adicionales. El PPT requiere conexión a internet.</p>
@@ -1166,13 +1163,5 @@ window.addEventListener('load', function() {
 });
 </script>
 
-<div id="vistaPresentacion" style="display: none;">
-  <div class="pres-controls-bar" style="position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.98); border: 1px solid var(--gris-borde); border-radius: var(--radio); box-shadow: 0 8px 32px rgba(0,0,0,0.12); padding: 10px 16px; display: flex; align-items: center; gap: 12px; z-index: 1100;">
-    <button id="presPrevBtn" style="background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem 1rem; cursor: pointer; font-weight: 600; color: var(--texto-sec); font-size: 14px; transition: background 0.15s;">&larr; Anterior</button>
-    <span id="presPageIndicator" style="font-size: 14px; font-weight: 700; color: var(--texto-sec); min-width: 70px; text-align: center;">1 de 6</span>
-    <button id="presNextBtn" style="background: var(--verde); border: none; border-radius: var(--radio-sm); padding: 0.5rem 1rem; cursor: pointer; font-weight: 700; color: #fff; font-size: 14px; transition: background 0.15s;">Siguiente &rarr;</button>
-    <button id="presCloseBtn" style="background: none; border: 1px solid var(--gris-borde); border-radius: var(--radio-sm); padding: 0.5rem 0.75rem; cursor: pointer; color: var(--texto-sec); font-size: 13px; font-weight: 600; transition: background 0.15s; margin-left: 8px;">Salir (Esc)</button>
-  </div>
-</div>
 </body>
 </html>
