@@ -1,0 +1,18 @@
+{
+  "name": "coopenotebook-global-navigation-agent",
+  "version": "1.0.0",
+  "skill_uuid": "3b0c759c-5e2c-4535-bfcf-5ef19ecbc46c",
+  "agent_uuid": "19a4ce86-f54d-415c-96d4-1d03d44bf234",
+  "entry": "SKILL.md",
+  "agent": "agents/00-global-navigation-shell-architect.md",
+  "repo_path": "/08-agentes/global-navigation/",
+  "authority_scope": [
+    "global-topbar",
+    "left-content-tabs",
+    "right-artifact-drawer",
+    "global-footer",
+    "workspace-loading"
+  ],
+  "handoff_contract": "reference/menu-free-content-handoff-contract.md",
+  "supersedes_navigation_implementations_in_domain_agents": true
+}

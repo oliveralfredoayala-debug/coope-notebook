@@ -1,0 +1,32 @@
+{
+  "title": "Calculadora de delegados",
+  "area_short_name": "Artefactos",
+  "content_type": "artifact",
+  "slug": "calculadora-delegados",
+  "tabs": [
+    {
+      "id": "considerar",
+      "number": "01",
+      "label": "Cuándo debe considerarse"
+    },
+    {
+      "id": "proceso",
+      "number": "02",
+      "label": "Proceso de selección"
+    },
+    {
+      "id": "simulador",
+      "number": "03",
+      "label": "Calculadora"
+    },
+    {
+      "id": "representacion",
+      "number": "04",
+      "label": "Brecha de representación"
+    }
+  ],
+  "main_html": "<main data-cn-content-root>...</main>",
+  "context_actions": [],
+  "requires_full_width": false,
+  "artifact_registry": []
+}

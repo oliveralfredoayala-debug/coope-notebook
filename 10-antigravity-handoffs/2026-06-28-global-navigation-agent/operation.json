@@ -1,0 +1,18 @@
+{
+  "operation": "install-global-navigation-agent",
+  "date": "2026-06-28",
+  "status": "ready-for-antigravity",
+  "source": "ChatGPT generated overlay after repository convention review",
+  "creates": [
+    "/08-agentes/global-navigation/",
+    "/10-antigravity-handoffs/2026-06-28-global-navigation-agent/"
+  ],
+  "requires_manual_merge": [
+    "coordinator",
+    "capsule producers",
+    "visual system",
+    "teamwork/LnL",
+    "P2L"
+  ],
+  "commit": "feat(navigation): add global shell agent and menu-free producer contract"
+}
