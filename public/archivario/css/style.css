@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
+    --verde: #234a35;
+    --ambar: #f0a226;
+    --hueso-3: #5e6f64;
     --primary: #1c6b4a;
     --primary-dark: #12452f;
     --primary-light: #e8f5ee;
@@ -471,4 +474,18 @@ tr:hover td {
     .content-container {
         padding: 20px;
     }
+}
+
+.watermark {
+    padding: 40px 22px 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+    text-align: center;
+    width: 100%;
+}
+.watermark p {
+    margin: 0;
+    line-height: 1.6;
 }
