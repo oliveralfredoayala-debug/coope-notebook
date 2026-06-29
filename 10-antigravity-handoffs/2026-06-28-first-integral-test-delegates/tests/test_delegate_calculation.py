@@ -7,10 +7,11 @@ def implemented(n):
     tr=[(1,100,10),(101,500,20),(501,1000,30),(1001,2000,40),(2001,None,50)]
     total=0
     for fr,to,d in tr:
-        cap=n if to is None else to
-        people=0 if n<fr else cap-fr+1
-        total += max(0,people)//d
+        upper=n if to is None else min(n,to)
+        people=0 if n<fr else max(0,upper-fr+1)
+        total += people//d
     return total
+
 
 def expected(n):
     n=max(0,int(n or 0))
