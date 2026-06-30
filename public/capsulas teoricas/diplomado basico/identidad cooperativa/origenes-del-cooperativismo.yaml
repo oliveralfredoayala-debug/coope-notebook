@@ -1,0 +1,142 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Orígenes del cooperativismo
+slug: origenes-del-cooperativismo
+uuid: aa55369c-27ee-4f7b-8bba-8e10e0d3c998
+topic_uuid: 1ddfa938-2c41-4b93-9d3a-90381045e2e9
+version: 1.2.1
+source_version: '1.0'
+shell_version: v5
+status: review
+content_status: approved
+visual_status: formatted-for-review
+update_strategy:
+  source_of_truth: YAML
+  generated_artifact: origenes-del-cooperativismo.html
+  notes: Actualizar primero este YAML y regenerar el HTML para conservar trazabilidad.
+apertura:
+  pregunta_central: ¿Cuándo empezamos a cooperar?
+  jester: Mucho antes de que existiera la palabra "cooperativa", ya resolvíamos juntos lo que no podíamos
+    resolver solos.
+  texto: "<p>Cooperar es un acto humano básico, no una invención moderna. Desde las\n  primeras formas\
+    \ de organización social, las personas se unieron para cazar,\n  recolectar y repartir lo obtenido,\
+    \ porque el trabajo conjunto rendía más que\n  el esfuerzo individual.</p>\n  <p>Esta cápsula recorre\
+    \ ese camino: de la cooperación como acto espontáneo,\n  a un movimiento internacional organizado,\
+    \ hasta su llegada y consolidación\n  en Honduras.</p>"
+tabs:
+- id: tab-01-cooperar-antes
+  title: Cooperar antes del cooperativismo
+  order: 1
+  texto: "<p>Cooperar es un acto humano básico, no una invención moderna. Desde las\n  primeras formas\
+    \ de organización social, las personas se unieron para cazar,\n  recolectar y repartir lo obtenido,\
+    \ porque el trabajo conjunto rendía más que\n  el esfuerzo individual. Esa necesidad de unirse frente\
+    \ a un reto común es el\n  origen de toda forma de cooperación, mucho antes de que existiera una ley,\n\
+    \  un estatuto o una asamblea.</p>\n  <p>El cooperativismo, como movimiento organizado, es solo una\
+    \ de las formas\n  que tomó esa necesidad. Pero la cooperación en sí (apoyarse mutuamente para\n \
+    \ lograr algo que en soledad sería más difícil o imposible) es anterior, más\n  amplia y más universal\
+    \ que cualquier estructura formal.</p>"
+  cards:
+  - - Necesidad compartida
+    - La cooperación aparece cuando un reto común resulta más difícil de resolver de manera individual.
+  - - Trabajo conjunto
+    - Cazar, recolectar y repartir en grupo permitió mejorar los resultados y sostener a la comunidad.
+  - - Antes de la formalidad
+    - La cooperación existió antes que las leyes, los estatutos y las asambleas.
+  highlight: La cooperación es anterior, más amplia y más universal que cualquier estructura formal.
+- id: tab-02-historia-evolucion
+  title: Historia y evolución
+  order: 2
+  texto: <p>La cooperación comenzó a convertirse en un movimiento organizado en Inglaterra durante la
+    Revolución Industrial. Las propuestas de Robert Owen y la experiencia de Rochdale ayudaron a pasar
+    de la ayuda mutua espontánea a reglas de propiedad compartida, participación y control democrático.</p>
+  layout: timeline-plain
+  acordeon:
+  - - Revolución Industrial · Inglaterra
+    - La cooperación empezó a tomar forma de movimiento organizado en un contexto de profundas transformaciones
+      laborales y sociales.
+  - - Robert Owen
+    - Considerado el padre del cooperativismo, propuso comunidades en las que los trabajadores compartieran
+      propiedad y beneficios como alternativa a las condiciones de explotación fabril.
+  - - 21 de diciembre de 1844 · Rochdale
+    - Veintisiete hombres y una mujer, tejedores en su mayoría, fundaron en Rochdale, Inglaterra, la Sociedad
+      Equitativa de los Pioneros de Rochdale.
+  - - Reglas que se volvieron referencia
+    - La compra conjunta, el reparto de excedentes según el consumo y el control democrático ayudaron
+      a establecer la base de los principios cooperativos modernos.
+  highlight: Rochdale convirtió una necesidad compartida en reglas claras de organización democrática.
+- id: tab-03-honduras
+  title: El cooperativismo en Honduras
+  order: 3
+  texto: <p>El cooperativismo llegó a Honduras de forma gradual. Su desarrollo combinó iniciativas sociales,
+    reconocimiento estatal, regulación, formación académica, creación institucional e integración nacional.</p>
+  layout: timeline-plain
+  acordeon:
+  - - 1876 · Marcala, La Paz
+    - Surgen la Sociedad de Ladinos y el Fondo Indígena, presentados en la fuente como el antecedente
+      más antiguo del cooperativismo organizado en Honduras.
+  - - 1923–1924 · Reconocimiento constitucional
+    - La Constitución de la República incorpora por primera vez el precepto de que corresponde al Estado
+      promover la asociación cooperativa.
+  - - 1930 · Santa Rosa de Copán
+    - Surge la Sociedad Copaneca de Obreros, conocida como «El Obrero», una de las primeras manifestaciones
+      cooperativas formales del país.
+  - - 1936 · Primera regulación específica
+    - Se aprueba la Ley de Sociedades Cooperativas para la venta de mercaderías a plazo.
+  - - 1940–1949 · Código de Comercio
+    - El Código de Comercio incorpora y posteriormente mejora la regulación de las sociedades cooperativistas.
+  - - 1951 · Formación universitaria
+    - El Dr. Jorge St. Siegens llega a Honduras para organizar la Facultad de Ciencias Económicas de la
+      UNAH, introduce el cooperativismo como materia y recibe en la fuente un papel central en su impulso
+      nacional.
+  - - 1952 · Sección de Cooperativas
+    - Por iniciativa atribuida a St. Siegens, el Banco Nacional de Fomento —hoy BANADESA— crea su Sección
+      de Cooperativas.
+  - - 1954 · Primera ley de asociaciones
+    - El Congreso Nacional aprueba la primera Ley de Asociaciones Cooperativas de Honduras.
+  - - 1971 · Integración nacional
+    - Nace la Confederación Hondureña de Cooperativas (CHC).
+  - - 1987 · Decreto 65-87
+    - Se aprueba la Ley de Cooperativas de Honduras. El documento legal de referencia suministrado incluye
+      reformas posteriores y la presenta como la ley base del sector.
+  highlight: 'El desarrollo hondureño fue gradual: antecedente social, reconocimiento estatal, formación,
+    integración y ley.'
+- id: tab-04-para-llevarte
+  title: Para llevarte
+  order: 4
+  texto: "<p>La cooperación es anterior al cooperativismo: la practicamos antes de\n  tener un nombre\
+    \ para ella. Lo que cambió con el tiempo fue la forma, de un\n  acto espontáneo a un movimiento con\
+    \ principios, reglas y, eventualmente, una\n  ley. En Honduras, ese camino tomó más de un siglo, desde\
+    \ Marcala en 1876\n  hasta el marco legal vigente desde 1987.</p>"
+  cards:
+  - - Acto humano básico
+    - Cooperamos antes de tener una palabra o una estructura jurídica para hacerlo.
+  - - Movimiento organizado
+    - Con el tiempo, la cooperación adoptó principios, reglas y control democrático.
+  - - Trayectoria hondureña
+    - El recorrido presentado va desde los antecedentes de 1876 hasta la Ley de Cooperativas aprobada
+      en 1987.
+  highlight: Primero cooperamos; después organizamos esa cooperación y le dimos principios, reglas e instituciones.
+change_log:
+- version: '1.1'
+  date: '2026-06-30'
+  changes:
+  - Aplicación del shell visual KB v5.
+  - Conversión de la historia internacional y hondureña a recorridos cronológicos compactos.
+  - Incorporación de apertura con Jester y cierre de memoria.
+  - Separación entre fuente YAML y HTML generado para facilitar actualizaciones.
+- version: '1.2'
+  date: '2026-06-30'
+  changes:
+  - Integración del contenido aprobado recibido en capsula-01-origenes-del-cooperativismo.yaml.
+  - Ampliación de la apertura con contexto autónomo para el estudiante.
+  - Desglose de la cronología hondureña en diez hitos legibles.
+  - Conservación del shell visual KB v5 y de los identificadores existentes.
+- version: 1.2.1
+  date: '2026-06-30'
+  changes:
+  - Ajuste de alcance para conservar únicamente el contenido pedagógico visible.
+  - Conservación del shell KB v5, la navegación y los identificadores estables.
+notes_for_coordinator: El HTML es un artefacto generado desde este YAML. Actualizar primero la fuente
+  YAML y regenerar el HTML para conservar trazabilidad. Las afirmaciones jurídicas actuales deben validarse
+  antes de una publicación que pretenda certificar vigencia normativa.
