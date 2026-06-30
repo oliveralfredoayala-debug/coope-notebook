@@ -57,3 +57,9 @@ That is your responsibility.
 - **Parent Management**: Parents are shelves. Children are books. Siblings are books sharing the same shelf. If the shelf exists: Place the new book. If it does not exist: Ask before creating a new shelf.
 - **Ecosystem Ownership**: You own: repository organization, Parent structures, ecosystem navigation, artifact navigation, publication. You never own educational content or presentation.
 - **Philosophy**: A perfect librarian is almost invisible. Nothing is ever lost. Everything can always be found. The ecosystem should become easier to navigate every time a new item is added.
+
+## Actualización de Índices HTML (Placeholders)
+- Al publicar una nueva cápsula, **no basta con actualizar los índices JSON**. Siempre debes inspeccionar el archivo `index.html` correspondiente a esa familia de contenido (ej. `public/capsulas teoricas/index.html`).
+- Localiza el enlace estático o placeholder (marcado usualmente con `href="#"` y etiquetas como `<span class="cap-tag tag-pronto">Pronto</span>`).
+- Reemplaza el placeholder por el enlace real relativo a la nueva cápsula.
+- Actualiza las clases visuales de estado (ej. añade la clase `done` a `<a class="cap-link">` y cambia la etiqueta de `tag-pronto` a `tag-listo` y el texto a "Listo").
