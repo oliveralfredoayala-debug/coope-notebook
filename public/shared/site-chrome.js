@@ -7,18 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (path !== '/' && path !== '/index.html' && path !== '') {
         showBack = true;
-        const parts = path.split('/').filter(p => p !== '' && p !== 'index.html');
-        if (parts.length > 1) {
-            let topDir = parts[0];
-            let family = topDir.replace(/-/g, ' ');
-            family = family.charAt(0).toUpperCase() + family.slice(1);
-            if (topDir === 'capsulas%20teoricas' || topDir === 'capsulas teoricas') {
-                family = 'Cápsulas Teóricas';
-                topDir = 'capsulas teoricas';
-            }
-            backUrl = '/' + topDir + '/';
-            backText = 'Volver a ' + family;
-        }
+        // Botón transversal para regresar al centro de mando / menú principal
+        backUrl = '/index.html';
+        backText = 'Menú Principal';
     }
 
     const topbarHtml = `
