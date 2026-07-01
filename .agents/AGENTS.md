@@ -63,3 +63,13 @@ That is your responsibility.
 - Localiza el enlace estático o placeholder (marcado usualmente con `href="#"` y etiquetas como `<span class="cap-tag tag-pronto">Pronto</span>`).
 - Reemplaza el placeholder por el enlace real relativo a la nueva cápsula.
 - Actualiza las clases visuales de estado (ej. añade la clase `done` a `<a class="cap-link">` y cambia la etiqueta de `tag-pronto` a `tag-listo` y el texto a "Listo").
+
+## Limpieza de Repositorio y Archivos Temporales
+- **Siempre** debes eliminar los archivos comprimidos (`.zip`), las carpetas de extracción temporal y cualquier script auxiliar que hayas creado una vez que el paquete de producción haya sido integrado correctamente.
+- Mantén el repositorio limpio; no almacenes lo que no necesitamos.
+
+## Gestión del Site Chrome (Navegación Transversal)
+- Antigravity es el responsable absoluto del menú transversal, la barra superior (topbar), el footer y la navegación global del ecosistema.
+- **Inyección y Duplicidad**: Todo nuevo contenido debe tener inyectado los recursos del Site Chrome (`site-chrome.css` y `site-chrome.js`). Para evitar duplicidad con el diseño estático generado por el HTML Coordinator, nunca alteres destructivamente el código HTML original de la cápsula; debes ocultar la barra superior y footer originales a través de CSS global en `site-chrome.css` (ej: `.topbar { display: none !important; }`).
+- **Botón "Volver" Inteligente**: El botón transversal de navegación (back button) debe apuntar siempre al **Índice Padre** de la familia de contenido actual (ej. `/capsulas teoricas/index.html`, `/p2l/index.html`), en lugar de redirigir al historial del navegador o abruptamente a la raíz del sitio.
+

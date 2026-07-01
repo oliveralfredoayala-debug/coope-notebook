@@ -22,8 +22,8 @@ Always contains:
 
 ### 2. Back Button
 - Always visible.
-- Returns to the previous logical page inside the ecosystem.
-- Never removes browser history.
+- Debe tener lógica inteligente para redirigir siempre al **Índice Padre** de la familia de contenido actual (ej. `/capsulas teoricas/index.html` para el contenido dentro de `kb` o `capsulas teoricas`, `/p2l/index.html`, etc.).
+- No debe utilizar simplemente el historial del navegador (`history.back()`) ni saltar ciegamente a la raíz del sitio si el usuario se encuentra navegando dentro de una familia específica.
 
 ---
 
@@ -85,3 +85,5 @@ It does not own:
 - Tabs
 - Educational layout
 - Those belong exclusively to the HTML Coordinator.
+
+Sin embargo, para evitar duplicidad de elementos (como tener dos barras de navegación o dos footers), Antigravity debe garantizar que los elementos estáticos heredados de la plantilla del HTML Coordinator se oculten de forma global utilizando reglas CSS en `site-chrome.css` (ej. `.topbar { display: none !important; }`), sin modificar destructivamente el código original de los paquetes.
