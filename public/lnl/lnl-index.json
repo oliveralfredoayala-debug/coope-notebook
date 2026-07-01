@@ -91,6 +91,26 @@
               "titulo": "Manejo de Conflictos"
             }
           ]
+        },
+        {
+          "id": "conflicto-y-negociacion",
+          "titulo": "Conflicto y Negociación",
+          "capsulas": [
+            {
+              "id": "trabajo-equipo-conflicto-negociacion-vivencial",
+              "titulo": "Ruta de intervención"
+            }
+          ]
+        },
+        {
+          "id": "liderazgo-aplicado",
+          "titulo": "Liderazgo Aplicado",
+          "capsulas": [
+            {
+              "id": "perfil-lider",
+              "titulo": "Construyamos un perfil"
+            }
+          ]
         }
       ]
     }

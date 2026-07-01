@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (parts.length > 0) {
             let topDir = parts[0];
             if (topDir === 'kb' || topDir === 'capsulas%20teoricas' || topDir === 'capsulas teoricas') {
-                backUrl = '/capsulas teoricas/index.html';
+                backUrl = '/kb/index.html';
                 backText = 'Volver a Cápsulas Teóricas';
             } else if (topDir === 'p2l') {
                 backUrl = '/p2l/index.html';

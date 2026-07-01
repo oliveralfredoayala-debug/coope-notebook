@@ -5,7 +5,7 @@
   var search = window.location.search;
 
   // Normalize path to check if we are on the home page
-  var isHome = path === '/' || path === '/index.html' || (path.endsWith('/index.html') && !path.includes('/capsulas teoricas/') && !path.includes('/artefactos/') && !path.includes('/lnl/') && !path.includes('/p2l/'));
+  var isHome = path === '/' || path === '/index.html' || (path.endsWith('/index.html') && !path.includes('/kb/') && !path.includes('/artefactos/') && !path.includes('/lnl/') && !path.includes('/p2l/'));
   // Check if already authenticated
   var isAuthenticated = sessionStorage.getItem(authKey) === passwordCorrect;
 

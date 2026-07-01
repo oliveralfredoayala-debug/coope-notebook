@@ -1,4 +1,5 @@
 /* Site Chrome CSS v1 (Antigravity) */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 .antigravity-chrome-topbar {
   display: flex;
   align-items: center;
@@ -102,3 +103,6 @@ footer:not([class*="antigravity"]) {
   display: none !important;
 }
 
+body, h1, h2, h3, h4, h5, h6, p, a, div, span:not([class*="ti-"]):not([class*="icon"]), button, input {
+    font-family: 'Lora', serif !important;
+}
