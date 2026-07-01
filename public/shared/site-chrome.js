@@ -158,10 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPinned) {
             panel.classList.add('pinned');
             document.body.classList.add('antigravity-body-pinned');
+            document.body.style.paddingRight = panel.style.width || '450px';
             pinBtn.textContent = 'Desfijar';
         } else {
             panel.classList.remove('pinned');
             document.body.classList.remove('antigravity-body-pinned');
+            document.body.style.paddingRight = ''; // clear inline style
             pinBtn.textContent = 'Fijar';
         }
     });

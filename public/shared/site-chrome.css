@@ -112,7 +112,7 @@ body {
   transition: padding-right 0.3s ease;
 }
 .antigravity-body-pinned {
-  padding-right: 450px !important;
+  /* Dynamic inline padding will handle the push */
 }
 .antigravity-gow-panel {
   position: fixed;
