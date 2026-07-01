@@ -1,0 +1,372 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Integración del movimiento cooperativo
+slug: integracion-del-movimiento-cooperativo
+version: 1.0.0
+source_version: '1.0'
+status: package_ready
+shell_version: v7
+shell_fork: false
+legal_flow: contextual-pairs
+presentation_flow: one-tab-one-slide
+presentation_scroll_reset: hard-reset-on-slide-change
+opening:
+  question: ¿Cómo se convierte una cooperativa individual en parte de un movimiento nacional?
+  thought: Ninguna cooperativa está pensada para operar aislada del resto del movimiento.
+  summary: La integración conecta personas, cooperativas, organismos de segundo grado, una confederación representativa
+    y una autoridad estatal de supervisión.
+legal_sources:
+  lch-art-88:
+    article: ARTICULO 88
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTICULO 88.- De acuerdo al nivel de integración la cooperativa podrá ser:
+
+
+      1. De Primer Grado:
+
+      a) Cuando está formada por personas naturales solamente, o por personas naturales o jurídicas sin fines de
+      lucro, e iniciará su denominación con la palabra ¨ Cooperativa ¨; y,
+
+      b) La formada por grupos u organismos locales establecidos en determinada región en cuyo caso llevarán en
+      su denominación la frase ¨ Cooperativa Regional ¨.
+
+
+      2. De Segundo Grado: Cuando esté formada por:
+
+      a) Cooperativas de primer grado y de igual actividad principal.- Iniciará su denominación social con la palabra
+      ¨ Federación¨;
+
+      b) Cooperativas de primer grado y de diferente actividad principal.- Su denominación social con la palabra
+      ¨ Unión ¨;
+
+      c) Cooperativas de primer grado y de igual o diferente actividad principal.- Iniciará su denominación social
+      con la frase ¨ Central de Cooperativas ¨; Y,
+
+      ch) Cooperativas de primer grado del Sector Agrícola Reformado por la afiliación de estas con personas jurídicas
+      sin fines de lucro, no cooperativas de acuerdo como se establezca en el Reglamento de esta Ley.- Iniciará
+      su denominación social con la frase ¨ Cooperativa Agro-Industrial ¨ o ¨ Empresa Cooperativa Agro-Industrial
+      ¨o “Empresa Cooperativa Agro-industrial”.
+
+
+      3. De Tercer Grado: Cuando esté constituida por cooperativas de Segundo Grado, iniciará su denominación social
+      con la palabra ¨ Confederación¨; y sólo habrá una en el país.'
+  lch-art-90:
+    article: ARTÍCULO 90
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 90.- La Confederación Hondureña de Cooperativas (C.H.C.), es el organismo privado, superior
+      o representativo del Movimiento Cooperativo Hondureño.
+
+
+      Para la constitución de cualquier organismo de integración cooperativista será necesario cumplir con las condiciones
+      de factibilidad; en lo administrativo, legal y capacidad económica de sostenibilidad.'
+  lch-art-91:
+    article: ARTÍCULO 91
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 91.- Son funciones de la Confederación Hondureña de Cooperativas (C.H.C.):
+
+      a) Fomentar el desarrollo, consolidación e integración del cooperativismo y la defensa de sus instituciones;
+
+      b) Promover el modelo cooperativo para el diseño, formulación e implementación de políticas e impulsar la
+      capacitación de sus talentos humanos, con igualdad de oportunidades;
+
+      c) Asesorar en coordinación con organismos auxiliares del movimiento cooperativo a las cooperativas en materia
+      de organización técnica, administrativa, legal y desarrollo;
+
+      ch) Gestionar y desarrollar programas y proyectos para el fomento del cooperativismo;
+
+      d) Establecer estrategias que permitan la participación efectiva del movimiento cooperativo en el combate
+      a la reducción de la pobreza;
+
+      e) Establecer las coordinaciones necesarias con instituciones públicas y privadas, nacionales e internacionales
+      a efecto que los programas que desarrolle sean concordantes con la Visión de País y Plan de Nación;
+
+      f) Organizar Congresos Cooperativos Nacionales Ordinarios cada tres (3) años, y extraordinarios cuando fueren
+      necesarios, con el objetivo de desarrollar temas científicos, de integración o servir como órgano de consulta
+      ante problemas nacionales o específicos del movimiento cooperativo. En el Reglamento de la presente Ley y
+      Estatuto de la Confederación Hondureña de Cooperativas (C.H.C.) se deben establecer las funciones específicas
+      del referido Congreso;
+
+      g) Representar al Movimiento Cooperativo de Honduras en organismos públicos, de la sociedad civil o entes
+      privados y organismos internacionales;
+
+      h) Promover la organización y creación de entidades auxiliares a servicio del movimiento cooperativo nacional,
+      ya sea por propia iniciativa, de manera conjunta o a solicitud de las cooperativas;
+
+      i) Contribuir al fortalecimiento y desarrollo de los servicios especializados de las federaciones, uniones,
+      asociaciones, centrales o alianzas de cooperativas;
+
+      j) Fomentar la educación del Modelo Cooperativo Nacional, a través del Instituto de investigación y Formación
+      Cooperativa (IFC), en coordinación con los organismos de integración de acuerdo a su especialización; y,
+
+      k) Cualquier otra función tendiente a cumplir con los objetivos institucionales.'
+  lch-art-93:
+    article: ARTÍCULO 93
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 93.- Créase el Consejo Nacional Supervisor de Cooperativas, en adelante denominado (CONSUCOOP),
+      institución descentralizada del Estado, autónoma y con patrimonio propio, que tiene a su cargo la aplicación
+      de la legislación cooperativa y autoridad de control de los entes cooperativos, se rige por esta Ley y demás
+      leyes que por su naturaleza y similitud le apliquen.
+
+
+      Las relaciones del CONSUCOOP con el Poder Ejecutivo, se realizan por medio de la Secretaria de Estado en los
+      Despachos de Industria y Comercio, quien dictará las políticas públicas del sector.'
+tabs:
+- id: tab-00-introduccion
+  title: Introducción
+  segments:
+  - id: movement-beyond-one-cooperative
+    title: Más allá de una sola cooperativa
+    legalRefs: []
+    lead: El movimiento cooperativo no es una colección de organizaciones aisladas. La integración permite coordinar
+      servicios, representación, educación, defensa institucional y supervisión.
+    theory:
+    - title: 01 · Integrarse no significa perder autonomía
+      body: Cada cooperativa conserva su identidad y gobierno, pero puede vincularse con otras organizaciones para
+        atender necesidades que superan su capacidad individual.
+    - title: 02 · Representar y supervisar son funciones distintas
+      body: La representación nace del propio movimiento cooperativo. La supervisión corresponde a una institución
+        estatal encargada de aplicar la legislación y controlar a los entes cooperativos.
+    - title: 03 · El sistema tiene varios actores
+      body: Personas, cooperativas de primer grado, organismos de segundo grado, la CHC y CONSUCOOP ocupan posiciones
+        diferentes dentro del sistema.
+  support:
+    kind: system-map
+    title: Un movimiento conectado
+    nodes:
+    - label: Personas
+      detail: Forman cooperativas
+    - label: Primer grado
+      detail: Cooperativas de base
+    - label: Segundo grado
+      detail: Federaciones, uniones y centrales
+    - label: Tercer grado
+      detail: Confederación
+    - label: Supervisión
+      detail: CONSUCOOP
+  callout: La integración crea escala y representación; la supervisión protege el cumplimiento del marco legal.
+- id: tab-01-integracion-por-niveles
+  title: Integración por niveles
+  segments:
+  - id: three-levels
+    title: Tres grados reconocidos por la Ley
+    legalRefs:
+    - lch-art-88
+    lead: El artículo 88 define la composición de primer, segundo y tercer grado y vincula cada nivel con una forma
+      de organización.
+    theory:
+    - title: '01 · Primer grado: personas organizadas'
+      body: La base del sistema está formada por cooperativas integradas principalmente por personas naturales,
+        o por personas naturales y jurídicas sin fines de lucro.
+    - title: '02 · Segundo grado: cooperativas organizadas'
+      body: Federaciones, uniones y centrales reúnen cooperativas de primer grado. La denominación depende de la
+        composición y actividad de sus integrantes.
+    - title: '03 · Tercer grado: integración nacional'
+      body: El tercer grado está constituido por cooperativas de segundo grado, lleva la denominación de Confederación
+        y la Ley dispone que exista una sola en el país.
+    - title: 04 · El grado describe composición, no importancia
+      body: Primer, segundo y tercer grado no son una escala de prestigio. Indican quiénes forman a la organización
+        y cómo se enlazan los distintos niveles.
+  support:
+    kind: integration-ladder
+    title: La integración se construye por niveles
+    levels:
+    - number: '1'
+      label: Primer grado
+      detail: Personas → Cooperativa
+    - number: '2'
+      label: Segundo grado
+      detail: Cooperativas → Federación, Unión o Central
+    - number: '3'
+      label: Tercer grado
+      detail: Segundo grado → Confederación
+  callout: Cada nivel surge de la integración del nivel anterior.
+- id: tab-02-la-chc
+  title: La CHC como organismo superior
+  segments:
+  - id: chc-nature
+    title: Qué es la CHC
+    legalRefs:
+    - lch-art-90
+    lead: La Ley la define como organismo privado, superior y representativo del Movimiento Cooperativo Hondureño.
+    theory:
+    - title: 01 · Privada y representativa
+      body: La CHC nace del movimiento cooperativo y lo representa. No es una dependencia estatal ni la autoridad
+        que supervisa a las cooperativas.
+    - title: 02 · Integrarse también exige viabilidad
+      body: La constitución de organismos de integración requiere condiciones administrativas, legales y de sostenibilidad
+        económica.
+  - id: chc-functions
+    title: Qué funciones cumple
+    legalRefs:
+    - lch-art-91
+    lead: 'El artículo 91 desarrolla una función amplia: integración, representación, asesoría, educación, coordinación,
+      proyectos y defensa institucional.'
+    theory:
+    - title: 01 · Integrar y defender
+      body: La CHC fomenta el desarrollo y la consolidación del cooperativismo y defiende sus instituciones.
+    - title: 02 · Representar y coordinar
+      body: Representa al movimiento ante actores públicos, privados, nacionales e internacionales y coordina programas
+        con instituciones relacionadas.
+    - title: 03 · Formar, asesorar y desarrollar
+      body: La Ley incluye capacitación, asesoría, creación de entidades auxiliares, fortalecimiento de servicios
+        especializados y desarrollo de programas y proyectos.
+    - title: 04 · Convocar espacios nacionales
+      body: La organización de Congresos Cooperativos Nacionales permite tratar asuntos científicos, de integración
+        y problemas específicos del movimiento.
+  support:
+    kind: chc-orbit
+    title: La CHC articula al movimiento
+    core: CHC
+    items:
+    - Representación
+    - Integración
+    - Educación
+    - Asesoría
+    - Proyectos
+    - Defensa
+  callout: La CHC representa al movimiento; no sustituye a las cooperativas que la integran.
+- id: tab-03-consucoop
+  title: CONSUCOOP, el organismo supervisor
+  segments:
+  - id: consucoop-nature
+    title: Una autoridad estatal de control
+    legalRefs:
+    - lch-art-93
+    lead: El artículo 93 crea una institución descentralizada del Estado, autónoma y con patrimonio propio para
+      aplicar la legislación cooperativa y controlar a los entes cooperativos.
+    theory:
+    - title: 01 · Supervisar no es representar
+      body: CONSUCOOP no habla en nombre del movimiento como organismo gremial. Su función es aplicar la ley, regular,
+        supervisar y ejercer autoridad de control.
+    - title: 02 · Autonomía institucional
+      body: La Ley lo configura como institución descentralizada, autónoma y con patrimonio propio.
+    - title: 03 · Relación con el Poder Ejecutivo
+      body: El artículo establece que sus relaciones con el Poder Ejecutivo se realizan por medio de la Secretaría
+        de Estado indicada en la Ley.
+  support:
+    kind: role-comparison
+    title: Dos instituciones, dos funciones
+    left:
+      label: CHC
+      tag: Privada
+      detail: Representa, integra, forma y defiende al movimiento cooperativo.
+    right:
+      label: CONSUCOOP
+      tag: Estatal
+      detail: Aplica la legislación, regula, supervisa y controla a los entes cooperativos.
+  callout: 'La frase de control es simple: la CHC representa; CONSUCOOP supervisa.'
+- id: tab-04-organismos-de-segundo-grado
+  title: Organismos de segundo grado
+  segments:
+  - id: official-organizations
+    title: Organizaciones que conectan cooperativas de base
+    legalRefs: []
+    lead: Las fuentes oficiales consultadas muestran organismos de segundo grado vinculados con café, agro, ahorro
+      y crédito, transporte, vivienda y desarrollo territorial.
+    theory:
+    - title: 01 · Qué hacen estos organismos
+      body: Agrupan cooperativas de primer grado y pueden prestar servicios especializados, representar intereses
+        comunes, coordinar asistencia y fortalecer a sus integrantes.
+    - title: 02 · El listado es una fotografía institucional
+      body: Una publicación oficial de CONSUCOOP de enero de 2023 enumera diez organismos pertenecientes a la CHC.
+        Un encuentro oficial de septiembre de 2024 incluye además a la organización de vivienda identificada como
+        FECOVISOL.
+    - title: 03 · Las siglas varían entre publicaciones
+      body: Las fuentes oficiales utilizan variantes como FEHCACREL/FECACREL y FECOVISOL/FECOVISOHL. Por eso la
+        cápsula conserva las variantes visibles y evita presentarlas como un registro inmutable.
+    - title: 04 · No confundir integración con supervisión
+      body: Estos organismos pertenecen al movimiento cooperativo. CONSUCOOP es la institución estatal que supervisa
+        el sector y no forma parte de esta categoría.
+  support:
+    kind: sector-constellation
+    title: Segundo grado por ámbitos de trabajo
+    groups:
+    - label: Café, agro y territorio
+      items:
+      - AHPROCAFE
+      - FEHCAFOR
+      - FECORAH
+      - LA CENTRAL
+      - UCDOL
+      - UNIOCOOP
+      - ACAN
+    - label: Ahorro y crédito
+      items:
+      - FACACH
+      - FEHCACREL / FECACREL
+    - label: Transporte
+      items:
+      - FENACOTRAL
+    - label: Vivienda
+      items:
+      - FECOVISOL / FECOVISOHL
+    sourceNote: Síntesis editorial basada en publicaciones oficiales de CONSUCOOP de 2023, 2024 y el Registro Nacional
+      de Cooperativas al 31 de marzo de 2025.
+  callout: El segundo grado convierte necesidades compartidas de varias cooperativas en capacidad organizada.
+- id: tab-final-para-llevarte
+  title: Para llevarte
+  segments:
+  - id: system-synthesis
+    title: Integración, representación y supervisión
+    legalRefs: []
+    lead: 'El sistema se entiende mejor cuando se separan tres preguntas: quién integra, quién representa y quién
+      supervisa.'
+    theory:
+    - title: 01 · Integración
+      body: Las personas forman cooperativas; las cooperativas forman organismos de segundo grado; y estos pueden
+        constituir el tercer grado.
+    - title: 02 · Representación
+      body: La CHC es el organismo privado superior que representa al Movimiento Cooperativo Hondureño.
+    - title: 03 · Supervisión
+      body: CONSUCOOP es la institución estatal que aplica la legislación cooperativa y ejerce autoridad de control.
+    - title: 04 · Una red, no una pirámide de poder
+      body: Los niveles describen composición e integración. Cada actor conserva una función propia dentro del sistema.
+  support:
+    kind: system-synthesis
+    title: El movimiento en una sola mirada
+    flow:
+    - Personas
+    - Cooperativas
+    - Segundo grado
+    - CHC
+    supervisor: CONSUCOOP
+  callout: Integrarse permite actuar juntos; representar y supervisar siguen siendo responsabilidades diferentes.
+presentation_story:
+- id: scene-00-opening
+  kind: opening
+  tab: -1
+  title: Apertura
+- id: scene-01-introduction
+  kind: tab-slide
+  tab: 0
+  title: Introducción
+- id: scene-02-levels
+  kind: tab-slide
+  tab: 1
+  title: Integración por niveles
+- id: scene-03-chc
+  kind: tab-slide
+  tab: 2
+  title: La CHC
+- id: scene-04-consucoop
+  kind: tab-slide
+  tab: 3
+  title: CONSUCOOP
+- id: scene-05-second-degree
+  kind: tab-slide
+  tab: 4
+  title: Organismos de segundo grado
+- id: scene-06-takeaway
+  kind: tab-slide
+  tab: 5
+  title: Para llevarte
+sources:
+- title: Ley de Cooperativas de Honduras
+  reference: Artículos 88, 90, 91 y 93 · texto verificado en el PDF suministrado
+- title: CONSUCOOP · Organismos de Segundo Grado que Pertenecen a la CHC
+  reference: Publicación oficial · 31 de enero de 2023
+- title: CONSUCOOP, INE y CHC · Conversatorio con Federaciones, Uniones y Centrales
+  reference: Publicación oficial · 6 de septiembre de 2024
+- title: Registro Nacional de Cooperativas
+  reference: CONSUCOOP · cierre al 31 de marzo de 2025

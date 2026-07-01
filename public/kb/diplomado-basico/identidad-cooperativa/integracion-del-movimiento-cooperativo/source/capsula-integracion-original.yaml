@@ -1,0 +1,157 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Integración del movimiento cooperativo
+version: "1.0"
+status: approved
+
+opening_thought: >
+  Ninguna cooperativa está pensada para operar aislada del resto del
+  movimiento.
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <p>Esta cápsula presenta cómo se organiza el movimiento cooperativo
+        hondureño más allá de una sola cooperativa: sus niveles de
+        integración, sus organismos representativos y de supervisión, y
+        los organismos de segundo grado que existen hoy en el país.</p>
+      </section>
+
+  - id: tab-01-integracion-por-niveles
+    title: Integración por niveles
+    order: 1
+    html: |
+      <section>
+        <p>Según el Art. 88 LCH, de acuerdo al nivel de integración la
+        cooperativa podrá ser:</p>
+        <ol>
+          <li><strong>De Primer Grado:</strong> cuando está formada por
+          personas naturales solamente, o por personas naturales o
+          jurídicas sin fines de lucro.</li>
+          <li><strong>De Segundo Grado:</strong> cuando esté formada por
+          cooperativas de primer grado.</li>
+          <li><strong>De Tercer Grado:</strong> cuando esté constituida por
+          cooperativas de Segundo Grado, iniciará su denominación social
+          con la palabra "Confederación"; y sólo habrá una en el país.</li>
+        </ol>
+        <p>Este artículo establece que la integración no es una opción
+        informal: es una estructura de tres niveles reconocida por ley.</p>
+      </section>
+
+  - id: tab-02-la-chc
+    title: La CHC como organismo superior
+    order: 2
+    html: |
+      <section>
+        <p>Según el Art. 90 LCH:</p>
+        <blockquote>
+          <p>La Confederación Hondureña de Cooperativas (C.H.C.), es el
+          organismo privado, superior o representativo del Movimiento
+          Cooperativo Hondureño.</p>
+        </blockquote>
+        <p>Según el Art. 91 LCH, entre sus funciones están:</p>
+        <ul>
+          <li>Fomentar el desarrollo, consolidación e integración del
+          cooperativismo y la defensa de sus instituciones.</li>
+          <li>Promover el modelo cooperativo para el diseño, formulación e
+          implementación de políticas e impulsar la capacitación de sus
+          talentos humanos, con igualdad de oportunidades.</li>
+          <li>Gestionar y desarrollar programas y proyectos para el fomento
+          del cooperativismo.</li>
+          <li>Organizar Congresos Cooperativos Nacionales Ordinarios cada
+          tres (3) años, y extraordinarios cuando fueren necesarios.</li>
+        </ul>
+      </section>
+
+  - id: tab-03-consucoop
+    title: CONSUCOOP, el organismo supervisor
+    order: 3
+    html: |
+      <section>
+        <p>Según el Art. 93 LCH:</p>
+        <blockquote>
+          <p>Créase el Consejo Nacional Supervisor de Cooperativas, en
+          adelante denominado (CONSUCOOP), institución descentralizada del
+          Estado, autónoma y con patrimonio propio, que tiene a su cargo la
+          aplicación de la legislación cooperativa y autoridad de control
+          de los entes cooperativos.</p>
+        </blockquote>
+        <p>La CHC y CONSUCOOP no son lo mismo. La CHC (Art. 90 LCH) es
+        privada y representa al movimiento. CONSUCOOP (Art. 93 LCH) es
+        estatal y lo supervisa.</p>
+      </section>
+
+  - id: tab-04-organismos-de-segundo-grado
+    title: Organismos de segundo grado
+    order: 4
+    html: |
+      <section>
+        <p>Organismos de segundo grado afiliados a la CHC:</p>
+        <ul>
+          <li>Asociación Hondureña de Productores del Café (AHPROCAFE)</li>
+          <li>Federación Nacional de Cooperativas de Transporte, Limitada
+          (FENACOTRAL)</li>
+          <li>Federación Hondureña de Cooperativas Agroforestales, Limitada
+          (FEHCAFOR)</li>
+          <li>Federación de Cooperativas Agropecuarias y Empresas
+          Asociativas Campesinas de la Reforma Agraria de Honduras,
+          Limitada (FECORAH)</li>
+          <li>La Central de Cooperativas Cafetaleras de Honduras, Limitada
+          (LA CENTRAL)</li>
+          <li>Unión de Cooperativas de Desarrollo de Occidente, Limitada
+          (UCDOL)</li>
+          <li>Federación de Cooperativas de Ahorro y Crédito de Honduras
+          Limitada (FACACH)</li>
+          <li>Federación Hondureña de Cooperativas de Ahorro y Crédito
+          Limitada (FEHCACREL)</li>
+          <li>Asociación Campesina Nacional (ACAN)</li>
+          <li>Unión de Cooperativas Cafetaleras y de Servicios
+          Agropecuarios, Limitada (UNIOCOOP)</li>
+          <li>Federación de Cooperativas de Vivienda Solidaria de Honduras
+          (FECOVISOL)</li>
+        </ul>
+      </section>
+
+  - id: tab-final-para-llevarte
+    title: Para llevarte
+    order: 99
+    html: |
+      <section>
+        <p>Una cooperativa individual es solo el primer nivel de una
+        estructura más amplia. Por encima de ella existen organismos que
+        la representan (la CHC) y organismos que la supervisan
+        (CONSUCOOP), y a su lado, decenas de organismos de segundo grado
+        que agrupan a cooperativas de actividades afines en todo el país.</p>
+      </section>
+
+sources:
+  - id: art-88-lch
+    title: Art. 88 LCH — Integración por niveles
+    reference: Decreto 65-87
+  - id: art-90-91-lch
+    title: Art. 90-91 LCH — La CHC
+    reference: Decreto 65-87
+  - id: art-93-lch
+    title: Art. 93 LCH — CONSUCOOP
+    reference: Decreto 65-87
+  - id: consucoop-listado
+    title: Listado de organismos de segundo grado
+    reference: Portal oficial CONSUCOOP, vía MDP Informe Final (Oliver Ayala)
+
+notes_for_coordinator:
+  content_notes: >
+    Esta cápsula comparte base legal (Art. 88 LCH) con la cápsula
+    "Clasificación de las cooperativas" (tab "Por grado de integración").
+    Esto es intencional: cada cápsula es standalone y no se referencian
+    entre sí, así que el traslape es necesario, no un error.
+  legal_notes: >
+    Todos los artículos citados son literales y fueron verificados contra
+    interior_CHC_Ley_Coop.pdf.
+  presentation_hints: >
+    Conviene distinguir visualmente a la CHC de CONSUCOOP, ya que es un
+    punto de confusión frecuente (uno privado/representativo, otro
+    estatal/supervisor).

@@ -1,0 +1,127 @@
+capsule_id: capsula-integracion-del-movimiento
+note: 'Banco no student-facing. Fuente para el constructor en vivo. No se entrega ni se muestra dentro de los tabs
+  de la cápsula.
+
+  '
+questions:
+- id: q-01
+  section_id: tab-01-integracion-por-niveles
+  learning_objective: Identificar los tres grados de integración
+  difficulty: 1
+  question_type: opción múltiple
+  prompt: Según el Art. 88 LCH, ¿cuántos niveles de integración existen?
+  correct_answer: Tres.
+  distractors:
+  - Dos.
+  - Cuatro.
+  - Cinco.
+  explanation: Primer, segundo y tercer grado, según el Art. 88 LCH.
+  source_reference: tab-01 / Art. 88 LCH
+  misconception_addressed: ninguna, es recuerdo directo.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-02
+  section_id: tab-01-integracion-por-niveles
+  learning_objective: Reconocer que la integración es una estructura legal, no informal
+  difficulty: 2
+  question_type: verdadero o falso
+  prompt: La integración de cooperativas en niveles es una práctica informal, no reconocida por la ley hondureña.
+  correct_answer: Falso
+  distractors: []
+  explanation: El Art. 88 LCH la reconoce y estructura formalmente.
+  source_reference: tab-01 / contenido
+  misconception_addressed: Pensar que la integración es solo una costumbre del movimiento, sin respaldo legal.
+  p2l_uses:
+  - trivia
+  - verdadero o falso
+- id: q-03
+  section_id: tab-02-la-chc
+  learning_objective: Identificar correctamente qué es la CHC
+  difficulty: 1
+  question_type: opción múltiple
+  prompt: Según el Art. 90 LCH, ¿qué es la CHC?
+  correct_answer: El organismo privado, superior o representativo del Movimiento Cooperativo Hondureño.
+  distractors:
+  - Una institución del Estado que supervisa a las cooperativas.
+  - El banco central del sector cooperativo.
+  - Una cooperativa de ahorro y crédito de primer grado.
+  explanation: Definición literal del Art. 90 LCH.
+  source_reference: tab-02 / Art. 90 LCH
+  misconception_addressed: Confundir a la CHC con una entidad estatal.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-04
+  section_id: tab-03-consucoop
+  learning_objective: Distinguir CONSUCOOP de la CHC
+  difficulty: 2
+  question_type: relacionar columnas
+  prompt: Relaciona cada organismo con su naturaleza.
+  correct_answer: CHC ↔ privada, representativa | CONSUCOOP ↔ estatal, supervisora
+  distractors:
+  - combinaciones cruzadas incorrectas presentadas como opciones de arrastre en la dinámica
+  explanation: Distinción explícita entre Art. 90 LCH y Art. 93 LCH.
+  source_reference: tab-03 / contenido
+  misconception_addressed: Confundir CHC con CONSUCOOP como si fueran la misma entidad o intercambiables.
+  p2l_uses:
+  - clasificación
+  - duelo
+- id: q-05
+  section_id: tab-03-consucoop
+  learning_objective: Recordar la función legal de CONSUCOOP
+  difficulty: 1
+  question_type: opción múltiple
+  prompt: Según el Art. 93 LCH, ¿cuál es la función principal de CONSUCOOP?
+  correct_answer: Aplicación de la legislación cooperativa y autoridad de control de los entes cooperativos.
+  distractors:
+  - Representar al movimiento cooperativo ante organismos internacionales.
+  - Otorgar créditos directos a cooperativas de primer grado.
+  - Organizar los Congresos Cooperativos Nacionales.
+  explanation: 'Función textual del Art. 93 LCH; las otras opciones corresponden a funciones de la CHC, no de CONSUCOOP.
+
+    '
+  source_reference: tab-03 / Art. 93 LCH
+  misconception_addressed: Atribuir a CONSUCOOP funciones que en realidad corresponden a la CHC.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-06
+  section_id: tab-04-organismos-de-segundo-grado
+  learning_objective: Reconocer organismos de segundo grado reales del sector
+  difficulty: 2
+  question_type: selección múltiple
+  prompt: ¿Cuáles de los siguientes son organismos de segundo grado afiliados a la CHC?
+  correct_answer: FACACH, FEHCAFOR, UNIOCOOP
+  distractors:
+  - CONSUCOOP
+  - Banco Central de Honduras
+  - Secretaría de Industria y Comercio
+  explanation: 'Los distractores son instituciones estatales, no organismos de segundo grado del movimiento cooperativo.
+
+    '
+  source_reference: tab-04 / listado
+  misconception_addressed: Confundir organismos de segundo grado del movimiento con instituciones estatales relacionadas
+    al sector.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-07
+  section_id: tab-final-para-llevarte
+  learning_objective: Sintetizar la estructura completa del movimiento
+  difficulty: 3
+  question_type: respuesta breve
+  prompt: 'Explica en una frase la diferencia entre "quién representa" y "quién supervisa" al movimiento cooperativo
+    hondureño.
+
+    '
+  correct_answer: 'La CHC representa al movimiento cooperativo (es privada, nace del propio movimiento); CONSUCOOP
+    lo supervisa (es estatal, aplica la ley y controla a los entes cooperativos).
+
+    '
+  distractors: []
+  explanation: Síntesis directa del contraste desarrollado en tab-03.
+  source_reference: tab-final-para-llevarte / contenido
+  misconception_addressed: No distinguir con claridad los roles de representación versus supervisión.
+  p2l_uses:
+  - escenario de decisión

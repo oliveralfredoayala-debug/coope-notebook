@@ -1,0 +1,230 @@
+{
+  "name": "integracion-del-movimiento-cooperativo-v1.0.5-production",
+  "version": "1.0.5",
+  "entry": "integracion-del-movimiento-cooperativo-v1.0.5.html",
+  "preview": "integracion-del-movimiento-cooperativo-v1.0.5-preview.png",
+  "basedOn": "integracion-del-movimiento-cooperativo-v1.0.4",
+  "change": "remove legal map from tab 01 and legal article from tab 03 for didactic clarity",
+  "files": [
+    {
+      "path": "LEGAL-SOURCE-EXTRACT.md",
+      "bytes": 369,
+      "sha256": "d7a790130c13ed2e81127f46210a15671f585d3c14c340a28a3e93a97475a5b0"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 2245,
+      "sha256": "f44035fc541d934e3839ee05558b9cdd0c1e7ef2f9f25433414a2ca6ad0a6cec"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 596,
+      "sha256": "5fad654874e3ba9d5b30bb167c5106a69ffe30f9108236863917de15804f92ed"
+    },
+    {
+      "path": "SCHEME-TAB-INSERT-v1.0.3.md",
+      "bytes": 208,
+      "sha256": "8d14d84fea804ebbe6b22c3cc81ee7903c6157b7b3c613cbba5b59c9b03db38f"
+    },
+    {
+      "path": "SCHEME-TAB-TUNING-v1.0.4.md",
+      "bytes": 390,
+      "sha256": "73834f777120588ee408c7ca1a8708f4c035c24c1833fd680259419de3da764e"
+    },
+    {
+      "path": "SOURCE-RECONCILIATION.md",
+      "bytes": 883,
+      "sha256": "462536378fbdb1230df5b08e5842dba73c9512c42ae321aab017478ec9c44f36"
+    },
+    {
+      "path": "TEMP-RULE-BREAK-v1.0.5.md",
+      "bytes": 418,
+      "sha256": "f212a47d763eb07b83ca9ef3917cf3943fc638de8d0f85c4ec8a3ddce6f108c0"
+    },
+    {
+      "path": "VISUAL-FIX-v1.0.1.md",
+      "bytes": 536,
+      "sha256": "b5ce27d1680394f250126796746e519650d247321231f5ecdc4dc817146ad96b"
+    },
+    {
+      "path": "capsula-integracion-banco-preguntas.validated.yaml",
+      "bytes": 5123,
+      "sha256": "fc6564fa99b53a16d0d888164fa1810eba01bea58541fce6314c1a4d6093cc6f"
+    },
+    {
+      "path": "guardrail-report.json",
+      "bytes": 1470,
+      "sha256": "04f5285e184103e9cb3fc4b51c9c940935fa392bd72d94feafe2f73dcb35670c"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.0-preview.png",
+      "bytes": 695300,
+      "sha256": "d67bfb603e23ae9756afca6c8ab23a5d5a65a2e94cb38e8db13303b853e96eb5"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.1-preview.png",
+      "bytes": 440633,
+      "sha256": "0d2ac2d143962b74200b3f61dfeac597c2757a930383095977c38bc34b1e548e"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.3-preview.png",
+      "bytes": 257889,
+      "sha256": "2adb016f31a81a5854d1e356461473c0e568a980084686ecf8cd2bed01bb70db"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.4-preview.png",
+      "bytes": 282305,
+      "sha256": "743adb8a17c0696291048e9f59c017d3f53baf33890ed041dbaff474ec0b6c4b"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.5-preview.png",
+      "bytes": 270063,
+      "sha256": "3079540c6083f56b31f5956008c6ee7d359841662ebd4a0fc6d533faa70a3bc3"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo-v1.0.5.html",
+      "bytes": 1691098,
+      "sha256": "ac7671183784986cc50ad5f6613ee901ca0f9f61096ddfe7325a7fdd1391644f"
+    },
+    {
+      "path": "integracion-del-movimiento-cooperativo.source.v1.0.0.yaml",
+      "bytes": 17549,
+      "sha256": "34723a5f6b5006eb78f7a13eecd2cdff1db7f869dbf6541977209ce83c145c35"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 6996,
+      "sha256": "34c2df2ff788daf23d13eb57beb705f7139d740d3cb7a31ce89fdb2d321cdb84"
+    },
+    {
+      "path": "preflight-final.log",
+      "bytes": 2540,
+      "sha256": "abc6fb90a62e8545542bf21dd681cbb19aa083e2074713d0ed1a6681c6ed3bb0"
+    },
+    {
+      "path": "presentation-scene-map.json",
+      "bytes": 1117,
+      "sha256": "fc6f09138b3cb4a675ab649f9eacfac7e50a962a17ef2cd03b432a003aec019f"
+    },
+    {
+      "path": "previews/01-intro-slide.png",
+      "bytes": 197295,
+      "sha256": "efbf99c75f711e43d6c88994b931d8ee4d5a853789f5829e43735fe98c7bc62f"
+    },
+    {
+      "path": "previews/01-opening.png",
+      "bytes": 331512,
+      "sha256": "b2f78c4945e71a433bb4577a75b0bf7266194c3182f6d1e118b746bfb8bd2b82"
+    },
+    {
+      "path": "previews/01-reading-new-scheme-tab.png",
+      "bytes": 156593,
+      "sha256": "ce402fa2d0debfd26abaa7f77dba151af912c3130fbe75fdd06d229e3d801294"
+    },
+    {
+      "path": "previews/01-tab-01-no-scheme-reading.png",
+      "bytes": 135575,
+      "sha256": "5aea76ccfac51d5db54c64f3e323d19d1c79f493a28ead3f0d208f056a6c6020"
+    },
+    {
+      "path": "previews/01-tab-01-reading-no-legal-map.png",
+      "bytes": 120125,
+      "sha256": "225fb0a22fbdb2e81c114b2da6a24db1cda991df5b14b18f3e4732f8fbeeffdf"
+    },
+    {
+      "path": "previews/02-introduction.png",
+      "bytes": 198894,
+      "sha256": "4747f1e2a8c723629ea0be4f802d3b47da8e9723e08b85f52ea96a9c170c3a42"
+    },
+    {
+      "path": "previews/02-levels-slide.png",
+      "bytes": 200487,
+      "sha256": "473fd7c34ff7dcdb931b9d1c7fe4357b3d3d9f5128e4c1c3f05aac73987cbdb2"
+    },
+    {
+      "path": "previews/02-presentation-new-scheme-tab.png",
+      "bytes": 217419,
+      "sha256": "e9f30e60e3591261bc5bbc3fe3cd7e0b38e33cbee480e87e7aa455963044db90"
+    },
+    {
+      "path": "previews/02-tab-02-compact-scheme-reading.png",
+      "bytes": 161744,
+      "sha256": "66dd545642facbdeec47a69d0c0b7a1ceedc55ec3760c3b8c3aec33b95d772ad"
+    },
+    {
+      "path": "previews/02-tab-03-reading-no-legal-article.png",
+      "bytes": 148558,
+      "sha256": "626505839952abdaf173cd4441a94d88c7a2f8ad9a7907d3fa0d71685d1bb3ae"
+    },
+    {
+      "path": "previews/03-levels.png",
+      "bytes": 200487,
+      "sha256": "473fd7c34ff7dcdb931b9d1c7fe4357b3d3d9f5128e4c1c3f05aac73987cbdb2"
+    },
+    {
+      "path": "previews/03-reading-intro.png",
+      "bytes": 135171,
+      "sha256": "30e4d5b695012200da9c00995b6d5b147d5b7eb42d413bc20ac7527d35440155"
+    },
+    {
+      "path": "previews/03-tab-02-compact-scheme-presentation.png",
+      "bytes": 216624,
+      "sha256": "9a138c31ec91c41f679dad8417cedc6f152c230383891b7c643aa41e30700b5b"
+    },
+    {
+      "path": "previews/03-tab-03-presentation-scheme-clean.png",
+      "bytes": 218875,
+      "sha256": "390e797dabc2467be51af1d2cd3408c4e4d6d955c60dc8b4ecb2c55a64ab82df"
+    },
+    {
+      "path": "previews/04-chc.png",
+      "bytes": 206420,
+      "sha256": "373b0117c1d27a572531bea2cbea1f46210d76aaa7d8eddc4c73d52c7dceea4d"
+    },
+    {
+      "path": "previews/05-consucoop.png",
+      "bytes": 215279,
+      "sha256": "5b683e4778843a4e9dc7c6dac09d500e7f37d22169db640af0c23e4647b7bdd4"
+    },
+    {
+      "path": "previews/06-second-degree.png",
+      "bytes": 210520,
+      "sha256": "928a2f0099912c097348e92babdaab2cdcdb770e85b2897658878b00ddb60601"
+    },
+    {
+      "path": "previews/07-takeaway.png",
+      "bytes": 186474,
+      "sha256": "66b806379bd0bd03b83e4366c071e584beb98fa26d975a2a2d4e09d36bc1377e"
+    },
+    {
+      "path": "previews/08-reading-chc.png",
+      "bytes": 126030,
+      "sha256": "85ad08b211a4e68ad6266007a457ac2c1342082293b9b47593dffcbe4ded205d"
+    },
+    {
+      "path": "scripts/validate_capsule_guardrails.py",
+      "bytes": 7588,
+      "sha256": "2735476ce5ec512557d96c7eecf1add03b6aa9ec3eebdeb42633f050904913b8"
+    },
+    {
+      "path": "source/Integracion-cooperativa-original.zip",
+      "bytes": 13905,
+      "sha256": "b646757d523233a50399a774fecbb3351a6fc59986863b0dfc7015d30213a24c"
+    },
+    {
+      "path": "source/banco-preguntas-original.yaml",
+      "bytes": 5339,
+      "sha256": "6ef4f7429ec54b008de92cdd2c93f354cc63e71a542a23d940998ce2e368f179"
+    },
+    {
+      "path": "source/capsula-integracion-original.yaml",
+      "bytes": 6384,
+      "sha256": "0797405e75ed617490e295fdaa42e281d21909d2d9bcc4b6cd5218417299dcb4"
+    },
+    {
+      "path": "source/roadmap-cooperativismo-basico.md",
+      "bytes": 25251,
+      "sha256": "010f87a7225b62464ac196850e441f88f7eb3613d341c9e131643b448f8d188b"
+    }
+  ]
+}

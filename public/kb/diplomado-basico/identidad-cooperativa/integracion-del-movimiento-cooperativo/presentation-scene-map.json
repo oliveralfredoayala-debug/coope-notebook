@@ -1,0 +1,53 @@
+{
+  "capsule": "Integración del movimiento cooperativo",
+  "version": "1.0.0",
+  "shellVersion": "v7",
+  "legalFlow": "contextual-pairs",
+  "presentationFlow": "one-tab-one-slide",
+  "scrollReset": "hard-reset-on-slide-change",
+  "slideCount": 7,
+  "slides": [
+    {
+      "id": "scene-00-opening",
+      "kind": "opening",
+      "tab": -1,
+      "title": "Apertura"
+    },
+    {
+      "id": "scene-01-introduction",
+      "kind": "tab-slide",
+      "tab": 0,
+      "title": "Introducción"
+    },
+    {
+      "id": "scene-02-levels",
+      "kind": "tab-slide",
+      "tab": 1,
+      "title": "Integración por niveles"
+    },
+    {
+      "id": "scene-03-chc",
+      "kind": "tab-slide",
+      "tab": 2,
+      "title": "La CHC"
+    },
+    {
+      "id": "scene-04-consucoop",
+      "kind": "tab-slide",
+      "tab": 3,
+      "title": "CONSUCOOP"
+    },
+    {
+      "id": "scene-05-second-degree",
+      "kind": "tab-slide",
+      "tab": 4,
+      "title": "Organismos de segundo grado"
+    },
+    {
+      "id": "scene-06-takeaway",
+      "kind": "tab-slide",
+      "tab": 5,
+      "title": "Para llevarte"
+    }
+  ]
+}
