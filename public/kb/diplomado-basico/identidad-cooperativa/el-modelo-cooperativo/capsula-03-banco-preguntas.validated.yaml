@@ -1,0 +1,179 @@
+capsule_id: capsula-03-el-modelo-cooperativo
+note: 'Banco no student-facing. Fuente para el constructor en vivo. No se entrega ni se muestra dentro de los tabs
+  de la cápsula.
+
+  '
+questions:
+- id: q-01
+  section_id: tab-01-cooperativa-vs-empresa-mercantil
+  learning_objective: Distinguir el fin de una cooperativa del fin de una empresa mercantil
+  difficulty: 1
+  question_type: opción múltiple
+  prompt: ¿Cuál es la diferencia central entre una cooperativa y una empresa mercantil?
+  correct_answer: En la cooperativa las personas deciden (un afiliado, un voto); en la empresa mercantil decide
+    el capital.
+  distractors:
+  - Las cooperativas no pueden vender productos o servicios.
+  - Las empresas mercantiles no pueden tener trabajadores afiliados.
+  - No existe ninguna diferencia real entre ambas.
+  explanation: 'El control democrático (personas) frente al control por capital es la distinción estructural central
+    entre ambos modelos.
+
+    '
+  source_reference: tab-01 / Contraste central
+  misconception_addressed: Pensar que solo el producto o servicio ofrecido define el tipo de organización.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-02
+  section_id: tab-01-cooperativa-vs-empresa-mercantil
+  learning_objective: Corregir la idea de que "sin fines de lucro" significa "sin ganancias"
+  difficulty: 2
+  question_type: verdadero o falso
+  prompt: '"Sin fines de lucro" significa que una cooperativa no puede generar ganancias.'
+  correct_answer: Falso
+  distractors: []
+  explanation: 'Puede y debe ser sostenible financieramente; lo prohibido es que la acumulación de capital sea su
+    objetivo central.
+
+    '
+  source_reference: tab-01 / confusión frecuente
+  misconception_addressed: Confundir "sin fines de lucro" con "sin excedentes ni sostenibilidad".
+  p2l_uses:
+  - trivia
+  - verdadero o falso
+- id: q-03
+  section_id: tab-02-modelo-institucional
+  learning_objective: Distinguir instituciones de organizaciones según North
+  difficulty: 2
+  question_type: relacionar columnas
+  prompt: Relaciona cada elemento con su categoría según el marco de North.
+  correct_answer: LCH/RLCH ↔ Institución (regla) | Cooperativa ↔ Organización (jugador)
+  distractors:
+  - combinaciones cruzadas incorrectas presentadas como opciones de arrastre en la dinámica
+  explanation: 'Las leyes son las reglas del juego; la cooperativa es quien juega dentro de esas reglas.
+
+    '
+  source_reference: tab-02 / tabla instituciones-organizaciones
+  misconception_addressed: Confundir la ley (regla) con la organización que opera bajo ella.
+  p2l_uses:
+  - clasificación
+  - reto por equipos
+- id: q-04
+  section_id: tab-02-modelo-institucional
+  learning_objective: Reconocer el estatus del marco de North aplicado al cooperativismo
+  difficulty: 3
+  question_type: opción múltiple
+  prompt: ¿Cómo debe entenderse la aplicación del marco de Douglass North al cooperativismo hondureño?
+  correct_answer: Como una adaptación interpretativa propia, no como una afirmación textual de North sobre cooperativas.
+  distractors:
+  - Como una teoría que North desarrolló específicamente para cooperativas hondureñas.
+  - Como parte del texto literal de la LCH.
+  - Como un principio cooperativo reconocido por la ACI.
+  explanation: 'North escribe sobre economía institucional general; su aplicación aquí es una lente interpretativa,
+    no una fuente legal ni un texto de North sobre cooperativismo.
+
+    '
+  source_reference: tab-02 / nota
+  misconception_addressed: Tratar la analogía de North como si fuera fuente legal o afirmación textual suya sobre
+    cooperativas.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-05
+  section_id: tab-02-modelo-institucional
+  learning_objective: Distinguir reglas formales de informales
+  difficulty: 1
+  question_type: clasificación
+  prompt: Clasifica cada elemento como regla formal o informal según North.
+  correct_answer: Estatutos ↔ formal | Confianza entre afiliados ↔ informal | RLCH ↔ formal | Costumbres locales
+    ↔ informal
+  distractors: []
+  explanation: Definición literal de North retomada en la cápsula.
+  source_reference: tab-02 / reglas formales e informales
+  misconception_addressed: ninguna, es aplicación directa de la definición.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-06
+  section_id: tab-03-el-conflicto-de-la-cooperativa
+  learning_objective: Comprender el equilibrio necesario entre servicio y rentabilidad
+  difficulty: 3
+  question_type: caso de aplicación
+  prompt: 'Una cooperativa de ahorro y crédito reduce mucho sus tasas de interés en préstamos para "servir mejor"
+    a los afiliados, sin medir el impacto en su liquidez. ¿Qué riesgo corre?
+
+    '
+  correct_answer: Descapitalizarse y perder la capacidad de seguir prestando a sus afiliados.
+  distractors:
+  - Ninguno, priorizar el servicio siempre es correcto sin excepción.
+  - Perder automáticamente su personalidad jurídica.
+  - Tener que convertirse en empresa mercantil por ley.
+  explanation: 'El servicio sin sostenibilidad pone en riesgo la existencia misma de la cooperativa; el ejemplo
+    es textual de la cápsula.
+
+    '
+  source_reference: tab-03 / ejemplo
+  misconception_addressed: Pensar que priorizar el servicio nunca tiene riesgos.
+  p2l_uses:
+  - escenario de decisión
+  - reto por equipos
+- id: q-07
+  section_id: tab-03-el-conflicto-de-la-cooperativa
+  learning_objective: Identificar la naturaleza del conflicto cooperativo
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: ¿Cuál es la naturaleza correcta del "conflicto de la cooperativa"?
+  correct_answer: Es una tensión permanente entre servicio y rentabilidad que debe sostenerse en equilibrio, no
+    resolverse eligiendo un lado.
+  distractors:
+  - Es un problema legal que se resuelve reformando la ley.
+  - Es un conflicto entre la Junta Directiva y la Junta de Vigilancia.
+  - Es un conflicto que solo ocurre en cooperativas mal administradas.
+  explanation: 'El "conflicto" es estructural y permanente, no un problema puntual a resolver de una vez.
+
+    '
+  source_reference: tab-03 / idea central
+  misconception_addressed: Pensar que el conflicto se "resuelve" en vez de sostenerse en equilibrio.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-08
+  section_id: tab-04-que-se-hace-con-la-ganancia
+  learning_objective: Reconocer el papel de la Asamblea General en el tratamiento del excedente
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: ¿Qué órgano puede acordar la capitalización total o parcial de los excedentes distribuidos y no pagados,
+    si la cooperativa conserva su sostenibilidad?
+  correct_answer: La Asamblea General.
+  distractors:
+  - Los accionistas mayoritarios.
+  - Exclusivamente el Gerente General.
+  - Un organismo externo del Estado.
+  explanation: El artículo 44 permite que la Asamblea General acuerde esa capitalización, pero la distribución también
+    está condicionada por reservas, supervisión y estabilidad financiera.
+  source_reference: tab-04 / artículo 44 LCH
+  misconception_addressed: Aplicar la lógica de reparto de dividendos mercantiles al excedente cooperativo.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-09
+  section_id: tab-final-para-llevarte
+  learning_objective: Sintetizar la relación entre reglas, organización y afiliados
+  difficulty: 3
+  question_type: respuesta breve
+  prompt: 'Según el marco visto en esta cápsula, ¿qué rol juega un afiliado dentro del "juego institucional" de
+    su cooperativa?
+
+    '
+  correct_answer: 'El afiliado forma parte del juego al participar en la cooperativa (la organización), que a su
+    vez opera dentro de las reglas formales (LCH y RLCH); la asamblea es donde la organización ejerce su máxima
+    capacidad de decisión.
+
+    '
+  distractors: []
+  explanation: Síntesis directa del cierre de la cápsula.
+  source_reference: tab-final-para-llevarte / contenido
+  misconception_addressed: Ver al afiliado como pasivo o externo al sistema de reglas y organización.
+  p2l_uses:
+  - escenario de decisión

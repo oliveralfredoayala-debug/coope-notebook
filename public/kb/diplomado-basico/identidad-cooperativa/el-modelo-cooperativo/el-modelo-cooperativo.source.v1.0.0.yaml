@@ -1,0 +1,300 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: El modelo cooperativo
+title: El modelo cooperativo
+slug: el-modelo-cooperativo
+version: 1.0.0
+source_version: '1.0'
+status: package_ready
+shell_version: v7
+shell_fork: false
+opening:
+  question: ¿Qué hace distinta a una cooperativa si puede ofrecer lo mismo que una empresa mercantil?
+  thought: Una cooperativa y una empresa mercantil pueden parecer lo mismo. Lo que las hace distintas no es el producto,
+    es para quién existen.
+  summary: La diferencia no está solamente en lo que vende o produce una organización. Está en para quién existe,
+    quién toma las decisiones, qué reglas la orientan y qué hace con los resultados que genera.
+legal_sources:
+  lch-art-4:
+    article: ARTÍCULO 4
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTÍCULO 4.- Son actos cooperativos los que se realizan entre las cooperativas y sus afiliados (as) o
+      por las cooperativas entre sí, en cumplimiento de su objetivo social sin fines de lucro. Los actos Cooperativos
+      se regirán por las disposiciones de esta Ley.
+  lch-art-43:
+    article: ARTÍCULO 43
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTÍCULO 43.- Se consideran excedentes los saldos que a favor de una cooperativa resulten de sus operaciones
+      al final de cada ejercicio social.
+  lch-art-44:
+    article: ARTÍCULO 44
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 44.- Los excedentes se distribuirán en la forma siguiente:
+
+
+      a) Por lo menos un 10% para formar un fondo de reserva legal acumulable anualmente, no repartible y que servirá
+      para cubrir pérdidas de acuerdo con la liquidez de la cooperativa en los porcentajes que establezca el reglamento
+      de esta Ley, el fondo de reserva se invertirá en bonos u otros títulos de fácil convertibilidad, emitidos
+      por federaciones de cooperativas, instituciones bancarias o del estado;
+
+
+      b) La formación de fondos especiales: requerimiento de capital y patrimonio, reservas para activos de riesgo
+      y otros que establezca la Junta Directiva;
+
+
+      c) Distribuciones entre los cooperativistas de acuerdo al patrocinio efectuado con la cooperativa, después
+      de constituir la reserva legal, las requeridas por el Organismo Supervisor del Sector Cooperativo y reservas
+      especiales aprobadas por la Asamblea General;
+
+
+      ch) La Asamblea General podrá acordar la capitalización total o parcial de los excedentes distribuidos y no
+      pagados, siempre que la cooperativa cuente con los recursos que le garantice su sostenibilidad; y,
+
+
+      d) Treinta (30) días hábiles antes de la celebración de la Asamblea General Ordinaria, la Junta Directiva
+      debe poner en conocimiento del Organismo Supervisor del Sector Cooperativo el proyecto de distribución de
+      excedentes, quien puede objetar la misma si determina que la cooperativa presenta una situación financiera
+      inestable.'
+  lch-art-45:
+    article: ARTICULO 45
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTICULO 45.- Los excedentes netos generados por operaciones con no afiliados, se destinarán por la cooperativa,
+      preferentemente a programas de desarrollo cooperativista.
+tabs:
+- id: tab-01-cooperativa-vs-empresa-mercantil
+  title: Cooperativa vs. empresa mercantil
+  order: 1
+  intro: Dos organizaciones pueden ofrecer productos parecidos y, aun así, responder a lógicas completamente distintas.
+    La diferencia central aparece en el propósito, el control y el destino de los resultados.
+  legal_refs:
+  - lch-art-4
+  theory:
+  - title: 01 · Para quién existe
+    body: La empresa mercantil busca remunerar el capital invertido. La cooperativa existe para atender necesidades
+      comunes de su membresía mediante una empresa de propiedad conjunta y control democrático.
+  - title: 02 · Quién decide
+    body: En el contraste didáctico de esta cápsula, la empresa mercantil asigna poder según el capital; la cooperativa
+      distribuye la decisión entre las personas afiliadas. La diferencia es de gobierno, no solamente de producto.
+  - title: 03 · Sin fines de lucro no significa sin resultados
+    body: 'Una cooperativa necesita ingresos, liquidez, reservas y excedentes para sostener sus servicios. Lo que
+      cambia es el propósito: la acumulación privada de capital no es el fin central.'
+  - title: 04 · El producto no define el modelo
+    body: Una cooperativa y una empresa mercantil pueden vender, prestar o producir cosas similares. El modelo se
+      reconoce por su propósito, su propiedad, su forma de decisión y el destino de sus resultados.
+  support:
+    kind: comparison
+    title: Mismo mercado, lógica distinta
+    columns:
+    - label: Empresa mercantil
+      items:
+      - 'Propósito: remunerar el capital'
+      - 'Control: poder ligado a la inversión'
+      - 'Resultado: dividendo para propietarios'
+      - 'Centro de gravedad: capital'
+    - label: Cooperativa
+      items:
+      - 'Propósito: atender necesidades comunes'
+      - 'Control: decisión democrática de la membresía'
+      - 'Resultado: excedente sujeto a reglas cooperativas'
+      - 'Centro de gravedad: personas'
+  callout: La diferencia decisiva no es qué ofrece la organización, sino para quién existe y quién la controla.
+- id: tab-02-modelo-institucional
+  title: El modelo institucional cooperativo
+  order: 2
+  intro: 'El marco de Douglass North ayuda a separar dos cosas que suelen confundirse: las reglas del juego y las
+    organizaciones que actúan dentro de ellas.'
+  legal_refs: []
+  theory:
+  - title: '01 · Instituciones: las reglas'
+    body: North utiliza la palabra instituciones para describir restricciones creadas por las personas que estructuran
+      la interacción. Incluyen reglas formales e informales.
+  - title: 02 · Reglas formales e informales
+    body: Las reglas formales incluyen constituciones, leyes, reglamentos, estatutos y contratos. Las informales
+      incluyen costumbres, convenciones, confianza y normas de conducta.
+  - title: '03 · Organizaciones: los jugadores'
+    body: Las organizaciones actúan dentro de las reglas para alcanzar objetivos. En esta lectura, la ley y el reglamento
+      son parte del marco formal; la cooperativa es la organización que opera dentro de ese marco.
+  - title: 04 · La membresía forma parte del juego
+    body: Cada persona afiliada participa a través de la organización. La Asamblea General es el espacio donde la
+      cooperativa ejerce su capacidad colectiva de decisión.
+  - title: 05 · Una lente, no una fuente legal
+    body: La aplicación del marco de North al cooperativismo hondureño es una adaptación interpretativa. No es una
+      afirmación de North sobre cooperativas ni sustituye a la Ley de Cooperativas o su Reglamento.
+  support:
+    kind: relations
+    title: Reglas, organización y participación
+    nodes:
+    - label: Reglas formales
+      detail: LCH · RLCH · estatutos
+    - label: Reglas informales
+      detail: confianza · costumbres · conducta
+    - label: Cooperativa
+      detail: organización que actúa
+    - label: Membresía
+      detail: personas que participan
+    - label: Asamblea
+      detail: máxima decisión colectiva
+  callout: Las reglas condicionan el juego; la organización y sus miembros toman decisiones dentro de ellas.
+- id: tab-03-el-conflicto-de-la-cooperativa
+  title: El conflicto de la cooperativa
+  order: 3
+  intro: 'Toda cooperativa vive una tensión permanente: debe servir a su membresía y, al mismo tiempo, conservar
+    la sostenibilidad financiera que hace posible seguir sirviendo.'
+  legal_refs: []
+  theory:
+  - title: 01 · Una tensión estructural
+    body: 'El conflicto no es una falla puntual. Forma parte del modelo: el servicio es la razón de ser y la sostenibilidad
+      es la condición para que ese servicio continúe.'
+  - title: 02 · Servicio sin sostenibilidad
+    body: Cuando una cooperativa reduce ingresos o asume costos sin medir su liquidez, puede descapitalizarse y
+      perder la capacidad de atender a sus afiliados.
+  - title: 03 · Rentabilidad sin identidad
+    body: Cuando la rentabilidad se convierte en el único criterio, la cooperativa puede conservar el nombre y perder
+      en la práctica su propósito de servicio y control democrático.
+  - title: 04 · Buen gobierno es sostener el equilibrio
+    body: La tarea no consiste en escoger un extremo. Consiste en tomar decisiones que protejan simultáneamente
+      la calidad del servicio, la liquidez, el patrimonio y la continuidad institucional.
+  support:
+    kind: balance
+    title: Servicio y sostenibilidad
+    left:
+      label: Servicio
+      detail: Necesidades de la membresía · acceso · calidad · propósito
+    right:
+      label: Sostenibilidad
+      detail: Liquidez · reservas · patrimonio · continuidad
+    center: Buen gobierno
+  callout: 'El equilibrio no se alcanza una vez: se administra en cada decisión importante.'
+- id: tab-04-que-se-hace-con-la-ganancia
+  title: Qué se hace con la ganancia
+  order: 4
+  intro: En una cooperativa, el resultado favorable se denomina excedente y su tratamiento está sujeto a reservas,
+    fondos, patrocinio, decisiones de Asamblea y supervisión.
+  legal_refs:
+  - lch-art-43
+  - lch-art-44
+  - lch-art-45
+  theory:
+  - title: 01 · Excedente no es lo mismo que dividendo
+    body: El excedente surge de las operaciones de la cooperativa. No se distribuye simplemente como retorno proporcional
+      al capital, porque antes operan reglas de reserva, fondos, patrocinio y sostenibilidad.
+  - title: 02 · Primero se protege la organización
+    body: La ley exige una reserva legal y permite fondos especiales. Esto recuerda que la continuidad de la cooperativa
+      es una condición previa para cualquier distribución.
+  - title: 03 · La Asamblea tiene un papel colectivo
+    body: La Asamblea General aprueba reservas especiales y puede acordar la capitalización total o parcial de excedentes
+      distribuidos y no pagados, siempre que exista sostenibilidad.
+  - title: 04 · También existe supervisión
+    body: La Junta Directiva presenta el proyecto de distribución al organismo supervisor, que puede objetarlo si
+      la situación financiera es inestable.
+  - title: 05 · El destino revela la identidad
+    body: La forma de usar el excedente muestra si la organización protege su patrimonio, reconoce el patrocinio
+      de la membresía y conserva su finalidad cooperativa.
+  support:
+    kind: flow
+    title: Ruta del excedente
+    steps:
+    - Resultado del ejercicio
+    - Reserva legal
+    - Fondos y requerimientos
+    - Patrocinio o capitalización
+    - Supervisión y sostenibilidad
+  callout: 'El excedente no es dinero sin reglas: su destino debe proteger a la cooperativa y a su membresía.'
+- id: tab-final-para-llevarte
+  title: Para llevarte
+  order: 5
+  intro: El modelo cooperativo puede recordarse mediante tres ideas conectadas.
+  legal_refs: []
+  theory:
+  - title: 01 · Propósito y control
+    body: Una cooperativa se distingue por para quién existe y por la forma democrática en que su membresía participa
+      en las decisiones.
+  - title: 02 · Reglas y organización
+    body: La ley, el reglamento, los estatutos y las prácticas informales estructuran el juego; la cooperativa y
+      sus afiliados actúan dentro de él.
+  - title: 03 · Servicio y sostenibilidad
+    body: El reto permanente no es elegir un lado, sino cuidar simultáneamente la razón de ser y la capacidad financiera
+      de seguir cumpliéndola.
+  support:
+    kind: orbit
+    title: El modelo en tres capas
+    rings:
+    - Propósito
+    - Reglas
+    - Equilibrio
+    core: COOPERATIVA
+  callout: Personas, reglas y sostenibilidad forman un solo modelo.
+presentation_story:
+- id: scene-01-opening
+  kind: opening
+  title: Apertura
+  tab: -1
+- id: scene-02-legal-model
+  kind: legal
+  title: Ley primero · actos cooperativos
+  tab: 0
+- id: scene-03-theory-model
+  kind: theory
+  title: Teoría · modelos
+  tab: 0
+- id: scene-04-comparison
+  kind: comparison
+  title: Comparación · dos lógicas
+  tab: 0
+- id: scene-05-theory-north
+  kind: theory
+  title: Teoría · marco institucional
+  tab: 1
+- id: scene-06-relations
+  kind: relations
+  title: Mapa · reglas y jugadores
+  tab: 1
+- id: scene-07-theory-conflict
+  kind: theory
+  title: Teoría · conflicto cooperativo
+  tab: 2
+- id: scene-08-balance
+  kind: balance
+  title: Balanza · servicio y sostenibilidad
+  tab: 2
+- id: scene-09-legal-surplus
+  kind: legal
+  title: Ley primero · excedentes
+  tab: 3
+- id: scene-10-theory-surplus
+  kind: theory
+  title: Teoría · destino del excedente
+  tab: 3
+- id: scene-11-flow
+  kind: flow
+  title: Proceso · ruta del excedente
+  tab: 3
+- id: scene-12-theory-close
+  kind: theory
+  title: Teoría · para llevarte
+  tab: 4
+- id: scene-13-orbit
+  kind: orbit
+  title: Síntesis · tres capas
+  tab: 4
+sources:
+- title: Manual de Cooperativismo Básico 2020
+  reference: Miriam Mejía · CHC
+- title: Ley de Cooperativas de Honduras
+  reference: Decreto No. 65-87 y reformas · artículos 4, 43, 44 y 45
+- title: El conflicto de la Cooperativa
+  reference: CURSO_BASICO_2020.pptx · slide 22
+- title: Douglass C. North
+  reference: 'Institutions, Institutional Change and Economic Performance (1990) y Conferencia Nobel (1993). Aplicación
+    a cooperativas: adaptación interpretativa.'
+guardrails:
+  opening_white: true
+  jester_right: true
+  legal_first: true
+  legal_closed_default: true
+  legal_verbatim_complete: true
+  theory_accordion_all_modes: true
+  presentation_independent: true
+  visual_support_after_theory: true
+  presentation_toggle_bottom_right: true
+  flat_navigation: true

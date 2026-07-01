@@ -1,0 +1,178 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: El modelo cooperativo
+title: El modelo cooperativo
+version: "1.0"
+status: approved
+
+opening_thought: >
+  Una cooperativa y una empresa mercantil pueden parecer lo mismo. Lo que
+  las hace distintas no es el producto, es para quién existen.
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <p>Esta cápsula explora el modelo cooperativo desde tres ángulos:
+        en qué se diferencia de una empresa mercantil, qué marco ayuda a
+        entender por qué funciona distinto, y la tensión constante entre
+        servir a sus afiliados y mantenerse rentable.</p>
+      </section>
+
+  - id: tab-01-cooperativa-vs-empresa-mercantil
+    title: Cooperativa vs. empresa mercantil
+    order: 1
+    html: |
+      <section>
+        <p>Una empresa mercantil existe para generar lucro a sus
+        accionistas, en proporción al capital invertido. Una cooperativa
+        existe para atender necesidades comunes de sus afiliados, con
+        control democrático (un afiliado, un voto) sin importar el capital
+        aportado.</p>
+        <p>La Ley de Cooperativas de Honduras marca esta distinción desde
+        su definición de actos cooperativos: son los que se realizan entre
+        las cooperativas y sus afiliados, o entre cooperativas entre sí, en
+        cumplimiento de su objetivo social sin fines de lucro.</p>
+        <h3>Contraste central</h3>
+        <p>En una empresa mercantil, el capital decide; en una cooperativa,
+        las personas deciden. En una empresa mercantil, la ganancia es el
+        fin; en una cooperativa, la ganancia (excedente) es una consecuencia
+        del servicio, no su propósito.</p>
+        <p><em>Confusión frecuente:</em> pensar que "sin fines de lucro"
+        significa que la cooperativa no puede generar ganancias. Sí puede y
+        debe ser financieramente sostenible; lo que no puede es convertir
+        la acumulación de capital en su objetivo central.</p>
+      </section>
+
+  - id: tab-02-modelo-institucional
+    title: El modelo institucional cooperativo
+    order: 2
+    html: |
+      <section>
+        <p>Douglass C. North, Premio Nobel de Economía 1993, define las
+        instituciones como las reglas del juego en una sociedad o, más
+        formalmente, las limitaciones ideadas por el ser humano que dan
+        forma a la interacción humana.</p>
+        <blockquote>
+          <p>"Las reglas del juego en una sociedad o, más formalmente, las
+          limitaciones ideadas por el ser humano que dan forma a la
+          interacción humana." — North, 1990</p>
+        </blockquote>
+        <p>North distingue dos tipos de reglas, ambas relevantes para una
+        cooperativa:</p>
+        <ul>
+          <li><strong>Reglas formales:</strong> constituciones, leyes,
+          reglamentos, estatutos, contratos.</li>
+          <li><strong>Reglas informales:</strong> normas de conducta,
+          costumbres, convenciones, confianza.</li>
+        </ul>
+        <h3>Instituciones no es lo mismo que organizaciones</h3>
+        <p>El aporte más útil de North es separar ambos conceptos.</p>
+        <blockquote>
+          <p>"Si las instituciones son las reglas del juego, las
+          organizaciones y sus emprendedores son los jugadores." — North,
+          Conferencia Nobel, 1993</p>
+        </blockquote>
+        <table>
+          <tr><th>Instituciones (las reglas)</th><th>Organizaciones (los jugadores)</th></tr>
+          <tr><td>Definen qué se puede y qué no se puede hacer.</td><td>Actúan dentro de esas reglas para lograr objetivos.</td></tr>
+          <tr><td>Leyes, reglamentos, estatutos, costumbres.</td><td>Empresas, partidos, sindicatos, cooperativas.</td></tr>
+        </table>
+        <p>Aplicado al caso hondureño: la LCH y el RLCH son las reglas
+        formales; la cooperativa es la organización que juega dentro de
+        ellas; y cada afiliado, al participar, forma parte del juego. La
+        asamblea es el momento en que la organización ejerce su máxima
+        capacidad de decisión.</p>
+        <p><em>Nota:</em> la aplicación del marco de North al
+        cooperativismo hondureño es una adaptación interpretativa propia;
+        North escribe sobre economía institucional general, no sobre
+        cooperativas.</p>
+      </section>
+
+  - id: tab-03-el-conflicto-de-la-cooperativa
+    title: El conflicto de la cooperativa
+    order: 3
+    html: |
+      <section>
+        <p>Toda cooperativa vive una tensión estructural: debe servir a sus
+        afiliados (su razón de ser) y, al mismo tiempo, mantenerse rentable
+        y sostenible financieramente (su condición de supervivencia).
+        Ninguna de las dos puede sacrificarse por completo sin poner en
+        riesgo a la otra.</p>
+        <p>Si la cooperativa prioriza solo el servicio sin cuidar su
+        sostenibilidad, corre el riesgo de descapitalizarse y dejar de
+        existir. Si prioriza solo la rentabilidad, deja de ser una
+        cooperativa en la práctica y empieza a comportarse como una empresa
+        mercantil, aunque conserve el nombre.</p>
+        <p><em>Ejemplo:</em> una cooperativa de ahorro y crédito que baja
+        demasiado sus tasas de interés en préstamos para "servir mejor" a
+        sus afiliados, sin calcular el impacto en su liquidez, puede
+        terminar sin capacidad de seguir prestando a nadie.</p>
+        <p>El buen gobierno cooperativo no es elegir entre servicio y
+        rentabilidad, es sostener ambos en equilibrio constante.</p>
+      </section>
+
+  - id: tab-04-que-se-hace-con-la-ganancia
+    title: Qué se hace con la ganancia
+    order: 4
+    html: |
+      <section>
+        <p>A diferencia de una empresa mercantil, donde la ganancia se
+        reparte como dividendos proporcionales al capital, en una
+        cooperativa el destino de la ganancia (excedente) es una decisión
+        colectiva de la Asamblea General, orientada a fortalecer a la
+        cooperativa y a su membresía, no a enriquecer a un grupo reducido
+        de inversionistas.</p>
+        <p>El destino del excedente es un reflejo directo de si una
+        organización realmente actúa como cooperativa o no.</p>
+      </section>
+
+  - id: tab-final-para-llevarte
+    title: Para llevarte
+    order: 99
+    html: |
+      <section>
+        <p>Una cooperativa se distingue de una empresa mercantil en para
+        quién existe y quién decide. Las reglas (LCH, RLCH) y la
+        organización (la cooperativa) trabajan juntas, y cada afiliado es
+        parte del juego institucional. Y el mayor reto permanente no es
+        elegir entre servir y ser rentable, sino sostener ambos al mismo
+        tiempo.</p>
+      </section>
+
+sources:
+  - id: manual-2020
+    title: Manual de Cooperativismo Básico 2020
+    reference: Miriam Mejía, CHC
+  - id: art-4-lch
+    title: Art. 4 LCH — Actos cooperativos y valores
+    reference: Decreto 65-87
+  - id: curso-basico-2020-slide22
+    title: El conflicto de la Cooperativa
+    reference: CURSO_BASICO_2020.pptx, slide 22
+  - id: north-1990-1993
+    title: North, instituciones y organizaciones
+    reference: >
+      Reutilizado de chat previo "Modelo cooperativo y empoderamiento
+      institucional" (12 jun 2026). North, D. (1990); North, D., Conferencia
+      Nobel (1993). Aplicación al cooperativismo hondureño es adaptación
+      interpretativa propia, no afirmación textual de North.
+
+notes_for_coordinator:
+  content_notes: >
+    Tab de excedentes es intencionalmente breve; no duplicar contenido del
+    artefacto separado "Explorador de excedentes" (fondos, porcentajes,
+    calculadora). Solo idea identitaria del destino del excedente.
+  legal_notes: >
+    Art. 4 LCH sobre actos cooperativos sin fines de lucro citado en tab 1.
+    Sin otros artículos literales extensos en esta cápsula.
+  presentation_hints: >
+    Tab 1: conviene poder contrastar cooperativa/empresa mercantil lado a
+    lado en los mismos criterios (propiedad, control, fin, destino de la
+    ganancia). Tab 2: conviene una tabla de dos columnas (instituciones/
+    organizaciones) para que el contraste se lea de un vistazo — ya incluida
+    como <table> en el HTML. Tab 3: conviene transmitir la idea de equilibrio
+    o balanza, no de lista o elección binaria. Tab 4: conviene un enlace o
+    referencia visual hacia el artefacto de excedentes.

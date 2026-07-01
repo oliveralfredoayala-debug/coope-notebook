@@ -1,0 +1,144 @@
+{
+  "name": "el-modelo-cooperativo-v1.0.0-production",
+  "version": "1.0.0",
+  "entry": "el-modelo-cooperativo-v1.0.0.html",
+  "preview": "el-modelo-cooperativo-v1.0.0-preview.png",
+  "shellVersion": "v7",
+  "shellFork": false,
+  "presentationScenes": 13,
+  "sourceVersion": "1.0",
+  "guardrailStatus": "PASS",
+  "previewMethod": "Chromium screenshots from exact final HTML",
+  "files": [
+    {
+      "path": "LEGAL-SOURCE-EXTRACT.md",
+      "bytes": 456,
+      "sha256": "dff3e2b8ad3c1bb303da0aa4ef1c7f20a251685f89ea4a5e4d283922075e7924"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 1627,
+      "sha256": "4defb4d5f5ef641db1d2355196471bb95a4fbfc3ef2d94b2fde618001fb82769"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 815,
+      "sha256": "4aff52f79dae631b7a51ea7a0ce9da717fb080f2c7bec751ebae6420d9738509"
+    },
+    {
+      "path": "assets/jester-approved.png",
+      "bytes": 1190131,
+      "sha256": "26fd9d13e794133474416374f3e4b6054efc91ccf9c8b56dbec117bf9479ba44"
+    },
+    {
+      "path": "capsula-03-banco-preguntas.validated.yaml",
+      "bytes": 8042,
+      "sha256": "100b4d0b90a074f4697f0a1d61cf6ca6080eee8e1556b990007643b2dcb42f0f"
+    },
+    {
+      "path": "el-modelo-cooperativo-v1.0.0-preview.png",
+      "bytes": 415682,
+      "sha256": "5419aa1a4b0825e35a35df60f4b65c02b4b7c6c78ac40b8d94977ecbde08a5b3"
+    },
+    {
+      "path": "el-modelo-cooperativo-v1.0.0.html",
+      "bytes": 1640179,
+      "sha256": "d4e1f8ceb34689db11f661aabfd4df7f2203aa57d558d9be502c99f11aae94d0"
+    },
+    {
+      "path": "el-modelo-cooperativo.source.v1.0.0.yaml",
+      "bytes": 13892,
+      "sha256": "426f03bd3d359e5a88c04893f00088c27589b96c85909b76b87f2370388e4312"
+    },
+    {
+      "path": "guardrail-report.json",
+      "bytes": 1275,
+      "sha256": "a371afc4ede5cee90e03df0562cb5699f41c38f15cd6e002bc5336f12bfda6a6"
+    },
+    {
+      "path": "preflight-final.log",
+      "bytes": 2345,
+      "sha256": "69003f9cd6c7b78e11582f2c96eb8a0969530e08ddd2670558660aa704f94236"
+    },
+    {
+      "path": "preflight-initial.log",
+      "bytes": 2477,
+      "sha256": "cd7b5b917b98157768d076a2b66a55ea323c4009f227ce223d9b5a310bee7f9c"
+    },
+    {
+      "path": "presentation-scene-map.json",
+      "bytes": 2069,
+      "sha256": "7da834127e07bdadd817040a148f394e21ee099b163be0cb11ecc432cc63282d"
+    },
+    {
+      "path": "previews/01-opening.png",
+      "bytes": 290938,
+      "sha256": "0568ca58a869cb4fbbded1dd452a996f9150a88d57c826768832ebea04c38311"
+    },
+    {
+      "path": "previews/02-legal-closed.png",
+      "bytes": 129142,
+      "sha256": "0af2141d8c65b8bff099efe3fb1cc46b1c8896b29161816abaf7bd4b493b1b74"
+    },
+    {
+      "path": "previews/03-theory-reading.png",
+      "bytes": 124228,
+      "sha256": "f390103dbbbbc6cb626f9582a5fa4996e8312c43794ff27cbbb95e150536bfc1"
+    },
+    {
+      "path": "previews/04-comparison.png",
+      "bytes": 244955,
+      "sha256": "38cef7b786967a4b85badcc216602f1223f1e9c0c86594363d49560470b1f07e"
+    },
+    {
+      "path": "previews/05-relations.png",
+      "bytes": 307374,
+      "sha256": "6d8b36ce084ef362a14b5fe1dfce0ca09956c84f0d6f9d16cc42eba87b0da55f"
+    },
+    {
+      "path": "previews/06-balance.png",
+      "bytes": 242283,
+      "sha256": "66b19e7705f546d6241975f13857279e3b4bfb7cd3708118cffae7849d032dd3"
+    },
+    {
+      "path": "previews/07-legal-surplus.png",
+      "bytes": 222276,
+      "sha256": "cd5eddca6ba20cd64a782bd1ca07429d20d9589f860e84fd5510c5104d444ce1"
+    },
+    {
+      "path": "previews/08-flow.png",
+      "bytes": 312563,
+      "sha256": "46596048094cde4d56b76338f116ae4ce1e4b849132b0b4febd2f9b6f74ecb2f"
+    },
+    {
+      "path": "previews/09-orbit.png",
+      "bytes": 280320,
+      "sha256": "25edfaa50681509c871917b475cc7d604cfb05b6288a332d9285eec89fdba356"
+    },
+    {
+      "path": "scripts/validate_capsule_guardrails.py",
+      "bytes": 8030,
+      "sha256": "0770d076c83d99e3dfddb25ff15d0055e76ec7223babb999c804a6b7df167c24"
+    },
+    {
+      "path": "source/Capsula-3-original.zip",
+      "bytes": 14552,
+      "sha256": "0bad6af56d011321f3ada82317733218ba099e9b32b03fa2c209175fbc7d16a4"
+    },
+    {
+      "path": "source/capsula-03-banco-preguntas.original-invalid.yaml",
+      "bytes": 8205,
+      "sha256": "5f7e0197cabc668da195a0fd319bf0b4b65f2d419408cf90b81db75b3f413c01"
+    },
+    {
+      "path": "source/capsula-03-el-modelo-cooperativo.original.yaml",
+      "bytes": 8424,
+      "sha256": "e44c45e6fbbb72585ab3e02e860e01575c830ba7ee2649fc50e9c3e5d23599f4"
+    },
+    {
+      "path": "source/roadmap-cooperativismo-basico.md",
+      "bytes": 21503,
+      "sha256": "5658f8e22ccd639551c79781de96c58672bc11cfb14a21c4ec558208ff24783a"
+    }
+  ]
+}

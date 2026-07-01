@@ -1,0 +1,94 @@
+{
+  "capsule": "El modelo cooperativo",
+  "version": "1.0.0",
+  "shellVersion": "v7",
+  "shellFork": false,
+  "sceneCount": 13,
+  "scenes": [
+    {
+      "id": "scene-01-opening",
+      "kind": "opening",
+      "title": "Apertura",
+      "tab": -1
+    },
+    {
+      "id": "scene-02-legal-model",
+      "kind": "legal",
+      "title": "Ley primero · actos cooperativos",
+      "tab": 0
+    },
+    {
+      "id": "scene-03-theory-model",
+      "kind": "theory",
+      "title": "Teoría · modelos",
+      "tab": 0
+    },
+    {
+      "id": "scene-04-comparison",
+      "kind": "comparison",
+      "title": "Comparación · dos lógicas",
+      "tab": 0
+    },
+    {
+      "id": "scene-05-theory-north",
+      "kind": "theory",
+      "title": "Teoría · marco institucional",
+      "tab": 1
+    },
+    {
+      "id": "scene-06-relations",
+      "kind": "relations",
+      "title": "Mapa · reglas y jugadores",
+      "tab": 1
+    },
+    {
+      "id": "scene-07-theory-conflict",
+      "kind": "theory",
+      "title": "Teoría · conflicto cooperativo",
+      "tab": 2
+    },
+    {
+      "id": "scene-08-balance",
+      "kind": "balance",
+      "title": "Balanza · servicio y sostenibilidad",
+      "tab": 2
+    },
+    {
+      "id": "scene-09-legal-surplus",
+      "kind": "legal",
+      "title": "Ley primero · excedentes",
+      "tab": 3
+    },
+    {
+      "id": "scene-10-theory-surplus",
+      "kind": "theory",
+      "title": "Teoría · destino del excedente",
+      "tab": 3
+    },
+    {
+      "id": "scene-11-flow",
+      "kind": "flow",
+      "title": "Proceso · ruta del excedente",
+      "tab": 3
+    },
+    {
+      "id": "scene-12-theory-close",
+      "kind": "theory",
+      "title": "Teoría · para llevarte",
+      "tab": 4
+    },
+    {
+      "id": "scene-13-orbit",
+      "kind": "orbit",
+      "title": "Síntesis · tres capas",
+      "tab": 4
+    }
+  ],
+  "contract": {
+    "legalSceneBeforeTheoryWhenApplicable": true,
+    "theoryAccordionOnly": true,
+    "visualSupportAfterTheory": true,
+    "scrollAllowed": true,
+    "motion": "moderate"
+  }
+}
