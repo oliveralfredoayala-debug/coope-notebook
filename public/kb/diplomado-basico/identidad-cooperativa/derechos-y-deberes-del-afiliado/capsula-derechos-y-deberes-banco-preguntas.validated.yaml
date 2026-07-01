@@ -1,0 +1,97 @@
+capsule_id: capsula-derechos-y-deberes-del-afiliado
+note: 'Banco no student-facing. Fuente para el constructor en vivo. No se entrega ni se muestra dentro de los tabs
+  de la cápsula. Distinto de las preguntas de reflexión incluidas dentro del tab de Deberes (esas son contenido
+  editorial abierto, no evaluación).
+
+  '
+questions:
+- id: q-01
+  section_id: tab-01-deberes-cooperativos
+  learning_objective: Identificar correctamente los deberes del Art. 75 LCH
+  difficulty: 1
+  question_type: selección múltiple
+  prompt: ¿Cuáles de los siguientes son deberes legales de un cooperativista?
+  correct_answer: Cuidar los bienes de la cooperativa, acatar el Estatuto, participar en actividades educativas
+  distractors:
+  - Aportar más capital que el resto de afiliados
+  - Aceptar cualquier decisión sin poder cuestionarla nunca
+  - Renunciar automáticamente después de 5 años de membresía
+  explanation: Los tres correctos están en el listado literal del Art. 75 LCH; los distractores no existen como
+    deberes legales.
+  source_reference: tab-01 / Art. 75 LCH
+  misconception_addressed: Inventar obligaciones que no están en la ley, o confundir "acatar resoluciones" con "no
+    poder cuestionar nunca".
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-02
+  section_id: tab-01-deberes-cooperativos
+  learning_objective: Distinguir deberes económicos de deberes participativos
+  difficulty: 2
+  question_type: clasificación
+  prompt: Clasifica cada deber como principalmente económico o principalmente participativo.
+  correct_answer: Cumplir obligaciones pecuniarias ↔ económico | Asistir a Asambleas ↔ participativo | Promover
+    el ingreso de nuevos cooperativistas ↔ participativo
+  distractors: []
+  explanation: 'Los deberes del Art. 75 LCH combinan obligaciones económicas y de participación activa, no son solo
+    pagos.
+
+    '
+  source_reference: tab-01 / Art. 75 LCH
+  misconception_addressed: Reducir los deberes del afiliado únicamente a pagar aportaciones.
+  p2l_uses:
+  - clasificación
+  - reto por equipos
+- id: q-03
+  section_id: tab-02-derechos-cooperativos
+  learning_objective: Identificar correctamente los derechos del Art. 76 LCH
+  difficulty: 1
+  question_type: verdadero o falso
+  prompt: Un afiliado tiene derecho a pedir información sobre la gestión administrativa de su cooperativa.
+  correct_answer: Verdadero
+  distractors: []
+  explanation: Está explícito en el Art. 76 LCH.
+  source_reference: tab-02 / Art. 76 LCH
+  misconception_addressed: Pensar que la información de gestión es reservada solo para directivos.
+  p2l_uses:
+  - trivia
+  - verdadero o falso
+- id: q-04
+  section_id: tab-02-derechos-cooperativos
+  learning_objective: Reconocer el derecho de participación en la administración
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: Según el Art. 76 LCH, ¿qué puede hacer un afiliado respecto a la administración de su cooperativa?
+  correct_answer: Elegir y ser electo/a para cualquier cargo.
+  distractors:
+  - Solo puede votar, nunca ser candidato.
+  - Solo puede participar si tiene estudios universitarios.
+  - Solo los fundadores pueden ocupar cargos directivos.
+  explanation: 'El derecho de participación en la administración incluye elegir y ser electo, sin las restricciones
+    mencionadas en los distractores.
+
+    '
+  source_reference: tab-02 / Art. 76 LCH
+  misconception_addressed: Pensar que el derecho a ser electo tiene restricciones que la ley no establece.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-05
+  section_id: tab-final-para-llevarte
+  learning_objective: Sintetizar la relación entre deberes y derechos
+  difficulty: 3
+  question_type: respuesta breve
+  prompt: 'Explica en una frase por qué los deberes y derechos del afiliado se describen como "dos caras de la misma
+    membresía".
+
+    '
+  correct_answer: 'Porque no existen derechos sin responsabilidades correspondientes, ni deberes sin garantías a
+    cambio; ambos son inseparables de pertenecer a una cooperativa.
+
+    '
+  distractors: []
+  explanation: Síntesis directa del cierre de la cápsula.
+  source_reference: tab-final-para-llevarte / contenido
+  misconception_addressed: Ver derechos y deberes como listas independientes sin relación entre sí.
+  p2l_uses:
+  - escenario de decisión

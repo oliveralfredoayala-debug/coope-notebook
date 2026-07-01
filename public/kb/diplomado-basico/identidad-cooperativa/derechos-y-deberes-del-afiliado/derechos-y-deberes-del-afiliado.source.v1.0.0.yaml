@@ -1,0 +1,244 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Derechos y deberes del afiliado/a
+slug: derechos-y-deberes-del-afiliado
+version: 1.0.0
+source_version: '1.0'
+status: package_ready
+shell_version: v7
+shell_fork: false
+legal_flow: contextual-pairs
+presentation_flow: one-tab-one-slide
+opening:
+  question: ¿Qué cambia cuando dejamos de actuar como clientes y asumimos nuestra condición de afiliados?
+  thought: Ser afiliado no es solo tener acceso a servicios. Es también tener responsabilidades, y saber exactamente
+    cuáles son las tuyas.
+  summary: La membresía cooperativa combina garantías y responsabilidades. Conocer ambas permite participar, exigir
+    información, cumplir acuerdos y cuidar la organización de la que se forma parte.
+legal_sources:
+  lch-art-71:
+    article: ARTICULO 71
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTICULO 71.- Son cooperativistas las personas naturales o jurídicas afiliadas a una cooperativa conforme
+      a esta Ley.
+  lch-art-75:
+    article: ARTÍCULO 75
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 75.- Los cooperativistas tendrán, respecto de sus cooperativas los deberes siguientes;
+
+      a) Cumplir sus obligaciones sociales y pecuniarias;
+
+      b) Hacer uso de los servicios de la cooperativa;
+
+      c) Aceptar y desempeñar los cargos para los que fueren electos;
+
+      ch) Acatar y cumplir las resoluciones de la Asamblea General y de la Junta Directiva; y,
+
+      d) Los demás que dispongan los Estatutos.'
+  lch-art-76:
+    article: ARTÍCULO 76
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 76.- En sus cooperativas, los cooperativistas tendrán los derechos siguientes;
+
+      a) Igualdad de derechos con respecto a los demás miembros de a organización;
+
+      b) Voz y voto en las reuniones y asambleas de cooperativista;
+
+      c) Solicitar la convocatoria de la Asamblea General conforme a los Estatutos;
+
+      ch) Estar informado de los resultados de la gestión social;
+
+      d) Impugnar conforme a la Ley, decisiones de la Asamblea General, la Junta Directiva, la Junta de Vigilancia,
+      la Gerencia o cualquier otro órgano de la Cooperativa.
+
+      e) Solicitar ante la Junta Directiva del organismo rector del cooperativismo la normalización jurídica de
+      la cooperativa;
+
+      f) Designar beneficiarios que le sucedan en sus derechos patrimoniales; y,
+
+      g) Los demás que dispongan los Estatutos.'
+tabs:
+- id: tab-00-introduccion
+  title: Introducción
+  segments:
+  - id: who-is-member
+    title: Ser cooperativista es una relación de membresía
+    legalRefs:
+    - lch-art-71
+    lead: La Ley identifica como cooperativistas a las personas naturales o jurídicas afiliadas conforme a sus disposiciones.
+    theory:
+    - title: 01 · Más que una persona usuaria
+      body: Un afiliado puede utilizar servicios, pero su vínculo no termina allí. Forma parte de una organización
+        que posee derechos, deberes, órganos de decisión y reglas compartidas.
+    - title: 02 · Dos dimensiones inseparables
+      body: Los derechos protegen la participación, la información y la igualdad. Los deberes sostienen el cumplimiento,
+        la responsabilidad y la continuidad de la cooperativa.
+    - title: 03 · La ley es el punto de partida
+      body: Los artículos 75 y 76 establecen una base común. Los Estatutos de cada cooperativa pueden desarrollar
+        deberes y derechos adicionales.
+  support:
+    kind: membership-duality
+    title: Una membresía, dos dimensiones
+    left:
+      label: Derechos
+      detail: Igualdad · voz · voto · información · impugnación · garantías patrimoniales
+    right:
+      label: Deberes
+      detail: Obligaciones · uso de servicios · cargos · acuerdos · Estatutos
+    center: MEMBRESÍA
+  callout: Ser afiliado significa poder participar y, al mismo tiempo, responder por la organización común.
+- id: tab-01-deberes-cooperativos
+  title: Deberes cooperativos
+  segments:
+  - id: legal-duties
+    title: La base legal de los deberes
+    legalRefs:
+    - lch-art-75
+    lead: 'El artículo 75 reúne cinco núcleos: obligaciones sociales y económicas, uso de servicios, desempeño de
+      cargos, cumplimiento de resoluciones y deberes definidos en los Estatutos.'
+    theory:
+    - title: 01 · Cumplir obligaciones sociales y pecuniarias
+      body: La responsabilidad no se limita a pagar. También comprende los compromisos sociales que la membresía
+        asume frente a la cooperativa.
+    - title: 02 · Hacer uso de los servicios
+      body: Una cooperativa existe para atender necesidades comunes. Utilizar sus servicios fortalece el vínculo
+        entre la organización y su membresía.
+    - title: 03 · Aceptar y desempeñar cargos
+      body: La democracia cooperativa necesita personas dispuestas a asumir responsabilidades cuando son electas,
+        no únicamente personas que votan.
+    - title: 04 · Cumplir resoluciones legítimas
+      body: La Asamblea General y la Junta Directiva producen acuerdos que permiten actuar colectivamente. Cumplirlos
+        no elimina el derecho a informarse, deliberar o impugnar cuando la Ley lo permite.
+    - title: 05 · Leer también los Estatutos
+      body: El artículo deja espacio para otros deberes establecidos en los Estatutos. Por eso la lista legal no
+        reemplaza el conocimiento de las reglas particulares de cada cooperativa.
+  support:
+    kind: duty-route
+    title: De la membresía a la responsabilidad
+    steps:
+    - label: Cumplir
+      detail: Obligaciones sociales y económicas
+    - label: Utilizar
+      detail: Servicios de la cooperativa
+    - label: Asumir
+      detail: Cargos para los que se es electo
+    - label: Colaborar
+      detail: Resoluciones y reglas comunes
+    - label: Conocer
+      detail: Estatutos y funcionamiento
+    questions:
+    - Cuando llega una convocatoria o un compromiso con la cooperativa que no es dinero, ¿respondes con la misma
+      disciplina que cuando pagas tus aportaciones?
+    - Además de los servicios financieros o comerciales, ¿qué otros servicios de tu cooperativa usas o podrías usar,
+      incluyendo los formativos?
+    - Si te eligieran para un cargo mañana, ¿sabrías explicar cómo funciona tu cooperativa más allá de sus servicios,
+      o llegarías a aprenderlo sobre la marcha?
+    - ¿Puedes recordar una decisión de tu cooperativa con la que no estuviste de acuerdo? ¿Colaborar significó para
+      ti obedecer sin cuestionar, o apoyar incluso en desacuerdo?
+  callout: 'Los deberes no son una lista para memorizar: muestran cómo una persona sostiene la cooperativa a la
+    que pertenece.'
+- id: tab-02-derechos-cooperativos
+  title: Derechos cooperativos
+  segments:
+  - id: legal-rights
+    title: La base legal de los derechos
+    legalRefs:
+    - lch-art-76
+    lead: El artículo 76 protege igualdad, participación, acceso a información, impugnación, normalización jurídica,
+      sucesión patrimonial y los derechos adicionales de los Estatutos.
+    theory:
+    - title: 01 · Igualdad, voz y voto
+      body: La membresía no se organiza según cuánto capital posee cada persona. El artículo reconoce igualdad y
+        participación en reuniones y asambleas.
+    - title: 02 · Convocar e informarse
+      body: Los afiliados pueden solicitar la convocatoria de la Asamblea conforme a los Estatutos y conocer los
+        resultados de la gestión social.
+    - title: 03 · Impugnar decisiones
+      body: Participar no significa aceptar cualquier decisión sin revisión. La Ley reconoce la posibilidad de impugnar
+        decisiones de los órganos de la cooperativa.
+    - title: 04 · Pedir normalización jurídica
+      body: El artículo contempla solicitar ante el organismo rector medidas para normalizar jurídicamente una cooperativa
+        cuando corresponda.
+    - title: 05 · Derechos patrimoniales y Estatutos
+      body: La designación de beneficiarios protege la sucesión de derechos patrimoniales. Además, los Estatutos
+        pueden reconocer otros derechos, por lo que deben consultarse.
+    - title: 06 · La expansión pedagógica del material fuente
+      body: El paquete editorial relaciona estos derechos con participar en la administración, elegir y ser electo,
+        solicitar información administrativa y recibir los beneficios que correspondan. Estas formulaciones deben
+        leerse como desarrollo pedagógico y estatutario, no como transcripción literal del artículo 76.
+  support:
+    kind: rights-map
+    title: Cinco espacios de protección
+    items:
+    - label: Igualdad
+      detail: Misma condición frente a la organización
+    - label: Participación
+      detail: Voz, voto y convocatoria
+    - label: Información
+      detail: Resultados de la gestión social
+    - label: Control
+      detail: Impugnación y normalización jurídica
+    - label: Patrimonio
+      detail: Beneficiarios y derechos estatutarios
+  callout: Los derechos convierten la membresía en participación real, no en una relación pasiva con la cooperativa.
+- id: tab-final-para-llevarte
+  title: Para llevarte
+  segments:
+  - id: membership-balance
+    title: Dos caras de la misma membresía
+    legalRefs: []
+    lead: No hay derechos efectivos sin personas que conozcan y ejerzan sus garantías. Tampoco hay cooperativa sostenible
+      sin personas que cumplan sus responsabilidades.
+    theory:
+    - title: 01 · Los derechos permiten participar
+      body: Igualdad, voz, voto, información e impugnación protegen la capacidad de la membresía para intervenir
+        en la vida cooperativa.
+    - title: 02 · Los deberes permiten sostener
+      body: Cumplir obligaciones, utilizar servicios, asumir cargos y respetar acuerdos permite que la organización
+        funcione y continúe.
+    - title: 03 · Los Estatutos completan la lectura
+      body: La Ley establece la base común. Cada cooperativa desarrolla reglas adicionales que su membresía necesita
+        conocer.
+  support:
+    kind: balance
+    title: Participar también es responder
+    left:
+      label: Derechos
+      detail: Protegen la voz y las garantías
+    right:
+      label: Deberes
+      detail: Sostienen la acción colectiva
+    center: AFILIACIÓN
+  callout: Conocer la ley es el primer paso; convertirla en participación cotidiana es el segundo.
+presentation_story:
+- id: scene-00-opening
+  kind: opening
+  tab: -1
+  title: Apertura
+- id: scene-01-introduction
+  kind: tab-slide
+  tab: 0
+  title: Introducción
+- id: scene-02-duties
+  kind: tab-slide
+  tab: 1
+  title: Deberes cooperativos
+- id: scene-03-rights
+  kind: tab-slide
+  tab: 2
+  title: Derechos cooperativos
+- id: scene-04-takeaway
+  kind: tab-slide
+  tab: 3
+  title: Para llevarte
+sources:
+- id: art-71-75-76-lch
+  title: Art. 71, 75 y 76 LCH — Cooperativistas, deberes y derechos
+  reference: Decreto 65-87
+- id: manual-elga-2021
+  title: Manual Cooperativismo Básico ELGA 2021
+  reference: Confirma el mismo listado de deberes y derechos
+- id: manual-2020
+  title: Manual de Cooperativismo Básico 2020
+  reference: Miriam Mejía, CHC

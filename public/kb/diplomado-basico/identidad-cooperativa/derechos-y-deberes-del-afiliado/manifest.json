@@ -1,0 +1,155 @@
+{
+  "name": "derechos-y-deberes-del-afiliado-v1.0.1-production",
+  "version": "1.0.1",
+  "status": "FINAL",
+  "entry": "derechos-y-deberes-del-afiliado-v1.0.1.html",
+  "preview": "derechos-y-deberes-del-afiliado-v1.0.1-preview.png",
+  "shellVersion": "v7",
+  "shellFork": false,
+  "legalFlow": "contextual-pairs",
+  "presentationFlow": "one-tab-one-slide",
+  "presentationSlides": 5,
+  "sourceVersion": "1.0",
+  "guardrailStatus": "PASS",
+  "validatorVersion": "2.2",
+  "previewMethod": "Chromium screenshots from exact final HTML",
+  "files": [
+    {
+      "path": "LEGAL-SOURCE-EXTRACT.md",
+      "bytes": 297,
+      "sha256": "71618dc13d56ef6ae9bbb2de178b20ee9a78ff48a0280d36184f28fa15f427dc"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 634,
+      "sha256": "304fa9eb855dbfe140917ac48a58872bf859382c7961be09c4aa9e7f10730f69"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 582,
+      "sha256": "c7d1a1c72e75f801742656ceb9d880c3af694dcc6300a87d08b3913122f5dda7"
+    },
+    {
+      "path": "SCROLL-RESET-CONTRACT.md",
+      "bytes": 579,
+      "sha256": "b1714dc04fda3b2ae3a60e9790bf7d7ca922049ea2277ab0665b6d5ac7c6cff3"
+    },
+    {
+      "path": "SOURCE-LEGAL-CORRECTIONS.md",
+      "bytes": 911,
+      "sha256": "c92e9d28c876f898a5424e95ed073ac3d197b1ecf7166558bacd4b1e5ef50012"
+    },
+    {
+      "path": "capsula-derechos-y-deberes-banco-preguntas.validated.yaml",
+      "bytes": 4286,
+      "sha256": "7c43fd2f3fc72e9098f29d1b9bcea4ef1e45108b93bf1ee11bd5e1a11a83764b"
+    },
+    {
+      "path": "derechos-y-deberes-del-afiliado-v1.0.1-preview.png",
+      "bytes": 216966,
+      "sha256": "1df58d82c038f4a63b3aa6274ec8cb5ac6b62715c75e8b2bd151bce3a57ecd5e"
+    },
+    {
+      "path": "derechos-y-deberes-del-afiliado-v1.0.1.html",
+      "bytes": 1665423,
+      "sha256": "2a3026bf41dde622551dba6e731d905bee71eeefaf82aec5d4687bf901e52da6"
+    },
+    {
+      "path": "derechos-y-deberes-del-afiliado.source.v1.0.0.yaml",
+      "bytes": 11278,
+      "sha256": "b7c862c99c86afd3d58a927e15a21c6f24c5b73e943428da561a7044904a1590"
+    },
+    {
+      "path": "guardrail-report.json",
+      "bytes": 1304,
+      "sha256": "1eee59a535e86d8dff65d9bcefb1f150c2d8080759513275b4e85b26ff0e9161"
+    },
+    {
+      "path": "preflight-final.log",
+      "bytes": 2374,
+      "sha256": "7a664e15015fdb6711ca260dc597b2e6a9410d1ea686ede2579682e4a6b0f443"
+    },
+    {
+      "path": "presentation-scene-map.json",
+      "bytes": 869,
+      "sha256": "5a5d1264dd6aae9b990af11ac01e665902f3d78690f19d2e4811c6a536faa039"
+    },
+    {
+      "path": "previews/01-opening.png",
+      "bytes": 335947,
+      "sha256": "2d404db4a5d36f5033975ae2dffed9b6e5b266184e0bf96adc8f2d191b6c2e7b"
+    },
+    {
+      "path": "previews/02-introduction.png",
+      "bytes": 191343,
+      "sha256": "96b0e95b37c516ec6cf931954b395f1f6ae95b7b2f14a2619756acaaa962b605"
+    },
+    {
+      "path": "previews/03-duties-top.png",
+      "bytes": 202424,
+      "sha256": "3b56cc01c35aacac2b148aed8be6a3e4ec4a88c9227be304e0d3d9753ea407ee"
+    },
+    {
+      "path": "previews/04-duties-reflection.png",
+      "bytes": 273824,
+      "sha256": "384fece2c0ae422a6b550ffbdbfc2738ff2441d7c7b0ae04761cdd9286f11aec"
+    },
+    {
+      "path": "previews/05-rights-top.png",
+      "bytes": 196529,
+      "sha256": "9fd5af056074972271863588655d922eac7926b82014a9f70ad99de1a4e82d91"
+    },
+    {
+      "path": "previews/06-rights-map.png",
+      "bytes": 242536,
+      "sha256": "f1243d6ae60022a4c0c34edb7d549cc268faee35b89438a9fe9ca7fad97199e2"
+    },
+    {
+      "path": "previews/07-takeaway.png",
+      "bytes": 195967,
+      "sha256": "5f091b82996f1505ef9c6afde6216a0f3390d1cfe3ab19eb121c516238ef7111"
+    },
+    {
+      "path": "previews/08-reading-duties.png",
+      "bytes": 117963,
+      "sha256": "be3d02224949ef9ecf7a46a405b3c24b9083cdf2c5f35e87fd83ed94f9ec1629"
+    },
+    {
+      "path": "previews-scroll-reset/01-before-next-scrolled-down.png",
+      "bytes": 228304,
+      "sha256": "dccf86c577a2c5ed0cff2a1f2839d13028fca0f90e26d025291cb847096a670c"
+    },
+    {
+      "path": "previews-scroll-reset/02-after-next-at-top.png",
+      "bytes": 196529,
+      "sha256": "9fd5af056074972271863588655d922eac7926b82014a9f70ad99de1a4e82d91"
+    },
+    {
+      "path": "scripts/validate_capsule_guardrails.py",
+      "bytes": 7018,
+      "sha256": "1ce62288f1c7b6037bc8344404c46ce5768d1ac141fff0553bad3fa7dac2b878"
+    },
+    {
+      "path": "source/banco-preguntas-original.yaml",
+      "bytes": 4418,
+      "sha256": "8e18943abf206d7cee7aa6d9074cceed3f9170069d40c755ee8c2f3ebee9e59d"
+    },
+    {
+      "path": "source/capsula-original.yaml",
+      "bytes": 5961,
+      "sha256": "b6432b8a69f247e78d9a6ba6458fcfe1481a1c7a69404d56f7ac935e1982f92d"
+    },
+    {
+      "path": "source/deberes-y-derechos-original.zip",
+      "bytes": 13199,
+      "sha256": "64494b7dcbcb7a3c973a61e6996cc03de19be5fd8b8b94a6ddc994b03a0f5c68"
+    },
+    {
+      "path": "source/roadmap-cooperativismo-basico.md",
+      "bytes": 23235,
+      "sha256": "72b3a534208e9233a878fa98feaf7cf774a2f3736c1aac5dc19a125421ffa2a2"
+    }
+  ],
+  "presentationScrollReset": "hard-reset-on-slide-change",
+  "runtimeScrollTest": "PASS"
+}

@@ -1,0 +1,130 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Derechos y deberes del afiliado/a
+version: "1.0"
+status: approved
+
+opening_thought: >
+  Ser afiliado no es solo tener acceso a servicios. Es también tener
+  responsabilidades, y saber exactamente cuáles son las tuyas.
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <p>Esta cápsula presenta los deberes y derechos del cooperativista
+        según la Ley de Cooperativas de Honduras, y propone algunas
+        preguntas para pensar qué significan esos deberes en la práctica
+        diaria de un afiliado o afiliada.</p>
+      </section>
+
+  - id: tab-01-deberes-cooperativos
+    title: Deberes cooperativos
+    order: 1
+    html: |
+      <section>
+        <p>Según el Art. 75 LCH, son deberes de los cooperativistas:</p>
+        <ul>
+          <li>Cumplir con sus obligaciones sociales y pecuniarias (económicas).</li>
+          <li>Hacer uso de los servicios de la Cooperativa.</li>
+          <li>Aceptar y desempeñar los cargos para los que fueran electos,
+          salvo cuando por motivos justificados no puedan aceptar.</li>
+          <li>Acatar y cumplir las resoluciones de la Asamblea General y de
+          la Junta Directiva.</li>
+          <li>Promover el ingreso de nuevos Cooperativistas.</li>
+          <li>Asistir o hacerse representar a todas las Asambleas que
+          celebre la cooperativa y participar en las deliberaciones.</li>
+          <li>Conocer el funcionamiento de la Cooperativa.</li>
+          <li>Cuidar todos los bienes e instalaciones de la Cooperativa.</li>
+          <li>Colaborar con los Órganos de Dirección, Administración,
+          Vigilancia.</li>
+          <li>Acatar fielmente las disposiciones contenidas en su Estatuto
+          y reglamentos de su cooperativa.</li>
+          <li>Participar en las actividades educativas.</li>
+          <li>En general actuar siempre con espíritu de servicio y
+          contribuir al progreso de la Cooperativa, en el aspecto moral,
+          social y económico.</li>
+        </ul>
+        <h3>De la norma a la práctica</h3>
+        <p>La ley enuncia estos deberes de forma general. Las siguientes
+        preguntas no tienen una respuesta correcta: son para que cada
+        afiliado o afiliada dimensione qué significan en su propia
+        experiencia.</p>
+        <p>Cuando llega una convocatoria o un compromiso con la cooperativa
+        que no es dinero, ¿respondes con la misma disciplina que cuando
+        pagas tus aportaciones?</p>
+        <p>Además de los servicios financieros o comerciales, ¿qué otros
+        servicios de tu cooperativa usas o podrías usar, incluyendo los
+        formativos?</p>
+        <p>Si te eligieran para un cargo mañana, ¿sabrías explicar cómo
+        funciona tu cooperativa más allá de sus servicios, o llegarías a
+        aprenderlo sobre la marcha?</p>
+        <p>¿Puedes recordar una decisión de tu cooperativa con la que no
+        estuviste de acuerdo? ¿Colaborar significó para ti obedecer sin
+        cuestionar, o apoyar incluso en desacuerdo?</p>
+      </section>
+
+  - id: tab-02-derechos-cooperativos
+    title: Derechos cooperativos
+    order: 2
+    html: |
+      <section>
+        <p>Según el Art. 76 LCH, son derechos de los cooperativistas:</p>
+        <ul>
+          <li>Igualdad de derechos con respecto a los demás miembros de la
+          organización.</li>
+          <li>Ejercer el derecho a voz y voto en todas las reuniones de la
+          Asamblea que celebre la Cooperativa.</li>
+          <li>Participar en las actividades, hacer uso de los servicios y
+          gozar de los beneficios equitativos que ofrece la Cooperativa.</li>
+          <li>Estar informado de la gestión social de la Cooperativa.</li>
+          <li>Designar beneficiarios que les sucedan en sus derechos
+          patrimoniales.</li>
+          <li>Renunciar a su cargo con excusa justificada.</li>
+          <li>Participar en la Administración de la Cooperativa, pudiendo
+          elegir y ser electo/a para cualquier cargo.</li>
+          <li>Pedir información sobre todos los aspectos relacionados con
+          la Gestión Administrativa de la Cooperativa.</li>
+          <li>Percibir los intereses y excedentes a que tenga derecho.</li>
+        </ul>
+      </section>
+
+  - id: tab-final-para-llevarte
+    title: Para llevarte
+    order: 99
+    html: |
+      <section>
+        <p>Los deberes y derechos del afiliado son dos caras de la misma
+        membresía: no hay derechos sin responsabilidades, ni deberes sin
+        garantías. Conocerlos por su nombre legal es el primer paso; saber
+        qué significan en la práctica diaria es el segundo.</p>
+      </section>
+
+sources:
+  - id: art-71-75-76-lch
+    title: Art. 71, 75 y 76 LCH — Cooperativistas, deberes y derechos
+    reference: Decreto 65-87
+  - id: manual-elga-2021
+    title: Manual Cooperativismo Básico ELGA 2021
+    reference: Confirma el mismo listado de deberes y derechos
+  - id: manual-2020
+    title: Manual de Cooperativismo Básico 2020
+    reference: Miriam Mejía, CHC
+
+notes_for_coordinator:
+  content_notes: >
+    Las 4 preguntas de reflexión dentro del tab de Deberes cooperativos son
+    contenido aprobado explícitamente por Oliver, fusionando 7 candidatas
+    originales en 4 (se descartó la de "promover el ingreso de nuevos
+    cooperativistas" por prescindible). No son evaluación ni formulario, son
+    texto reflexivo abierto; no requieren campo de respuesta en el Source
+    Package (eso, si se implementa, es decisión del Coordinator).
+  legal_notes: >
+    Art. 75 y 76 LCH citados de forma literal, verificados contra
+    interior_CHC_Ley_Coop.pdf y confirmados en dos manuales adicionales.
+  presentation_hints: >
+    Conviene que las preguntas de reflexión se distingan visualmente del
+    listado legal, sin sugerir un componente específico.

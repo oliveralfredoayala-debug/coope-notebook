@@ -1,0 +1,41 @@
+{
+  "capsule": "Derechos y deberes del afiliado/a",
+  "version": "1.0.1",
+  "shellVersion": "v7",
+  "legalFlow": "contextual-pairs",
+  "presentationFlow": "one-tab-one-slide",
+  "slideCount": 5,
+  "slides": [
+    {
+      "id": "scene-00-opening",
+      "kind": "opening",
+      "tab": -1,
+      "title": "Apertura"
+    },
+    {
+      "id": "scene-01-introduction",
+      "kind": "tab-slide",
+      "tab": 0,
+      "title": "Introducción"
+    },
+    {
+      "id": "scene-02-duties",
+      "kind": "tab-slide",
+      "tab": 1,
+      "title": "Deberes cooperativos"
+    },
+    {
+      "id": "scene-03-rights",
+      "kind": "tab-slide",
+      "tab": 2,
+      "title": "Derechos cooperativos"
+    },
+    {
+      "id": "scene-04-takeaway",
+      "kind": "tab-slide",
+      "tab": 3,
+      "title": "Para llevarte"
+    }
+  ],
+  "scrollReset": "hard-reset-on-slide-change"
+}
