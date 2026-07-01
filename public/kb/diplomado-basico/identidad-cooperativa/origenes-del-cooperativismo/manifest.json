@@ -1,0 +1,167 @@
+{
+  "name": "origenes-del-cooperativismo-v2.1.0-production",
+  "version": "2.1.0",
+  "uuid": "aa55369c-27ee-4f7b-8bba-8e10e0d3c998",
+  "topic_uuid": "1ddfa938-2c41-4b93-9d3a-90381045e2e9",
+  "entry": "origenes-del-cooperativismo-v2.1.0.html",
+  "preview": "origenes-del-cooperativismo-v2.1.0-preview.png",
+  "source_yaml": "origenes-del-cooperativismo.source.v2.0.0.yaml",
+  "files": [
+    {
+      "path": "PRESENTATION-SCENE-MAP.md",
+      "bytes": 997,
+      "sha256": "60ff5aafd2ecd3662356a4199c5c375b8ffe1945b7fce60daf799d3ad5fa8c49"
+    },
+    {
+      "path": "PREVIEW-HISTORY.png",
+      "bytes": 58448,
+      "sha256": "6af1214e2b217d29e7773a53fdcfe31628e750081d45e34ffb6512b8f1094845"
+    },
+    {
+      "path": "PREVIEW-HONDURAS-LEGAL-CLOSED.png",
+      "bytes": 62578,
+      "sha256": "dc2de5096fe1b65c5be50c913f81b74aa7f29767dfc6cc855d0e562053c034cb"
+    },
+    {
+      "path": "PREVIEW-OPENING.png",
+      "bytes": 52494,
+      "sha256": "6e960f907bb668cadafc150e1b518fd21b0934ae9d19128f78eddc163c973b44"
+    },
+    {
+      "path": "PREVIEW-PRESENTATION-SYNCED.png",
+      "bytes": 42823,
+      "sha256": "0405cae6bfd2883f4980fc83f8ffbe6749e607276fc11fbbc3cf9ccd966f77ab"
+    },
+    {
+      "path": "PREVIEW-PRESENTATION.png",
+      "bytes": 55909,
+      "sha256": "3a3c46b2c48bc9e5ee12bf4040278b93f236e8541b7a4875fb752b866fac8268"
+    },
+    {
+      "path": "PREVIEW-READING-OPENING.png",
+      "bytes": 52265,
+      "sha256": "a83f6f54bdd4ea8e044b391ac4d27f63f3c01f4f1bf342bcec23c041ed498548"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 585,
+      "sha256": "ac01a48982e1f31919285122c7b772a3eeba9b4936d39937005d430d96e4bdb0"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 568,
+      "sha256": "cb8b2c81cea1d957762e1e93c5332c6d1d5927269ef7c3bd08b55aac3f36d858"
+    },
+    {
+      "path": "RULES-APPLIED.md",
+      "bytes": 660,
+      "sha256": "2502f61ffc0dd5086806eb0bdfcfe837489355167e81a64ac7225dfe933e4c00"
+    },
+    {
+      "path": "_preview-PRESENTATION-SYNCED.html",
+      "bytes": 17870,
+      "sha256": "56603561a15ebf0117b114963326f42bcf7f8f947204a23348683934fbf2e7e0"
+    },
+    {
+      "path": "_preview-PRESENTATION-SYNCED.pdf",
+      "bytes": 69086,
+      "sha256": "024244ad9f49690c26a61ff0074f5bbe6aac820a057ae9e9f2c563db6cb420e2"
+    },
+    {
+      "path": "_preview-READING-OPENING.html",
+      "bytes": 1603639,
+      "sha256": "f0599043aa455e769202fd1b0319d766924a04a108050fb4f3ff150e27c9a1a3"
+    },
+    {
+      "path": "_preview-READING-OPENING.pdf",
+      "bytes": 934881,
+      "sha256": "4f21492d9128b5234a2b877e2fb1441fb5adb70efd2550e0edbe987288845021"
+    },
+    {
+      "path": "_preview-history.html",
+      "bytes": 14464,
+      "sha256": "bf3cf1114c74485cfff0d8fc084a2f28ec8e204b7f433fdc0c49bf67ca17949a"
+    },
+    {
+      "path": "_preview-history.pdf",
+      "bytes": 69762,
+      "sha256": "11201f7f89d21195ba821f73d2ca13ca8b26433cf1d799fd64293b2ba659b6e0"
+    },
+    {
+      "path": "_preview-honduras-legal-closed.html",
+      "bytes": 14830,
+      "sha256": "6de3721c037abb79963890a7660e0236fda159ddf4df0cc58ab0e4c4ca1bc4a4"
+    },
+    {
+      "path": "_preview-honduras-legal-closed.pdf",
+      "bytes": 56025,
+      "sha256": "558daea8edb97c592dfe4ee28fe09bda93668ff0c1e04bfff358b34ed7fab9c4"
+    },
+    {
+      "path": "_preview-opening.html",
+      "bytes": 1600292,
+      "sha256": "e8fced7d706d3a2af4c7f38a07b9b0e4332e38bb81f5e42ddd0c79f991e85555"
+    },
+    {
+      "path": "_preview-opening.pdf",
+      "bytes": 934845,
+      "sha256": "7e9884fcdb6d55c33076dade93366e1f24ef29be463cb1715afdda4caff91011"
+    },
+    {
+      "path": "_preview-presentation.html",
+      "bytes": 13706,
+      "sha256": "85a7414a92717e3c607cebf86f8017e9c68e04c779494587b6ea8d9939b46a1d"
+    },
+    {
+      "path": "_preview-presentation.pdf",
+      "bytes": 66625,
+      "sha256": "89411c1da9c141a5e792acebfb806e36f5d37f8b8d8031e11ec844ccec8fea8c"
+    },
+    {
+      "path": "assets/jester-creativo.png",
+      "bytes": 1190131,
+      "sha256": "26fd9d13e794133474416374f3e4b6054efc91ccf9c8b56dbec117bf9479ba44"
+    },
+    {
+      "path": "origenes-del-cooperativismo-v2.0.0-preview.png",
+      "bytes": 224619,
+      "sha256": "efd0ced403d522466ab8519725d63e0651cc809fc992690883102214083ae9c9"
+    },
+    {
+      "path": "origenes-del-cooperativismo-v2.1.0-preview.png",
+      "bytes": 206018,
+      "sha256": "7cfaed4dd42b912d47d8f28536b92559b9f3c8f452f49b59a0e9bafe94bce7bd"
+    },
+    {
+      "path": "origenes-del-cooperativismo-v2.1.0.html",
+      "bytes": 1639417,
+      "sha256": "ae1ea596c6f115ade656d8cfedda5f8b271fe44aab19c85ba555f5bfa0ecc27a"
+    },
+    {
+      "path": "origenes-del-cooperativismo.source.v2.1.0.yaml",
+      "bytes": 8330,
+      "sha256": "72cca96bd6ede76f847c570fbaad0c46c2d479b9b1b9f1acf1e1a1d0b578cddf"
+    },
+    {
+      "path": "source/QA-ORIGINAL.md",
+      "bytes": 711,
+      "sha256": "8e3173f06aea2bf4263534d78a08de951e10bdcd47e3ed5ccd0e215c7dfd4683"
+    },
+    {
+      "path": "source/README-ORIGINAL.md",
+      "bytes": 668,
+      "sha256": "1d1697ac80aa1f8c6d50126367c6d892c65f2219a9074f8f0c898e2a98306084"
+    },
+    {
+      "path": "source/capsula-01-origenes-del-cooperativismo.v1.0-recibido.yaml",
+      "bytes": 5975,
+      "sha256": "8be2cc366131b9edd7188a10f268a49edaac467b14bf287f03f691f9598ec14c"
+    },
+    {
+      "path": "source/origenes-del-cooperativismo.source.v1.2.1.yaml",
+      "bytes": 8332,
+      "sha256": "6128275e3bd61aaa274222b79c191674902b7d4c7118f11eb71b31b564ac7561"
+    }
+  ],
+  "presentationScenes": 12
+}

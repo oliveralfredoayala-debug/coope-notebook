@@ -1,0 +1,118 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Orígenes del cooperativismo
+version: "1.0"
+status: approved
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <div class="jester-piensa">
+          <p>¿Cuándo empezamos a cooperar? Mucho antes de que existiera la palabra
+          "cooperativa", ya resolvíamos juntos lo que no podíamos resolver solos.</p>
+        </div>
+        <p>Cooperar es un acto humano básico, no una invención moderna. Desde las
+        primeras formas de organización social, las personas se unieron para cazar,
+        recolectar y repartir lo obtenido, porque el trabajo conjunto rendía más que
+        el esfuerzo individual.</p>
+        <p>Esta cápsula recorre ese camino: de la cooperación como acto espontáneo,
+        a un movimiento internacional organizado, hasta su llegada y consolidación
+        en Honduras.</p>
+      </section>
+
+  - id: tab-01-cooperar-antes
+    title: Cooperar antes del cooperativismo
+    order: 1
+    html: |
+      <section>
+        <p>Cooperar es un acto humano básico, no una invención moderna. Desde las
+        primeras formas de organización social, las personas se unieron para cazar,
+        recolectar y repartir lo obtenido, porque el trabajo conjunto rendía más que
+        el esfuerzo individual. Esa necesidad de unirse frente a un reto común es el
+        origen de toda forma de cooperación, mucho antes de que existiera una ley,
+        un estatuto o una asamblea.</p>
+        <p>El cooperativismo, como movimiento organizado, es solo una de las formas
+        que tomó esa necesidad. Pero la cooperación en sí (apoyarse mutuamente para
+        lograr algo que en soledad sería más difícil o imposible) es anterior, más
+        amplia y más universal que cualquier estructura formal.</p>
+      </section>
+
+  - id: tab-02-historia-evolucion
+    title: Historia y evolución
+    order: 2
+    html: |
+      <section>
+        <p>La cooperación empezó a tomar forma de movimiento organizado en
+        Inglaterra, durante la Revolución Industrial.</p>
+        <p>Robert Owen, considerado el padre del cooperativismo, fue de los primeros
+        en proponer que los trabajadores podían organizarse en comunidades de
+        propiedad y beneficio compartido, como alternativa a las condiciones de
+        explotación de las fábricas de su época.</p>
+        <p>Esa idea se materializó el 21 de diciembre de 1844, cuando un grupo de 27
+        hombres y una mujer, tejedores en su mayoría, fundaron en Rochdale,
+        Inglaterra, la Sociedad Equitativa de los Pioneros de Rochdale. Establecieron
+        reglas claras de funcionamiento (compra conjunta, reparto de excedentes
+        según el consumo, control democrático) que se convirtieron en la base de
+        los principios cooperativos que conocemos hoy.</p>
+      </section>
+
+  - id: tab-03-honduras
+    title: El cooperativismo en Honduras
+    order: 3
+    html: |
+      <section>
+        <p>El cooperativismo llegó a Honduras de forma gradual, con hitos que fueron
+        construyendo el camino hacia la ley que rige hoy al sector:</p>
+        <ul>
+          <li><strong>1876</strong> — En Marcala, La Paz, surge la Sociedad de
+          Ladinos y el Fondo Indígena, el antecedente más antiguo de cooperativismo
+          organizado en el país.</li>
+          <li><strong>1923-24</strong> — La Constitución de la República incorpora
+          por primera vez el precepto de que es función del Estado promover la
+          asociación cooperativa.</li>
+          <li><strong>1930</strong> — En Santa Rosa de Copán surge la Sociedad
+          Copaneca de Obreros ("El Obrero"), una de las primeras manifestaciones
+          cooperativas formales del país.</li>
+          <li><strong>1936</strong> — Se aprueba la Ley de Sociedades Cooperativas
+          para venta de mercaderías a plazo.</li>
+          <li><strong>1940-1949</strong> — El Código de Comercio incorpora y luego
+          mejora la regulación de las sociedades cooperativistas.</li>
+          <li><strong>1951</strong> — El Dr. Jorge St. Siegens, economista rumano
+          recomendado por UNESCO, llega a Honduras para organizar la Facultad de
+          Ciencias Económicas de la UNAH. La dirige, la dicta como catedrático, e
+          introduce el cooperativismo como materia. Es la figura a la que se le
+          atribuye el mayor impulso individual al nacimiento del cooperativismo
+          hondureño.</li>
+          <li><strong>1952</strong> — Por iniciativa del propio St. Siegens, el
+          Banco Nacional de Fomento (hoy BANADESA) crea su Sección de
+          Cooperativas.</li>
+          <li><strong>1954</strong> — El Congreso Nacional aprueba la primera Ley
+          de Asociaciones Cooperativas de Honduras.</li>
+          <li><strong>1971</strong> — Nace la Confederación Hondureña de
+          Cooperativas (CHC).</li>
+          <li><strong>1987</strong> — Se aprueba el Decreto 65-87, la Ley de
+          Cooperativas de Honduras que rige al sector hasta hoy.</li>
+        </ul>
+      </section>
+
+  - id: tab-04-para-llevarte
+    title: Para llevarte
+    order: 4
+    html: |
+      <section>
+        <p>La cooperación es anterior al cooperativismo: la practicamos antes de
+        tener un nombre para ella. Lo que cambió con el tiempo fue la forma, de un
+        acto espontáneo a un movimiento con principios, reglas y, eventualmente, una
+        ley. En Honduras, ese camino tomó más de un siglo, desde Marcala en 1876
+        hasta el marco legal vigente desde 1987.</p>
+      </section>
+
+notes_for_coordinator: >
+  Tab 00 incluye un bloque "Jester piensa" (thought bubble) marcado con
+  class="jester-piensa" — tratar como componente visual distintivo, no como prosa
+  regular. El resto del contenido es texto plano semántico, sin estructura visual
+  asumida por Claude.

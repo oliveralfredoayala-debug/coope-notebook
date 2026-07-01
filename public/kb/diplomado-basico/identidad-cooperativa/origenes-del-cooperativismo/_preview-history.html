@@ -1,0 +1,481 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+:root{
+  --bg:#f6f8f6;
+  --surface:#fff;
+  --surface-soft:#f4f7f5;
+  --line:#dfe7e2;
+  --ink:#153126;
+  --muted:#607069;
+  --green:#2f7d52;
+  --green-dark:#214d39;
+  --green-soft:#eaf2ed;
+  --amber:#ef9f24;
+  --amber-soft:#f8ebd6;
+  --lilac:#72549a;
+  --lilac-bg:#f8f3fc;
+  --lilac-bg-2:#eee4f7;
+  --lilac-line:#d8c7e8;
+  --lilac-text:#553b79;
+  --shadow:0 14px 40px rgba(22,49,38,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--bg);
+  font:16px/1.55 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:60;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+  background:rgba(250,251,250,.94);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+}
+.brand{font-size:20px;font-weight:850;letter-spacing:-.02em}
+.brand span{color:var(--amber)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.top-button{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:9px 13px;
+  background:#fff;
+  color:var(--ink);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:750;
+}
+.shell{
+  display:grid;
+  grid-template-columns:260px minmax(0,1fr);
+  max-width:1500px;
+  margin:0 auto;
+  min-height:calc(100vh - 64px);
+  background:#fff;
+  border-left:1px solid var(--line);
+  border-right:1px solid var(--line);
+}
+.sidebar{
+  position:sticky;top:64px;
+  height:calc(100vh - 64px);
+  overflow:auto;
+  padding:26px 18px;
+  border-right:1px solid var(--line);
+  background:#fafbfa;
+}
+.side-kicker{
+  color:#7d8983;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.side-title{
+  margin-bottom:16px;
+  color:var(--ink);
+  font-size:15px;
+  font-weight:850;
+}
+.nav-button{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 7px;
+  padding:12px 13px;
+  border:0;
+  border-radius:12px;
+  background:transparent;
+  color:#52615b;
+  text-align:left;
+  cursor:pointer;
+}
+.nav-button:hover{background:#eef3f0}
+.nav-button.active{
+  color:var(--ink);
+  font-weight:800;
+  background:#e7eeea;
+  box-shadow:inset 3px 0 var(--amber);
+}
+.nav-num{
+  min-width:24px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.main{
+  min-width:0;
+  padding:34px 40px 80px;
+}
+.stage{
+  max-width:1120px;
+  margin:0 auto;
+}
+.screen{
+  animation:screen-in .28s ease both;
+}
+@keyframes screen-in{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+.cap-head{margin-bottom:22px}
+.eyebrow{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.cap-title{
+  margin-top:6px;
+  font-size:clamp(32px,4vw,48px);
+  line-height:1.04;
+  letter-spacing:-.035em;
+  font-weight:780;
+}
+.intro-copy{
+  max-width:900px;
+  margin:0 0 20px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.65;
+}
+.label-row{
+  display:flex;align-items:center;gap:10px;
+  margin:6px 0 10px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.label-row::before{content:"";width:34px;height:2px;background:var(--green)}
+.label-row.legal-label::before{background:var(--lilac)}
+
+/* Opening */
+.opening{
+  display:grid;
+  grid-template-columns:minmax(320px,.92fr) minmax(420px,1.08fr);
+  gap:34px;
+  align-items:center;
+  min-height:520px;
+  padding:34px 34px 28px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#fff;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.opening-copy{align-self:start;padding:18px 8px 0}
+.opening-kicker{
+  display:flex;align-items:center;gap:10px;
+  color:var(--green);
+  font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+}
+.opening-kicker::before{content:"";width:34px;height:2px;background:var(--amber)}
+.opening h1{
+  margin:18px 0 0;
+  max-width:420px;
+  color:var(--ink);
+  font-size:clamp(34px,3.7vw,60px);
+  line-height:.99;
+  letter-spacing:-.048em;
+  font-weight:760;
+  text-wrap:balance;
+}
+.opening-summary{
+  max-width:455px;
+  margin-top:18px;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.58;
+}
+.opening-stage{position:relative;min-height:430px}
+.opening-ground{
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:66%;
+  height:92px;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse at center,rgba(209,220,198,.72) 0 25%,rgba(229,235,221,.55) 25% 51%,rgba(255,255,255,0) 67%);
+}
+.opening-jester{
+  position:absolute;
+  right:0;
+  bottom:16px;
+  width:min(60%,400px);
+  max-height:395px;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 24px rgba(32,50,38,.13));
+}
+.thought{
+  position:absolute;
+  left:0;
+  top:42px;
+  width:min(48%,290px);
+  z-index:3;
+  padding:20px 22px;
+  border:1.5px solid #d9e2d3;
+  border-radius:26px;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 14px 30px rgba(30,56,42,.06);
+}
+.thought::after{
+  content:"";
+  position:absolute;
+  right:-10px;
+  bottom:56px;
+  width:22px;height:22px;
+  border-right:1.5px solid #d9e2d3;
+  border-bottom:1.5px solid #d9e2d3;
+  background:#fff;
+  transform:rotate(-20deg) skewX(-14deg);
+}
+.thought-label{
+  color:var(--green);
+  font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+}
+.thought-text{
+  margin-top:8px;
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.55;
+  font-weight:640;
+}
+.tail{position:absolute;border-radius:50%;background:#fff;border:1.5px solid #d9e2d3;z-index:2}
+.tail.t1{width:18px;height:18px;left:44%;top:150px}
+.tail.t2{width:14px;height:14px;left:49%;top:180px}
+.tail.t3{width:10px;height:10px;left:53%;top:208px}
+
+/* Legal */
+.legal-wrap{margin:0 0 26px}
+.legal{
+  overflow:hidden;
+  border:1px solid var(--lilac-line);
+  border-radius:16px;
+  background:var(--lilac-bg);
+}
+.legal-head{
+  display:flex;align-items:center;gap:12px;
+  padding:15px 16px;
+  background:var(--lilac-bg-2);
+}
+.legal-seal{
+  width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;
+  color:#fff;background:var(--lilac);font-weight:900;
+}
+.legal-meta{min-width:0}
+.legal-art{color:var(--lilac-text);font-size:14px;font-weight:900}
+.legal-source{color:#756880;font-size:12px}
+.legal-toggle{
+  margin-left:auto;
+  padding:8px 11px;
+  border:1px solid var(--lilac);
+  border-radius:10px;
+  background:#fff;
+  color:var(--lilac-text);
+  cursor:pointer;
+  font-size:12px;font-weight:850;
+}
+.legal-toggle .chev{display:inline-block;margin-left:5px;transition:transform .2s}
+.legal.open .legal-toggle .chev{transform:rotate(90deg)}
+.legal-body{
+  max-height:0;
+  overflow:hidden;
+  padding:0 17px;
+  color:#302a35;
+  white-space:pre-line;
+  line-height:1.65;
+  transition:max-height .25s ease,padding .25s ease;
+}
+.legal.open .legal-body{max-height:4000px;padding:17px}
+.verbatim{
+  display:inline-flex;
+  margin-bottom:10px;
+  padding:5px 8px;
+  border:1px solid var(--lilac-line);
+  border-radius:999px;
+  background:#e9ddf3;
+  color:var(--lilac-text);
+  font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+}
+.legal-foot{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--lilac-line);
+  color:#756880;font-size:12px;
+}
+
+/* Theory accordions */
+.accordion{display:grid;gap:12px}
+.acc-item{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#fff;
+}
+.acc-q{
+  width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;
+  padding:17px 18px;
+  border:0;
+  background:#fff;
+  color:var(--ink);
+  text-align:left;
+  cursor:pointer;
+  font-weight:800;
+}
+.acc-q:hover{background:var(--surface-soft)}
+.acc-q .chev{color:var(--green);font-size:22px;transition:transform .2s}
+.acc-item.open .acc-q .chev{transform:rotate(90deg)}
+.acc-a{
+  max-height:0;
+  overflow:hidden;
+  padding:0 18px;
+  color:var(--muted);
+  line-height:1.66;
+  transition:max-height .25s ease,padding .25s ease;
+}
+.acc-item.open .acc-a{max-height:900px;padding:0 18px 18px}
+.highlight{
+  margin-top:20px;
+  padding:17px 19px;
+  border:1px solid #ecd7b5;
+  border-radius:16px;
+  background:var(--amber-soft);
+  color:#665234;
+  font-weight:700;
+}
+
+/* Question bank */
+.bank-placeholder{
+  padding:28px;
+  border:1px dashed #cfd9d3;
+  border-radius:20px;
+  background:#fafcfa;
+  color:var(--muted);
+}
+
+/* Presentation */
+body.present{background:#fbfcfa}
+body.present .topbar{position:fixed;left:0;right:0;top:0}
+body.present .shell{display:block;max-width:none;border:0;margin-top:64px}
+body.present .sidebar{display:none}
+body.present .main{padding:28px 46px 96px}
+body.present .stage{max-width:1280px}
+body.present .screen{
+  min-height:calc(100vh - 188px);
+  padding:30px 36px 42px;
+  border:1px solid #e7ece9;
+  border-radius:28px;
+  background:#fff;
+  box-shadow:0 18px 50px rgba(22,49,38,.05);
+}
+body.present .cap-title{font-size:clamp(42px,5vw,72px)}
+body.present .intro-copy{font-size:clamp(18px,1.7vw,24px);max-width:1050px}
+body.present .acc-q{font-size:clamp(18px,1.55vw,24px);padding:20px 22px}
+body.present .acc-a{font-size:clamp(16px,1.25vw,20px)}
+body.present .opening{
+  min-height:calc(100vh - 188px);
+  box-shadow:none;
+}
+body.present .opening h1{font-size:clamp(44px,4.5vw,72px);max-width:520px}
+body.present .opening-stage{min-height:520px}
+body.present .opening-jester{width:min(64%,470px);max-height:470px}
+body.present .thought{width:min(47%,330px)}
+.presentation-bar{
+  display:none;
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:70;
+  height:68px;
+  align-items:center;justify-content:center;gap:16px;
+  border-top:1px solid var(--line);
+  background:rgba(250,251,250,.95);
+  backdrop-filter:blur(12px);
+}
+body.present .presentation-bar{display:flex}
+.p-arrow{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-size:20px;
+}
+.dots{display:flex;align-items:center;gap:7px}
+.dot{width:28px;height:5px;border-radius:99px;background:#dbe3de}
+.dot.on{width:48px;background:var(--amber)}
+
+@media(max-width:980px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .opening{grid-template-columns:1fr;gap:8px;padding:28px 26px 22px}
+  .opening h1{max-width:620px;font-size:clamp(36px,7vw,58px)}
+  .opening-stage{min-height:460px}
+  .thought{width:min(56%,330px);top:8px}
+  .opening-jester{width:min(62%,380px);max-height:360px}
+}
+@media(max-width:680px){
+  .topbar{padding:0 16px}
+  .main{padding:22px 16px 72px}
+  .opening{padding:22px 18px 18px}
+  .opening h1{font-size:34px}
+  .opening-stage{min-height:480px}
+  .thought{position:relative;left:auto;top:auto;width:100%;max-width:none;margin-bottom:12px}
+  .thought::after,.tail{display:none}
+  .opening-jester{right:50%;transform:translateX(50%);width:min(84%,330px);bottom:18px}
+  .opening-ground{right:50%;transform:translateX(50%);width:86%;height:82px}
+  body.present .main{padding:18px 14px 90px}
+  body.present .screen{padding:22px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+@page{size:1440px 920px;margin:0}
+html,body{width:1440px;height:920px;overflow:hidden;background:#f6f8f6}
+.preview-page{width:1440px;height:920px;padding:24px}
+.preview-layout{display:grid;grid-template-columns:235px 1fr;height:872px;background:#fff;border:1px solid #dfe7e2}
+.preview-sidebar{padding:26px 16px;border-right:1px solid #dfe7e2;background:#fafbfa}
+.preview-nav{padding:11px 12px;margin-bottom:6px;border-radius:11px;color:#52615b}
+.preview-nav.on{background:#e7eeea;border-left:3px solid #ef9f24;color:#153126;font-weight:800}
+.preview-main{padding:30px 38px;overflow:hidden}
+</style></head>
+    <body><div class="preview-page">
+<div class="preview-layout">
+  <aside class="preview-sidebar">
+    <div class="side-kicker">DIPLOMADO BÁSICO · IDENTIDAD COOPERATIVA</div>
+    <div class="side-title">Orígenes del cooperativismo</div>
+    <div class="preview-nav">00 · Apertura</div><div class="preview-nav">01 · Cooperar antes del cooperativismo</div><div class="preview-nav on">02 · Historia y evolución</div><div class="preview-nav">03 · El cooperativismo en Honduras</div><div class="preview-nav">04 · Para llevarte</div><div class="preview-nav">05 · Banco de preguntas</div>
+  </aside>
+  <main class="preview-main">
+    <section class="screen">
+      <div class="cap-head">
+        <div class="eyebrow">DIPLOMADO BÁSICO · IDENTIDAD COOPERATIVA</div>
+        <div class="cap-title">Historia y evolución</div>
+      </div>
+      <div class="label-row">Lectura teórica</div>
+      <p class="intro-copy">Durante la Revolución Industrial, la cooperación comenzó a adquirir reglas, estructuras y formas de organización reconocibles como movimiento cooperativo.</p>
+      <div class="accordion"><div class="acc-item open">
+      <button class="acc-q"><span>01 · Revolución Industrial · Inglaterra</span><span class="chev">›</span></button>
+      <div class="acc-a">La cooperación empezó a tomar forma de movimiento organizado en un contexto de profundas transformaciones laborales y sociales.</div>
+    </div><div class="acc-item">
+      <button class="acc-q"><span>02 · Robert Owen</span><span class="chev">›</span></button>
+      <div class="acc-a">Considerado el padre del cooperativismo, propuso comunidades en las que los trabajadores compartieran propiedad y beneficios como alternativa a las condiciones de explotación fabril.</div>
+    </div><div class="acc-item">
+      <button class="acc-q"><span>03 · 21 de diciembre de 1844 · Rochdale</span><span class="chev">›</span></button>
+      <div class="acc-a">Veintisiete hombres y una mujer, tejedores en su mayoría, fundaron en Rochdale, Inglaterra, la Sociedad Equitativa de los Pioneros de Rochdale.</div>
+    </div><div class="acc-item">
+      <button class="acc-q"><span>04 · Reglas que se volvieron referencia</span><span class="chev">›</span></button>
+      <div class="acc-a">La compra conjunta, el reparto de excedentes según el consumo y el control democrático ayudaron a establecer la base de los principios cooperativos modernos.</div>
+    </div></div>
+      <div class="highlight">Rochdale convirtió una necesidad compartida en reglas claras de organización democrática.</div>
+    </section>
+  </main>
+</div>
+</div></body></html>

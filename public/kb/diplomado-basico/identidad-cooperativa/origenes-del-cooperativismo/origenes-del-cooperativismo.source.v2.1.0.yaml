@@ -1,0 +1,156 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Orígenes del cooperativismo
+slug: origenes-del-cooperativismo
+uuid: aa55369c-27ee-4f7b-8bba-8e10e0d3c998
+topic_uuid: 1ddfa938-2c41-4b93-9d3a-90381045e2e9
+version: 2.1.0
+source_version: 1.2.1
+shell_version: v6
+status: review
+content_status: approved
+visual_status: formatted-for-review
+apertura:
+  pregunta_central: ¿Cuándo empezamos a cooperar?
+  jester: Mucho antes de que existiera la palabra "cooperativa", ya resolvíamos juntos lo que no podíamos resolver
+    solos.
+  texto_resumen: La cooperación comenzó mucho antes que las leyes y las instituciones. Esta cápsula recorre el paso
+    desde la ayuda mutua espontánea hasta el movimiento cooperativo y su desarrollo en Honduras.
+legal_sources:
+  ley-art-1:
+    article: ARTÍCULO 1
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87, con reformas
+    mode: verbatim
+    text: ARTÍCULO 1.- Declárese de necesidad nacional y de interés público, la promoción y la protección del cooperativismo,
+      como un sistema eficaz para el desarrollo económico y social de la nación, respeto de la dignidad humana,
+      propiciar la apertura de espacios de participación para la juventud y las mujeres en igualdad de oportunidades,
+      fortalecimiento de la democracia, realización de la justicia social, defensa de los valores, derechos humanos
+      y protección del ambiente.
+tabs:
+- id: tab-01-cooperar-antes
+  title: Cooperar antes del cooperativismo
+  order: 1
+  texto: Cooperar es un acto humano básico, no una invención moderna. La lectura teórica se organiza en acordeones
+    para distinguir la necesidad, la acción conjunta y el paso hacia una estructura formal.
+  acordeon:
+  - - 01 · Necesidad compartida
+    - La cooperación aparece cuando un reto común resulta más difícil de resolver de manera individual. Desde las
+      primeras formas de organización social, las personas se unieron para cazar, recolectar y repartir lo obtenido.
+  - - 02 · Trabajo conjunto
+    - Actuar en grupo permitió mejorar los resultados y sostener a la comunidad. La cooperación surgió como una
+      respuesta práctica a problemas que superaban la capacidad de una sola persona.
+  - - 03 · Antes de la formalidad
+    - La cooperación existió antes que las leyes, los estatutos y las asambleas. El cooperativismo organizado es
+      una forma histórica de esa necesidad humana más amplia de apoyarse mutuamente.
+  legal_refs: []
+  highlight: La cooperación es anterior, más amplia y más universal que cualquier estructura formal.
+- id: tab-02-historia-evolucion
+  title: Historia y evolución
+  order: 2
+  texto: Durante la Revolución Industrial, la cooperación comenzó a adquirir reglas, estructuras y formas de organización
+    reconocibles como movimiento cooperativo.
+  acordeon:
+  - - 01 · Revolución Industrial · Inglaterra
+    - La cooperación empezó a tomar forma de movimiento organizado en un contexto de profundas transformaciones
+      laborales y sociales.
+  - - 02 · Robert Owen
+    - Considerado el padre del cooperativismo, propuso comunidades en las que los trabajadores compartieran propiedad
+      y beneficios como alternativa a las condiciones de explotación fabril.
+  - - 03 · 21 de diciembre de 1844 · Rochdale
+    - Veintisiete hombres y una mujer, tejedores en su mayoría, fundaron en Rochdale, Inglaterra, la Sociedad Equitativa
+      de los Pioneros de Rochdale.
+  - - 04 · Reglas que se volvieron referencia
+    - La compra conjunta, el reparto de excedentes según el consumo y el control democrático ayudaron a establecer
+      la base de los principios cooperativos modernos.
+  legal_refs: []
+  highlight: Rochdale convirtió una necesidad compartida en reglas claras de organización democrática.
+- id: tab-03-honduras
+  title: El cooperativismo en Honduras
+  order: 3
+  texto: El desarrollo hondureño combinó iniciativas sociales, reconocimiento estatal, regulación, formación académica,
+    creación institucional e integración nacional.
+  acordeon:
+  - - 01 · 1876 · Marcala, La Paz
+    - Surgen la Sociedad de Ladinos y el Fondo Indígena, presentados en la fuente como el antecedente más antiguo
+      del cooperativismo organizado en Honduras.
+  - - 02 · 1923–1924 · Reconocimiento constitucional
+    - La Constitución de la República incorpora por primera vez el precepto de que corresponde al Estado promover
+      la asociación cooperativa.
+  - - 03 · 1930 · Santa Rosa de Copán
+    - Surge la Sociedad Copaneca de Obreros, conocida como «El Obrero», una de las primeras manifestaciones cooperativas
+      formales del país.
+  - - 04 · 1936 · Primera regulación específica
+    - Se aprueba la Ley de Sociedades Cooperativas para la venta de mercaderías a plazo.
+  - - 05 · 1940–1949 · Código de Comercio
+    - El Código de Comercio incorpora y posteriormente mejora la regulación de las sociedades cooperativistas.
+  - - 06 · 1951 · Formación universitaria
+    - El Dr. Jorge St. Siegens llega a Honduras para organizar la Facultad de Ciencias Económicas de la UNAH, introduce
+      el cooperativismo como materia y recibe en la fuente un papel central en su impulso nacional.
+  - - 07 · 1952 · Sección de Cooperativas
+    - Por iniciativa atribuida a St. Siegens, el Banco Nacional de Fomento —hoy BANADESA— crea su Sección de Cooperativas.
+  - - 08 · 1954 · Primera ley de asociaciones
+    - El Congreso Nacional aprueba la primera Ley de Asociaciones Cooperativas de Honduras.
+  - - 09 · 1971 · Integración nacional
+    - Nace la Confederación Hondureña de Cooperativas (CHC).
+  - - 10 · 1987 · Decreto 65-87
+    - Se aprueba la Ley de Cooperativas de Honduras. El documento legal suministrado, con reformas posteriores,
+      la presenta como la ley base del sector.
+  legal_refs:
+  - ley-art-1
+  highlight: 'El desarrollo hondureño fue gradual: antecedente social, reconocimiento estatal, formación, integración
+    y ley.'
+- id: tab-04-para-llevarte
+  title: Para llevarte
+  order: 4
+  texto: El recorrido completo puede recordarse mediante tres ideas centrales.
+  acordeon:
+  - - 01 · Acto humano básico
+    - Cooperamos antes de tener una palabra o una estructura jurídica para hacerlo.
+  - - 02 · Movimiento organizado
+    - Con el tiempo, la cooperación adoptó principios, reglas y control democrático.
+  - - 03 · Trayectoria hondureña
+    - El recorrido presentado va desde los antecedentes de 1876 hasta la Ley de Cooperativas aprobada en 1987.
+  legal_refs: []
+  highlight: Primero cooperamos; después organizamos esa cooperación y le dimos principios, reglas e instituciones.
+presentation_contract:
+  renderer: independent
+  palette: light
+  theory: accordion-only
+  scroll: allowed
+  motion: moderate
+rules_applied:
+- flat-navigation-only
+- opening-white-jester-right
+- legal-first-lilac-closed-verbatim
+- theory-accordion-only-all-modes
+- mandatory-preview
+change_log:
+- version: '1.1'
+  date: '2026-06-30'
+  changes:
+  - Aplicación del shell visual KB v5.
+  - Conversión de la historia internacional y hondureña a recorridos cronológicos compactos.
+  - Incorporación de apertura con Jester y cierre de memoria.
+  - Separación entre fuente YAML y HTML generado para facilitar actualizaciones.
+- version: '1.2'
+  date: '2026-06-30'
+  changes:
+  - Integración del contenido aprobado recibido en capsula-01-origenes-del-cooperativismo.yaml.
+  - Ampliación de la apertura con contexto autónomo para el estudiante.
+  - Desglose de la cronología hondureña en diez hitos legibles.
+  - Conservación del shell visual KB v5 y de los identificadores existentes.
+- version: 1.2.1
+  date: '2026-06-30'
+  changes:
+  - Ajuste de alcance para conservar únicamente el contenido pedagógico visible.
+  - Conservación del shell KB v5, la navegación y los identificadores estables.
+- version: 2.0.0
+  date: '2026-06-30'
+  changes:
+  - Migración al estándar visual consolidado.
+  - Apertura blanca con Jester grande a la derecha y bubble espaciado.
+  - Conversión de todo el contenido teórico a acordeones.
+  - Referencia legal lila, verbatim, al inicio y cerrada por defecto.
+  - Modo presentación independiente con teoría en acordeones.
+  - Conservación de UUID, topic_uuid y contenido aprobado.
