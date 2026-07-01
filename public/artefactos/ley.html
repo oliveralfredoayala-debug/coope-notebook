@@ -222,14 +222,38 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .empty{padding:46px 10px;text-align:center;color:#bdbdbd;font-size:13px;font-weight:300}
 
-.panel-mode body{font-size:14px}
+.panel-mode body{font-size:14px; display:flex; height:100vh; overflow:hidden;}
 .panel-mode .topbar{display:none}
 .panel-mode .tabbar{
-  display:none !important;
+  display:flex !important;
+  flex-direction:column;
+  width:220px;
+  flex-shrink:0;
+  border-right:1px solid var(--gris-borde);
+  border-bottom:none;
+  background:#fafafa;
+  padding:20px 10px;
+  gap:3px;
+  overflow-y:auto;
+  position:static;
 }
+.panel-mode .tab{
+  margin-right:0;
+  width:100%;
+  padding:10px 12px;
+  border-radius:9px;
+  justify-content:flex-start;
+  min-height:auto;
+}
+.panel-mode .tab::after{display:none}
+.panel-mode .tab:hover{background:#f1f5f9}
+.panel-mode .tab.active{background:var(--verde-claro);color:var(--verde)}
+.panel-mode .panel{flex:1; overflow-y:auto; position:relative; height:100%;}
+.panel-mode #panelMenu{display:none !important;}
+.panel-mode .back-to-menu{display:none !important;}
 .panel-mode .stage{
   max-width:none;
-  padding:18px 14px 60px;
+  padding:24px 20px 60px;
 }
 .panel-mode .lede{
   font-size:22px;
@@ -243,7 +267,7 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
   border-radius:8px;
   padding:0 11px;
   position:sticky;
-  top:40px;
+  top:0;
   z-index:15;
   background:#fff;
 }
