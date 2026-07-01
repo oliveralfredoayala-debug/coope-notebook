@@ -112,13 +112,13 @@ body {
   transition: padding-right 0.3s ease;
 }
 .antigravity-body-pinned {
-  padding-right: 320px !important;
+  padding-right: 450px !important;
 }
 .antigravity-gow-panel {
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 450px;
   height: 100vh;
   background: rgba(35, 74, 53, 0.95);
   backdrop-filter: blur(15px);
@@ -249,76 +249,36 @@ body {
   padding-left: 16px;
 }
 
-/* --- GoW Modal --- */
-.antigravity-gow-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-.antigravity-gow-modal-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-.antigravity-gow-modal-container {
-  width: 90%;
-  max-width: 1200px;
-  height: 90vh;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
+
+/* --- GoW Inline Artifact View --- */
+.antigravity-gow-artifact-view {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  transform: translateY(20px);
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
 }
-.antigravity-gow-modal-overlay.active .antigravity-gow-modal-container {
-  transform: translateY(0);
-}
-.antigravity-gow-modal-header {
-  padding: 12px 20px;
-  background: #234a35;
+.antigravity-gow-back-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 4px solid #f0a226;
+  gap: 8px;
+  transition: 0.2s;
 }
-.antigravity-gow-modal-title {
-  color: #fff;
-  margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+.antigravity-gow-back-btn:hover {
+  background: rgba(255,255,255,0.2);
 }
-.antigravity-gow-modal-close {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-.antigravity-gow-modal-close:hover {
-  opacity: 1;
-}
-.antigravity-gow-modal-iframe {
+.antigravity-gow-inline-iframe {
   flex: 1;
   width: 100%;
   border: none;
-  background: #f8f9f8;
+  background: #fff;
 }

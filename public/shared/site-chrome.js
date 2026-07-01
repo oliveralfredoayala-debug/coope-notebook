@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="antigravity-gow-content" id="antigravity-gow-content">
                 <div style="text-align:center; padding: 20px; opacity: 0.5;">Cargando...</div>
             </div>
+            <div class="antigravity-gow-artifact-view" id="antigravity-gow-artifact-view" style="display: none;">
+                <button class="antigravity-gow-back-btn" id="antigravity-gow-back-btn">← Volver a la lista</button>
+                <iframe class="antigravity-gow-inline-iframe" id="antigravity-gow-inline-iframe" src=""></iframe>
+            </div>
         </div>
     `;
     document.body.insertAdjacentHTML('beforeend', panelHtml);
@@ -121,15 +125,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle clicks on capsula links to open in modal
+    // Handle clicks on capsula links to open inline iframe
+    const artifactView = document.getElementById('antigravity-gow-artifact-view');
+    const iframe = document.getElementById('antigravity-gow-inline-iframe');
+    const backBtn = document.getElementById('antigravity-gow-back-btn');
+
     contentArea.addEventListener('click', (e) => {
         const link = e.target.closest('.antigravity-gow-capsula');
         if (link) {
             e.preventDefault();
             const url = link.getAttribute('href');
-            const title = link.textContent;
-            openGowModal(url, title);
+            iframe.src = url;
+            contentArea.style.display = 'none';
+            artifactView.style.display = 'flex';
+            // Automatically pin the panel when opening an artifact to enable side-by-side
+            if (!isPinned) {
+                pinBtn.click();
+            }
         }
+    });
+
+    backBtn.addEventListener('click', () => {
+        artifactView.style.display = 'none';
+        iframe.src = '';
+        contentArea.style.display = 'block';
     });
 
     // Fetch and render data
@@ -169,41 +188,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-function openGowModal(url, title) {
-    let overlay = document.getElementById('antigravity-gow-modal-overlay');
-    if (!overlay) {
-        const modalHtml = `
-            <div id="antigravity-gow-modal-overlay" class="antigravity-gow-modal-overlay">
-                <div class="antigravity-gow-modal-container">
-                    <div class="antigravity-gow-modal-header">
-                        <div class="antigravity-gow-modal-title" id="antigravity-gow-modal-title">Artefacto</div>
-                        <button class="antigravity-gow-modal-close" id="antigravity-gow-modal-close">&times;</button>
-                    </div>
-                    <iframe id="antigravity-gow-modal-iframe" class="antigravity-gow-modal-iframe" src=""></iframe>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-        overlay = document.getElementById('antigravity-gow-modal-overlay');
-        
-        document.getElementById('antigravity-gow-modal-close').addEventListener('click', () => {
-            overlay.classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('antigravity-gow-modal-iframe').src = '';
-            }, 300);
-        });
-        
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                document.getElementById('antigravity-gow-modal-close').click();
-            }
-        });
-    }
-    
-    if (title) document.getElementById('antigravity-gow-modal-title').textContent = title;
-    document.getElementById('antigravity-gow-modal-iframe').src = url;
-    
-    // Force reflow
-    void overlay.offsetWidth;
-    overlay.classList.add('active');
-}
