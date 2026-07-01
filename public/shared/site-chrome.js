@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pinBtn = document.getElementById('antigravity-gow-pin');
     const contentArea = document.getElementById('antigravity-gow-content');
     const resizer = document.getElementById('antigravity-gow-resizer');
+    const iframe = document.getElementById('antigravity-gow-inline-iframe');
 
     let isPinned = false;
     let isResizing = false;
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isResizing = true;
         document.body.style.cursor = 'ew-resize';
         panel.style.transition = 'none'; // Disable transition during resize
+        if (iframe) iframe.style.pointerEvents = 'none';
         e.preventDefault();
     });
 
@@ -133,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isResizing = false;
             document.body.style.cursor = '';
             panel.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            if (iframe) iframe.style.pointerEvents = 'auto';
         }
     });
 
@@ -165,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle clicks on capsula links to open inline iframe
     const artifactView = document.getElementById('antigravity-gow-artifact-view');
-    const iframe = document.getElementById('antigravity-gow-inline-iframe');
     const backBtn = document.getElementById('antigravity-gow-back-btn');
 
     contentArea.addEventListener('click', (e) => {
@@ -173,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (link) {
             e.preventDefault();
             const url = link.getAttribute('href');
-            iframe.src = url;
+            const sep = url.includes('?') ? '&' : '?';
+            iframe.src = url + sep + 'panel=1';
             contentArea.style.display = 'none';
             artifactView.style.display = 'flex';
             // Automatically pin the panel when opening an artifact to enable side-by-side
