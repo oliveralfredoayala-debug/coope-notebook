@@ -27,7 +27,7 @@
         // Create full screen background overlay
         var overlay = document.createElement('div');
         overlay.id = 'auth-overlay';
-        overlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: #ffffff; font-family: system-ui, -apple-system, sans-serif; padding: 20px;';
+        overlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: url(/bg_login.png) center center / cover no-repeat; font-family: system-ui, -apple-system, sans-serif; padding: 20px;';
 
         // CSS styles for the authentication interface
         var style = document.createElement('style');
