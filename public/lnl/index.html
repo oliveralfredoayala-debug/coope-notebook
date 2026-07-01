@@ -157,13 +157,13 @@
 
 <script>
 const AccordionMapping = {
-  "cooperativismo-basico": "identidad cooperativa",
-  "legislacion-cooperativa": "legislacion cooperativa",
-  "gobernabilidad-cooperativa": "gobernabilidad cooperativa",
-  "funciones-cuerpos-directivos": "funciones de los cuerpos directivos",
-  "administracion-asambleas": "administracion de asambleas",
-  "liderazgo-cooperativo": "liderazgo cooperativo",
-  "incidencia-politica": "incidencia politica"
+  "cooperativismo-basico": "identidad-cooperativa",
+  "legislacion-cooperativa": "legislacion-cooperativa",
+  "gobernabilidad-cooperativa": "gobernabilidad-cooperativa",
+  "funciones-cuerpos-directivos": "funciones-de-los-cuerpos-directivos",
+  "administracion-asambleas": "administracion-de-asambleas",
+  "liderazgo-cooperativo": "liderazgo-cooperativo",
+  "incidencia-politica": "incidencia-politica"
 };
 
 async function cargarIndice() {
@@ -226,13 +226,13 @@ function toggleAcordeon(header) {
 }
 
 function abrirCapsula(bloqueId, acordeonId, capsulaId) {
-  const blockPath = bloqueId === 'diplomado' ? 'diplomado basico' : 'cooperativismo aplicado';
+  const blockPath = bloqueId === 'diplomado' ? 'diplomado-basico' : 'cooperativismo-aplicado';
   let accordionPath = acordeonId;
   if (bloqueId === 'diplomado') {
     accordionPath = AccordionMapping[acordeonId] || acordeonId;
   }
   
-  const url = `${encodeURIComponent(blockPath)}/${encodeURIComponent(accordionPath)}/${capsulaId.toLowerCase()}.html`;
+  const url = `${encodeURIComponent(blockPath)}/${encodeURIComponent(accordionPath)}/${capsulaId.toLowerCase()}/${capsulaId.toLowerCase()}.html`;
   console.log('Navegando a trabajo:', url);
   window.location.href = url;
 }

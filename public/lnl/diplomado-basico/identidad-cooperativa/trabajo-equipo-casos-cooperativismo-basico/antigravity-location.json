@@ -1,0 +1,43 @@
+{
+  "schema": "coopenotebook.content-location/1.1",
+  "resourceClass": "team-work-capsule",
+  "activityType": "team-work",
+  "roots": {
+    "taxonomySource": "/kb/",
+    "physicalDestination": "/lnl/",
+    "runtime": "lnl"
+  },
+  "mapping": {
+    "mode": "mirror-relative-path",
+    "copyTheoreticalContent": false,
+    "modifyKb": false
+  },
+  "publication": {
+    "singleEntryPoint": true,
+    "onePublicLink": true,
+    "internalCasesAllowed": true
+  },
+  "navigation": {
+    "preliminaryTabPurpose": "navigation-only",
+    "allSubstantiveQuestionsRequired": true,
+    "optionalNotes": true,
+    "allowBackwardNavigation": true,
+    "lockFutureIncompleteSteps": true,
+    "resetStageScrollTop": true
+  },
+  "packaging": {
+    "includeAntigravityReadme": true,
+    "includeLocationJson": true,
+    "blockZipWhenMissing": true
+  },
+  "indexing": {
+    "registerIn": [
+      "lnl-index",
+      "master-map"
+    ],
+    "doNotRegisterIn": [
+      "kb-theoretical-index"
+    ],
+    "oneRecordPerActivity": true
+  }
+}

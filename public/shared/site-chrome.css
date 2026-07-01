@@ -95,7 +95,7 @@
 }
 
 /* Ocultar barra superior y footer estáticos (inyectados por HTML Coordinator) */
-.topbar {
+html:not(:has(meta[name="coopenotebook-shell"][content^="jester"])) .topbar {
   display: none !important;
 }
 footer:not([class*="antigravity"]) {

@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="coopenotebook-shell" content="jester-multicase-v1">
+<title>Casos de cooperativismo básico · Navegación Jester</title>
+<style>
+:root{
+  --bg:#f3f6f3;--surface:#fff;--surface2:#f9fbf9;--line:#dbe4de;
+  --ink:#173428;--muted:#63736b;--green:#2f7d52;--green2:#245f40;
+  --greenSoft:#eaf4ee;--amber:#e9a72f;--amberSoft:#fff4dc;
+  --purple:#76549b;--purpleSoft:#f4eef9;--blue:#3c7193;--blueSoft:#eaf3f8;
+  --red:#b64d4d;--redSoft:#fbecec;--shadow:0 18px 52px rgba(23,52,40,.10);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(47,125,82,.25);outline-offset:2px}
+.app{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.topbar{z-index:30;padding:11px 14px 10px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.97);backdrop-filter:blur(12px)}
+.toprow{display:flex;align-items:center;gap:10px}
+.brand{min-width:0;flex:1}
+.brand small{display:block;color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.brand strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.iconbtn{min-width:42px;min-height:42px;border:1px solid var(--line);border-radius:13px;background:#fff;font-weight:850;cursor:pointer}
+.progressrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:8px}
+.track{height:7px;overflow:hidden;border-radius:999px;background:#e7ece9}
+.bar{height:100%;width:10%;border-radius:inherit;background:linear-gradient(90deg,var(--green),#69a97f);transition:width .22s ease}
+.progresslabel{color:var(--muted);font-size:11px;font-weight:850}
+.shell{min-height:0;display:grid;grid-template-columns:1fr}
+.sidebar{display:none}
+.main{min-width:0;min-height:0}
+.stage{height:100%;overflow:auto;overscroll-behavior:contain;padding:20px 15px 36px;scroll-behavior:smooth}
+.slide{max-width:880px;margin:0 auto;animation:enter .2s ease}
+@keyframes enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.kicker{margin:0 0 7px;color:var(--green);font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:0;font-size:clamp(29px,8vw,48px);line-height:1.04;letter-spacing:-.04em}
+.lead{margin:14px 0 0;color:var(--muted);font-size:17px;line-height:1.62}
+.card{margin-top:17px;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 7px 24px rgba(23,52,40,.045)}
+.card h2,.card h3{margin:0 0 8px;line-height:1.22}.card p:last-child{margin-bottom:0}
+.highlight{border-color:#cadfd2;background:var(--greenSoft)}
+.jesterHero{position:relative;overflow:hidden;padding:22px;border:1px solid #efd8a5;border-radius:24px;background:linear-gradient(145deg,#fffaf0,#fff1ce);box-shadow:var(--shadow)}
+.jesterHero::after{content:"";position:absolute;right:-55px;top:-65px;width:180px;height:180px;border-radius:50%;background:rgba(233,167,47,.14)}
+.jesterFace{position:relative;z-index:1;width:68px;height:68px;display:grid;place-items:center;border-radius:22px;background:#253d31;color:#fff;font-size:34px;transform:rotate(-3deg)}
+.jesterHero h2{position:relative;z-index:1;margin:16px 0 6px;font-size:26px;letter-spacing:-.025em}
+.jesterHero p{position:relative;z-index:1;margin:0;color:#5e533d}
+.rules{display:grid;gap:10px;margin-top:17px}
+.rule{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:start;padding:13px;border:1px solid #eadbb9;border-radius:15px;background:rgba(255,255,255,.72)}
+.ruleNum{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:var(--amber);color:#493307;font-weight:950}
+.rule strong{display:block}.rule span{display:block;margin-top:2px;color:#685f4c;font-size:14px}
+.roleGrid{display:grid;gap:9px;margin-top:13px}
+.role{padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff}.role strong{display:block}.role span{color:var(--muted);font-size:13px}
+textarea{width:100%;padding:13px 14px;border:1px solid #ccd8d0;border-radius:14px;background:#fff;color:var(--ink)}
+textarea{min-height:105px;resize:vertical}
+.navDemo{margin-top:17px;padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.navDemoTop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.navDemoTop strong{font-size:14px}.navDemoTop span{color:var(--muted);font-size:12px;font-weight:850}
+.navDemoBar{height:7px;margin-top:9px;overflow:hidden;border-radius:999px;background:#e7ece9}
+.navDemoBar i{display:block;width:42%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green),#69a97f)}
+.navDemoBody{padding:15px 0;color:var(--muted);font-size:14px}
+.navDemoFoot{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center}
+.navDemoFoot b{padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13px}
+.navDemoFoot b:last-child{border-color:var(--green);background:var(--green);color:#fff}
+.navDemoFoot span{text-align:center;color:var(--muted);font-size:11px;font-weight:850}
+.caseGrid{display:grid;gap:12px;margin-top:18px}
+.caseCard{position:relative;width:100%;padding:17px;border:1px solid var(--line);border-radius:18px;background:#fff;text-align:left;cursor:pointer;transition:.15s ease}
+.caseCard:hover{transform:translateY(-1px);border-color:#b9cec0}
+.caseCard.selected{border-color:var(--green);background:var(--greenSoft);box-shadow:inset 0 0 0 1px var(--green)}
+.caseCard.selected::after{content:"✓";position:absolute;right:15px;top:15px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--green);color:#fff;font-weight:950}
+.caseNum{display:inline-flex;padding:4px 8px;border-radius:999px;background:#edf2ef;color:var(--green2);font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+.caseCard h3{margin:10px 35px 5px 0;font-size:19px}.caseCard p{margin:0;color:var(--muted);font-size:14px}
+.caseCard .tension{display:block;margin-top:10px;color:#3f5e4d;font-size:12px;font-weight:850}
+.actorGrid{display:grid;gap:11px;margin-top:18px}
+.actor{position:relative;padding:15px 15px 15px 65px;border:1px solid var(--line);border-radius:17px;background:#fff}
+.badge{position:absolute;left:14px;top:14px;width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:var(--greenSoft);color:var(--green2);font-weight:950}
+.actor strong{display:block}.actor span{display:block;margin-top:3px;color:var(--muted);font-size:14px}
+.story{margin-top:17px;padding:18px;border:1px solid var(--line);border-radius:20px;background:#fff}
+.story p{margin:0 0 13px}.story p:last-child{margin-bottom:0}
+.focus{margin-top:15px;padding:16px;border-left:4px solid var(--amber);border-radius:0 16px 16px 0;background:var(--amberSoft);font-weight:750}
+.lawStack{display:grid;gap:12px;margin-top:18px}
+.law{overflow:hidden;border:1px solid #d9c9e7;border-radius:17px;background:var(--purpleSoft)}
+.lawHead{width:100%;display:flex;align-items:center;gap:11px;padding:14px;border:0;background:#eee3f6;text-align:left;cursor:pointer}
+.lawSeal{flex:0 0 auto;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--purple);color:#fff;font-weight:950}
+.lawMeta{min-width:0}.lawMeta strong{display:block}.lawMeta small{display:block;color:#665078}.chev{margin-left:auto;transition:.18s ease}
+.law.open .chev{transform:rotate(180deg)}
+.lawBody{max-height:0;overflow:hidden;padding:0 16px;color:#403548;transition:max-height .25s ease,padding .25s ease}
+.law.open .lawBody{max-height:1200px;padding:16px}
+.kind{display:inline-flex;margin-bottom:9px;padding:4px 7px;border:1px solid #d9c9e7;border-radius:999px;color:#65477d;font-size:10px;font-weight:950;letter-spacing:.08em}
+.simple{font-weight:750}.verbatim{margin-top:12px;padding-top:12px;border-top:1px solid #dacde3;font-size:14px}
+.question{margin-top:19px;padding:17px;border:1px solid var(--line);border-radius:20px;background:#fff}
+.question legend,.qtitle{display:block;width:100%;margin:0 0 13px;padding:0;font-size:18px;line-height:1.3;font-weight:900}
+.options{display:grid;gap:9px}
+.option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:15px;background:#fff;cursor:pointer}
+.option:has(input:checked){border-color:var(--green);background:var(--greenSoft);box-shadow:inset 0 0 0 1px var(--green)}
+.option input{width:19px;height:19px;margin:2px 0 0;accent-color:var(--green)}
+.option strong{display:block}.option small{display:block;margin-top:3px;color:var(--muted)}
+.actionbtn{margin-top:13px;min-height:43px;border:0;border-radius:13px;padding:10px 14px;background:var(--ink);color:#fff;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:12px;padding:13px;border-radius:14px;font-weight:750}.feedback.show{display:block}
+.feedback.good{border:1px solid #c8dfd0;background:var(--greenSoft);color:#255f3e}.feedback.bad{border:1px solid #ebcccc;background:var(--redSoft);color:#8c3737}
+.tensionGrid{display:grid;gap:10px;margin-top:18px}
+.tensionCard{position:relative;width:100%;padding:15px 43px 15px 15px;border:1px solid var(--line);border-radius:17px;background:#fff;text-align:left;cursor:pointer}
+.tensionCard.selected{border-color:var(--green);background:var(--greenSoft);box-shadow:inset 0 0 0 1px var(--green)}
+.tensionCard.selected::after{content:"✓";position:absolute;right:14px;top:14px;width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:var(--green);color:#fff;font-weight:950}
+.anchor{display:block;color:var(--green);font-size:10px;font-weight:950;letter-spacing:.08em}.tensionCard strong{display:block;margin-top:4px;font-size:17px}.tensionCard span:last-child{display:block;margin-top:5px;color:var(--muted);font-size:14px}
+.countBox{position:sticky;bottom:0;margin-top:12px;padding:11px 13px;border:1px solid #c9dbd0;border-radius:14px;background:rgba(234,244,238,.96);font-weight:850;backdrop-filter:blur(8px)}
+.semaphore{display:grid;gap:9px}.sema{border:1px solid var(--line);border-radius:15px;background:#fff}
+.sema label{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:13px;cursor:pointer}.sema:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.sema input{width:19px;height:19px;margin-top:3px;accent-color:var(--green)}
+.dot{display:inline-block;width:11px;height:11px;margin-right:7px;border-radius:50%}.dot.green{background:#4e9b6a}.dot.yellow{background:#d5a641}.dot.red{background:#c25b5b}
+.textareaWrap{margin-top:14px}.textareaWrap label{display:block;margin-bottom:7px;font-weight:850}.counter{margin-top:5px;color:var(--muted);font-size:12px;text-align:right}
+.sentence{margin-top:18px;padding:20px;border:1px solid #ccddd2;border-radius:22px;background:linear-gradient(145deg,#fff,#edf6f0)}
+.sentence blockquote{margin:0;font-size:22px;line-height:1.35;font-weight:800;letter-spacing:-.02em}
+.decisionGrid{display:grid;gap:13px;margin-top:16px}.shortField{padding:15px;border:1px solid var(--line);border-radius:16px;background:#fff}.shortField label{display:block;margin-bottom:7px;font-weight:850}.shortField textarea{min-height:78px}
+.summary{display:grid;gap:12px;margin-top:18px}.summaryBlock{padding:16px;border:1px solid var(--line);border-radius:17px;background:#fff}.summaryBlock h3{margin:0 0 7px}.summaryBlock p{margin:5px 0;color:#4e6057}.empty{color:#89968f;font-style:italic}
+.notesDrawer{position:fixed;inset:0;z-index:90;display:none;background:rgba(16,32,25,.50)}.notesDrawer.open{display:block}
+.notesPanel{position:absolute;right:0;top:0;width:min(440px,100%);height:100%;display:grid;grid-template-rows:auto 1fr auto;background:#fff;box-shadow:var(--shadow)}
+.drawerHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px;border-bottom:1px solid var(--line)}.drawerHead h2{margin:0}
+.drawerBody{overflow:auto;padding:16px}.drawerBody textarea{min-height:210px}.drawerBody h3{margin:20px 0 7px}
+.drawerFoot{padding:12px 15px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}
+.footer{z-index:30;display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;padding:9px 11px calc(9px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(255,255,255,.98)}
+.footer button{min-height:46px;border-radius:14px;padding:10px 14px;font-weight:900;cursor:pointer}.back{border:1px solid var(--line);background:#fff}.next{border:1px solid var(--green);background:var(--green);color:#fff}.next:disabled{border-color:#cfd8d2;background:#dce3df;color:#849188;cursor:not-allowed}.stepName{overflow:hidden;color:var(--muted);font-size:11px;font-weight:850;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:84px;z-index:120;transform:translate(-50%,17px);opacity:0;pointer-events:none;padding:10px 14px;border-radius:12px;background:#1f3d30;color:#fff;font-size:13px;font-weight:850;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:720px){.stage{padding:30px 28px 50px}.caseGrid,.actorGrid{grid-template-columns:repeat(2,1fr)}.roleGrid{grid-template-columns:repeat(3,1fr)}.tensionGrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){
+  .app{grid-template-rows:auto minmax(0,1fr)}.shell{grid-template-columns:270px minmax(0,1fr)}
+  .sidebar{display:block;min-height:0;overflow:auto;padding:22px 15px;border-right:1px solid var(--line);background:#fafbfa}
+  .sideTitle{margin:0 9px 13px;color:var(--muted);font-size:10px;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
+  .sideNav{display:grid;gap:5px}.sideNav button{width:100%;padding:10px 12px;border:0;border-radius:12px;background:transparent;color:#596861;text-align:left;cursor:pointer}.sideNav button.active{background:#e6eee9;box-shadow:inset 3px 0 var(--amber);color:var(--ink);font-weight:900}.sideNav button.locked{opacity:.48}
+  .stage{padding:38px 45px 72px}.footer{position:fixed;right:22px;bottom:18px;width:auto;grid-template-columns:auto auto;padding:8px;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.stepName{display:none}.footer button{min-width:112px}
+}
+@media print{body{overflow:visible;background:#fff}.topbar,.sidebar,.footer,.notesDrawer{display:none!important}.app,.shell,.main,.stage{display:block;height:auto;overflow:visible}.slide{max-width:none}.summaryBlock{break-inside:avoid}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="stylesheet" href="/shared/site-chrome.css">
+<script src="/shared/site-chrome.js"></script>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="toprow">
+      <div class="brand"><small id="eyebrow">Jester · Casos aplicados</small><strong id="headerTitle">Instrucciones generales</strong></div>
+      <button class="iconbtn" id="notesBtn" type="button" aria-label="Abrir notas">Notas</button>
+      <button class="iconbtn" id="homeBtn" type="button" aria-label="Ir al selector">Casos</button>
+    </div>
+    <div class="progressrow"><div class="track"><div class="bar" id="bar"></div></div><div class="progresslabel" id="progressLabel">Inicio</div></div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar"><div class="sideTitle">Recorrido</div><nav class="sideNav" id="sideNav"></nav></aside>
+    <main class="main"><div class="stage" id="stage" tabindex="-1"></div></main>
+  </div>
+
+  <footer class="footer">
+    <button class="back" id="backBtn" type="button">Atrás</button>
+    <div class="stepName" id="stepName"></div>
+    <button class="next" id="nextBtn" type="button">Siguiente</button>
+  </footer>
+</div>
+
+<div class="notesDrawer" id="notesDrawer">
+  <aside class="notesPanel" role="dialog" aria-modal="true" aria-labelledby="notesTitle">
+    <div class="drawerHead"><h2 id="notesTitle">Notas y dudas</h2><button class="iconbtn" id="closeNotes" type="button">×</button></div>
+    <div class="drawerBody">
+      <p class="lead" style="font-size:15px">Estas notas no se califican. Úsenlas para registrar preguntas, desacuerdos o conceptos que quieran consultar después.</p>
+      <h3>Notas generales del equipo</h3>
+      <textarea id="generalNotes" placeholder="Preguntas o acuerdos que atraviesan todo el ejercicio…"></textarea>
+      <h3 id="caseNotesHeading">Notas del caso</h3>
+      <textarea id="caseNotes" placeholder="Dudas o ideas específicas del caso seleccionado…"></textarea>
+    </div>
+    <div class="drawerFoot"><button class="next" id="saveNotes" type="button">Guardar notas</button></div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CASES = {"g1": {"group": "Grupo 1", "title": "UNIRED: cooperar entre competidoras", "short": "Cooperación entre cooperativas, identidad local y posicionamiento.", "accent": "green", "caseTitle": "Tres cooperativas, una misma ciudad", "caseLead": "Para este ejercicio se omiten los nombres reales. Las tres cooperativas ofrecen ahorro y crédito, compiten por afiliaciones y participan en UNIRED.", "actors": [{"badge": "A", "title": "Arraigo local", "text": "Nació en la ciudad y mantiene una relación histórica con sus comunidades."}, {"badge": "B", "title": "Cobertura nacional", "text": "Posee más oficinas, tecnología y capacidad de expansión."}, {"badge": "C", "title": "Nueva en la plaza", "text": "Proviene de otra región y busca posicionarse en la ciudad."}], "caseBody": ["UNIRED permite que afiliados de una cooperativa realicen determinadas operaciones en puntos de otras cooperativas participantes. Cada organización conserva su identidad, productos y administración.", "La Cooperativa A debe decidir si aumenta su inversión en la red: más puntos habilitados, mejor conexión y una campaña común. Sus afiliados valoran poder operar donde A no tiene oficinas. Otros sienten que “su” cooperativa se parece cada vez más a una red financiera amplia y pierde cercanía local.", "La información interna muestra que los afiliados de A utilizan con frecuencia puntos externos, mientras A también atiende operaciones de afiliados de B y C. El beneficio existe, pero no se reparte de manera idéntica entre las participantes."], "focus": "¿Hasta dónde puede una cooperativa compartir cobertura y marca sin debilitar su identidad, autonomía y relación local?", "laws": [{"kind": "PRINCIPIO", "title": "Sexto Principio", "source": "Art. 8 · Reglamento de la Ley de Cooperativas", "simple": "Las cooperativas sirven mejor a sus miembros y fortalecen el movimiento cuando trabajan juntas.", "verbatim": "“Las cooperativas sirven a sus miembros más eficazmente y fortalecen el movimiento cooperativo trabajando de manera conjunta por medio de estructuras locales, nacionales, regionales e internacionales.”"}, {"kind": "REGLAMENTO", "title": "Posicionamiento de la marca", "source": "Art. 128 RLCH, inciso b)", "simple": "La normativa reconoce los planes estratégicos y el posicionamiento de la marca cooperativa como programas de desarrollo cooperativo.", "verbatim": "“Planes estratégicos y posicionamiento de la marca Cooperativa.”"}], "plain": "La cooperación y el posicionamiento son legítimos. La norma no decide cuánto invertir ni cómo proteger la cercanía y la identidad local.", "quiz": "Según el Art. 128 RLCH, invertir en posicionamiento de marca es…", "quizOptions": [{"id": "a", "text": "Algo prohibido para una cooperativa"}, {"id": "b", "text": "Un uso legítimo reconocido expresamente por la normativa"}, {"id": "c", "text": "Legal solo si CONSUCOOP lo aprueba caso por caso"}], "quizCorrect": "b", "quizGood": "Exacto. El posicionamiento de la marca cooperativa está reconocido como un Programa de Desarrollo Cooperativo.", "quizBad": "Revisen el inciso b) del Artículo 128 antes de continuar.", "tensions": [{"id": "cooperation", "title": "Cooperación", "anchor": "PRINCIPIO · Art. 8 RLCH", "question": "¿La red fortalece realmente a las participantes o solo amplía sus transacciones?"}, {"id": "brand", "title": "Posicionamiento de marca", "anchor": "REGLAMENTO · Art. 128 b)", "question": "¿La marca común fortalece a A o vuelve menos visible su identidad propia?"}, {"id": "service", "title": "Servicio al afiliado", "anchor": "LEY · Art. 5 LCH", "question": "¿La cobertura adicional mejora de forma concreta la vida de la membresía?"}, {"id": "autonomy", "title": "Autonomía", "anchor": "LEY · Art. 2 LCH", "question": "¿Compartir infraestructura crea una dependencia que A ya no controla completamente?"}, {"id": "reciprocity", "title": "Reciprocidad", "anchor": "VALOR · Ayuda mutua", "question": "¿La cooperación sigue siendo justa cuando los beneficios no son idénticos?"}], "positionPrompt": "Algunos afiliados sienten que “su” cooperativa se está pareciendo cada vez más a una red financiera con otro logo. ¿Qué tan de acuerdo está el equipo?", "positionOptions": [{"id": "green", "tone": "green", "title": "No es así", "text": "La red amplía el servicio sin cambiar la identidad de la cooperativa."}, {"id": "yellow", "tone": "yellow", "title": "Hay algo de verdad", "text": "La cooperación es útil, pero necesita límites y una comunicación más clara."}, {"id": "red", "tone": "red", "title": "Sí, se está perdiendo lo local", "text": "La expansión de la red ya está debilitando la relación particular con la membresía."}], "evidencePrompt": "¿Qué evidencia del caso pesó más en su posición?", "evidenceOptions": [{"id": "reach", "text": "Los afiliados pueden operar donde A no tiene oficinas propias."}, {"id": "competition", "text": "Las cooperativas compiten por las mismas personas y productos."}, {"id": "sharedbrand", "text": "La campaña común puede hacer menos visible la identidad local de A."}, {"id": "uneven", "text": "Los beneficios de la red no se distribuyen de manera idéntica."}], "phraseStem": "Cooperar entre cooperativas suena bonito en el papel, pero en la práctica…", "decisionPrompt": "¿Aprobarían más inversión en UNIRED este año?", "decisionOptions": [{"id": "increase", "title": "Aumentar la inversión", "detail": "Priorizar cobertura, tecnología y cooperación."}, {"id": "conditions", "title": "Aprobarla con condiciones", "detail": "Exigir medidas de identidad local, reciprocidad y evaluación."}, {"id": "maintain", "title": "Mantener el nivel actual", "detail": "Medir resultados antes de ampliar la inversión."}, {"id": "reduce", "title": "Reducir la inversión", "detail": "Priorizar canales propios y relación directa."}], "basisLabel": "La norma o principio que respalda o limita nuestra decisión es…", "valueLabel": "Con esta decisión buscamos proteger…", "costLabel": "Reconocemos que esta decisión puede causar o exigir…"}, "g2": {"group": "Grupo 2", "title": "Equidad en excedentes", "short": "Patrocinio legal, acceso geográfico y resultados desiguales.", "accent": "amber", "caseTitle": "La misma fórmula, oportunidades distintas", "caseLead": "La cooperativa aplica una fórmula de patrocinio aprobada y distribuye los excedentes según el uso de sus servicios.", "actors": [{"badge": "U", "title": "Afiliación urbana", "text": "Tiene agencias cercanas y utiliza con mayor frecuencia créditos, ahorro y otros servicios."}, {"badge": "R", "title": "Afiliación rural", "text": "Vive lejos de las agencias y utiliza menos servicios por distancia, no por desinterés."}, {"badge": "AG", "title": "Asamblea General", "text": "Aprueba la forma de distribución dentro del marco establecido por la ley."}], "caseBody": ["Los afiliados de comunidades rurales, con acceso limitado a la agencia más cercana, usan menos los servicios por distancia y reciben excedentes mucho menores año tras año que los afiliados urbanos.", "La fórmula se aplica igual para toda la membresía y el proceso es legal. Nadie ha sido excluido formalmente y todos pueden utilizar los mismos productos.", "Sin embargo, las condiciones reales de acceso no son iguales. La cooperativa debe decidir si el problema se encuentra en la fórmula de distribución, en las barreras para usar los servicios o en ambas."], "focus": "¿Una fórmula proporcional puede ser legal y, aun así, producir un resultado que la membresía percibe como poco equitativo?", "laws": [{"kind": "LEY", "title": "Distribución según patrocinio", "source": "Art. 44 LCH, inciso c)", "simple": "Después de constituir las reservas, la distribución entre cooperativistas se realiza de acuerdo con el patrocinio efectuado con la cooperativa.", "verbatim": "“Distribuciones entre los cooperativistas de acuerdo al patrocinio efectuado con la cooperativa, después de constituir la reserva legal, las requeridas por el Organismo Supervisor del Sector Cooperativo y reservas especiales aprobadas por la Asamblea General.”"}, {"kind": "VALOR", "title": "Equidad", "source": "Art. 4 RLCH", "simple": "La distribución de recursos y beneficios debe ser justa y equitativa, incluyendo el costo de servicios, excedentes y asignación de recursos.", "verbatim": "“Implica que la distribución de recursos y beneficios entre afiliadas y afiliados debe ser justa y equitativa, tales como costo de servicio, distribución de excedentes y asignación de recursos.”"}], "plain": "La ley vincula el excedente con el patrocinio. El valor de equidad obliga a preguntar qué ocurre cuando el acceso que produce ese patrocinio es desigual.", "quiz": "Según el Art. 44 LCH, el excedente se reparte según…", "quizOptions": [{"id": "a", "text": "El capital que cada afiliado aportó"}, {"id": "b", "text": "El uso que cada afiliado le dio a los servicios —el patrocinio—"}, {"id": "c", "text": "Partes iguales entre todos los afiliados"}], "quizCorrect": "b", "quizGood": "Exacto. La distribución se relaciona con el patrocinio, no con el capital ni con una división igualitaria.", "quizBad": "Revisen el inciso c) del Artículo 44 antes de continuar.", "tensions": [{"id": "patronage", "title": "Proporcionalidad legal", "anchor": "LEY · Art. 44 LCH", "question": "¿Debe recibir más quien mantiene una relación económica mayor con la cooperativa?"}, {"id": "equity", "title": "Equidad", "anchor": "VALOR · Art. 4 RLCH", "question": "¿Es justa la distribución cuando el acceso a los servicios no es igual?"}, {"id": "equality", "title": "Igualdad de trato", "anchor": "VALOR · Igualdad", "question": "¿Aplicar exactamente la misma fórmula garantiza igualdad real?"}, {"id": "access", "title": "Acceso geográfico", "anchor": "FINALIDAD · Art. 5 LCH", "question": "¿El problema está en la fórmula o en las barreras para utilizar los servicios?"}, {"id": "sustainability", "title": "Sostenibilidad de la fórmula", "anchor": "PRINCIPIO · Participación económica", "question": "¿Una compensación adicional debilitaría el vínculo entre uso y excedente?"}], "positionPrompt": "Un afiliado rural podría sentir que la cooperativa lo trata igual en el papel, pero que en la práctica nunca puede recibir lo mismo. ¿Cómo evalúa el equipo esa afirmación?", "positionOptions": [{"id": "green", "tone": "green", "title": "La fórmula ya es equitativa", "text": "El resultado desigual refleja diferencias reales en el uso de los servicios."}, {"id": "yellow", "tone": "yellow", "title": "Es equitativa en principio", "text": "Debe mantenerse, pero acompañarse con medidas adicionales."}, {"id": "red", "tone": "red", "title": "El resultado no es equitativo", "text": "La fórmula legal no compensa las diferencias reales de acceso."}], "evidencePrompt": "¿Qué hecho del caso pesó más en su posición?", "evidenceOptions": [{"id": "distance", "text": "La distancia reduce el uso de servicios."}, {"id": "same", "text": "La fórmula se aplica de la misma manera a toda la membresía."}, {"id": "years", "text": "La diferencia se repite año tras año."}, {"id": "link", "text": "Cambiar la fórmula puede debilitar el vínculo entre patrocinio y excedente."}], "phraseStem": "Todos los afiliados son dueños por igual de la cooperativa, pero…", "decisionPrompt": "¿Qué debería hacer la cooperativa?", "decisionOptions": [{"id": "keep", "title": "Mantener la fórmula sin medidas adicionales", "detail": "Aceptar que el excedente refleja el uso real de los servicios."}, {"id": "access", "title": "Mantener la fórmula y mejorar el acceso rural", "detail": "Reducir las barreras que limitan el patrocinio."}, {"id": "assembly", "title": "Presentar a la Asamblea una propuesta complementaria", "detail": "Revisar opciones legalmente admisibles sin ignorar el patrocinio."}, {"id": "separate", "title": "Crear un programa rural con recursos distintos", "detail": "Atender la desigualdad sin alterar la distribución de excedentes."}], "basisLabel": "La norma que respalda o limita nuestra decisión es…", "valueLabel": "El valor o principio que buscamos proteger es…", "costLabel": "El costo, riesgo o dificultad que aceptamos es…"}, "g3": {"group": "Grupo 3", "title": "Quórum vs. participación real", "short": "Validez formal, control democrático y una membresía ausente.", "accent": "purple", "caseTitle": "Una Asamblea válida, casi siempre con las mismas personas", "caseLead": "La cooperativa tiene más de 800 afiliados. Sus asambleas cumplen la convocatoria, el quórum y las demás formalidades.", "actors": [{"badge": "50", "title": "Participantes habituales", "text": "Son casi las mismas 40–50 personas que asisten y deciden año tras año."}, {"badge": "750", "title": "Membresía ausente", "text": "Fue convocada correctamente, pero no participa en las decisiones."}, {"badge": "AG", "title": "Asamblea válida", "text": "No existe ningún vicio de procedimiento y las resoluciones son legales."}], "caseBody": ["La cooperativa siempre logra el quórum legal en sus asambleas. Sin embargo, año tras año son casi los mismos 40–50 afiliados quienes asisten y deciden.", "El resto de la membresía fue convocada correctamente, tiene derecho a voz y voto y no existe impedimento formal para participar.", "La cooperativa debe determinar si cumplir las reglas de convocatoria y quórum basta para afirmar que existe un control democrático activo y saludable."], "focus": "¿Una Asamblea jurídicamente válida expresa plenamente la voluntad colectiva cuando participa siempre una minoría reducida?", "laws": [{"kind": "LEY", "title": "Autoridad de la Asamblea", "source": "Art. 22 LCH", "simple": "La Asamblea General legalmente convocada y reunida es la autoridad suprema y expresa la voluntad colectiva.", "verbatim": "“La Asamblea General legalmente convocada y reunida, es la autoridad suprema de la cooperativa y expresa la voluntad colectiva de la misma.”"}, {"kind": "PRINCIPIO", "title": "Control democrático", "source": "Art. 8 RLCH · Segundo Principio", "simple": "La democracia cooperativa supone miembros que participan activamente en políticas y decisiones.", "verbatim": "“Control democrático de los miembros. Las cooperativas son organizaciones democráticas controladas por sus miembros, quienes participan activamente en la definición de las políticas y en la toma de decisiones.”"}], "plain": "La Asamblea puede ser válida. El principio obliga a preguntar si la posibilidad formal de participar basta cuando la participación efectiva es mínima.", "quiz": "Si la Asamblea fue convocada correctamente y cumplió el quórum exigido, ¿es válida aunque participen 50 de 800 afiliados?", "quizOptions": [{"id": "a", "text": "No, porque falta la mayoría de la membresía"}, {"id": "b", "text": "Sí, si la convocatoria y el quórum cumplen la norma"}, {"id": "c", "text": "Solo si CONSUCOOP la autoriza caso por caso"}], "quizCorrect": "b", "quizGood": "Exacto. La baja participación no invalida por sí sola una Asamblea que cumplió convocatoria y quórum.", "quizBad": "El caso establece que la convocatoria y el quórum fueron correctos. Revisen el Artículo 22.", "tensions": [{"id": "validity", "title": "Legalidad del proceso", "anchor": "LEY · Art. 22 LCH", "question": "¿Cumplir la convocatoria y el quórum basta para expresar la voluntad colectiva?"}, {"id": "democracy", "title": "Control democrático", "anchor": "PRINCIPIO · Art. 8 RLCH", "question": "¿Puede existir control activo cuando participa siempre una minoría?"}, {"id": "information", "title": "Acceso a la información", "anchor": "DERECHO · Art. 76 LCH", "question": "¿La inasistencia refleja desinterés o una preparación insuficiente para decidir?"}, {"id": "voice", "title": "Confianza en el voto", "anchor": "DERECHO · Voz y voto", "question": "¿Tener derecho a votar equivale a sentir que la participación propia influye?"}, {"id": "responsibility", "title": "Responsabilidad de la membresía", "anchor": "VALOR · Responsabilidad", "question": "¿Qué parte del problema corresponde a la cooperativa y cuál a sus afiliados?"}], "positionPrompt": "La Asamblea es legalmente impecable. ¿Sigue existiendo control democrático real?", "positionOptions": [{"id": "green", "tone": "green", "title": "Sí", "text": "La ley define las condiciones y quien desea participar puede hacerlo."}, {"id": "yellow", "tone": "yellow", "title": "Es válido, pero algo se pierde", "text": "La Asamblea decide legalmente, aunque la vida democrática se debilita."}, {"id": "red", "tone": "red", "title": "Ya no es un control democrático saludable", "text": "La participación es tan reducida que la voluntad colectiva queda demasiado estrecha."}], "evidencePrompt": "¿Qué hecho del caso pesó más en su posición?", "evidenceOptions": [{"id": "samepeople", "text": "Asisten casi siempre las mismas 40–50 personas."}, {"id": "valid", "text": "La convocatoria y el quórum se cumplen correctamente."}, {"id": "rights", "text": "Toda la membresía conserva su derecho a voz y voto."}, {"id": "scale", "text": "Más de 750 afiliados permanecen fuera de la deliberación."}], "phraseStem": "Un afiliado, un voto suena a pura democracia, pero…", "decisionPrompt": "¿Cuál debería ser la primera respuesta de la cooperativa?", "decisionOptions": [{"id": "none", "title": "No intervenir", "detail": "La participación es un derecho y una responsabilidad personal."}, {"id": "diagnose", "title": "Investigar por qué la membresía no participa", "detail": "Distinguir apatía, barreras, desinformación y desconfianza."}, {"id": "spaces", "title": "Crear espacios previos de información y deliberación", "detail": "Preparar mejor a la membresía antes de la Asamblea."}, {"id": "plan", "title": "Aprobar un plan amplio de participación", "detail": "Combinar información, consulta, formación y seguimiento."}], "basisLabel": "La norma o principio desde el cual justificamos esta respuesta es…", "valueLabel": "El aspecto de la democracia cooperativa que buscamos proteger es…", "costLabel": "Si nada cambia durante diez años, el riesgo principal sería…"}, "g4": {"group": "Grupo 4", "title": "Fondo de educación y comunidad", "short": "Buena intención, destino legal del fondo y compromiso comunitario.", "accent": "blue", "caseTitle": "Una mentoría valiosa, pero ¿con qué dinero?", "caseLead": "El Comité de Educación propone que afiliados jubilados acompañen a jóvenes emprendedores y que el fondo cubra traslados y logística.", "actors": [{"badge": "J", "title": "Afiliados jóvenes", "text": "Buscan acompañamiento para fortalecer sus emprendimientos."}, {"badge": "M", "title": "Mentores jubilados", "text": "Tienen experiencia y están dispuestos a compartirla."}, {"badge": "C", "title": "Emprendedores de la comunidad", "text": "No son afiliados, pero enfrentan las mismas necesidades de formación."}], "caseBody": ["La iniciativa propone abrir el beneficio también a miembros de la comunidad con negocios propios, no solo a afiliados.", "La intención responde al compromiso con la comunidad, pero el Fondo de Educación Cooperativo tiene un destino específico. Además, la normativa sancionatoria considera muy grave utilizarlo para fines distintos de los establecidos.", "El equipo debe decidir si limita el proyecto, separa las fuentes de financiamiento o busca otra forma de atender a la comunidad."], "focus": "¿Cómo se cumple el compromiso con la comunidad sin utilizar una buena intención para justificar el uso incorrecto de un fondo?", "laws": [{"kind": "REGLAMENTO", "title": "Destino del Fondo de Educación", "source": "Art. 125 RLCH", "simple": "El fondo no puede ser inferior al 3% del ingreso neto anual: 2% para educación y capacitación a cooperativistas y 1% para juventud y género.", "verbatim": "“El Fondo de Educación Cooperativo no puede ser inferior al tres por ciento (3%) del ingreso neto anual… Este debe distribuirse de la forma siguiente: a) Dos por ciento (2%) a Educación y Capacitación a Cooperativistas; y, b) Uno por ciento (1%) a Educación y Capacitación de la Juventud y Género.”"}, {"kind": "PRINCIPIO", "title": "Compromiso con la comunidad", "source": "Art. 8 RLCH · Séptimo Principio", "simple": "Las cooperativas trabajan para el desarrollo sostenible de su comunidad mediante políticas aceptadas por sus miembros.", "verbatim": "“Compromiso con la comunidad; Las cooperativas trabajan para el desarrollo sostenible de su comunidad… a través de políticas aceptadas por sus miembros.”"}, {"kind": "SANCIÓN", "title": "Uso distinto del fondo", "source": "Acuerdo J.D. 001-17-07-2025 · Art. 18.4", "simple": "El ejercicio toma como referencia que utilizar el fondo para fines distintos se considera una falta muy grave.", "verbatim": "Se considera falta muy grave “utilizar el fondo de educación para fines distintos” a los establecidos."}], "plain": "El compromiso comunitario sigue vigente, pero no convierte cualquier fondo en una fuente disponible. La salida puede estar en separar finalidades y financiamientos.", "quiz": "Según el Art. 125 RLCH, el 2% del Fondo de Educación está destinado a…", "quizOptions": [{"id": "a", "text": "Cooperativistas —afiliados—"}, {"id": "b", "text": "Cualquier persona de la comunidad"}, {"id": "c", "text": "Empleados de la cooperativa"}], "quizCorrect": "a", "quizGood": "Exacto. El 2% señalado está destinado a educación y capacitación de cooperativistas.", "quizBad": "Revisen la distribución establecida en el Artículo 125.", "tensions": [{"id": "destination", "title": "Destino legal del fondo", "anchor": "REGLAMENTO · Art. 125", "question": "¿Una buena finalidad permite apartarse del destino específico del dinero?"}, {"id": "community", "title": "Compromiso comunitario", "anchor": "PRINCIPIO · Art. 8 RLCH", "question": "¿Cómo atiende la cooperativa a la comunidad sin abandonar sus reglas?"}, {"id": "sanction", "title": "Riesgo de sanción", "anchor": "NORMA · Art. 18.4", "question": "¿Qué responsabilidad asumen quienes autorizan un uso distinto?"}, {"id": "education", "title": "Propósito educativo", "anchor": "PRINCIPIO · Educación", "question": "¿La mentoría es educación cooperativa o un programa general de emprendimiento?"}, {"id": "responsibility", "title": "Responsabilidad", "anchor": "VALOR · Responsabilidad", "question": "¿Actuar responsablemente significa ejecutar rápido o asegurar primero la fuente correcta?"}], "positionPrompt": "Negar el beneficio a un vecino emprendedor puede sentirse contrario al compromiso con la comunidad. ¿Cómo evalúa el equipo esa tensión?", "positionOptions": [{"id": "green", "tone": "green", "title": "La ley es clara", "text": "No debe mezclarse el fondo con beneficiarios o fines distintos."}, {"id": "yellow", "tone": "yellow", "title": "No debe mezclarse, pero hay que buscar otra fuente", "text": "El proyecto comunitario es válido si se financia correctamente."}, {"id": "red", "tone": "red", "title": "Excluir a la comunidad contradice el espíritu cooperativo", "text": "La separación legal del dinero no debería cerrar el beneficio comunitario."}], "evidencePrompt": "¿Qué hecho del caso pesó más en su posición?", "evidenceOptions": [{"id": "destination", "text": "El Art. 125 asigna el fondo a beneficiarios y finalidades específicas."}, {"id": "community", "text": "La comunidad tiene una necesidad real de acompañamiento."}, {"id": "sanction", "text": "El uso distinto puede constituir una falta muy grave."}, {"id": "design", "text": "El proyecto puede dividirse y financiarse con fuentes diferentes."}], "phraseStem": "Compromiso con la comunidad suena hermoso, pero cuando se trata de dinero…", "decisionPrompt": "¿Cómo ejecutarían la iniciativa?", "decisionOptions": [{"id": "members", "title": "Usar el fondo solo para cooperativistas", "detail": "Limitar la mentoría financiada por el fondo a la membresía."}, {"id": "split", "title": "Crear dos componentes con fuentes separadas", "detail": "Fondo educativo para afiliados y otra fuente para la comunidad."}, {"id": "pause", "title": "Posponer la parte comunitaria", "detail": "No iniciarla hasta identificar una fuente admisible."}, {"id": "redesign", "title": "Rediseñar el proyecto completo", "detail": "Crear un Programa de Desarrollo Cooperativo con presupuesto propio."}], "basisLabel": "La norma que respalda o limita nuestra decisión es…", "valueLabel": "El principio o valor cooperativo que buscamos proteger es…", "costLabel": "El costo, retraso o límite que estamos dispuestos a aceptar es…"}};
+const STORAGE_KEY = "coopenotebook_jester_multicase_v1";
+
+const baseCaseState = () => ({
+  quiz:"",quizCorrect:false,tensions:[],position:"",evidence:"",
+  justification:"",phrase:"",decision:"",basis:"",value:"",cost:"",notes:""
+});
+const initialState = {
+  screen:"intro", caseId:null, caseStep:0,
+  pendingCase:null, generalNotes:"",
+  cases:{g1:baseCaseState(),g2:baseCaseState(),g3:baseCaseState(),g4:baseCaseState()}
+};
+let state=loadState();
+
+function loadState(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+    const merged={...initialState,...saved,cases:{...initialState.cases,...(saved.cases||{})}};
+    Object.keys(CASES).forEach(id=>merged.cases[id]={...baseCaseState(),...(merged.cases[id]||{})});
+    return merged;
+  }catch{return structuredClone(initialState)}
+}
+function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function cs(){return state.caseId?state.cases[state.caseId]:null}
+function currentCase(){return state.caseId?CASES[state.caseId]:null}
+function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function countWords(v){return String(v||"").trim()?String(v).trim().split(/\s+/).length:0}
+function toast(msg){const n=document.getElementById("toast");n.textContent=msg;n.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>n.classList.remove("show"),1800)}
+
+const caseSteps=[
+  {title:"1 · El caso",render:renderCase},
+  {title:"2 · La norma",render:renderLaw},
+  {title:"3 · Confirmemos la regla",render:renderQuiz},
+  {title:"4 · Puntos de tensión",render:renderTensions},
+  {title:"5 · Tomá posición",render:renderPosition},
+  {title:"6 · La frase incómoda",render:renderPhrase},
+  {title:"7 · Decisión del equipo",render:renderDecision},
+  {title:"8 · Resumen",render:renderSummary}
+];
+
+function totalPosition(){
+  if(state.screen==="intro") return {n:1,total:10,label:"Inicio"};
+  if(state.screen==="selector") return {n:2,total:10,label:"Elegir caso"};
+  return {n:3+state.caseStep,total:10,label:`${state.caseStep+1} de 8`};
+}
+
+function render(){
+  const stage=document.getElementById("stage");
+  let html="";
+  if(state.screen==="intro") html=renderIntro();
+  else if(state.screen==="selector") html=renderSelector();
+  else html=caseSteps[state.caseStep].render();
+  stage.innerHTML=html;
+  const p=totalPosition();
+  document.getElementById("bar").style.width=`${(p.n/p.total)*100}%`;
+  document.getElementById("progressLabel").textContent=p.label;
+  document.getElementById("headerTitle").textContent=state.screen==="case"?`${currentCase().group} · ${currentCase().title}`:(state.screen==="selector"?"Seleccioná el caso asignado":"Cómo navegar");
+  document.getElementById("eyebrow").textContent=state.screen==="case"?"Jester · Caso aplicado":"Jester · Casos aplicados";
+  document.getElementById("stepName").textContent=state.screen==="case"?caseSteps[state.caseStep].title:(state.screen==="selector"?"Selector":"Cómo navegar");
+  bindScreen();renderSideNav();updateNav();
+}
+
+function renderIntro(){
+  return `<section class="slide">
+    <p class="kicker">Tab preliminar · Cómo navegar</p>
+    <h1>Un enlace, un caso, todas las respuestas</h1>
+    <p class="lead">Jester les acompaña durante el recorrido. Este primer tab explica cómo usar la actividad antes de escoger el caso asignado.</p>
+
+    <div class="jesterHero">
+      <div class="jesterFace">♜</div>
+      <h2>Así funciona la actividad</h2>
+      <p>Cada equipo selecciona un solo caso. Después avanza pantalla por pantalla hasta generar un resumen para la plenaria.</p>
+
+      <div class="rules">
+        <div class="rule"><span class="ruleNum">1</span><div><strong>Seleccionen únicamente el caso asignado</strong><span>Los cuatro casos están dentro del mismo enlace. El facilitador les indicará cuál corresponde a su equipo.</span></div></div>
+        <div class="rule"><span class="ruleNum">2</span><div><strong>Respondan todo para avanzar</strong><span>El botón “Siguiente” se activa únicamente cuando completan todas las preguntas obligatorias de la pantalla.</span></div></div>
+        <div class="rule"><span class="ruleNum">3</span><div><strong>Usen Atrás sin perder respuestas</strong><span>Pueden revisar pantallas anteriores. Las selecciones y textos se guardan automáticamente en este dispositivo.</span></div></div>
+        <div class="rule"><span class="ruleNum">4</span><div><strong>Abran las tarjetas legales cuando las necesiten</strong><span>La explicación breve aparece primero. Toquen cada acordeón para consultar el texto literal de la norma.</span></div></div>
+        <div class="rule"><span class="ruleNum">5</span><div><strong>Las notas son opcionales</strong><span>El botón “Notas” sirve para guardar dudas o comentarios. No sustituye ninguna respuesta obligatoria.</span></div></div>
+        <div class="rule"><span class="ruleNum">6</span><div><strong>Terminen en el resumen</strong><span>La última pantalla reúne la posición, la frase y la decisión del equipo para presentarlas en plenaria.</span></div></div>
+      </div>
+    </div>
+
+    <div class="navDemo" aria-label="Ejemplo de navegación">
+      <div class="navDemoTop"><strong>Grupo asignado · Caso aplicado</strong><span>4 de 8</span></div>
+      <div class="navDemoBar"><i></i></div>
+      <div class="navDemoBody">Cada tab contiene una parte del caso. Si el contenido es largo, deslicen hacia abajo dentro de la pantalla.</div>
+      <div class="navDemoFoot"><b>Atrás</b><span>Las respuestas se guardan</span><b>Siguiente</b></div>
+    </div>
+
+    <div class="card highlight">
+      <strong>Listo.</strong>
+      <p>Toquen <b>Escoger caso</b> y abran únicamente el grupo que les asignó el facilitador.</p>
+    </div>
+  </section>`;
+}
+
+function renderSelector(){
+  return `<section class="slide">
+    <p class="kicker">Selector común</p>
+    <h1>Trabajen solo el caso asignado</h1>
+    <p class="lead">El facilitador indicará qué grupo corresponde a su equipo. Todos los casos viven en este mismo enlace.</p>
+    <div class="caseGrid">
+      ${Object.entries(CASES).map(([id,c])=>`<button type="button" class="caseCard ${state.pendingCase===id?"selected":""}" data-case="${id}">
+        <span class="caseNum">${c.group}</span><h3>${c.title}</h3><p>${c.short}</p><span class="tension">Duración sugerida: 15–20 minutos</span>
+      </button>`).join("")}
+    </div>
+    <div class="card highlight"><strong>Importante:</strong> abran únicamente el grupo que les asignó el facilitador. Una vez dentro, deberán completar todas las preguntas para llegar al resumen.</div>
+  </section>`;
+}
+
+function renderCase(){
+  const c=currentCase();
+  return `<section class="slide">
+    <p class="kicker">Paso 1 · El caso</p><h1>${c.caseTitle}</h1><p class="lead">${c.caseLead}</p>
+    <div class="actorGrid">${c.actors.map(a=>`<article class="actor"><div class="badge">${a.badge}</div><strong>${a.title}</strong><span>${a.text}</span></article>`).join("")}</div>
+    <div class="story">${c.caseBody.map(p=>`<p>${p}</p>`).join("")}</div>
+    <div class="focus">${c.focus}</div>
+  </section>`;
+}
+
+function renderLaw(){
+  const c=currentCase();
+  return `<section class="slide">
+    <p class="kicker">Paso 2 · Lo que establece la norma</p><h1>La ley marca el terreno</h1>
+    <p class="lead">Abrí cada tarjeta. Primero lean la explicación sencilla; después consulten el texto literal.</p>
+    <div class="lawStack">${c.laws.map((l,i)=>`<article class="law" data-law><button class="lawHead" type="button" aria-expanded="false">
+      <span class="lawSeal">§</span><span class="lawMeta"><strong>${l.title}</strong><small>${l.source}</small></span><span class="chev">⌄</span></button>
+      <div class="lawBody"><span class="kind">${l.kind}</span><p class="simple">${l.simple}</p><div class="verbatim">${l.verbatim}</div></div></article>`).join("")}</div>
+    <div class="focus"><strong>En sencillo:</strong> ${c.plain}</div>
+  </section>`;
+}
+
+function option(name,id,text,detail=""){
+  const s=cs();
+  return `<label class="option"><input type="radio" name="${name}" value="${id}" ${s&&s[name]===id?"checked":""}><span><strong>${text}</strong>${detail?`<small>${detail}</small>`:""}</span></label>`;
+}
+
+function renderQuiz(){
+  const c=currentCase(),s=cs();
+  return `<section class="slide">
+    <p class="kicker">Paso 3 · Punto de partida común</p><h1>Confirmemos la regla</h1>
+    <p class="lead">Esta pregunta no es una opinión. Sirve para asegurar que el equipo comprendió el artículo antes de discutirlo.</p>
+    <fieldset class="question"><legend>${c.quiz}</legend><div class="options">${c.quizOptions.map(o=>option("quiz",o.id,o.text)).join("")}</div>
+      <button class="actionbtn" id="checkQuiz" type="button">Confirmar respuesta</button>
+      ${s.quiz?`<div class="feedback show ${s.quizCorrect?"good":"bad"}">${s.quizCorrect?c.quizGood:c.quizBad}</div>`:""}
+    </fieldset>
+  </section>`;
+}
+
+function renderTensions(){
+  const c=currentCase(),s=cs();
+  return `<section class="slide">
+    <p class="kicker">Paso 4 · Análisis</p><h1>Elijan dos puntos de tensión</h1>
+    <p class="lead">Cada punto está amarrado a una norma, principio o valor. No pueden seleccionar más de dos.</p>
+    <div class="tensionGrid">${c.tensions.map(t=>`<button type="button" class="tensionCard ${s.tensions.includes(t.id)?"selected":""}" data-tension="${t.id}">
+      <span class="anchor">${t.anchor}</span><strong>${t.title}</strong><span>${t.question}</span></button>`).join("")}</div>
+    <div class="countBox">Seleccionados: <span id="tensionCount">${s.tensions.length}</span> de 2</div>
+  </section>`;
+}
+
+function renderPosition(){
+  const c=currentCase(),s=cs();
+  const names=s.tensions.map(id=>c.tensions.find(t=>t.id===id)?.title).filter(Boolean);
+  return `<section class="slide">
+    <p class="kicker">Paso 5 · Posición del equipo</p><h1>Lo legal no resuelve toda la pregunta</h1>
+    <p class="lead">Su equipo analiza el caso desde <strong>${names.join(" y ")||"los puntos seleccionados"}</strong>.</p>
+    <fieldset class="question"><legend>${c.positionPrompt}</legend><div class="semaphore">${c.positionOptions.map(o=>`<div class="sema"><label>
+      <input type="radio" name="position" value="${o.id}" ${s.position===o.id?"checked":""}><span><strong><span class="dot ${o.tone}"></span>${o.title}</strong><small>${o.text}</small></span>
+    </label></div>`).join("")}</div></fieldset>
+    <fieldset class="question"><legend>${c.evidencePrompt}</legend><div class="options">${c.evidenceOptions.map(o=>option("evidence",o.id,o.text)).join("")}</div>
+      <div class="textareaWrap"><label for="justification">Expliquen en 1–2 oraciones por qué ese hecho fue decisivo.</label>
+      <textarea id="justification" maxlength="300" placeholder="Este hecho importa porque…">${esc(s.justification)}</textarea><div class="counter"><span id="justificationCount">${s.justification.length}</span> / 300</div></div>
+    </fieldset>
+  </section>`;
+}
+
+function renderPhrase(){
+  const c=currentCase(),s=cs();
+  return `<section class="slide">
+    <p class="kicker">Paso 6 · Síntesis</p><h1>La frase incómoda</h1>
+    <p class="lead">Escriban lo que normalmente queda escondido detrás del lenguaje institucional.</p>
+    <div class="sentence"><blockquote>“${c.phraseStem}”</blockquote>
+      <div class="textareaWrap"><label for="phrase">Completen la frase como equipo.</label><textarea id="phrase" maxlength="240" placeholder="Máximo 25 palabras">${esc(s.phrase)}</textarea>
+      <div class="counter"><span id="phraseCount">${countWords(s.phrase)}</span> / 25 palabras</div></div>
+    </div>
+  </section>`;
+}
+
+function renderDecision(){
+  const c=currentCase(),s=cs();
+  return `<section class="slide">
+    <p class="kicker">Paso 7 · Cierre</p><h1>La decisión del equipo</h1><p class="lead">${c.decisionPrompt}</p>
+    <fieldset class="question"><legend>Elijan una acción</legend><div class="options">${c.decisionOptions.map(o=>option("decision",o.id,o.title,o.detail)).join("")}</div></fieldset>
+    <div class="decisionGrid">
+      ${shortField("basis",c.basisLabel,s.basis)}
+      ${shortField("value",c.valueLabel,s.value)}
+      ${shortField("cost",c.costLabel,s.cost)}
+    </div>
+  </section>`;
+}
+function shortField(id,label,value){
+  return `<div class="shortField"><label for="${id}">${label}</label><textarea id="${id}" maxlength="220">${esc(value)}</textarea><div class="counter"><span id="${id}Count">${value.length}</span> / 220</div></div>`;
+}
+
+function selectedText(list,id){return list.find(x=>x.id===id)?.title||list.find(x=>x.id===id)?.text||""}
+function renderSummary(){
+  const c=currentCase(),s=cs();
+  const tensionNames=s.tensions.map(id=>c.tensions.find(t=>t.id===id)?.title).filter(Boolean).join(" · ");
+  const position=selectedText(c.positionOptions,s.position);
+  const decision=selectedText(c.decisionOptions,s.decision);
+  return `<section class="slide">
+    <p class="kicker">Paso 8 · Producto del equipo</p><h1>Resumen para la plenaria</h1>
+    <p class="lead">Resumen de <strong>${c.group} · ${c.title}</strong>.</p>
+    <div class="summary">
+      <div class="summaryBlock"><h3>Los dos puntos de tensión</h3><p>${tensionNames||'<span class="empty">Sin respuesta</span>'}</p></div>
+      <div class="summaryBlock"><h3>Posición</h3><p><strong>${position||'<span class="empty">Sin respuesta</span>'}</strong></p><p>${esc(s.justification)||'<span class="empty">Sin justificación</span>'}</p></div>
+      <div class="summaryBlock"><h3>La frase incómoda</h3><p>“${c.phraseStem} ${esc(s.phrase)||"…"}”</p></div>
+      <div class="summaryBlock"><h3>Decisión</h3><p><strong>${decision||'<span class="empty">Sin respuesta</span>'}</strong></p><p><b>Base:</b> ${esc(s.basis)||'<span class="empty">Sin respuesta</span>'}</p><p><b>Protege:</b> ${esc(s.value)||'<span class="empty">Sin respuesta</span>'}</p><p><b>Costo o riesgo:</b> ${esc(s.cost)||'<span class="empty">Sin respuesta</span>'}</p></div>
+      ${s.notes?`<div class="summaryBlock"><h3>Notas del caso</h3><p>${esc(s.notes).replaceAll("\n","<br>")}</p></div>`:""}
+    </div>
+    <div class="card highlight"><strong>Para exponer:</strong> expliquen qué dice la norma, dónde aparece la tensión y qué costo tiene la decisión. No vuelvan a leer todo el caso.</div>
+    <button class="actionbtn" id="printBtn" type="button">Imprimir o guardar este resumen</button>
+  </section>`;
+}
+
+function bindScreen(){
+  document.querySelectorAll("[data-law] .lawHead").forEach(b=>b.addEventListener("click",()=>{const law=b.closest(".law");const open=law.classList.toggle("open");b.setAttribute("aria-expanded",String(open))}));
+  document.querySelectorAll("[data-case]").forEach(b=>b.addEventListener("click",()=>{state.pendingCase=b.dataset.case;saveState();render()}));
+  document.querySelectorAll('input[name="quiz"]').forEach(i=>i.addEventListener("change",()=>{cs().quiz=i.value;cs().quizCorrect=false;saveState();updateNav()}));
+  const check=document.getElementById("checkQuiz");if(check)check.addEventListener("click",()=>{if(!cs().quiz){toast("Seleccionen una respuesta.");return}cs().quizCorrect=cs().quiz===currentCase().quizCorrect;saveState();render()});
+  document.querySelectorAll("[data-tension]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.tension,s=cs();if(s.tensions.includes(id))s.tensions=s.tensions.filter(x=>x!==id);else if(s.tensions.length<2)s.tensions=[...s.tensions,id];else{toast("Solo pueden elegir dos.");return}saveState();render()}));
+  ["position","evidence","decision"].forEach(name=>document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.addEventListener("change",()=>{cs()[name]=i.value;saveState();updateNav()})));
+  bindText("justification",300,false);bindText("phrase",25,true);bindText("basis",220,false);bindText("value",220,false);bindText("cost",220,false);
+  const print=document.getElementById("printBtn");if(print)print.addEventListener("click",()=>window.print());
+}
+
+function bindText(id,max,words){
+  const el=document.getElementById(id),counter=document.getElementById(id+"Count");if(!el)return;
+  el.addEventListener("input",()=>{let v=el.value;if(words&&countWords(v)>max){v=v.trim().split(/\s+/).slice(0,max).join(" ");el.value=v;toast("Máximo 25 palabras.")}cs()[id]=v;if(counter)counter.textContent=words?countWords(v):v.length;saveState();updateNav()});
+}
+
+function validCaseStep(step){
+  const s=cs();
+  if(!s) return false;
+  switch(step){
+    case 0:
+    case 1:
+      return true;
+    case 2:
+      return s.quizCorrect;
+    case 3:
+      return s.tensions.length===2;
+    case 4:
+      return Boolean(s.position && s.evidence && s.justification.trim().length>=25);
+    case 5:
+      return countWords(s.phrase)>=5 && countWords(s.phrase)<=25;
+    case 6:
+      return Boolean(
+        s.decision &&
+        s.basis.trim().length>=12 &&
+        s.value.trim().length>=12 &&
+        s.cost.trim().length>=12
+      );
+    case 7:
+      return [2,3,4,5,6].every(validCaseStep);
+    default:
+      return false;
+  }
+}
+function canAccessCaseStep(target){
+  if(target<=0) return true;
+  for(let step=0;step<target;step++){
+    if(!validCaseStep(step)) return false;
+  }
+  return true;
+}
+function isValid(){
+  if(state.screen==="intro") return true;
+  if(state.screen==="selector") return Boolean(state.pendingCase);
+  return validCaseStep(state.caseStep);
+}
+
+function updateNav(){
+  const back=document.getElementById("backBtn"),next=document.getElementById("nextBtn");
+  back.disabled=state.screen==="intro";
+  next.disabled=!isValid();
+  next.textContent=state.screen==="intro"?"Escoger caso":state.screen==="selector"?"Abrir caso":state.caseStep===7?"Volver al selector":"Siguiente";
+}
+
+function next(){
+  if(!isValid()){toast("Completen lo obligatorio para continuar.");return}
+  if(state.screen==="intro"){state.screen="selector"}
+  else if(state.screen==="selector"){
+    state.caseId=state.pendingCase;state.screen="case";state.caseStep=0;
+  }else if(state.caseStep<7)state.caseStep++;
+  else{state.screen="selector";state.pendingCase=state.caseId}
+  saveState();renderAndTop();
+}
+function back(){
+  if(state.screen==="selector")state.screen="intro";
+  else if(state.screen==="case"&&state.caseStep===0){state.screen="selector";state.pendingCase=state.caseId}
+  else if(state.screen==="case")state.caseStep--;
+  saveState();renderAndTop();
+}
+function renderAndTop(){render();const st=document.getElementById("stage");st.scrollTop=0;st.focus({preventScroll:true})}
+
+function renderSideNav(){
+  const nav=document.getElementById("sideNav");
+  let items=[
+    {label:"Cómo navegar",screen:"intro"},
+    {label:"Seleccionar caso",screen:"selector"}
+  ];
+  if(state.caseId)items=items.concat(caseSteps.map((x,i)=>({label:x.title,screen:"case",step:i})));
+  nav.innerHTML=items.map((it,i)=>{
+    const active=it.screen===state.screen&&(it.screen!=="case"||it.step===state.caseStep);
+    const locked=it.screen==="case" && !canAccessCaseStep(it.step);
+    return `<button type="button" class="${active?"active":""} ${locked?"locked":""}" data-screen="${it.screen}" data-step="${it.step??""}" aria-disabled="${locked}">${locked?"🔒 ":""}${it.label}</button>`;
+  }).join("");
+  nav.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+    const target=b.dataset.screen;
+    if(target==="intro"){state.screen="intro"}
+    else if(target==="selector"){state.screen="selector";state.pendingCase=state.caseId||state.pendingCase}
+    else{
+      const step=Number(b.dataset.step);
+      if(!canAccessCaseStep(step)){
+        toast("Completen todas las preguntas anteriores para abrir este paso.");
+        return;
+      }
+      state.screen="case";state.caseStep=step;
+    }
+    saveState();renderAndTop();
+  }));
+}
+
+function openNotes(){
+  document.getElementById("generalNotes").value=state.generalNotes||"";
+  document.getElementById("caseNotes").value=state.caseId?cs().notes:"";
+  document.getElementById("caseNotes").disabled=!state.caseId;
+  document.getElementById("caseNotesHeading").textContent=state.caseId?`Notas · ${currentCase().group}`:"Notas del caso — disponibles después de escoger";
+  document.getElementById("notesDrawer").classList.add("open");
+}
+function closeNotes(){document.getElementById("notesDrawer").classList.remove("open")}
+function saveNotes(){
+  state.generalNotes=document.getElementById("generalNotes").value;
+  if(state.caseId)cs().notes=document.getElementById("caseNotes").value;
+  saveState();closeNotes();toast("Notas guardadas.");
+}
+function goSelector(){
+  if(state.screen==="selector")return;
+  if(state.screen==="case"&&!confirm("¿Volver al selector? Sus respuestas se conservarán."))return;
+  state.screen="selector";state.pendingCase=state.caseId||state.pendingCase;saveState();renderAndTop();
+}
+
+document.getElementById("nextBtn").addEventListener("click",next);
+document.getElementById("backBtn").addEventListener("click",back);
+document.getElementById("notesBtn").addEventListener("click",openNotes);
+document.getElementById("closeNotes").addEventListener("click",closeNotes);
+document.getElementById("saveNotes").addEventListener("click",saveNotes);
+document.getElementById("notesDrawer").addEventListener("click",e=>{if(e.target.id==="notesDrawer")closeNotes()});
+document.getElementById("homeBtn").addEventListener("click",goSelector);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeNotes()});
+render();
+</script>
+</body>
+</html>
