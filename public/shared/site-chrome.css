@@ -282,3 +282,18 @@ body {
   border: none;
   background: #fff;
 }
+
+/* --- GoW Resizer --- */
+.antigravity-gow-resizer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 10002;
+  background: transparent;
+}
+.antigravity-gow-resizer:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

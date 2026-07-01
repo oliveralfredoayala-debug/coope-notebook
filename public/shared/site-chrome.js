@@ -1,5 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent chrome injection and hide static elements if running inside an iframe
+    if (window.self !== window.top) {
+        document.body.insertAdjacentHTML('beforeend', '<style>.topbar, footer, .antigravity-chrome-topbar, .antigravity-chrome-footer { display: none !important; } body { padding: 0 !important; background: transparent !important; }</style>');
+        return;
+    }
+
     const path = window.location.pathname;
     let showBack = false;
     let backUrl = '/';
@@ -70,10 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // GoW Artifact Panel Logic
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.self !== window.top) return; // Don't inject panel inside iframe
     if (document.getElementById('antigravity-gow-panel')) return; // Already injected
 
     const panelHtml = `
         <div id="antigravity-gow-panel" class="antigravity-gow-panel">
+            <div class="antigravity-gow-resizer" id="antigravity-gow-resizer"></div>
             <div class="antigravity-gow-handle" id="antigravity-gow-handle">
                 <img src="/assets/Iconos%20de%20página/media__1782945302366.png" alt="GoW">
             </div>
@@ -96,8 +104,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const handle = document.getElementById('antigravity-gow-handle');
     const pinBtn = document.getElementById('antigravity-gow-pin');
     const contentArea = document.getElementById('antigravity-gow-content');
+    const resizer = document.getElementById('antigravity-gow-resizer');
 
     let isPinned = false;
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        document.body.style.cursor = 'ew-resize';
+        panel.style.transition = 'none'; // Disable transition during resize
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        let newWidth = window.innerWidth - e.clientX;
+        if (newWidth < 300) newWidth = 300; // Min width
+        if (newWidth > window.innerWidth * 0.9) newWidth = window.innerWidth * 0.9; // Max width
+        
+        panel.style.width = newWidth + 'px';
+        if (isPinned) {
+            document.body.style.paddingRight = newWidth + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isResizing) {
+            isResizing = false;
+            document.body.style.cursor = '';
+            panel.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        }
+    });
+
 
     // Hover logic
     panel.addEventListener('mouseenter', () => {
