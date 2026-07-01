@@ -1,0 +1,553 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Estructura orgánica de la cooperativa
+slug: estructura-organica-de-la-cooperativa
+version: 1.0.0
+source_version: '1.0'
+status: package_ready
+shell_version: v7
+shell_fork: false
+legal_flow: contextual-pairs
+presentation_flow: one-tab-one-slide
+presentation_scroll_reset: hard-reset-on-slide-change
+opening:
+  question: ¿Quién decide, quién vigila y quién convierte los acuerdos en operación diaria?
+  thought: El organigrama de una cooperativa casi nunca sale bien a la primera. Vale la pena entenderlo con calma,
+    una pieza a la vez.
+  summary: La estructura orgánica cooperativa funciona cuando cada órgano comprende su lugar, su autoridad y la
+    relación que mantiene con los demás.
+legal_sources:
+  lch-art-8a:
+    article: ARTÍCULO 8-A
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 8-A.- La educación cooperativa entre los afiliados(as) es una prioridad de la cooperativa. Es
+      obligación de la Junta Directiva dar cumplimiento a este principio.
+
+
+      La Asamblea General Ordinaria debe evaluar el grado de desarrollo de la educación cooperativa y su influencia
+      para mejorar la formación moral y espiritual de los afiliados y de la comunidad, a cuyo efecto la Junta de
+      Vigilancia debe presentar su dictamen sobre los logros en este campo.'
+  lch-art-20:
+    article: ARTÍCULO 20
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 20.- La Dirección, Administración, Vigilancia y fiscalización interna de las cooperativas se
+      guiará bajo los principios de buen Gobierno Cooperativo y estará a cargo de:
+
+      a) La Asamblea General;
+
+      b) Junta Directiva;
+
+      c) Junta de Vigilancia; y,
+
+      ch) Gerencia General o en su defecto quien establezca sus estatutos.'
+  lch-art-22:
+    article: ARTÍCULO 22
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTÍCULO 22.- La Asamblea General legalmente convocada y reunida, es la autoridad suprema de la cooperativa
+      y expresa la voluntad colectiva de la misma. Las facultades que la ley, sus reglamentos o los Estatutos no
+      atribuyan a otro órgano de la cooperativa serán competencia de la Asamblea General.
+  lch-art-26:
+    article: ARTÍCULO 26
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 26.- La Junta Directiva está integrada por el número de miembros que establezca el Estatuto
+      y un miembro más que tiene el carácter de suplente; dicho número debe ser impar y nunca menor de cinco (5).
+
+
+      Los miembros de la Junta Directiva durarán en sus funciones tres (3) años. Ningún cooperativista puede ser
+      miembro de la Junta Directiva por más de tres (3) períodos consecutivos; en el caso de optar a un tercer periodo
+      la votación debe realizarse por las dos terceras partes de la Asamblea General sea esta en primera o segunda
+      convocatoria, en el Reglamento de esta Ley se deben adoptar mecanismos de elección alterna y otros procedimientos
+      afines.
+
+
+      Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta
+      después de un (1) año de haber cesado de su cargo por cualquier motivo.'
+  lch-art-31:
+    article: ARTÍCULO 31
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: ARTÍCULO 31.- El Gerente General será nombrado por la Junta Directiva quien para entrar en el desempeño
+      de sus funciones debe rendir caución suficiente para garantizar su gestión, misma que será fijada y calificada
+      por la Junta Directiva. En ningún caso un miembro de Junta Directiva o Vigilancia en funciones podrá ser contratado
+      como Gerente General, si no después de haber trascurrido un (1) año de haber cesado de su cargo.
+  lch-art-32:
+    article: ARTÍCULO 32
+    source: Ley de Cooperativas de Honduras · Decreto No. 65-87 y reformas
+    text: 'ARTÍCULO 32.- La Asamblea General elegirá de su seno una Junta de Vigilancia, compuesta por el número
+      de integrantes que establezca el Estatuto y un miembro más que tendrá el carácter de suplente, en número impar
+      no menor de tres (3) ni mayor de siete (7). Durarán tres (3) años en sus funciones y podrán ser reelectos
+      consecutivamente por dos períodos más.
+
+
+      Una vez que el directivo cese en sus funciones, no podrá ser miembro de Junta Directiva o Vigilancia, hasta
+      después de un (1) año de haber cesado de su cargo por cualquier motivo.
+
+
+      Para ser miembro de la Junta de Vigilancia se requerirá los mismos requisitos que para ser miembro de Junta
+      Directiva.
+
+
+      Tanto en el caso de la Junta de Vigilancia como en el de la Junta Directiva, quien sea electo para sustituir
+      a otro que no ha terminado su período, éste se elegirá por el tiempo que faltare para concluir el mismo.
+
+
+      La Junta de Vigilancia será solidariamente responsable con la Junta Directiva en los términos establecidos
+      en el Artículo 29, cuando hubiere omisión o negligencia en el cumplimiento de sus funciones.'
+  rlch-art-67:
+    article: ARTÍCULO 67
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: Artículo 67.- Dirección y Administración de las Cooperativas. La dirección y administración de las Cooperativas
+      está bajo la responsabilidad de la Asamblea General, la Junta Directiva y la Gerencia, en los términos de
+      la Ley, el presente Reglamento y las Normas establecidas en el Estatuto.
+  rlch-art-68:
+    article: ARTÍCULO 68
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: Artículo 68.- Elección de Junta Directiva. Corresponde a la Asamblea General Ordinaria elegir una Junta
+      Directiva en orden jerárquico, designando un(a) presidente(a), un(a) vicepresidente, un(a) secretario(a),
+      un(a) tesorero(a), más el número de vocales que establezca el Estatuto; y un suplente por Ley; el número de
+      integrantes titulares será impar y nunca menor a cinco (5). Cuando haya un Gerente General o el que haga sus
+      veces, el tesorero no será obligatorio. Para darle continuidad al proceso de dirección y administración, la
+      elección de los miembros de la Junta Directiva se hará de forma alterna y de acuerdo a lo establecido en la
+      Ley y Estatuto.
+  rlch-art-71:
+    article: ARTÍCULO 71
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: 'Artículo 71.- Administración. La Junta Directiva debe delegar funciones específicas en los Comité de
+      Gobierno Cooperativo y establecer sus normas de funcionamiento.
+
+
+      Al CONSUCOOP corresponde determinar los Comités de Gobierno Cooperativo que debe tener una Cooperativa, de
+      conformidad a su actividad especial. Siendo obligatorio el Comité de género, de juventud, educación y que
+      por normativas del CONSUCOOP sean creados.
+
+
+      Las Cooperativas deben seguir los lineamientos generales que emita el CONAMUCOOPH y CONAJOVEN en estos temas.'
+  rlch-art-72:
+    article: ARTÍCULO 72
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: Artículo 72.- Dirección de Comités Obligatorios. El Comité de Educación, será presidido por el Vicepresidente
+      de la Junta Directiva; El Comité de Género, será presidido de preferencia por un miembro de Junta Directiva
+      del sexo femenino y el Comité de Juventud por quien designe la Junta Directiva.
+  rlch-art-76:
+    article: ARTÍCULO 76
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: Artículo 76.- Elección de Junta de Vigilancia. Corresponde a la Asamblea General Ordinaria elegir una
+      Junta de Vigilancia, designando un presidente, un secretario y vocales, bajo el mismo procedimiento de elección
+      de la Junta Directiva. Para darle continuidad al proceso de fiscalización, la elección de los miembros de
+      la Junta de Vigilancia se hará de forma alterna y de acuerdo a lo establecido en el Estatuto.
+  rlch-art-85:
+    article: ARTÍCULO 85
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: 'Artículo 85.- Funciones del Gerente General. El Gerente General o quien haga sus veces tiene las funciones
+      siguientes:
+
+      a) Organizar y dirigir la administración de la Cooperativa en cumplimiento con las normas dictadas por la
+      Junta Directiva;
+
+      b) Presentar al término de cada ejercicio social, un Balance General, Estado de Resultados, el Inventario
+      General, Liquidación Presupuestaria, cumplimiento del plan estratégico y otros informes solicitados por la
+      Junta Directiva;
+
+      c) Presentar mensualmente informes, sobre los principales riesgos enfrentados por la cooperativa y las acciones
+      adoptadas para administrarlos adecuadamente;
+
+      d) Velar porque los libros de contabilidad sean llevados al día y con claridad, de la que es directamente
+      responsable;
+
+      e) Asistir con voz a las sesiones de la Junta Directiva cuando para ello sea requerido;
+
+      f) Ejecutar los acuerdos de Junta Directiva y Asamblea General;
+
+      g) Dar a los Cooperativistas las explicaciones que pidan sobre la situación de la Cooperativa en los asuntos
+      de su competencia;
+
+      h) Cobrar las sumas adeudadas a la Cooperativa y hacer los pagos acordados por la Junta Directiva;
+
+      i) Cumplir con las normativas y requerimientos que solicite el CONSUCOOP;
+
+      j) Representar extrajudicialmente a la Cooperativa en aquellas transacciones que sean necesarias para la ejecución
+      de las actividades y servicios de la organización;
+
+      k) Notificar a la Junta Directiva el nombramiento o destitución del personal a su cargo;
+
+      l) Determinar necesidades, mecanismos y opciones de financiamiento para que la Junta Directiva adopte las
+      medidas del caso;
+
+      m) Presentar mensualmente a la Junta Directiva los Estados Financieros y otros informes que le sean solicitados;
+
+      n) Elaborar proyectos de presupuesto, ejecutarlos y controlarlos una vez aprobados por la Junta Directiva
+      y la Asamblea General;
+
+      o) Elaborar y ejecutar planes de desarrollo y los planes anuales de la Cooperativa;
+
+      p) Trimestralmente, sobre el desempeño económico de la cooperativa de ahorro y crédito a la Junta Directiva
+      comparando ese informe con el correspondiente al trimestre anterior y con las metas previstas para dicho período;
+
+      q) Mensualmente, en la cooperativa de ahorro y crédito a la Junta Directiva, sobre los créditos otorgados
+      y la integración por riesgo de la cartera, así como las inversiones y ventas de activos realizados;
+
+      r) Cualquier otra información que establezca el CONSUCOOP y que debe ser de conocimiento de la Junta Directiva
+      de la cooperativa; y,
+
+      s) Otras que especifique el Manual de Organización y Funciones de la Cooperativa.'
+  rlch-art-125:
+    article: ARTÍCULO 125
+    source: Reglamento de la Ley de Cooperativas de Honduras · Acuerdo No. 041-2014
+    text: 'Artículo 125.- Constitución del Fondo de Educación Cooperativa. El Fondo de Educación Cooperativo no
+      puede ser inferior al tres por ciento (3%) del ingreso neto anual del presupuesto, calculado del periodo fiscal
+      anterior. Este debe distribuirse de la forma siguiente:
+
+      a) Dos por ciento (2%) a Educación y Capacitación a Cooperativistas; y,
+
+      b) Uno por ciento (1%) a Educación y Capacitación de la Juventud y Género;
+
+      Los excedentes del fondo no ejecutados en un ejercicio económico, se deben mantener en la dotación del ejercicio
+      siguiente. En caso de no ser utilizados en dicho término, debe ser trasladado proporcionalmente al CONSUCOOP
+      y a la CHC.'
+tabs:
+- id: tab-00-introduccion
+  title: Introducción
+  segments:
+  - id: organic-structure-overview
+    title: Una estructura con funciones diferenciadas
+    legalRefs:
+    - lch-art-20
+    lead: 'La Ley identifica cuatro componentes centrales del gobierno y la administración: Asamblea General, Junta
+      Directiva, Junta de Vigilancia y Gerencia General.'
+    theory:
+    - title: 01 · No es una sola cadena de mando
+      body: La estructura cooperativa distribuye decisión, dirección, vigilancia y ejecución. Cada órgano tiene
+        una función propia y no debe invadir la competencia de los demás.
+    - title: 02 · La autoridad nace de fuentes distintas
+      body: La Asamblea expresa la voluntad colectiva. Las juntas son electas. La Gerencia es nombrada para organizar
+        y ejecutar la operación.
+    - title: 03 · El organigrama explica relaciones
+      body: 'Un buen organigrama no solo ordena nombres: muestra quién elige, quién dirige, quién fiscaliza y quién
+        convierte los acuerdos en trabajo cotidiano.'
+  support:
+    kind: organic-overview
+    title: Cuatro funciones que sostienen la cooperativa
+    items:
+    - label: Asamblea
+      detail: Decide y expresa la voluntad colectiva
+    - label: Junta Directiva
+      detail: Dirige y administra
+    - label: Junta de Vigilancia
+      detail: Fiscaliza y controla
+    - label: Gerencia
+      detail: Organiza y ejecuta
+  callout: La estructura funciona cuando cada órgano ejerce su competencia y respeta la de los demás.
+- id: tab-01-los-dos-universos
+  title: Los dos universos
+  segments:
+  - id: political-and-enterprise
+    title: Gobierno cooperativo y operación empresarial
+    legalRefs:
+    - lch-art-20
+    - rlch-art-67
+    lead: Para comprender el organigrama conviene distinguir el universo político, que nace de la elección y la
+      representación, del universo empresarial, que organiza la operación diaria.
+    theory:
+    - title: 01 · Universo político
+      body: La Asamblea General, la Junta Directiva y la Junta de Vigilancia surgen de procesos democráticos y representan
+        la voluntad de la membresía.
+    - title: 02 · Universo empresarial
+      body: La Gerencia, las áreas administrativas, el personal técnico y la operación convierten decisiones y planes
+        en servicios, procesos y resultados.
+    - title: 03 · Son distintos, pero interdependientes
+      body: El gobierno cooperativo define dirección y control. La operación aporta capacidad técnica, información
+        y ejecución. Ninguno funciona bien sin el otro.
+  support:
+    kind: dual-universe
+    title: Dos universos conectados
+    left:
+      label: Universo político
+      items:
+      - Asamblea General
+      - Junta Directiva
+      - Junta de Vigilancia
+      detail: Elección · representación · dirección · control
+    bridge: Gerencia
+    right:
+      label: Universo empresarial
+      items:
+      - Administración
+      - Áreas técnicas
+      - Personal operativo
+      detail: Planificación · ejecución · servicios · resultados
+  callout: La Gerencia conecta la dirección política con la ejecución empresarial.
+- id: tab-02-asamblea-general
+  title: La Asamblea General
+  segments:
+  - id: assembly-supreme-authority
+    title: La autoridad suprema
+    legalRefs:
+    - lch-art-22
+    lead: La Asamblea General legalmente convocada y reunida expresa la voluntad colectiva y conserva las facultades
+      que no hayan sido atribuidas a otro órgano.
+    theory:
+    - title: 01 · Está en la cúspide del gobierno cooperativo
+      body: La Asamblea no administra cada tarea diaria, pero sí ocupa la máxima posición de autoridad dentro de
+        la cooperativa.
+    - title: 02 · Su autoridad es colectiva
+      body: No representa la voluntad de una sola persona. Sus decisiones nacen del procedimiento asambleario y
+        de la participación de afiliados o delegados.
+    - title: 03 · Conserva las facultades no asignadas
+      body: Cuando la Ley, el Reglamento o los Estatutos no atribuyen una facultad a otro órgano, esa competencia
+        corresponde a la Asamblea General.
+  support:
+    kind: assembly-apex
+    title: La Asamblea orienta el conjunto
+    top: Asamblea General
+    branches:
+    - label: Elige
+      detail: Junta Directiva y Junta de Vigilancia
+    - label: Aprueba
+      detail: Planes, presupuestos y decisiones fundamentales
+    - label: Evalúa
+      detail: Resultados y rendición de cuentas
+  callout: 'Autoridad suprema no significa ejecución diaria: significa decisión colectiva y competencia final.'
+- id: tab-03-juntas
+  title: Junta Directiva y Junta de Vigilancia
+  segments:
+  - id: board-of-directors
+    title: 'Junta Directiva: dirección y administración'
+    legalRefs:
+    - lch-art-26
+    - rlch-art-68
+    lead: La Junta Directiva es electa por la Asamblea y debe tener un número impar de integrantes titulares, nunca
+      menor de cinco.
+    theory:
+    - title: 01 · Dirige, no fiscaliza
+      body: Su función se concentra en conducir la cooperativa, cumplir los acuerdos de la Asamblea y orientar la
+        administración.
+    - title: 02 · Tiene cargos definidos
+      body: El Reglamento contempla Presidencia, Vicepresidencia, Secretaría, Tesorería, vocalías y una suplencia.
+        Cuando existe Gerencia General, la Tesorería no es obligatoria.
+    - title: 03 · Su integración es impar
+      body: La cantidad impar facilita la toma de decisiones y la Ley fija un mínimo de cinco integrantes titulares.
+  - id: surveillance-board
+    title: 'Junta de Vigilancia: fiscalización independiente'
+    legalRefs:
+    - lch-art-32
+    - rlch-art-76
+    lead: La Junta de Vigilancia también es electa por la Asamblea. Tiene entre tres y siete integrantes titulares,
+      en número impar, además de una suplencia.
+    theory:
+    - title: 01 · Vigila sin administrar
+      body: Su función es fiscalizar y controlar. No está subordinada a la Junta Directiva ni debe sustituirla en
+        la gestión administrativa.
+    - title: 02 · Funciona en paralelo
+      body: Ambas juntas responden a la Asamblea General. Una dirige y la otra vigila; la relación correcta es paralela,
+        no jerárquica.
+    - title: 03 · Su estructura también está definida
+      body: El Reglamento establece Presidencia, Secretaría y vocalías, elegidas bajo el mismo procedimiento general
+        de la Junta Directiva.
+  support:
+    kind: parallel-boards
+    title: Dos juntas, dos responsabilidades
+    left:
+      label: Junta Directiva
+      role: Dirige y administra
+      members: Mínimo 5 titulares · número impar
+      posts:
+      - Presidencia
+      - Vicepresidencia
+      - Secretaría
+      - Tesorería
+      - Vocalías
+    right:
+      label: Junta de Vigilancia
+      role: Fiscaliza y controla
+      members: Entre 3 y 7 titulares · número impar
+      posts:
+      - Presidencia
+      - Secretaría
+      - Vocalías
+  callout: 'La Junta de Vigilancia no está debajo de la Junta Directiva: ambas son electas por la Asamblea.'
+- id: tab-04-comites-obligatorios
+  title: Comités obligatorios
+  segments:
+  - id: mandatory-committees
+    title: Educación, Género y Juventud
+    legalRefs:
+    - lch-art-8a
+    - rlch-art-71
+    - rlch-art-72
+    lead: Los tres comités tienen respaldo normativo. El Reglamento también define quién preside cada uno.
+    theory:
+    - title: 01 · Educación es una prioridad
+      body: La Ley obliga a la Junta Directiva a promover la educación cooperativa y a la Asamblea a evaluar sus
+        resultados.
+    - title: 02 · Los tres comités son obligatorios
+      body: El Reglamento reconoce como obligatorios los comités de Educación, Género y Juventud, además de los
+        que determine CONSUCOOP.
+    - title: 03 · La dirección está establecida legalmente
+      body: Educación es presidido por la Vicepresidencia de la Junta Directiva; Género, de preferencia por una
+        persona directiva del sexo femenino; y Juventud, por quien designe la Junta Directiva.
+    - title: 04 · Son órganos de trabajo, no adornos
+      body: Los comités reciben funciones delegadas, deben actuar con reglas claras y reportar su gestión a la Junta
+        Directiva.
+  - id: education-fund
+    title: El fondo que sostiene la formación
+    legalRefs:
+    - rlch-art-125
+    lead: El Fondo de Educación Cooperativa no puede ser inferior al tres por ciento del ingreso neto anual del
+      presupuesto.
+    theory:
+    - title: 01 · Dos por ciento para cooperativistas
+      body: La mayor parte del fondo se destina a educación y capacitación de cooperativistas.
+    - title: 02 · Uno por ciento para Juventud y Género
+      body: La tercera parte restante se destina a educación y capacitación en Juventud y Género.
+  support:
+    kind: committee-system
+    title: Tres comités y un fondo común
+    committees:
+    - label: Educación
+      lead: Vicepresidencia JD
+      share: 2%
+    - label: Género
+      lead: De preferencia, directiva mujer
+      share: Parte del 1%
+    - label: Juventud
+      lead: Designación de la JD
+      share: Parte del 1%
+    fund: 3% mínimo
+  callout: La estructura de comités tiene respaldo legal, dirección definida y financiamiento propio.
+- id: tab-05-gerencia
+  title: La Gerencia como puente
+  segments:
+  - id: management-appointment
+    title: Nombrada por la Junta Directiva
+    legalRefs:
+    - lch-art-31
+    lead: La Gerencia General nace de una decisión de la Junta Directiva y debe ofrecer garantías para el desempeño
+      de su gestión.
+    theory:
+    - title: 01 · No es electa por la Asamblea
+      body: La Gerencia no pertenece a los órganos de elección democrática. Es nombrada por la Junta Directiva.
+    - title: 02 · Tiene una responsabilidad profesional
+      body: Su nombramiento implica gestión, capacidad técnica, rendición de cuentas y separación de los cargos
+        directivos en funciones.
+  - id: management-bridge
+    title: Convierte acuerdos en operación
+    legalRefs:
+    - rlch-art-67
+    - rlch-art-85
+    lead: La Gerencia organiza la administración, ejecuta acuerdos, prepara información y dirige el trabajo operativo
+      de la cooperativa.
+    theory:
+    - title: 01 · Recibe dirección
+      body: Trabaja bajo las normas y acuerdos de la Asamblea General y la Junta Directiva.
+    - title: 02 · Organiza la operación
+      body: Coordina administración, presupuestos, planes, información financiera, personal y servicios.
+    - title: 03 · Devuelve información
+      body: 'El puente funciona en ambos sentidos: la Gerencia ejecuta decisiones y entrega a los órganos de gobierno
+        información para decidir y controlar.'
+  support:
+    kind: management-bridge
+    title: La Gerencia traduce decisiones en ejecución
+    left:
+      label: Gobierno cooperativo
+      items:
+      - Asamblea General
+      - Junta Directiva
+      - Junta de Vigilancia
+    bridge:
+      label: Gerencia
+      detail: Coordina · ejecuta · informa
+    right:
+      label: Operación
+      items:
+      - Administración
+      - Áreas técnicas
+      - Personal
+      - Servicios
+  callout: 'La Gerencia no reemplaza al gobierno cooperativo: convierte sus decisiones en capacidad operativa.'
+- id: tab-final-para-llevarte
+  title: Para llevarte
+  segments:
+  - id: organic-synthesis
+    title: Una estructura que decide, dirige, vigila y ejecuta
+    legalRefs:
+    - lch-art-20
+    lead: La estructura orgánica se comprende mejor al seguir las relaciones entre autoridad, dirección, fiscalización
+      y operación.
+    theory:
+    - title: 01 · La Asamblea decide
+      body: Expresa la voluntad colectiva y ocupa la máxima autoridad.
+    - title: 02 · La Junta Directiva dirige
+      body: Conduce la cooperativa y orienta la administración.
+    - title: 03 · La Junta de Vigilancia controla
+      body: Fiscaliza de manera independiente y responde a la Asamblea.
+    - title: 04 · La Gerencia ejecuta
+      body: Organiza la operación y transforma acuerdos en resultados.
+  support:
+    kind: full-organigram
+    title: El mapa orgánico completo
+    assembly: Asamblea General
+    boards:
+    - Junta Directiva
+    - Junta de Vigilancia
+    committees:
+    - Educación
+    - Género
+    - Juventud
+    management: Gerencia General
+    operation:
+    - Administración
+    - Áreas técnicas
+    - Personal operativo
+  callout: 'La clave no es memorizar cajas: es comprender las relaciones entre ellas.'
+presentation_story:
+- id: scene-00-opening
+  kind: opening
+  tab: -1
+  title: Apertura
+- id: scene-01-tab
+  kind: tab-slide
+  tab: 0
+  title: Introducción
+- id: scene-02-tab
+  kind: tab-slide
+  tab: 1
+  title: Los dos universos
+- id: scene-03-tab
+  kind: tab-slide
+  tab: 2
+  title: La Asamblea General
+- id: scene-04-tab
+  kind: tab-slide
+  tab: 3
+  title: Junta Directiva y Junta de Vigilancia
+- id: scene-05-tab
+  kind: tab-slide
+  tab: 4
+  title: Comités obligatorios
+- id: scene-06-tab
+  kind: tab-slide
+  tab: 5
+  title: La Gerencia como puente
+- id: scene-07-tab
+  kind: tab-slide
+  tab: 6
+  title: Para llevarte
+sources:
+- id: art-22-lch
+  title: Art. 22 LCH — Asamblea General, autoridad suprema
+  reference: Decreto 65-87
+- id: art-26-32-lch
+  title: Art. 26 y 32 LCH — Integración de JD y JV
+  reference: Decreto 65-87
+- id: art-68-76-rlch
+  title: Art. 68 y 76 RLCH — Puestos de JD y JV
+  reference: Acuerdo 041-2014
+- id: art-8a-lch
+  title: Art. 8-A LCH — Educación cooperativa, obligación de la JD
+  reference: Decreto 65-87
+- id: art-125-rlch
+  title: Art. 125 RLCH — Fondo de Educación Cooperativa
+  reference: Acuerdo 041-2014
+- id: presidencia-comites-convencion
+  title: Presidencia de comités (práctica común, no cita legal literal verificada)
+  reference: Material interno CHC (slide de Comités Auxiliares)

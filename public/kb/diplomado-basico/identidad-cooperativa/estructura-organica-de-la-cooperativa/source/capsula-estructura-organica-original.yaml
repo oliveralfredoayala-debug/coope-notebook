@@ -1,0 +1,187 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Estructura orgánica de la cooperativa
+version: "1.0"
+status: approved
+
+opening_thought: >
+  El organigrama de una cooperativa casi nunca sale bien a la primera. Vale
+  la pena entenderlo con calma, una pieza a la vez.
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <p>Esta cápsula presenta cómo se organiza internamente una
+        cooperativa: sus dos universos de funcionamiento, sus órganos
+        principales, sus comités obligatorios, y el puente que conecta la
+        parte política con la parte operativa.</p>
+      </section>
+
+  - id: tab-01-los-dos-universos
+    title: Los dos universos
+    order: 1
+    html: |
+      <section>
+        <p>Para entender la estructura de una cooperativa, ayuda dividirla
+        en dos universos. El universo político es electo y representa la
+        voluntad de los afiliados: Asamblea General, Junta Directiva, Junta
+        de Vigilancia. El universo empresarial ejecuta las decisiones
+        tomadas en el universo político: gerencia, áreas, personal
+        técnico.</p>
+        <p>Ambos coexisten y dependen entre sí, pero responden a lógicas
+        distintas: uno nace del voto, el otro de la operación diaria.</p>
+      </section>
+
+  - id: tab-02-asamblea-general
+    title: La Asamblea General, autoridad suprema
+    order: 2
+    html: |
+      <section>
+        <p>Según el Art. 22 LCH:</p>
+        <blockquote>
+          <p>La Asamblea General legalmente convocada y reunida, es la
+          autoridad suprema de la cooperativa y expresa la voluntad
+          colectiva de la misma. Las facultades que la ley, sus
+          Reglamentos o los Estatutos no atribuyen a otro órgano de la
+          cooperativa serán competencia de la Asamblea General.</p>
+        </blockquote>
+        <p>Esto significa dos cosas: la Asamblea está por encima de
+        cualquier otro órgano, y cualquier facultad que la ley no le haya
+        dado explícitamente a otro órgano, por defecto es de la Asamblea.
+        </p>
+      </section>
+
+  - id: tab-03-junta-directiva-y-vigilancia
+    title: Junta Directiva y Junta de Vigilancia
+    order: 3
+    html: |
+      <section>
+        <p>Según el Art. 26 LCH (Junta Directiva):</p>
+        <blockquote>
+          <p>La Junta Directiva está integrada por el número de miembros
+          que establezca el Estatuto y un miembro más que tiene el
+          carácter de suplente; dicho número debe ser impar y nunca menor
+          de cinco (5). Los miembros de la Junta Directiva durarán en sus
+          funciones tres (3) años. Ningún cooperativista puede ser miembro
+          de la Junta Directiva por más de tres (3) períodos consecutivos.
+          </p>
+        </blockquote>
+        <p>Según el Art. 32 LCH (Junta de Vigilancia):</p>
+        <blockquote>
+          <p>La Asamblea General debe elegir de su seno una Junta de
+          Vigilancia, compuesta por el número de integrantes que
+          establezca el estatuto y un miembro más que tiene el carácter de
+          suplente, en un número impar no menor de 3 ni mayor de 7.</p>
+        </blockquote>
+        <p>Ambas son electas por la Asamblea, pero cumplen roles
+        distintos: la Junta Directiva dirige, la Junta de Vigilancia
+        supervisa. No una debajo de la otra, sino en paralelo.</p>
+        <h3>Puestos dentro de cada junta</h3>
+        <p>Según el Art. 68 RLCH, la Junta Directiva se integra por:
+        Presidente(a), Vicepresidente(a), Secretario(a), Tesorero(a),
+        Vocales (según Estatuto), y un Suplente. Si hay Gerente General, el
+        puesto de Tesorero no es obligatorio.</p>
+        <p>Según el Art. 76 RLCH, la Junta de Vigilancia se integra por:
+        Presidente(a), Secretario(a), y Vocales, bajo el mismo
+        procedimiento de elección que la Junta Directiva.</p>
+      </section>
+
+  - id: tab-04-comites-obligatorios
+    title: Comités obligatorios
+    order: 4
+    html: |
+      <section>
+        <p>Toda cooperativa mantiene tres comités obligatorios: Educación,
+        Género y Juventud. No son opcionales ni decorativos, tienen
+        respaldo legal y financiamiento propio.</p>
+        <p>Según el Art. 8-A LCH:</p>
+        <blockquote>
+          <p>La educación cooperativa entre los afiliados(as) es una
+          prioridad de la cooperativa. Es obligación de la Junta Directiva
+          dar cumplimiento a este principio. La Asamblea General Ordinaria
+          debe evaluar el grado de desarrollo de la educación cooperativa
+          y su influencia para mejorar la formación moral y espiritual de
+          los afiliados y de la comunidad, a cuyo efecto la Junta de
+          Vigilancia debe presentar su dictamen sobre los logros en este
+          campo.</p>
+        </blockquote>
+        <p>Según el Art. 125 RLCH:</p>
+        <blockquote>
+          <p>El Fondo de Educación Cooperativo no puede ser inferior al
+          tres por ciento (3%) del ingreso neto anual del presupuesto,
+          calculado del periodo fiscal anterior. Este debe distribuirse de
+          la forma siguiente: a) Dos por ciento (2%) a Educación y
+          Capacitación a Cooperativistas; y, b) Uno por ciento (1%) a
+          Educación y Capacitación de la Juventud y Género.</p>
+        </blockquote>
+        <h3>Quién preside cada comité</h3>
+        <p>Como práctica común (no como cita legal literal): el comité de
+        Educación suele presidirlo la Vicepresidencia de la Junta
+        Directiva; el comité de Género, de preferencia, una mujer
+        integrante de la Junta Directiva; y el comité de Juventud, quien
+        designe la Junta Directiva.</p>
+      </section>
+
+  - id: tab-05-la-gerencia-como-puente
+    title: La Gerencia como puente
+    order: 5
+    html: |
+      <section>
+        <p>La Gerencia General no pertenece al universo empresarial en
+        sentido estricto: es nombrada (no contratada externamente) por la
+        Junta Directiva, y es el único órgano que conecta ambos universos.
+        Recibe dirección del universo político y la traduce en operación
+        dentro del universo empresarial.</p>
+      </section>
+
+  - id: tab-final-para-llevarte
+    title: Para llevarte
+    order: 99
+    html: |
+      <section>
+        <p>Una cooperativa no es una sola estructura, son dos que
+        colaboran: la política, que decide, y la empresarial, que ejecuta.
+        Entre ambas hay órganos con roles específicos (Asamblea, Junta
+        Directiva, Junta de Vigilancia, comités obligatorios) y un puente
+        que las conecta: la Gerencia.</p>
+      </section>
+
+sources:
+  - id: art-22-lch
+    title: Art. 22 LCH — Asamblea General, autoridad suprema
+    reference: Decreto 65-87
+  - id: art-26-32-lch
+    title: Art. 26 y 32 LCH — Integración de JD y JV
+    reference: Decreto 65-87
+  - id: art-68-76-rlch
+    title: Art. 68 y 76 RLCH — Puestos de JD y JV
+    reference: Acuerdo 041-2014
+  - id: art-8a-lch
+    title: Art. 8-A LCH — Educación cooperativa, obligación de la JD
+    reference: Decreto 65-87
+  - id: art-125-rlch
+    title: Art. 125 RLCH — Fondo de Educación Cooperativa
+    reference: Acuerdo 041-2014
+  - id: presidencia-comites-convencion
+    title: Presidencia de comités (práctica común, no cita legal literal verificada)
+    reference: Material interno CHC (slide de Comités Auxiliares)
+
+notes_for_coordinator:
+  content_notes: >
+    Concepto "dos universos" reutilizado del artefacto avanzado existente
+    "Tensiones del mapa de poder cooperativo", simplificado para nivel
+    Diplomado Básico: sin tensiones, sin fiscalización a profundidad, sin
+    casos de análisis. La sección "Quién preside cada comité" está marcada
+    explícitamente como práctica común, no como texto legal literal, porque
+    no se encontró artículo RLCH que la respalde de forma directa.
+  legal_notes: >
+    Todos los artículos citados como texto legal literal fueron verificados
+    contra interior_CHC_Ley_Coop.pdf.
+  presentation_hints: >
+    Conviene un recurso tipo organigrama visual para el tab "Los dos
+    universos" y para los puestos de JD/JV, dado que Oliver señaló
+    explícitamente que el organigrama "casi nunca sale bien a la primera".

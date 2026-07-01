@@ -1,0 +1,56 @@
+{
+  "capsule": "Estructura orgánica de la cooperativa",
+  "version": "1.1.0",
+  "pedagogicalSequence": "piece-by-piece",
+  "slideCount": 8,
+  "slides": [
+    {
+      "id": "scene-00-opening",
+      "kind": "opening",
+      "tab": -1,
+      "title": "Apertura"
+    },
+    {
+      "id": "scene-01-tab",
+      "kind": "tab-slide",
+      "tab": 0,
+      "title": "Overview de la estructura"
+    },
+    {
+      "id": "scene-02-tab",
+      "kind": "tab-slide",
+      "tab": 1,
+      "title": "Asamblea General"
+    },
+    {
+      "id": "scene-03-tab",
+      "kind": "tab-slide",
+      "tab": 2,
+      "title": "Junta Directiva"
+    },
+    {
+      "id": "scene-04-tab",
+      "kind": "tab-slide",
+      "tab": 3,
+      "title": "Junta de Vigilancia"
+    },
+    {
+      "id": "scene-05-tab",
+      "kind": "tab-slide",
+      "tab": 4,
+      "title": "Gerencia"
+    },
+    {
+      "id": "scene-06-tab",
+      "kind": "tab-slide",
+      "tab": 5,
+      "title": "Comités obligatorios"
+    },
+    {
+      "id": "scene-07-tab",
+      "kind": "tab-slide",
+      "tab": 6,
+      "title": "Cómo funciona todo junto"
+    }
+  ]
+}

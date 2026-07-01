@@ -1,0 +1,227 @@
+{
+  "name": "estructura-organica-de-la-cooperativa-v1.1.1-production",
+  "version": "1.1.1",
+  "entry": "estructura-organica-de-la-cooperativa-v1.1.1.html",
+  "preview": "estructura-organica-de-la-cooperativa-v1.1.1-preview.png",
+  "basedOn": "estructura-organica-de-la-cooperativa-v1.1.0",
+  "guardrailStatus": "PASS",
+  "runtimeChecks": {
+    "jdChildren": 1,
+    "enterpriseBelowManagement": 1,
+    "directListCount": 3,
+    "detailsCount": 0,
+    "clickableTheoryButtons": 0
+  },
+  "files": [
+    {
+      "path": "INTERACTION-AND-ORGANIGRAM-FIX-v1.1.1.md",
+      "bytes": 470,
+      "sha256": "f389e12fc942059386a095b4b5b968d7465b8cbeaf60f4b6aa77ac0a394e8662"
+    },
+    {
+      "path": "LEGAL-SOURCE-EXTRACT.md",
+      "bytes": 278,
+      "sha256": "7b72bd05db8464797f2ab5d2ba7378cfa443b088f633f40e9f18d60733fc5899"
+    },
+    {
+      "path": "PEDAGOGICAL-REFACTOR-v1.1.0.md",
+      "bytes": 396,
+      "sha256": "932bff8e4a7b2f54ddc7d41a0f9a379b7760e6e55b337936e8c4c689dffeda14"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 555,
+      "sha256": "36ff023e056e03ba0075f153550b886c7b1a75489c867a09c81de8114e110b04"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 491,
+      "sha256": "8cf0797977c87e672a3c97bc83b99a8ee762c32d5409ca1d69847997542daf3c"
+    },
+    {
+      "path": "SOURCE-LEGAL-CORRECTIONS.md",
+      "bytes": 621,
+      "sha256": "9ea60ea3c62bc4967e9bbfbbfcf541d56780f36ae53c69e19f837fa20d9df1fc"
+    },
+    {
+      "path": "capsula-estructura-organica-banco-preguntas.validated.yaml",
+      "bytes": 6214,
+      "sha256": "03483743cb6b0194970a2c3d6cf5a56bfdaac40e5ab7d355edde7eeea9b105a9"
+    },
+    {
+      "path": "estructura-organica-de-la-cooperativa-v1.0.0-preview.png",
+      "bytes": 375451,
+      "sha256": "26aadf7a835f3d148ad73bbd7253e8cd9d24021ca903f3d9e29e2d0496cacd29"
+    },
+    {
+      "path": "estructura-organica-de-la-cooperativa-v1.1.0-preview.png",
+      "bytes": 278187,
+      "sha256": "6ba4b3061d28e1b6496d75c6b9a892f4ac5395ced268ed691590cd9b05c99eaa"
+    },
+    {
+      "path": "estructura-organica-de-la-cooperativa-v1.1.1-preview.png",
+      "bytes": 284021,
+      "sha256": "bbfc819812f033c987e0a1e8a4da038a6b8b0dfd06f92ecfac8e01e7e686ca3c"
+    },
+    {
+      "path": "estructura-organica-de-la-cooperativa-v1.1.1.html",
+      "bytes": 1711999,
+      "sha256": "a585edf707dc108da65cb016093e87682cf98c6803b016fe6fe9da6711a4974c"
+    },
+    {
+      "path": "estructura-organica-de-la-cooperativa.source.v1.0.0.yaml",
+      "bytes": 25937,
+      "sha256": "1b88e0f365e99d52fd08198cee6d7338c497fa7cedc1e73534d54cd902fe843e"
+    },
+    {
+      "path": "guardrail-report.json",
+      "bytes": 1468,
+      "sha256": "1921f4a23148e987ca44d8899d8aa49148c6b566bb7a1e874821c1ec7d725044"
+    },
+    {
+      "path": "preflight-final.log",
+      "bytes": 2538,
+      "sha256": "03902ac7c5bbdd22effc003f6dc6e7bd4d3673548597e144270f01fbf06b5968"
+    },
+    {
+      "path": "presentation-scene-map.json",
+      "bytes": 1116,
+      "sha256": "cf943f97f4d30a74d96571feb710ea443017570ddcdf53d12d2a4ccb70254bfd"
+    },
+    {
+      "path": "previews/01-opening.png",
+      "bytes": 340992,
+      "sha256": "212b7cd1c9e615e635558b1ddd763f2b646c6fee85ab0dc258f879357a101600"
+    },
+    {
+      "path": "previews/02-intro-visual.png",
+      "bytes": 196069,
+      "sha256": "b4c6e305236079fa91e5c9b25f716781b47d3267c037ac1fa3d1e4df0e00859b"
+    },
+    {
+      "path": "previews/03-two-universes.png",
+      "bytes": 200417,
+      "sha256": "c833cc0c4598d019f11df79ba7f3256128fa13a93bd14f3e91e9c48d1edddbb4"
+    },
+    {
+      "path": "previews/04-assembly.png",
+      "bytes": 196678,
+      "sha256": "5b586a51c665aa8beac88fa1ef9a30a26740ca6f0472cd1e08bcd4357ab16946"
+    },
+    {
+      "path": "previews/05-boards.png",
+      "bytes": 210043,
+      "sha256": "d4b84007bb2490258d5b731234ab20aa1bc1e845eeb7e1d921d2b1ac035fc4ee"
+    },
+    {
+      "path": "previews/06-committees.png",
+      "bytes": 200341,
+      "sha256": "680baf9b2bcea8980799c4fdea2e3ec3c60b1d3eac764045e81b3c4bddafd21c"
+    },
+    {
+      "path": "previews/07-management.png",
+      "bytes": 198549,
+      "sha256": "22fb4296ae047c95c6f4a644b14e2349c093e43432eb3557288f7788be052a90"
+    },
+    {
+      "path": "previews/08-takeaway.png",
+      "bytes": 184802,
+      "sha256": "52f36fa51f577839cf49645f988218c20632398edb5c4252e5c3955b004754ac"
+    },
+    {
+      "path": "previews/09-reading-boards.png",
+      "bytes": 130439,
+      "sha256": "1a1095af5e721b62d7256f6baaaf2918f04165b6a4866bc4d137a567417687a5"
+    },
+    {
+      "path": "previews-v1.1.0/01-opening.png",
+      "bytes": 340992,
+      "sha256": "212b7cd1c9e615e635558b1ddd763f2b646c6fee85ab0dc258f879357a101600"
+    },
+    {
+      "path": "previews-v1.1.0/02-overview.png",
+      "bytes": 197028,
+      "sha256": "b77ccb2b52542f52364ad7a0c6678e94e03a58d044bce3eec869d22442dd4f70"
+    },
+    {
+      "path": "previews-v1.1.0/03-assembly.png",
+      "bytes": 181227,
+      "sha256": "5b3ba06130de3ab4e239bd5ef13a86221bf91bbe5d3801cb9a380f9ce54b5a97"
+    },
+    {
+      "path": "previews-v1.1.0/04-directive.png",
+      "bytes": 181645,
+      "sha256": "fe6bdb16662a9f1f7ca639113adfb01c80f4719217aeb8f75c46c8ddfbe0143d"
+    },
+    {
+      "path": "previews-v1.1.0/05-watch.png",
+      "bytes": 183689,
+      "sha256": "bcb99162340a67c093979d545f80cb528b99fc20f04190f3c963cfb413a62674"
+    },
+    {
+      "path": "previews-v1.1.0/06-management.png",
+      "bytes": 183451,
+      "sha256": "052d74b2689b2c2a9d26fbda36d29d2e9078eef6c05aad22caaac3a7e6cdd11f"
+    },
+    {
+      "path": "previews-v1.1.0/07-committees.png",
+      "bytes": 195497,
+      "sha256": "0335f0e3b75356237b5a50152cc1d0e1bbec3186bd7a0a7c3de13fc56cb1e489"
+    },
+    {
+      "path": "previews-v1.1.0/08-final.png",
+      "bytes": 172118,
+      "sha256": "c5dfb4b02207b50519e85d86f8c25e4ac6b3b1cba100b5b4fd01579cd293e162"
+    },
+    {
+      "path": "previews-v1.1.1/01-overview-reading.png",
+      "bytes": 139034,
+      "sha256": "005a0a48807c3125f4a97abe2033935a40eacc2407ba5b512c29a2fd9b6ada8a"
+    },
+    {
+      "path": "previews-v1.1.1/02-overview-presentation.png",
+      "bytes": 198217,
+      "sha256": "43eafb164a8a92c7120d26a688d7a04589cfece21f26ff32b858e0e53fe1f8cf"
+    },
+    {
+      "path": "previews-v1.1.1/03-assembly-list.png",
+      "bytes": 189136,
+      "sha256": "f488a324c19827641b144558d66c65415b43ac48c32e30c3f952b3726b15e46a"
+    },
+    {
+      "path": "previews-v1.1.1/04-directive-list.png",
+      "bytes": 188810,
+      "sha256": "ee91aef6933e5119918b06ff01ac6aeafc539dd2651f4d21ad95efa03134e205"
+    },
+    {
+      "path": "previews-v1.1.1/05-final-organigram.png",
+      "bytes": 173880,
+      "sha256": "1b7653903cb65882763c51c31eb96d7fd21feac3896fac64c6af35492fcf8d88"
+    },
+    {
+      "path": "scripts/validate_capsule_guardrails.py",
+      "bytes": 7588,
+      "sha256": "2735476ce5ec512557d96c7eecf1add03b6aa9ec3eebdeb42633f050904913b8"
+    },
+    {
+      "path": "source/banco-preguntas-original.yaml",
+      "bytes": 6323,
+      "sha256": "e47639c5c09961fb10db82ee4725e9a7434422f680ca524d911b63bdd9ffc2a5"
+    },
+    {
+      "path": "source/capsula-estructura-organica-original.yaml",
+      "bytes": 8337,
+      "sha256": "16baffaf3bdf77f67f3478a4c579a99ff6ce39aa4c3f6993461b8198f9a8c248"
+    },
+    {
+      "path": "source/estructura-organica-original.zip",
+      "bytes": 15114,
+      "sha256": "ec580993fea27585ad497edfd7132a06f63e00dc9cc0e20b72bb5c18f6bcf6d7"
+    },
+    {
+      "path": "source/roadmap-cooperativismo-basico.md",
+      "bytes": 26035,
+      "sha256": "21c39a703da12f774a6c90a94a2cd30f327c0823ff01ba02e5e5a4deb2da184e"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+capsule_id: capsula-estructura-organica
+note: 'Banco no student-facing. Fuente para el constructor en vivo. No se entrega ni se muestra dentro de los tabs
+  de la cápsula.
+
+  '
+questions:
+- id: q-01
+  section_id: tab-01-los-dos-universos
+  learning_objective: Distinguir el universo político del universo empresarial
+  difficulty: 1
+  question_type: relacionar columnas
+  prompt: Relaciona cada órgano con su universo correspondiente.
+  correct_answer: Asamblea General ↔ político | Junta Directiva ↔ político | Gerencia/áreas técnicas ↔ empresarial
+  distractors:
+  - combinaciones cruzadas incorrectas presentadas como opciones de arrastre en la dinámica
+  explanation: 'El universo político es electo; el empresarial ejecuta las decisiones tomadas en el político.
+
+    '
+  source_reference: tab-01 / contenido
+  misconception_addressed: Pensar que todos los órganos pertenecen a un solo universo indiferenciado.
+  p2l_uses:
+  - clasificación
+  - trivia
+- id: q-02
+  section_id: tab-02-asamblea-general
+  learning_objective: Comprender el alcance de la autoridad de la Asamblea General
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: 'Si la ley, el Reglamento y el Estatuto no le asignan explícitamente una facultad a ningún otro órgano,
+    ¿de quién es esa facultad por defecto?
+
+    '
+  correct_answer: De la Asamblea General.
+  distractors:
+  - De la Junta Directiva.
+  - De la Gerencia General.
+  - De CONSUCOOP.
+  explanation: Texto literal del Art. 22 LCH.
+  source_reference: tab-02 / Art. 22 LCH
+  misconception_addressed: Pensar que las facultades no asignadas quedan en un vacío legal o le corresponden a la
+    Junta Directiva por default.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-03
+  section_id: tab-03-junta-directiva-y-vigilancia
+  learning_objective: Recordar el número mínimo de integrantes de JD y JV
+  difficulty: 1
+  question_type: completar
+  prompt: 'La Junta Directiva nunca puede tener menos de ____ miembros; la Junta de Vigilancia debe tener entre
+    ____ y ____ miembros.
+
+    '
+  correct_answer: cinco (5); 3; 7
+  distractors: []
+  explanation: Art. 26 LCH y Art. 32 LCH respectivamente.
+  source_reference: tab-03 / Art. 26 y 32 LCH
+  misconception_addressed: ninguna, es recuerdo de dato puntual.
+  p2l_uses:
+  - trivia
+  - carrera
+- id: q-04
+  section_id: tab-03-junta-directiva-y-vigilancia
+  learning_objective: Entender la relación jerárquica entre JD y JV
+  difficulty: 2
+  question_type: verdadero o falso
+  prompt: La Junta de Vigilancia está subordinada jerárquicamente a la Junta Directiva.
+  correct_answer: Falso
+  distractors: []
+  explanation: 'Ambas son electas por la Asamblea y funcionan en paralelo, no una debajo de la otra.
+
+    '
+  source_reference: tab-03 / contenido
+  misconception_addressed: Pensar que la Junta de Vigilancia depende jerárquicamente de la Junta Directiva.
+  p2l_uses:
+  - trivia
+  - verdadero o falso
+- id: q-05
+  section_id: tab-03-junta-directiva-y-vigilancia
+  learning_objective: Identificar los puestos dentro de la Junta Directiva
+  difficulty: 1
+  question_type: selección múltiple
+  prompt: ¿Cuáles son puestos reconocidos dentro de la Junta Directiva según el Art. 68 RLCH?
+  correct_answer: Presidente(a), Tesorero(a), Vocales
+  distractors:
+  - Director Ejecutivo
+  - Superintendente
+  - Auditor Externo
+  explanation: 'Los distractores corresponden a otras estructuras (CONSUCOOP, auditoría externa), no a la Junta
+    Directiva.
+
+    '
+  source_reference: tab-03 / Art. 68 RLCH
+  misconception_addressed: Confundir puestos de la Junta Directiva con cargos de otras instituciones del sector.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-06
+  section_id: tab-04-comites-obligatorios
+  learning_objective: Recordar la distribución del Fondo de Educación Cooperativa
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: Según el Art. 125 RLCH, ¿cómo se distribuye el 3% del Fondo de Educación?
+  correct_answer: 2% a educación y capacitación de cooperativistas, 1% a juventud y género.
+  distractors:
+  - 1.5% y 1.5% en partes iguales.
+  - 3% completo a cooperativistas, sin división.
+  - 2% a juventud y 1% a cooperativistas.
+  explanation: Distribución literal del Art. 125 RLCH.
+  source_reference: tab-04 / Art. 125 RLCH
+  misconception_addressed: Invertir o igualar los porcentajes de distribución del fondo.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-07
+  section_id: tab-04-comites-obligatorios
+  learning_objective: Identificar la dirección legal de los comités obligatorios
+  difficulty: 2
+  question_type: verdadero o falso
+  prompt: Según el Artículo 72 del Reglamento, el Comité de Educación es presidido por la Vicepresidencia de la
+    Junta Directiva.
+  correct_answer: Verdadero
+  distractors: []
+  explanation: El Artículo 72 RLCH lo establece expresamente. También dispone que el Comité de Género sea presidido
+    de preferencia por una persona de la Junta Directiva del sexo femenino y que el Comité de Juventud sea presidido
+    por quien designe la Junta Directiva.
+  source_reference: tab-04 / Art. 72 RLCH
+  misconception_addressed: Tratar una regla legal expresa como si fuera únicamente una práctica informal.
+  p2l_uses:
+  - trivia
+  - verdadero o falso
+- id: q-08
+  section_id: tab-05-la-gerencia-como-puente
+  learning_objective: Comprender el rol de puente de la Gerencia General
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: ¿Por qué se dice que la Gerencia General es un "puente" entre los dos universos?
+  correct_answer: Porque es nombrada por la Junta Directiva (universo político) pero opera dentro del universo empresarial.
+  distractors:
+  - Porque es elegida directamente por los afiliados en Asamblea.
+  - Porque pertenece exclusivamente al universo empresarial, sin conexión política.
+  - Porque supervisa legalmente a la Junta de Vigilancia.
+  explanation: 'La Gerencia conecta ambos universos: nace de una decisión política (nombramiento por la JD) pero
+    ejecuta en el universo empresarial.
+
+    '
+  source_reference: tab-05 / contenido
+  misconception_addressed: Pensar que la Gerencia pertenece a un solo universo sin conexión con el otro.
+  p2l_uses:
+  - trivia
+  - duelo
