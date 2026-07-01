@@ -93,3 +93,12 @@
     padding: 10px 16px;
   }
 }
+
+/* Ocultar barra superior y footer estáticos (inyectados por HTML Coordinator) */
+.topbar {
+  display: none !important;
+}
+footer:not([class*="antigravity"]) {
+  display: none !important;
+}
+
