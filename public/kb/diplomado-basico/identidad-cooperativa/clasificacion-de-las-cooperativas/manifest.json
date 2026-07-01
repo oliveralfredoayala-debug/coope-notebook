@@ -1,0 +1,171 @@
+{
+  "name": "clasificacion-de-las-cooperativas-v1.0.2-presentation-prototype-production",
+  "version": "1.0.2-presentation-prototype",
+  "status": "EXPERIMENTAL",
+  "entry": "clasificacion-de-las-cooperativas-v1.0.2-presentation-prototype.html",
+  "preview": "clasificacion-de-las-cooperativas-v1.0.2-presentation-prototype-preview.png",
+  "shellVersion": "v7",
+  "shellFork": false,
+  "guardrailPromoted": false,
+  "prototypeRule": "one-tab-one-slide",
+  "presentationSlides": 6,
+  "guardrailStatus": "PASS",
+  "previewMethod": "Chromium screenshots from exact final HTML",
+  "files": [
+    {
+      "path": "LEGAL-CONTEXT-MIGRATION.md",
+      "bytes": 515,
+      "sha256": "534033675b9a7d24c7ef6d646d10fa7dd7179f7649dd08dea90fe0cd7895f70a"
+    },
+    {
+      "path": "LEGAL-SOURCE-EXTRACT.md",
+      "bytes": 512,
+      "sha256": "28df9c7fd2e6d5848317ee1cb553f6e2b6283bae008da0f33ecac8f7c665d501"
+    },
+    {
+      "path": "QA-REPORT.md",
+      "bytes": 568,
+      "sha256": "409eee75848f53fadc2b3a9bb6f22ce4c480476eb645e4ee099b8910def755be"
+    },
+    {
+      "path": "README-ANTIGRAVITY.md",
+      "bytes": 508,
+      "sha256": "0cbe12b78842ceed53ef692a55f4faa632da1e2b0ddbbdfb6673f7be942ceef1"
+    },
+    {
+      "path": "capsula-clasificacion-banco-preguntas.validated.yaml",
+      "bytes": 6177,
+      "sha256": "2fc7acec9abd0deee5a71c9efa794d1eb2feef3496749943b7997970eb193bec"
+    },
+    {
+      "path": "clasificacion-de-las-cooperativas-v1.0.2-presentation-prototype-preview.png",
+      "bytes": 471346,
+      "sha256": "b7bbf74afd97ebc894a36f3ded61e90b1540eec09be63a96ffd2cdd79ea6d6ae"
+    },
+    {
+      "path": "clasificacion-de-las-cooperativas-v1.0.2-presentation-prototype.html",
+      "bytes": 1663113,
+      "sha256": "49bbad29c8d822b0f5150792bbcf9197ddea0ca297e0d079025d55d9539dd116"
+    },
+    {
+      "path": "clasificacion-de-las-cooperativas.source.v1.0.1.yaml",
+      "bytes": 1606221,
+      "sha256": "e57cda6e6c9bbf7e85d577fa67d2a60e65ee08d521b9f08f2b732228eef1dd83"
+    },
+    {
+      "path": "guardrail-report.json",
+      "bytes": 1447,
+      "sha256": "48d7d5e1332205678ae6154f9d0ec135dbd2be685d0e40875c1421d72095e2d9"
+    },
+    {
+      "path": "preflight-final.log",
+      "bytes": 2517,
+      "sha256": "4ece605f5fa84889cbbc09fa4ffefc75d3ac7d39e129b45aa14cd87515952d18"
+    },
+    {
+      "path": "presentation-scene-map.json",
+      "bytes": 1215,
+      "sha256": "6002324ab0efd515a0fc6a550e4e257c2a3860527ed6f7b97ddae6f12ef65bf2"
+    },
+    {
+      "path": "previews/01-opening.png",
+      "bytes": 348962,
+      "sha256": "94bb939f95edfbca4a9ab0c26ea1ab6d97c0d5a4994adb5ea6ae16c861e4f909"
+    },
+    {
+      "path": "previews/02-introduction.png",
+      "bytes": 193493,
+      "sha256": "af0148b84fcc623d29386ca81f6ec07ddcec7af5ff872baa66f84962b6cf3812"
+    },
+    {
+      "path": "previews/03-activity.png",
+      "bytes": 203929,
+      "sha256": "f7f0e132f94a8c10abb5ae8d0e4c7374dbb47c0587ab6c1bf3218d5d64c82658"
+    },
+    {
+      "path": "previews/04-integration.png",
+      "bytes": 195561,
+      "sha256": "f64f52b68d9da80dcbf6606e51be49f6c7e46dfb606bc02ef416e746224a26c5"
+    },
+    {
+      "path": "previews/05-affiliation.png",
+      "bytes": 194333,
+      "sha256": "5b4e60fbee7eb8d75b3f3dce325fa578550f075be9803342eba704a2f7beb753"
+    },
+    {
+      "path": "previews/06-takeaway.png",
+      "bytes": 177247,
+      "sha256": "07f92b0f7423612a3a1b68b6d190a02389e808a68dc0e2373001085f6f865dad"
+    },
+    {
+      "path": "previews-v1.0.1/01-article-47.png",
+      "bytes": 122870,
+      "sha256": "59333868f681fe34b9625495091234fc0411f386176ca8fe4a5e5f3f45135f22"
+    },
+    {
+      "path": "previews-v1.0.1/02-article-48.png",
+      "bytes": 116874,
+      "sha256": "4d151ebe0fa466f372916b2310c0ce5807c2337d7ca3716220fdb66e128362cc"
+    },
+    {
+      "path": "previews-v1.0.1/03-article-49.png",
+      "bytes": 114989,
+      "sha256": "dbc909325d533d699fac4b6e8c8d81efc21610e42b33007a54c128f3803180e6"
+    },
+    {
+      "path": "previews-v1.0.1/04-presentation-legal-48.png",
+      "bytes": 220165,
+      "sha256": "b9f0a3ca8f796c781de6e199a3650d3dd4cfac5dae4adf2311d982b89ab841b0"
+    },
+    {
+      "path": "previews-v1.0.1/05-presentation-theory-48.png",
+      "bytes": 233955,
+      "sha256": "b701fca4f36f7e6b78743399ae8040eb6b9c6f70b54fd01d8f1e7f68e4e433df"
+    },
+    {
+      "path": "previews-v1.0.1/06-presentation-legal-49.png",
+      "bytes": 220996,
+      "sha256": "28aebd23ff910b04f26b27f6321d26ef39fada59945b5b4a60500b4522d58d09"
+    },
+    {
+      "path": "previews-v1.0.1/07-presentation-theory-49.png",
+      "bytes": 248590,
+      "sha256": "94146f624873726aeb5188816f419061daabfa25e2e905be6c718b710fd0cb5a"
+    },
+    {
+      "path": "previews-v1.0.1/08-integration-88.png",
+      "bytes": 233003,
+      "sha256": "757ae1ea6bbe6bfb04e01d0fbbd51fd06cfa1a723c19ecebe2105f5e3f0998d8"
+    },
+    {
+      "path": "previews-v1.0.1/09-integration-theory.png",
+      "bytes": 284189,
+      "sha256": "23549196c831b31ae96ff6b994a83ccd7b85a3c97dc7ae9ad424c3562207fe06"
+    },
+    {
+      "path": "scripts/validate_capsule_guardrails.py",
+      "bytes": 12109,
+      "sha256": "a7ca0e357d347fadf4bc2f921086479271296736f8a54e87ce17ffe4d14d0cd9"
+    },
+    {
+      "path": "source/capsula-clasificacion-banco-preguntas-original.yaml",
+      "bytes": 6415,
+      "sha256": "c9238d5c02483365d138f23a827943890902e6022f466a17eedca28472b42074"
+    },
+    {
+      "path": "source/capsula-clasificacion-original.yaml",
+      "bytes": 6067,
+      "sha256": "27c6d16777595ef7e99afbd9cb39dfb825f7237454d8f9b13bc227241e89784e"
+    },
+    {
+      "path": "source/clasificacion_cooperativas-original.zip",
+      "bytes": 13524,
+      "sha256": "1a4c2c41f1ca802f097f5e3614566eb649783ec9bfb15278543c0e44c7355701"
+    },
+    {
+      "path": "source/roadmap-cooperativismo-basico.md",
+      "bytes": 22710,
+      "sha256": "342a922b8ddc1f7700d18676bfe8ef5830311e253c482f99bb88eca047646c12"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+capsule_id: capsula-clasificacion-de-las-cooperativas
+note: 'Banco no student-facing. Fuente para el constructor en vivo. No se entrega ni se muestra dentro de los tabs
+  de la cápsula.
+
+  '
+questions:
+- id: q-01
+  section_id: tab-01-por-tipo-de-actividad
+  learning_objective: Identificar los 4 tipos de cooperativa según actividad
+  difficulty: 1
+  question_type: selección múltiple
+  prompt: Según el Art. 47 LCH, ¿cuáles son los tipos de cooperativa por actividad?
+  correct_answer: Producción, servicio, consumo, mixtas
+  distractors:
+  - Nacional, regional, local
+  - Pública, privada, mixta
+  - Grande, mediana, pequeña
+  explanation: Clasificación literal del Art. 47 LCH.
+  source_reference: tab-01 / contenido
+  misconception_addressed: Confundir la clasificación legal por actividad con clasificaciones informales de tamaño
+    o alcance geográfico.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-02
+  section_id: tab-01-por-tipo-de-actividad
+  learning_objective: Aplicar la salvedad sobre cooperativas mixtas de ahorro y crédito
+  difficulty: 3
+  question_type: verdadero o falso
+  prompt: Una cooperativa puede constituirse como mixta aunque su actividad principal sea Ahorro y Crédito de membresía
+    abierta.
+  correct_answer: Falso
+  distractors: []
+  explanation: 'El Manual de Cooperativismo Básico aclara esta salvedad explícita sobre cooperativas mixtas de Ahorro
+    y Crédito de membresía abierta.
+
+    '
+  source_reference: tab-01 / confusión frecuente
+  misconception_addressed: Pensar que "mixta" es una categoría sin restricciones aplicables.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-03
+  section_id: tab-02-por-grado-de-integracion
+  learning_objective: Identificar correctamente los tres grados de integración
+  difficulty: 1
+  question_type: relacionar columnas
+  prompt: Relaciona cada grado de integración con su definición.
+  correct_answer: Primer grado ↔ personas naturales | Segundo grado ↔ cooperativas de primer grado | Tercer grado
+    ↔ cooperativas de segundo grado
+  distractors:
+  - combinaciones cruzadas incorrectas presentadas como opciones de arrastre en la dinámica
+  explanation: Definición literal del Art. 88 LCH y Art. 149 RLCH.
+  source_reference: tab-02 / contenido
+  misconception_addressed: ninguna, es recuerdo de definición directa.
+  p2l_uses:
+  - clasificación
+  - memoria
+- id: q-04
+  section_id: tab-02-por-grado-de-integracion
+  learning_objective: Distinguir Federación de Unión y Central de Cooperativas
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: Una organización de segundo grado formada por cooperativas de igual actividad principal se llama...
+  correct_answer: Federación.
+  distractors:
+  - Unión.
+  - Central de Cooperativas.
+  - Confederación.
+  explanation: 'Federación es igual actividad; Unión es diferente actividad; Central puede ser igual o diferente;
+    Confederación es tercer grado, no segundo.
+
+    '
+  source_reference: tab-02 / contenido
+  misconception_addressed: Confundir los nombres de las distintas formas de segundo grado entre sí.
+  p2l_uses:
+  - trivia
+  - duelo
+- id: q-05
+  section_id: tab-02-por-grado-de-integracion
+  learning_objective: Reconocer un caso real de organización de segundo grado
+  difficulty: 2
+  question_type: opción múltiple
+  prompt: ¿FACACH es una organización de qué grado?
+  correct_answer: Segundo grado.
+  distractors:
+  - Primer grado.
+  - Tercer grado.
+  - No es una organización cooperativa.
+  explanation: FACACH es una federación, por tanto de segundo grado.
+  source_reference: tab-02 / ejemplo
+  misconception_addressed: Confundir organismos de segundo grado con la Confederación (tercer grado).
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-06
+  section_id: tab-03-por-afiliacion-abierta-o-cerrada
+  learning_objective: Recordar la secuencia histórica de transición de ELGA
+  difficulty: 2
+  question_type: ordenar acontecimientos
+  prompt: Ordena cronológicamente los estados de afiliación de ELGA.
+  correct_answer: Cerrada (1970) → Semi-abierta → Abierta (20 de febrero de 1988)
+  distractors:
+  - cualquier otro orden presentado como opciones de arrastre en la dinámica
+  explanation: Secuencia documentada en el Manual ELGA 2021.
+  source_reference: tab-03 / caso ELGA
+  misconception_addressed: Pensar que las cooperativas nacen siempre abiertas o siempre cerradas de forma permanente.
+  p2l_uses:
+  - ordenar
+  - trivia
+- id: q-07
+  section_id: tab-03-por-afiliacion-abierta-o-cerrada
+  learning_objective: Comprender el concepto de cooperativa cerrada
+  difficulty: 1
+  question_type: opción múltiple
+  prompt: ¿Qué caracteriza a una cooperativa cerrada?
+  correct_answer: Limita su membresía a un grupo específico, no al público en general.
+  distractors:
+  - No puede tener más de 12 afiliados.
+  - No puede generar excedentes.
+  - No está reconocida legalmente en Honduras.
+  explanation: 'La cooperativa cerrada restringe su afiliación a un grupo definido, como en el caso original de
+    ELGA (empleados del Gobierno Americano).
+
+    '
+  source_reference: tab-03 / contenido
+  misconception_addressed: Asociar "cerrada" con informalidad o falta de reconocimiento legal.
+  p2l_uses:
+  - trivia
+  - clasificación
+- id: q-08
+  section_id: tab-final-para-llevarte
+  learning_objective: Sintetizar que una cooperativa se clasifica por múltiples ejes simultáneos
+  difficulty: 3
+  question_type: respuesta breve
+  prompt: 'Una cooperativa de ahorro y crédito de primer grado y de afiliación abierta. Explica qué significa cada
+    uno de esos tres calificativos.
+
+    '
+  correct_answer: '"Ahorro y crédito" es su tipo de actividad (dentro de servicio); "primer grado" es su nivel de
+    integración (formada por personas naturales); "afiliación abierta" significa que admite al público en general,
+    no solo a un grupo específico.
+
+    '
+  distractors: []
+  explanation: Aplicación combinada de los tres ejes vistos en la cápsula.
+  source_reference: tab-final-para-llevarte / contenido
+  misconception_addressed: Pensar que una cooperativa solo puede clasificarse por un eje a la vez.
+  p2l_uses:
+  - escenario de decisión

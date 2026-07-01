@@ -1,0 +1,52 @@
+{
+  "capsule": "Clasificación de las cooperativas",
+  "version": "1.0.2-presentation-prototype",
+  "status": "EXPERIMENTAL",
+  "guardrailPromoted": false,
+  "prototypeRule": "one-tab-one-slide",
+  "slideCount": 6,
+  "slides": [
+    {
+      "id": "scene-00-opening",
+      "kind": "opening",
+      "tab": -1,
+      "title": "Apertura"
+    },
+    {
+      "id": "scene-01-tab",
+      "kind": "tab-slide",
+      "tab": 0,
+      "title": "Introducción"
+    },
+    {
+      "id": "scene-02-tab",
+      "kind": "tab-slide",
+      "tab": 1,
+      "title": "Por tipo de actividad"
+    },
+    {
+      "id": "scene-03-tab",
+      "kind": "tab-slide",
+      "tab": 2,
+      "title": "Por grado de integración"
+    },
+    {
+      "id": "scene-04-tab",
+      "kind": "tab-slide",
+      "tab": 3,
+      "title": "Por afiliación abierta o cerrada"
+    },
+    {
+      "id": "scene-05-tab",
+      "kind": "tab-slide",
+      "tab": 4,
+      "title": "Para llevarte"
+    }
+  ],
+  "notes": [
+    "Opening remains its own presentation scene.",
+    "Each content tab renders as one vertically scrollable slide.",
+    "Legal contextual pairs remain together inside the tab slide.",
+    "Workflow Lock v2.1 has not been modified."
+  ]
+}

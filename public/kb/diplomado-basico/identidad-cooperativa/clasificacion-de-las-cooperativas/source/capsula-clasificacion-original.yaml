@@ -1,0 +1,138 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Clasificación de las cooperativas
+version: "1.0"
+status: approved
+
+opening_thought: >
+  Todas las cooperativas comparten la misma identidad, pero se organizan de
+  formas distintas según qué hacen, con quién se agrupan y a quién dejan
+  entrar.
+
+tabs:
+  - id: tab-00-introduccion
+    title: Introducción
+    order: 0
+    html: |
+      <section>
+        <p>Esta cápsula recorre tres ejes de clasificación de las
+        cooperativas: por tipo de actividad, por grado de integración, y
+        por afiliación abierta o cerrada. Ninguno de los tres describe a
+        una cooperativa por completo por sí solo.</p>
+      </section>
+
+  - id: tab-01-por-tipo-de-actividad
+    title: Por tipo de actividad
+    order: 1
+    html: |
+      <section>
+        <p>Según el Art. 47 LCH, las cooperativas serán de producción, de
+        servicios, de consumo o mixtas.</p>
+        <ul>
+          <li><strong>Producción</strong> (Art. 48 LCH): personas que se
+          asocian para trabajar, producir, transformar y vender en común
+          los productos que elaboran.</li>
+          <li><strong>Servicio</strong> (Art. 49 LCH): personas que se
+          asocian para la prestación de servicios al público y a sí
+          mismas.</li>
+          <li><strong>Consumo</strong> (Art. 50 LCH): personas que se
+          asocian para obtener en común bienes o servicios para ellas, sus
+          hogares o sus actividades económicas y sociales.</li>
+          <li><strong>Mixtas</strong> (Art. 51 LCH): cuando en sus Estatutos
+          establecen actividades múltiples como su objetivo principal.</li>
+        </ul>
+        <p>Dentro de las cooperativas de servicio, el Art. 29 RLCH reconoce
+        clases como: Ahorro y Crédito, Transporte, Consumo, Profesionales,
+        Salud, Educación, Vivienda, Comercialización, y Escolares y
+        Juveniles, entre otras que autorice el CONSUCOOP.</p>
+        <p><em>Confusión frecuente:</em> pensar que "mixta" significa
+        simplemente "una cooperativa que hace de todo". El Manual de
+        Cooperativismo Básico aclara una salvedad: una cooperativa no puede
+        constituirse como mixta si su actividad principal es Ahorro y
+        Crédito de membresía abierta.</p>
+      </section>
+
+  - id: tab-02-por-grado-de-integracion
+    title: Por grado de integración
+    order: 2
+    html: |
+      <section>
+        <p>Según el Art. 88 LCH y el Art. 149 RLCH, las cooperativas se
+        clasifican en tres grados:</p>
+        <ul>
+          <li><strong>Primer grado:</strong> formada por personas naturales
+          (o personas jurídicas sin fines de lucro). Inicia su denominación
+          con la palabra "Cooperativa".</li>
+          <li><strong>Segundo grado:</strong> formada por cooperativas de
+          primer grado. Toma el nombre de Federación (igual actividad),
+          Unión (diferente actividad), Central de Cooperativas (igual o
+          diferente actividad), o Cooperativa Agro-Industrial (sector
+          agrícola reformado).</li>
+          <li><strong>Tercer grado:</strong> formada por cooperativas de
+          segundo grado. Se llama Confederación, y solo puede existir una
+          en el país (la CHC, Art. 90 LCH).</li>
+        </ul>
+        <p><em>Ejemplo:</em> FACACH (Federación de Cooperativas de Ahorro y
+        Crédito de Honduras) es una organización de segundo grado; la CHC
+        es la única de tercer grado.</p>
+      </section>
+
+  - id: tab-03-por-afiliacion-abierta-o-cerrada
+    title: Por afiliación abierta o cerrada
+    order: 3
+    html: |
+      <section>
+        <p>No toda cooperativa admite a cualquier persona. Algunas nacen
+        cerradas, limitadas a un grupo específico, y otras son abiertas,
+        disponibles al público en general.</p>
+        <h3>Caso: ELGA</h3>
+        <p>ELGA nació en 1970 como cooperativa cerrada, exclusivamente para
+        empleados del Gobierno Americano y organizaciones relacionadas. Se
+        transformó en semi-abierta, aceptando empleados de empresas con
+        deducción por planilla, y finalmente, el 20 de febrero de 1988, se
+        convirtió en cooperativa abierta al público en general.</p>
+      </section>
+
+  - id: tab-final-para-llevarte
+    title: Para llevarte
+    order: 99
+    html: |
+      <section>
+        <p>Una misma cooperativa puede clasificarse simultáneamente por
+        varios ejes: qué hace, con quién se integra, y a quién admite.
+        Ninguna clasificación por sí sola describe a una cooperativa por
+        completo.</p>
+      </section>
+
+sources:
+  - id: art-47-51-lch
+    title: Art. 47-51 LCH — Clasificación por tipo de actividad
+    reference: Decreto 65-87
+  - id: art-29-rlch
+    title: Art. 29 RLCH — Clases de cooperativas de servicio
+    reference: Acuerdo 041-2014
+  - id: art-88-lch-149-rlch
+    title: Art. 88 LCH y Art. 149 RLCH — Clasificación por grado de integración
+    reference: Decreto 65-87 / Acuerdo 041-2014
+  - id: manual-2020
+    title: Manual de Cooperativismo Básico 2020
+    reference: Miriam Mejía, CHC
+  - id: manual-elga-2021
+    title: Manual Cooperativismo Básico ELGA 2021
+    reference: Caso histórico de transición cerrada → abierta
+
+notes_for_coordinator:
+  content_notes: >
+    Tab "Por tipo de excedentes" fue descartado por Oliver: no es un eje de
+    clasificación real, es consecuencia del tipo de operación (con o sin
+    afiliados), ya cubierto en el artefacto separado de excedentes.
+  legal_notes: >
+    No se encontró artículo específico de LCH/RLCH que regule de forma
+    general el tránsito de afiliación cerrada a abierta; el tab se sostiene
+    con el caso real de ELGA en vez de una cita legal directa. Marcar para
+    verificación futura si aparece fuente.
+  presentation_hints: >
+    Tab 1 y 2: conviene que las categorías puedan compararse una junto a
+    otra. Tab 3: conviene mostrar la transición de ELGA como una secuencia
+    temporal (cerrada → semi-abierta → abierta).
