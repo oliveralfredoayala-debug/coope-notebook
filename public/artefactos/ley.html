@@ -519,7 +519,8 @@ function go(i){
   document.getElementById('panelMenu').classList.remove('active');
   document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
   document.querySelectorAll('.panel:not(#panelMenu)').forEach((p,k)=>p.classList.toggle('active',k===i));
-  document.getElementById('crumb').innerHTML='Ley de Cooperativas de Honduras › <b>'+TAB[i]+'</b>';
+  const crumbEl = document.getElementById('crumb');
+  if (crumbEl) crumbEl.innerHTML='Ley de Cooperativas de Honduras › <b>'+TAB[i]+'</b>';
   document.body.classList.toggle('no-scroll-layout', i === 4);
   window.scrollTo({top:0});
 }
@@ -527,7 +528,8 @@ function goMenu(){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panelMenu').classList.add('active');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('crumb').innerHTML='Ley de Cooperativas de Honduras';
+  const crumbEl = document.getElementById('crumb');
+  if (crumbEl) crumbEl.innerHTML='Ley de Cooperativas de Honduras';
   document.body.classList.remove('no-scroll-layout');
   window.scrollTo({top:0});
 }
