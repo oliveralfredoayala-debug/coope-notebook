@@ -67,3 +67,93 @@ document.addEventListener('DOMContentLoaded', () => {
         updatedEl.textContent = new Date(document.lastModified).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 });
+
+// GoW Artifact Panel Logic
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('antigravity-gow-panel')) return; // Already injected
+
+    const panelHtml = `
+        <div id="antigravity-gow-panel" class="antigravity-gow-panel">
+            <div class="antigravity-gow-handle" id="antigravity-gow-handle">
+                <img src="/assets/Iconos%20de%20página/media__1782945302366.png" alt="GoW">
+            </div>
+            <div class="antigravity-gow-header">
+                <h3 class="antigravity-gow-title">Artefactos (GoW)</h3>
+                <button class="antigravity-gow-pin" id="antigravity-gow-pin">Fijar</button>
+            </div>
+            <div class="antigravity-gow-content" id="antigravity-gow-content">
+                <div style="text-align:center; padding: 20px; opacity: 0.5;">Cargando...</div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', panelHtml);
+
+    const panel = document.getElementById('antigravity-gow-panel');
+    const handle = document.getElementById('antigravity-gow-handle');
+    const pinBtn = document.getElementById('antigravity-gow-pin');
+    const contentArea = document.getElementById('antigravity-gow-content');
+
+    let isPinned = false;
+
+    // Hover logic
+    panel.addEventListener('mouseenter', () => {
+        if (!isPinned) panel.classList.add('open');
+    });
+    panel.addEventListener('mouseleave', () => {
+        if (!isPinned) panel.classList.remove('open');
+    });
+    // For touch devices or quick open
+    handle.addEventListener('click', () => {
+        if (!isPinned) panel.classList.toggle('open');
+    });
+
+    // Pin logic
+    pinBtn.addEventListener('click', () => {
+        isPinned = !isPinned;
+        if (isPinned) {
+            panel.classList.add('pinned');
+            document.body.classList.add('antigravity-body-pinned');
+            pinBtn.textContent = 'Desfijar';
+        } else {
+            panel.classList.remove('pinned');
+            document.body.classList.remove('antigravity-body-pinned');
+            pinBtn.textContent = 'Fijar';
+        }
+    });
+
+    // Fetch and render data
+    fetch('/artefactos/gow-index.json')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.bloques) {
+                contentArea.innerHTML = '<div style="opacity:0.5;">No hay artefactos disponibles.</div>';
+                return;
+            }
+            
+            let html = '';
+            data.bloques.forEach(bloque => {
+                html += `<div class="antigravity-gow-block">
+                            <h4 class="antigravity-gow-block-title">${bloque.titulo}</h4>`;
+                
+                if (bloque.acordeones) {
+                    bloque.acordeones.forEach(acc => {
+                        html += `<div class="antigravity-gow-accordion">
+                                    <h5 class="antigravity-gow-acc-title">${acc.titulo}</h5>`;
+                        if (acc.capsulas) {
+                            acc.capsulas.forEach(cap => {
+                                // Assuming URLs are relative to /artefactos/ and end in .html
+                                html += `<a href="/artefactos/${cap.id}.html" class="antigravity-gow-capsula">${cap.titulo}</a>`;
+                            });
+                        }
+                        html += `</div>`;
+                    });
+                }
+                html += `</div>`;
+            });
+            contentArea.innerHTML = html;
+        })
+        .catch(err => {
+            console.error("Error loading GoW index:", err);
+            contentArea.innerHTML = '<div style="opacity:0.5; color: #ff8b8b;">Error cargando artefactos.</div>';
+        });
+});
