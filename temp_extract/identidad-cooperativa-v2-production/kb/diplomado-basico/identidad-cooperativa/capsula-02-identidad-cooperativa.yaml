@@ -1,0 +1,236 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Identidad cooperativa
+version: "2.0"
+status: approved
+
+tabs:
+  - id: tab-01-aprendizaje
+    title: Aprendizaje
+    order: 1
+    inner_tabs:
+
+      - id: inner-01-lo-que-somos
+        title: Lo que somos
+        order: 1
+        html: |
+          <section>
+            <div class="jester-piensa">
+              <p>La definición no describe solamente una empresa. Describe
+              una relación entre personas, necesidades, propiedad y
+              decisiones.</p>
+            </div>
+            <p class="definicion-destacada">Una cooperativa es una
+            asociación autónoma de personas que se unen voluntariamente
+            para atender necesidades comunes mediante una empresa de
+            propiedad conjunta y control democrático.</p>
+            <div class="piezas-seleccionables">
+              <div class="pieza">
+                <h4>Asociación autónoma de personas</h4>
+                <p>La cooperativa está formada por personas que se
+                organizan y conservan capacidad para tomar sus propias
+                decisiones.</p>
+                <p class="ejemplo">Una cooperativa no necesita autorización
+                de un tercero externo para decidir su propio rumbo.</p>
+                <p class="confusion">Pensar que "autónoma" significa
+                "aislada" o "sin supervisión legal"; autonomía es sobre
+                gobierno interno, no sobre estar fuera de la ley.</p>
+              </div>
+              <div class="pieza">
+                <h4>Unión voluntaria</h4>
+                <p>La afiliación nace de una decisión libre, acompañada por
+                derechos y responsabilidades.</p>
+                <p class="ejemplo">Nadie puede ser inscrito como afiliado
+                sin su consentimiento, ni se le puede impedir retirarse.</p>
+                <p class="confusion">Creer que "voluntaria" significa "sin
+                compromiso"; la voluntariedad viene acompañada de
+                obligaciones reales una vez que se decide entrar.</p>
+              </div>
+              <div class="pieza">
+                <h4>Necesidades y aspiraciones comunes</h4>
+                <p>Las personas no se unen solamente para crear una
+                empresa. Se unen porque identifican necesidades que pueden
+                atender mejor colectivamente.</p>
+                <p class="ejemplo">Un grupo de productores se organiza
+                porque individualmente no pueden negociar buenos precios,
+                pero juntos sí.</p>
+                <p class="confusion">Pensar que la cooperativa nace primero
+                y las necesidades después; es al revés, la necesidad
+                compartida es lo que origina la cooperativa.</p>
+              </div>
+              <div class="pieza">
+                <h4>Empresa de propiedad conjunta</h4>
+                <p>Los recursos y la organización empresarial pertenecen
+                conjuntamente a su membresía.</p>
+                <p class="ejemplo">Ningún afiliado individual puede vender
+                o disponer de los bienes de la cooperativa como si fueran
+                suyos.</p>
+                <p class="confusion">No significa que cada persona pueda
+                disponer individualmente de los bienes de la cooperativa.
+                Significa que la membresía ejerce colectivamente derechos y
+                responsabilidades sobre la empresa.</p>
+              </div>
+              <div class="pieza">
+                <h4>Control democrático</h4>
+                <p>Las decisiones fundamentales no corresponden
+                exclusivamente a quien tiene más capital.</p>
+                <p class="ejemplo">Un afiliado con más aportaciones tiene
+                el mismo voto que uno con menos.</p>
+                <p class="confusion">Aplicar la lógica de una empresa
+                mercantil (más capital, más poder de decisión) a una
+                cooperativa.</p>
+              </div>
+            </div>
+          </section>
+
+      - id: inner-02-lo-que-nos-mueve
+        title: Lo que nos mueve
+        order: 2
+        html: |
+          <section>
+            <p>La invocación expresa una aspiración ética y espiritual del
+            movimiento cooperativo hondureño. No sustituye la definición
+            legal, pero ayuda a comprender el propósito humano que la
+            anima.</p>
+            <blockquote class="invocacion">
+              <p>Elevemos nuestro espíritu a Dios que es fuente de bondad y
+              ejemplo de justicia, que Él encienda en nuestros corazones la
+              sed de servir a nuestro prójimo, inspirados en los nobles
+              principios del cooperativismo; ilumine nuestro entendimiento
+              y guíe nuestras decisiones, exentas de egoísmo y espíritu de
+              lucro, a fin de alcanzar la resolución de nuestros problemas
+              económicos sociales y los de nuestros hermanos, para
+              fomentar, conseguir y preservar la paz del mundo. Así sea.</p>
+            </blockquote>
+            <div class="fragmentos-interactivos">
+              <div class="fragmento"><h4>"Bondad y justicia"</h4>
+              <p>La actividad económica no puede separarse del trato digno,
+              la equidad y la responsabilidad.</p></div>
+              <div class="fragmento"><h4>"Servir a nuestro prójimo"</h4>
+              <p>La cooperativa existe para atender necesidades humanas, no
+              únicamente para realizar operaciones.</p></div>
+              <div class="fragmento"><h4>"Inspirados en los principios"</h4>
+              <p>La buena intención no basta. La organización necesita
+              pautas concretas para actuar.</p></div>
+              <div class="fragmento"><h4>"Guíe nuestras decisiones"</h4>
+              <p>La identidad aparece especialmente cuando deben tomarse
+              decisiones difíciles.</p></div>
+              <div class="fragmento"><h4>"Exentas de egoísmo y espíritu de
+              lucro"</h4><p>No significa que la cooperativa deba operar con
+              pérdidas. Significa que la acumulación privada no debe
+              convertirse en su finalidad principal.</p></div>
+              <div class="fragmento"><h4>"Resolver nuestros problemas
+              económicos y sociales"</h4><p>La cooperativa articula
+              necesidades económicas con bienestar social.</p></div>
+              <div class="fragmento"><h4>"Conseguir y preservar la
+              paz"</h4><p>El horizonte cooperativo va más allá del
+              beneficio inmediato: busca convivencia, justicia y desarrollo
+              colectivo.</p></div>
+            </div>
+            <div class="pregunta-reflexion">
+              <p>¿Qué frase de la invocación debería observarse con mayor
+              claridad en las decisiones actuales de tu cooperativa?</p>
+              <textarea placeholder="Escribe tu respuesta aquí"></textarea>
+            </div>
+          </section>
+
+      - id: inner-03-lo-que-nos-representa
+        title: Lo que nos representa
+        order: 3
+        html: |
+          <section>
+            <p>El símbolo tradicional del movimiento cooperativo (los dos
+            pinos con raíces en círculo) expresa, en sus elementos, ideas
+            compartidas por el movimiento cooperativo a nivel mundial.</p>
+            <div class="simbolo-puntos">
+              <div class="punto"><h4>Los pinos</h4>
+              <p>Unidad, cooperación y ayuda mutua.</p></div>
+              <div class="punto"><h4>Las raíces formando un círculo</h4>
+              <p>El mundo y la expansión del cooperativismo como modelo
+              económico y social.</p></div>
+              <div class="punto"><h4>El color verde</h4>
+              <p>Naturaleza, vida y compromiso con su conservación.</p></div>
+              <div class="punto"><h4>El color amarillo</h4>
+              <p>El sol como fuente de energía, calor y vida.</p></div>
+            </div>
+            <div class="idea-critica">
+              <p>Un símbolo expresa identidad, pero no la garantiza. Una
+              organización puede utilizar colores, banderas y emblemas
+              cooperativos y, aun así, debilitar su identidad si no
+              practica la democracia, la participación y el servicio.</p>
+            </div>
+          </section>
+
+      - id: inner-04-valores-y-principios
+        title: Valores y principios cooperativos
+        order: 4
+        html: |
+          <section>
+            <p>Enumeración de referencia. Cada valor y cada principio se
+            desarrollan a profundidad en su propia cápsula.</p>
+            <div class="enumeracion">
+              <div class="columna">
+                <h4>10 valores (Art. 4 LCH)</h4>
+                <ol>
+                  <li>Ayuda mutua</li>
+                  <li>Responsabilidad</li>
+                  <li>Democracia</li>
+                  <li>Equidad</li>
+                  <li>Igualdad de derechos</li>
+                  <li>Solidaridad</li>
+                  <li>Honestidad</li>
+                  <li>Transparencia</li>
+                  <li>Responsabilidad social</li>
+                  <li>Preocupación por los demás</li>
+                </ol>
+              </div>
+              <div class="columna">
+                <h4>7 principios (Art. 8 RLCH)</h4>
+                <ol>
+                  <li>Membresía abierta y voluntaria</li>
+                  <li>Control democrático de los miembros</li>
+                  <li>Participación económica de los miembros</li>
+                  <li>Autonomía e independencia</li>
+                  <li>Educación, formación e información</li>
+                  <li>Cooperación entre cooperativas</li>
+                  <li>Compromiso con la comunidad</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+      - id: inner-05-de-la-identidad-a-la-practica
+        title: De la identidad a la práctica
+        order: 5
+        html: |
+          <section>
+            <div class="secuencia-niveles">
+              <div class="nivel"><h4>Identidad</h4>
+              <p>¿Quiénes somos y cuál es nuestro propósito?</p></div>
+              <div class="nivel"><h4>Valores</h4>
+              <p>¿Qué convicciones deben orientar nuestras decisiones?</p>
+              </div>
+              <div class="nivel"><h4>Principios</h4>
+              <p>¿Cómo organizamos y ponemos en práctica esas
+              convicciones?</p></div>
+            </div>
+            <div class="muestra-unica">
+              <p><strong>Valor:</strong> democracia. <strong>Principio
+              asociado:</strong> control democrático de los miembros.
+              <strong>Práctica observable:</strong> la membresía recibe
+              información y participa en las decisiones.</p>
+            </div>
+            <p>La definición nos dice qué es una cooperativa. Los valores
+            explican qué debe orientar su conducta. Los principios
+            muestran cómo llevar esas convicciones a la organización y a
+            las decisiones.</p>
+          </section>
+
+notes_for_coordinator: >
+  Primer uso de INNER TABS (tabs anidados dentro de Tab 1 · Aprendizaje).
+  Estructura: tab de nivel 1 contiene 5 inner_tabs con su propio id/title/
+  order/html, en vez de un tab plano. Inner tab 2 incluye un <textarea> como
+  campo de respuesta libre (no evaluado, es reflexión personal, no
+  autocalificable). Sin Tab 2 de análisis crítico: retirado por regla de
+  skill (nunca análisis crítico en cápsulas KB).

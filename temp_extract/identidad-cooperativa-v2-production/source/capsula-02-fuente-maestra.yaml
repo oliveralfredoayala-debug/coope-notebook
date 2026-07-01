@@ -1,0 +1,194 @@
+content_family: KB
+program: Diplomado Básico
+parent_title: Identidad cooperativa
+title: Identidad cooperativa
+version: "2.0"
+status: draft_master_content
+
+tab_1_aprendizaje:
+
+  inner_tab_1_lo_que_somos:
+    objetivo: Desarmar la definición para que no se aprenda únicamente de memoria.
+    jester_piensa: >
+      La definición no describe solamente una empresa. Describe una relación
+      entre personas, necesidades, propiedad y decisiones.
+    definicion: >
+      Una cooperativa es una asociación autónoma de personas que se unen
+      voluntariamente para atender necesidades comunes mediante una empresa
+      de propiedad conjunta y control democrático.
+    piezas:
+      - pieza: Asociación autónoma de personas
+        significado: >
+          La cooperativa está formada por personas que se organizan y
+          conservan capacidad para tomar sus propias decisiones.
+        ejemplo: >
+          Una cooperativa no necesita autorización de un tercero externo
+          para decidir su propio rumbo.
+        confusion_frecuente: >
+          Pensar que "autónoma" significa "aislada" o "sin supervisión
+          legal"; autonomía es sobre gobierno interno, no sobre estar fuera
+          de la ley.
+      - pieza: Unión voluntaria
+        significado: >
+          La afiliación nace de una decisión libre, acompañada por derechos
+          y responsabilidades.
+        ejemplo: >
+          Nadie puede ser inscrito como afiliado sin su consentimiento, ni
+          se le puede impedir retirarse.
+        confusion_frecuente: >
+          Creer que "voluntaria" significa "sin compromiso"; la
+          voluntariedad viene acompañada de obligaciones reales una vez que
+          se decide entrar.
+      - pieza: Necesidades y aspiraciones comunes
+        significado: >
+          Las personas no se unen solamente para crear una empresa. Se unen
+          porque identifican necesidades que pueden atender mejor
+          colectivamente.
+        ejemplo: >
+          Un grupo de productores se organiza porque individualmente no
+          pueden negociar buenos precios, pero juntos sí.
+        confusion_frecuente: >
+          Pensar que la cooperativa nace primero y las necesidades después;
+          es al revés, la necesidad compartida es lo que origina la
+          cooperativa.
+      - pieza: Empresa de propiedad conjunta
+        significado: >
+          Los recursos y la organización empresarial pertenecen
+          conjuntamente a su membresía.
+        ejemplo: >
+          Ningún afiliado individual puede vender o disponer de los bienes
+          de la cooperativa como si fueran suyos.
+        confusion_frecuente: >
+          No significa que cada persona pueda disponer individualmente de
+          los bienes de la cooperativa. Significa que la membresía ejerce
+          colectivamente derechos y responsabilidades sobre la empresa.
+      - pieza: Control democrático
+        significado: >
+          Las decisiones fundamentales no corresponden exclusivamente a
+          quien tiene más capital.
+        ejemplo: >
+          Un afiliado con más aportaciones tiene el mismo voto que uno con
+          menos.
+        confusion_frecuente: >
+          Aplicar la lógica de una empresa mercantil (más capital, más poder
+          de decisión) a una cooperativa.
+
+  inner_tab_2_lo_que_nos_mueve:
+    introduccion: >
+      La invocación expresa una aspiración ética y espiritual del movimiento
+      cooperativo hondureño. No sustituye la definición legal, pero ayuda a
+      comprender el propósito humano que la anima.
+    texto_completo: >
+      Elevemos nuestro espíritu a Dios que es fuente de bondad y ejemplo de
+      justicia, que Él encienda en nuestros corazones la sed de servir a
+      nuestro prójimo, inspirados en los nobles principios del
+      cooperativismo; ilumine nuestro entendimiento y guíe nuestras
+      decisiones, exentas de egoísmo y espíritu de lucro, a fin de alcanzar
+      la resolución de nuestros problemas económicos sociales y los de
+      nuestros hermanos, para fomentar, conseguir y preservar la paz del
+      mundo. Así sea.
+    fragmentos:
+      - frase: Bondad y justicia
+        interpretacion: >
+          La actividad económica no puede separarse del trato digno, la
+          equidad y la responsabilidad.
+      - frase: Servir a nuestro prójimo
+        interpretacion: >
+          La cooperativa existe para atender necesidades humanas, no
+          únicamente para realizar operaciones.
+      - frase: Inspirados en los principios
+        interpretacion: >
+          La buena intención no basta. La organización necesita pautas
+          concretas para actuar.
+      - frase: Guíe nuestras decisiones
+        interpretacion: >
+          La identidad aparece especialmente cuando deben tomarse decisiones
+          difíciles.
+      - frase: Exentas de egoísmo y espíritu de lucro
+        interpretacion: >
+          No significa que la cooperativa deba operar con pérdidas.
+          Significa que la acumulación privada no debe convertirse en su
+          finalidad principal.
+      - frase: Resolver nuestros problemas económicos y sociales
+        interpretacion: >
+          La cooperativa articula necesidades económicas con bienestar
+          social.
+      - frase: Conseguir y preservar la paz
+        interpretacion: >
+          El horizonte cooperativo va más allá del beneficio inmediato:
+          busca convivencia, justicia y desarrollo colectivo.
+    pregunta_reflexion: >
+      ¿Qué frase de la invocación debería observarse con mayor claridad en
+      las decisiones actuales de tu cooperativa?
+    nota_pedagogica: >
+      No evaluar creencias religiosas. Evaluar la capacidad de interpretar
+      los compromisos cooperativos expresados en el texto.
+
+  inner_tab_3_lo_que_nos_representa:
+    contenido: >
+      El símbolo tradicional del movimiento cooperativo (los dos pinos con
+      raíces en círculo) expresa, en sus elementos, ideas compartidas por el
+      movimiento cooperativo a nivel mundial.
+    puntos_seleccionables:
+      - elemento: Los pinos
+        significado: Unidad, cooperación y ayuda mutua.
+      - elemento: Las raíces formando un círculo
+        significado: >
+          El mundo y la expansión del cooperativismo como modelo económico
+          y social.
+      - elemento: El color verde
+        significado: Naturaleza, vida y compromiso con su conservación.
+      - elemento: El color amarillo
+        significado: El sol como fuente de energía, calor y vida.
+    idea_critica: >
+      Un símbolo expresa identidad, pero no la garantiza. Una organización
+      puede utilizar colores, banderas y emblemas cooperativos y, aun así,
+      debilitar su identidad si no practica la democracia, la participación
+      y el servicio.
+
+  inner_tab_4_valores_y_principios:
+    nota: >
+      Solo enumeración, sin desarrollo. Cada valor y principio se explora a
+      profundidad en su propia cápsula y en el banco de preguntas asociado.
+    valores_10:
+      - Ayuda mutua
+      - Responsabilidad
+      - Democracia
+      - Equidad
+      - Igualdad de derechos
+      - Solidaridad
+      - Honestidad
+      - Transparencia
+      - Responsabilidad social
+      - Preocupación por los demás
+    principios_7:
+      - Membresía abierta y voluntaria
+      - Control democrático de los miembros
+      - Participación económica de los miembros
+      - Autonomía e independencia
+      - Educación, formación e información
+      - Cooperación entre cooperativas
+      - Compromiso con la comunidad
+
+  inner_tab_5_de_la_identidad_a_la_practica:
+    niveles:
+      - nivel: Identidad
+        pregunta: ¿Quiénes somos y cuál es nuestro propósito?
+      - nivel: Valores
+        pregunta: ¿Qué convicciones deben orientar nuestras decisiones?
+      - nivel: Principios
+        pregunta: ¿Cómo organizamos y ponemos en práctica esas convicciones?
+    muestra_unica:
+      valor: Democracia
+      principio_asociado: Control democrático de los miembros
+      practica_observable: >
+        La membresía recibe información y participa en las decisiones.
+    texto_transicion: >
+      La definición nos dice qué es una cooperativa. Los valores explican
+      qué debe orientar su conducta. Los principios muestran cómo llevar
+      esas convicciones a la organización y a las decisiones.
+    botones_continuidad:
+      siguiente: Valores cooperativos
+      despues: Los siete principios
+
+vacios_o_dudas: []
