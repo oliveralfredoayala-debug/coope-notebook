@@ -7,9 +7,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (path !== '/' && path !== '/index.html' && path !== '') {
         showBack = true;
-        // Botón transversal para regresar al centro de mando / menú principal
-        backUrl = '/index.html';
-        backText = 'Menú Principal';
+        const parts = path.split('/').filter(p => p !== '' && p !== 'index.html');
+        if (parts.length > 0) {
+            let topDir = parts[0];
+            if (topDir === 'kb' || topDir === 'capsulas%20teoricas' || topDir === 'capsulas teoricas') {
+                backUrl = '/capsulas teoricas/index.html';
+                backText = 'Volver a Cápsulas Teóricas';
+            } else if (topDir === 'p2l') {
+                backUrl = '/p2l/index.html';
+                backText = 'Volver a Play2Learn';
+            } else if (topDir === 'lnl') {
+                backUrl = '/lnl/index.html';
+                backText = 'Volver a Learn&Loop';
+            } else if (topDir === 'artefactos') {
+                backUrl = '/artefactos/index.html';
+                backText = 'Volver a Artefactos';
+            } else if (topDir === 'archivario') {
+                backUrl = '/archivario/index.html';
+                backText = 'Volver a Archivario';
+            } else {
+                backUrl = '/' + topDir + '/index.html';
+                let family = topDir.replace(/-/g, ' ');
+                backText = 'Volver a ' + family.charAt(0).toUpperCase() + family.slice(1);
+            }
+        }
     }
 
     const topbarHtml = `
