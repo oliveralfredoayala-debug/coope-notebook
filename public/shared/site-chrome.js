@@ -18,16 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let topDir = parts[0];
             if (topDir === 'kb' || topDir === 'capsulas%20teoricas' || topDir === 'capsulas teoricas') {
                 backUrl = '/kb/index.html';
-                backText = 'Volver a Cápsulas Teóricas';
+                backText = 'Volver a Knowledge Base';
             } else if (topDir === 'p2l') {
                 backUrl = '/p2l/index.html';
-                backText = 'Volver a Play2Learn';
+                backText = 'Volver a Play to Learn';
             } else if (topDir === 'lnl') {
                 backUrl = '/lnl/index.html';
-                backText = 'Volver a Learn&Loop';
+                backText = 'Volver a Live and Learn';
             } else if (topDir === 'artefactos') {
                 backUrl = '/artefactos/index.html';
-                backText = 'Volver a Artefactos';
+                backText = 'Volver a Gear of Wise';
             } else if (topDir === 'archivario') {
                 backUrl = '/archivario/index.html';
                 backText = 'Volver a Archivario';
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="/assets/Iconos%20de%20página/media__1782945302366.png" alt="GoW">
             </div>
             <div class="antigravity-gow-header">
-                <h3 class="antigravity-gow-title">Artefactos (GoW)</h3>
+                <h3 class="antigravity-gow-title">Gear of Wise (GoW)</h3>
                 <div style="display:flex; gap:8px;">
                     <button class="antigravity-gow-pin" id="antigravity-gow-pin">Fijar</button>
                     <button class="antigravity-gow-close" id="antigravity-gow-close" style="background:transparent; border:none; color:white; cursor:pointer; font-size:24px; line-height:1; padding:0 4px;" title="Cerrar">&times;</button>
