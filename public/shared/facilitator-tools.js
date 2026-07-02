@@ -21,7 +21,7 @@
     { id:'delegados', label:'Delegados', url: pathPrefix + '/gow/temas-artefacto/calculadora-delegados.html?panel=1', iconName: 'delegados' },
     { id:'excedentes', label:'Excedentes', url: pathPrefix + '/gow/temas-artefacto/explorador-excedentes.html?panel=1', iconName: 'excedentes' },
     { id:'anio', label:'Año social', url: pathPrefix + '/gow/temas-artefacto/ano-social-fiscal.html?panel=1', iconName: 'anio' },
-    { id:'incidencia', label:'Incidencia', url: pathPrefix + '/gow/temas-artefacto/plan-incidencia-politica.html?panel=1', iconName: 'incidencia' },
+    { id:'incidencia', label:'Incidencia', url: pathPrefix + '/lnl/diplomado-basico/incidencia-politica/plan-incidencia-politica.html?panel=1', iconName: 'incidencia' },
     { id:'perfil', label:'Perfil líder', url: pathPrefix + '/gow/trabajo-equipo/perfil-lider.html?panel=1', iconName: 'perfil' }
   ];
 

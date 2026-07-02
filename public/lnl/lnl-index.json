@@ -72,6 +72,10 @@
             {
               "id": "trabajo-incidencia",
               "titulo": "Estrategias de Incidencia"
+            },
+            {
+              "id": "plan-incidencia-politica",
+              "titulo": "Plan de Incidencia Política"
             }
           ]
         }
