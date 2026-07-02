@@ -17,7 +17,7 @@
   }
 
   var tools = [
-    { id:'ley', label:'Ley de Coop.', url: pathPrefix + '/gow/ley.html?panel=1', iconName: 'ley' },
+    { id:'ley', label:'Ley de Coop.', url: pathPrefix + '/gow/temas-artefacto/ley.html?panel=1', iconName: 'ley' },
     { id:'delegados', label:'Delegados', url: pathPrefix + '/gow/temas-artefacto/calculadora-delegados.html?panel=1', iconName: 'delegados' },
     { id:'excedentes', label:'Excedentes', url: pathPrefix + '/gow/temas-artefacto/explorador-excedentes.html?panel=1', iconName: 'excedentes' },
     { id:'anio', label:'Año social', url: pathPrefix + '/gow/temas-artefacto/ano-social-fiscal.html?panel=1', iconName: 'anio' },

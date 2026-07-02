@@ -10,11 +10,11 @@
           "titulo": "Leyes y Estatutos",
           "capsulas": [
             {
-              "id": "ley",
+              "id": "temas-artefacto/ley",
               "titulo": "Ley de Cooperativas"
             },
             {
-              "id": "estatuto",
+              "id": "temas-artefacto/estatuto",
               "titulo": "Estatuto Ejemplo Limitada"
             }
           ]
@@ -31,10 +31,6 @@
           "titulo": "Simuladores y Calculadoras",
           "capsulas": [
             {
-              "id": "en-vivo/sala",
-              "titulo": "Sala en vivo"
-            },
-            {
               "id": "temas-artefacto/calculadora-delegados",
               "titulo": "Calculadora de delegados"
             },
@@ -48,29 +44,13 @@
             },
 
             {
-              "id": "cuerpos-directivos-corrimiento",
+              "id": "temas-artefacto/cuerpos-directivos-corrimiento",
               "titulo": "Corrimiento de cargos"
             }
           ]
         }
       ]
     },
-    {
-      "id": "trabajo-equipo",
-      "titulo": "Trabajo en Equipo",
-      "descripcion": "Diagnósticos y dinámicas de grupo",
-      "acordeones": [
-        {
-          "id": "gestion-comites",
-          "titulo": "Gestión de Comités",
-          "capsulas": [
-            {
-              "id": "trabajo-equipo/diagnostico-de-conflicto",
-              "titulo": "Diagnóstico de conflicto"
-            }
-          ]
-        }
-      ]
-    }
+
   ]
 }

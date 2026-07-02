@@ -158,7 +158,7 @@
 <script>
 async function cargarIndice() {
   try {
-    const resp = await fetch('gow-index.json');
+    const resp = await fetch('index.json');
     const data = await resp.json();
     renderizar(data);
   } catch (err) {
