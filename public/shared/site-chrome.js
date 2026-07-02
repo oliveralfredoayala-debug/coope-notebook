@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fetch and render data
-    fetch('/artefactos/gow-index.json')
+    fetch('/artefactos/index.json')
         .then(response => response.json())
         .then(data => {
             if (!data.bloques) {
