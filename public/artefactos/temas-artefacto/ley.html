@@ -379,6 +379,91 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
   width: 14px;
   height: 14px;
 }
+
+/* Present Modal */
+.present-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--blanco);
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 40px;
+}
+.present-modal.active {
+  display: block;
+  animation: fadeUp 0.3s ease;
+}
+.present-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--verde-claro);
+  max-width: 1000px;
+  margin: 0 auto 30px;
+}
+.present-header h2 {
+  font-size: 32px;
+  color: var(--verde);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.present-close {
+  background: var(--verde-claro);
+  color: var(--verde);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  margin-left: 20px;
+  transition: all 0.2s;
+}
+.present-close:hover {
+  background: var(--verde);
+  color: var(--blanco);
+}
+.present-body {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.present-body .art-title-full {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+.present-body .para {
+  font-size: 24px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.present-body .inciso {
+  font-size: 24px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  grid-template-columns: minmax(3.5rem, max-content) minmax(0, 1fr);
+}
+.present-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--verde-claro);
+  color: var(--verde);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 16px;
+  transition: all 0.15s;
+}
+.present-btn:hover {
+  background: var(--verde);
+  color: var(--blanco);
+}
 </style>
 <link rel="stylesheet" href="/shared/site-chrome.css">
 <script src="/shared/site-chrome.js"></script>
@@ -526,6 +611,15 @@ mark{background:#fff2b8;color:inherit;border-radius:2px;padding:0 1px}
 
 <div class="footnote"><p class="footnote-text">CoopeNotebook</p></div>
 
+<!-- PRESENT MODAL -->
+<div id="presentModal" class="present-modal">
+  <div class="present-header">
+    <h2 id="presentTitle"></h2>
+    <button class="present-close" onclick="closePresent()" title="Cerrar">&times;</button>
+  </div>
+  <div class="present-body" id="presentBody"></div>
+</div>
+
 <script>
 /* The database has been moved to ley_data.js to optimize performance and token usage */
 </script>
@@ -594,7 +688,22 @@ function bodyHTML(corpus,a,opts){
   let h='';
   if(a.title)h+='<div class="art-title-full">'+esc(titleCase(a.title))+'</div>';
   h+=a.segments.map(s=>segHTML(s,opts.q,hasNum)).join('');
+  if(!opts.presentMode){
+    h+=`<button class="present-btn" onclick="presentArticle('${corpus}','${esc(a.id)}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Presentar</button>`;
+  }
   return h;
+}
+
+function presentArticle(corpus, id){
+  const a = getArt(corpus, id);
+  document.getElementById('presentTitle').textContent = badge(a) + (a.title ? ' — ' + titleCase(a.title) : '');
+  document.getElementById('presentBody').innerHTML = bodyHTML(corpus, a, {presentMode: true});
+  document.getElementById('presentModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closePresent(){
+  document.getElementById('presentModal').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 /* ---------- expandable row ---------- */
