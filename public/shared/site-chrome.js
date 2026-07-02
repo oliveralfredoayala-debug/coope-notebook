@@ -88,7 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="antigravity-gow-header">
                 <h3 class="antigravity-gow-title">Gear of Wise (GoW)</h3>
                 <div style="display:flex; gap:8px;">
-                    <button class="antigravity-gow-pin" id="antigravity-gow-pin">Fijar</button>
+                    <button class="antigravity-gow-pin" id="antigravity-gow-pin" title="Fijar Panel" style="background:transparent; border:none; color:white; cursor:pointer; padding:4px; display:flex; align-items:center;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg>
+                    </button>
                     <button class="antigravity-gow-close" id="antigravity-gow-close" style="background:transparent; border:none; color:white; cursor:pointer; font-size:24px; line-height:1; padding:0 4px;" title="Cerrar">&times;</button>
                 </div>
             </div>
@@ -162,19 +164,19 @@ document.addEventListener('DOMContentLoaded', () => {
             panel.classList.add('pinned');
             document.body.classList.add('antigravity-body-pinned');
             document.body.style.paddingRight = panel.style.width || '450px';
-            pinBtn.textContent = 'Desfijar';
+            pinBtn.style.color = '#bbf7d0'; // Highlight when pinned
         } else {
             panel.classList.remove('pinned');
             document.body.classList.remove('antigravity-body-pinned');
             document.body.style.paddingRight = ''; // clear inline style
-            pinBtn.textContent = 'Fijar';
+            pinBtn.style.color = 'white';
         }
     });
 
     const closeBtn = document.getElementById('antigravity-gow-close');
     closeBtn.addEventListener('click', () => {
         isPinned = false;
-        pinBtn.textContent = 'Fijar';
+        pinBtn.style.color = 'white';
         document.body.classList.remove('antigravity-body-pinned');
         document.body.style.paddingRight = '';
         panel.classList.remove('open');
@@ -194,10 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             iframe.src = url + sep + 'panel=1';
             contentArea.style.display = 'none';
             artifactView.style.display = 'flex';
-            // Automatically pin the panel when opening an artifact to enable side-by-side
-            if (!isPinned) {
-                pinBtn.click();
-            }
+            // Removed auto-pinning behavior as requested
         }
     });
 
