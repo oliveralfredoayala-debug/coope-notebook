@@ -694,11 +694,11 @@ function nodeHTML(n){
 }
 
 /* init */
-if(document.documentElement.classList.contains('panel-mode')){
-  goMenu();
-} else {
-  go(0);
+const qParams = new URLSearchParams(location.search);
+if (qParams.get('panel') === '1') {
+  document.documentElement.classList.add('panel-mode');
 }
+go(0);
 setStruct('law');
 renderIndex('law');renderIndex('reg');
 document.getElementById('parCountLaw').textContent=lawCore+' arts. + '+(DATA.law.length-lawCore)+' transit.';

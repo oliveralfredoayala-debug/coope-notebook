@@ -87,7 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="antigravity-gow-header">
                 <h3 class="antigravity-gow-title">Artefactos (GoW)</h3>
-                <button class="antigravity-gow-pin" id="antigravity-gow-pin">Fijar</button>
+                <div style="display:flex; gap:8px;">
+                    <button class="antigravity-gow-pin" id="antigravity-gow-pin">Fijar</button>
+                    <button class="antigravity-gow-close" id="antigravity-gow-close" style="background:transparent; border:none; color:white; cursor:pointer; font-size:24px; line-height:1; padding:0 4px;" title="Cerrar">&times;</button>
+                </div>
             </div>
             <div class="antigravity-gow-content" id="antigravity-gow-content">
                 <div style="text-align:center; padding: 20px; opacity: 0.5;">Cargando...</div>
@@ -166,6 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.paddingRight = ''; // clear inline style
             pinBtn.textContent = 'Fijar';
         }
+    });
+
+    const closeBtn = document.getElementById('antigravity-gow-close');
+    closeBtn.addEventListener('click', () => {
+        isPinned = false;
+        pinBtn.textContent = 'Fijar';
+        document.body.classList.remove('antigravity-body-pinned');
+        document.body.style.paddingRight = '';
+        panel.classList.remove('open');
+        panel.classList.remove('pinned');
     });
 
     // Handle clicks on capsula links to open inline iframe
